@@ -1,0 +1,39 @@
+#landing-page-wrapper
+  - if flash[:message]
+    .message
+      = flash[:message]
+
+  .section#first-page
+    %h1.text-center First Touch
+    %p.text-center Amazing tagline
+
+  .section#introduction
+    %h2.text-center#question What is First Touch?
+    %p
+      First Touch is the place you come to if you want to drive your career to new heights.
+    %p Players and Clubs can do a lot of cool stuff and bla bla bla bla… more random blurb. This is great! Yeah!
+
+  .section#what-are-you
+    %h2.text-center#question Are you a player? A manager? A coach? A scout? An agent!!
+    %p
+      It doesn’t really matter! You are all welcome. First Touch allows you to create your footballing resume; to share with and learn from others; to find and be found.
+
+  .section#what-you-can-do
+    %h2.text-center#question Manage your day-to-day activities by setting up a Club page and profile. Scour the market for millions of players!
+    %p
+      Players and Clubs can do a lot of cool stuff and bla bla bla bla… more random blurb. This is great! Yeah!
+
+  .section#sign-up
+    %h2.text-center#question So now you know about First Touch!
+    %p
+      What are you waiting for?
+
+    = render 'interested_person_form'
+
+:coffeescript
+
+  $(document).ready ->
+    $('#landing-page-wrapper').fullpage({
+      navigation: true
+      navigationPosition: 'left'
+    })

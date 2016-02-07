@@ -1,0 +1,4 @@
+= form_for @interested_person do |f|
+  = f.text_field :name, placeholder: 'Your Name', required:''
+  = f.text_field :email, placeholder: 'Your Email', required: ''
+  = f.submit 'Let me know when ready', class: 'button'

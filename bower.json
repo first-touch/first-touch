@@ -1,0 +1,12 @@
+{
+  "name": "first-touch",
+  "private": true,
+  "dependencies": {
+    "fullpage.js": "latest",
+    "lodash": "latest",
+    "moment": "latest",
+    "js-cookie": "latest",
+    "knockout": "latest",
+    "tether" : "latest"
+  }
+}
