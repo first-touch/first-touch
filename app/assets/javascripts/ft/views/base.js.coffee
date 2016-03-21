@@ -13,4 +13,5 @@ class FT.Views.Base
     @
 
   remove: ->
-    # TODO: Remove element
+    ko.cleanNode @$el[0]
+    @$el.remove()

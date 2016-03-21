@@ -1,6 +1,10 @@
 .page-header Profile
 #profile-progress
-  %progress.progress(value=10 max=100)
+  %progress.progress(data-bind='value: profileCompleteness' max=100)
+  .alert.alert-info(role="alert")
+    %strong Your Profile is incomplete.
+    %a.alert-link(href='#profile/edit') Edit your profile
+    to get the most out of First Touch.
 
 .col-md-7#central-container
   .row#user-history
@@ -12,15 +16,54 @@
   .row#player-position-summary
 
 .col-md-3#right-container
+  / ko if: displayName
   .row
-    #full-name Full Name:
+    #full-name(data-bind='i18Text: { i18: "fullName" }')
       %span(data-bind="text: displayName")
+  / /ko
+
+  / ko if: nationality
   .row
     #place-of-birth Place of Birth:
       %span(data-bind="text: nationality")
+  / /ko
+
+  / ko if: displayBirthday
   .row
     #date-of-birth Date of Birth:
       %span(data-bind="text:displayBirthday")
+
   .row
     #age Age:
       %span(data-bind="text: age")
+  / /ko
+
+  / ko if: nationality
+  .row
+    #nationality Nationality:
+      %span(data-bind="text: nationality")
+  / /ko
+
+  / ko if: residency
+  .row
+    #residency Residency:
+      %span(data-bind="text: residency")
+  / /ko
+
+  / ko if: summary
+  .row
+    #summary Summary:
+      %span(data-bind="text: summary")
+  / /ko
+
+  / ko if: achievements
+  .row
+    #achievements Achievements:
+      %span(data-bind="text: achievements")
+  / /ko
+
+  / ko if: languages
+  .row
+    #languages Languages:
+      %span(data-bind="text: languages")
+  / /ko

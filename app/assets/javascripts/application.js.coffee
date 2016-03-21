@@ -15,6 +15,7 @@
   App: {}
   Views: {}
   ViewModels: {}
+  DataModels: {}
   Routers: {}
 
 @templateFor = (templatePath) ->

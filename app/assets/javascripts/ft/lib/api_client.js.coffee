@@ -8,8 +8,20 @@ FT.App.ApiClient =
       else
         FT.App.ApiClient.defaultErrorHandler err
 
-  put: ->
-    console.log 'putURL'
+  put: (url, data, successCallback, errorCallback )->
+    Promise.resolve(
+      $.ajax(
+        url: url
+        data: data
+        method: 'PUT'
+      )
+    ).then (data) ->
+      successCallback data
+    .catch (err) ->
+      if errorCallback? && typeof errorCallback is 'function'
+        errorCallback err
+      else
+        FT.App.ApiClient.defaultErrorHandler err
 
   post: ->
     console.log 'postURL'

@@ -19,6 +19,7 @@ class FT.Routers.MainRouter
   routes:
     '/' : 'root'
     'profile': 'userProfile'
+    'profile/edit': 'editUserProfile'
 
   root: ->
     console.log 'users feed'
@@ -27,6 +28,14 @@ class FT.Routers.MainRouter
     console.log 'user Profile'
     viewModel = new FT.ViewModels.Users.Profile()
     view = new FT.Views.Users.Profile
+      viewModel: viewModel
+
+    @appLayout.renderMain { main: view }
+
+  editUserProfile: ->
+    console.log 'user Profile Editing'
+    viewModel = new FT.ViewModels.Users.ProfileForm()
+    view = new FT.Views.Users.ProfileForm
       viewModel: viewModel
 
     @appLayout.renderMain { main: view }

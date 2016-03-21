@@ -4,6 +4,8 @@
 #= require ./ft/views/layout/view_manager
 #= require_tree ./ft/views
 #= require ./ft/view_models/base
+#= require ./ft/data_models/base
+#= require_tree ./ft/data_models
 #= require_tree ./ft/view_models
 #= require_tree ./ft/routers
 #= require_tree ./ft/lib
