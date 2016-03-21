@@ -1,16 +1,8 @@
-.top-bar#navbar
-  .top-bar-title
-    %span(data-responsive-toggle='responsive-menu' data-hide-for='medium')
-      %span.menu-icon.dark(data-toggle)
-    = link_to 'First Touch', root_path, class: 'strong content'
-
-  #responsive-menu
-    .top-bar-right.show-for-medium
-      %ul.menu
-        %li
-          = link_to 'Login', new_user_session_path, class: 'button'
-
-    .top-bar-right.show-for-small.hide-for-medium
-      %ul.menu
-        %li
-          = link_to 'Login', new_user_session_path
+%nav.navbar.navbar-light.bg-faded
+  %button.navbar-toggler.hidden-sm-up{"data-target" => "#responsive-navbar", "data-toggle" => "collapse", :type => "button"}
+    &#9776;
+  #responsive-navbar.collapse.navbar-toggleable-xs
+    = link_to 'First Touch', root_path, class: 'navbar-brand'
+    %ul.nav.navbar-nav.pull-xs-right
+      %li.nav-item
+        = link_to 'Login', new_user_session_path, class: 'nav-link'
