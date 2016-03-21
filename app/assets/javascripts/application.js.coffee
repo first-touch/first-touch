@@ -4,7 +4,8 @@
 #= require js-cookie
 #= require knockout
 #= require lodash/lodash.js
-#= require tether/dist/js/tether
+#= require moment
+#= require tether
 #= require bootstrap
 #= require fullpage.js/jquery.fullPage.js
 #= require_self

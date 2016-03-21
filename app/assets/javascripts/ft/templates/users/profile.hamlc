@@ -1,1 +1,26 @@
-%h1 Hello
+.page-header Profile
+#profile-progress
+  %progress.progress(value=10 max=100)
+
+.col-md-7#central-container
+  .row#user-history
+
+  .row#user-summary
+
+  .row#user-activity
+
+  .row#player-position-summary
+
+.col-md-3#right-container
+  .row
+    #full-name Full Name:
+      %span(data-bind="text: displayName")
+  .row
+    #place-of-birth Place of Birth:
+      %span(data-bind="text: nationality")
+  .row
+    #date-of-birth Date of Birth:
+      %span(data-bind="text:displayBirthday")
+  .row
+    #age Age:
+      %span(data-bind="text: age")

@@ -20,8 +20,22 @@ html, body, #main-wrapper, #sidebar-wrapper {
   height: 100%;
 }
 
+#sidebar-wrapper {
+  padding-left: 0;
+  max-width: 160px;
+  float: left;
+}
+
 #app-wrapper-content {
-  padding-top: 60px;
+  float: left;
+  width: 80%;
+  padding-left: 20px;
+}
+
+//TODO: Move this to a separate css file (users_css) and import it
+
+#profile-progress {
+  width: 40%;
 }
 
 // TODO: Move this to a separate css file and import it only on

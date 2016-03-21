@@ -8,6 +8,14 @@ class FT.ViewModels.Users.Profile extends FT.ViewModels.Base
     @email = ko.observable()
     @firstName = ko.observable()
     @lastName = ko.observable()
+    @displayName = ko.pureComputed =>
+      "#{@firstName()} #{@lastName()}"
+    @nationality = ko.observable()
+    @birthday = ko.observable()
+    @displayBirthday = ko.pureComputed =>
+      @birthday()?.format(FT.Dictionaries.TimeFormats.Date) || ''
+    @age = ko.pureComputed =>
+      moment().diff(@birthday(), 'years')
 
     @triggerLoad()
 
@@ -18,4 +26,5 @@ class FT.ViewModels.Users.Profile extends FT.ViewModels.Base
     @id userModel.id
     @email userModel.email
     @firstName userModel.first_name
-    @lasttName userModel.last_name
+    @lastName userModel.last_name
+    @birthday moment(userModel.birthday) if userModel.birthday

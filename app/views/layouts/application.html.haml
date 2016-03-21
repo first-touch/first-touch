@@ -19,37 +19,37 @@
         - else
           = render 'layouts/auth_navigation'
 
-      #sidebar-wrapper
-        .bootstrap-vertical-nav
-          %nav.navbar.navbar-light.bg-faded
-            #responsive-sidebar
-              %ul.nav.navbar-nav
-                %li.nav-item
-                  %a.nav-link{href: '#'}
-                    %i.fa.fa-newspaper-o
-                    .sidebar-label Feed
-                %li.nav-item
-                  %a.nav-link{href: '#profile'}
-                    %i.fa.fa-user
-                    .sidebar-label Profile
-                %li.nav-item
-                  %a.nav-link{href: '#myclub'}
-                    %i.fa.fa-shirtsinbulk
-                    .sidebar-label My Club
-                %li.nav-item
-                  %a.nav-link{href: '#network'}
-                    %i.fa.fa-connectdevelop
-                    .sidebar-label Network
-                %li.nav-item
-                  %a.nav-link{href: '#messages'}
-                    %i.fa.fa-envelope
-                    .sidebar-label Messages
-                %li.nav-item
-                  %a.nav-link{href: '#interests'}
-                    %i.fa.fa-heart
-                    .sidebar-label Interests
+      #main-wrapper
+        #sidebar-wrapper
+          .bootstrap-vertical-nav
+            %nav.navbar.navbar-light.bg-faded
+              #responsive-sidebar
+                %ul.nav.navbar-nav
+                  %li.nav-item
+                    %a.nav-link{href: '#'}
+                      %i.fa.fa-newspaper-o
+                      .sidebar-label Feed
+                  %li.nav-item
+                    %a.nav-link{href: '#profile'}
+                      %i.fa.fa-user
+                      .sidebar-label Profile
+                  %li.nav-item
+                    %a.nav-link{href: '#myclub'}
+                      %i.fa.fa-shirtsinbulk
+                      .sidebar-label My Club
+                  %li.nav-item
+                    %a.nav-link{href: '#network'}
+                      %i.fa.fa-connectdevelop
+                      .sidebar-label Network
+                  %li.nav-item
+                    %a.nav-link{href: '#messages'}
+                      %i.fa.fa-envelope
+                      .sidebar-label Messages
+                  %li.nav-item
+                    %a.nav-link{href: '#interests'}
+                      %i.fa.fa-heart
+                      .sidebar-label Interests
 
-      #app-wrapper
         #app-wrapper-content
 
     = yield
