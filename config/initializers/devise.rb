@@ -12,7 +12,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'no-reply@firsttouch.io'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -248,13 +248,13 @@ Devise.setup do |config|
 
   Warden::Manager.after_set_user do |user, auth, opts|
     expiry_date = config.remember_for.from_now
-    auth.cookies['sae_user_email'] = { value: user.email, httponly: false, expires: expiry_date }
-    auth.cookies['sae_user_id'] = { value: user.id, httponly: false, expires: expiry_date }
+    auth.cookies['ft_user_email'] = { value: user.email, httponly: false, expires: expiry_date }
+    auth.cookies['ft_user_id'] = { value: user.id, httponly: false, expires: expiry_date }
   end
 
   Warden::Manager.before_logout do |user, auth, opts|
-    auth.cookies.delete 'sae_user_email'
-    auth.cookies.delete 'sae_user_id'
+    auth.cookies.delete 'ft_user_email'
+    auth.cookies.delete 'ft_user_id'
   end
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
