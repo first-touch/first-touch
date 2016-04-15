@@ -24,7 +24,7 @@
 
   / ko if: nationality
   .row
-    #place-of-birth Place of Birth:
+    #place-of-birth(data-bind='i18Text: { i18: "nationality" }')
       %span(data-bind="text: nationality")
   / /ko
 

@@ -15,7 +15,7 @@ ko.bindingHandlers.i18Text =
     i18Text = FT.Dictionaries.i18[currentLanguage]?[@key] || FT.Dictionaries.i18['en-US']?[@key] || "Translation missing for #{@key} - #{currentLanguage}"
 
     children = $(element).children()
-    $(element).text(i18Text)
+    $(element).text("#{i18Text} ")
 
     children.each (index, child) ->
       $(element).append child
