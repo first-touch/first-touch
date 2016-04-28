@@ -47,12 +47,17 @@ class FT.DataModels.Users.User extends FT.DataModels.Base
         key = _.camelCase personalDataKey
         @personalData[key] = userAttrs['personal_profile'][personalDataKey]
 
+      @_computeProfileCompleteness()
+
+  # FIXME: Find a correct and nice way to calculate the profile completeness.
+  # Currently is not computing it properly because of nested attributes
   _computeProfileCompleteness: ->
     totalKeysCount = @_totalKeys @accessibleAttributes
     @profileCompleteness = _.ceil((_.keys(@).length / totalKeysCount) * 100)
 
   _totalKeys: (attrList) ->
     count = 0
+    defined = 0
     _.each attrList, (attr) =>
       if typeof attr == 'object'
         count += @_totalKeys(attr)
