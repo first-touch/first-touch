@@ -8,7 +8,7 @@ FT.App.ApiClient =
       else
         FT.App.ApiClient.defaultErrorHandler err
 
-  put: (url, data, successCallback, errorCallback )->
+  put: (url, data, successCallback, errorCallback) ->
     Promise.resolve(
       $.ajax(
         url: url
@@ -23,11 +23,35 @@ FT.App.ApiClient =
       else
         FT.App.ApiClient.defaultErrorHandler err
 
-  post: ->
-    console.log 'postURL'
+  post: (url, data, successCallback, errorCallback) ->
+    Promise.resolve(
+      $.ajax(
+        url: url
+        data: data
+        method: 'POST'
+      )
+    ).then (data) ->
+      successCallback data
+    .catch (err) ->
+      if errorCallback? && typeof errorCallback is 'function'
+        errorCallback err
+      else
+        FT.App.ApiClient.defaultErrorHandler err
 
-  delete: ->
-    console.log 'deleteURL'
+  delete: (url, successCallback, errorCallback) ->
+    Promise.resolve(
+      $.ajax(
+        url: url
+        type: 'DELETE'
+      )
+    ).then (data) ->
+      successCallback data
+    .catch (err) ->
+      if errorCallback? && typeof errorCallback is 'function'
+        errorCallback err
+      else
+        FT.App.ApiClient.defaultErrorHandler err
+
 
   update: ->
     console.log 'updateURL'
@@ -40,3 +64,5 @@ FT.App.ApiClient =
         alert 'connection to server lost'
       when 401
         alert 'You are not authorized'
+      when 422
+        alert 'Server does not have what you want'

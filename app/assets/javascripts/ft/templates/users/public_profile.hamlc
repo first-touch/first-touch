@@ -1,0 +1,5 @@
+.page-header(data-bind='text: displayName')
+
+.col-md-7#central-container
+  .row
+    %button.follow-unfollow(data-bind='click: followUnfollow, text: followUnfollowText')

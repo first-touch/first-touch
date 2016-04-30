@@ -1,12 +1,11 @@
 FT.ViewModels.Users ||= {}
 
 class FT.ViewModels.Users.Profile extends FT.ViewModels.Base
-  constructor: ->
-    super()
+  constructor: (options) ->
+    super options
     @userModel = new FT.DataModels.Users.User()
 
-    @id = ko.observable()
-    @email = ko.observable()
+    @userId = ko.observable()
     @firstName = ko.observable()
     @middleName = ko.observable()
     @lastName = ko.observable()
@@ -27,15 +26,17 @@ class FT.ViewModels.Users.Profile extends FT.ViewModels.Base
     @age = ko.pureComputed =>
       moment().diff(@birthday(), 'years')
 
+    @initialize options
     @triggerLoad()
 
+  initialize: (options) ->
+    @userId FT.App._currentUserId()
+
   _load: ->
-    FT.App.ApiClient.get("api/v1/users/#{FT.App._currentUserId()}", @_loadUserProfile)
+    FT.App.ApiClient.get("api/v1/users/#{@userId()}", @_loadUserProfile)
 
   _loadUserProfile: (userModel) =>
     @userModel._buildDataModel userModel
-    @id @userModel.id
-    @email @userModel.email
     @profileCompleteness @userModel.profileCompleteness
 
     personalData = @userModel.personalData

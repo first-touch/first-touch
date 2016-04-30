@@ -4,7 +4,6 @@ class FT.DataModels.Users.User extends FT.DataModels.Base
   API_ENDPOINT: 'api/v1/users'
   accessibleAttributes: [
     'id'
-    'email',
     'personal_profile': [
       'first_name',
       'middle_name',
@@ -40,10 +39,9 @@ class FT.DataModels.Users.User extends FT.DataModels.Base
     if data
       userAttrs = data[@MODEL_NAME]
       @id = userAttrs.id
-      @email = userAttrs.email
       @personalData = {}
       # FIXME: This should be accessed differently. Consider using an hash for the accessible attributes
-      _.each @accessibleAttributes[2]['personal_profile'], (personalDataKey) =>
+      _.each @accessibleAttributes[1]['personal_profile'], (personalDataKey) =>
         key = _.camelCase personalDataKey
         @personalData[key] = userAttrs['personal_profile'][personalDataKey]
 
