@@ -5,6 +5,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_one :personal_profile }
     it { is_expected.to have_many :active_relationships }
     it { is_expected.to have_many(:following).through :active_relationships }
+    it { is_expected.to have_many(:posts) }
   end
 
   describe 'follow/unfollow' do

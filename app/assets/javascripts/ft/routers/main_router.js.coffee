@@ -27,7 +27,11 @@ class FT.Routers.MainRouter
     'users/:id': 'viewPublicProfile'
 
   root: ->
-    console.log 'users feed'
+    viewModel = new FT.ViewModels.Users.Feed()
+    view = new FT.Views.Users.Feed
+      viewModel: viewModel
+
+    @appLayout.renderMain { main: view }
 
   userProfile: ->
     viewModel = new FT.ViewModels.Users.Profile()

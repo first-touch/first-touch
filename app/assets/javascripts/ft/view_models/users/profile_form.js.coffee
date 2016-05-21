@@ -1,6 +1,7 @@
 FT.ViewModels.Users ||= {}
 
 class FT.ViewModels.Users.ProfileForm extends FT.ViewModels.Users.Profile
+  # FIXME: Get this to match pattern of datamodels
   constructor: ->
     super()
 

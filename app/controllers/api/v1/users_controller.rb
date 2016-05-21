@@ -1,19 +1,11 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  before_action :find_user, only: [:show, :update, :following]
+  before_action :find_user, only: [:show, :update, :follows]
 
   def show
     if @user
       # TODO: This should decide wether rendering public profile data or private profile data
       # depending on privacy definitions.
-      begin
-        relationship = current_user.active_relationships.find_by(followed_id: @user.id)
-      rescue ActiveRecord::RecordNotFound => e
-        relationship = nil
-      end
-      # FIXME: This looks ugly
-      user = UserSerializer.new(@user).as_json
-      user['relationship'] = relationship
-      render json: user
+      render json: @user
     else
       render json: { error: 'User not found' }, status: :unprocessable_entity
     end
@@ -26,6 +18,12 @@ class Api::V1::UsersController < Api::V1::BaseController
     else
       render json: { error: @user.errors.all }, status: :unprocessable_entity
     end
+  end
+
+  def follows
+    relationship = @user.active_relationships.find_by followed_id: params[:followed_id]
+    relationship = { relationship: nil } if relationship.nil?
+    render json: relationship
   end
 
   private

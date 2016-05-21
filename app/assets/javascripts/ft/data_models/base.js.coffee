@@ -1,6 +1,6 @@
 class FT.DataModels.Base
   constructor: (attr) ->
-    @_buildDataModel attr
+    @_buildDataModel attr if attr
 
   find: (params = {}, query = undefined) ->
     success = (data, textStatus, jqXHR) =>
@@ -32,6 +32,15 @@ class FT.DataModels.Base
     , success
     , err
 
+  destroy: (data, success, err, action = undefined, query = undefined) ->
+    @_request
+      type: 'DELETE'
+      url: @_buildUrl action, query
+      data: data
+    , success
+    , err
+
+  # FIXME: Not used
   asJSON: ->
     obj = {}
     @attributes.forEach key =>
@@ -40,6 +49,8 @@ class FT.DataModels.Base
     obj
 
   _buildDataModel: (attr) ->
+    attr = attr[@MODEL_NAME]
+
     for key, value of attr
       @[key] = value
 
@@ -66,6 +77,7 @@ class FT.DataModels.Base
         resolve @
 
       ajaxCall.fail (xhr) ->
-        OPL.App.defaultAjaxFailure(xhr)
+        #FT.App.defaultAjaxFailure(xhr)
+        console.log xhr
         errorMessage = (err(xhr) if err) || "Failed to make changes on the server"
         reject errorMessage

@@ -3,8 +3,6 @@ FT.ViewModels.Users ||= {}
 class FT.ViewModels.Users.Profile extends FT.ViewModels.Base
   constructor: (options) ->
     super options
-    @userModel = new FT.DataModels.Users.User()
-
     @userId = ko.observable()
     @firstName = ko.observable()
     @middleName = ko.observable()
@@ -30,23 +28,26 @@ class FT.ViewModels.Users.Profile extends FT.ViewModels.Base
     @triggerLoad()
 
   initialize: (options) ->
-    @userId FT.App._currentUserId()
+    @userModel = new FT.DataModels.User(
+      user:
+        id: FT.App._currentUserId()
+    )
 
   _load: ->
-    FT.App.ApiClient.get("api/v1/users/#{@userId()}", @_loadUserProfile)
+    @userModel.find().then =>
+      @_loadUserProfile()
 
-  _loadUserProfile: (userModel) =>
-    @userModel._buildDataModel userModel
+  _loadUserProfile: =>
     @profileCompleteness @userModel.profileCompleteness
 
-    personalData = @userModel.personalData
+    personalData = @userModel.personal_profile
     if personalData
-      @firstName  personalData.firstName
-      @middleName personalData.middleName
-      @lastName @userModel.personalData.lastName
-      @birthday moment(@userModel.personalData.birthday, FT.Dictionaries.TimeFormats.Date)
-      @nationality @userModel.personalData.nationalityCountryCode
-      @residency @userModel.personalData.residenceCountryCode
-      @summary @userModel.personalData.summary
-      @achievements @userModel.personalData.achievements
-      @languages @userModel.personalData.languages
+      @firstName  personalData.first_name
+      @middleName personalData.middle_name
+      @lastName personalData.last_name
+      @birthday moment(personalData.birthday, FT.Dictionaries.TimeFormats.Date)
+      @nationality personalData.nationality_country_code
+      @residency personalData.residence_country_code
+      @summary personalData.summary
+      @achievements personalData.achievements
+      @languages personalData.languages

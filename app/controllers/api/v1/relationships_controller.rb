@@ -10,10 +10,7 @@ class Api::V1::RelationshipsController < Api::V1::BaseController
     end
     relationship = current_user.follow(user)
     if relationship
-      # FIXME: This looks ugly
-      user = UserSerializer.new(current_user).as_json
-      user['relationship'] = relationship
-      render json: user
+      render json: relationship
     else
       render json: { error: current_user.errors.full_messages }, status: :unprocessable_entity
     end
@@ -27,7 +24,7 @@ class Api::V1::RelationshipsController < Api::V1::BaseController
     end
     user = relationship.followed
     if current_user.unfollow(user)
-      render json: current_user
+      render json: { relationship: nil }
     else
       render json: { error: current_user.errors.full_messages }, status: :unprocessable_entity
     end

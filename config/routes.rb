@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :relationships, only: [:create, :destroy]
       resources :users, only: [:show, :update]
+      get 'users/:id/follows', controller: :users, action: :follows
+      resources :posts, only: [:index, :create, :update, :destroy]
     end
   end
 end

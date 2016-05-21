@@ -2,6 +2,7 @@ FT.Dictionaries ||= {}
 
 FT.Dictionaries.TimeFormats = {
   Date: 'YYYY-MM-DD'
+  DateTime: 'YYYY-MM-DD @ HH:mm'
 }
 
 FT.Dictionaries.i18 = {

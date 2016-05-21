@@ -12,27 +12,31 @@ class FT.ViewModels.Users.PublicProfile extends FT.ViewModels.Users.Profile
         'Follow'
 
   initialize: (options) ->
-    @userId options.id
+    @userModel = new FT.DataModels.User(
+      user:
+        id: options.id
+    )
+    @relationship = new FT.DataModels.Relationship
+      relationship:
+        follower_id: FT.App._currentUserId()
 
   # TODO: Can be shared with the profile view model and split into public contents
   # and private contents
-  _loadUserProfile: (userModel) =>
-    super userModel
-    # TODO: relationship should probably be another datamodel
-    @_updateRelationshipStatus userModel.relationship
+  _loadUserProfile: =>
+    super()
+    @relationship.find( { followed_id: @userModel.id } ).then =>
+      @_updateRelationshipStatus()
 
   followUnfollow: ->
     if @currentFollowStatus()
-      FT.App.ApiClient.delete("api/v1/relationships/#{@relationship.id}", @_followUnfollowSuccess)
+      @relationship.unfollow().then =>
+        @_updateRelationshipStatus()
     else
-      FT.App.ApiClient.post("api/v1/relationships", { followed_id: @userId }, @_followUnfollowSuccess)
+      @relationship.follow(@userModel.id).then =>
+        @_updateRelationshipStatus()
 
-  _followUnfollowSuccess: (data) =>
-    @_updateRelationshipStatus data.relationship
-
-  _updateRelationshipStatus: (relationship) ->
-    @relationship = relationship
-    if @relationship?
+  _updateRelationshipStatus: ->
+    if @relationship.currentUserFollows()
       @currentFollowStatus true
     else
       @currentFollowStatus false
