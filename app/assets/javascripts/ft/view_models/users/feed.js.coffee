@@ -45,13 +45,6 @@ class FT.ViewModels.Users.Feed extends FT.ViewModels.Base
       console.log "#{@postContents()}"
     else
 
-      succcess = (postData) =>
-        @postContents ''
-        @feed.push new Post(postData)
-
-      err = (jqXHR, textStatus, error) ->
-        console.log error
-
       postModel = new FT.DataModels.Post()
       newPostPromise = postModel.create {
         post:
@@ -61,7 +54,7 @@ class FT.ViewModels.Users.Feed extends FT.ViewModels.Base
 
       newPostPromise.then (postModel) =>
         @postContents ''
-        @feed.push new Post(postModel)
+        @feed.splice 0, 0, new Post(postModel)
 
 
 class Post
