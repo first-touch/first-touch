@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   # NOTE: For now this is good enough as it gets all the recent posts
   # TODO: Build a more meaningful feed
   def feed
-    Post.where(user_id: following_ids).order :updated_at
+    relevant_user_ids = following_ids + [self.id]
+    Post.where(user_id: relevant_user_ids).order('updated_at DESC')
   end
 end
