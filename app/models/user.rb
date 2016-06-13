@@ -25,4 +25,10 @@ class User < ActiveRecord::Base
   def following? user
     following.include? user
   end
+
+  # NOTE: For now this is good enough as it gets all the recent posts
+  # TODO: Build a more meaningful feed
+  def feed
+    Post.where(user_id: following_ids).order :updated_at
+  end
 end

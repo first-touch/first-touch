@@ -16,7 +16,13 @@ class FT.DataModels.Base
     , success
     , err
 
-  create: (data, success, err, action = undefined, query = undefined) ->
+  create: (data, action = undefined, query = undefined) ->
+    success = (data, textStatus, jqXHR) =>
+      @_buildDataModel data
+
+    err = (jqXHR, textStatus, error) ->
+      console.log error
+
     @_request
       type: 'POST'
       url: @_buildUrl action, query
@@ -50,9 +56,14 @@ class FT.DataModels.Base
 
   _buildDataModel: (attr) ->
     attr = attr[@MODEL_NAME]
+    @_resetKeys() unless attr?
 
     for key, value of attr
       @[key] = value
+
+  _resetKeys: ->
+    _.each @ATTR_ACCESSIBLE, (attr) =>
+      @[attr] = undefined
 
   _buildUrl: (action = undefined, query = undefined) =>
     url = "/#{@API_ENDPOINT}"
@@ -74,6 +85,7 @@ class FT.DataModels.Base
           success(response)
         else
           console.log "[DataModel : Ajax Succes]", response
+
         resolve @
 
       ajaxCall.fail (xhr) ->

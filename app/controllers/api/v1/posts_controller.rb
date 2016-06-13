@@ -1,6 +1,7 @@
 class Api::V1::PostsController < Api::V1::BaseController
   def index
-    render json: {}
+    # Build feed
+    render json: current_user.feed
   end
 
   def create

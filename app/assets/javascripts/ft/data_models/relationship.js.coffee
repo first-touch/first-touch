@@ -12,13 +12,7 @@ class FT.DataModels.Relationship extends FT.DataModels.Base
     @id?
 
   follow: (userId) ->
-    success = (data, textStatus, jqXHR) =>
-      @_buildDataModel data
-
-    err = (jqXHR, textStatus, error) ->
-      console.log error
-
-    @create(followed_id: userId, success, err)
+    @create(followed_id: userId)
 
   unfollow: ->
     success = (data, textStatus, jqXHR) =>
@@ -42,16 +36,6 @@ class FT.DataModels.Relationship extends FT.DataModels.Base
       data: params
     , success
     , err
-
-  _buildDataModel: (data) ->
-    attr = data[@MODEL_NAME]
-    @_resetKeys() unless attr?
-    super data
-
-  _resetKeys: ->
-    _.each @ATTR_ACCESSIBLE, (attr) =>
-      @[attr] = undefined
-
 
   _buildFollowsUrl: (action = 'follows', query = undefined) ->
     url = "/#{@USER_FOLLOWS_ENDPOINT}"

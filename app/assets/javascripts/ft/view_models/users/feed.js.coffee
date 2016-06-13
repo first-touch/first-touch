@@ -17,13 +17,34 @@ class FT.ViewModels.Users.Feed extends FT.ViewModels.Base
 
   _load: ->
     userModelPromise = @userModel.find()
-    # TODO: Fetch user feed based on timestamp
-    Promise.all [userModelPromise]
+    # TODO: Find a way of integrating this with
+    # DataModels
+    feedPromise =(->
+      ajaxCall = $.ajax
+        type: 'GET'
+        dataType: 'json'
+        url: 'api/v1/posts'
+
+      ajaxCall.done (response) ->
+        Promise.resolve response
+
+      ajaxCall.fail (xhr) ->
+        console.log xhr
+        errorMessage = (err(xhr) if err) || "Failed to make changes on the server"
+        Promise.reject errorMessage
+    )()
+
+    feedPromise.then (postsData) =>
+      @feed _.map postsData.posts, (post) ->
+        new Post post
+
+    Promise.all [userModelPromise, feedPromise]
 
   share: ->
     if @shareButtonDisabled()
       console.log "#{@postContents()}"
     else
+
       succcess = (postData) =>
         @postContents ''
         @feed.push new Post(postData)
@@ -32,16 +53,20 @@ class FT.ViewModels.Users.Feed extends FT.ViewModels.Base
         console.log error
 
       postModel = new FT.DataModels.Post()
-      postModel.create {
+      newPostPromise = postModel.create {
         post:
           content: @postContents()
           user_id: @userModel.id
-        },
-        succcess,
-        err
+        }
+
+      newPostPromise.then (postModel) =>
+        @postContents ''
+        @feed.push new Post(postModel)
+
 
 class Post
   constructor: (options) ->
+    @postModel = new FT.DataModels.Post options
     @author = options.user_id
     @content = options.content
     @updatedAt = moment(options.updated_at).format FT.Dictionaries.TimeFormats.DateTime
