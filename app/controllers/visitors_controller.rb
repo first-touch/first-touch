@@ -1,15 +1,8 @@
 class VisitorsController < ApplicationController
-  layout 'application'
+  skip_before_action :authenticate_user!
 
-  def home
-    if current_user.nil?
-      index
-      return
-    end
-  end
+  layout 'visitors'
 
   def index
-    @interested_person = InterestedPerson.new
-    render :index, layout: 'visitors'
   end
 end

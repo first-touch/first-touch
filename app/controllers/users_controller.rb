@@ -1,4 +1,5 @@
 class UsersController < AuthenticatedControllerBase
-  def show
+  def home
+
   end
 end

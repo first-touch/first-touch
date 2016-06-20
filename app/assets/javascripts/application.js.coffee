@@ -7,7 +7,6 @@
 #= require moment
 #= require tether
 #= require bootstrap
-#= require fullpage.js/jquery.fullPage.js
 #= require_self
 #= require_tree .
 

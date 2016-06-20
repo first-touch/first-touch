@@ -2,12 +2,11 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
                sessions: 'users/sessions',
                registrations: 'users/registrations'
-  }
-  root to: 'visitors#home'
+             }
 
-  resources :users, only: [:show]
+  root to: 'users#home'
 
-  resources :interested_people, only: [:create]
+  get 'welcome', controller: :visitors, action: :index
 
   namespace :api do
     namespace :v1 do

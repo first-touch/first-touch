@@ -1,0 +1,146 @@
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,300);
+@import 'pills/dist/pills.min.css';
+
+html, body {
+  font-family: 'Ubuntu', sans-serif;
+  /* Remove any browser-default margins. */
+  margin: 0;
+  background-color: black;
+}
+
+.landing-page {
+  .row {
+    max-width: 100%;
+  }
+}
+
+.navbar {
+  padding-top: 30px;
+}
+
+.bar-button {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #919191;
+  font-weight: 300;
+  padding: 6px 12px 6px 12px;
+  border: 1px solid #919191;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #919191;
+    color: black;
+  }
+
+  &.big {
+    font-size: 34px;
+    width: 250px;
+  }
+}
+.section {
+  font-weight: 300;
+  font-size: large;
+  height: 100%;
+  height: 100vh;
+
+  .content {
+    color: #919191;
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 4px;
+    line-height: 44px;
+  }
+
+  &.dark {
+    color: #919191;
+  }
+
+  &.gray {
+    background-color: #222222;
+    color: #919191;
+  }
+
+  &.clear {
+    background-color: white;
+    .bar-button:hover {
+      color: white;
+    }
+    .header {
+      color: #a8cc56;
+    }
+  }
+
+  &.green {
+    background: #0f5b17;
+    .content {
+      color: white;
+    }
+    .header {
+      color: white;
+    }
+    .bar-button {
+      border-color: white;
+      color: white;
+
+      &:hover {
+        color: #919191;
+        background-color: white;
+      }
+    }
+  }
+
+  &.half {
+    height: 50%;
+    height: 50vh;
+  }
+
+  &.padded {
+    padding-top: 70px;
+  }
+
+  .header {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 40px;
+    letter-spacing: 6px;
+  }
+}
+
+.cardboard {
+  .title {
+    color: #a8cc56;
+    text-transform: uppercase;
+    font-size: 40px;
+    letter-spacing: 6px;
+  }
+
+  .description {
+    text-transform: uppercase;
+    color: #919191;
+    letter-spacing: 4px;
+    line-height: 40px;
+  }
+}
+
+.landing-image {
+  background-image: image-url('landing-page/team-logo.png');
+  background-size: 100% 100%;
+  min-height: 100%;
+
+  .headline {
+    position: absolute;
+    top: 75%;
+    right: 30%;
+    font-size: 36px;
+  }
+}
+
+#signup-section-2 {
+  margin-top: 70px;
+  margin-left: 60px;
+}
+
+#signup-section-3 {
+  margin-top: 70px;
+  margin-left: 38%;
+}

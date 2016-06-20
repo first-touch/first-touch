@@ -1,39 +1,72 @@
-#landing-page-wrapper
-  - if flash[:message]
-    .message
-      = flash[:message]
+.navbar.row
+  .one.columns.offset.by-nine
+    %a.bar-button(href='users/sign_in') Log In
+  .one.columns
+    %a.bar-button(href='users/sign_up') Sign Up
+.section.dark.row
+  .landing-image
+    .headline
+      The Professional Football Network
+.half.section.padded.clear.row
+  .four.column.offset.by-one
+    .header
+      Your next big leap is here
 
-  .section#first-page
-    %h1.text-center First Touch
-    %p.text-center Amazing tagline
+    #signup-section-2
+      %a.bar-button.big(href='users/sign_up') Sign Up Now
 
-  .section#introduction
-    %h2.text-center#question What is First Touch?
-    %p
-      First Touch is the place you come to if you want to drive your career to new heights.
-    %p Players and Clubs can do a lot of cool stuff and bla bla bla bla… more random blurb. This is great! Yeah!
+  .four.column.offset.by-two
+    .content
+      Firsttouch is a free social networking service and online service platform with a distinct football focus. Wether you are looking for, showing off, managing or developing talent, firsttouch is the place for you.
 
-  .section#what-are-you
-    %h2.text-center#question Are you a player? A manager? A coach? A scout? An agent!!
-    %p
-      It doesn’t really matter! You are all welcome. First Touch allows you to create your footballing resume; to share with and learn from others; to find and be found.
+.half.section.padded.green.row
+  .six.column.offset.by-three
+    .header
+      Firsttouch is for those of us who actively participate in football
 
-  .section#what-you-can-do
-    %h2.text-center#question Manage your day-to-day activities by setting up a Club page and profile. Scour the market for millions of players!
-    %p
-      Players and Clubs can do a lot of cool stuff and bla bla bla bla… more random blurb. This is great! Yeah!
+.section.padded.gray.row
+  .six.column.offset.by-one.content
+    FirstTouch is for those of us who actively participate in football (soccer). Players, coaches, scouts, agents at all levels... we like to take the game seriously. We want to improve, better ourselves or make substantial contributions. Succinctly and precisely, we do three things:
 
-  .section#sign-up
-    %h2.text-center#question So now you know about First Touch!
-    %p
-      What are you waiting for?
+    %ul
+      %li Help you connect, scout and be scouted;
+      %li Provide a platform for interaction, learning and sharing within the football community;
+      %li Give you the tools to manage your career, your club or your clients.
 
-    = render 'interested_person_form'
+.section.padded.clear.row
+  .three.column.cardboard#players
+    .title
+      Players
+    .description
+      Looking for a new club? Want to step up your game? Or are you just another football freak looking for satiate your football appetite?
+  .three.column.cardboard#scouts-agents
+    .title
+      Scouts & Agents
+    .description
+      Scout? Agent? What’s your reach? Who do you know? What do you know?
+  .three.column.cardboard#managers-coaches
+    .title
+      Managers & Coaches
+    .description
+      Share your knowledge, take on new challenges and make a name for yourself in the process.
+  .three.column.cardboard#clubs
+    .title
+      Clubs
+    .description
+      You don’t have Barcelona's resources but that shouldn't stop you.
 
-:coffeescript
+.half.section.padded.green.row
+  .six.column.offset.by-three
+    .header
+      Football is not complicated and neither is FirstTouch. Don’t just take our word for it. Try it out.
 
-  $(document).ready ->
-    $('#landing-page-wrapper').fullpage({
-      navigation: true
-      navigationPosition: 'left'
-    })
+  .six.column.offset.by-three
+    .header
+      Create a profile
+
+    #signup-section-3
+      %a.bar-button.big(href='users/sign_up') Sign Up Now
+
+.half.section.padded.gray.row
+  .six.column.offset.by-three
+    Footer

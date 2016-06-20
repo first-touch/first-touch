@@ -2,17 +2,13 @@
 %html{ :lang => "en" }
   %head
     %meta{ :charset => "utf-8" }
-
     %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
+    = favicon_link_tag 'favicon.png', type: 'image/png'
+    %title= "Welcome to First Touch"
 
-    %title= content_for?(:title) ? yield(:title) : "First Touch"
-
-    = stylesheet_link_tag "application"
-    = javascript_include_tag "application"
+    = stylesheet_link_tag "landingpage"
     = csrf_meta_tag
 
-  %body
-    = render 'layouts/navigation'
-
+  %body.landing-page
     #app-wrapper-content
       = yield
