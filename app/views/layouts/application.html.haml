@@ -1,12 +1,11 @@
 //This is the layout used for logged in users
-
 !!! 5
 %html{ :lang => "en" }
   %head
     %meta{ :charset => "utf-8" }
 
     %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
-
+    = favicon_link_tag 'favicon.png', type: 'image/png'
     %title= content_for?(:title) ? yield(:title) : "First Touch"
 
     = stylesheet_link_tag "application"
@@ -14,44 +13,51 @@
     = csrf_meta_tag
 
   %body
-    .container-fullwidth#main-wrapper
-      #navbar-wrapper
-        - if current_user.nil?
-          = render 'layouts/navigation'
-        - else
-          = render 'layouts/auth_navigation'
+    .container-fluid
+      .row
+        .col-3
+          .box#left-sidebar
+            .row
+              .col-12
+                #top-logo
+                  = image_tag 'ft_logo.png'
+            .row
+              .col-12
+                #user-identifier
+                  .user.demo
+                  .user-name Cristiano Ronaldo
+                  #current-status Football player
+                  #current-club Real Madrid
+            .row
+              .col-12
+                %ul.navbar-vertical
+                  %li.nav-item
+                    %a.nav-link{href: '#'} Home
+                  %li.nav-item
+                    %a.nav-link{href: '#profile'} Profile
+                  %li.nav-item
+                    %a.nav-link{href: '#myclub'} My Club
+                  %li.nav-item
+                    %a.nav-link{href: '#network'} Network
+                  %li.nav-item
+                    %a.nav-link{href: '#messages'} Messages
+                  %li.nav-item
+                    %a.nav-link{href: '#interests'} Interests
+        .col-6
+          .box#center-content
+            .row
+              .col-12
+                #search-bar
+            .row
+              .col-12#app-wrapper-content
 
-      #main-wrapper
-        #sidebar-wrapper
-          .bootstrap-vertical-nav
-            %nav.navbar.navbar-light.bg-faded
-              #responsive-sidebar
-                %ul.nav.navbar-nav
-                  %li.nav-item
-                    %a.nav-link{href: '#'}
-                      %i.fa.fa-newspaper-o
-                      .sidebar-label Feed
-                  %li.nav-item
-                    %a.nav-link{href: '#profile'}
-                      %i.fa.fa-user
-                      .sidebar-label Profile
-                  %li.nav-item
-                    %a.nav-link{href: '#myclub'}
-                      %i.fa.fa-shirtsinbulk
-                      .sidebar-label My Club
-                  %li.nav-item
-                    %a.nav-link{href: '#network'}
-                      %i.fa.fa-connectdevelop
-                      .sidebar-label Network
-                  %li.nav-item
-                    %a.nav-link{href: '#messages'}
-                      %i.fa.fa-envelope
-                      .sidebar-label Messages
-                  %li.nav-item
-                    %a.nav-link{href: '#interests'}
-                      %i.fa.fa-heart
-                      .sidebar-label Interests
-
-        #app-wrapper-content
+        .col-3
+          .box#right-sidebar
+            .row
+              .col-12#secondary-navigation
+            .row
+              .col-12#notifications-feed
+            .row
+              .col-12#events-feed
 
     = yield

@@ -14,6 +14,9 @@ Rails.application.routes.draw do
       resources :users, only: [:show, :update]
       get 'users/:id/follows', controller: :users, action: :follows
       resources :posts, only: [:index, :create, :update, :destroy]
+      # Note: Named route for users search because later on the search will probably
+      # be more broad.
+      get 'search', controller: :users, action: :search
     end
   end
 end

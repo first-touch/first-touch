@@ -6,7 +6,6 @@
     "moment": "latest",
     "js-cookie": "latest",
     "knockout": "latest",
-    "tether" : "latest",
-    "pills" : "latest"
+    "tether" : "latest"
   }
 }

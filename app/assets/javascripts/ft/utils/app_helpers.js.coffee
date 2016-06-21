@@ -1,5 +1,4 @@
 _.extend FT.App,
-
   triggerFlashMessage: (content, status) ->
     $elm = $('#bottom-feeback')
     $elm.removeClass()
@@ -7,3 +6,7 @@ _.extend FT.App,
     $elm.addClass status
 
     setTimeout (-> $elm.addClass('slide-up')), 100
+
+  currentUrlClass: (expectedHash) ->
+    return "current" if location.hash == expectedHash
+    return ''

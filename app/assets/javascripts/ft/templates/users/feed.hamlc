@@ -1,10 +1,16 @@
-.col-md-7.col-md-offset-2
-  #new-post
-    %textarea.form-control#post-contents(type='text' data-bind='value: postContents')
-    %a.btn.btn-primary#share-post(role='button' data-bind='click: share, disable: shareButtonDisabled') Share
+-# .col-md-7.col-md-offset-2
+-#   #new-post
+-#     %textarea.form-control#post-contents(type='text' data-bind='value: postContents')
+-#     %a.btn.btn-primary#share-post(role='button' data-bind='click: share, disable: shareButtonDisabled') Share
 
-.col-md-7.col-md-offset-2(data-bind='foreach: feed')
-  .entry
-    .content(data-bind='text: content')
-    .author(data-bind='text: author')
-    .updated-at(data-bind='text: updatedAt')
+.row
+  .col-12(data-bind='foreach: feed')
+    .post
+      .row
+        .col-2
+          .user.demo
+        .col-8
+          .user-name(data-bind='text: author')
+          .user-status Football Player at FC Barcelona
+      .row
+        .content(data-bind='text: content')

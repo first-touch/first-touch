@@ -12,47 +12,33 @@
  */
 
 @import 'font-awesome';
-@import 'bootstrap';
-@import 'custom_components';
+@import url(http://www.getsimplegrid.com/libs/ver111/simplegrid.min.css);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,300);
+@import 'variables';
+@import 'sidebar';
+@import 'posts';
 
-html, body, #main-wrapper, #sidebar-wrapper {
+html, body {
+  font-family: 'Ubuntu', sans-serif;
   height: 100%;
+  background-color: $background-color;
+  font-weight: 300;
+  color: $main-text-color;
 }
 
-#sidebar-wrapper {
-  padding-left: 0;
-  max-width: 160px;
-  float: left;
-}
-
-#app-wrapper-content {
-  float: left;
-  width: 80%;
+input {
+  width: 100%;
+  height: 40px;
   padding-left: 20px;
+  padding-right: 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-//TODO: Move this to a separate css file (users_css) and import it
-
-#profile-progress {
-  width: 40%;
-}
-
-// TODO: Move this to a separate css file and import it only on
-// visitors/index
-#landing-page-wrapper {
-
-  h2 {
-    width: 75%;
-    margin: auto;
-  }
-
-  p {
-    width: 50%;
-    margin: auto;
-  }
-
-  form {
-    width: 50%;
-    margin: auto;
-  }
+.search-icon {
+  position: relative;
+  left: 95%;
+  top: 28px;
+  z-index: 1;
 }
