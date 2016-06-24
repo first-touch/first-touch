@@ -125,8 +125,10 @@ html, body {
 
 .landing-image {
   background-image: image-url('landing-page/team-logo.png');
-  background-size: 100% 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
   min-height: 100%;
+  min-width: 100%;
 
   .headline {
     position: absolute;
