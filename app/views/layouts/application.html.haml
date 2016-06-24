@@ -15,7 +15,7 @@
   %body
     .container-fluid
       .row
-        .col-3
+        .col-2
           .box#left-sidebar
             .row
               .col-12
@@ -43,7 +43,7 @@
                     %a.nav-link{href: '#messages'} Messages
                   %li.nav-item
                     %a.nav-link{href: '#interests'} Interests
-        .col-6
+        .col-8
           .box#center-content
             .row
               .col-12
@@ -51,10 +51,15 @@
             .row
               .col-12#app-wrapper-content
 
-        .col-3
+        .col-2
           .box#right-sidebar
             .row
               .col-12#secondary-navigation
+                %ul.navbar-horizontal
+                  %li.nav-item
+                    %a.nav-link{href: '#about'} About
+                  %li.nav-item
+                    = link_to "Log Out", destroy_user_session_path, method: :delete, class: 'nav-link'
             .row
               .col-12#notifications-feed
             .row

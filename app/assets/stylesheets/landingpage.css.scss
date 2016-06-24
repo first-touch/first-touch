@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,300);
-@import 'pills/dist/pills';
+@import 'variables';
+@import 'simplegrid.min';
 
 html, body {
   font-family: 'Ubuntu', sans-serif;
@@ -21,14 +22,14 @@ html, body {
 .bar-button {
   text-transform: uppercase;
   text-decoration: none;
-  color: #919191;
+  color: $main-text-color;
   font-weight: 300;
   padding: 6px 12px 6px 12px;
-  border: 1px solid #919191;
+  border: 1px solid $main-text-color;
   border-radius: 5px;
 
   &:hover {
-    background-color: #919191;
+    background-color: $main-text-color;
     color: black;
   }
 
@@ -44,7 +45,7 @@ html, body {
   height: 100vh;
 
   .content {
-    color: #919191;
+    color: $main-text-color;
     text-transform: uppercase;
     font-size: 18px;
     letter-spacing: 4px;
@@ -52,12 +53,12 @@ html, body {
   }
 
   &.dark {
-    color: #919191;
+    color: $main-text-color;
   }
 
   &.gray {
-    background-color: #222222;
-    color: #919191;
+    background-color: $background-color;
+    color: $main-text-color;
   }
 
   &.clear {
@@ -66,12 +67,12 @@ html, body {
       color: white;
     }
     .header {
-      color: #a8cc56;
+      color: $main-header-color;
     }
   }
 
   &.green {
-    background: #0f5b17;
+    background: $secondary-header-color;
     .content {
       color: white;
     }
@@ -83,7 +84,7 @@ html, body {
       color: white;
 
       &:hover {
-        color: #919191;
+        color: $main-text-color;
         background-color: white;
       }
     }
@@ -108,7 +109,7 @@ html, body {
 
 .cardboard {
   .title {
-    color: #a8cc56;
+    color: $main-header-color;
     text-transform: uppercase;
     font-size: 40px;
     letter-spacing: 6px;
@@ -116,7 +117,7 @@ html, body {
 
   .description {
     text-transform: uppercase;
-    color: #919191;
+    color: $main-text-color;
     letter-spacing: 4px;
     line-height: 40px;
   }

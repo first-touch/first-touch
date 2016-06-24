@@ -1,72 +1,87 @@
-.navbar.row
-  .one.columns.offset.by-nine
-    %a.bar-button(href='users/sign_in') Log In
-  .one.columns
-    %a.bar-button(href='users/sign_up') Sign Up
-.section.dark.row
-  .landing-image
-    .headline
-      The Professional Football Network
-.half.section.padded.clear.row
-  .four.column.offset.by-one
-    .header
-      Your next big leap is here
+.container-fluid
+  .navbar.row
+    .col-offset-10
+    .col-1
+      %a.bar-button(href='users/sign_in') Log In
+    .col-1
+      %a.bar-button(href='users/sign_up') Sign Up
 
-    #signup-section-2
-      %a.bar-button.big(href='users/sign_up') Sign Up Now
+  .section.dark.row
+    .landing-image
+      .headline
+        The Professional Football Network
 
-  .four.column.offset.by-two
-    .content
-      Firsttouch is a free social networking service and online service platform with a distinct football focus. Wether you are looking for, showing off, managing or developing talent, firsttouch is the place for you.
+  .half.section.padded.clear.row
+    .col-offset-1
+    .col-4
+      .header
+        Your next big leap is here
 
-.half.section.padded.green.row
-  .six.column.offset.by-three
-    .header
-      Firsttouch is for those of us who actively participate in football
+      #signup-section-2
+        %a.bar-button.big(href='users/sign_up') Sign Up Now
 
-.section.padded.gray.row
-  .six.column.offset.by-one.content
-    FirstTouch is for those of us who actively participate in football (soccer). Players, coaches, scouts, agents at all levels... we like to take the game seriously. We want to improve, better ourselves or make substantial contributions. Succinctly and precisely, we do three things:
+    .col-offset-2
+    .col-4
+      .content
+        Firsttouch is a free social networking service and online service platform with a distinct football focus. Wether you are looking for, showing off, managing or developing talent, firsttouch is the place for you.
 
-    %ul
-      %li Help you connect, scout and be scouted;
-      %li Provide a platform for interaction, learning and sharing within the football community;
-      %li Give you the tools to manage your career, your club or your clients.
+  .half.section.padded.green.row
+    .col-offset-3
+    .col-6
+      .header
+        Firsttouch is for those of us who actively participate in football
 
-.section.padded.clear.row
-  .three.column.cardboard#players
-    .title
-      Players
-    .description
-      Looking for a new club? Want to step up your game? Or are you just another football freak looking for satiate your football appetite?
-  .three.column.cardboard#scouts-agents
-    .title
-      Scouts & Agents
-    .description
-      Scout? Agent? What’s your reach? Who do you know? What do you know?
-  .three.column.cardboard#managers-coaches
-    .title
-      Managers & Coaches
-    .description
-      Share your knowledge, take on new challenges and make a name for yourself in the process.
-  .three.column.cardboard#clubs
-    .title
-      Clubs
-    .description
-      You don’t have Barcelona's resources but that shouldn't stop you.
+  .section.padded.gray.row
+    .col-offset-1
+    .col-6.content
+      FirstTouch is for those of us who actively participate in football (soccer). Players, coaches, scouts, agents at all levels... we like to take the game seriously. We want to improve, better ourselves or make substantial contributions. Succinctly and precisely, we do three things:
 
-.half.section.padded.green.row
-  .six.column.offset.by-three
-    .header
-      Football is not complicated and neither is FirstTouch. Don’t just take our word for it. Try it out.
+      %ul
+        %li Help you connect, scout and be scouted;
+        %li Provide a platform for interaction, learning and sharing within the football community;
+        %li Give you the tools to manage your career, your club or your clients.
 
-  .six.column.offset.by-three
-    .header
-      Create a profile
+  .section.padded.clear.row
+    .col-3.cardboard#players
+      .box
+        .title
+          Players
+        .description
+          Looking for a new club? Want to step up your game? Or are you just another football freak looking for satiate your football appetite?
+    .col-3.cardboard#scouts-agents
+      .box
+        .title
+          Scouts & Agents
+        .description
+          Scout? Agent? What’s your reach? Who do you know? What do you know?
+    .col-3.cardboard#managers-coaches
+      .box
+        .title
+          Managers & Coaches
+        .description
+          Share your knowledge, take on new challenges and make a name for yourself in the process.
+    .col-3.cardboard#clubs
+      .box
+        .title
+          Clubs
+        .description
+          You don’t have Barcelona's resources but that shouldn't stop you.
 
-    #signup-section-3
-      %a.bar-button.big(href='users/sign_up') Sign Up Now
+  .half.section.padded.green.row
+    .col-offset-3
+    .col-6
+      .header
+        Football is not complicated and neither is FirstTouch. Don’t just take our word for it. Try it out.
 
-.half.section.padded.gray.row
-  .six.column.offset.by-three
-    Footer
+    .col-offset-3
+    .col-6
+      .header
+        Create a profile
+
+      #signup-section-3
+        %a.bar-button.big(href='users/sign_up') Sign Up Now
+
+  .half.section.padded.gray.row
+    .col-offset-3
+    .col-6
+      Footer

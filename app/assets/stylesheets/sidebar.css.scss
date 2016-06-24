@@ -53,6 +53,32 @@ ul.navbar-vertical {
   }
 }
 
+ul.navbar-horizontal {
+  list-style: none;
+  margin: 0;
+  display: inline-block;
+
+  li.nav-item {
+    border-top: solid 4px $secondary-text-color;
+    float: left;
+    margin-left: 10px;
+    padding-top: 4px;
+
+    a {
+      color: $main-text-color;
+      font-size: $important-size;
+      text-decoration: none;
+    }
+
+    &:hover {
+      border-top: solid 4px $main-header-color;
+      a {
+        color: $secondary-text-color;
+      }
+    }
+  }
+}
+
 // user profile
 .user {
   display: inline-block;
