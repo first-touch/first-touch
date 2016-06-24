@@ -28,7 +28,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def search
     query_params = params[:q]
-    user_list = User.where('search_string LIKE ?', "%#{query_params}%").limit 5
+    user_list = User.where('search_string ILIKE ?', "%#{query_params}%").limit 5
     render json: user_list, each_serializer: Users::SearchSerializer
   end
 
