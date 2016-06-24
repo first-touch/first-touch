@@ -39,7 +39,11 @@ class User < ActiveRecord::Base
 
   def update_search_string
     # Email, First Name, Last Name, Middle Name
-    email_local_part = self.email[/[^@]+/]
-    self.search_string = "#{email_local_part.normalize} #{first_name.normalize} #{middle_name.normalize} #{last_name.normalize}".strip
+    email_local_part = self.email[/[^@]+/] || ''
+    f_name = first_name.try(:normalize) || ''
+    m_name = middle_name.try(:normalize) || ''
+    l_name = last_name.try(:normalize) || ''
+
+    self.search_string = "#{email_local_part.normalize} #{f_name.normalize} #{m_name.normalize} #{l_name.normalize}".strip
   end
 end
