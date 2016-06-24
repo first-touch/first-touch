@@ -6,17 +6,20 @@ class FT.ViewModels.Users.ProfileForm extends FT.ViewModels.Users.Profile
     super()
 
   updateProfile: ->
-    @userModel.personalData.firstName = @firstName()
-    @userModel.personalData.middleName = @middleName()
-    @userModel.personalData.lastName = @lastName()
-    @userModel.personalData.birthday = @birthday()
-    @userModel.personalData.nationality = @nationality()
-    @userModel.personalData.residency = @residency()
-    @userModel.personalData.summary = @summary()
-    @userModel.personalData.achievements = @achievements()
-    @userModel.personalData.languages = @languages()
+    updatedUserProfile = @userModel.update @_buildAPIModel()
 
-    FT.App.ApiClient.put("api/v1/users/#{FT.App._currentUserId()}", @_buildAPIModel())
+    updatedUserProfile.then () ->
+      alert 'yay'
 
   _buildAPIModel: ->
-    @userModel.buildJSON()
+    user:
+      personal_profile_attributes:
+        first_name:               @firstName()
+        middle_name:              @middleName()
+        last_name:                @lastName()
+        birthday:                 @birthday().format()
+        nationality_country_code: @nationality()
+        residence_country_code:   @residency()
+        summary:                  @summary()
+        achievements:             @achievements()
+        languages:                @languages()
