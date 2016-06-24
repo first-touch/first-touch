@@ -47,10 +47,11 @@ class User < ActiveRecord::Base
     self.personal_profile.try(:last_name) || ''
   end
 
+  def email_local_part
+    self.email[/[^@]+/] || ''
+  end
 
   def update_search_string
-    # Email, First Name, Last Name, Middle Name
-    email_local_part = self.email[/[^@]+/] || ''
     f_name = first_name.try(:normalize) || ''
     m_name = middle_name.try(:normalize) || ''
     l_name = last_name.try(:normalize) || ''
