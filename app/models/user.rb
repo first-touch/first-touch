@@ -14,8 +14,6 @@ class User < ActiveRecord::Base
 
   has_many :posts
 
-  delegate :first_name, :middle_name, :last_name, to: :personal_profile, allow: nil
-
   before_save :update_search_string, if: -> { email_changed? }
 
   def follow user
@@ -36,6 +34,19 @@ class User < ActiveRecord::Base
     relevant_user_ids = following_ids + [self.id]
     Post.where(user_id: relevant_user_ids).order('updated_at DESC')
   end
+
+  def first_name
+    self.personal_profile.try(:first_name) || ''
+  end
+
+  def middle_name
+    self.personal_profile.try(:middle_name) || ''
+  end
+
+  def last_name
+    self.personal_profile.try(:last_name) || ''
+  end
+
 
   def update_search_string
     # Email, First Name, Last Name, Middle Name
