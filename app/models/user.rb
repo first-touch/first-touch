@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   has_many :posts
 
-  delegate :first_name, :middle_name, :last_name, to: :personal_profile
+  delegate :first_name, :middle_name, :last_name, to: :personal_profile, allow: nil
 
   before_save :update_search_string, if: -> { email_changed? }
 
