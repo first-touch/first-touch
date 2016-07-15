@@ -24,6 +24,13 @@ class FT.ViewModels.Users.Profile extends FT.ViewModels.Base
     @age = ko.pureComputed =>
       moment().diff(@birthday(), 'years')
 
+    @fullBirthday = ko.pureComputed =>
+      "#{ @birthday()?.format(FT.Dictionaries.TimeFormats.Date) } (age #{@age()})" || ''
+
+    # FIXME: full place of birth should be in 'city, country' format
+    # NOTE: might be a bit redundant
+    @fullPlaceOfBirth = @nationality
+
     @initialize options
     @triggerLoad()
 

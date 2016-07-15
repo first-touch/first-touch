@@ -1,0 +1,16 @@
+.title {
+  color: $main-header-color;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: $important-size;
+}
+
+.large-sub-title {
+  color: $main-text-color;
+  font-size: $main-subtitle-text-size;
+}
+
+.small-sub-title {
+  color: $main-text-color;
+  font-size: $main-text-size;
+}

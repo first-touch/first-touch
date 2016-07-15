@@ -8,7 +8,12 @@ FT.Dictionaries.TimeFormats = {
 FT.Dictionaries.i18 = {
   'en-US': {
     'fullName': 'Full Name:'
-    'nationality': 'Place of Birth:'
+    'nationality': 'Nationality:'
+    'dateOfBirth': 'Date of Birth:'
+    'placeOfBirth': 'Place of Birth:'
+    'yourProfile': 'Your Profile'
+    'summary': 'Summary'
+    'careerHistory': 'Career History'
   }
 
   'sp-SP': {
