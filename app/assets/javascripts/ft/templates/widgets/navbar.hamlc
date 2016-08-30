@@ -1,0 +1,30 @@
+.row
+  .col-12
+    #top-logo
+      .logo-image First Touch
+
+.row
+  .col-12
+    #user-identifier
+      .user.demo
+      .user-name Cristiano Ronaldo
+      #current-status Football player
+      #current-club Real Madrid
+
+      #profile-edit
+        %a.bar-button{href: '#profile/edit'} Edit Profile
+.row
+  .col-12
+    %ul.navbar-vertical
+      %li.nav-item
+        %a.nav-link{href: '#'} Home
+      %li.nav-item
+        %a.nav-link{href: '#profile'} Profile
+      %li.nav-item
+        %a.nav-link{href: '#myclub'} My Club
+      %li.nav-item
+        %a.nav-link{href: '#network'} Network
+      %li.nav-item
+        %a.nav-link{href: '#messages'} Messages
+      %li.nav-item
+        %a.nav-link{href: '#interests'} Interests

@@ -45,3 +45,28 @@ input {
   top: 28px;
   z-index: 1;
 }
+
+.bar-button {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: $main-text-color;
+  font-weight: 300;
+  padding: 6px 12px 6px 12px;
+  border: 1px solid $main-text-color;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: $main-text-color;
+    color: black;
+  }
+
+  &.big {
+    font-size: 34px;
+    width: 250px;
+  }
+}
+
+
+#profile-edit {
+  margin-top: 34px;
+}

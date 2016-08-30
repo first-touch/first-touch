@@ -10,11 +10,12 @@ class FT.Views.Layout.AppLayout extends FT.Views.Layout.ViewManager
     super(selector, view)
 
   renderMain: (options) ->
-
     if @searchBarView
       @searchBarView.viewModel.clearResults()
     else
       @_renderSearchBar()
+
+    @_renderMainNavbar()
 
     if options.main
       @setView("#app-wrapper-content", options.main)
@@ -24,4 +25,11 @@ class FT.Views.Layout.AppLayout extends FT.Views.Layout.ViewManager
       @searchBarView = new FT.Views.Widgets.SearchBar
         viewModel: new FT.ViewModels.Widgets.SearchBar
 
-    @setView '#search-bar', @searchBarView
+      @setView '#search-bar', @searchBarView
+
+  _renderMainNavbar: ->
+    unless @mainNavbar
+      @mainNavbarView = new FT.Views.Widgets.Navbar
+        viewModel: new FT.ViewModels.Widgets.Navbar
+
+      @setView '#left-sidebar', @mainNavbarView
