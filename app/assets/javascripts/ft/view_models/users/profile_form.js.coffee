@@ -9,7 +9,7 @@ class FT.ViewModels.Users.ProfileForm extends FT.ViewModels.Users.Profile
     updatedUserProfile = @userModel.update @_buildAPIModel()
 
     updatedUserProfile.then () ->
-      alert 'yay'
+      FT.App.triggerFlashMessage 'Profile updated', 'success'
 
   _buildAPIModel: ->
     user:
@@ -17,7 +17,7 @@ class FT.ViewModels.Users.ProfileForm extends FT.ViewModels.Users.Profile
         first_name:               @firstName()
         middle_name:              @middleName()
         last_name:                @lastName()
-        birthday:                 @birthday().format()
+        birthday:                 @birthday()
         nationality_country_code: @nationality()
         residence_country_code:   @residency()
         summary:                  @summary()

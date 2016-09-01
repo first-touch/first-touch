@@ -1,6 +1,6 @@
 _.extend FT.App,
   triggerFlashMessage: (content, status) ->
-    $elm = $('#bottom-feeback')
+    $elm = $('#bottom-feedback')
     $elm.removeClass()
     $elm.text content
     $elm.addClass status

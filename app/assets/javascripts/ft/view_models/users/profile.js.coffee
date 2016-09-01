@@ -52,7 +52,7 @@ class FT.ViewModels.Users.Profile extends FT.ViewModels.Base
       @firstName  personalData.first_name
       @middleName personalData.middle_name
       @lastName personalData.last_name
-      @birthday moment(personalData.birthday, FT.Dictionaries.TimeFormats.Date)
+      @birthday personalData.birthday
       @nationality personalData.nationality_country_code
       @residency personalData.residence_country_code
       @summary personalData.summary

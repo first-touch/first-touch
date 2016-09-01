@@ -1,10 +1,10 @@
 .row
-  .col-12
+  .col-md-12
     #top-logo
       .logo-image First Touch
 
 .row
-  .col-12
+  .col-md-12
     #user-identifier
       .user.demo
       .user-name Cristiano Ronaldo
@@ -14,7 +14,7 @@
       #profile-edit
         %a.bar-button{href: '#profile/edit'} Edit Profile
 .row
-  .col-12
+  .col-md-12
     %ul.navbar-vertical
       %li.nav-item(data-bind="css: currentPage('')")
         %a.nav-link{href: '#'} Home

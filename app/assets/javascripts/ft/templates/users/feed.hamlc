@@ -1,16 +1,29 @@
--# .col-md-7.col-md-offset-2
--#   #new-post
--#     %textarea.form-control#post-contents(type='text' data-bind='value: postContents')
--#     %a.btn.btn-primary#share-post(role='button' data-bind='click: share, disable: shareButtonDisabled') Share
+.col-md-12
+  .page-header
+    Timeline
+
+-# .row
+-#   .ft-block
+-#     .col-md-4
+-#       Publish new post
+
+-#     .col-md-4
+-#       Upload a picture
+
+  -# #new-post
+  -#   %textarea.form-control#post-contents(type='text' data-bind='value: postContents')
+  -#   %a.btn.btn-primary#share-post(role='button' data-bind='click: share, disable: shareButtonDisabled') Share
 
 .row
-  .col-12(data-bind='foreach: feed')
-    .post
-      .row
-        .col-2
-          .user.demo
-        .col-8
-          .user-name(data-bind='text: author')
-          .user-status Football Player at FC Barcelona
-      .row
-        .content(data-bind='text: content')
+  .col-md-12(data-bind='foreach: feed')
+    .row
+      .col-md-12.post-wrapper
+        .col-md-12.post
+          .row
+            .col-md-2
+              .user.demo
+            .col-md-8
+              .user-name(data-bind='text: author')
+                .user-status Football Player at FC Barcelona
+          .row
+            .content(data-bind='text: content')

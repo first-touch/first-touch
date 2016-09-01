@@ -1,34 +1,34 @@
 .page-header(data-bind="i18Text: { i18: 'yourProfile' }")
 
 .row.ft-block
-  .col-12.block-container#summary-block
+  .col-md-12.block-container#summary-block
     .row.padded-container
-      .col-4#profile-picture
+      .col-md-4#profile-picture
         .user.demo
-      .col-8#profile-content
+      .col-md-8#profile-content
         .row
           / ko if: displayName
-          .col-12
+          .col-md-12
             #profile-name.title(data-bind="text: displayName")
           / /ko
 
-          .col-12
+          .col-md-12
             #role.large-sub-title Football Player
 
-          .col-12
+          .col-md-12
             #work-place.small-sub-title Real Madrid FC, Spain
 
-          .col-12
+          .col-md-12
             #birth-date
               .ft-legend(data-bind="i18Text: { i18: 'dateOfBirth' }")
                 %span(data-bind="text: fullBirthday")
 
-          .col-12
+          .col-md-12
             #nationality
               .ft-legend(data-bind="i18Text: { i18: 'nationality' }")
                 %span(data-bind="text: nationality")
 
-          .col-12
+          .col-md-12
             #place-of-birth
               .ft-legend(data-bind="i18Text: { i18: 'placeOfBirth' }")
                 %span(data-bind="text: fullPlaceOfBirth")
@@ -37,25 +37,25 @@
       %hr#summary.ft-separator
 
     .row.padded-container
-      .col-12
+      .col-md-12
         .row
           .section-header(data-bind="i18Text: { i18: 'summary' }")
 
       .col-6#full-summary
         .row
-          .col-12
+          .col-md-12
             My full name
 
         .row
-          .col-12
+          .col-md-12
             My height
 
         .row
-          .col-12
+          .col-md-12
             My weight
 
         .row
-          .col-12
+          .col-md-12
             preferred foot
 
       .col-6.positioning
@@ -65,9 +65,9 @@
         .graph
 
 .row.ft-block
-  .col-12.block-container#career-history
+  .col-md-12.block-container#career-history
 
     .row.padded-container
-      .col-12
+      .col-md-12
         .row
           .section-header(data-bind="i18Text: { i18: 'careerHistory' }")
