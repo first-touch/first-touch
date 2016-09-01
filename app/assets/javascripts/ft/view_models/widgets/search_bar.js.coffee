@@ -19,8 +19,6 @@ class FT.ViewModels.Widgets.SearchBar extends FT.ViewModels.Base
       @searchResults []
     else
       @getResults()
-      # TODO: query api endpoint and update results
-      console.log @searchContents()
 
   getResults: ->
     # TODO: Find a way of integrating this with

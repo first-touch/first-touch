@@ -12,7 +12,6 @@ ul.navbar-vertical {
 
 
   li.nav-item {
-    padding-left: 20px;
 
     &:first-child {
       border-top: solid 2px $main-text-color;
@@ -21,9 +20,6 @@ ul.navbar-vertical {
     &:last-child {
       border-bottom: solid 2px $main-text-color;
     }
-
-    padding-top: 10px;
-    padding-bottom: 10px;
 
     border-top: solid 1px $main-text-color;
     border-bottom: solid 1px $main-text-color;
@@ -36,17 +32,18 @@ ul.navbar-vertical {
       display: block;
       width: 100%;
       height: 100%;
+      margin-left: -10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 10px;
     }
 
     &.current {
       a {
+        margin-left: -18px;
         color: $main-header-color;
         border-left: 8px solid;
         border-color: $main-header-color;
-        margin-left: -18px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        padding-left: 10px;
       }
     }
 
