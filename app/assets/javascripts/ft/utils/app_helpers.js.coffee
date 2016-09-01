@@ -8,5 +8,7 @@ _.extend FT.App,
     setTimeout (-> $elm.addClass('slide-up')), 100
 
   currentUrlClass: (expectedHash) ->
+    expectedHash = "##{expectedHash}" if expectedHash[0] != '#' && expectedHash.length > 0
+
     return "current" if location.hash == expectedHash
     return ''
