@@ -3,100 +3,229 @@
 @import 'bootstrap';
 
 html, body {
-  font-family: 'Ubuntu', sans-serif;
   /* Remove any browser-default margins. */
   margin: 0;
-  background-color: black;
+  height: 100%;
 }
 
-.landing-page {
-  .row {
-    max-width: 100%;
-  }
+body {
+  min-height: 100%;
+  font-family: 'Ubuntu', sans-serif;
+  background: none;
+  color: $first-touch-white;
+}
+
+ul {
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: inline;
 }
 
 .navbar {
-  padding-top: 30px;
+  background-color: $navbar-background-color;
+  height: $navbar-height;
+  line-height: $navbar-image-line-height;
+
+  .navbar-brand {
+    padding: 0 15px;
+  }
+
+  #navbar-logo img {
+    height: $navbar-logo-height;
+  }
+
+  .navbar-collapse {
+    background-color: $navbar-background-color;
+
+    .with-border {
+      border: none;
+    }
+  }
+
+  li {
+    margin-top: $navbar-text-line-height;
+
+    a {
+      padding: 10px 15px;
+      text-transform: uppercase;
+    }
+
+    &.with-border {
+      border: 1px solid $main-text-color;
+      border-radius: 5px;
+    }
+  }
+}
+
+.full {
+  background: image-url('landing-page/team-logo.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+  text-align: center;
+  color: $first-touch-white;
+
+  .intro-message {
+    text-align: center;
+    position: relative;
+    padding-top: 15%;
+    padding-bottom: 20%;
+  }
+
+  #start-here {
+    margin-top: 40px;
+  }
+}
+
+#second-page {
+  text-align: center;
+
+  #first-half {
+    background-color: $first-touch-white;
+  }
+
+  #second-half {
+    .header {
+      margin-top: 5%;
+    }
+
+    background: image-url('landing-page/second-page-second-half.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+}
+
+#third-page {
+  background-color: $landing-page-dark-background-color;
+
+  .container-fluid {
+    min-height: 100vh;
+  }
+
+  #wrapper {
+    height: 100%;
+  }
+
+  #first-half {
+    height: 100%;
+  }
+
+  #second-half {
+    height: 100%;
+    background: image-url('landing-page/third-page-second-half.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    -webkit-clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0% 100%);
+    clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0% 100%);
+  }
+}
+
+#fourth-page {
+  color: $main-text-color;
+
+  h3 {
+    text-transform: uppercase;
+    color: $main-header-color;
+  }
+}
+
+#fifth-page {
+  background: image-url('landing-page/fifth-page-first-half.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100%;
+  text-align: center;
+  color: $first-touch-white;
+
+  #first-half {
+    vertical-align: middle;
+    display: inline-block;
+    min-height: 60%;
+    min-height: 60vh;
+  }
+
+  #second-half {
+    padding-top: 40px;
+    background-color: $navbar-background-color;
+    min-height: 40%;
+    min-height: 40vh;
+
+    p {
+      color: $main-text-color;
+    }
+  }
 }
 
 .bar-button {
+  margin: 8px;
+  width: 240px;
   text-transform: uppercase;
   text-decoration: none;
-  color: $main-text-color;
+  color: $first-touch-white;
   font-weight: 300;
   padding: 6px 12px 6px 12px;
-  border: 1px solid $main-text-color;
+  border: 1px solid $first-touch-white;
   border-radius: 5px;
+  background-color: $first-touch-white-alpha-20;
+
+  a {
+    text-decoration: none;
+
+    &:visited {
+      color: $first-touch-white;
+    }
+  }
 
   &:hover {
-    background-color: $main-text-color;
-    color: black;
+    background-color: $first-touch-white-alpha-70;
+    color: $first-touch-white;
+    cursor: pointer;
   }
 
-  &.big {
-    font-size: 34px;
-    width: 250px;
+  &.center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &.reverse {
+    border-color: $main-text-color;
+    color: $main-text-color;
+
+    &:hover {
+      background-color: $main-text-alpha-20;
+    }
   }
 }
+
 .section {
   font-weight: 300;
   font-size: large;
-  height: 100%;
-  height: 100vh;
+  min-height: 100%;
+  min-height: 100vh;
 
   .content {
     color: $main-text-color;
     text-transform: uppercase;
-    font-size: 18px;
     letter-spacing: 4px;
-    line-height: 44px;
+    line-height: 30px;
   }
 
-  &.dark {
-    color: $main-text-color;
-  }
-
-  &.gray {
-    background-color: $background-color;
-    color: $main-text-color;
-  }
-
-  &.clear {
-    background-color: white;
-    .bar-button:hover {
-      color: white;
-    }
-    .header {
-      color: $main-header-color;
-    }
-  }
-
-  &.green {
-    background: $secondary-header-color;
-    .content {
-      color: white;
-    }
-    .header {
-      color: white;
-    }
-    .bar-button {
-      border-color: white;
-      color: white;
-
-      &:hover {
-        color: $main-text-color;
-        background-color: white;
-      }
-    }
-  }
-
-  &.half {
-    height: 50%;
-    height: 50vh;
-  }
-
-  &.padded {
-    padding-top: 70px;
+  .half {
+    min-height: 50%;
+    min-height: 50vh;
   }
 
   .header {
@@ -105,45 +234,31 @@ html, body {
     font-size: 40px;
     letter-spacing: 6px;
   }
-}
 
-.cardboard {
-  .title {
-    color: $main-header-color;
-    text-transform: uppercase;
-    font-size: 40px;
-    letter-spacing: 6px;
-  }
+  .cardboard {
+    .title {
+      color: $main-header-color;
+      text-transform: uppercase;
+      font-size: 40px;
+      letter-spacing: 6px;
+    }
 
-  .description {
-    text-transform: uppercase;
-    color: $main-text-color;
-    letter-spacing: 4px;
-    line-height: 40px;
-  }
-}
-
-.landing-image {
-  background-image: image-url('landing-page/team-logo.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  min-height: 100%;
-  min-width: 100%;
-
-  .headline {
-    position: absolute;
-    top: 75%;
-    right: 30%;
-    font-size: 36px;
+    .description {
+      text-transform: uppercase;
+      color: $main-text-color;
+      letter-spacing: 4px;
+      line-height: 40px;
+    }
   }
 }
 
-#signup-section-2 {
-  margin-top: 70px;
-  margin-left: 60px;
-}
+@media (min-width: 767px) {
+  .vcenter {
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-#signup-section-3 {
-  margin-top: 70px;
-  margin-left: 38%;
+  .padded {
+    padding-left: 90px;
+  }
 }

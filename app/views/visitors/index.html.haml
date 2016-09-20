@@ -1,87 +1,140 @@
-.container-fluid
-  .navbar.row
-    .col-offset-10
-    .col-1
-      %a.bar-button(href='users/sign_in') Log In
-    .col-1
-      %a.bar-button(href='users/sign_up') Sign Up
+/ Navigation
+%nav#landing-navbar.navbar.navbar-inverse.navbar-fixed-top{:role => "navigation"}
+  .container
+    / Brand and toggle get grouped for better mobile display
+    .navbar-header
+      %button.navbar-toggle{"data-target" => "#ft-navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a#navbar-logo.navbar-brand{:href => "#"}
+        = image_tag 'landing-page/ft-navbar-logo.png'
+    / Collect the nav links, forms, and other content for toggling
+    #ft-navbar-collapse.collapse.navbar-collapse
+      %ul.nav.navbar-nav.navbar-right
+        %li
+          %a{:href => "#"} Change Language
+        %li
+          %a(href='users/sign_in') Log In
+        %li.with-border
+          %a{:href => "#"} Sign Up
+    / /.navbar-collapse
+  / /.container
+/ Page Content
+.full
+  .container-fluid
+    .row
+      .col-lg-12
+        .intro-message
+          .row
+            .logo
+              = image_tag 'landing-page/ft-logo.png'
+          .row
+            %h1 The professional football network
+          .row
+            %ul#start-here
+              %li
+                .bar-button.center
+                  %a(href='#') Get Started
+              %li
+                .bar-button.center
+                  %a(href='users/sign_in') Log in
 
-  .section.dark.row
-    .landing-image
-      .headline
-        The Professional Football Network
+#second-page.section
+  .container-fluid
+    .row#first-half.half
+      .col-lg-3.col-lg-offset-2.cardboard.vcenter
+        .title Your next big leap is here
+        .bar-button.reverse.center Sign up now
 
-  .half.section.padded.clear.row
-    .col-offset-1
-    .col-4
-      .header
-        Your next big leap is here
-
-      #signup-section-2
-        %a.bar-button.big(href='users/sign_up') Sign Up Now
-
-    .col-offset-2
-    .col-4
-      .content
-        Firsttouch is a free social networking service and online service platform with a distinct football focus. Wether you are looking for, showing off, managing or developing talent, firsttouch is the place for you.
-
-  .half.section.padded.green.row
-    .col-offset-3
-    .col-6
-      .header
-        Firsttouch is for those of us who actively participate in football
-
-  .section.padded.gray.row
-    .col-offset-1
-    .col-6.content
-      FirstTouch is for those of us who actively participate in football (soccer). Players, coaches, scouts, agents at all levels... we like to take the game seriously. We want to improve, better ourselves or make substantial contributions. Succinctly and precisely, we do three things:
-
-      %ul
-        %li Help you connect, scout and be scouted;
-        %li Provide a platform for interaction, learning and sharing within the football community;
-        %li Give you the tools to manage your career, your club or your clients.
-
-  .section.padded.clear.row
-    .col-3.cardboard#players
-      .box
-        .title
-          Players
+      .col-lg-4.col-lg-offset-1.cardboard.vcenter
         .description
-          Looking for a new club? Want to step up your game? Or are you just another football freak looking for satiate your football appetite?
-    .col-3.cardboard#scouts-agents
-      .box
-        .title
-          Scouts & Agents
-        .description
-          Scout? Agent? What’s your reach? Who do you know? What do you know?
-    .col-3.cardboard#managers-coaches
-      .box
-        .title
-          Managers & Coaches
-        .description
-          Share your knowledge, take on new challenges and make a name for yourself in the process.
-    .col-3.cardboard#clubs
-      .box
-        .title
-          Clubs
-        .description
-          You don’t have Barcelona's resources but that shouldn't stop you.
+          FirstTouch is a free social networking service and online service platform with a distinct football (soccer) focus. Whether you are looking for, showing off, managing or developing talent, FirstTouch is the place for you.
 
-  .half.section.padded.green.row
-    .col-offset-3
-    .col-6
-      .header
-        Football is not complicated and neither is FirstTouch. Don’t just take our word for it. Try it out.
+    .row#second-half.half
+      .col-lg-4.col-lg-offset-4.header
+        FirstTouch is for those who actively particiate in football
 
-    .col-offset-3
-    .col-6
-      .header
-        Create a profile
+#third-page.section
+  .container-fluid
+    .row#wrapper
+      .col-lg-4#first-half
+        .row
+          .col-lg-12.padded
+            %h1 It's for the players, coaches, scouts, agents at all levels...
+            .content
+              %p We like to take the game seriously. We want to improve, better ourselves or make substantial contributions. Succinctly and precisely, we do three things:
+              %ul
+                %li.bullet Help you connect, scout and be scouted
+                %li.bullet Provide a platform for interaction, learning and sharing within the football community
+                %li.bullet Give you the tools to manage your career, your club or your clients
 
-      #signup-section-3
-        %a.bar-button.big(href='users/sign_up') Sign Up Now
+      .col-lg-8#second-half
 
-  .half.section.padded.gray.row
-    .col-offset-3
-    .col-6
-      Footer
+#fourth-page.section
+  .container-fluid
+    .row
+      .col-lg-3#players-wrapper
+        .thumbnail
+        .caption
+          %h3 Players
+          %p Looking for a new club? Want to step up your game? Or are you just another football freak looking for satiate your football appetite?
+          %p FirstTouch is there for you no matter your motivation. Register and access to a vast world of football resources; from articles and videos to teammates and experts. FirstTouch will connect you with the people you need to know to manage your career and content to satiate your appetite for football.
+      .col-lg-3#scouts-wrapper
+        .thumbnail
+        .caption
+          %h3 Scouts & Agents
+          %p Scout? Agent? What’s your reach? Who do you know? What do you know?
+          %p FirstTouch is networking 2.0 and we all know how networking is within this industry. With us you can:
+          %ul
+            %li.bullet Maximise your own network and connect to the right people;
+            %li.bullet Expand your reach with access to players, clubs and agents across the world;
+            %li.bullet Make your job easier, more efficient, more effective.
+      .col-lg-3#manager-wrapper
+        .thumbnail
+        .caption
+          %h3 Managers & Coaches
+          %p Share your knowledge, take on new challenges and make a name for yourself in the process.
+          %p This is your career management platform, whether this you are an established manager or first-time coach. Interact with your peers, players or clubs. Learn from a wider community and share your own training and tactical knowledge. Promote yourself and find the perfect coaching challenges to push your career in the right direction.
+      .col-lg-3#clubs-wrapper
+        .thumbnail
+        .caption
+          %h3 Clubs
+          %p You don’t have Barcelona's resources but that shouldn't stop you.
+          %p FirstTouch offers flexible club-level software solutions designed to help you professionally manage all aspects of your club. These solutions are carefully intertwined with a robust network of industry stakeholders to give you unprecedented access to players, coaches, scouts and agents across the world and their collective knowledge and experience. So, amongst other things, FirstTouch will help you:
+          %ul
+            %li.bullet Get new players or staff.
+            %li.bullet Enhance secure communication within your club.
+            %li.bullet Manage your existing resources, whether human or financial.
+          %p Success begins with a well-managed club.
+
+#fifth-page.section
+  .container-fluid
+    .row#first-half
+      .col-lg-8.col-lg-offset-2
+        .row.header
+          %p Football is not complicated and neither is firsttouch. Don't just take our word for it. try it out
+        .row.header
+          %p Create a profile
+
+        .row
+          .bar-button.center
+            %a(href='#') Sign up now
+
+    .row#second-half
+      .col-lg-2.col-lg-offset-1
+        .row
+          = image_tag 'landing-page/ft-footer-logo.png'
+        .row
+          %p FirstTouch, Ltd &copy; 2016
+          %p All rights reserved
+
+:coffeescript
+  $('#landing-navbar').hide()
+
+  $(window).scroll ->
+    if $(this).scrollTop() > 100
+      $('#landing-navbar').fadeIn()
+    else
+      $('#landing-navbar').fadeOut()
