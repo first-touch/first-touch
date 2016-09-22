@@ -183,10 +183,7 @@ li {
 
   a {
     text-decoration: none;
-
-    &:visited {
-      color: $first-touch-white;
-    }
+    color: $first-touch-white;
   }
 
   &:hover {
@@ -253,12 +250,13 @@ li {
 }
 
 @media (min-width: 767px) {
-  .vcenter {
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
   .padded {
     padding-left: 90px;
+  }
+
+  #third-page {
+    .container-fluid{
+      height: 100vh;
+    }
   }
 }
