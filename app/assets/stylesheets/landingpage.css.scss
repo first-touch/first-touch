@@ -42,9 +42,12 @@ li {
   .navbar-collapse {
     background-color: $navbar-background-color;
 
-    .with-border {
-      border: none;
+    &.in {
+      .with-border {
+        border: none;
+      }
     }
+
   }
 
   li {
@@ -63,6 +66,10 @@ li {
 }
 
 .full {
+  &.top-padded {
+    padding-top: 120px;
+  }
+
   background: image-url('landing-page/team-logo.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
