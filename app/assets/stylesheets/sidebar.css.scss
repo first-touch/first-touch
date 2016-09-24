@@ -1,7 +1,16 @@
 // navbar
-#top-logo img {
-  height: 90px;
-  width: auto;
+#top-logo {
+
+  text-align: center;
+
+  img {
+    //compensate the margin added by row class
+    margin-left: -15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 50px;
+    width: auto;
+  }
 }
 
 //navbar urls

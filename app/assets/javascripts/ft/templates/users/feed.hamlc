@@ -1,6 +1,4 @@
-.col-md-12
-  .page-header
-    Timeline
+.page-header(data-bind="i18Text: { i18: 'timeline'}")
 
 -# .row
 -#   .ft-block

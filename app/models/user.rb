@@ -35,6 +35,15 @@ class User < ActiveRecord::Base
     Post.where(user_id: relevant_user_ids).order('updated_at DESC')
   end
 
+  # NOTE: simple network graph.
+  # TODO: Get a more efficient way of building the network graph
+  def network
+    {
+      following: self.following,
+      followers: self.followers
+    }
+  end
+
   def first_name
     self.personal_profile.try(:first_name) || ''
   end

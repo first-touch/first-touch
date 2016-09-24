@@ -14,6 +14,10 @@ FT.Dictionaries.i18 = {
     'yourProfile': 'Your Profile'
     'summary': 'Summary'
     'careerHistory': 'Career History'
+    'timeline': 'Timeline'
+    'myNetwork': 'My Network'
+    'followers': 'Followers'
+    'following': 'Following'
   }
 
   'sp-SP': {

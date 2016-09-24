@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       # Note: Named route for users search because later on the search will probably
       # be more broad.
       get 'search', controller: :users, action: :search
+      resources :network, only: [:index]
     end
   end
 end

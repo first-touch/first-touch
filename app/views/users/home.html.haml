@@ -1,3 +1,5 @@
 :coffee
-  $(document).ready ->
-    FT.App.start()
+  document.onreadystatechange = ->
+    if document.readyState == "complete"
+      window.firstTouchLogo = "#{ asset_path 'landing-page/ft-navbar-logo.png' }"
+      FT.App.start()

@@ -25,38 +25,43 @@ class FT.Routers.MainRouter
     'profile/edit': 'editUserProfile'
     'profile': 'userProfile'
     'users/:id': 'viewPublicProfile'
+    'network' : 'network'
 
   root: ->
-    viewModel = new FT.ViewModels.Users.Feed()
-    view = new FT.Views.Users.Feed
-      viewModel: viewModel
+    @_render 'Users.Feed'
 
-    @appLayout.renderMain { main: view }
+  network: ->
+    @_render 'Users.Network'
 
   userProfile: ->
-    viewModel = new FT.ViewModels.Users.Profile()
-    view = new FT.Views.Users.Profile
-      viewModel: viewModel
-
-    @appLayout.renderMain { main: view }
+    @_render 'Users.Profile'
 
   editUserProfile: ->
-    viewModel = new FT.ViewModels.Users.ProfileForm()
-    view = new FT.Views.Users.ProfileForm
-      viewModel: viewModel
-
-    @appLayout.renderMain { main: view }
+    @_render 'Users.ProfileForm'
 
   viewPublicProfile: (params) ->
     if params.id == FT.App._currentUserId()
       @userProfile params
       return
 
-    viewModel = new FT.ViewModels.Users.PublicProfile params
-    view = new FT.Views.Users.PublicProfile
+    @_render 'Users.PublicProfile', { viewModelParams: params }
+
+  _render: (className, options={}) ->
+    classNamespaceParts = className.split '.'
+    viewModel = FT.ViewModels
+    view = FT.Views
+
+    _.each classNamespaceParts, (part) ->
+      viewModel = viewModel[part]
+      view = view[part]
+
+    viewModel = new viewModel options.viewModelParams
+    view = new view
       viewModel: viewModel
 
-    @appLayout.renderMain { main: view }
+    defaultOptions = { main: view }
+
+    @appLayout.renderMain defaultOptions
 
   _initializeListener: =>
     window.addEventListener 'hashchange', @_route, false

@@ -1,7 +1,8 @@
 .row
   .col-md-12
     #top-logo
-      .logo-image First Touch
+      .logo-image
+        %img{src: window.firstTouchLogo, alt: 'FirstTouch' }
 
 .row
   .col-md-12

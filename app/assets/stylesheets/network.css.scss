@@ -1,0 +1,11 @@
+.network-node {
+  background-color: $first-touch-white;
+  border-radius: 4px;
+  padding: 14px;
+  margin-right: 10px;
+
+  .name {
+    color: $main-header-color;
+    text-transform: uppercase;
+  }
+}
