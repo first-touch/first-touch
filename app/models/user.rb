@@ -56,6 +56,10 @@ class User < ActiveRecord::Base
     self.personal_profile.try(:last_name) || ''
   end
 
+  def full_name
+    [first_name, middle_name, last_name].join ' '
+  end
+
   def email_local_part
     self.email[/[^@]+/] || ''
   end

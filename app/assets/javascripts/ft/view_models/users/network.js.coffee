@@ -21,6 +21,6 @@ class Relationship
   constructor: (options) ->
     @id = ko.observable options.id
     @email = ko.observable options.email
-    @name = ko.observable options.name
+    @name = ko.observable options.full_name
     @role = ko.observable options.role || 'N/A'
     @currentClub = ko.observable options.current_club || 'Unemployed'
