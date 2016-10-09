@@ -15,6 +15,8 @@ _.extend FT.App,
     @_initializeRouter() unless FT.router?
     if !@isUserSignedIn()
       @logout()
+    else
+      @_currentUserInitialized = @_initializeCurrentUser()
 
   isUserSignedIn: ->
     Cookies.get('ft_user_email')? && Cookies.get('ft_user_id')?
@@ -32,3 +34,10 @@ _.extend FT.App,
 
   _initializeRouter: ->
     FT.router = new FT.Routers.MainRouter()
+
+  _initializeCurrentUser: ->
+    @currentUserModel = new FT.DataModels.User(
+      user:
+        id: FT.App._currentUserId()
+    )
+    @currentUserModel.find()

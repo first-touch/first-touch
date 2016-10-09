@@ -8,9 +8,9 @@
   .col-md-12
     #user-identifier
       .user.demo
-      .user-name Cristiano Ronaldo
-      #current-status Football player
-      #current-club Real Madrid
+      .user-name(data-bind='text: userName')
+      #current-status(data-bind='text: currentStatus')
+      #current-club(data-bind='text: currentClub')
 
       #profile-edit
         %a.bar-button{href: '#profile/edit'} Edit Profile
