@@ -20,6 +20,7 @@
 @import 'profile';
 @import 'typography';
 @import 'network';
+@import 'messages';
 
 html, body {
   font-family: 'Ubuntu', sans-serif;
@@ -67,7 +68,39 @@ input {
   }
 }
 
-
 #profile-edit {
   margin-top: 34px;
+}
+
+.page-header {
+  &:before {
+    content: '';
+    position: absolute;
+    margin-top: -10px;
+    width: 50px;
+    height: 6px;
+    background: $main-header-color;
+  }
+
+  text-transform: uppercase;
+  padding-top: 14px;
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+.sub-page-header {
+  &:before {
+    content: '';
+    position: absolute;
+    margin-top: -10px;
+    width: 50px;
+    height: 6px;
+    background: $secondary-header-color;
+  }
+
+  text-transform: uppercase;
+  padding-top: 14px;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  font-size: 0.80em;
 }

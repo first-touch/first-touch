@@ -1,0 +1,1 @@
+.page-header(data-bind="i18Text: {i18: 'messages'}")

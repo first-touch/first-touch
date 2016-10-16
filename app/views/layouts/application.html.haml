@@ -9,34 +9,33 @@
     %title= content_for?(:title) ? yield(:title) : "First Touch"
 
     = stylesheet_link_tag "application"
-    //= javascript_include_tag "application"
+    = javascript_include_tag "application"
     = csrf_meta_tag
 
   %body
-    //.container-fluid
-    //  .row
-    //    .col-md-2
-    //      .box#left-sidebar
+    .container-fluid
+      .row
+        .col-md-2
+          .box#left-sidebar
 
-    //    .col-md-8
-    //      .row
-    //        .col-md-12
-    //          #search-bar
-    //      .row
-    //        .col-md-12#app-wrapper-content
+        .col-md-8
+          .row
+            .col-md-12
+              #search-bar
+          .row
+            .col-md-12#app-wrapper-content
 
-    //    .col-md-2#right-sidebar
-    //      .row
-    //        .col-md-12#secondary-navigation
-    //          %ul.navbar-horizontal
-    //            %li.nav-item
-    //              %a.nav-link{href: '#about'} About
-    //            %li.nav-item
-    //              = link_to "Log Out", destroy_user_session_path, method: :delete, class: 'nav-link'
-    //      .row
-    //        .col-md-12#notifications-feed
-    //      .row
-    //        .col-md-12#events-feed
+        .col-md-2#right-sidebar
+          .row
+            .col-md-12
+              %ul.navbar-horizontal
+                %li.nav-item
+                  %a.nav-link{href: '#about'} About
+                %li.nav-item
+                  = link_to "Log Out", destroy_user_session_path, method: :delete, class: 'nav-link'
+          .row
+            .col-md-12#secondary-navigation
+    = yield
 
     #app
     = javascript_include_tag "bundle"

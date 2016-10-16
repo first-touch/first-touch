@@ -18,6 +18,8 @@ FT.Dictionaries.i18 = {
     'myNetwork': 'My Network'
     'followers': 'Followers'
     'following': 'Following'
+    'messages': 'Message'
+    'allMessages': 'All Messages'
   }
 
   'sp-SP': {

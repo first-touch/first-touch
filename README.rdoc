@@ -1,28 +1,18 @@
-== README
+# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Preparing the machine
 
-Things you may want to cover:
+1. Install [homebrew](http://brew.sh/)
+1. Install [postgres](https://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/)
+1. Install [rvm](https://rvm.io/rvm/install)
+1. Install npm
 
-* Ruby version
+`brew install npm`
 
-* System dependencies
+## Getting the app to run locally
 
-* Configuration
+1. Clone the repository
 
-* Database creation
+`git clone git@github.com:rpbaltazar/first-touch.git`
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+2.

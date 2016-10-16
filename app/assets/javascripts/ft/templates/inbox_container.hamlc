@@ -1,0 +1,36 @@
+.sub-page-header(data-bind="i18Text: {i18: 'allMessages'}")
+
+%input.search(type="text" placeholder="Type a name" data-bind="textInput: searchFriendName")
+
+.inbox
+  .row.selected
+    .message-block.read
+      .col-md-1.logo
+        %i.fa.fa-user
+      .col-md-10
+        .sender-identifier Lionel Messi
+        .trimmed-body When are you coming...
+
+  .row
+    .message-block.unread
+      .col-md-1.logo
+        %i.fa.fa-user
+      .col-md-10
+        .sender-identifier Nani
+        .trimmed-body Lorem ipsum things...
+
+  .row
+    .message-block.unread.group
+      .col-md-1.logo
+        %i.fa.fa-users
+      .col-md-10
+        .sender-identifier Nani, Abubakar, Cristiano
+        .trimmed-body Lorem ipsum things...
+
+  .row
+    .message-block.read.group
+      .col-md-1.logo
+        %i.fa.fa-users
+      .col-md-10
+        .sender-identifier Ronaldo, Kaka, Ronaldinho
+        .trimmed-body Picanha e Caipirinha,...

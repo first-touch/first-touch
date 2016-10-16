@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   has_many :followers, through: :passive_relationships, source: :follower
 
   has_many :posts
+  has_many :sent_messages, class_name: 'Message', foreign_key: 'creator_id'
+  has_many :messages_to_receive, class_name: 'MessageRecipient', foreign_key: 'recipient_id'
+  has_many :received_messages, through: :messages_to_receive, source: :message
 
   before_save :update_search_string, if: -> { email_changed? }
 
@@ -33,6 +36,17 @@ class User < ActiveRecord::Base
   def feed
     relevant_user_ids = following_ids + [self.id]
     Post.where(user_id: relevant_user_ids).order('updated_at DESC')
+  end
+
+  def inbox
+    full_inbox = self.sent_messages.includes(:message_recipient).group_by { |ms| ms.message_recipient.recipient_id }
+    messages_to_add = self.received_messages.group_by { |mr| mr.creator_id }
+    messages_to_add.each do |sender_id, messages|
+      full_inbox[sender_id] ||= []
+      full_inbox[sender_id] += messages
+      full_inbox[sender_id].sort_by!(&:created_at)
+    end
+    full_inbox
   end
 
   # NOTE: simple network graph.

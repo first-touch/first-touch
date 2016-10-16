@@ -21,11 +21,12 @@ class FT.Routers.MainRouter
       console.log 'routing method not implemented'
 
   routingTable:
-    '/' : 'root'
-    'profile/edit': 'editUserProfile'
-    'profile': 'userProfile'
-    'users/:id': 'viewPublicProfile'
-    'network' : 'network'
+    '/'            : 'root'
+    'profile/edit' : 'editUserProfile'
+    'profile'      : 'userProfile'
+    'users/:id'    : 'viewPublicProfile'
+    'network'      : 'network'
+    'messages'     : 'messages'
 
   root: ->
     @_render 'Users.Feed'
@@ -46,6 +47,9 @@ class FT.Routers.MainRouter
 
     @_render 'Users.PublicProfile', { viewModelParams: params }
 
+  messages: (params) ->
+    @_render 'Users.Inbox', secondary: { className: 'InboxContainer', identifier: 'inboxcontainer' }
+
   _render: (className, options={}) ->
     classNamespaceParts = className.split '.'
     viewModel = FT.ViewModels
@@ -61,7 +65,7 @@ class FT.Routers.MainRouter
 
     defaultOptions = { main: view }
 
-    @appLayout.renderMain defaultOptions
+    @appLayout.renderMain(_.extend defaultOptions, options)
 
   _initializeListener: =>
     window.addEventListener 'hashchange', @_route, false

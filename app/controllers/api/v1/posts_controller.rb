@@ -1,38 +1,41 @@
-class Api::V1::PostsController < Api::V1::BaseController
-  def index
-    # Build feed
-    render json: current_user.feed
-  end
-
-  def create
-    if current_user.id.to_s == params[:post][:user_id]
-      new_post = Post.new post_params
-      if new_post.save
-        render json: new_post
-      else
-        render json: {}, status: :unprocesseable_entity
+module Api
+  module V1
+    class PostsController < Api::V1::BaseController
+      def index
+        # Build feed
+        render json: current_user.feed
       end
-    else
-      render json: {}, status: :unauthorized
+
+      def create
+        if current_user.id.to_s == params[:post][:user_id]
+          new_post = Post.new post_params
+          if new_post.save
+            render json: new_post
+          else
+            render json: {}, status: :unprocesseable_entity
+          end
+        else
+          render json: {}, status: :unauthorized
+        end
+      end
+
+      def destroy
+        render json: {}
+      end
+
+      def update
+        render json: {}
+      end
+
+      private
+
+      def post_params
+        params.require(:post).permit([
+                                       :user_id,
+                                       :content,
+                                       :id
+                                     ])
+      end
     end
-  end
-
-  def destroy
-    render json: {}
-  end
-
-  def update
-    render json: {}
-  end
-
-  private
-
-  def post_params
-    params.require(:post)
-      .permit([
-                :user_id,
-                :content,
-                :id
-              ])
   end
 end

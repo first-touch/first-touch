@@ -246,13 +246,13 @@ Devise.setup do |config|
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
 
-  Warden::Manager.after_set_user do |user, auth, opts|
+  Warden::Manager.after_set_user do |user, auth, _opts|
     expiry_date = config.remember_for.from_now
     auth.cookies['ft_user_email'] = { value: user.email, httponly: false, expires: expiry_date }
     auth.cookies['ft_user_id'] = { value: user.id, httponly: false, expires: expiry_date }
   end
 
-  Warden::Manager.before_logout do |user, auth, opts|
+  Warden::Manager.before_logout do |_user, auth, _opts|
     auth.cookies.delete 'ft_user_email'
     auth.cookies.delete 'ft_user_id'
   end

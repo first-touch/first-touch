@@ -20,6 +20,9 @@ class FT.Views.Layout.AppLayout extends FT.Views.Layout.ViewManager
     if options.main
       @setView("#app-wrapper-content", options.main)
 
+    if options.secondary
+      @_renderSecondaryNavigation options
+
   _renderSearchBar: ->
     unless @searchBarView
       @searchBarView = new FT.Views.Widgets.SearchBar
@@ -29,7 +32,16 @@ class FT.Views.Layout.AppLayout extends FT.Views.Layout.ViewManager
 
   _renderMainNavbar: ->
     unless @mainNavbar
-      @mainNavbarView = new FT.Views.Widgets.Navbar
+      @mainNavbar = new FT.Views.Widgets.Navbar
         viewModel: new FT.ViewModels.Widgets.Navbar
 
-      @setView '#left-sidebar', @mainNavbarView
+      @setView '#left-sidebar', @mainNavbar
+
+  _renderSecondaryNavigation: (options) ->
+    secondary = options.secondary
+    unless @secondaryNavigation?.constructor.name == secondary.identifier
+      @secondaryNavigation = new FT.Views[secondary.className]
+        viewModel: new FT.ViewModels[secondary.className]
+          mainViewModel: options.main.viewModel
+
+      @setView '#secondary-navigation', @secondaryNavigation
