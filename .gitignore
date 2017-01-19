@@ -26,3 +26,6 @@ config/secrets.yml
 
 .byebug_history
 .env
+
+# node packages
+node_modules
