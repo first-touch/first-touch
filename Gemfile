@@ -34,7 +34,13 @@ gem 'active_model_serializers'
 gem 'puma'
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+group :deployment do
+  gem 'capistrano',         require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
