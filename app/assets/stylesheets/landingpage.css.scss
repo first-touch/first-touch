@@ -20,6 +20,18 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+
+  &.bullet {
+    padding-left: 20px;
+    li {
+      display: list-item;
+    }
+
+    li:before {
+      content: "\2022";
+      margin-right: 5px;
+    }
+  }
 }
 
 li {
@@ -32,7 +44,7 @@ li {
   line-height: $navbar-image-line-height;
 
   .navbar-brand {
-    padding: 0 15px;
+    padding: 10px 15px;
   }
 
   #navbar-logo img {
@@ -63,6 +75,15 @@ li {
       border-radius: 5px;
     }
   }
+
+  .navbar-header {
+    height: 69px;
+  }
+
+  .navbar-toggle {
+    margin-top: 18px;
+    margin-bottom: 18px;
+  }
 }
 
 .full {
@@ -75,47 +96,89 @@ li {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  height: 100%;
+  min-height: 100vh;
   text-align: center;
   color: $first-touch-white;
 
   .intro-message {
+    font-size: 0.8em;
     text-align: center;
     position: relative;
-    padding-top: 15%;
-    padding-bottom: 20%;
-  }
-
-  #start-here {
-    margin-top: 40px;
+    padding-top: 15vh;
+    padding-bottom: 15vh;
+    
+    h1 {
+      margin: 30px auto 50px auto;
+      font-size: 1.5em;
+      font-weight: 300;
+      text-transform: uppercase;
+      color: #727a84;
+    }
+    
+    .bar-button {
+      font-size: 1.3em;
+      margin-bottom: 20px;
+    }
   }
 }
 
 #second-page {
-  text-align: center;
+  text-align: left;
+  height: calc(100vh - 70px);
 
   #first-half {
+    position: relative;
     background-color: $first-touch-white;
+    padding: calc(25vh - 90px) 0;
+    font-size: .8em;
+    .title {
+      font-size: 1.8em;
+    }
+    .description {
+      text-transform: none;
+      line-height: 40px;
+    }
+    .bar-button {
+      margin: 0 0 calc(25vh - 75px) calc(16.6666667% + 15px);
+      text-align: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
   }
 
   #second-half {
-    .header {
-      margin-top: 5%;
-    }
-
     background: image-url('landing-page/second-page-second-half.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    padding: calc(25vh - 90px);
+    
+    .header {
+      font-weight: 400;
+      font-size: 1.5em;
+    }
   }
 }
 
 #third-page {
   background-color: $landing-page-dark-background-color;
+  font-size: $main-text-size;
 
-  .container-fluid {
-    min-height: 100vh;
+  h1 {
+    font-size: 1.5em;
+    line-height: 30px;
+    text-transform: uppercase;
+  }
+  
+  .content {
+    line-height: 20px;
+  }
+  
+  .bar-button {
+    margin-left: 0;
+    text-align: center;
   }
 
   #wrapper {
@@ -124,6 +187,12 @@ li {
 
   #first-half {
     height: 100%;
+    padding: calc(50vh - 270px) 0;
+    
+    .content {
+      letter-spacing: 2px;
+      margin: 40px auto;
+    }
   }
 
   #second-half {
@@ -138,12 +207,241 @@ li {
   }
 }
 
-#fourth-page {
-  color: $main-text-color;
+// #fourth-page {
+//   color: $main-text-color;
+//   padding: $section-padding $section-padding;
+//   line-height: 30px;
+//   text-align: justify;
+//   position: relative;
+// 
+//   h3 {
+//     text-transform: uppercase;
+//     font-size: $important-size;
+//     color: $main-header-color;
+//     text-align: center;
+//   }
+// 
+//   .first-para {
+//     text-transform: uppercase;
+//     min-height: 220px;
+//   }
+// 
+//   .second-para {
+//     font-size: $main-text-size;
+//   }
+// 
+//   .col-lg-3 {
+//     padding: 30px;
+//   }
+//   
+//   .flex-container {
+//     display: flex;
+//     align-items: center;
+//     flex-wrap: wrap;
+//     justify-content: center;
+//   }
+// 
+//   .flex-col {
+//     flex: 1;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     max-width: 250px;
+//   }
+// 
+//   .flex-item {
+//     margin-top: 20px;
+//     margin-bottom: 20px;
+//   }
+// 
+//   .thumbnail {
+//     border-radius: 50%;
+//     width: 150px;
+//     height: 150px;
+//   }
+// 
+//   .slogan {
+//     margin-top: 30px;
+//     margin-bottom: 30px;
+//   }
+//   
+//   .speech {
+//     display: none;
+//     position: absolute;
+//     padding: 50px;
+//     text-align: center;
+//     background-color: #fff;
+//     border: 8px solid #000;
+//     border-radius: 30px;
+//     box-shadow: 2px 2px 4px #888;
+//   }
+//   .speech:before {
+//     display: none;
+//     content: ' ';
+//     position: absolute;
+//     width: 0;
+//     height: 0;
+//     border: 20px solid;
+//     border-color: #000 transparent transparent #000;
+//   }
+//   
+//   .flex-item:hover + .speech, .flex-item:hover + .speech:before {
+//     display: block;
+//   }
+//   
+//   .club-speech {
+//     top: 350px;
+//     margin-right: 10%;
+//   }
+//   .club-speech:before {
+//     left: 23%;
+//     top: -45px;
+//     transform: rotate(180deg);
+//   }
+//   
+//   .player-speech {
+//     top: 220px;
+//     left: 30%;
+//     margin: 120px;
+//   }
+//   .player-speech:before {
+//     left: -45px;
+//     transform: rotate(90deg);
+//   }
+//   
+//   .scout-speech {
+//     left: 30%;
+//     margin: 120px;
+//   }
+//   .scout-speech:before {
+//     top: 50%;
+//     left: -45px;
+//     transform: rotate(180deg);
+//   }
+//   
+//   .agent-speech {
+//     top: 300px;
+//     margin-right: 10%;
+//   }
+//   .agent-speech:before {
+//     left: 47%;
+//     bottom: -45px;
+//   }
+//   
+//   .manager-speech {
+//     left: 10%;
+//     right: 40%;
+//     top: 300px;
+//   }
+//   .manager-speech:before {
+//     right: -45px;
+//   }
+//   
+//   .coach-speech {
+//     left: 10%;
+//     right: 40%;
+//     top: 320px;
+//   }
+//   .coach-speech:before {
+//     right: -45px;
+//     top: 50%;
+//     transform: rotate(270deg);
+//   }
+// }
 
-  h3 {
-    text-transform: uppercase;
-    color: $main-header-color;
+#fourth-page {
+  background-color: #191a1b;
+  
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    perspective: 100vh;
+  }
+  
+  .flex-col {
+    flex: 1 1 33.33333vw;
+    min-height: calc(50vh - 35px);
+  }
+  
+  .flex-col.card.flipped {
+    // transform: rotateX(-180deg);
+  }
+  
+  .card {
+    // transition: 0.6s;
+    // transform-style: preserve-3d;
+    // transform-origin: 100% calc(25vh - 17.5px);
+    // position: relative;
+    
+    .front, .back {
+      backface-visibility: hidden;
+      min-height: calc(50vh - 35px);
+      width: 33.33333vw;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-left: 3vw;
+      padding-right: 3vw;
+      text-align: center;
+    }
+    
+    .front {
+      z-index: 2;
+      background-size: cover;
+      background-position: top;
+      font-size: 1.5em;
+      display: flex;
+      
+      img { width: 3vw; }
+      
+      .bar-button {
+        font-size: .8em;
+      }
+      
+    }
+    
+    .back {
+      // transform: rotateX(180deg);
+      background-color: #219444;
+    }
+  }
+  
+  .coach {
+    .front {
+      background-image: linear-gradient(to bottom, rgba(92, 132, 33, 0.3), rgba(92, 132, 33, 0.3)), url("http://cache2.asset-cache.net/gc/542148074-antonio-conte-head-coach-of-italy-looks-on-gettyimages.jpg?v=1&c=IWSAsset&k=2&d=X7WJLa88Cweo9HktRLaNXllDT9Blv0LWlCrvKdjX2XyGR7oit6aEYW8CFxb4Kg%2FOvdEzTiXGHE5MadAyLFsCRg%3D%3D");
+    }
+  }
+  
+  .club {
+    .front {
+      background-image: linear-gradient(to bottom, rgba(92, 132, 33, 0.3), rgba(92, 132, 33, 0.3)), url("http://imworld.aufeminin.com/story/20140606/florentino-perez-mujer-254201_w1000.jpg");
+    }
+  }
+  
+  .player {
+    .front {
+      background-image: linear-gradient(to bottom, rgba(92, 132, 33, 0.3), rgba(92, 132, 33, 0.3)), url("https://d.ibtimes.co.uk/en/full/282749/cristiano-ronaldo.jpg");
+    }
+  }
+  
+  .agent {
+    .front {
+      background-image: linear-gradient(to bottom, rgba(92, 132, 33, 0.3), rgba(92, 132, 33, 0.3)), url("http://specials-images.forbesimg.com/imageserve/55e9e239e4b0ffa7afe46692/320x486.jpg?fit=scale&background=000000");
+    }
+  }
+  
+  .manager {
+    .front {
+      background-image: linear-gradient(to bottom, rgba(92, 132, 33, 0.3), rgba(92, 132, 33, 0.3)), url("http://www.oddsdaily.com/news/wp-content/uploads/2016/11/nintchdbpict000270_2984281a.jpg");
+    }
+  }
+  
+  .scout {
+    .front {
+      background-image: linear-gradient(to bottom, rgba(92, 132, 33, 0.3), rgba(92, 132, 33, 0.3)), url("http://www.mattbradleysoccerscout.com/uploads/3/9/5/3/3953150/8479872.jpg?355");
+    }
   }
 }
 
@@ -153,22 +451,26 @@ li {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  min-height: 100%;
   text-align: center;
   color: $first-touch-white;
+  
+  .container-fluid {
+    height: calc(100vh - 70px);
+  }
 
   #first-half {
     vertical-align: middle;
     display: inline-block;
-    min-height: 60%;
-    min-height: 60vh;
+    padding-top: calc(50vh - 250px);
+    padding-bottom: calc(50vh - 250px);
+    .header {
+      font-size: 1.5em;
+    }
   }
 
   #second-half {
     padding-top: 40px;
     background-color: $navbar-background-color;
-    min-height: 40%;
-    min-height: 40vh;
 
     p {
       color: $main-text-color;
@@ -177,6 +479,7 @@ li {
 }
 
 .bar-button {
+  display: block;
   margin: 8px;
   width: 240px;
   text-transform: uppercase;
@@ -193,10 +496,11 @@ li {
     color: $first-touch-white;
   }
 
-  &:hover {
+  &:hover, &:focus {
     background-color: $first-touch-white-alpha-70;
     color: $first-touch-white;
     cursor: pointer;
+    text-decoration: none;
   }
 
   &.center {
@@ -217,12 +521,10 @@ li {
 .section {
   font-weight: 300;
   font-size: large;
-  min-height: 100%;
-  min-height: 100vh;
 
   .content {
     color: $main-text-color;
-    text-transform: uppercase;
+    // text-transform: uppercase;
     letter-spacing: 4px;
     line-height: 30px;
   }
@@ -250,20 +552,134 @@ li {
     .description {
       text-transform: uppercase;
       color: $main-text-color;
-      letter-spacing: 4px;
+      letter-spacing: 2px;
       line-height: 40px;
     }
   }
 }
 
-@media (min-width: 767px) {
+@media (max-width: 1200px) {
+  #second-page {
+    height: auto;
+    #first-half {
+      text-align: center;
+      padding: $section-padding $section-padding/2;
+      font-size: 1em;
+      
+      .bar-button {
+        position: relative;
+        margin: 50px auto;
+      }
+      
+      .description {
+        line-height: 22px;
+      }
+    }
+  }
+  
+  #third-page {
+    min-height: 0;
+    .container-fluid {
+      min-height: 0;
+    }
+    #first-half {
+      padding: $section-padding 10%;
+      br {
+        display: none;
+      }
+    }
+    #second-half {
+      display: none;
+    }
+  }
+
+  #fourth-page {
+    .flex-container {
+      flex-direction: column;
+    }
+    .flex-col {
+      flex: 1;
+      min-height: 50vh;
+    }
+    
+    .flex-col.card:hover {
+      transform: none;
+    }
+    
+    .flex-col.card.flipped {
+      // transform: rotateY(180deg);
+    }
+    
+    .card {
+      transform-origin: center;
+      position: relative;
+      
+      .front, .back {
+        backface-visibility: hidden;
+        min-height: 50vh;
+        width: 100vw;
+      }
+      
+      .front {
+        // transform: rotateY(0deg);
+      }
+      
+      .back {
+        // transform: rotateY(180deg);
+      }
+    }
+  }
+}
+
+@media (min-width: 1200px) {
   .padded {
     padding-left: 90px;
   }
 
   #third-page {
     .container-fluid{
-      height: 100vh;
+      height: calc(100vh - 70px);
+    }
+  }
+}
+
+// for xs mobile
+@media (max-width: 480px) {
+  #second-page {
+    #first-half {
+      padding: 60px 20px;
+      .title {
+        font-size: 1.2em;
+      }
+      .bar-button {
+        font-size: .8em;
+      }
+      .description {
+        font-size: .7em;
+      }
+    }
+
+    #second-half {
+      padding: 60px 20px;
+      min-height: 0;
+    }
+
+    h1 {
+      font-size: 1.2em;
+    }
+  }
+
+  #third-page #first-half {
+    padding: 60px 20px;
+  }
+
+  #fifth-page #first-half {
+    padding: 60px 20px;
+    .header {
+      font-size: 1.2em;
+    }
+    .bar-button {
+      font-size: .8em;
     }
   }
 }
