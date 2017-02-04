@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161016032225) do
+ActiveRecord::Schema.define(version: 20170204061258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "career_entries", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "career_entries", ["user_id"], name: "index_career_entries_on_user_id", using: :btree
 
   create_table "interested_people", force: :cascade do |t|
     t.string   "email"
@@ -45,11 +55,12 @@ ActiveRecord::Schema.define(version: 20161016032225) do
     t.date     "birthday"
     t.string   "nationality_country_code"
     t.string   "residence_country_code"
-    t.string   "summary"
-    t.string   "achievements",             default: [],              array: true
-    t.string   "languages",                default: [],              array: true
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "place_of_birth"
+    t.float    "weight"
+    t.float    "height"
+    t.string   "preferred_foot"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -97,4 +108,5 @@ ActiveRecord::Schema.define(version: 20161016032225) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
+  add_foreign_key "career_entries", "users"
 end

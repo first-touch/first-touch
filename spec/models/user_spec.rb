@@ -9,6 +9,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many :active_relationships }
     it { is_expected.to have_many(:following).through :active_relationships }
     it { is_expected.to have_many(:posts) }
+    it { is_expected.to have_many(:career_entries) }
   end
 
   describe 'follow/unfollow' do
@@ -80,6 +81,15 @@ RSpec.describe User, type: :model do
                                                message_c_h_two,
                                                message_c_h_three,
                                                message_h_c_two])
+    end
+  end
+
+  describe 'career_history' do
+    let(:career_history) { create_list :career_entry, 5, user: calvin }
+    let!(:sorted_career_history) { career_history.sort_by { |ch| ch.start_date }.reverse }
+
+    it 'returns all the users career entries, sorted by date' do
+      expect(calvin.career_history).to eq sorted_career_history
     end
   end
 end

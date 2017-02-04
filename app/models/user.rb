@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_one :personal_profile
   accepts_nested_attributes_for :personal_profile
 
+  has_many :career_entries
   has_many :active_relationships, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
   has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
@@ -84,5 +85,9 @@ class User < ActiveRecord::Base
     l_name = last_name.try(:normalize) || ''
 
     self.search_string = "#{email_local_part.normalize} #{f_name.normalize} #{m_name.normalize} #{l_name.normalize}".strip
+  end
+
+  def career_history
+    self.career_entries.order(start_date: :desc)
   end
 end
