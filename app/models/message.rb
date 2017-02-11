@@ -1,4 +1,4 @@
-class Message < ActiveRecord::Base
+class Message < ApplicationRecord
   belongs_to :creator, class_name: 'User', foreign_key: :creator_id
   has_one :message_recipient
 

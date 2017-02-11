@@ -7,7 +7,7 @@ RSpec.describe Api::V1::RelationshipsController, type: :controller do
   let(:response_code) { response.response_code }
 
   describe 'POST create' do
-    let(:do_request) { post :create, followed_id: hobbes.id }
+    let(:do_request) { post :create, params: { followed_id: hobbes.id } }
 
     describe 'when the user is not logged in' do
       it 'does not create a relationship' do
@@ -35,11 +35,11 @@ RSpec.describe Api::V1::RelationshipsController, type: :controller do
              followed_id: hobbes.id
     end
 
-    let(:do_request) { delete :destroy, id: relationship.id }
+    let(:do_request) { delete :destroy, params: { id: relationship.id } }
 
     describe 'when the user is not logged in' do
       it 'does not destroy the relationship' do
-        expect { delete :destroy, id: 1 }.not_to change { Relationship.count }
+        expect { delete :destroy, params: { id: 1 } }.not_to change { Relationship.count }
       end
       it_behaves_like 'authenticated request'
     end

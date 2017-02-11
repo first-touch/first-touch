@@ -1,27 +1,16 @@
 source 'https://rubygems.org'
 
 gem 'active_model_serializers'
-gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'bcrypt', '~>3.1.7'
 gem 'bundler', '>= 1.8.4'
-gem 'cancancan'
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
-gem 'devise'
-gem 'font-awesome-rails'
-gem 'haml-rails'
-gem 'haml_coffee_assets', '1.16.0'
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jwt'
 gem 'pg'
 gem 'puma'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.4'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
-# bundle exec rake doc:rails generates the API under doc/api.
+gem 'rails', '~> 5.0'
+gem 'rack-cors', :require => 'rack/cors'
+gem 'simple_command'
 gem 'sdoc', '~> 0.4.0', group: :doc
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 

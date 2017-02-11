@@ -1,4 +1,4 @@
-class PersonalProfile < ActiveRecord::Base
+class PersonalProfile < ApplicationRecord
   belongs_to :user
 
   delegate :update_search_string, to: :user, allow_nil: true

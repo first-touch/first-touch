@@ -29,3 +29,5 @@ config/secrets.yml
 
 # node packages
 node_modules
+
+*.log

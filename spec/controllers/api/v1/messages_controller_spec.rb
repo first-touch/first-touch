@@ -52,11 +52,12 @@ RSpec.describe Api::V1::MessagesController, type: :controller do
   describe 'POST create' do
     let(:body)       { 'hello world' }
     let(:do_request) do
-      post :create,
-           message: {
-             message_body: body,
-             message_recipient_attributes: {
-               recipient_id: calvin.id
+      post :create, params: {
+             message: {
+               message_body: body,
+               message_recipient_attributes: {
+                 recipient_id: calvin.id
+               }
              }
            }
     end

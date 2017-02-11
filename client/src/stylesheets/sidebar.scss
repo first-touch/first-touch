@@ -1,0 +1,159 @@
+// navbar
+#top-logo {
+
+  text-align: center;
+
+  img {
+    //compensate the margin added by row class
+    margin-left: -15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 50px;
+    width: auto;
+  }
+}
+
+//navbar urls
+ul.navbar-vertical {
+  list-style: none;
+  padding-top: 20px;
+  padding-left: 6px;
+  margin: 0;
+
+
+  li.nav-item {
+
+    &:first-child {
+      border-top: solid 2px $main-text-color;
+    }
+
+    &:last-child {
+      border-bottom: solid 2px $main-text-color;
+    }
+
+    border-top: solid 1px $main-text-color;
+    border-bottom: solid 1px $main-text-color;
+
+    a {
+      text-transform: uppercase;
+      color: $main-text-color;
+      font-size: $important-size;
+      text-decoration: none;
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin-left: -10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 10px;
+    }
+
+    &.current {
+      a {
+        margin-left: -18px;
+        color: $main-header-color;
+        border-left: 8px solid;
+        border-color: $main-header-color;
+      }
+    }
+
+    &:hover {
+      a {
+        color: $secondary-text-color;
+      }
+
+      border-color: $main-header-color;
+    }
+  }
+}
+
+ul.navbar-horizontal {
+  list-style: none;
+  margin: 0;
+  display: inline-block;
+
+  li.nav-item {
+    border-top: solid 4px $secondary-text-color;
+    float: left;
+    margin-left: 10px;
+    padding-top: 4px;
+
+    a {
+      color: $main-text-color;
+      font-size: $important-size;
+      text-decoration: none;
+    }
+
+    &:hover {
+      border-top: solid 4px $main-header-color;
+      a {
+        color: $secondary-text-color;
+      }
+    }
+  }
+}
+
+// user profile
+.user {
+  display: inline-block;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-color: $secondary-text-color;
+
+  &.demo {
+    width: 75px;
+    height: 75px;
+    background-image: url('https://robohash.org/my-robot?size=75x75&set=set2');
+  }
+
+  &.mini {
+    background-image: url('https://robohash.org/my-robot?size=45x45&set=set2');
+    height: 35px;
+    width: 35px;
+  }
+}
+
+.user-name {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: $main-header-color;
+  font-size: $important-size;
+}
+
+#user-identifier {
+  padding-left: 20px;
+}
+
+#search-bar {
+  height: 58px;
+}
+.result-box {
+  background-color: $first-touch-white;
+  position: relative;
+  border-top: 1px solid $secondary-text-color;
+  padding: 10px;
+  z-index: 1;
+
+  ul {
+    list-style: none;
+
+    li {
+      display: inline-block;
+      width: 100%;
+
+      .user {
+        float: left;
+      }
+
+      .user-name {
+        text-align: left;
+        display: inline-block;
+        padding-left: 20px;
+      }
+    }
+  }
+}

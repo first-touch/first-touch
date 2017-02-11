@@ -1,6 +1,0 @@
-{
-  "directory": "vendor/assets/components",
-  "scripts": {
-    "postinstall": "rm -rf vendor/assets/components/jquery  && rm -rf vendor/assets/components/underscore"
-  }
-}

@@ -1,2 +1,2 @@
-class InterestedPerson < ActiveRecord::Base
+class InterestedPerson < ApplicationRecord
 end
