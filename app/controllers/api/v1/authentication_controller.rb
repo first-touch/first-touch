@@ -17,7 +17,7 @@ module Api::V1
       if @current_user.save
         render json: { message: 'Logged out' }
       else
-        render json: { error: @current_user.error_messages }, status: :unprocessable_entity
+        render json: { error: @current_user.errors.full_messages }, status: :unprocessable_entity
       end
     end
   end

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'authenticate', to: 'authentication#authenticate'
       post 'logout', to: 'authentication#logout'
+      post 'pre_register', to: 'visitors#pre_register'
 
       resources :relationships, only: [:create, :destroy]
       resources :users, only: [:show, :update]
