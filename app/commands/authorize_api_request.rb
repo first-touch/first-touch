@@ -14,7 +14,15 @@ class AuthorizeApiRequest
   attr_reader :headers
 
   def user
-    @user ||= User.find(decoded_auth_token[:user_id]) if decoded_auth_token
+    if decoded_auth_token
+      last_logout = Time.at(decoded_auth_token[:last_logout]).to_datetime
+      min_date = last_logout - 1.second
+      max_date = last_logout + 1.second
+      @user ||= User.find_by(id: decoded_auth_token[:user_id],
+                             password_digest: decoded_auth_token[:digest],
+                             last_logout_at: [min_date..max_date]
+                            )
+    end
     @user || errors.add(:token, 'Invalid token') && nil
   end
 

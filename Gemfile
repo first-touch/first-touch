@@ -33,7 +33,10 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-json_expectations'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'timecop'
+
 end
 
 group :development do
