@@ -18,12 +18,12 @@ gulp.task('serve:dist', gulp.series('default', 'browsersync:dist'));
 gulp.task('default', gulp.series('clean', 'build'));
 gulp.task('watch', watch);
 
-function reloadBrowserSync(cb) {
+function reloadBrowserSync (cb) {
   browserSync.reload();
   cb();
 }
 
-function watch(done) {
+function watch (done) {
   gulp.watch(conf.path.tmp('index.html'), reloadBrowserSync);
   done();
 }

@@ -1,19 +1,19 @@
-import {SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE} from './TodoFilters';
+import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from './TodoFilters';
 
-function showAll() {
+function showAll () {
   return true;
 }
 
-function showCompleted(todo) {
+function showCompleted (todo) {
   return todo.completed;
 }
 
-function showActive(todo) {
+function showActive (todo) {
   return !todo.completed;
 }
 
 export default {
-  [SHOW_ALL]: {filter: showAll, type: SHOW_ALL},
-  [SHOW_COMPLETED]: {filter: showCompleted, type: SHOW_COMPLETED},
-  [SHOW_ACTIVE]: {filter: showActive, type: SHOW_ACTIVE}
+  [SHOW_ALL]: { filter: showAll, type: SHOW_ALL },
+  [SHOW_COMPLETED]: { filter: showCompleted, type: SHOW_COMPLETED },
+  [SHOW_ACTIVE]: { filter: showActive, type: SHOW_ACTIVE }
 };

@@ -20,7 +20,7 @@ gulp.task('webpack:dist', done => {
   webpackWrapper(false, webpackDistConf, done);
 });
 
-function webpackWrapper(watch, conf, done) {
+function webpackWrapper (watch, conf, done) {
   const webpackBundler = webpack(conf);
 
   const webpackChangeHandler = (err, stats) => {
