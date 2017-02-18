@@ -9,6 +9,12 @@ const pkg = require('../package.json');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
+  resolve: {
+    alias: {
+      'stylesheets': path.resolve(__dirname, '../src/stylesheets/'),
+      'images': path.resolve(__dirname, '../src/images/')
+    }
+  },
   module: {
     loaders: [
       {
@@ -71,7 +77,6 @@ module.exports = {
     filename: '[name]-[hash].js'
   },
   entry: {
-    app: `./${conf.path.src('index')}`,
-    vendor: Object.keys(pkg.dependencies).filter(dep => ['todomvc-app-css'].indexOf(dep) === -1)
+    app: `./${conf.path.src('index')}`
   }
 };
