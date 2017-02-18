@@ -22,6 +22,8 @@ set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, false  # Change to true if using ActiveRecord
 
+set :frontend_path, "#{release_path}/client"
+
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
@@ -76,6 +78,13 @@ namespace :deploy do
     end
   end
 
+  desc 'Build Frontend'
+  task :compile_fe do
+    on roles(:app) do
+      execute "cd '#{fetch(:frontend_path)}'; npm install; npm rebuild node-sass; npm run build"
+    end
+  end
+
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
@@ -83,7 +92,9 @@ namespace :deploy do
     end
   end
 
-  after  :finishing,    :compile_assets
-  after  :finishing,    :cleanup
+  after :finishing, :compile_fe
+
+  # after  :finishing,    :compile_assets
+  # after  :finishing,    :cleanup
   after  :finishing,    :restart
 end
