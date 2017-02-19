@@ -3,7 +3,7 @@ module Api::V1
     skip_before_action :authenticate_request, only: [:authenticate]
 
     def authenticate
-      command = AuthenticateUser.call(params[:email], params[:password])
+      command = AuthenticateUser.call(auth_params[:email], auth_params[:password])
 
       if command.success?
         render json: { auth_token: command.result }
@@ -19,6 +19,12 @@ module Api::V1
       else
         render json: { error: @current_user.errors.full_messages }, status: :unprocessable_entity
       end
+    end
+
+    private
+
+    def auth_params
+      params.permit(:email, :password)
     end
   end
 end

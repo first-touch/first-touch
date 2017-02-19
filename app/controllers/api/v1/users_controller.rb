@@ -1,5 +1,21 @@
 class Api::V1::UsersController < Api::V1::BaseController
+  skip_before_action :authenticate_request, only: [:register]
   before_action :find_user, only: [:show, :update, :follows]
+
+  def register
+    mandatory = [:email, :password, :password_confirmation, :personal_profile_attributes]
+
+    if mandatory.any? {|attr| !register_params.has_key?(attr) }
+      render json: { error: 'Missing attributes' }, status: :unprocessable_entity
+    else
+      @user = User.new register_params
+      if @user.save
+        render json: @user
+      else
+        render json: { error: @user.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
+  end
 
   def show
     if @user
@@ -40,6 +56,15 @@ class Api::V1::UsersController < Api::V1::BaseController
     rescue ActiveRecord::RecordNotFound => e
       @user = nil
     end
+  end
+
+  def register_params
+    params.permit(:email, :password, :password_confirmation,
+                  personal_profile_attributes: [
+                    :first_name,
+                    :last_name,
+                    :birthday
+                  ])
   end
 
   def user_params

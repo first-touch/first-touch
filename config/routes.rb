@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
       resources :relationships, only: [:create, :destroy]
       resources :users, only: [:show, :update]
+      post 'users/register', to: 'users#register', as: :register
       get 'users/:id/follows', controller: :users, action: :follows
       resources :posts, only: [:index, :create, :update, :destroy]
       # Note: Named route for users search because later on the search will probably
