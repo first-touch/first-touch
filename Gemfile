@@ -7,10 +7,10 @@ gem 'jwt'
 gem 'pg'
 gem 'puma'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.0'
-gem 'rack-cors', :require => 'rack/cors'
-gem 'simple_command'
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'simple_command'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -20,9 +20,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 group :deployment do
   gem 'capistrano',         require: false
-  gem 'capistrano-rvm',     require: false
-  gem 'capistrano-rails',   require: false
   gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-rvm',     require: false
   gem 'capistrano3-puma',   require: false
 end
 
@@ -32,11 +32,10 @@ group :development, :test do
   gem 'byebug'
   gem 'factory_girl_rails'
   gem 'faker'
-  gem 'rspec-rails', '~> 3.0'
   gem 'rspec-json_expectations'
+  gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'timecop'
-
 end
 
 group :development do
