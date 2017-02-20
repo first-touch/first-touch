@@ -3,7 +3,7 @@ module Api::V1
     skip_before_action :authenticate_request
 
     def pre_register
-      ip = InterestedPerson.create(params.permit(:email, :name))
+      ip = InterestedPerson.create(params.permit(:email, :request))
       if ip.save
         render json: { message: 'Registered successfully' }
       else

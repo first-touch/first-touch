@@ -4,7 +4,7 @@ RSpec.describe Api::V1::VisitorsController, type: :controller do
   describe 'POST pre_register' do
     let(:do_request) { post :pre_register, params: {
                               email: 'hello@mailinator.com',
-                              name: 'Amazing spiderman'
+                              request: 'Amazing spiderman'
                             }}
     let(:response_code) { response.response_code }
 
