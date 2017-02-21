@@ -8,7 +8,8 @@ Rails.application.routes.draw do
       post 'pre_register', to: 'visitors#pre_register'
 
       resources :relationships, only: [:create, :destroy]
-      resources :users, only: [:show, :update]
+      resources :users, only: [:show]
+      resource :users, only: [:update]
       post 'users/register', to: 'users#register', as: :register
       get 'users/:id/follows', controller: :users, action: :follows
       resources :posts, only: [:index, :create, :update, :destroy]

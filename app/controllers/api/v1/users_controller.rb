@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1::BaseController
   skip_before_action :authenticate_request, only: [:register]
-  before_action :find_user, only: [:show, :update, :follows]
+  before_action :find_user, only: [:show, :follows]
 
   def register
     mandatory = [:email, :password, :password_confirmation, :personal_profile_attributes]
@@ -28,11 +28,11 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def update
-    @user.update_attributes user_params
-    if @user.save
-      render json: @user
+    @current_user.update_attributes user_params
+    if @current_user.save
+      render json: @current_user
     else
-      render json: { error: @user.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: @current_user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
