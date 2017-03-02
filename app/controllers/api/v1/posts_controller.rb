@@ -3,19 +3,15 @@ module Api
     class PostsController < Api::V1::BaseController
       def index
         # Build feed
-        render json: current_user.feed
+        render json: @current_user.feed
       end
 
       def create
-        if current_user.id.to_s == params[:post][:user_id]
-          new_post = Post.new post_params
-          if new_post.save
-            render json: new_post
-          else
-            render json: {}, status: :unprocesseable_entity
-          end
+        new_post = Post.new post_params
+        if new_post.save
+          render json: new_post
         else
-          render json: {}, status: :unauthorized
+          render json: { error: new_post.errors.full_messages }, status: :unprocesseable_entity
         end
       end
 
