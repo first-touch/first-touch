@@ -73,7 +73,7 @@ namespace :deploy do
   desc 'Initial Deploy'
   task :initial do
     on roles(:app) do
-      before 'deploy:restart', 'puma:start'
+      before 'deploy:restart'
       invoke 'deploy'
     end
   end
@@ -88,13 +88,11 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
+      Rake::Task["puma:restart"].reenable
       invoke 'puma:restart'
     end
   end
 
   after :finishing, :compile_fe
-
-  # after  :finishing,    :compile_assets
-  # after  :finishing,    :cleanup
-  after  :finishing,    :restart
+  after :finishing, :restart
 end

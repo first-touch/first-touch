@@ -60,9 +60,6 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { unused: true, dead_code: true, warnings: false } // eslint-disable-line camelcase
-    }),
     new ExtractTextPlugin('index-[contenthash].css'),
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
     new webpack.LoaderOptionsPlugin({
