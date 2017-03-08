@@ -17,10 +17,15 @@ set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
 set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
 set :puma_access_log, "#{release_path}/log/puma.error.log"
 set :puma_error_log,  "#{release_path}/log/puma.access.log"
-set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
+set :ssh_options,     {
+      forward_agent: true,
+      user: fetch(:user),
+      keys: %w(~/.ssh/id_rsa),
+      auth_methods: %w(publickey)
+    }
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
-set :puma_init_active_record, false  # Change to true if using ActiveRecord
+set :puma_init_active_record, true  # Change to true if using ActiveRecord
 
 set :frontend_path, "#{release_path}/client"
 
@@ -38,7 +43,7 @@ set :pty, true
 append :linked_files, "config/database.yml", "config/secrets.yml"
 
 # Default value for linked_dirs is []
-# append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
+append :linked_dirs, %{client/node_modules}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -59,6 +64,14 @@ namespace :puma do
 end
 
 namespace :deploy do
+  desc 'Initial Deploy'
+  task :initial do
+    on roles(:app) do
+      before 'deploy:restart'
+      invoke 'deploy'
+    end
+  end
+
   desc "Make sure local git is in sync with remote."
   task :check_revision do
     on roles(:app) do
@@ -70,29 +83,21 @@ namespace :deploy do
     end
   end
 
-  desc 'Initial Deploy'
-  task :initial do
-    on roles(:app) do
-      before 'deploy:restart'
-      invoke 'deploy'
+  desc 'yarn install'
+  task :yarn_install do
+    on roles(:app), in: :sequence, wait: 5 do
+      within release_path do
+        execute "cd '#{fetch(:frontend_path)}'; yarn install;"
+      end
     end
   end
+  after :published, :yarn_install
 
   desc 'Build Frontend'
-  task :compile_fe do
-    on roles(:app) do
-      execute "cd '#{fetch(:frontend_path)}'; npm install; npm rebuild node-sass; npm run build"
-    end
-  end
-
-  desc 'Restart application'
-  task :restart do
+  task :build do
     on roles(:app), in: :sequence, wait: 5 do
-      Rake::Task["puma:restart"].reenable
-      invoke 'puma:restart'
+      execute "cd '#{fetch(:frontend_path)}'; npm run build"
     end
   end
-
-  after :finishing, :compile_fe
-  after :finishing, :restart
+  after :yarn_install, :build
 end
