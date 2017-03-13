@@ -106,117 +106,99 @@
     </div>
   </div>
   <div id="fourth-page">
-    <div class="flex-container">
-      <div class="flex-col ft-card club">
-        <div class="front">
-          <h2>CLUBS</h2>
-          <a class="bar-button center more">More</a>
+    <div class="container">
+      <div class="row row-50">
+        <div class="col-md-4">
+          <img src="images/landing-page/ft-icons-club.png" class="img-fluid" />
+          <h5>CLUBS</h5>
+          <div class="content">
+            <button class="btn btn-sm">More</button>
+            <p>
+              Think and work like the best and maximise your chances of success
+              on and off the field. FirstTouch brings you a truly Total Football
+              Management experience. Manage your team, coach your players,
+              instruct your staff, organise events and matches, connect with
+              scouts and agents and make the most of all your resources. Bring
+              it all together on one platform: FirstTouch.
+            </p>
+          </div>
         </div>
-        <div class="back">
-          <h2>
-            CLUBS
-          </h2>
-          <p>
-            Think and work like the best and maximise your chances of success on
-            and off the field. FirstTouch brings you a truly Total Football
-            Management experience. Manage your team, coach your players, instruct
-            your staff, organise events and matches, connect with scouts and
-            agents and make the most of all your resources. Bring it all together
-            on one platform: FirstTouch.
-          </p>
+        <div class="col-md-4">
+          <img src="images/landing-page/ft-icons-player.png" class="img-fluid" />
+          <h5>PLAYERS</h5>
+          <div class="content">
+            <button class="btn btn-sm">More</button>
+            <p>
+              Register and access a vast world of football resources; More from
+              articles and videos to teammates and experts. FirstTouch will
+              connect you to your team, the people that can make things happen
+              in your career and enough content to satisfy your appetite for
+              football. FirstTouch will become the platform for managing your
+              football career.
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="flex-col ft-card player">
-        <div class="front">
-          <h2>PLAYERS</h2>
-          <a class="bar-button center more">More</a>
-        </div>
-        <div class="back">
-          <h2>
-            PLAYERS
-          </h2>
-          <p>
-            Register and access a vast world of football resources; from articles
-            and videos to teammates and experts. FirstTouch will connect you to
-            your team, the people that can make things happen in your career and
-            enough content to satisfy your appetite for football. FirstTouch will
-            become the platform for managing your football career.
-          </p>
-        </div>
-      </div>
-      <div class="flex-col ft-card manager">
-        <div class="front">
-          <h2>MANAGERS</h2>
-          <a class="bar-button center more">More</a>
-        </div>
-        <div class="back">
-          <h2>
-            MANAGERS
-          </h2>
-          <p>
-            Building teams and achieving success. That's what FirstTouch can be
-            for you. Get access to a wealth of resources and a vast network of
-            players, coaches and scouts that you could only expect working for
-            the elite clubs. It does away with the pain of the trivial activities
-            of more modest clubs and allows you to focus on what matters: your
-            team, your career, your success.
-          </p>
+        <div class="col-md-4">
+          <img src="images/landing-page/ft-icons-manager.png" class="img-fluid"  />
+          <h5>MANAGERS</h5>
+          <div class="content">
+            <button class="btn btn-sm">More</button>
+            <p>
+              Building teams and achieving success. That's what FirstTouch can
+              be for you. Get access to a wealth of resources and a vast network
+              of players, coaches and scouts that you could only expect working
+              for the elite clubs. It does away with the pain of the trivial
+              activities of more modest clubs and allows you to focus on what
+              matters: your team, your career, your success.
+            </p>
+          </div>
         </div>
       </div>
-      <div class="flex-col ft-card coach">
-        <div class="front">
-          <h2>COACHES</h2>
-          <a class="bar-button center more">More</a>
+      <div class="row row-50">
+        <div class="col-md-4">
+          <img src="images/landing-page/ft-icons-coach.png" class="img-fluid" />
+          <h5>COACHES</h5>
+          <div class="content">
+            <button class="btn btn-sm">More</button>
+            <p>
+              If you want to organise training sessions, you can. Communicate
+              with your players, you can. Check the health and fitness of a
+              player, you can. Check their performance. You can. Ask for expert
+              advice, you can. Got an idea and want to capture it before you
+              forget, you can. Share these, you can. Embark on a new adventure
+              or find a new job, absolutely! FirstTouch makes it possible.
+            </p>
+          </div>
         </div>
-        <div class="back">
-          <h2>
-            COACHES
-          </h2>
-          <p>
-            If you want to organise training sessions, you can. Communicate with
-            your players, you can. Check the health and fitness of a player, you
-            can. Check their performance. You can. Ask for expert advice, you can.
-            Got an idea and want to capture it before you forget, you can. Share
-            these, you can. Embark on a new adventure or find a new job,
-            absolutely! FirstTouch makes it possible.
-          </p>
+        <div class="col-md-4">
+          <img src="images/landing-page/ft-icons-scout.png" class="img-fluid" />
+          <h5>SCOUTS</h5>
+          <div class="content">
+            <button class="btn btn-sm">More</button>
+            <p>
+              FirstTouch is networking 4.0! Grow your own network; More gain
+              access to markets near and far; tap into a live and growing
+              database of players and peers; and, gain the tools to manage your
+              research more effectively. Organise trials, track player
+              performances, refer to scout reports, make your own notes and
+              contact players, managers and agents directly.
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="flex-col ft-card scout">
-        <div class="front">
-          <h2>SCOUTS</h2>
-          <a class="bar-button center more">More</a>
-        </div>
-        <div class="back">
-          <h2>
-            SCOUTS
-          </h2>
-          <p>
-            FirstTouch is networking 4.0! Grow your own network; gain access to
-            markets near and far; tap into a live and growing database of players
-            and peers; and, gain the tools to manage your research more effectively.
-            Organise trials, track player performances, refer to scout reports,
-            make your own notes and contact players, managers and agents directly.
-          </p>
-        </div>
-      </div>
-      <div class="flex-col ft-card agent">
-        <div class="front">
-          <h2>AGENTS</h2>
-          <a class="bar-button center more">More</a>
-        </div>
-        <div class="back">
-          <h2>
-            AGENTS
-          </h2>
-          <p>
-            Football is about networks and relationships and FirstTouch puts this
-            at the heart of what they do. As an agent you can manage all your
-            clients and contacts from one place and communicate with them
-            regularly and securely. What's more, FirstTouch expands your reach
-            whilst simultaneously making everything more efficient and effective...
-            Gain more access but save time and money.
-          </p>
+        <div class="col-md-4">
+          <img src="images/landing-page/ft-icons-agent.png" class="img-fluid" />
+          <h5>AGENTS</h5>
+          <div class="content">
+            <button class="btn btn-sm">More</button>
+            <p>
+              Football is about networks and relationships and FirstTouch puts
+              this at the heart of what they do. As an agent you can manage all
+              your clients and contacts from one place and communicate with them
+              regularly and securely. What's more, FirstTouch expands your reach
+              whilst simultaneously making everything more efficient and
+              effective... Gain more access but save time and money.
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -248,87 +248,39 @@ li {
   }
 }
 #fourth-page {
-  background-color: #191a1b;
-
-  .flex-container {
-    display: flex;
-    flex-wrap: wrap;
-    perspective: 100vh;
+  background-color: #fff;
+  .container {
+    height: calc(100vh - 70px);
+    background-size: 100% 100%;
   }
 
-  .flex-col {
-    flex: 1 1 33.33333vw;
-    min-height: calc(50vh - 35px);
-  }
-
-  .ft-card {
-    .front, .back {
-      backface-visibility: hidden;
-      min-height: calc(50vh - 35px);
-      width: 33.33333vw;
-      position: absolute;
+  .row-50 {
+    height: 50%;
+    .col-md-4 {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      padding-left: 3vw;
-      padding-right: 3vw;
-      text-align: center;
+      justify-content: center;
+      color: $secondary-text-color;
     }
-
-    .front {
-      z-index: 2;
-      background-size: cover;
-      background-position: top;
-      font-size: 1.5em;
+    h5 { background-color: #fff; }
+    .img-fluid {
+      max-height: 40%;
+      margin: 10px 0;
+    }
+    .content {
       display: flex;
-
-      img { width: 3vw; }
-
-      .bar-button {
-        font-size: .8em;
+      flex-direction: column;
+      align-items: center;
+      background-color: #fff;
+      .btn {
+        background-color: #fff;
+        color: $secondary-text-color;
+        border: 1px solid $secondary-text-color;
       }
-
-    }
-
-    .back {
-      background-color: #219444;
-    }
-  }
-
-  .coach {
-    .front {
-      background-image: linear-gradient(to bottom, rgba(92, 132, 33, 0.3), rgba(92, 132, 33, 0.3)), url("http://cache2.asset-cache.net/gc/542148074-antonio-conte-head-coach-of-italy-looks-on-gettyimages.jpg?v=1&c=IWSAsset&k=2&d=X7WJLa88Cweo9HktRLaNXllDT9Blv0LWlCrvKdjX2XyGR7oit6aEYW8CFxb4Kg%2FOvdEzTiXGHE5MadAyLFsCRg%3D%3D");
-    }
-  }
-
-  .club {
-    .front {
-      background-image: linear-gradient(to bottom, rgba(92, 132, 33, 0.3), rgba(92, 132, 33, 0.3)), url("http://imworld.aufeminin.com/story/20140606/florentino-perez-mujer-254201_w1000.jpg");
-    }
-  }
-
-  .player {
-    .front {
-      background-image: linear-gradient(to bottom, rgba(92, 132, 33, 0.3), rgba(92, 132, 33, 0.3)), url("https://d.ibtimes.co.uk/en/full/282749/cristiano-ronaldo.jpg");
-    }
-  }
-
-  .agent {
-    .front {
-      background-image: linear-gradient(to bottom, rgba(92, 132, 33, 0.3), rgba(92, 132, 33, 0.3)), url("http://specials-images.forbesimg.com/imageserve/55e9e239e4b0ffa7afe46692/320x486.jpg?fit=scale&background=000000");
-    }
-  }
-
-  .manager {
-    .front {
-      background-image: linear-gradient(to bottom, rgba(92, 132, 33, 0.3), rgba(92, 132, 33, 0.3)), url("http://www.oddsdaily.com/news/wp-content/uploads/2016/11/nintchdbpict000270_2984281a.jpg");
-    }
-  }
-
-  .scout {
-    .front {
-      background-image: linear-gradient(to bottom, rgba(92, 132, 33, 0.3), rgba(92, 132, 33, 0.3)), url("http://www.mattbradleysoccerscout.com/uploads/3/9/5/3/3953150/8479872.jpg?355");
+      p { display: none; text-align: center; font-size: .75em; }
+      .btn:focus { order: 1; opacity: 0; }
+      .btn:focus + p { display: block; }
     }
   }
 }
@@ -553,6 +505,19 @@ li {
   }
 }
 
+@media (max-width: 768px) {
+  #fourth-page {
+    .container {
+      height: auto;
+      background-image: none;
+      .row-50 {
+        height: inherit;
+        .img-fluid { max-height: none; }
+      }
+    }
+  }
+}
+
 // for xs mobile
 @media (max-width: 480px) {
   #second-page {
@@ -583,13 +548,22 @@ li {
     padding: 60px 20px;
   }
 
-  #fifth-page #first-half {
-    padding: 60px 20px;
-    .header {
-      font-size: 1.2em;
-    }
-    .bar-button {
-      font-size: .8em;
+  #fourth-page {
+    margin-top: 216px;
+  }
+
+  #fifth-page {
+    #first-half {
+      margin-bottom: 50px;
+      padding: 60px 20px;
+
+      .header {
+        font-size: 1.2em;
+      }
+
+      .bar-button {
+        font-size: .8em;
+      }
     }
   }
 }
