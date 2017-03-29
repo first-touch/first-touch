@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1::BaseController
   skip_before_action :authenticate_request, only: [:register]
-  before_action :find_user, only: [:show, :follows]
+  before_action :find_user, only: [:public_profile, :follows]
 
   def register
     mandatory = [:email, :password, :password_confirmation, :personal_profile_attributes]
@@ -18,6 +18,10 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def show
+    render json: @current_user
+  end
+
+  def public_profile
     if @user
       # TODO: This should decide wether rendering public profile data or private profile data
       # depending on privacy definitions.

@@ -1,15 +1,19 @@
 Rails.application.routes.draw do
-  root to: 'users#home'
-
   namespace :api do
     namespace :v1 do
-      post 'authenticate', to: 'authentication#authenticate'
-      post 'logout', to: 'authentication#logout'
-      post 'pre_register', to: 'visitors#pre_register'
+      post 'authenticate', controller: :authentication, action: :authenticate
+      post 'logout', controller: :authentication, action: :logout
+      post 'pre_register', controller: :visitors, action: :pre_register
 
       resources :relationships, only: [:create, :destroy]
-      resources :users, only: [:show]
-      resource :users, only: [:update]
+
+      # Public profile of user
+      get 'users/:id/profile', controller: :users, action: :public_profile
+
+      # Authenticated user actions: profile get and update
+      resource :user, only: [:show, :update]
+
+
       post 'users/register', to: 'users#register', as: :register
       get 'users/:id/follows', controller: :users, action: :follows
       resources :posts, only: [:index, :create, :update, :destroy]

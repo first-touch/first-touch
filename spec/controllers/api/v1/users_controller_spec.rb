@@ -40,20 +40,23 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
   end
 
-  describe 'GET user' do
+  describe 'GET public profile' do
     let(:existing_user) { create :user }
     let(:calvin) { create :user }
-    let(:do_request) { get :show, params: { id: existing_user.id } }
-    let(:mock_auth) { AuthorizeApiRequest.new }
+    let(:do_request) { get :public_profile, params: { id: existing_user.id } }
+    let(:fake_command) { AuthorizeApiRequest.new }
+    let(:fake_result)  { fake_command }
 
     before do
-      allow(mock_auth).to receive(user).and_return(calvin)
+      allow(AuthorizeApiRequest).to receive(:new).and_return(fake_command)
+      allow(fake_command).to receive(:call).and_return(fake_result)
+      allow(fake_result).to receive(:result).and_return(calvin)
       do_request
     end
 
     it 'returns the full user profile' do
       expect(response_code).to eq 200
-      expect(response_body).to include_json existing_user.as_json
+      expect(response_body).to include_json UserSerializer.new(existing_user).as_json
     end
   end
 end
