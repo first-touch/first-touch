@@ -15,6 +15,12 @@ class User < ApplicationRecord
   has_many :messages_to_receive, class_name: 'MessageRecipient', foreign_key: 'recipient_id'
   has_many :received_messages, through: :messages_to_receive, source: :message
 
+  has_many :club_users
+  has_many :clubs, through: :club_users
+
+  has_many :team_users
+  has_many :teams, through: :team_users
+
   before_save :update_search_string, if: -> { email_changed? }
 
   def follow user

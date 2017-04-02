@@ -10,6 +10,10 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:following).through :active_relationships }
     it { is_expected.to have_many(:posts) }
     it { is_expected.to have_many(:career_entries) }
+    it { is_expected.to have_many(:club_users) }
+    it { is_expected.to have_many(:clubs).through(:club_users) }
+    it { is_expected.to have_many(:team_users) }
+    it { is_expected.to have_many(:teams).through(:team_users) }
   end
 
   describe 'follow/unfollow' do

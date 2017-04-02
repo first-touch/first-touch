@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220115029) do
+ActiveRecord::Schema.define(version: 20170401084659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,36 @@ ActiveRecord::Schema.define(version: 20170220115029) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_career_entries_on_user_id", using: :btree
+  end
+
+  create_table "club_users", force: :cascade do |t|
+    t.integer  "club_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["club_id"], name: "index_club_users_on_club_id", using: :btree
+    t.index ["user_id"], name: "index_club_users_on_user_id", using: :btree
+  end
+
+  create_table "clubs", force: :cascade do |t|
+    t.integer  "account_owner_id"
+    t.string   "name"
+    t.string   "city"
+    t.string   "country_code"
+    t.string   "stadium_name"
+    t.date     "date_founded"
+    t.string   "twitter_handle"
+    t.string   "website"
+    t.text     "history"
+    t.string   "address"
+    t.string   "phone_number"
+    t.string   "email"
+    t.string   "facebook_link"
+    t.string   "home_kit_color"
+    t.string   "away_kit_color"
+    t.string   "third_kit_color"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "interested_people", force: :cascade do |t|
@@ -78,6 +108,23 @@ ActiveRecord::Schema.define(version: 20170220115029) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
   end
 
+  create_table "team_users", force: :cascade do |t|
+    t.integer  "team_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_team_users_on_team_id", using: :btree
+    t.index ["user_id"], name: "index_team_users_on_user_id", using: :btree
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "team_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "club_id"
+    t.index ["club_id"], name: "index_teams_on_club_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",           default: "", null: false
     t.datetime "created_at",                   null: false
@@ -89,4 +136,8 @@ ActiveRecord::Schema.define(version: 20170220115029) do
   end
 
   add_foreign_key "career_entries", "users"
+  add_foreign_key "club_users", "clubs"
+  add_foreign_key "club_users", "users"
+  add_foreign_key "team_users", "teams"
+  add_foreign_key "team_users", "users"
 end
