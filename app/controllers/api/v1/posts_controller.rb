@@ -1,3 +1,4 @@
+# TOOD: Write tests
 module Api
   module V1
     class PostsController < Api::V1::BaseController
@@ -11,7 +12,8 @@ module Api
         if new_post.save
           render json: new_post
         else
-          render json: { error: new_post.errors.full_messages }, status: :unprocesseable_entity
+          render json: { error: new_post.errors.full_messages },
+                 status: :unprocesseable_entity
         end
       end
 
@@ -29,7 +31,8 @@ module Api
         params.require(:post).permit([
                                        :user_id,
                                        :content,
-                                       :id
+                                       :id,
+                                       :images_attributes
                                      ])
       end
     end

@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'active_model_serializers'
+gem 'aws-sdk', '~> 2.3.0'
 gem 'bcrypt', '~>3.1.7'
 gem 'bundler', '>= 1.8.4'
 gem 'jwt'
@@ -11,6 +12,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simple_command'
+gem 'paperclip', '~> 5.0.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 

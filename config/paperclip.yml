@@ -1,0 +1,24 @@
+production: &production
+  storage: :s3
+  s3_credentials:
+    access_key_id: "<%= Rails.application.secrets.FT_AWS_ACCESS_KEY %>"
+    secret_access_key: "<%= Rails.application.secrets.FT_AWS_SECRET_KEY %>"
+  s3_region: "<%= Rails.application.secrets.FT_AWS_REGION %>"
+  path: ':class/:id/:style/:filename'
+  bucket: "<%= Rails.application.secrets.FT_AWS_PRODUCTION_BUCKET_NAME %>"
+  url: ':s3_domain_url'
+
+staging:
+  <<: *production
+  bucket: "<%= Rails.application.secrets.AWS_STAGING_BUCKET_NAME %>"
+
+development:
+  storage: :filesystem
+  path: ':rails_root/public/paperclip/:class/:id/:style/:filename'
+  url: '/paperclip/:class/:id/:style/:filename'
+
+
+test:
+  storage: :filesystem
+  path: ':rails_root/public/paperclip/:class/:id/:style/:filename'
+  url: '/paperclip/:class/:id/:style/:filename'

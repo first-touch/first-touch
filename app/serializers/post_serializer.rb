@@ -7,6 +7,8 @@ class PostSerializer < ActiveModel::Serializer
              :created_at,
              :updated_at
 
+  has_many :images, serializer: ImageSerializer
+
   def author_id
     object.user_id
   end
