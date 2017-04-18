@@ -5,14 +5,25 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :personal_profile
 
   has_many :career_entries
-  has_many :active_relationships, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
-  has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
+  has_many :active_relationships,
+           class_name: 'Relationship',
+           foreign_key: 'follower_id',
+           dependent: :destroy
+
+  has_many :passive_relationships,
+           class_name: 'Relationship',
+           foreign_key: 'followed_id',
+           dependent: :destroy
+
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
   has_many :posts
   has_many :sent_messages, class_name: 'Message', foreign_key: 'creator_id'
-  has_many :messages_to_receive, class_name: 'MessageRecipient', foreign_key: 'recipient_id'
+  has_many :messages_to_receive,
+           class_name: 'MessageRecipient',
+           foreign_key: 'recipient_id'
+
   has_many :received_messages, through: :messages_to_receive, source: :message
 
   has_many :club_users
@@ -23,28 +34,30 @@ class User < ApplicationRecord
 
   before_save :update_search_string, if: -> { email_changed? }
 
-  def follow user
+  def follow(user)
     active_relationships.create followed_id: user.id
   end
 
-  def unfollow user
+  def unfollow(user)
     active_relationships.find_by(followed_id: user.id).destroy
   end
 
-  def following? user
+  def following?(user)
     following.include? user
   end
 
   # NOTE: For now this is good enough as it gets all the recent posts
   # TODO: Build a more meaningful feed
   def feed
-    relevant_user_ids = following_ids + [self.id]
+    relevant_user_ids = following_ids + [id]
     Post.where(user_id: relevant_user_ids).order('updated_at DESC')
   end
 
   def inbox
-    full_inbox = self.sent_messages.includes(:message_recipient).group_by { |ms| ms.message_recipient.recipient_id }
-    messages_to_add = self.received_messages.group_by { |mr| mr.creator_id }
+    full_inbox = sent_messages.includes(:message_recipient).group_by do |ms|
+      ms.message_recipient.recipient_id
+    end
+    messages_to_add = received_messages.group_by(&:creator_id)
     messages_to_add.each do |sender_id, messages|
       full_inbox[sender_id] ||= []
       full_inbox[sender_id] += messages
@@ -57,21 +70,21 @@ class User < ApplicationRecord
   # TODO: Get a more efficient way of building the network graph
   def network
     {
-      following: self.following,
-      followers: self.followers
+      following: following,
+      followers: followers
     }
   end
 
   def first_name
-    self.personal_profile.try(:first_name) || ''
+    personal_profile.try(:first_name) || ''
   end
 
   def middle_name
-    self.personal_profile.try(:middle_name) || ''
+    personal_profile.try(:middle_name) || ''
   end
 
   def last_name
-    self.personal_profile.try(:last_name) || ''
+    personal_profile.try(:last_name) || ''
   end
 
   def full_name
@@ -79,7 +92,7 @@ class User < ApplicationRecord
   end
 
   def email_local_part
-    self.email[/[^@]+/] || ''
+    email[/[^@]+/] || ''
   end
 
   def update_search_string
@@ -87,10 +100,12 @@ class User < ApplicationRecord
     m_name = middle_name.try(:normalize) || ''
     l_name = last_name.try(:normalize) || ''
 
-    self.search_string = "#{email_local_part.normalize} #{f_name.normalize} #{m_name.normalize} #{l_name.normalize}".strip
+    self.search_string = "#{email_local_part.normalize} "\
+                         "#{f_name.normalize} #{m_name.normalize} "\
+                         "#{l_name.normalize}".strip
   end
 
   def career_history
-    self.career_entries.order(start_date: :desc)
+    career_entries.order(start_date: :desc)
   end
 end

@@ -25,7 +25,8 @@ class Api::V1::UsersController < Api::V1::BaseController
     if @user
       # TODO: This should decide wether rendering public profile data or private profile data
       # depending on privacy definitions.
-      render json: @user
+      current_user_follows = @current_user.following?(@user)
+      render json: Users::PublicProfileSerializer.new(@user, following: current_user_follows).as_json
     else
       render json: { error: 'User not found' }, status: :unprocessable_entity
     end

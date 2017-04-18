@@ -16,6 +16,21 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:teams).through(:team_users) }
   end
 
+  describe 'triggers' do
+    describe 'before save' do
+
+      describe 'when email has changed' do
+        it 'updates the search string' do
+          current_search_string = calvin.search_string
+          calvin.email = 'calvinsemaill@klein.com'
+          calvin.save
+          expect(calvin.reload.search_string).not_to eq current_search_string
+          expect(calvin.reload.search_string).to match /^calvinsemail*/
+        end
+      end
+    end
+  end
+
   describe 'follow/unfollow' do
     it 'allows to follow and unfollow users' do
       expect(calvin.following?(hobbes)).to eq false
