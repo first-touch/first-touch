@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get 'search', controller: :users, action: :search
       resources :network, only: [:index]
       resources :messages, only: [:index, :create]
+      resources :session_plans
     end
   end
 end

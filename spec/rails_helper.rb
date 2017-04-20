@@ -68,3 +68,9 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+
+def authenticated_header(user)
+  token = AuthenticateUser.call(user.email, user.password).result
+  @request.headers['Authorization'] = token
+end

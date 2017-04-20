@@ -37,7 +37,6 @@ RSpec.describe Api::V1::MessagesController, type: :controller do
       end
 
       before do
-        sign_in hobbes
         do_request
       end
 
@@ -65,10 +64,6 @@ RSpec.describe Api::V1::MessagesController, type: :controller do
     it_behaves_like 'authenticated request'
 
     describe 'when the user is logged in' do
-      before do
-        sign_in hobbes
-      end
-
       it 'creates the message and message recipient' do
         expect { do_request }.to change { Message.count }.by 1
       end

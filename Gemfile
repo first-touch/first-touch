@@ -40,6 +40,10 @@ group :development, :test do
   gem 'timecop'
 end
 
+group :test do
+  gem 'json-schema'
+end
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'rubocop'

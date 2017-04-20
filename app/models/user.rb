@@ -32,6 +32,8 @@ class User < ApplicationRecord
   has_many :team_users
   has_many :teams, through: :team_users
 
+  has_many :session_plans
+
   before_save :update_search_string, if: -> { email_changed? }
 
   def follow(user)
