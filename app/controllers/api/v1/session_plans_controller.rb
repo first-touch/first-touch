@@ -1,7 +1,7 @@
 module Api
   module V1
     class SessionPlansController < Api::V1::BaseController
-      before_filter :find_session_plan, except: [:index, :create]
+      before_action :find_session_plan, except: [:index, :create]
 
       def index
         render json: @current_user.session_plans

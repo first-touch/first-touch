@@ -8,9 +8,9 @@ class AuthenticateUser
 
   def call
     return nil unless user
-    JsonWebToken.encode(user_id: user.id,
+    JsonWebToken.encode({ user_id: user.id,
                         digest: user.password_digest,
-                        last_logout: user.last_logout_at.to_i)
+                        last_logout: user.last_logout_at.to_i}, 1.week.from_now)
   end
 
   private
