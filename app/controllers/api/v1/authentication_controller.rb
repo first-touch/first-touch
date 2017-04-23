@@ -1,6 +1,6 @@
 module Api::V1
   class AuthenticationController < Api::V1::BaseController
-    skip_before_action :authenticate_request, only: [:authenticate]
+    skip_before_action :authenticate_request, only: [:authenticate, :validate]
 
     def authenticate
       command = AuthenticateUser.call(auth_params[:email], auth_params[:password])
@@ -18,6 +18,23 @@ module Api::V1
         render json: { message: 'Logged out' }
       else
         render json: { error: @current_user.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
+
+    def validate
+      token_expired = ValidateToken.call(request.headers).result
+      if token_expired
+        current_user = AuthorizeApiRequest.call(request.headers).result
+        if current_user
+          new_token = JsonWebToken.encode(user_id: current_user.id,
+                              digest: current_user.password_digest,
+                              last_logout: current_user.last_logout_at.to_i)
+          render json: { auth_token: new_token }
+        else
+          render json: { error: 'Not Authorized' }, status: :unauthorized
+        end
+      else
+        render json: true, status: :ok
       end
     end
 
