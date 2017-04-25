@@ -4,3 +4,17 @@ export const EDIT_TODO = 'EDIT_TODO';
 export const COMPLETE_TODO = 'COMPLETE_TODO';
 export const COMPLETE_ALL = 'COMPLETE_ALL';
 export const CLEAR_COMPLETED = 'CLEAR_COMPLETED';
+
+export const TOKEN_LOADING = 'TOKEN_LOADING';
+export const TOKEN_SUCCESS = 'TOKEN_SUCCESS';
+export const TOKEN_FAILURE = 'TOKEN_FAILURE';
+export const TOKEN_CLEAR = 'TOKEN_CLEAR';
+
+export const FEED_LOADING = 'FEED_LOADING';
+export const FEED_SUCCESS = 'FEED_SUCCESS';
+
+export const USER_LOADING = 'USER_LOADING';
+export const USER_SUCCESS = 'USER_SUCCESS';
+
+export const NETWORK_LOADING = 'NETWORK_LOADING';
+export const NETWORK_SUCCESS = 'NETWORK_SUCCESS';

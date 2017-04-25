@@ -2,7 +2,7 @@
   <b-navbar toggleable class="sticky-top navbar-inverse bg-inverse" id="landing-navbar">
     <b-nav-toggle target="ft-nav-collapse" />
     <a class="navbar-brand" to="/">
-      <img src="images/landing-page/ft-navbar-logo.png" alt="Ft logo">
+      <img src="/images/landing-page/ft-navbar-logo.png" alt="Ft logo">
     </a>
     <b-collapse isNav id="ft-nav-collapse">
       <b-nav class="ml-auto">

@@ -3,7 +3,10 @@ import BootstrapVue from 'bootstrap-vue';
 
 import App from './app/containers/App.vue';
 import LandingPage from './app/containers/LandingPage.vue';
-import PreRegistration from './app/containers/PreRegistration.vue';
+import LoginPage from './app/containers/LoginPage.vue';
+import Feed from './app/containers/Feed.vue';
+import Profile from './app/containers/Profile.vue';
+import Network from './app/containers/Network.vue';
 
 import store from './app/store/index';
 import VueRouter from 'vue-router';
@@ -11,28 +14,26 @@ Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 
 function requireAuth (to, from, next) {
-  // TODO: Check if we have the user token available
-  // if not, redirect to welcome page
-  // else keep going
-  next({
-    path: '/welcome'
-  });
+  store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
+  if (!store.state.token.value) next({ path: '/welcome' });
+  else next();
 }
 
-function preProductLaunch (to, from, next) {
-  next({
-    path: '/pre_register'
-  });
+function checkIfLoggedIn (to, from, next) {
+  if (store.state.token.value) next({ path: '/' });
+  else next();
 }
 
 const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: '/welcome', component: LandingPage },
-    { path: '/', component: App, beforeEnter: requireAuth },
-    { path: '/pre_register', component: PreRegistration },
-    { path: '/users/sign_in', component: App, beforeEnter: preProductLaunch },
-    { path: '/users/sign_up', component: App, beforeEnter: preProductLaunch }
+    { path: '/', component: Feed, beforeEnter: requireAuth },
+    { path: '/users/sign_in', component: LoginPage, beforeEnter: checkIfLoggedIn },
+    { path: '/users/sign_up', component: App, beforeEnter: checkIfLoggedIn },
+    { path: '/profile', component: Profile, beforeEnter: requireAuth, props: { mine: true }},
+    { path: '/network', component: Network, beforeEnter: requireAuth },
+    { path: '/users/:id/profile', component: Profile, beforeEnter: requireAuth, props: { mine: false }}
   ]
 });
 

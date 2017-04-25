@@ -10,6 +10,10 @@ export default new Vuex.Store({
   mutations,
   actions,
   getters: {
-    todos: state => state.todos
+    todos: state => state.todos,
+    token: state => state.token,
+    feed: state => state.feed,
+    user: state => state.user,
+    network: state => state.network
   }
 });
