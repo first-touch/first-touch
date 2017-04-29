@@ -1,4 +1,4 @@
-class Users::SearchSerializer < UserSerializer
+class Users::SearchSerializer < ActiveModel::Serializer
   attributes :id, :display_name
 
   def display_name

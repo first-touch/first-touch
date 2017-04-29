@@ -4,16 +4,13 @@ module Api
       def index
         # TODO: Needs improvement as network grows
         # will probably be impossible to build the whole graph at once
-        followers = @current_user.followers.as_json(only: [:id],
-                                                   methods: [:full_name])
+        network_attrs = {
+          followers: @current_user.followers,
+          following: @current_user.following
+        }
+        network = Network.new(network_attrs)
 
-        following = @current_user.followers.as_json(only: [:id],
-                                                   methods: [:full_name])
-        render json: { network:
-                         {
-                           followers: followers,
-                           following: following
-                         } }
+        render json: NetworkSerializer.new(network), root: "network"
       end
     end
   end
