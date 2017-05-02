@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420134928) do
+ActiveRecord::Schema.define(version: 20170502104801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "awards", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "club_id"
+    t.string "title"
+    t.datetime "season"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["club_id"], name: "index_awards_on_club_id"
+    t.index ["user_id"], name: "index_awards_on_user_id"
+  end
 
   create_table "career_entries", id: :serial, force: :cascade do |t|
     t.integer "user_id"
@@ -21,6 +32,8 @@ ActiveRecord::Schema.define(version: 20170420134928) do
     t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "club_id"
+    t.index ["club_id"], name: "index_career_entries_on_club_id"
     t.index ["user_id"], name: "index_career_entries_on_user_id"
   end
 
@@ -101,6 +114,7 @@ ActiveRecord::Schema.define(version: 20170420134928) do
     t.float "weight"
     t.float "height"
     t.string "preferred_foot"
+    t.string "languages", array: true
   end
 
   create_table "posts", id: :serial, force: :cascade do |t|
@@ -156,6 +170,9 @@ ActiveRecord::Schema.define(version: 20170420134928) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "awards", "clubs"
+  add_foreign_key "awards", "users"
+  add_foreign_key "career_entries", "clubs"
   add_foreign_key "career_entries", "users"
   add_foreign_key "club_users", "clubs"
   add_foreign_key "club_users", "users"
