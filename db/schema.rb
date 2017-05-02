@@ -15,145 +15,145 @@ ActiveRecord::Schema.define(version: 20170420134928) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "career_entries", force: :cascade do |t|
-    t.integer  "user_id"
+  create_table "career_entries", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
     t.datetime "start_date"
     t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_career_entries_on_user_id", using: :btree
+    t.index ["user_id"], name: "index_career_entries_on_user_id"
   end
 
-  create_table "club_users", force: :cascade do |t|
-    t.integer  "club_id"
-    t.integer  "user_id"
+  create_table "club_users", id: :serial, force: :cascade do |t|
+    t.integer "club_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["club_id"], name: "index_club_users_on_club_id", using: :btree
-    t.index ["user_id"], name: "index_club_users_on_user_id", using: :btree
+    t.index ["club_id"], name: "index_club_users_on_club_id"
+    t.index ["user_id"], name: "index_club_users_on_user_id"
   end
 
-  create_table "clubs", force: :cascade do |t|
-    t.integer  "account_owner_id"
-    t.string   "name"
-    t.string   "city"
-    t.string   "country_code"
-    t.string   "stadium_name"
-    t.date     "date_founded"
-    t.string   "twitter_handle"
-    t.string   "website"
-    t.text     "history"
-    t.string   "address"
-    t.string   "phone_number"
-    t.string   "email"
-    t.string   "facebook_link"
-    t.string   "home_kit_color"
-    t.string   "away_kit_color"
-    t.string   "third_kit_color"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+  create_table "clubs", id: :serial, force: :cascade do |t|
+    t.integer "account_owner_id"
+    t.string "name"
+    t.string "city"
+    t.string "country_code"
+    t.string "stadium_name"
+    t.date "date_founded"
+    t.string "twitter_handle"
+    t.string "website"
+    t.text "history"
+    t.string "address"
+    t.string "phone_number"
+    t.string "email"
+    t.string "facebook_link"
+    t.string "home_kit_color"
+    t.string "away_kit_color"
+    t.string "third_kit_color"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "images", force: :cascade do |t|
-    t.string   "imageable_type"
-    t.integer  "imageable_id"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
+  create_table "images", id: :serial, force: :cascade do |t|
+    t.string "imageable_type"
+    t.integer "imageable_id"
+    t.string "file_file_name"
+    t.string "file_content_type"
+    t.integer "file_file_size"
     t.datetime "file_updated_at"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
-  end
-
-  create_table "interested_people", force: :cascade do |t|
-    t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "request"
+    t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id"
   end
 
-  create_table "message_recipients", force: :cascade do |t|
-    t.integer  "recipient_id", null: false
-    t.integer  "message_id",   null: false
+  create_table "interested_people", id: :serial, force: :cascade do |t|
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "request"
+  end
+
+  create_table "message_recipients", id: :serial, force: :cascade do |t|
+    t.integer "recipient_id", null: false
+    t.integer "message_id", null: false
     t.datetime "read_at"
   end
 
-  create_table "messages", force: :cascade do |t|
-    t.string   "subject"
-    t.text     "message_body", null: false
-    t.integer  "creator_id",   null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  create_table "personal_profiles", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "first_name"
-    t.string   "middle_name"
-    t.string   "last_name"
-    t.date     "birthday"
-    t.string   "nationality_country_code"
-    t.string   "residence_country_code"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.string   "place_of_birth"
-    t.float    "weight"
-    t.float    "height"
-    t.string   "preferred_foot"
-  end
-
-  create_table "posts", force: :cascade do |t|
-    t.string   "content",    null: false
-    t.integer  "user_id"
+  create_table "messages", id: :serial, force: :cascade do |t|
+    t.string "subject"
+    t.text "message_body", null: false
+    t.integer "creator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "relationships", force: :cascade do |t|
-    t.integer  "follower_id"
-    t.integer  "followed_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["followed_id"], name: "index_relationships_on_followed_id", using: :btree
-    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true, using: :btree
-    t.index ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
-  end
-
-  create_table "session_plans", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "name"
-    t.string   "tags",                    array: true
+  create_table "personal_profiles", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
+    t.string "first_name"
+    t.string "middle_name"
+    t.string "last_name"
+    t.date "birthday"
+    t.string "nationality_country_code"
+    t.string "residence_country_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_session_plans_on_user_id", using: :btree
+    t.string "place_of_birth"
+    t.float "weight"
+    t.float "height"
+    t.string "preferred_foot"
   end
 
-  create_table "team_users", force: :cascade do |t|
-    t.integer  "team_id"
-    t.integer  "user_id"
+  create_table "posts", id: :serial, force: :cascade do |t|
+    t.string "content", null: false
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["team_id"], name: "index_team_users_on_team_id", using: :btree
-    t.index ["user_id"], name: "index_team_users_on_user_id", using: :btree
   end
 
-  create_table "teams", force: :cascade do |t|
-    t.string   "team_name"
+  create_table "relationships", id: :serial, force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "club_id"
-    t.index ["club_id"], name: "index_teams_on_club_id", using: :btree
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "email",           default: "", null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.text     "search_string"
-    t.string   "password_digest"
+  create_table "session_plans", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
+    t.string "name"
+    t.string "tags", array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_session_plans_on_user_id"
+  end
+
+  create_table "team_users", id: :serial, force: :cascade do |t|
+    t.integer "team_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_team_users_on_team_id"
+    t.index ["user_id"], name: "index_team_users_on_user_id"
+  end
+
+  create_table "teams", id: :serial, force: :cascade do |t|
+    t.string "team_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "club_id"
+    t.index ["club_id"], name: "index_teams_on_club_id"
+  end
+
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "search_string"
+    t.string "password_digest"
     t.datetime "last_logout_at"
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "career_entries", "users"

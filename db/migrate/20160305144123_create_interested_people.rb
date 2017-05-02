@@ -1,4 +1,4 @@
-class CreateInterestedPeople < ActiveRecord::Migration
+class CreateInterestedPeople < ActiveRecord::Migration[4.2]
   def change
     create_table :interested_people do |t|
       t.string :email

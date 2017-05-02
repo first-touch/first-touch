@@ -1,4 +1,4 @@
-class CreatePersonalProfile < ActiveRecord::Migration
+class CreatePersonalProfile < ActiveRecord::Migration[4.2]
   def change
     create_table :personal_profiles do |t|
       t.integer :user_id

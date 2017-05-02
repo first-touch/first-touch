@@ -1,4 +1,4 @@
-class AddRemainingFieldsToPersonalProfile < ActiveRecord::Migration
+class AddRemainingFieldsToPersonalProfile < ActiveRecord::Migration[4.2]
   def change
     add_column :personal_profiles, :place_of_birth, :string
     add_column :personal_profiles, :weight, :float
