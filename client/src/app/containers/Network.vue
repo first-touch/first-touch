@@ -13,7 +13,12 @@
           <input type="text" class="network-widget-search" placeholder="Type a name" />
         </div>
         <div class="network-container">
-          <item v-for="i in 10" />
+          <div v-if="loading">
+            <h4 class="text-center">Loading...</h4>
+          </div>
+          <network-item v-for="item in items"
+            :info="item"
+            :unfollow="unfollow.bind(this, { token: token.value, id: item.id })"/>
         </div>
       </div>
     </div>
@@ -66,6 +71,7 @@
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import store from '../store';
+  import { ASYNC_LOADING, ASYNC_SUCCESS } from '../constants/AsyncStatus';
 
   import AppNavbar from '../components/AppNavbar.vue';
   import NetworkItem from '../components/NetworkItem.vue';
@@ -74,14 +80,15 @@
     name: 'Network',
     components: {
       'navbar': AppNavbar,
-      'item': NetworkItem
+      'network-item': NetworkItem
     },
     computed: {
       ...mapGetters(['token', 'network']),
-      items() { return this.network.value; }
+      loading() { return this.network.status === ASYNC_LOADING; },
+      items() { return this.network.value || []; }
     },
     methods: {
-      ...mapActions(['getNetwork'])
+      ...mapActions(['getNetwork', 'unfollow'])
     },
     mounted() {
       this.getNetwork({ token: this.token.value });

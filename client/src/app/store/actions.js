@@ -20,7 +20,6 @@ export const attemptLogIn = (store, { email, password }) => {
       res.json()
         .then((r) => { store.commit(types.TOKEN_SUCCESS, r.auth_token); });
     } else {
-      res.json().then(console.log);
       res.json()
         .then((r) => store.commit(types.TOKEN_FAILURE, JSON.stringify(r)));
     }
@@ -76,6 +75,21 @@ export const getNetwork = (store, { token }) => {
     } else {
       res.json().then(console.log);
       getNetwork(store, { token });
+    }
+  });
+};
+
+export const unfollow = (store, { token, id }) => {
+  fetch(`/api/v1/relationships/${id}`, {
+    method: 'DELETE',
+    headers: { 'Authorization': token }
+  }).then((res) => {
+    if (res.status === 200) {
+      store.commit(types.NETWORK_UNFOLLOW, id);
+    } else if (res.status === 401) {
+      store.commit(types.TOKEN_CLEAR);
+    } else {
+      res.json().then(console.log);
     }
   });
 };

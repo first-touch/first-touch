@@ -12,7 +12,7 @@
       <div class="timeline-post-body">
         <!-- <img class="img-fluid" src="https://unsplash.it/1000/600" /> -->
         <p class="timeline-post-content">
-          {{ content }}
+          {{ info.content }}
         </p>
       </div>
     </div>
@@ -68,9 +68,6 @@
 <script>
   export default {
     name: 'Post',
-    props: ['info'],
-    computed: {
-      content() { return this.info.content }
-    }
+    props: ['info']
   }
 </script>

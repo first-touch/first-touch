@@ -10,26 +10,32 @@ module Api
           render json: { error: 'User to follow not found' }, status: :unprocessable_entity
           return
         end
-        relationship = current_user.follow(user)
+        relationship = @current_user.follow(user)
         if relationship
           render json: relationship
         else
-          render json: { error: current_user.errors.full_messages }, status: :unprocessable_entity
+          render json: { error: @current_user.errors.full_messages }, status: :unprocessable_entity
         end
       end
 
       def destroy
-        relationship = Relationship.find(params[:id])
-        unless relationship
+        followed_user = User.find destroy_params[:followed_user_id]
+        unless @current_user.following? followed_user
           render json: { error: 'You are not following this user' }, stauts: :uprocessable_entity
           return
         end
-        user = relationship.followed
-        if current_user.unfollow(user)
+        
+        if @current_user.unfollow(followed_user)
           render json: { relationship: nil }
         else
-          render json: { error: current_user.errors.full_messages }, status: :unprocessable_entity
+          render json: { error: @current_user.errors.full_messages }, status: :unprocessable_entity
         end
+      end
+      
+      private
+      
+      def destroy_params
+        params.permit(:followed_user_id)
       end
     end
   end

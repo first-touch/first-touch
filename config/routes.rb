@@ -6,7 +6,8 @@ Rails.application.routes.draw do
       post 'logout', controller: :authentication, action: :logout
       post 'pre_register', controller: :visitors, action: :pre_register
 
-      resources :relationships, only: [:create, :destroy]
+      resources :relationships, only: [:create]
+      delete 'relationships/:followed_user_id', controller: :relationships, action: :destroy
 
       # Public profile of user
       get 'users/:id/profile', controller: :users, action: :public_profile

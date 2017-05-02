@@ -2,14 +2,14 @@
   <div class="network-item">
     <img class="network-item-img" src="https://unsplash.it/300/300" />
     <div class="network-item-info">
-      <h4 class="name">Lionel Messi</h4>
+      <h4 class="name">{{ info.display_name }}</h4>
       <p class="role">Football Player</p>
       <p class="club">Barca, Spain</p>
     </div>
     <button class="network-item-option-trigger"></button>
     <div class="network-item-options">
-      <button>Poke</button>
-      <button>Unfollow</button>
+      <!-- <button>Poke</button> -->
+      <button @click="this.unfollow">Unfollow</button>
     </div>
   </div>
 </template>
@@ -63,6 +63,9 @@
       top: 140px;
       left: calc(100% - 30px);
       z-index: 4;
+      &:hover {
+        display: flex;
+      }
       button {
         background: #fff;
         border: 1px solid #000;
@@ -78,6 +81,7 @@
 
 <script>
   export default {
-    name: 'NetworkItem'
+    name: 'NetworkItem',
+    props: ['info', 'unfollow']
   }
 </script>
