@@ -1,10 +1,3 @@
-export const ADD_TODO = 'ADD_TODO';
-export const DELETE_TODO = 'DELETE_TODO';
-export const EDIT_TODO = 'EDIT_TODO';
-export const COMPLETE_TODO = 'COMPLETE_TODO';
-export const COMPLETE_ALL = 'COMPLETE_ALL';
-export const CLEAR_COMPLETED = 'CLEAR_COMPLETED';
-
 export const TOKEN_LOADING = 'TOKEN_LOADING';
 export const TOKEN_SUCCESS = 'TOKEN_SUCCESS';
 export const TOKEN_FAILURE = 'TOKEN_FAILURE';
@@ -19,3 +12,11 @@ export const USER_SUCCESS = 'USER_SUCCESS';
 export const NETWORK_LOADING = 'NETWORK_LOADING';
 export const NETWORK_SUCCESS = 'NETWORK_SUCCESS';
 export const NETWORK_UNFOLLOW = 'NETWORK_UNFOLLOW';
+
+export const INBOX_LOADING = 'INBOX_LOADING';
+export const INBOX_SUCCESS = 'INBOX_SUCCESS';
+export const INBOX_RELOAD = 'INBOX_RELOAD';
+
+export const CONVO_LOADING = 'CONVO_LOADING';
+export const CONVO_SUCCESS = 'CONVO_SUCCESS';
+export const CONVO_RELOAD = 'CONVO_RELOAD';

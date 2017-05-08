@@ -24,44 +24,19 @@ export const initialState = {
   },
   network: {
     status: ASYNC_NONE,
-    value: []
+    value: null
+  },
+  inbox: {
+    status: ASYNC_NONE,
+    value: null
+  },
+  messages: {
+    status: ASYNC_NONE,
+    value: {}
   }
 };
 
 export default {
-  [ActionTypes.ADD_TODO] (state, text) {
-    state.todos.unshift({
-      id: state.todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
-      completed: false,
-      text
-    });
-  },
-  [ActionTypes.DELETE_TODO] (state, id) {
-    state.todos = state.todos.filter(todo => todo.id !== id);
-  },
-  [ActionTypes.EDIT_TODO] (state, id, text) {
-    state.todos = state.todos.map(todo =>
-      todo.id === id
-      ? Object.assign({}, todo, { text })
-      : todo
-    );
-  },
-  [ActionTypes.COMPLETE_TODO] (state, id) {
-    state.todos = state.todos.map(todo =>
-      todo.id === id
-      ? Object.assign({}, todo, { completed: !todo.completed })
-      : todo
-    );
-  },
-  [ActionTypes.COMPLETE_ALL] (state) {
-    const areAllMarked = state.todos.every(todo => todo.completed);
-    state.todos = state.todos.map(todo => Object.assign({}, todo, {
-      completed: !areAllMarked
-    }));
-  },
-  [ActionTypes.CLEAR_COMPLETED] (state) {
-    state.todos = state.todos.filter(todo => todo.completed === false);
-  },
   [ActionTypes.TOKEN_LOADING] (state) {
     state.token = Object.assign(
       {},
@@ -101,7 +76,7 @@ export default {
     state.feed = Object.assign(
       {},
       state.feed,
-      { status: ASYNC_SUCCESS, value: [...state.feed.value, ...posts] }
+      { status: ASYNC_SUCCESS, value: [...posts] }
     );
   },
   [ActionTypes.USER_LOADING] (state) {
@@ -141,6 +116,48 @@ export default {
         ...state.network.value.slice(0, idx),
         ...state.network.value.slice(idx + 1)
       ] }
+    );
+  },
+  [ActionTypes.INBOX_LOADING] (state, inbox) {
+    state.inbox = Object.assign(
+      {},
+      state.inbox,
+      { status: ASYNC_LOADING }
+    );
+  },
+  [ActionTypes.INBOX_SUCCESS] (state, inbox) {
+    state.inbox = Object.assign(
+      {},
+      state.inbox,
+      { status: ASYNC_SUCCESS, value: inbox }
+    );
+  },
+  [ActionTypes.INBOX_RELOAD] (state, inbox) {
+    state.inbox = Object.assign(
+      {},
+      state.inbox,
+      { value: inbox }
+    );
+  },
+  [ActionTypes.CONVO_LOADING] (state) {
+    state.messages = Object.assign(
+      {},
+      state.messages,
+      { status: ASYNC_LOADING }
+    );
+  },
+  [ActionTypes.CONVO_SUCCESS] (state, messages) {
+    state.messages = Object.assign(
+      {},
+      state.messages,
+      { status: ASYNC_SUCCESS, value: messages }
+    );
+  },
+  [ActionTypes.CONVO_RELOAD] (state, messages) {
+    state.messages = Object.assign(
+      {},
+      state.messages,
+      { value: messages }
     );
   }
 };

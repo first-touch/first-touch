@@ -14,6 +14,8 @@ export default new Vuex.Store({
     token: state => state.token,
     feed: state => state.feed,
     user: state => state.user,
-    network: state => state.network
+    network: state => state.network,
+    inbox: state => state.inbox,
+    messages: state => state.messages
   }
 });

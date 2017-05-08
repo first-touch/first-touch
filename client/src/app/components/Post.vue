@@ -1,8 +1,8 @@
 <template>
   <div class="timeline-post">
     <div class="arrow"></div>
-    <div class="timeline-post-container">
-      <div class="timeline-post-header">
+    <div class="sub-container">
+      <div class="header">
         <img class="avatar" src="https://unsplash.it/200/200" />
         <div class="info">
           <h5 class="name">{{ info.author_name }}</h5>
@@ -30,30 +30,7 @@
       margin-top: 20px;
       border-left-color: $main-header-color;
     }
-    .timeline-post-container {
-      background-color: #fff;
-      border-radius: 5px;
-      padding: 20px;
-      width: 100%;
-      .timeline-post-header {
-        display: flex;
-        margin-bottom: 20px;
-        .avatar {
-          border-radius: 50%;
-          height: 100px;
-        }
-        .info {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          padding-left: 20px;
-          .name {
-            text-transform: uppercase;
-            color: $secondary-header-color;
-          }
-          .role { color: $secondary-text-color; }
-        }
-      }
+    .container {
       .timeline-post-body {
         *:not(:last-child) { margin-bottom: 20px; }
         .timeline-post-content {

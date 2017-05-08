@@ -4,7 +4,34 @@ module Api
       def index
         # TODO: In the future, this should send only the index of messages
         # and another request should be made to fetch the full message
-        render json: { inbox: @current_user.inbox }
+        chats = @current_user.inbox.map do |from, messages|
+          Chat.new(
+            from: from,
+            last_message: messages.last,
+            current_user: @current_user
+          )
+        end
+
+        render json: chats, each_serializer: ChatSerializer, root: 'inbox'
+      end
+
+      def show
+        begin
+          user = User.find(chat_params[:chat_with_id])
+        rescue ActiveRecord::RecordNotFound => e
+          render json: { error: "User not found" }, status: :unprocessable_entity
+          return
+        end
+
+        full_chat = @current_user.full_chat_with user
+
+        render json: {
+                 chat_with: {
+                   id: user.id,
+                   display_name: user.display_name
+                 },
+                 messages: full_chat
+               }, status: :ok
       end
 
       def create
@@ -25,6 +52,10 @@ module Api
                   message_recipient_attributes: [
                     :recipient_id
                   ])
+      end
+
+      def chat_params
+        params.permit(:chat_with_id)
       end
     end
   end

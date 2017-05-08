@@ -1,8 +1,0 @@
-%nav.navbar.navbar-light.bg-faded
-  %button.navbar-toggler.hidden-sm-up{"data-target" => "#responsive-navbar", "data-toggle" => "collapse", :type => "button"}
-    &#9776;
-  #responsive-navbar.collapse.navbar-toggleable-xs
-    = link_to 'First Touch', root_path, class: 'navbar-brand'
-    %ul.nav.navbar-nav.pull-xs-right
-      %li.nav-item
-        = link_to 'Login', new_user_session_path, class: 'nav-link'

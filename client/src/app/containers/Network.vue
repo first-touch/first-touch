@@ -1,9 +1,9 @@
 <template>
   <div>
-    <navbar page="network" />
+    <sidebar />
     <div class="container-fluid">
-      <div class="network">
-        <h4 class="network-header">MY NETWORK</h4>
+      <div class="ft-page network">
+        <h4 class="header">My network</h4>
         <div class="network-widget">
           <select class="network-widget-sort">
             <option disabled selected value>Sort by</option>
@@ -26,46 +26,32 @@
 </template>
 
 <style lang="sass" scoped>
-  @import "~stylesheets/variables";
+ @import "~stylesheets/variables";
+ @import "~stylesheets/common_style";
 
-  .container-fluid {
-    margin: 0 20vw 0 18vw;
-    background-color: $navbar-background-color;
-    min-height: calc(100vh - 119px);
-    padding: 20px;
-  }
+ .network {
+     .network-widget {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: space-between;
+         .network-widget-sort, .network-widget-search {
+             flex: 0 0 48%;
+             border: 1px solid #fff;
+             background-color: $navbar-background-color;
+             color: #fff;
+             padding: 2px 7px;
 
-  .network {
-    &:before {
-      content: "";
-      position: absolute;
-      left: 20px;
-      margin-top: -15px;
-      width: 10%;
-      border-top: 5px solid $secondary-header-color;
-    }
-    .network-widget {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      .network-widget-sort, .network-widget-search {
-        flex: 0 0 48%;
-        border: 1px solid #fff;
-        background-color: $navbar-background-color;
-        color: #fff;
-        padding: 2px 7px;
-
-      }
-      .network-widget-search {
-        border-radius: 4px;
-      }
-    }
-    .network-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-  }
+         }
+         .network-widget-search {
+             border-radius: 4px;
+         }
+     }
+     .network-container {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: space-between;
+     }
+ }
 </style>
 
 <script>
@@ -74,12 +60,14 @@
   import { ASYNC_LOADING, ASYNC_SUCCESS } from '../constants/AsyncStatus';
 
   import AppNavbar from '../components/AppNavbar.vue';
+  import NotificationSidebar from '../components/NotificationSidebar.vue';
   import NetworkItem from '../components/NetworkItem.vue';
 
   export default {
     name: 'Network',
     components: {
       'navbar': AppNavbar,
+      'sidebar': NotificationSidebar,
       'network-item': NetworkItem
     },
     computed: {

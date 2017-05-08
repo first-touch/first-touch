@@ -24,8 +24,6 @@ class User < ApplicationRecord
            class_name: 'MessageRecipient',
            foreign_key: 'recipient_id'
 
-  has_many :received_messages, through: :messages_to_receive, source: :message
-
   has_many :club_users
   has_many :clubs, through: :club_users
 
@@ -55,11 +53,15 @@ class User < ApplicationRecord
     Post.where(user_id: relevant_user_ids).order('updated_at DESC')
   end
 
+  def received_messages
+   messages_to_receive.joins(:message).map &:message
+  end
+
   def inbox
     full_inbox = sent_messages.includes(:message_recipient).group_by do |ms|
-      ms.message_recipient.recipient_id
+      ms.message_recipient.recipient
     end
-    messages_to_add = received_messages.group_by(&:creator_id)
+    messages_to_add = received_messages.group_by(&:creator)
     messages_to_add.each do |sender_id, messages|
       full_inbox[sender_id] ||= []
       full_inbox[sender_id] += messages
@@ -75,6 +77,13 @@ class User < ApplicationRecord
       following: following,
       followers: followers
     }
+  end
+
+  def full_chat_with(user)
+    outgoing = sent_messages.includes(:message_recipient)
+                 .where(message_recipients: { recipient: user })
+    incoming = received_messages.select {|m| m.creator_id == user.id }
+    (outgoing + incoming).sort_by!(&:created_at)
   end
 
   def first_name
@@ -95,6 +104,14 @@ class User < ApplicationRecord
 
   def email_local_part
     email[/[^@]+/] || ''
+  end
+
+  def display_name
+    name = [first_name, middle_name, last_name]
+             .join(' ')
+             .squish
+    name = email_local_part if name.empty?
+    name
   end
 
   def update_search_string

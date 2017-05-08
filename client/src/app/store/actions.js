@@ -1,14 +1,5 @@
 import * as types from '../constants/ActionTypes';
 
-const makeAction = type => ({ commit }, ...args) => commit(type, ...args);
-
-export const addTodo = makeAction(types.ADD_TODO);
-export const deleteTodo = makeAction(types.DELETE_TODO);
-export const editTodo = makeAction(types.EDIT_TODO);
-export const completeTodo = makeAction(types.COMPLETE_TODO);
-export const completeAll = makeAction(types.COMPLETE_ALL);
-export const clearCompleted = makeAction(types.CLEAR_COMPLETED);
-
 export const attemptLogIn = (store, { email, password }) => {
   store.commit(types.TOKEN_LOADING);
   fetch('/api/v1/authenticate', {
@@ -26,7 +17,7 @@ export const attemptLogIn = (store, { email, password }) => {
   });
 };
 
-export const getFeed = (store, { token }) => {
+export const getInitialFeed = (store, { token }) => {
   store.commit(types.FEED_LOADING);
   fetch('/api/v1/posts', {
     method: 'GET',
@@ -74,7 +65,6 @@ export const getNetwork = (store, { token }) => {
       store.commit(types.TOKEN_CLEAR);
     } else {
       res.json().then(console.log);
-      getNetwork(store, { token });
     }
   });
 };
@@ -87,6 +77,99 @@ export const unfollow = (store, { token, id }) => {
     if (res.status === 200) {
       store.commit(types.NETWORK_UNFOLLOW, id);
     } else if (res.status === 401) {
+      store.commit(types.TOKEN_CLEAR);
+    } else {
+      res.json().then(console.log);
+    }
+  });
+};
+
+export const getInbox = (store, { token }) => {
+  store.commit(types.INBOX_LOADING);
+  fetch('/api/v1/messages', {
+    method: 'GET',
+    headers: { 'Authorization': token }
+  }).then((res) => {
+    if (res.status === 200) {
+      res.json().then(
+        (r) => {
+          store.commit(types.INBOX_SUCCESS, r.inbox);
+        }
+      );
+    } else if (res.status === 401) {
+      store.commit(types.TOKEN_CLEAR);
+    } else {
+      res.json().then(console.log);
+    }
+  });
+};
+
+export const reloadInbox = (store) => {
+  fetch('/api/v1/messages', {
+    method: 'GET',
+    headers: { 'Authorization': store.state.token.value }
+  }).then((res) => {
+    if (res.status === 200) {
+      res.json().then((r) => store.commit(types.INBOX_RELOAD, r.inbox));
+    } else if (res.status === 401) {
+      store.commit(types.TOKEN_CLEAR);
+    } else {
+      res.json().then(console.log);
+    }
+  });
+};
+
+export const getConversation = (store, { token, partnerId }) => {
+  store.commit(types.CONVO_LOADING);
+  fetch(`/api/v1/messages/${partnerId}`, {
+    method: 'GET',
+    headers: { 'Authorization': token }
+  }).then((res) => {
+    if (res.status === 200) {
+      res.json().then((r) => store.commit(types.CONVO_SUCCESS, r));
+    } else if (res.status === 401) {
+      store.commit(types.TOKEN_CLEAR);
+    } else {
+      res.json().then(console.log);
+    }
+  });
+};
+
+export const reloadConversation = (store, { token }) => {
+  fetch(`/api/v1/messages/${store.state.messages.value.chat_with.id}`, {
+    method: 'GET',
+    headers: { 'Authorization': token }
+  }).then((res) => {
+    if (res.status === 200) {
+      res.json().then((r) => store.commit(types.CONVO_RELOAD, r));
+    } else if (res.status === 401) {
+      store.commit(types.TOKEN_CLEAR);
+    } else {
+      res.json().then(console.log);
+    }
+  });
+};
+
+export const sendMessage = (store, { content }) => {
+  fetch('/api/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Authorization': store.state.token.value,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'message': {
+        'message_body': content,
+        'message_recipient_attributes': {
+          'recipient_id': store.state.messages.value.chat_with.id
+        }
+      }
+    })
+  }).then((res) => {
+    if (res.status === 201) {
+      reloadConversation(store, { token: store.state.token.value });
+      reloadInbox(store);
+    } else if (res.status === 403) {
       store.commit(types.TOKEN_CLEAR);
     } else {
       res.json().then(console.log);

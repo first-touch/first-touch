@@ -1,9 +1,9 @@
 <template>
   <div>
-    <navbar page="home" />
+    <sidebar />
     <div class="container-fluid">
-      <div class="timeline">
-        <h4 class="timeline-header">TIMELINE</h4>
+      <div class="ft-page timeline">
+        <h4 class="header">Timeline</h4>
         <div class="timeline-widget">
           <div class="arrow"></div>
           <button class="timeline-widget-button btn-post">
@@ -22,33 +22,9 @@
   </div>
 </template>
 
-<style lang="sass">
-  .arrow {
-    width: 0;
-    height: 0;
-    margin-right: 20px;
-    border-top: 7px solid transparent;
-    border-bottom: 7px solid transparent;
-    border-left: 7px solid;
-  }
-</style>
-
 <style lang="sass" scoped>
   @import "~stylesheets/variables";
-
-  .container-fluid {
-    margin: 0 20vw 0 18vw;
-    background-color: $navbar-background-color;
-    min-height: calc(100vh - 119px);
-    padding: 20px;
-  }
-
   .timeline {
-    .timeline-header {
-      color: $secondary-text-color;
-      font-weight: 300;
-      padding: 5px 0;
-    }
     .timeline-widget {
       display: flex;
       border-left: 7px solid $secondary-header-color;
@@ -79,14 +55,6 @@
         border-left-color: $secondary-header-color;
       }
     }
-    &:before {
-      content : "";
-      position: absolute;
-      left: 20px;
-      margin-top: -15px;
-      width: 10%;
-      border-top: 5px solid $secondary-header-color;
-    }
     .text-center {
       color: $secondary-text-color;
       font-weight: 300;
@@ -98,14 +66,14 @@
   import { mapGetters, mapActions } from 'vuex';
   import store from '../store';
   import { ASYNC_LOADING, ASYNC_SUCCESS } from '../constants/AsyncStatus';
-  import AppNavbar from '../components/AppNavbar.vue';
   import Post from '../components/Post.vue';
+  import NotificationSidebar from '../components/NotificationSidebar.vue';
 
   export default {
     name: 'Feed',
     components: {
-      'navbar': AppNavbar,
-      'post': Post
+      'post': Post,
+      'sidebar': NotificationSidebar
     },
     computed: {
       ...mapGetters(['token', 'feed']),
@@ -113,10 +81,10 @@
       posts() { return this.feed.value; }
     },
     methods: {
-      ...mapActions(['getFeed'])
+      ...mapActions(['getInitialFeed'])
     },
     mounted() {
-      this.getFeed({ token: this.token.value });
+      this.getInitialFeed({ token: this.token.value });
     }
   }
 </script>
