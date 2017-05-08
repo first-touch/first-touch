@@ -1,7 +1,7 @@
 <template>
-  <a class="bar-button center" :href="url">
+  <router-link class="bar-button center" :to="url">
     <slot></slot>
-  </a>
+  </router-link>
 </template>
 
 <script>

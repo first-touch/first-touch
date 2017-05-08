@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 
-import App from './app/containers/App.vue';
 import Layout from './app/containers/Layout.vue';
 import LandingPage from './app/containers/LandingPage.vue';
+import SignupPage from './app/containers/SignupPage.vue';
 import LoginPage from './app/containers/LoginPage.vue';
 import Feed from './app/containers/Feed.vue';
 import Profile from './app/containers/Profile.vue';
@@ -31,7 +31,7 @@ const router = new VueRouter({
   routes: [
     { path: '/welcome', component: LandingPage },
     { path: '/users/sign_in', component: LoginPage, beforeEnter: checkIfLoggedIn },
-    { path: '/users/sign_up', component: App, beforeEnter: checkIfLoggedIn },
+    { path: '/users/sign_up', component: SignupPage, beforeEnter: checkIfLoggedIn },
     { path: '/', component: Layout, beforeEnter: requireAuth,
       children: [
         { path: '', component: Feed },
@@ -41,10 +41,6 @@ const router = new VueRouter({
         { path: '/messages', component: Messages }
       ]
     }
-    // { path: '/profile', component: Profile, beforeEnter: requireAuth, props: { mine: true }},
-    // { path: '/network', component: Network, beforeEnter: requireAuth },
-    // { path: '/users/:id/profile', component: Profile, beforeEnter: requireAuth, props: { mine: false }},
-    // { path: '/messages', component: Messages, beforeEnter: requireAuth }
   ]
 });
 

@@ -47,7 +47,7 @@ export const getUserInfo = (store, { token }) => {
       store.commit(types.TOKEN_CLEAR);
     } else {
       res.json().then(console.log);
-      getUserInfo(store, { token });
+      // getUserInfo(store, { token });
     }
   });
 };

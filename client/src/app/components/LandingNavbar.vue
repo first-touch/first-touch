@@ -1,19 +1,19 @@
 <template>
   <b-navbar toggleable class="sticky-top navbar-inverse bg-inverse" id="landing-navbar">
     <b-nav-toggle target="ft-nav-collapse" />
-    <a class="navbar-brand" to="/">
+    <router-link class="navbar-brand" to="/">
       <img src="/images/landing-page/ft-navbar-logo.png" alt="Ft logo">
-    </a>
+    </router-link>
     <b-collapse isNav id="ft-nav-collapse">
       <b-nav class="ml-auto">
         <li class="nav-item">
-          <a href="#" class="nav-link">Change Language</a>
+          <router-link to="#" class="nav-link">Change Language</router-link>
         </li>
         <li class="nav-item">
-          <a href="/users/sign_in" class="nav-link">Sign In</a>
+          <router-link to="/users/sign_in" class="nav-link">Sign In</router-link>
         </li>
         <form class="form-inline">
-          <a class="btn btn-outline-secondary" href="/users/sign_up">SIGN UP</a>
+          <router-link  to="/users/sign_up" class="btn btn-outline-secondary">SIGN UP</router-link>
         </form>
       </b-nav>
     </b-collapse>
