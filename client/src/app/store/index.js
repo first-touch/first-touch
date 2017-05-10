@@ -16,6 +16,7 @@ export default new Vuex.Store({
     user: state => state.user,
     network: state => state.network,
     inbox: state => state.inbox,
-    messages: state => state.messages
+    messages: state => state.messages,
+    profile: state => state.profile
   }
 });

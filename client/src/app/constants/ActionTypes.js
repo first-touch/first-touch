@@ -5,6 +5,7 @@ export const TOKEN_CLEAR = 'TOKEN_CLEAR';
 
 export const FEED_LOADING = 'FEED_LOADING';
 export const FEED_SUCCESS = 'FEED_SUCCESS';
+export const FEED_POSTED = 'FEED_POSTED';
 
 export const USER_LOADING = 'USER_LOADING';
 export const USER_SUCCESS = 'USER_SUCCESS';
@@ -12,6 +13,7 @@ export const USER_SUCCESS = 'USER_SUCCESS';
 export const NETWORK_LOADING = 'NETWORK_LOADING';
 export const NETWORK_SUCCESS = 'NETWORK_SUCCESS';
 export const NETWORK_UNFOLLOW = 'NETWORK_UNFOLLOW';
+export const NETWORK_FOLLOW = 'NETWORK_FOLLOW';
 
 export const INBOX_LOADING = 'INBOX_LOADING';
 export const INBOX_SUCCESS = 'INBOX_SUCCESS';
@@ -20,3 +22,7 @@ export const INBOX_RELOAD = 'INBOX_RELOAD';
 export const CONVO_LOADING = 'CONVO_LOADING';
 export const CONVO_SUCCESS = 'CONVO_SUCCESS';
 export const CONVO_RELOAD = 'CONVO_RELOAD';
+
+export const PROFILE_LOADING = 'PROFILE_LOADING';
+export const PROFILE_SUCCESS = 'PROFILE_SUCCESS';
+export const PROFILE_FOLLOW = 'PROFILE_FOLLOW';

@@ -20,7 +20,7 @@
         <inbox-entry v-for="chat in chats"
           :chat="chat"
           :active="active(chat.chat_with.id)"
-          :getConversation="getConversation.bind(this, { token: token.value, partnerId: chat.chat_with.id })" />
+          :id="chat.chat_with.id" />
       </div>
     </div>
   </div>
@@ -67,7 +67,7 @@
     components: {
       'inbox-entry': InboxEntry
     },
-    props: ['currentChatWith'],
+    props: ['currentChatWith', 'changeConvo'],
     data() {
       return {
         searchTerm: '',
@@ -91,7 +91,7 @@
     methods: {
       ...mapActions(['getInbox', 'getConversation']),
       active(id) {
-        return id === this.currentChatWith;
+        return id === parseInt(this.currentChatWith);
       }
     },
     mounted() {

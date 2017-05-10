@@ -9,7 +9,7 @@
       <h4 class="profile-name">{{ name }}</h4>
       <h5 class="profile-role">Football player</h5>
       <h5 class="profile-club">real madrid</h5>
-      <router-link to="/profile" class="profile-edit-button">Edit Profile</router-link>
+      <router-link to="/profile/edit" class="profile-edit-button">Edit Profile</router-link>
     </div>
     <ul class="nav-list">
       <li class="nav-item" :class="{ active: page === 'home' }">

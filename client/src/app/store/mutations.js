@@ -33,6 +33,10 @@ export const initialState = {
   messages: {
     status: ASYNC_NONE,
     value: {}
+  },
+  profile: {
+    status: ASYNC_NONE,
+    value: {}
   }
 };
 
@@ -77,6 +81,13 @@ export default {
       {},
       state.feed,
       { status: ASYNC_SUCCESS, value: [...posts] }
+    );
+  },
+  [ActionTypes.FEED_POSTED] (state, post) {
+    state.feed = Object.assign(
+      {},
+      state.feed,
+      { value: [post, ...state.feed.value] }
     );
   },
   [ActionTypes.USER_LOADING] (state) {
@@ -158,6 +169,27 @@ export default {
       {},
       state.messages,
       { value: messages }
+    );
+  },
+  [ActionTypes.PROFILE_LOADING] (state) {
+    state.profile = Object.assign(
+      {},
+      state.profile,
+      { status: ASYNC_LOADING }
+    );
+  },
+  [ActionTypes.PROFILE_SUCCESS] (state, profile) {
+    state.profile = Object.assign(
+      {},
+      state.profile,
+      { status: ASYNC_SUCCESS, value: profile }
+    );
+  },
+  [ActionTypes.PROFILE_FOLLOW] (state) {
+    state.profile.value = Object.assign(
+      {},
+      state.profile.value,
+      { following: true }
     );
   }
 };

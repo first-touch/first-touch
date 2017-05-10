@@ -1,11 +1,11 @@
 <template>
   <div class="profile-item">
     <div class="arrow"></div>
-    <div class="profile-item-container">
+    <div class="profile-item-container" v-if="info">
       <div class="top">
         <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
         <div class="info">
-          <h4 class="name">Cristiano Ronaldo</h4>
+          <h4 class="name">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
           <p class="role">Football Player</p>
           <p class="club">Real Madrid FC, Spain</p>
           <p class="detail">
@@ -21,9 +21,10 @@
             Funchal, Madeira, Portugal
           </p>
           <div class="widget">
-            <a v-if="mine" href="#" class="btn btn-bright">Contact Info</a>
-            <a v-else-if="!following" @click.prevent="follow" href="#" class="btn btn-bright">+ Follow</a>
-            <a v-else-if="following" class="btn btn-dark">&#10003; Following</a>
+            <a v-if="mine" href="/profile/edit" class="btn btn-bright">Edit Profile</a>
+            <a v-else-if="!info.following" @click.prevent="follow" href="#" class="btn btn-bright">+ Follow</a>
+            <a v-else-if="info.following" class="btn btn-dark">&#10003; Following</a>
+            <router-link v-if="!mine" :to="`/messages/${info.id}`" class="btn btn-bright">Message</router-link>
             <p class="connection"><span class="number">467</span> Connections</p>
           </div>
         </div>
@@ -150,6 +151,6 @@
 <script>
   export default {
     name: 'Profile',
-    props: ['mine', 'following', 'follow']
+    props: ['mine', 'info', 'follow']
   }
 </script>

@@ -35,7 +35,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   def update
     @current_user.update_attributes user_params
     if @current_user.save
-      render json: @current_user
+      render json: Users::PublicProfileSerializer.new(@current_user).as_json
     else
       render json: { error: @current_user.errors.full_messages }, status: :unprocessable_entity
     end
@@ -75,6 +75,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   def user_params
     params.require(:user)
       .permit(personal_profile_attributes: [
+                :id,
                 :first_name,
                 :middle_name,
                 :last_name,

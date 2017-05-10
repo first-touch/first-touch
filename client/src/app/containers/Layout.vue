@@ -33,7 +33,7 @@
         const path = this.$route.path;
         if (path === '/home') {
           return 'home';
-        } else if (path === '/profile') {
+        } else if (/\/profile\/*/.test(path)) {
           return 'profile';
         } else if (path === '/calendar') {
           return 'calendar';

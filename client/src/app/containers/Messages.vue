@@ -3,11 +3,7 @@
     <div class="container-fluid">
       <div class="ft-page messages">
         <h4 class="header">Messages</h4>
-        <conversation v-if="chosen"
-          :messages="messages"
-          :currentUser="user.value"
-          :sendMessage="sendMessage.bind(this)"
-          :reloadConversation="reloadConversation.bind(this, { token: token.value })" />
+        <router-view v-if="currentChatWith"></router-view>
       </div>
     </div>
     <messages-sidebar :currentChatWith="currentChatWith" />
@@ -26,26 +22,18 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import { ASYNC_SUCCESS } from '../constants/AsyncStatus';
   import store from '../store';
   import MessagesSidebar from '../components/MessagesSidebar.vue';
-  import Conversation from '../components/Conversation.vue';
 
   export default {
     name: 'Messages',
     components: {
-      'messages-sidebar': MessagesSidebar,
-      'conversation': Conversation
+      'messages-sidebar': MessagesSidebar
     },
     computed: {
       ...mapGetters(['messages', 'user', 'token']),
-      chosen() {
-        return this.messages.status === ASYNC_SUCCESS;
-      },
       currentChatWith() {
-        return this.chosen
-          ? this.messages.value.chat_with.id
-          : null;
+        return this.$route.params.id;
       }
     },
     methods: {

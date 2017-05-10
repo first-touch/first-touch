@@ -1,5 +1,5 @@
 <template>
-  <div class="inbox-entry" @click="getConversation" :class="{ active }">
+  <router-link class="inbox-entry" :to="`/messages/${id}`" :class="{ active }">
     <img class="profile-pic" src="http://unsplash.it/400/400" />
     <div class="content">
       <div class="name">
@@ -22,6 +22,8 @@
     display: flex;
     width: 100%;
     align-items: center;
+    color: #fff;
+    text-decoration: none;
     &:hover {
       cursor: pointer;
     }
@@ -51,6 +53,6 @@
 <script>
   export default {
     name: 'InboxEntry',
-    props: ['chat', 'getConversation', 'active']
+    props: ['chat', 'active', 'id']
   }
 </script>

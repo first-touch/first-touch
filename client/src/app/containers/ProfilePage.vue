@@ -5,8 +5,8 @@
       <div class="profile">
         <h4 class="header">{{ mine ? 'Your profile' : 'User Profile' }}</h4>
         <profile :mine="mine"
-          :following="following"
-          :follow="follow"/>
+          :info="info"
+          :follow="followUser"/>
       </div>
     </div>
   </div>
@@ -43,7 +43,7 @@
 </style>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import store from '../store';
 import { ASYNC_LOADING, ASYNC_SUCCESS } from '../constants/AsyncStatus';
 import NotificationSidebar from '../components/NotificationSidebar.vue';
@@ -56,34 +56,35 @@ export default {
     'sidebar': NotificationSidebar,
     'profile': Profile
   },
-  data() {
-    return {
-      following: false
-    }
-  },
   computed: {
-    ...mapGetters(['token', 'user'])
+    ...mapGetters(['token', 'user', 'profile']),
+    info() {
+      if (!this.$route.params.id) return this.user.value;
+      if (this.profile.status === ASYNC_SUCCESS) return this.profile.value;
+      return null;
+    }
   },
   methods: {
-    follow() {
-      fetch(`/api/v1/relationships`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: this.token.value
-        },
-        body: `followed_id=${this.$route.params.id}`
-      }).then((res) => {
-        if (res.status === 200) this.following = true;
-        else res.json().then(console.log);
-      });
+    ...mapActions(['follow', 'unfollow', 'fetchUserInfo', 'clearToken']),
+    onRouteChange() {
+      if (this.user.status === ASYNC_SUCCESS && parseInt(this.$route.params.id) === this.user.value.id) {
+        return this.$router.push({ path: '/profile' });
+      }
+      if (this.$route.params.id) {
+        this.fetchUserInfo({ id: this.$route.params.id });
+        this.followUser = this.follow.bind(this, { id: this.$route.params.id });
+      }
     }
+  },
+  watch: {
+    '$route': 'onRouteChange'
   },
   mounted() {
     store.watch(() => this.user.status, () => {
       if (this.user.value && this.user.value.id.toString() === this.$route.params.id)
         this.$router.push({ path: '/profile' });
     });
+    this.onRouteChange();
   }
 }
 </script>

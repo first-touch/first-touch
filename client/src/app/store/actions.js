@@ -17,6 +17,8 @@ export const attemptLogIn = (store, { email, password }) => {
   });
 };
 
+export const clearToken = (store) => store.commit(types.TOKEN_CLEAR);
+
 export const getInitialFeed = (store, { token }) => {
   store.commit(types.FEED_LOADING);
   fetch('/api/v1/posts', {
@@ -34,6 +36,8 @@ export const getInitialFeed = (store, { token }) => {
   });
 };
 
+export const succeedToPost = (store, { post }) => store.commit(types.FEED_POSTED, post);
+
 export const getUserInfo = (store, { token }) => {
   store.commit(types.USER_LOADING);
   fetch('/api/v1/user', {
@@ -47,7 +51,29 @@ export const getUserInfo = (store, { token }) => {
       store.commit(types.TOKEN_CLEAR);
     } else {
       res.json().then(console.log);
-      // getUserInfo(store, { token });
+    }
+  });
+};
+
+export const updateUserInfo = (store, userInfo) => {
+  console.log('update');
+  fetch('/api/v1/user', {
+    method: 'PUT',
+    headers: {
+      'Authorization': store.state.token.value,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'personal_profile_attributes': userInfo,
+      id: store.state.user.value.id
+    })
+  }).then((res) => {
+    if (res.status === 200) {
+      res.json().then((r) => store.commit(types.USER_SUCCESS, r));
+    } else if (res.status === 401) {
+      store.commit(types.TOKEN_CLEAR);
+    } else {
+      res.json().then(console.log);
     }
   });
 };
@@ -69,10 +95,46 @@ export const getNetwork = (store, { token }) => {
   });
 };
 
-export const unfollow = (store, { token, id }) => {
+export const fetchUserInfo = (store, { id }) => {
+  store.commit(types.PROFILE_LOADING);
+  fetch(`/api/v1/users/${id}/profile`, {
+    method: 'GET',
+    headers: { 'Authorization': store.state.token.value }
+  }).then((res) => {
+    if (res.status === 200) {
+      res.json().then((r) => store.commit(types.PROFILE_SUCCESS, r));
+    } else if (res.status === 403) {
+      this.clearToken();
+    } else {
+      res.json().then(console.log);
+    }
+  });
+};
+
+export const follow = (store, { id }) => {
+  fetch('/api/v1/relationships', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': store.state.token.value
+    },
+    body: `followed_id=${id}`
+  }).then((res) => {
+    if (res.status === 200) {
+      getNetwork(store, { token: store.state.token.value });
+      store.commit(types.PROFILE_FOLLOW);
+    } else if (res.status === 403) {
+      store.commit(types.TOKEN_CLEAR);
+    } else {
+      res.json().then(console.log);
+    }
+  });
+};
+
+export const unfollow = (store, { id }) => {
   fetch(`/api/v1/relationships/${id}`, {
     method: 'DELETE',
-    headers: { 'Authorization': token }
+    headers: { 'Authorization': store.state.token.value }
   }).then((res) => {
     if (res.status === 200) {
       store.commit(types.NETWORK_UNFOLLOW, id);
