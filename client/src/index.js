@@ -6,7 +6,7 @@ import LandingPage from './app/containers/LandingPage.vue';
 import SignupPage from './app/containers/SignupPage.vue';
 import LoginPage from './app/containers/LoginPage.vue';
 import Feed from './app/containers/Feed.vue';
-import Profile from './app/containers/Profile.vue';
+import ProfilePage from './app/containers/ProfilePage.vue';
 import Network from './app/containers/Network.vue';
 import Messages from './app/containers/Messages.vue';
 
@@ -35,9 +35,9 @@ const router = new VueRouter({
     { path: '/', component: Layout, beforeEnter: requireAuth,
       children: [
         { path: '', component: Feed },
-        { path: '/profile', component: Profile, props: { mine: true }},
+        { path: '/profile', component: ProfilePage, props: { mine: true }},
         { path: '/network', component: Network },
-        { path: '/users/:id/profile', component: Profile, props: { mine: false }},
+        { path: '/users/:id/profile', component: ProfilePage, props: { mine: false }},
         { path: '/messages', component: Messages }
       ]
     }

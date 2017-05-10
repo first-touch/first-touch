@@ -1,9 +1,9 @@
 <template>
-  <a class="search-results-item" :href="`/users/${info.id}/profile`">
+  <router-link class="search-results-item" :to="`/users/${info.id}/profile`">
     <div class="arrow"></div>
     <img class="img-fluid" src="https://unsplash.it/100/100" />
     <p class="search-results-item-name">{{ info.display_name }}</p>
-  </a>
+  </router-link>
 </template>
 
 <style lang="sass" scoped>

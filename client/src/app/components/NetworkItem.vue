@@ -6,9 +6,8 @@
       <p class="role">Football Player</p>
       <p class="club">Barca, Spain</p>
     </div>
-    <button class="network-item-option-trigger"></button>
-    <div class="network-item-options">
-      <!-- <button>Poke</button> -->
+    <button @click="toggleUnfollow" class="network-item-option-trigger"></button>
+    <div v-if="unfollowOpen" class="network-item-options">
       <button @click="this.unfollow">Unfollow</button>
     </div>
   </div>
@@ -52,12 +51,9 @@
       background: url("https://d30y9cdsu7xlg0.cloudfront.net/png/61783-200.png") no-repeat center center;
       background-size: cover;
       border: none;
-      &:focus + .network-item-options {
-        display: flex;
-      }
     }
     .network-item-options {
-      display: none;
+      display: flex;
       position: absolute;
       flex-direction: column;
       top: 140px;
@@ -82,6 +78,16 @@
 <script>
   export default {
     name: 'NetworkItem',
-    props: ['info', 'unfollow']
+    props: ['info', 'unfollow'],
+    data() {
+      return {
+        unfollowOpen: false
+      }
+    },
+    methods: {
+      toggleUnfollow() {
+        this.$set(this, 'unfollowOpen', !this.unfollowOpen);
+      }
+    }
   }
 </script>

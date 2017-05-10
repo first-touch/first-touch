@@ -9,9 +9,9 @@
           <p class="role">{{ info.author_status }}</p>
         </div>
       </div>
-      <div class="timeline-post-body">
+      <div class="body">
         <!-- <img class="img-fluid" src="https://unsplash.it/1000/600" /> -->
-        <p class="timeline-post-content">
+        <p class="content">
           {{ info.content }}
         </p>
       </div>
@@ -30,10 +30,10 @@
       margin-top: 20px;
       border-left-color: $main-header-color;
     }
-    .container {
-      .timeline-post-body {
+    .sub-container {
+      .body {
         *:not(:last-child) { margin-bottom: 20px; }
-        .timeline-post-content {
+        .content {
           color: $secondary-text-color;
           margin-bottom: 0;
         }
