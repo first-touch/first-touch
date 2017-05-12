@@ -3,7 +3,7 @@ lock "3.7.2"
 
 set :application, "firsttouch"
 set :user, "deployer"
-set :repo_url, "git@github.com:rpbaltazar/first-touch.git"
+set :repo_url, "git@bitbucket.org:firsttouch/first-touch.git"
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
 
@@ -50,6 +50,8 @@ append :linked_dirs, %{client/node_modules}
 
 # Default value for keep_releases is 5
 set :keep_releases, 5
+
+Rake::Task["deploy:assets:precompile"].clear_actions
 
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
