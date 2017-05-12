@@ -17,8 +17,12 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 
+// remove once registration is allowed
 function redirectToPrereg (to, from, next) {
   next({ path: '/preregister' });
+}
+function redirectToWelcome (to, from, next) {
+  next({ path: '/welcome' });
 }
 // uncomment this once registration is allowed
 // function requireAuth (to, from, next) {
@@ -37,7 +41,9 @@ const router = new VueRouter({
   routes: [
     { path: '/welcome', component: LandingPage },
     { path: '/preregister', component: PreRegistration },
-    { path: '*', beforeEnter: redirectToPrereg }
+    { path: '/users/sign_up', beforeEnter: redirectToPrereg },
+    { path: '/users/sign_in', beforeEnter: redirectToPrereg },
+    { path: '*', beforeEnter: redirectToWelcome }
     // uncomment this for once registration is allowed
     // { path: '/users/sign_in', component: LoginPage, beforeEnter: checkIfLoggedIn },
     // { path: '/users/sign_up', component: SignupPage, beforeEnter: checkIfLoggedIn },
