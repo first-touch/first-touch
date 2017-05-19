@@ -26,6 +26,10 @@ Rails.application.routes.draw do
       resources :messages, only: [:index, :create]
       get 'messages/:chat_with_id', controller: :messages, action: :show
       resources :session_plans
+
+      resource :clubs do
+        get 'search', action: :search
+      end
     end
   end
 end
