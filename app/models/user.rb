@@ -5,6 +5,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :personal_profile
 
   has_many :career_entries
+  accepts_nested_attributes_for :career_entries
   has_many :active_relationships,
            class_name: 'Relationship',
            foreign_key: 'follower_id',

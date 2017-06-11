@@ -74,17 +74,28 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def user_params
     params.require(:user)
-      .permit(personal_profile_attributes: [
-                :id,
-                :first_name,
-                :middle_name,
-                :last_name,
-                :birthday,
-                :achievements,
-                :languages,
-                :nationality_country_code,
-                :residence_country_code,
-                :summary
-              ])
+      .permit(
+        {
+          personal_profile_attributes: [
+            :id,
+            :first_name,
+            :middle_name,
+            :last_name,
+            :birthday,
+            :achievements,
+            :languages,
+            :nationality_country_code,
+            :residence_country_code,
+            :summary
+          ],
+          career_entries_attributes: [
+            :start_date,
+            :end_date,
+            :club_id,
+            :club_name,
+            :role
+          ]
+        }
+      )
   end
 end
