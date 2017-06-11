@@ -1,5 +1,6 @@
 class CareerEntry < ApplicationRecord
   belongs_to :user
+  belongs_to :club
 
   validates_presence_of :start_date
   validate :start_date_before_end_date, if: -> { start_date.present? && end_date.present? }
