@@ -21,7 +21,7 @@
             Funchal, Madeira, Portugal
           </p>
           <div class="widget">
-            <a v-if="mine" href="/profile/edit" class="btn btn-bright">Edit Profile</a>
+            <router-link v-if="mine" to="/profile/edit" class="btn btn-bright">Edit Profile</router-link>
             <a v-else-if="!info.following" @click.prevent="follow" href="#" class="btn btn-bright">+ Follow</a>
             <a v-else-if="info.following" class="btn btn-dark">&#10003; Following</a>
             <router-link v-if="!mine" :to="`/messages/${info.id}`" class="btn btn-bright">Message</router-link>
@@ -96,13 +96,16 @@
           .detail-title { color: $secondary-text-color; }
           .widget {
             display: flex;
-            justify-content: space-between;
             align-items: center;
             margin-top: 70px;
             margin-bottom: 20px;
+            .btn {
+              margin-right: 5px;
+            }
             .connection {
               color: $secondary-text-color;
               margin-bottom: 0;
+              margin-left: auto;
               .number {
                 color: $main-text-color;
                 font-weight: bold;

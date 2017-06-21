@@ -83,7 +83,7 @@ export default {
     lastName() { return this.personalProfile.last_name || ''; },
     month() { return this.personalProfile.birthday ? (new Date(this.personalProfile.birthday)).getMonth() : ''; },
     day() { return this.personalProfile.birthday ? (new Date(this.personalProfile.birthday)).getDate() : ''; },
-    year() { return this.personalProfile.birthday ? (new Date(this.personalProfile.birthday)).getYear() : ''; },
+    year() { return this.personalProfile.birthday ? (new Date(this.personalProfile.birthday)).getUTCFullYear() : ''; },
     countryCode() { return this.personalProfile.nationality_country_code || this.personalProfile.residence_country_code; },
     placeOfBirth() { return this.personalProfile.place_of_birth || ''; },
     weight() { return this.personalProfile.weight; },

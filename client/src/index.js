@@ -18,6 +18,11 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 
+// delete once registration is allowed
+function redirectToPrereg (to, from, next) {
+  next({ path: '/pre_registration' });
+}
+
 function requireAuth (to, from, next) {
   store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
   if (!store.state.token.value) next({ path: '/welcome' });
@@ -34,7 +39,7 @@ const router = new VueRouter({
   routes: [
     { path: '/welcome', component: LandingPage },
     { path: '/users/sign_in', component: LoginPage, beforeEnter: checkIfLoggedIn },
-    { path: '/users/sign_up', component: SignupPage, beforeEnter: checkIfLoggedIn },
+    { path: '/users/sign_up', component: SignupPage, beforeEnter: redirectToPrereg },
     { path: '/', component: Layout, beforeEnter: requireAuth,
       children: [
         { path: '', component: Feed },
@@ -50,7 +55,9 @@ const router = new VueRouter({
           ]
         }
       ]
-    }
+    },
+    // Delete once registration is allowed
+    { path: '/pre_registration', component: PreRegistration }
   ]
 });
 

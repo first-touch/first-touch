@@ -56,7 +56,7 @@ export const getUserInfo = (store, { token }) => {
 };
 
 export const updateUserInfo = (store, userInfo) => {
-  console.log('update');
+  console.log(userInfo);
   fetch('/api/v1/user', {
     method: 'PUT',
     headers: {
@@ -64,11 +64,14 @@ export const updateUserInfo = (store, userInfo) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      'personal_profile_attributes': userInfo,
-      id: store.state.user.value.id
+      user: {
+        'personal_profile_attributes': userInfo,
+        id: store.state.user.value.id
+      }
     })
   }).then((res) => {
     if (res.status === 200) {
+      alert('Profile Updated');
       res.json().then((r) => store.commit(types.USER_SUCCESS, r));
     } else if (res.status === 401) {
       store.commit(types.TOKEN_CLEAR);

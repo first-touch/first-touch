@@ -80,7 +80,7 @@
         if (!this.inbox.value) return [];
         let value = this.inbox.value;
         if (this.searchTerm !== '') {
-          value = value.filter((v) => v.chat_with.display_name.includes(this.searchTerm));
+          value = value.filter((v) => v.chat_with.display_name.toLowerCase().includes(this.searchTerm.toLowerCase()));
         }
         if (this.sortTerm === 'Name') {
           value = value.sort((a, b) => a.chat_with.display_name > b.chat_with.display_name);
