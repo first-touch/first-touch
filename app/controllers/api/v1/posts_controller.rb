@@ -9,6 +9,7 @@ module Api
 
       def create
         new_post = Post.new post_params
+        new_post.user = @current_user
         if new_post.save
           render json: new_post
         else
@@ -28,12 +29,14 @@ module Api
       private
 
       def post_params
-        params.require(:post).permit([
-                                       :user_id,
-                                       :content,
-                                       :id,
-                                       :images_attributes
-                                     ])
+        params.require(:post).permit(
+          :content,
+          {
+            images_attributes: [
+              :file
+            ]
+          }
+        )
       end
     end
   end
