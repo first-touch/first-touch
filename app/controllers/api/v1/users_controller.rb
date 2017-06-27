@@ -68,7 +68,11 @@ class Api::V1::UsersController < Api::V1::BaseController
                   personal_profile_attributes: [
                     :first_name,
                     :last_name,
-                    :birthday
+                    :birthday,
+                    :height,
+                    :place_of_birth,
+                    :preferred_foot,
+                    :weight
                   ])
   end
 
@@ -86,7 +90,11 @@ class Api::V1::UsersController < Api::V1::BaseController
             :languages,
             :nationality_country_code,
             :residence_country_code,
-            :summary
+            :summary,
+            :height,
+            :place_of_birth,
+            :preferred_foot,
+            :weight
           ],
           career_entries_attributes: [
             :start_date,
