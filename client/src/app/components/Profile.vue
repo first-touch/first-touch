@@ -46,11 +46,19 @@
             <span class="summary-field-title">Preferred Foot:</span>
             {{ info.personal_profile.preferred_foot }}
           </p>
+          <p class="summary-field">
+            <span class="summary-field-title">Pro Status:</span>
+            {{ info.personal_profile.pro_status || "N/a"}}
+          </p>
+          <p class="summary-field">
+            <span class="summary-field-title"># Caps:</span>
+            {{ info.personal_profile.total_caps || "0" }}
+          </p>
           <a href="#" class="btn btn-bright">Biography</a>
         </div>
         <div class="position">
           <p class="position-title">Playing position</p>
-          <p class="position-content">Forward</p>
+          <p class="position-content">{{ info.personal_profile.playing_position }}</p>
           <img class="img-fluid position-map" src="http://www.conceptdraw.com/solution-park/resource/images/solutions/soccer/Sport-Soccer-Football-Formation-4-4-1-1.png" />
         </div>
       </div>

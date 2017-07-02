@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170611094927) do
+ActiveRecord::Schema.define(version: 20170702033749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,9 @@ ActiveRecord::Schema.define(version: 20170611094927) do
     t.float "height"
     t.string "preferred_foot"
     t.string "languages", array: true
+    t.string "playing_position"
+    t.string "pro_status"
+    t.integer "total_caps"
   end
 
   create_table "posts", id: :serial, force: :cascade do |t|

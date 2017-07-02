@@ -3,5 +3,5 @@ class PersonalProfileSerializer < ActiveModel::Serializer
              :birthday, :nationality_country_code,
              :residence_country_code, :place_of_birth,
              :weight, :height, :preferred_foot,
-             :languages
+             :languages, :playing_position, :pro_status, :total_caps
 end
