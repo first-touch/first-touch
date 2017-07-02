@@ -10,15 +10,15 @@
           <p class="club">Real Madrid FC, Spain</p>
           <p class="detail">
             <span class="detail-title">Date of birth</span>
-            5 February 1985 (age 31)
+            {{ info.personal_profile.birthday }}
           </p>
           <p class="detail">
             <span class="detail-title">Nationality</span>
-            Portuguese / Portuguese
+            {{ info.personal_profile.nationality_country_code }}
           </p>
           <p class="detail">
             <span class="detail-title">Place of birth</span>
-            Funchal, Madeira, Portugal
+            {{ info.personal_profile.place_of_birth }}
           </p>
           <div class="widget">
             <router-link v-if="mine" to="/profile/edit" class="btn btn-bright">Edit Profile</router-link>
@@ -33,26 +33,18 @@
       <div class="bottom">
         <div class="summary">
           <h5 class="summary-title">Summary</h5>
-          <p class="summary-field">Cristiano Ronaldo dos Santos Aveiro</p>
+          <p class="summary-field">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
           <p class="summary-field">
             <span class="summary-field-title">Height</span>
-            1.85m
+            {{ info.personal_profile.height }} cm
           </p>
           <p class="summary-field">
             <span class="summary-field-title">Weight</span>
-            80kg
+            {{ info.personal_profile.weight }} kg
           </p>
           <p class="summary-field">
             <span class="summary-field-title">Preferred Foot:</span>
-            Right
-          </p>
-          <p class="summary-field">
-            <span class="summary-field-title">Pro Status</span>
-            ?
-          </p>
-          <p class="summary-field">
-            <span class="summary-field-title"># Caps</span>
-            ?
+            {{ info.personal_profile.preferred_foot }}
           </p>
           <a href="#" class="btn btn-bright">Biography</a>
         </div>
