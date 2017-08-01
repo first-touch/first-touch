@@ -56,7 +56,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     it 'returns the full user profile' do
       expect(response_code).to eq 200
-      expect(response_body).to include_json UserSerializer.new(existing_user).as_json
+      expect(response_body).to include_json Users::PublicProfileSerializer.new(existing_user).as_json
     end
   end
 end

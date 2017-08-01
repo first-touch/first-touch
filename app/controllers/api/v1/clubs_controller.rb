@@ -4,6 +4,8 @@ module Api
       def search
         result = ::Club::Index.call(params)
         if result.failure?
+          render json: { error_message: result['errors'] },
+                 status: :unprocessable_entity
         else
           render json: Api::V1::Club::Representer::Search.new(result['model']),
                  status: :ok

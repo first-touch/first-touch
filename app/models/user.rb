@@ -55,7 +55,7 @@ class User < ApplicationRecord
   end
 
   def received_messages
-   messages_to_receive.joins(:message).map &:message
+    messages_to_receive.joins(:message).map(&:message)
   end
 
   def inbox
@@ -82,8 +82,8 @@ class User < ApplicationRecord
 
   def full_chat_with(user)
     outgoing = sent_messages.includes(:message_recipient)
-                 .where(message_recipients: { recipient: user })
-    incoming = received_messages.select {|m| m.creator_id == user.id }
+                            .where(message_recipients: { recipient: user })
+    incoming = received_messages.select { |m| m.creator_id == user.id }
     (outgoing + incoming).sort_by!(&:created_at)
   end
 
@@ -109,8 +109,8 @@ class User < ApplicationRecord
 
   def display_name
     name = [first_name, middle_name, last_name]
-             .join(' ')
-             .squish
+           .join(' ')
+           .squish
     name = email_local_part if name.empty?
     name
   end
