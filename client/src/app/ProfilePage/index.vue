@@ -44,10 +44,10 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import store from '../store';
+import store from '../shared/store';
 import { ASYNC_LOADING, ASYNC_SUCCESS } from '../shared/constants/AsyncStatus';
-import NotificationSidebar from '../components/NotificationSidebar.vue';
-import Profile from '../components/Profile.vue';
+import NotificationSidebar from '../shared/components/NotificationSidebar.vue';
+import Profile from './components/Profile.vue';
 
 export default {
   name: 'ProfilePage',

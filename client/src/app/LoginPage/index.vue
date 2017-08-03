@@ -51,7 +51,6 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import store from '../store';
 
   import { ASYNC_LOADING, ASYNC_FAILURE } from '../shared/constants/AsyncStatus';
   import LandingNavbar from '../shared/components/LandingNavbar.vue';

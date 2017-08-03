@@ -47,8 +47,8 @@
 </style>
 
 <script>
-import NotificationSidebar from '../components/NotificationSidebar.vue';
-import EditProfileForm from '../components/EditProfileForm.vue';
+import NotificationSidebar from '../shared/components/NotificationSidebar.vue';
+import EditProfileForm from './components/EditProfileForm.vue';
 import { mapGetters, mapActions } from 'vuex';
 import { ASYNC_SUCCESS } from '../shared/constants/AsyncStatus';
 

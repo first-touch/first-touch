@@ -13,8 +13,8 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import AppNavbar from '../components/AppNavbar.vue';
-  import SearchBar from '../components/SearchBar.vue';
+  import AppNavbar from './AppNavbar.vue';
+  import SearchBar from './SearchBar.vue';
 
   export default {
     name: 'Layout',
@@ -37,7 +37,7 @@
           return 'profile';
         } else if (path === '/calendar') {
           return 'calendar';
-        } else if (path === '/messages') {
+        } else if (/\/messages/.test(path)) {
           return 'messages';
         } else if (path === '/network') {
           return 'network';

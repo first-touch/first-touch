@@ -3,15 +3,15 @@ import BootstrapVue from 'bootstrap-vue';
 
 import LandingPage from './app/LandingPage';
 import PreRegistration from './app/PreRegistrationPage';
-import Layout from './app/containers/Layout.vue';
+import Layout from './app/shared/components/Layout';
 import SignupPage from './app/SignupPage';
 import LoginPage from './app/LoginPage';
-import Feed from './app/containers/Feed.vue';
-import ProfilePage from './app/containers/ProfilePage.vue';
-import Network from './app/containers/Network.vue';
-import Messages from './app/containers/Messages.vue';
-import ConvoContainer from './app/containers/ConvoContainer.vue';
-import EditProfilePage from './app/containers/EditProfilePage.vue';
+import Feed from './app/FeedPage';
+import ProfilePage from './app/ProfilePage';
+import Network from './app/NetworkPage';
+import Messages from './app/MessagesPage';
+import ConvoContainer from './app/MessagesPage/components/ConvoContainer.vue';
+import EditProfilePage from './app/EditProfilePage';
 
 import store from './app/shared/store';
 import VueRouter from 'vue-router';

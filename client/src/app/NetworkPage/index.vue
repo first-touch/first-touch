@@ -56,12 +56,11 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import store from '../store';
   import { ASYNC_LOADING, ASYNC_SUCCESS } from '../shared/constants/AsyncStatus';
 
-  import AppNavbar from '../components/AppNavbar.vue';
-  import NotificationSidebar from '../components/NotificationSidebar.vue';
-  import NetworkItem from '../components/NetworkItem.vue';
+  import AppNavbar from '../shared/components/AppNavbar.vue';
+  import NotificationSidebar from '../shared/components/NotificationSidebar.vue';
+  import NetworkItem from './components/NetworkItem.vue';
 
   export default {
     name: 'Network',

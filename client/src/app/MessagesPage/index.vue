@@ -22,8 +22,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import store from '../store';
-  import MessagesSidebar from '../components/MessagesSidebar.vue';
+  import MessagesSidebar from '../shared/components/MessagesSidebar.vue';
 
   export default {
     name: 'Messages',

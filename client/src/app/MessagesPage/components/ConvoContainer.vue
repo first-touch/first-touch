@@ -12,9 +12,9 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import store from '../store';
-  import { ASYNC_SUCCESS } from '../shared/constants/AsyncStatus';
-  import Conversation from '../components/Conversation.vue';
+  import store from '../../shared/store';
+  import { ASYNC_SUCCESS } from '../../shared/constants/AsyncStatus';
+  import Conversation from './Conversation.vue';
 
   export default {
     name: 'ConvoContainer',
