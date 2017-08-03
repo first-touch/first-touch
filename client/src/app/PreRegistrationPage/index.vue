@@ -99,7 +99,7 @@
 </style>
 
 <script>
-  import LandingNavbar from '../components/LandingNavbar.vue';
+  import LandingNavbar from '../shared/components/LandingNavbar.vue';
 
   export default {
     name: 'PreRegistration',

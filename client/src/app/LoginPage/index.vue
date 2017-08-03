@@ -53,8 +53,8 @@
   import { mapGetters, mapActions } from 'vuex';
   import store from '../store';
 
-  import { ASYNC_LOADING, ASYNC_FAILURE } from '../constants/AsyncStatus';
-  import LandingNavbar from '../components/LandingNavbar.vue';
+  import { ASYNC_LOADING, ASYNC_FAILURE } from '../shared/constants/AsyncStatus';
+  import LandingNavbar from '../shared/components/LandingNavbar.vue';
 
   export default {
     name: 'LoginPage',

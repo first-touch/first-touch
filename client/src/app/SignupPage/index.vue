@@ -88,7 +88,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import LandingNavbar from '../components/LandingNavbar.vue';
+import LandingNavbar from '../shared/components/LandingNavbar.vue';
 
 export default {
   name: 'SignupPage',

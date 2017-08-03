@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 
-import LandingPage from './app/containers/LandingPage.vue';
-import PreRegistration from './app/containers/PreRegistration.vue';
+import LandingPage from './app/LandingPage';
+import PreRegistration from './app/PreRegistrationPage';
 import Layout from './app/containers/Layout.vue';
-import SignupPage from './app/containers/SignupPage.vue';
-import LoginPage from './app/containers/LoginPage.vue';
+import SignupPage from './app/SignupPage';
+import LoginPage from './app/LoginPage';
 import Feed from './app/containers/Feed.vue';
 import ProfilePage from './app/containers/ProfilePage.vue';
 import Network from './app/containers/Network.vue';
@@ -13,7 +13,7 @@ import Messages from './app/containers/Messages.vue';
 import ConvoContainer from './app/containers/ConvoContainer.vue';
 import EditProfilePage from './app/containers/EditProfilePage.vue';
 
-import store from './app/store/index';
+import store from './app/shared/store';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
@@ -30,6 +30,7 @@ function requireAuth (to, from, next) {
 }
 
 function checkIfLoggedIn (to, from, next) {
+  store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
   if (store.state.token.value) next({ path: '/' });
   else next();
 }
@@ -57,7 +58,7 @@ const router = new VueRouter({
       ]
     },
     // Delete once registration is allowed
-    { path: '/pre_registration', component: PreRegistration }
+    { path: '/pre_registration', component: PreRegistration, beforeEnter: checkIfLoggedIn }
   ]
 });
 

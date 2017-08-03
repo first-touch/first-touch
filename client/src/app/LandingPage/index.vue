@@ -247,8 +247,8 @@
 </style>
 
 <script>
-  import LandingNavbar from '../components/LandingNavbar.vue';
-  import LinkButton from '../components/LinkButton.vue';
+  import LandingNavbar from '../shared/components/LandingNavbar.vue';
+  import LinkButton from '../shared/components/LinkButton.vue';
 
   export default {
     name: 'LandingPage',

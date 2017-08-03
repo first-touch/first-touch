@@ -11,7 +11,8 @@ module.exports = {
     alias: {
       'stylesheets': path.resolve(__dirname, '../src/stylesheets/'),
       'images': path.resolve(__dirname, '../src/images/')
-    }
+    },
+    extensions: ['.js', '.vue']
   },
   module: {
     loaders: [

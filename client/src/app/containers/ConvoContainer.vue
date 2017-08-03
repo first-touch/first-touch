@@ -13,7 +13,7 @@
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import store from '../store';
-  import { ASYNC_SUCCESS } from '../constants/AsyncStatus';
+  import { ASYNC_SUCCESS } from '../shared/constants/AsyncStatus';
   import Conversation from '../components/Conversation.vue';
 
   export default {
