@@ -17,7 +17,7 @@ module Api
 
       def show
         begin
-          user = User.find(chat_params[:chat_with_id])
+          user = ::User.find(chat_params[:chat_with_id])
         rescue ActiveRecord::RecordNotFound => e
           render json: { error: "User not found" }, status: :unprocessable_entity
           return
