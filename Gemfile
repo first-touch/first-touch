@@ -12,6 +12,7 @@ gem 'puma'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.1'
+gem 'sidekiq'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simple_command'
 gem 'trailblazer-rails'

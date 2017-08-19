@@ -85,6 +85,7 @@ GEM
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     concurrent-ruby (1.0.5)
+    connection_pool (2.2.1)
     debug_inspector (0.0.2)
     declarative (0.0.9)
     declarative-builder (0.1.0)
@@ -152,6 +153,8 @@ GEM
     puma (3.7.0)
     rack (2.0.1)
     rack-cors (0.4.1)
+    rack-protection (2.0.0)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.1.0)
@@ -181,6 +184,7 @@ GEM
       rake
     rake (12.0.0)
     rdoc (4.3.0)
+    redis (3.3.3)
     reform (2.2.4)
       disposable (>= 0.4.1)
       representable (>= 2.4.0, < 3.1.0)
@@ -222,6 +226,11 @@ GEM
       rdoc (~> 4.0)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
+    sidekiq (5.0.4)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      rack-protection (>= 1.5.0)
+      redis (~> 3.3, >= 3.3.3)
     simple_command (0.0.9)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
@@ -291,6 +300,7 @@ DEPENDENCIES
   rubocop
   sdoc (~> 0.4.0)
   shoulda-matchers (~> 3.1)
+  sidekiq
   simple_command
   timecop
   trailblazer-rails
