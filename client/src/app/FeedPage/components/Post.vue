@@ -1,50 +1,60 @@
 <template>
-  <div class="timeline-post">
-    <div class="arrow"></div>
-    <div class="sub-container">
-      <div class="header">
-        <img class="avatar" src="https://unsplash.it/200/200" />
-        <div class="info">
-          <h5 class="name">{{ info.author_name }}</h5>
-          <p class="role">{{ info.author_status }}</p>
-        </div>
-      </div>
-      <div class="body">
-        <!-- <img class="img-fluid" src="https://unsplash.it/1000/600" /> -->
-        <p class="content">
-          {{ info.content }}
-        </p>
+  <timeline-item>
+    <div class="header">
+      <img class="avatar" src="https://unsplash.it/200/200" />
+      <div class="info">
+        <h5 class="name">{{ info.author_name }}</h5>
+        <p class="role">{{ info.author_status }}</p>
       </div>
     </div>
-  </div>
+    <div class="body">
+      <!-- <img class="img-fluid" src="https://unsplash.it/1000/600" /> -->
+      <p class="content">
+        {{ info.content }}
+      </p>
+    </div>
+  </timeline-item>
 </template>
 
 <style lang="sass" scoped>
   @import "~stylesheets/variables";
 
-  .timeline-post {
+  .header {
     display: flex;
-    border-left: 7px solid $main-header-color;
-    margin-top: 20px;
-    .arrow {
-      margin-top: 20px;
-      border-left-color: $main-header-color;
+    margin-bottom: 20px;
+    .avatar {
+      border-radius: 50%;
+      max-height: 100px;
+      width: 100px;
     }
-    .sub-container {
-      .body {
-        *:not(:last-child) { margin-bottom: 20px; }
-        .content {
-          color: $secondary-text-color;
-          margin-bottom: 0;
-        }
+    .info {
+      margin-left: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .name {
+        color: $secondary-header-color;
       }
+    }
+  }
+
+  .body {
+    *:not(:last-child) { margin-bottom: 20px; }
+    .content {
+      color: $secondary-text-color;
+      margin-bottom: 0;
     }
   }
 </style>
 
 <script>
+  import TimelineItem from '../../shared/components/TimelineItem';
+
   export default {
     name: 'Post',
-    props: ['info']
+    props: ['info'],
+    components: {
+      'timeline-item': TimelineItem
+    }
   }
 </script>

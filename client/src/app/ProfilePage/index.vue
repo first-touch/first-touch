@@ -7,6 +7,7 @@
         <profile :mine="mine"
           :info="info"
           :follow="followUser"/>
+        <career-history v-if="info" :careerHistory="info.career_history"/>
       </div>
     </div>
   </div>
@@ -46,15 +47,17 @@
 import { mapGetters, mapActions } from 'vuex';
 import store from '../shared/store';
 import { ASYNC_LOADING, ASYNC_SUCCESS } from '../shared/constants/AsyncStatus';
-import NotificationSidebar from '../shared/components/NotificationSidebar.vue';
-import Profile from './components/Profile.vue';
+import NotificationSidebar from '../shared/components/NotificationSidebar';
+import Profile from './components/Profile';
+import CareerHistory from './components/CareerHistory';
 
 export default {
   name: 'ProfilePage',
   props: ['mine'],
   components: {
     'sidebar': NotificationSidebar,
-    'profile': Profile
+    'profile': Profile,
+    'career-history': CareerHistory
   },
   computed: {
     ...mapGetters(['token', 'user', 'profile']),

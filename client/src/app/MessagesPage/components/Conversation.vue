@@ -1,6 +1,5 @@
 <template>
-  <div class="conversation">
-    <div class="arrow"></div>
+  <timeline-item>
     <div class="sub-container">
       <div class="header">
         <img class="avatar" src="https://unsplash.it/200/200" />
@@ -29,61 +28,54 @@
         </form>
       </div>
     </div>
-  </div>
+  </timeline-item>
 </template>
 
 <style lang="sass" scoped>
   @import "~stylesheets/variables.scss";
 
-  .conversation {
+  .body {
     display: flex;
-    border-left: 7px solid $main-header-color;
-    margin-top: 20px;
-    .arrow {
-      margin-top: 20px;
-      border-left-color: $main-header-color;
+    flex-direction: column;
+    height: calc(100vh - 420px);
+    min-height: 150px;
+    overflow-y: scroll;
+  }
+  .footer form {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    .btn {
+      flex: 0 0 40px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background: $main-header-color;
+      font-weight: bold;
+      color: #fff;
+      margin: 0 10px;
     }
-    .body {
-      display: flex;
-      flex-direction: column;
-      height: calc(100vh - 420px);
-      min-height: 150px;
-      overflow-y: scroll;
-    }
-    .footer form {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      align-items: center;
-      .btn {
-        flex: 0 0 40px;
-        height: 50px;
-        border-radius: 50%;
-        border: none;
-        background: $main-header-color;
-        font-weight: bold;
-        color: #fff;
-        margin: 0 10px;
-      }
-      .form-input {
-        flex: 1 1 100%;
-        padding: 10px;
-        border-radius: 4px;
-        border: 1px solid $main-text-color;
-        color: $main-text-color;
-        height: 40px;
-      }
+    .form-input {
+      flex: 1 1 100%;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid $main-text-color;
+      color: $main-text-color;
+      height: 40px;
     }
   }
 </style>
 
 <script>
-  import ConvoEntry from './ConvoEntry.vue';
+  import TimelineItem from '../../shared/components/TimelineItem';
+  import ConvoEntry from './ConvoEntry';
   export default {
     name: 'Conversation',
     props: ['currentUser', 'messages', 'reloadConversation', 'sendMessage'],
     components: {
-      'convo-entry': ConvoEntry
+      'convo-entry': ConvoEntry,
+      'timeline-item': TimelineItem
     },
     data() {
       return {

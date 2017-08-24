@@ -58,8 +58,8 @@
       niceDate() { return (new Date(this.time)).toLocaleString(); }
     },
     mounted() {
-      $('.conversation .body').animate({
-        scrollTop: $('.conversation .body .message:last-child').offset().top
+      $('.body').animate({
+        scrollTop: $('.body .message:last-child').offset().top
       });
     }
   }
