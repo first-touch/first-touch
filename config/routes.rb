@@ -7,29 +7,32 @@ Rails.application.routes.draw do
       post 'pre_register', controller: :visitors, action: :pre_register
 
       resources :relationships, only: [:create]
-      delete 'relationships/:followed_user_id', controller: :relationships, action: :destroy
+      delete 'relationships/:followed_user_id',
+             controller: :relationships,
+             action: :destroy
 
       # Public profile of user
       get 'users/:id/profile', controller: :users, action: :public_profile
 
       # Authenticated user actions: profile get and update
-      resource :user, only: [:show, :update]
-
+      resource :user, only: %i[show update]
 
       post 'users/register', to: 'users#register', as: :register
       get 'users/:id/follows', controller: :users, action: :follows
-      resources :posts, only: [:index, :create, :update, :destroy]
-      # Note: Named route for users search because later on the search will probably
-      # be more broad.
+      resources :posts, only: %i[index create update destroy]
+      # Note: Named route for users search because later on
+      # the search will probably be more broad.
       get 'search', controller: :users, action: :search
       resources :network, only: [:index]
-      resources :messages, only: [:index, :create]
+      resources :messages, only: %i[index create]
       get 'messages/:chat_with_id', controller: :messages, action: :show
       resources :session_plans
 
       resource :clubs do
         get 'search', action: :search
       end
+
+      post 'connect', controller: :connection, action: :create
     end
   end
 end

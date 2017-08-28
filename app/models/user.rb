@@ -19,6 +19,11 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
+  has_many :connections
+  has_many :known_people,
+           -> { where status: 'accepted' },
+           through: :connections
+
   has_many :posts
   has_many :sent_messages, class_name: 'Message', foreign_key: 'creator_id'
   has_many :messages_to_receive,

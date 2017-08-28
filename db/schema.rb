@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170702065045) do
+ActiveRecord::Schema.define(version: 20170830145718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "app_notification_templates", force: :cascade do |t|
+    t.string "ref"
+    t.string "available_fields"
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "app_notifications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "title"
+    t.text "content"
+    t.boolean "read"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_app_notifications_on_user_id"
+  end
 
   create_table "awards", force: :cascade do |t|
     t.bigint "user_id"
@@ -66,6 +85,17 @@ ActiveRecord::Schema.define(version: 20170702065045) do
     t.string "third_kit_color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "connections", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "connected_to_id"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["connected_to_id"], name: "index_connections_on_connected_to_id"
+    t.index ["user_id", "connected_to_id"], name: "index_connections_on_user_id_and_connected_to_id", unique: true
+    t.index ["user_id"], name: "index_connections_on_user_id"
   end
 
   create_table "images", id: :serial, force: :cascade do |t|
@@ -175,6 +205,7 @@ ActiveRecord::Schema.define(version: 20170702065045) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "app_notifications", "users"
   add_foreign_key "awards", "clubs"
   add_foreign_key "awards", "users"
   add_foreign_key "career_entries", "clubs"
