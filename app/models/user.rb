@@ -40,6 +40,16 @@ class User < ApplicationRecord
 
   before_save :update_search_string, if: -> { email_changed? }
 
+  def connection_status(user)
+    status = Connection.where(user_id: user.id).or(Connection.where(connected_to_id: user.id)).pluck(:status)
+    return "not_connected" if status.empty?
+    if status.uniq.length == 1 && status[0] == "accepted"
+      return "connected"
+    else
+      return "pending"
+    end
+  end
+
   def follow(user)
     active_relationships.create followed_id: user.id
   end

@@ -20,17 +20,12 @@ module Api
       end
 
       def public_profile
-        if @user
-          # TODO: This should decide wether rendering public profile data or
-          # private profile data depending on privacy definitions.
-          current_user_follows = @current_user.following?(@user)
-          render json: Users::PublicProfileSerializer.new(
-            @user,
-            following: current_user_follows
-          ).as_json
-        else
+        result = ::V1::User::Show.call(params, current_user: current_user)
+        if result.failure?
           render json: { error: 'User not found' },
                  status: :unprocessable_entity
+        else
+          render json: result['response'], status: :ok
         end
       end
 
