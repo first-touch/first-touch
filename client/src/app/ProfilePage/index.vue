@@ -6,7 +6,8 @@
         <h4 class="header">{{ mine ? 'Your profile' : 'User Profile' }}</h4>
         <profile :mine="mine"
           :info="info"
-          :follow="followUser"/>
+          :follow="followUser"
+          :connect="connectUser"/>
         <career-history v-if="info" :careerHistory="info.career_history"/>
       </div>
     </div>
@@ -68,7 +69,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['follow', 'unfollow', 'fetchUserInfo', 'clearToken']),
+    ...mapActions(['follow', 'unfollow', 'fetchUserInfo', 'clearToken', 'connect']),
     onRouteChange() {
       if (this.user.status === ASYNC_SUCCESS && parseInt(this.$route.params.id) === this.user.value.id) {
         return this.$router.push({ path: '/profile' });
@@ -76,6 +77,7 @@ export default {
       if (this.$route.params.id) {
         this.fetchUserInfo({ id: this.$route.params.id });
         this.followUser = this.follow.bind(this, { id: this.$route.params.id });
+        this.connectUser = this.connect.bind(this, { id: this.$route.params.id });
       }
     }
   },

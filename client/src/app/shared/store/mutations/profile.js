@@ -27,5 +27,12 @@ export default {
       state.profile.value,
       { following: true }
     );
+  },
+  [ActionTypes.PROFILE_CONNECT] (state) {
+    state.profile.value = Object.assign(
+      {},
+      state.profile.value,
+      { 'connection_status': 'pending' }
+    );
   }
 };

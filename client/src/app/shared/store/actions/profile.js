@@ -36,3 +36,22 @@ export const follow = (store, { id }) => {
     }
   });
 };
+
+export const connect = (store, { id }) => {
+  fetch('/api/v1/connect', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': store.state.token.value
+    },
+    body: JSON.stringify({ 'connected_to_id': id })
+  }).then((res) => {
+    if (res.status === 200) {
+      store.commit(types.PROFILE_CONNECT);
+    } else if (res.status === 403) {
+      store.commit(types.TOKEN_CLEAR);
+    } else {
+      res.json().then(console.log);
+    }
+  });
+};

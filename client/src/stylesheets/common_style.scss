@@ -103,8 +103,15 @@ body {
   }
 }
 
+a.btn.btn-bright:hover {
+  cursor: pointer;
+}
 a.btn.btn-bright {
   color: $main-text-color;
   text-transform: uppercase;
-  margin-left: 5px;
+  margin-right: 5px;
+}
+a.btn.btn-bright:hover,
+a.btn.btn-bright:focus {
+  color: $main-text-color;
 }

@@ -20,11 +20,25 @@
             {{ info.personal_profile.place_of_birth }}
           </p>
           <div class="widget">
-            <router-link v-if="mine" to="/profile/edit" class="btn btn-bright">Edit Profile</router-link>
-            <a v-else-if="!info.following" @click.prevent="follow" href="#" class="btn btn-bright">+ Follow</a>
-            <a v-else-if="info.following" class="btn btn-dark">&#10003; Following</a>
-            <router-link v-if="!mine" :to="`/messages/${info.id}`" class="btn btn-bright">Message</router-link>
-            <p class="connection"><span class="number">467</span> Connections</p>
+            <div class="widget-row">
+              <router-link v-if="mine" to="/profile/edit" class="btn btn-bright">Edit Profile</router-link>
+              <a v-else-if="!info.following" @click.prevent="follow" href="#" class="btn btn-bright">+ Follow</a>
+              <a v-else-if="info.following" class="btn btn-dark">&#10003; Following</a>
+              <a v-if="!mine && info.connection_status === 'not_connected'"
+                @click.prevent="connect" class="btn btn-bright">
+                Connect
+              </a>
+              <a v-else-if="!mine && info.connection_status === 'pending'"
+                class="btn btn-dark">&sim; Pending
+              </a>
+              <a v-else-if="!mine && info.connection_status === 'connected'"
+                class="btn btn-dark">&#10003; Connected
+              </a>
+              <router-link v-if="!mine" :to="`/messages/${info.id}`" class="btn btn-bright">Message</router-link>
+            </div>
+            <div class="widget-row">
+              <p class="connection"><span class="number">467</span> Connections</p>
+            </div>
           </div>
         </div>
       </div>
@@ -90,10 +104,12 @@
         .role { font-size: 1.2em; }
         .detail-title { color: $secondary-text-color; }
         .widget {
-          display: flex;
-          align-items: center;
           margin-top: 70px;
           margin-bottom: 20px;
+          .widget-row {
+            display: flex;
+            align-items: center;
+          }
           .btn {
             margin-right: 5px;
           }
@@ -150,7 +166,7 @@
 
   export default {
     name: 'Profile',
-    props: ['mine', 'info', 'follow'],
+    props: ['mine', 'info', 'follow', 'connect'],
     components: {
       'timeline-item': TimelineItem
     }
