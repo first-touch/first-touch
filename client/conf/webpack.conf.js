@@ -5,13 +5,17 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
+const NODE_MDL = path.resolve('node_modules');
+const SRC_DIR = path.resolve('src');
+
 module.exports = {
   resolve: {
     alias: {
-      'stylesheets': path.resolve(__dirname, '../src/stylesheets/'),
-      'images': path.resolve(__dirname, '../src/images/')
+      stylesheets: path.resolve(__dirname, '../src/stylesheets/'),
+      images: path.resolve(__dirname, '../src/images/')
     },
-    extensions: ['.js', '.vue']
+    extensions: ['.js', '.vue'],
+    modules: [NODE_MDL, SRC_DIR]
   },
   module: {
     loaders: [
@@ -23,19 +27,12 @@ module.exports = {
       },
       {
         test: /\.(css|scss)$/,
-        loaders: [
-          'style-loader',
-          'css-loader',
-          'sass-loader',
-          'postcss-loader'
-        ]
+        loaders: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader']
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loaders: [
-          'babel-loader'
-        ]
+        loaders: ['babel-loader']
       },
       {
         test: /\.(png|jpg)$/,
@@ -43,15 +40,13 @@ module.exports = {
       },
       {
         test: /.vue$/,
-        loaders: [
-          'vue-loader'
-        ]
+        loaders: ['vue-loader']
       }
     ]
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       template: conf.path.src('index.html')
     }),

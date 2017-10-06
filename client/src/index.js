@@ -1,19 +1,22 @@
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 
-import LandingPage from './app/LandingPage';
-import PreRegistration from './app/PreRegistrationPage';
-import Layout from './app/shared/components/Layout';
-import SignupPage from './app/SignupPage';
-import LoginPage from './app/LoginPage';
-import Feed from './app/FeedPage';
-import ProfilePage from './app/ProfilePage';
-import Network from './app/NetworkPage';
-import Messages from './app/MessagesPage';
-import ConvoContainer from './app/MessagesPage/components/ConvoContainer.vue';
-import EditProfilePage from './app/EditProfilePage';
+import LandingPage from 'app/containers/LandingPage';
+import PreRegistration from 'app/containers/PreRegistrationPage';
+import UserLayout from 'app/components/UserLayout';
+import SignupPage from 'app/containers/SignupPage';
+import LoginPage from 'app/containers/LoginPage';
+import FeedPage from 'app/containers/FeedPage';
+import ProfilePage from 'app/containers/ProfilePage';
+import Network from 'app/containers/NetworkPage';
+import Messages from 'app/containers/MessagesPage';
+import ConvoContainer from 'app/containers/MessagesPage/components/ConvoContainer.vue';
+import EditProfilePage from 'app/containers/EditProfilePage';
+import ClubLayout from 'app/components/ClubLayout';
+import ClubStream from 'app/containers/ClubStreamPage';
+import ClubNotes from 'app/containers/ClubNotesPage';
 
-import store from './app/shared/store';
+import store from 'app/store';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
@@ -24,13 +27,15 @@ function redirectToPrereg (to, from, next) {
 }
 
 function requireAuth (to, from, next) {
-  store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
+  store.state.token.value =
+    store.state.token.value || localStorage.getItem('auth_token');
   if (!store.state.token.value) next({ path: '/welcome' });
   else next();
 }
 
 function checkIfLoggedIn (to, from, next) {
-  store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
+  store.state.token.value =
+    store.state.token.value || localStorage.getItem('auth_token');
   if (store.state.token.value) next({ path: '/' });
   else next();
 }
@@ -39,26 +44,56 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: '/welcome', component: LandingPage },
-    { path: '/users/sign_in', component: LoginPage, beforeEnter: checkIfLoggedIn },
-    { path: '/users/sign_up', component: SignupPage, beforeEnter: redirectToPrereg },
-    { path: '/', component: Layout, beforeEnter: requireAuth,
+    {
+      path: '/users/sign_in',
+      component: LoginPage,
+      beforeEnter: checkIfLoggedIn
+    },
+    {
+      path: '/users/sign_up',
+      component: SignupPage,
+      beforeEnter: redirectToPrereg
+    },
+    {
+      path: '/',
+      component: UserLayout,
+      beforeEnter: requireAuth,
       children: [
-        { path: '', component: Feed },
-        { path: '/profile/edit', component: EditProfilePage },
-        { path: '/profile', component: ProfilePage, props: { mine: true }},
-        { path: '/network', component: Network },
-        { path: '/users/:id/profile', component: ProfilePage, props: { mine: false }, meta: { reuse: false }},
+        { path: '', component: FeedPage },
+        { path: 'profile/edit', component: EditProfilePage },
+        { path: 'profile', component: ProfilePage, props: { mine: true }},
+        { path: 'network', component: Network },
         {
-          path: '/messages', component: Messages,
+          path: '/users/:id/profile',
+          component: ProfilePage,
+          props: { mine: false },
+          meta: { reuse: false }
+        },
+        {
+          path: '/messages',
+          component: Messages,
           children: [
             { path: '', component: ConvoContainer },
-            { path: '/messages/:id', component: ConvoContainer }
+            { path: ':id', component: ConvoContainer }
           ]
         }
       ]
     },
+    {
+      path: '/club',
+      component: ClubLayout,
+      beforeEnter: requireAuth,
+      children: [
+        { path: '', component: ClubStream },
+        { path: 'notes', component: ClubNotes }
+      ]
+    },
     // Delete once registration is allowed
-    { path: '/pre_registration', component: PreRegistration, beforeEnter: checkIfLoggedIn }
+    {
+      path: '/pre_registration',
+      component: PreRegistration,
+      beforeEnter: checkIfLoggedIn
+    }
   ]
 });
 

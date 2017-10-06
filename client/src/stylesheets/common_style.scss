@@ -1,10 +1,15 @@
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,300);
+
 body {
   background: $navbar-background-color;
+  min-height: 100%;
+  font-family: 'Ubuntu', sans-serif;
+  color: $first-touch-white;
 }
 
 .ft-page {
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     margin-top: -15px;
     width: 10%;
@@ -12,6 +17,9 @@ body {
   }
 
   margin: $searchbar-height 20vw 0 $navbar-width;
+  & ~ .ft-page {
+    margin-top: auto;
+  }
   min-height: calc(100vh - 119px);
   padding: 20px;
 
@@ -42,7 +50,7 @@ body {
   margin-bottom: 40px;
   font-weight: 300;
   &:before {
-    content : "";
+    content: '';
     position: absolute;
     left: 20px;
     margin-top: -15px;
@@ -57,22 +65,32 @@ body {
   .info-blk-header-name {
     text-transform: uppercase;
     color: $secondary-text-color;
-    font-size: .9em;
-    &:hover { text-decoration: none; }
+    font-size: 0.9em;
+    &:hover {
+      text-decoration: none;
+    }
   }
   .info-blk-header-seemore {
     color: $secondary-text-color;
-    font-size: .8em;
-    &:hover { text-decoration: none; }
+    font-size: 0.8em;
+    &:hover {
+      text-decoration: none;
+    }
   }
   .info-blk-body {
-    font-size: .8em;
-    .list { border-bottom: 1px solid $secondary-text-color; }
+    font-size: 0.8em;
+    .list {
+      border-bottom: 1px solid $secondary-text-color;
+    }
     .item {
       border-top: 1px solid $secondary-text-color;
       color: $secondary-text-color;
       margin-bottom: 20px;
-      .person, .event-name, .duel { color: #fff; }
+      .person,
+      .event-name,
+      .duel {
+        color: #fff;
+      }
     }
   }
 }
@@ -98,7 +116,9 @@ body {
         text-transform: uppercase;
         color: $secondary-header-color;
       }
-      .role { color: $secondary-text-color; }
+      .role {
+        color: $secondary-text-color;
+      }
     }
   }
 }
@@ -114,4 +134,22 @@ a.btn.btn-bright {
 a.btn.btn-bright:hover,
 a.btn.btn-bright:focus {
   color: $main-text-color;
+}
+
+.sidenav-left {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  top: 0;
+  width: $navbar-width;
+  height: 100vh;
+  background-color: $navbar-background-color;
+  padding: $navbar-padding;
+  box-shadow: 2px 0 2px 0 #555;
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
 }
