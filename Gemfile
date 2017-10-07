@@ -49,6 +49,7 @@ group :test do
 end
 
 group :development do
+  gem 'story_branch'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'rubocop'
   gem 'web-console', '~> 2.0'
