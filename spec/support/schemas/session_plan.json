@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "properties": {
-    "id": { "type": "integer" },
-    "user_id": { "type": "integer" },
-    "name": { "type": "string" },
-    "tags": { "type": "array" }
-  }
-}

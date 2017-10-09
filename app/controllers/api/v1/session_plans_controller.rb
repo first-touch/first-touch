@@ -11,7 +11,7 @@ module Api
         @session_plan = SessionPlan.new(session_plan_params)
 
         if @session_plan.save
-          render json: @session_plan, status: :created
+          render json: V1::SessionPlan::Representer::Full.new(@session_plan).as_json, status: :created
         else
           render json: @session_plan.errors, status: :unprocessable_entity
         end
@@ -20,7 +20,7 @@ module Api
       def update
         @session_plan.update_attributes(session_plan_params)
         if @session_plan.save
-          render json: @session_plan, status: :ok
+          render json: V1::SessionPlan::Representer::Full.new(@session_plan).as_json, status: :ok
         else
           render json: @session_plan.errors, status: :unprocessable_entity
         end

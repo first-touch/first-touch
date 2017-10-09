@@ -1,4 +1,3 @@
-# TOOD: Write tests
 module Api
   module V1
     class PostsController < Api::V1::BaseController
@@ -8,13 +7,16 @@ module Api
       end
 
       def create
-        new_post = Post.new post_params
-        new_post.user = @current_user
-        if new_post.save
-          render json: new_post
+        result = ::V1::Post::Create.(params, current_user: current_user)
+        if result.success?
+          render json: ::V1::Post::Representer::Full.new(result['model']).as_json
+        elsif result['result.policy.failure'] == :unauthorized
+          render json: { error: 'Unauthorized' }, status: :unauthorized
         else
-          render json: { error: new_post.errors.full_messages },
-                 status: :unprocesseable_entity
+          render json: {
+            error: result['contract.default'].errors.full_messages
+          },
+                 status: :unprocessable_entity
         end
       end
 
@@ -24,19 +26,6 @@ module Api
 
       def update
         render json: {}
-      end
-
-      private
-
-      def post_params
-        params.require(:post).permit(
-          :content,
-          {
-            images_attributes: [
-              :file
-            ]
-          }
-        )
       end
     end
   end

@@ -5,7 +5,7 @@ module Api
       before_action :find_user, only: %i[public_profile follows]
 
       def register
-        result = Users::Register.call(params)
+        result = ::V1::User::Register.call(params)
         if result.failure?
           messages = result['contract.default'].errors.full_messages
           render json: { error: messages },
@@ -48,7 +48,7 @@ module Api
       end
 
       def search
-        result = Users::Index.call(params)
+        result = ::V1::User::Index.call(params)
         if result.failure?
           render json: { error_message: result['errors'] },
                  status: :unprocessable_entity

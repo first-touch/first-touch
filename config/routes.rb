@@ -19,7 +19,14 @@ Rails.application.routes.draw do
 
       post 'users/register', to: 'users#register', as: :register
       get 'users/:id/follows', controller: :users, action: :follows
-      resources :posts, only: %i[index create update destroy]
+      resources :users, except: [:show] do
+        resources :posts, only: %i[index create]
+      end
+      resources :clubs, except: [:show] do
+        resources :posts, only: %i[index create]
+      end
+      resources :posts, only: %i[update destroy]
+
       # Note: Named route for users search because later on
       # the search will probably be more broad.
       get 'search', controller: :users, action: :search
