@@ -44,10 +44,18 @@ RSpec.describe User, type: :model do
 
   describe 'feed' do
     let(:post_content) { 'This is my test' }
-    let!(:post_hobbes) { create :post, content: post_content, author: hobbes }
-    let!(:post_calvin) { create :post, content: post_content, author: calvin }
+    let(:post_hobbes) { create :post, content: post_content, author: hobbes }
+    let(:post_calvin) { create :post, content: post_content, author: calvin }
 
     before do
+      Timecop.freeze 1.day.ago do
+        post_hobbes
+      end
+
+      Timecop.freeze 1.hour.ago do
+        post_calvin
+      end
+
       calvin.follow hobbes
     end
 
@@ -60,38 +68,46 @@ RSpec.describe User, type: :model do
   describe 'inbox' do
     let(:susie) { create :user }
     let(:message_c_h_one) { create :message, creator_id: calvin.id }
-    let!(:message_recipient_c_h_one) do
+    let(:message_recipient_c_h_one) do
       create :message_recipient,
              message: message_c_h_one,
              recipient_id: hobbes.id
     end
 
     let(:message_h_c_one) { create :message, creator_id: hobbes.id }
-    let!(:message_recipient_h_c_one) do
+    let(:message_recipient_h_c_one) do
       create :message_recipient,
              message: message_h_c_one,
              recipient_id: calvin.id
     end
 
     let(:message_c_h_two) { create :message, creator_id: calvin.id }
-    let!(:message_recipient_c_h_two) do
+    let(:message_recipient_c_h_two) do
       create :message_recipient,
              message: message_c_h_two,
              recipient_id: hobbes.id
     end
 
     let(:message_c_h_three) { create :message, creator_id: calvin.id }
-    let!(:message_recipient_c_h_three) do
+    let(:message_recipient_c_h_three) do
       create :message_recipient,
              message: message_c_h_three,
              recipient_id: hobbes.id
     end
 
     let(:message_h_c_two) { create :message, creator_id: hobbes.id }
-    let!(:message_recipient_h_c_two) do
+    let(:message_recipient_h_c_two) do
       create :message_recipient,
              message: message_h_c_two,
              recipient_id: calvin.id
+    end
+
+    before do
+      Timecop.freeze(1.day.ago) { message_recipient_c_h_one }
+      Timecop.freeze(2.hour.ago) { message_recipient_h_c_one }
+      Timecop.freeze(1.hour.ago) { message_recipient_c_h_two }
+      Timecop.freeze(10.minute.ago) { message_recipient_c_h_three }
+      Timecop.freeze(1.minute.ago) { message_recipient_h_c_two }
     end
 
     it 'returns the messages in the right order' do

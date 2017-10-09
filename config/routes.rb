@@ -39,6 +39,8 @@ Rails.application.routes.draw do
         get 'search', action: :search
       end
 
+      resources :events, only: %i[index create show]
+
       post 'connect', controller: :connection, action: :create
     end
   end

@@ -1,8 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe V1::Post::Create do
-  # FIXME: Replace the use of factory girl with user create operation
-  let(:current_user) { FactoryGirl.create :user }
+  let(:current_user) do
+    res = V1::User::Register.(
+      email: 'test@banaas.com',
+      password: '123123',
+      password_confirmation: '123123',
+      personal_profile: {
+        first_name: 'Test',
+        last_name: 'Bananas',
+        birthday: '10/01/1989'
+      }
+    )
+    res['model']
+  end
   let(:operation) { V1::Post::Create.(params, current_user: current_user) }
 
   describe 'when the user is posting on a user behalf' do
@@ -26,7 +37,20 @@ RSpec.describe V1::Post::Create do
     end
 
     describe 'when the user is not allowed' do
-      let(:author) { FactoryGirl.create :user }
+      let(:author) do
+        res = V1::User::Register.(
+          email: 'author@banaas.com',
+          password: '123123',
+          password_confirmation: '123123',
+          personal_profile: {
+            first_name: 'Test',
+            last_name: 'Bananas',
+            birthday: '10/01/1989'
+          }
+        )
+        res['model']
+      end
+
       it 'returns an error' do
         expect(operation.success?).to eq false
         expect(operation['result.policy.failure']).to eq :unauthorized
@@ -57,7 +81,19 @@ RSpec.describe V1::Post::Create do
 
     describe 'when the user is not allowed' do
       let(:club) { FactoryGirl.create :club, account_owner: other_user }
-      let(:other_user) { FactoryGirl.create :user }
+      let(:other_user) do
+        res = V1::User::Register.(
+          email: 'author@banaas.com',
+          password: '123123',
+          password_confirmation: '123123',
+          personal_profile: {
+            first_name: 'Test',
+            last_name: 'Bananas',
+            birthday: '10/01/1989'
+          }
+        )
+        res['model']
+      end
 
       it 'returns an error' do
         expect(operation.success?).to eq false

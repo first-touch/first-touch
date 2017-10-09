@@ -1,7 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe 'Posts', type: :request do
-  let!(:existing_user) { FactoryGirl.create :user }
+  let!(:existing_user) do
+    res = V1::User::Register.(
+      email: 'test@banaas.com',
+      password: '123123',
+      password_confirmation: '123123',
+      personal_profile: {
+        first_name: 'Test',
+        last_name: 'Bananas',
+        birthday: '10/01/1989'
+      }
+    )
+    res['model']
+  end
 
   before do
     # FIXME: Replace this logic when Tyrant is in place

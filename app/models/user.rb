@@ -33,6 +33,8 @@ class User < ApplicationRecord
   has_many :club_users
   has_many :clubs, through: :club_users
 
+  has_many :managed_clubs, foreign_key: :account_owner_id, class_name: 'Club'
+
   has_many :team_users
   has_many :teams, through: :team_users
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918160745) do
+ActiveRecord::Schema.define(version: 20171009163634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,21 @@ ActiveRecord::Schema.define(version: 20170918160745) do
     t.index ["connected_to_id"], name: "index_connections_on_connected_to_id"
     t.index ["user_id", "connected_to_id"], name: "index_connections_on_user_id_and_connected_to_id", unique: true
     t.index ["user_id"], name: "index_connections_on_user_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.integer "evt_type"
+    t.integer "organizer_id"
+    t.integer "opponent_id"
+    t.string "name"
+    t.string "venue"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["opponent_id"], name: "index_events_on_opponent_id"
+    t.index ["organizer_id"], name: "index_events_on_organizer_id"
   end
 
   create_table "images", id: :serial, force: :cascade do |t|
