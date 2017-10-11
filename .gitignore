@@ -33,3 +33,5 @@ node_modules
 *.log
 
 public/paperclip
+
+.story_branch
