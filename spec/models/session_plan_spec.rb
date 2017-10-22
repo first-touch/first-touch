@@ -7,6 +7,10 @@ RSpec.describe SessionPlan, type: :model do
   end
 
   describe 'validations' do
+    before do
+      allow(subject).to receive(:process_image)
+    end
+
     it { is_expected.to validate_presence_of :name }
   end
 end

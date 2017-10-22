@@ -9,6 +9,6 @@ class SessionPlan < ApplicationRecord
   validates_presence_of :name
 
   def process_image
-    self.image.file_file_name = "#{name}.jpg"
+    image.file_file_name = "#{name}.jpg"
   end
 end
