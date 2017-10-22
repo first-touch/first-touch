@@ -65,7 +65,10 @@ class User < ApplicationRecord
   # TODO: Build a more meaningful feed
   def feed
     relevant_user_ids = following_ids + [id]
-    Post.where(user_id: relevant_user_ids).order('updated_at DESC')
+    Post.where(
+      author_id: relevant_user_ids,
+      author_type: 'User'
+    ).order('updated_at DESC')
   end
 
   def received_messages
