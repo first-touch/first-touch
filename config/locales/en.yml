@@ -20,4 +20,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  carrer:
+    invalid_dates: 'has to be earlier than end date'
   hello: "Hello world"
