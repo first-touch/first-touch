@@ -1,15 +1,14 @@
 # Change these
 # config valid only for current version of Capistrano
-lock "3.7.2"
+lock '3.7.2'
 
-set :stages, %w(production staging)
-set :default_stage, "staging"
-set :application, "firsttouch"
+set :stages, %w[production staging]
+set :application, 'firsttouch'
 
-set :repo_url, "git@bitbucket.org:firsttouch/first-touch.git"
+set :repo_url, 'git@bitbucket.org:firsttouch/first-touch.git'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
-set :user, "deployer"
+set :user, 'deployer'
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Don't change these unless you know what you're doing
@@ -37,9 +36,9 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 
 ## Linked Files & Directories (Default None):
 # Default value for :linked_files is []
-append :linked_files, "config/database.yml", "config/secrets.yml"
+append :linked_files, 'config/database.yml', 'config/secrets.yml'
 # Default value for linked_dirs is []
-append :linked_dirs, %{client/node_modules}
+append :linked_dirs, %(client/node_modules)
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -60,12 +59,12 @@ namespace :puma do
 end
 
 namespace :deploy do
-  desc "Make sure local git is in sync with remote."
+  desc 'Make sure local git is in sync with remote.'
   task :check_revision do
     on roles(:app) do
       unless `git rev-parse HEAD` == `git rev-parse origin/master`
-        puts "WARNING: HEAD is not the same as origin/master"
-        puts "Run `git push` to sync changes."
+        puts 'WARNING: HEAD is not the same as origin/master'
+        puts 'Run `git push` to sync changes.'
         exit
       end
     end
