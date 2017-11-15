@@ -33,7 +33,7 @@ Rails.application.routes.draw do
       resources :network, only: [:index]
       resources :messages, only: %i[index create]
       get 'messages/:chat_with_id', controller: :messages, action: :show
-      resources :session_plans
+      resources :notes
 
       resource :clubs do
         get 'search', action: :search

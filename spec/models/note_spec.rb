@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SessionPlan, type: :model do
+RSpec.describe Note, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to :user }
     it { is_expected.to have_one :image }

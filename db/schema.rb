@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009163634) do
+ActiveRecord::Schema.define(version: 20171112034927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,6 +146,16 @@ ActiveRecord::Schema.define(version: 20171009163634) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "notes", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
+    t.string "name"
+    t.string "labels", array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "content"
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
   create_table "personal_profiles", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.string "first_name"
@@ -184,15 +194,6 @@ ActiveRecord::Schema.define(version: 20171009163634) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
-  create_table "session_plans", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.string "name"
-    t.string "tags", array: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_session_plans_on_user_id"
-  end
-
   create_table "team_users", id: :serial, force: :cascade do |t|
     t.integer "team_id"
     t.integer "user_id"
@@ -228,7 +229,7 @@ ActiveRecord::Schema.define(version: 20171009163634) do
   add_foreign_key "career_entries", "users"
   add_foreign_key "club_users", "clubs"
   add_foreign_key "club_users", "users"
-  add_foreign_key "session_plans", "users"
+  add_foreign_key "notes", "users"
   add_foreign_key "team_users", "teams"
   add_foreign_key "team_users", "users"
 end

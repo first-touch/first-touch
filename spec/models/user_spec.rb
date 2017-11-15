@@ -14,7 +14,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:clubs).through(:club_users) }
     it { is_expected.to have_many(:team_users) }
     it { is_expected.to have_many(:teams).through(:team_users) }
-    it { is_expected.to have_many(:session_plans) }
+    it { is_expected.to have_many(:notes) }
   end
 
   describe 'triggers' do

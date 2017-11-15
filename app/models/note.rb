@@ -1,4 +1,4 @@
-class SessionPlan < ApplicationRecord
+class Note < ApplicationRecord
   before_validation :process_image
 
   belongs_to :user
@@ -9,6 +9,7 @@ class SessionPlan < ApplicationRecord
   validates_presence_of :name
 
   def process_image
+    return if image.nil?
     image.file_file_name = "#{name}.jpg"
   end
 end

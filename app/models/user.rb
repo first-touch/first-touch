@@ -38,7 +38,7 @@ class User < ApplicationRecord
   has_many :team_users
   has_many :teams, through: :team_users
 
-  has_many :session_plans
+  has_many :notes
 
   before_save :update_search_string, if: -> { email_changed? }
 

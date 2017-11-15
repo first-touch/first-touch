@@ -1,12 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::SessionPlansController, type: :controller do
+RSpec.describe Api::V1::NotesController, type: :controller do
   let(:calvin) { create :user }
-  let!(:calvin_plans) { create_list :session_plan, 4, user: calvin }
-  let!(:other_plans) { create_list :session_plan, 2 }
+  let!(:calvin_plans) { create_list :note, 4, user: calvin }
+  let!(:other_plans) { create_list :note, 2 }
   let(:response_body) { response.body }
   let(:response_code) { response.response_code }
-
 
   describe 'GET index' do
     let(:do_request) { get :index }
@@ -22,9 +21,9 @@ RSpec.describe Api::V1::SessionPlansController, type: :controller do
       let(:expected_response) do
         serialized = ActiveModel::Serializer::CollectionSerializer.new(
           calvin_plans,
-          each_serializer: SessionPlanSerializer
+          each_serializer: NoteSerializer
         ).as_json
-        { session_plans: serialized }.to_json
+        { notes: serialized }.to_json
       end
 
       before do

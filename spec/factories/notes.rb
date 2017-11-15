@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :session_plan do
+  factory :note do
     user
     name { Faker::Hipster.word }
     tags { Faker::Hipster.words }
