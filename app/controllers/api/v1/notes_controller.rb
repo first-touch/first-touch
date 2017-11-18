@@ -1,10 +1,11 @@
 module Api
   module V1
     class NotesController < Api::V1::BaseController
-      before_action :find_note, except: %i[index create]
+      before_action :find_note, only: :delete
 
       def index
-        render json: @current_user.notes
+        result = ::V1::Note::Index.(params, current_user: current_user)
+        render json: ::V1::Note::Representer::Index.new(result['models'])
       end
 
       def create
@@ -22,12 +23,15 @@ module Api
       end
 
       def update
-        @note.update_attributes(note_params)
-        if @note.save
-          render json: ::V1::Note::Representer::Full.new(@note).as_json,
-                 status: :ok
+        result = ::V1::Note::Update.(params, current_user: current_user)
+        if result.success?
+          render json: ::V1::Note::Representer::Full.new(result['model']),
+                 status: :created
+        elsif result.policy_error?
+          render json: {}, status: :unauthorized
         else
-          render json: @note.errors, status: :unprocessable_entity
+          error_messages = result['contract.default']&.errors&.full_messages || result['result.model']
+          render json: { errors: error_messages }, status: :unprocessable_entity
         end
       end
 
@@ -40,18 +44,19 @@ module Api
       end
 
       def show
-        render json: @note, status: :ok
+        result = ::V1::Note::Show.(params, current_user: current_user)
+        if result.success?
+          render json: ::V1::Note::Representer::Full.new(result['model']),
+                 status: :ok
+        elsif result.policy_error?
+          render json: {}, status: :unauthorized
+        else
+          error_messages = result['contract.default']&.errors&.full_messages || result['result.model']
+          render json: { errors: error_messages }, status: :unprocessable_entity
+        end
       end
 
       private
-
-      def note_params
-        params.require(:note).permit(:name,
-                                     :content,
-                                     labels: [],
-                                     image_attributes: [:file])
-              .merge(user_id: @current_user.id)
-      end
 
       def find_note
         render_error(errors: ['Missing attributes']) unless params[:id]

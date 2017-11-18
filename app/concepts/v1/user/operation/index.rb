@@ -13,7 +13,7 @@ module V1
             'search_string ILIKE ?', "%#{query_params}%"
           )
         end
-        options['model'] = user_list
+        options['models'] = user_list
       end
     end
   end

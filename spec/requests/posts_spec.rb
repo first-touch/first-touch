@@ -16,7 +16,7 @@ RSpec.describe 'Posts', type: :request do
   end
 
   before do
-    # FIXME: Replace this logic when Tyrant is in place
+    # FIXME: Replace this logic when final auth logic is in place
     allow(AuthorizeApiRequest).to receive(:call).and_return mocked_result
     request
   end

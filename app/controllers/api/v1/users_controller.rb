@@ -48,12 +48,12 @@ module Api
       end
 
       def search
-        result = ::V1::User::Index.call(params)
+        result = ::V1::User::Index.(params)
         if result.failure?
           render json: { error_message: result['errors'] },
                  status: :unprocessable_entity
         else
-          render json: result['model'],
+          render json: result['models'],
                  each_serializer: Users::SearchSerializer,
                  status: :ok
         end

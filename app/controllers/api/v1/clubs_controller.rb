@@ -8,7 +8,7 @@ module Api
                  status: :unprocessable_entity
 
         else
-          render json: ::V1::Club::Representer::Search.new(result['model']),
+          render json: ::V1::Club::Representer::Search.new(result['models']),
                  status: :ok
         end
       end

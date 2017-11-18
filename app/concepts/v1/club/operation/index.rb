@@ -6,7 +6,7 @@ module V1
       def setup_model!(options, params:, **)
         clubs = ::Club.all
         clubs = clubs.where('name iLIKE ?', "%#{params[:q]}%") if params[:q]
-        options['model'] = clubs
+        options['models'] = clubs
       end
     end
   end
