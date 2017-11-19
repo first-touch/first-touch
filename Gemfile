@@ -5,6 +5,7 @@ gem 'aws-sdk', '~> 2.3.0'
 gem 'bcrypt', '~>3.1.7'
 gem 'bundler', '>= 1.8.4'
 gem 'dry-matcher'
+gem 'iso_country_codes'
 gem 'jwt'
 gem 'multi_json'
 gem 'paperclip', '~> 5.0.0'
@@ -13,6 +14,7 @@ gem 'puma'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.1'
+gem 'rubyXL'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'
 gem 'simple_command'
@@ -50,7 +52,7 @@ group :test do
 end
 
 group :development do
-  gem 'story_branch'
   gem 'rubocop'
+  gem 'story_branch'
   gem 'web-console', '~> 2.0'
 end

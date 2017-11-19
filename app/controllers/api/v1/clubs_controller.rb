@@ -25,6 +25,18 @@ module Api
                  status: :ok
         end
       end
+
+      def import_roster
+        result = ::V1::Club::ImportRoster.(params)
+        if result.failure?
+          render json: { error_message: result['errors'] },
+                 status: :unprocessable_entity
+
+        else
+          render json: { message: 'File being processed and will be available soon'},
+                 status: :ok
+        end
+      end
     end
   end
 end

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       end
       resource :clubs, only: [] do
         get 'search', action: :search
+        post 'import_roster', action: :import_roster
       end
 
       resources :posts, only: %i[update destroy]
