@@ -4,7 +4,7 @@ module V1
       step :setup_model!
 
       def setup_model!(options, current_user:, **)
-        options['model'] = current_user.notes
+        options['models'] = current_user.notes
         true
       end
     end

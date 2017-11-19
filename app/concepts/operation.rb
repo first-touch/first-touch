@@ -16,7 +16,7 @@ module FirstTouch
     def model_not_found!(options, **)
       model_name = options['model.class'].name.titlecase
       error_message = I18n.t('models.not_found', model: model_name)
-      options['result.model'] = [error_message]
+      options['result.model.errors'] = [error_message]
     end
   end
 end

@@ -22,9 +22,14 @@ Rails.application.routes.draw do
       resources :users, except: [:show] do
         resources :posts, only: %i[index create]
       end
-      resources :clubs, except: [:show] do
+
+      resources :clubs, only: %i[show] do
         resources :posts, only: %i[index create]
       end
+      resource :clubs, only: [] do
+        get 'search', action: :search
+      end
+
       resources :posts, only: %i[update destroy]
 
       # Note: Named route for users search because later on
@@ -34,10 +39,6 @@ Rails.application.routes.draw do
       resources :messages, only: %i[index create]
       get 'messages/:chat_with_id', controller: :messages, action: :show
       resources :notes
-
-      resource :clubs do
-        get 'search', action: :search
-      end
 
       resources :events, only: %i[index create show]
 

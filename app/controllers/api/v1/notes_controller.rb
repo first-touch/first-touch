@@ -4,35 +4,30 @@ module Api
       before_action :find_note, only: :delete
 
       def index
-        result = ::V1::Note::Index.(params, current_user: current_user)
-        render json: ::V1::Note::Representer::Index.new(result['models'])
+        result = FirstTouch::Endpoint.(
+          ::V1::Note::Index,
+          args: [params, current_user: current_user],
+          representer: ::V1::Note::Representer::Index
+        )
+        render json: result[:data], status: result[:status]
       end
 
       def create
-        result = ::V1::Note::Create.(params, current_user: current_user)
-        if result.success?
-          render json: ::V1::Note::Representer::Full.new(result['model']),
-                 status: :created
-        elsif result.policy_error?
-          render json: {}, status: :unauthorized
-        else
-          render json: {
-            errors: result['contract.default'].errors.full_messages
-          }, status: :unprocessable_entity
-        end
+        result = FirstTouch::Endpoint.(
+          ::V1::Note::Create,
+          args: [params, current_user: current_user],
+          representer: ::V1::Note::Representer::Full
+        )
+        render json: result[:data], status: result[:status]
       end
 
       def update
-        result = ::V1::Note::Update.(params, current_user: current_user)
-        if result.success?
-          render json: ::V1::Note::Representer::Full.new(result['model']),
-                 status: :created
-        elsif result.policy_error?
-          render json: {}, status: :unauthorized
-        else
-          error_messages = result['contract.default']&.errors&.full_messages || result['result.model']
-          render json: { errors: error_messages }, status: :unprocessable_entity
-        end
+        result = FirstTouch::Endpoint.(
+          ::V1::Note::Update,
+          args: [params, current_user: current_user],
+          representer: ::V1::Note::Representer::Full
+        )
+        render json: result[:data], status: result[:status]
       end
 
       def destroy
@@ -44,16 +39,12 @@ module Api
       end
 
       def show
-        result = ::V1::Note::Show.(params, current_user: current_user)
-        if result.success?
-          render json: ::V1::Note::Representer::Full.new(result['model']),
-                 status: :ok
-        elsif result.policy_error?
-          render json: {}, status: :unauthorized
-        else
-          error_messages = result['contract.default']&.errors&.full_messages || result['result.model']
-          render json: { errors: error_messages }, status: :unprocessable_entity
-        end
+        result = FirstTouch::Endpoint.(
+          ::V1::Note::Show,
+          args: [params, current_user: current_user],
+          representer: ::V1::Note::Representer::Full
+        )
+        render json: result[:data], status: result[:status]
       end
 
       private

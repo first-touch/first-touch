@@ -101,6 +101,7 @@ GEM
       declarative-option (< 0.2.0)
       representable (>= 2.4.0, <= 3.1.0)
       uber (< 0.2.0)
+    dry-matcher (0.6.0)
     erubi (1.6.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
@@ -302,6 +303,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capistrano3-puma
+  dry-matcher
   factory_girl_rails
   faker
   json-schema
