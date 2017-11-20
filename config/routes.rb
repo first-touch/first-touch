@@ -4,10 +4,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      post 'authenticate', controller: :authentication, action: :authenticate
-      get 'validate', controller: :authentication, action: :validate
-      post 'logout', controller: :authentication, action: :logout
-      post 'pre_register', controller: :visitors, action: :pre_register
 
       resources :relationships, only: [:create]
       delete 'relationships/:followed_user_id',

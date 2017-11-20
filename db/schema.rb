@@ -156,6 +156,15 @@ ActiveRecord::Schema.define(version: 20180212121423) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
+  create_table "password_reminders", force: :cascade do |t|
+    t.string "token"
+    t.bigint "user_id"
+    t.datetime "expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_password_reminders_on_user_id"
+  end
+
   create_table "personal_profiles", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.string "first_name"
@@ -255,6 +264,7 @@ ActiveRecord::Schema.define(version: 20180212121423) do
   add_foreign_key "club_users", "clubs"
   add_foreign_key "club_users", "users"
   add_foreign_key "notes", "users"
+  add_foreign_key "password_reminders", "users"
   add_foreign_key "team_users", "teams"
   add_foreign_key "team_users", "users"
 end
