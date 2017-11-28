@@ -5,14 +5,11 @@ module V1
     module Contract
       class Create < Reform::Form
         property :email, virtual: true
+        property :user
+        property :token
+        property :expires_at
 
-        validates :email, presence: true
-        validate :find_user_by_email
-
-        def find_user_by_email
-          user = User.find_by(email: email)
-          errors.add(:email, :not_found) unless user
-        end
+        validates :email, :user, :token, :expires_at, presence: true
       end
     end
   end
