@@ -59,6 +59,15 @@ module Api
         end
       end
 
+      def club_token
+        result = ::V1::User::ClubToken.(params, current_user: current_user)
+        if result.failure?
+          render json: { error_message: result.errors },
+                 status: :unprocessable_entity
+        else
+          render json: result['model'], status: :ok
+      end
+
       private
 
       def find_user

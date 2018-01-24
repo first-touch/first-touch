@@ -1,7 +1,6 @@
 module V1
   module User
-    class Index < Trailblazer::Operation
-      # TODO: setup policy guard
+    class Index < FirstTouch::Operation
       step :setup_model!
 
       def setup_model!(options, params:, **)

@@ -23,6 +23,8 @@ Rails.application.routes.draw do
         resources :posts, only: %i[index create]
       end
 
+      get 'club_token', to: 'users/club_token'
+
       resources :clubs, only: %i[show] do
         resources :posts, only: %i[index create]
       end

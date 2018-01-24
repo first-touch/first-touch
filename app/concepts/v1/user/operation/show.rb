@@ -1,6 +1,6 @@
 module V1
   module User
-    class Show < Trailblazer::Operation
+    class Show < FirstTouch::Operation
       step Model(::User, :find_by)
       step :setup_twin_model!
       step :build_response!
