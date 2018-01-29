@@ -66,6 +66,7 @@ module Api
                  status: :unprocessable_entity
         else
           render json: result['model'], status: :ok
+        end
       end
 
       private
