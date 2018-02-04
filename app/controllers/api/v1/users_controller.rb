@@ -3,6 +3,7 @@ module Api
     class UsersController < Api::V1::BaseController
       skip_before_action :authenticate_request, only: [:register]
       before_action :find_user, only: %i[public_profile follows]
+      before_action :track_view, only: [:public_profile]
 
       def register
         result = ::V1::User::Register.(params)

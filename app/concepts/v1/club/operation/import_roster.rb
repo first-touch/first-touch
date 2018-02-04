@@ -23,7 +23,7 @@ module V1
       end
 
       def enqueue_import(options, **)
-        FirstTouch::Importer::Roster.perform_async options['roster_file']
+        ::Importer::Roster.perform_async options['roster_file']
       end
 
       def invalid_file(options, **)
