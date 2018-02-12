@@ -14,6 +14,7 @@ gem 'puma'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.1'
+gem 'rolify'
 gem 'rubyXL'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'
@@ -22,9 +23,6 @@ gem 'trailblazer-rails', '~> 1.0'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
 group :deployment do

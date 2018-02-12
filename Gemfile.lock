@@ -207,6 +207,7 @@ GEM
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
       uber (< 0.2.0)
+    rolify (5.2.0)
     rspec-core (3.7.1)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
@@ -318,6 +319,7 @@ DEPENDENCIES
   puma
   rack-cors
   rails (~> 5.1)
+  rolify
   rspec-json_expectations
   rspec-rails (~> 3.0)
   rubocop
