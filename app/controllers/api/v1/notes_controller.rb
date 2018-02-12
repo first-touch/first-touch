@@ -47,6 +47,15 @@ module Api
         render json: result[:data], status: result[:status]
       end
 
+      def labels
+        result = FirstTouch::Endpoint.(
+          ::V1::Note::Labels,
+          args: [params, current_user: current_user],
+          representer: ::V1::Note::Representer::Labels
+        )
+        render json: result[:data], status: result[:status]
+      end
+
       private
 
       def find_note

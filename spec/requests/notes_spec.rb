@@ -17,22 +17,27 @@ RSpec.describe 'Notes', type: :request do
   let(:mocked_result) do
     instance_double(SimpleCommand, result: existing_user)
   end
+  let!(:existing_notes) do
+    ::V1::Note::Create.({
+      note: {
+        name: 'n1',
+        content: 'hello',
+        labels: ['l1', 'l2']
+      }
+    }, current_user: existing_user)
+    ::V1::Note::Create.({
+      note: {
+        name: 'n2',
+        content: 'hello2',
+        labels: ['l2', 'l3']
+      }
+    }, current_user: existing_user)
+  end
 
   before do
     # FIXME: Replace this logic when final auth logic is in place
     allow(AuthorizeApiRequest).to receive(:call).and_return mocked_result
     request
-  end
-
-  describe 'Note Index' do
-    let(:request) do
-      get api_v1_notes_url
-    end
-
-    it 'it gets all users notes' do
-      expect(response.content_type).to eq('application/json')
-      expect(response).to have_http_status(:ok)
-    end
   end
 
   describe 'Note Creation' do
@@ -48,6 +53,32 @@ RSpec.describe 'Notes', type: :request do
     it 'it creates a note associated with the user' do
       expect(response.content_type).to eq('application/json')
       expect(response).to have_http_status(:created)
+    end
+  end
+
+  describe 'Note Index' do
+    let(:request) do
+      get api_v1_notes_url
+    end
+
+    it 'it gets all users notes' do
+      expect(response.content_type).to eq('application/json')
+      expect(response).to have_http_status(:ok)
+      json_response = JSON.parse(response.body)
+      expect(json_response['notes'].length).to eq 2
+    end
+  end
+
+  describe 'Get Labels' do
+    let(:request) do
+      get api_v1_notes_labels_url
+    end
+
+    it 'it creates a note associated with the user' do
+      expect(response.content_type).to eq('application/json')
+      expect(response).to have_http_status(:ok)
+      json_response = JSON.parse(response.body)
+      expect(json_response['labels'].length).to eq 3
     end
   end
 end
