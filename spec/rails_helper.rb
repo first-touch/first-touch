@@ -59,7 +59,6 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include Paperclip::Shoulda::Matchers
-  ActiveRecord::Migration.maintain_test_schema! if defined?(ActiveRecord::Migration)
 end
 
 Shoulda::Matchers.configure do |config|
@@ -68,7 +67,6 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
-
 
 def authenticated_header(user)
   token = AuthenticateUser.call(user.email, user.password).result
