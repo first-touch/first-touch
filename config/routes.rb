@@ -19,14 +19,15 @@ Rails.application.routes.draw do
 
       post 'users/register', to: 'users#register', as: :register
       get 'users/:id/follows', controller: :users, action: :follows
-      resources :users, except: [:show] do
-        resources :posts, only: %i[index create]
+      resource :users, except: [:show] do
+        resources :posts, only: %i[index create], controller: 'users/posts'
       end
 
       get 'club_token', to: 'users/club_token'
 
-      resources :clubs, only: %i[show] do
-        resources :posts, only: %i[index create]
+      resources :clubs, only: %i[show]
+      resource :clubs, only: [] do
+        resources :posts, only: %i[index create], controller: 'clubs/posts'
       end
       resource :clubs, only: [] do
         get 'search', action: :search

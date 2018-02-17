@@ -14,4 +14,12 @@ class Club < ApplicationRecord
     Event.in_future.where(organizer_id: id)
          .or(Event.in_future.where(opponent_id: id))
   end
+
+  def feed
+    posts.order('updated_at DESC')
+  end
+
+  def display_name
+    [name, city, country_code].join ' - '
+  end
 end

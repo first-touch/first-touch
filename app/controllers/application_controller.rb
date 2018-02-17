@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::API
-
   before_action :authenticate_request
   attr_reader :current_user
 
@@ -11,8 +10,7 @@ class ApplicationController < ActionController::API
 
   # TODO: Follow trailblazer auth logic
   def authenticate_request
-    @current_user = AuthorizeApiRequest.call(request.headers).result
-    render json: { error: 'Not Authorized' }, status: :unauthorized unless @current_user
+    @current_user = nil
   end
 
 end

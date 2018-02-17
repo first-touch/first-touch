@@ -2,7 +2,7 @@ import * as types from '../../constants/ActionTypes';
 
 export const getInitialFeed = (store, { token }) => {
   store.commit(types.FEED_LOADING);
-  fetch('/api/v1/posts', {
+  fetch('/api/v1/users/posts', {
     method: 'GET',
     headers: { Authorization: token }
   }).then(res => {

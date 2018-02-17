@@ -63,7 +63,7 @@ export default {
     },
     handleSubmit() {
       this.$set(this, 'posting', true);
-      fetch('/api/v1/posts', {
+      fetch('/api/v1/users/posts', {
         method: 'POST',
         headers: {
           Authorization: this.token.value,

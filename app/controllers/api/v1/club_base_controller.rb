@@ -1,6 +1,6 @@
 module Api
   module V1
-    class BaseController < ApplicationController
+    class ClubBaseController < ApplicationController
       # NOTE: This is generally a bad practice for rails apps. Strong parameters
       # were introduced for avoiding client side injecting. Still, we are using
       # Trailblazer which relies on form builders. As long as ALL your
@@ -14,8 +14,10 @@ module Api
 
       # TODO: Follow trailblazer auth logic
       def authenticate_request
-        @current_user = AuthorizeApiRequest.(request.headers).result
-        return if @current_user
+        result = AuthorizeClubRequest.(request.headers).result
+        @current_user = result[:user]
+        @current_club = result[:club]
+        return unless @current_club.account_owner != @current_user
         render json: { error: 'Not Authorized' }, status: :unauthorized
       end
 
