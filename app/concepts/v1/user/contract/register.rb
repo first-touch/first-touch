@@ -23,16 +23,23 @@ module V1
           validates :first_name,
                     :last_name,
                     :birthday,
-                    presence: :true
+                    presence: true
         end
 
         validates :email,
                   :password,
                   :password_confirmation,
                   :personal_profile,
-                  presence: :true
+                  presence: true
 
-        validates :email, unique: :true
+        validates :email, unique: true
+        validate :role_is_registerable
+
+        def role_is_registerable
+          current_role = model.roles.first.name
+          return if FirstTouch::REGISTERABLE_ROLE_NAMES.include? current_role
+          errors.add(:roles, I18n.t('user.invalid_role'))
+        end
       end
     end
   end

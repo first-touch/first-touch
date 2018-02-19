@@ -6,6 +6,7 @@ RSpec.describe 'Notes', type: :request do
       email: 'test@banaas.com',
       password: '123123',
       password_confirmation: '123123',
+      role_name: 'manager',
       personal_profile: {
         first_name: 'Test',
         last_name: 'Bananas',

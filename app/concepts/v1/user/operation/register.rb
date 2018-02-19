@@ -13,8 +13,9 @@ module V1
 
       private
 
-      def setup_model!(model:, **)
+      def setup_model!(model:, params:, **)
         model.personal_profile = ::PersonalProfile.new
+        model.add_role params[:role_name]
       end
 
       def claim_account!(options, **)

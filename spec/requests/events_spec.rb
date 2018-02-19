@@ -11,6 +11,7 @@ RSpec.describe 'Events', type: :request do
     res = V1::User::Register.(
       email: 'test@banaas.com',
       password: '123123',
+      role_name: 'director',
       password_confirmation: '123123',
       personal_profile: {
         first_name: 'Test',

@@ -24,3 +24,5 @@ en:
     invalid_dates: 'has to be earlier than end date'
   hello: 'Hello world'
   not_club_owner: 'The user does not own any club'
+  user:
+    invalid_role: 'Please choose a valid role'
