@@ -1,7 +1,7 @@
 <template>
   <div>
 
-  <landing-navbar />
+  <landing-navbar sticky />
 
   <div class="full">
     <div class="container">

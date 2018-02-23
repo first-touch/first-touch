@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="md" variant="dark" type="dark" sticky id="landing-navbar">
+  <b-navbar toggleable="md" variant="dark" type="dark" :sticky="sticky" id="landing-navbar">
     <b-nav-toggle target="ft-nav-collapse" />
     <router-link class="navbar-brand" to="/">
       <img src="/images/landing-page/ft-navbar-logo.png" alt="Ft logo">
@@ -20,7 +20,7 @@
   </b-navbar>
 </template>
 
-<<style lang="scss">
+<style lang="scss">
 .form-inline {
   margin-top: 0;
 }
@@ -30,5 +30,11 @@
 <script>
 export default {
   name: 'LandingNavbar',
+  props: {
+    sticky: {
+      type: Boolean,
+      default: false,
+    },
+  },
 };
 </script>

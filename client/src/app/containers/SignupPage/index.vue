@@ -46,9 +46,22 @@
               </select>
               <select v-model="day" class="form-control col-md-3">
                 <option disabled value="">Date</option>
-                <option v-for="d in 31" :value="d">{{ d }}</option>
+                <option v-for="d in 31" :key="d" :value="d">{{ d }}</option>
               </select>
               <input type="number" v-model="year" class="form-control col-md-6" placeholder="Year" />
+            </div>
+          </fieldset>
+          <fieldset class="form-group col-md-12">
+            <label>Role In Your Club</label>
+            <div class="row">
+              <select v-model="role_name" class="form-control">
+                <option disabled value="">Role</option>
+                <option value="player">Player</option>
+                <option value="scout">Scout</option>
+                <option value="director">Director</option>
+                <option value="manager">Manager</option>
+                <option value="coach">Coach</option>
+              </select>
             </div>
           </fieldset>
           <button class="bar-button center" type="submit">Sign Up</button>
@@ -73,6 +86,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 50px 0;
 }
 
 .form {
@@ -105,6 +119,7 @@ export default {
       month: '',
       day: '',
       year: '',
+      role_name: '',
       error: null,
     };
   },
@@ -122,11 +137,12 @@ export default {
         email: this.email,
         password: this.password,
         password_confirmation: this.password_confirmation,
-        personal_profile_attributes: {
+        personal_profile: {
           first_name: this.first_name,
           last_name: this.last_name,
-          date_of_birth: new Date(Date.UTC(this.year, this.month, this.day)),
+          birthday: new Date(Date.UTC(this.year, this.month, this.day)),
         },
+        role_name: this.role_name,
       };
 
       fetch('/api/v1/users/register', {

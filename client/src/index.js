@@ -22,9 +22,9 @@ Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 
 // delete once registration is allowed
-function redirectToPrereg (to, from, next) {
-  next({ path: '/pre_registration' });
-}
+// function redirectToPrereg (to, from, next) {
+//   next({ path: '/pre_registration' });
+// }
 
 function requireAuth (to, from, next) {
   store.state.token.value =
@@ -51,8 +51,8 @@ const router = new VueRouter({
     },
     {
       path: '/users/sign_up',
-      component: SignupPage,
-      beforeEnter: redirectToPrereg
+      component: SignupPage
+      // beforeEnter: redirectToPrereg
     },
     {
       path: '/',
