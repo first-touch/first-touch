@@ -8,7 +8,7 @@
           <h5 class="col-12">
             Showing Notes Tagged by: {{ tag }}
           </h5>
-          <note v-for="note in notebook" :info="note" :noteFn="redirect" :key="note.id"/>
+          <note v-show="{loaded}" v-for="note in notebook" :info="note" :noteFn="redirect" :key="note.id"/>
         </div>
       </div>
     </div>
@@ -30,8 +30,8 @@ export default {
   },
   computed: {
     ...mapGetters(['token', 'note']),
-    loading() {
-      return this.note.status === ASYNC_LOADING;
+    loaded() {
+      return this.note.status === ASYNC_SUCCESS
     },
     notebook() {
       return this.note.value;

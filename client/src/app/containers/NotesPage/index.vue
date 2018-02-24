@@ -4,10 +4,7 @@
     <div class="container-fluid">
       <div class="ft-page notes">
         <h4 class="header">Notes</h4>
-        <div class="row">
-          <h5 v-if="tag" class="col-12">
-            Showing Notes Tagged by: {{ tag }}
-          </h5>
+        <div class="row" v-if="{loaded}">
           <note v-for="note in notebook" :info="note" :noteFn="getNotesByTag" :key="note.id"/>
         </div>
       </div>
@@ -23,19 +20,14 @@ import Note from './components/Note';
 
 export default {
   name: 'NotesPage',
-  data: function() {
-    return {
-      tag: null
-    }
-  },
   components: {
     sidebar: NotificationSidebar,
     note: Note,
   },
   computed: {
     ...mapGetters(['token', 'note']),
-    loading() {
-      return this.note.status === ASYNC_LOADING;
+    loaded() {
+      return this.note.status === ASYNC_SUCCESS;
     },
     notebook() {
       return this.note.value;
