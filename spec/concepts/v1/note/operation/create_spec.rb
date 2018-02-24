@@ -22,8 +22,7 @@ RSpec.describe V1::Note::Create do
       {
         note: {
           name: 'note name',
-          content: 'amazing note',
-          labels: %w[attack defense]
+          content: 'amazing note'
         }
       }
     end
@@ -34,7 +33,6 @@ RSpec.describe V1::Note::Create do
       expect(note.user).to eq current_user
       expect(note.content).to eq 'amazing note'
       expect(note.name).to eq 'note name'
-      expect(note.labels).to eq %w[attack defense]
     end
   end
 end

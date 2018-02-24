@@ -35,10 +35,13 @@ module Api
         render json: response[:data], status: response[:status]
       end
 
-      def labels
-        result = ::V1::Note::Labels.(params, current_user: current_user)
-        response = FirstTouch::Endpoint.(result, ::V1::Note::Representer::Labels)
-        render json: response[:data], status: response[:status]
+      def tags
+        result = FirstTouch::Endpoint.(
+          ::V1::Note::Tags,
+          args: [params, current_user: current_user],
+          representer: ::V1::Note::Representer::Tags
+        )
+        render json: result[:data], status: result[:status]
       end
 
       private

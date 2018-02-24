@@ -1,9 +1,9 @@
 module V1
   module Note
     module Representer
-      class Labels < Representable::Decorator
+      class Tags < Representable::Decorator
         include Representable::JSON
-        collection :to_a, as: "labels"
+        collection :to_a, as: "tags"
       end
     end
   end
