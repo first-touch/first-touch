@@ -2,11 +2,12 @@
 <div class="wrapper">
   <div class="header-wrapper">
     <div class="header">
-      <div class="img-container">
-        <img class="img-fluid" src={{ info.image }}
-      </div>
+      <img src={{ info.image }}
       <div class="info">
         <h2 class="title">{{ info.name }}</h2>
+        <div v-for="tag in info.tags">
+          {{ tag }}
+        </div>
       </div>
     </div>
   </div>
