@@ -27,9 +27,9 @@
           <router-link to="/calendar">Calendar</router-link>
         </div>
       </li>
-      <li v-if="isCoach" class="nav-item" :class="{ active: page === 'notes' }">
+      <li class="nav-item" v-if="{ isCoach }" :class="{ active: page === 'notes' }">
         <div class="nav-item-inner">
-          Notes
+          <router-link to="/notes">Notes</router-link>
         </div>
       </li>
       <li class="nav-item" :class="{ active: page === 'messages' }">
@@ -177,7 +177,7 @@ export default {
         : '';
     },
     isCoach() {
-      return this.user.state === ASYNC_SUCCESS && this.user.value.role_name === 'coach');
+      return (this.user.state === ASYNC_SUCCESS && this.user.value.role_name === 'coach');
     }
   },
   methods: {
