@@ -27,6 +27,11 @@
           <router-link to="/calendar">Calendar</router-link>
         </div>
       </li>
+      <li v-if="isCoach" class="nav-item" :class="{ active: page === 'notes' }">
+        <div class="nav-item-inner">
+          Notes
+        </div>
+      </li>
       <li class="nav-item" :class="{ active: page === 'messages' }">
         <div class="nav-item-inner">
           <router-link to="/messages">Messages</router-link>
@@ -171,6 +176,9 @@ export default {
             .personal_profile.last_name}`
         : '';
     },
+    isCoach() {
+      return this.user.state === ASYNC_SUCCESS && this.user.value.role_name === 'coach');
+    }
   },
   methods: {
     ...mapActions(['getUserInfo']),
