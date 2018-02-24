@@ -5,7 +5,7 @@
       <div class="ft-page notes">
         <h4 class="header">Notes</h4>
         <div class="row">
-          <note v-for="note in notebook" :info="note" :key="note.id"/>
+          <note v-for="note in notebook" :info="note" :noteFn="getNotesByTag" :key="note.id"/>
         </div>
       </div>
     </div>
@@ -35,6 +35,10 @@ export default {
   },
   methods: {
     ...mapActions(['getNotes']),
+    getNotesByTag(tag){
+      let token = this.token.value;
+      this.$store.dispatch('getNotesByTag', { token, tag })
+    }
   },
   mounted() {
     this.getNotes({ token: this.token.value });

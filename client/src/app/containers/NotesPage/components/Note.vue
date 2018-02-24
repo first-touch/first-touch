@@ -3,7 +3,7 @@
   <img src={{ info.image }}
   <div class="info">
     <h2 class="title">{{ info.name }}</h2>
-    <span v-for="tag in info.tags">
+    <span v-for="tag in info.tags"  :key="tag" v-on:click="noteFn(tag)">
       {{ tag }}
     </span>
   </div>
@@ -12,6 +12,6 @@
 <script>
 export default {
   name: 'Note',
-  props: ['info']
+  props: ['info', 'noteFn']
 };
 </script>
