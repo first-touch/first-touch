@@ -148,4 +148,8 @@ class User < ApplicationRecord
   def career_history
     career_entries.order(start_date: :desc)
   end
+
+  def note_tags
+    notes.includes(:tags)
+  end
 end

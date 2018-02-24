@@ -1,4 +1,6 @@
 class Note < ApplicationRecord
+
+  acts_as_taggable
   before_validation :process_image
 
   belongs_to :user

@@ -7,7 +7,7 @@ module V1
         property :content
         property :user
         property :name
-        property :labels
+        property :tag_list
         property :image, populate_if_empty: ->(*) { ::Image.new } do
           property :file
         end
