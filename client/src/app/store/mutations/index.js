@@ -6,10 +6,12 @@ import inboxReducer, { inbox } from './inbox';
 import messagesReducer, { messages } from './messages';
 import profileReducer, { profile } from './profile';
 import searchResultReducer, { searchResult } from './searchResult';
+import noteReducer, { note } from './note';
 
 export const initialState = {
   token,
   feed,
+  note,
   user,
   network,
   inbox,
@@ -27,5 +29,6 @@ export default Object.assign(
   inboxReducer,
   messagesReducer,
   profileReducer,
-  searchResultReducer
+  searchResultReducer,
+  noteReducer
 );
