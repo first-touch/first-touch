@@ -4,7 +4,9 @@
     <div class="container-fluid">
       <div class="ft-page notes">
         <h4 class="header">Notes</h4>
-        <note v-for="note in notebook" :info="note" :key="note.id"/>
+        <div class="row">
+          <note v-for="note in notebook" :info="note" :key="note.id"/>
+        </div>
       </div>
     </div>
   </div>

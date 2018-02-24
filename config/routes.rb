@@ -45,7 +45,10 @@ Rails.application.routes.draw do
       resources :messages, only: %i[index create]
       get 'messages/:chat_with_id', controller: :messages, action: :show
       get 'notes/tags', controller: :notes, action: :tags
-      resources :notes
+
+      resources :notes do
+        get "tag/:tag", on: :collection, action: :index_by_tag
+      end
 
       resources :events, only: %i[index create show]
 

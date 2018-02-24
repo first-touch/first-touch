@@ -1,15 +1,11 @@
 <template>
-<div class="wrapper">
-  <div class="header-wrapper">
-    <div class="header">
-      <img src={{ info.image }}
-      <div class="info">
-        <h2 class="title">{{ info.name }}</h2>
-        <div v-for="tag in info.tags">
-          {{ tag }}
-        </div>
-      </div>
-    </div>
+<div class="col-12 col-md-6">
+  <img src={{ info.image }}
+  <div class="info">
+    <h2 class="title">{{ info.name }}</h2>
+    <span v-for="tag in info.tags">
+      {{ tag }}
+    </span>
   </div>
 </div>
 </template>
