@@ -11,6 +11,11 @@ module V1
 
         property :following
         property :connection_status
+        property :role_name, exec_context: :decorator
+
+        def role_name
+          represented.roles.first.name
+        end
       end
     end
   end
