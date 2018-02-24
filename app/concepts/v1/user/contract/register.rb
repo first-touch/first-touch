@@ -7,25 +7,12 @@ module V1
         property :email
         property :password
         property :password_confirmation
-        property :personal_profile do
-          property :first_name
-          property :middle_name
-          property :last_name
-          property :birthday
-          property :nationality_country_code
-          property :residence_country_code
-          property :weight
-          property :height
-          property :preferred_foot
-          property :playing_position
-          property :pro_status
-
-          validates :first_name,
-                    :last_name,
-                    :birthday,
-                    presence: true
-        end
-
+        property :personal_profile,
+                 populator: ->(_options) {
+                   self.personal_profile = ::PersonalProfile.new
+                 },
+                 form: ::V1::PersonalProfile::Contract::Create
+        property :club_ids
         validates :email,
                   :password,
                   :password_confirmation,

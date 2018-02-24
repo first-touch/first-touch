@@ -14,7 +14,6 @@ module V1
       private
 
       def setup_model!(model:, params:, **)
-        model.personal_profile = ::PersonalProfile.new
         model.add_role params[:role_name]
       end
 
