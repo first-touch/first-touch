@@ -6,6 +6,7 @@ module V1
       def setup_model!(options, params:, **)
         clubs = ::Club.all
         clubs = clubs.where('name iLIKE ?', "%#{params[:q]}%") if params[:q]
+        clubs = clubs.where(country_code: params[:country]) if params[:country]
         options['models'] = clubs
       end
     end

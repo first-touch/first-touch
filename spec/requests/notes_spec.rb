@@ -19,20 +19,26 @@ RSpec.describe 'Notes', type: :request do
     instance_double(SimpleCommand, result: existing_user)
   end
   let!(:existing_notes) do
-    ::V1::Note::Create.({
-      note: {
-        name: 'n1',
-        content: 'hello',
-        labels: ['l1', 'l2']
-      }
-    }, current_user: existing_user)
-    ::V1::Note::Create.({
-      note: {
-        name: 'n2',
-        content: 'hello2',
-        labels: ['l2', 'l3']
-      }
-    }, current_user: existing_user)
+    ::V1::Note::Create.(
+      {
+        note: {
+          name: 'n1',
+          content: 'hello',
+          labels: %w[l1 l2]
+        }
+      },
+      current_user: existing_user
+    )
+    ::V1::Note::Create.(
+      {
+        note: {
+          name: 'n2',
+          content: 'hello2',
+          labels: %w[l2 l3]
+        }
+      },
+      current_user: existing_user
+    )
   end
 
   before do

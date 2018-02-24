@@ -15,6 +15,19 @@ module V1
 
         collection :to_a, as: :clubs, decorator: Show
       end
+
+      class Country < Representable::Decorator
+        include Representable::JSON
+
+        property :country_name
+        property :country_code
+      end
+
+      class Countries < Representable::Decorator
+        include Representable::JSON
+
+        collection :to_a, as: :countries, decorator: Country
+      end
     end
   end
 end

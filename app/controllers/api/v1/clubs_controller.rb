@@ -1,29 +1,26 @@
 module Api
   module V1
     class ClubsController < Api::V1::BaseController
+      def index
+        result = ::V1::Club::Index.(params)
+        response = FirstTouch::Endpoint.(result, ::V1::Club::Representer::Search)
+        render json: response[:data], status: response[:status]
+      end
+
       def show
         result = ::V1::Club::Show.(params, current_user: current_user)
-        if result.success?
-          render json: ::V1::Club::Representer::Full.new(result['model']),
-                 status: :ok
-        elsif result.policy_error?
-          render json: {}, status: :unauthorized
-        else
-          error_messages = result['contract.default']&.errors&.full_messages || result['result.model']
-          render json: { errors: error_messages }, status: :unprocessable_entity
-        end
+        response = FirstTouch::Endpoint.(result, ::V1::Club::Representer::Show)
+        render json: response[:data], status: response[:status]
       end
 
       def search
-        result = ::V1::Club::Index.(params)
-        if result.failure?
-          render json: { error_message: result['errors'] },
-                 status: :unprocessable_entity
+        index
+      end
 
-        else
-          render json: ::V1::Club::Representer::Search.new(result['models']),
-                 status: :ok
-        end
+      def countries
+        result = ::V1::Club::Countries.()
+        response = FirstTouch::Endpoint.(result, ::V1::Club::Representer::Countries)
+        render json: response[:data], status: response[:status]
       end
 
       def import_roster

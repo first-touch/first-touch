@@ -4,30 +4,21 @@ module Api
       before_action :find_note, only: :delete
 
       def index
-        result = FirstTouch::Endpoint.(
-          ::V1::Note::Index,
-          args: [params, current_user: current_user],
-          representer: ::V1::Note::Representer::Index
-        )
-        render json: result[:data], status: result[:status]
+        result = ::V1::Note::Index.(params, current_user: current_user)
+        response = FirstTouch::Endpoint.(result, ::V1::Note::Representer::Index)
+        render json: response[:data], status: response[:status]
       end
 
       def create
-        result = FirstTouch::Endpoint.(
-          ::V1::Note::Create,
-          args: [params, current_user: current_user],
-          representer: ::V1::Note::Representer::Full
-        )
-        render json: result[:data], status: result[:status]
+        result = ::V1::Note::Create.(params, current_user: current_user)
+        response = FirstTouch::Endpoint.(result, ::V1::Note::Representer::Full)
+        render json: response[:data], status: response[:status]
       end
 
       def update
-        result = FirstTouch::Endpoint.(
-          ::V1::Note::Update,
-          args: [params, current_user: current_user],
-          representer: ::V1::Note::Representer::Full
-        )
-        render json: result[:data], status: result[:status]
+        result = ::V1::Note::Update.(params, current_user: current_user)
+        response = FirstTouch::Endpoint.(result, ::V1::Note::Representer::Full)
+        render json: response[:data], status: response[:status]
       end
 
       def destroy
@@ -39,21 +30,15 @@ module Api
       end
 
       def show
-        result = FirstTouch::Endpoint.(
-          ::V1::Note::Show,
-          args: [params, current_user: current_user],
-          representer: ::V1::Note::Representer::Full
-        )
-        render json: result[:data], status: result[:status]
+        result = ::V1::Note::Show.(params, current_user: current_user)
+        response = FirstTouch::Endpoint.(result, ::V1::Note::Representer::Full)
+        render json: response[:data], status: response[:status]
       end
 
       def labels
-        result = FirstTouch::Endpoint.(
-          ::V1::Note::Labels,
-          args: [params, current_user: current_user],
-          representer: ::V1::Note::Representer::Labels
-        )
-        render json: result[:data], status: result[:status]
+        result = ::V1::Note::Labels.(params, current_user: current_user)
+        response = FirstTouch::Endpoint.(result, ::V1::Note::Representer::Labels)
+        render json: response[:data], status: response[:status]
       end
 
       private

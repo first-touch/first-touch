@@ -25,14 +25,13 @@ Rails.application.routes.draw do
 
       get 'club_token', to: 'users/club_token'
 
-      resources :clubs, only: %i[show]
-      resource :clubs, only: [] do
-        resources :posts, only: %i[index create], controller: 'clubs/posts'
-      end
       resource :clubs, only: [] do
         get 'search', action: :search
+        get 'countries', action: :countries
         post 'import_roster', action: :import_roster
+        resources :posts, only: %i[index create], controller: 'clubs/posts'
       end
+      resources :clubs, only: %i[index show]
 
       resources :posts, only: %i[update destroy]
 

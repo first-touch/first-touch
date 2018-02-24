@@ -1,83 +1,83 @@
-require 'dry-matcher'
-
 module FirstTouch
-  # This class assumes that the project is api only and its rendering
-  # JSON. For other options (e.g render a view) this needs to be thought
   class Endpoint
-    Matcher = Dry::Matcher.new(
-      success: Dry::Matcher::Case.new(
-        match: ->(result:, **) { result.success? },
-        resolve: ->(result:, representer:, **) do
-          {
-            'data': representer.new(result['models']),
-            'status': :ok
-          }
+    DEFAULT_MATCHERS = {
+      created: {
+        rule: ->(result) { result.success? && result['model.action'] == :new },
+        resolve: lambda do |result, representer|
+          { 'data': representer.new(result['model']),
+            'status': :created }
         end
-      ),
-      created: Dry::Matcher::Case.new(
-        match: ->(result:, **) do
-          result.success? && result['model.action'] == :new
-        end,
-        resolve: ->(result:, representer:, **) do
-          {
-            'data': representer.new(result['model']),
-            'status': :created
-          }
+      },
+      deleted: {
+        rule: ->(result) { result.success? && result['model.operation'] == :destroy },
+        resolve: lambda do |result, _representer|
+          { 'data': { id: result['model'].id },
+            'status': :ok }
         end
-      ),
-      unauthenticated: Dry::Matcher::Case.new(
-        match: ->(result:, **) { result.policy_error? },
-        resolve: ->(_result:, **) do
-          {
-            'data': { errors: ['unauthorized'] },
-            'status': :unauthorized
-          }
+      },
+      success_list: {
+        rule: ->(result) { result.success? && !result['models'].nil? },
+        resolve: lambda do |result, representer|
+          { 'data': representer.new(result['models']), 'status': :ok }
         end
-      ),
-      not_found: Dry::Matcher::Case.new(
-        match: ->(result:, **) do
-          result.failure? && result['result.model']&.failure?
-        end,
-        resolve: ->(result:, **) do
-          {
-            'data': { errors: result['result.model.errors'] },
-            'status': :unprocessable_entity
-          }
+      },
+      success: {
+        rule: ->(result) { result.success? && !result['model'].nil? },
+        resolve: lambda do |result, representer|
+          { 'data': representer.new(result['model']), 'status': :ok }
         end
-      ),
-      invalid: Dry::Matcher::Case.new(
-        match: ->(result:, **) do
-          result.failure? && result['result.contract.default']&.failure?
-        end,
-        resolve: ->(result:, **) do
-          {
-            'data': { errors: result['contract.default']&.errors&.full_messages },
-            'status': :unprocessable_entity
-          }
+      },
+      unauthenticated: {
+        rule: ->(result) { result.policy_error? },
+        resolve: ->(_result, _representer) { { 'data': {}, 'status': :unauthorized } }
+      },
+      not_found: {
+        rule: ->(result) { result.failure? && result['result.model']&.failure? },
+        resolve: lambda do |result, _representer|
+          { 'data': { errors: result['result.model.errors'] },
+          'status': :unprocessable_entity }
         end
-      )
-    )
+      },
+      invalid: {
+        rule: ->(result) { result.failure? },
+        resolve: ->(_result, _representer) { { 'data': {}, 'status': :unprocessable_entity } }
+      },
+      fallback: {
+        rule: ->(_result) { true },
+        resolve: lambda do |_result, _representer|
+          { 'data': { errors: "Can't process the result" },
+            'status': :unprocessable_entity }
+        end
+      }
+    }.freeze
 
-    # options expects a TRB Operation result
+    # NOTE: options expects a TRB Operation result
     # it might have a representer, else will assume the default name
-    def self.call(operation_class, options = {})
-      result = operation_class.(*options[:args])
-      endpoint_opts = { result: result, representer: options[:representer] }
-      new.(endpoint_opts)
+    def self.call(operation_result, representer_class = nil, overrides = {})
+      endpoint_opts = { result: operation_result, representer: representer_class }
+      new.(endpoint_opts, overrides)
     end
 
-    def call(options)
-      matcher.(options) do |m|
-        m.created { |v| v }
-        m.success { |v| v }
-        m.not_found { |v| v }
-        m.unauthenticated { |v| v }
-        m.invalid { |v| v }
+    def call(options, overrides)
+      overrides.each do |rule_key, rule_description|
+        rule = rule_description[:rule] || DEFAULT_MATCHERS[rule_key][:rule]
+        resolve = rule_description[:resolve] || DEFAULT_MATCHERS[rule_key][:resolve]
+        if rule.nil? || resolve.nil?
+          puts 'Matcher is not properly set. #{rule_key} will be ignored'
+          next
+        end
+
+        return resolve.(options[:result], options[:representer]) if rule.(options[:result])
+      end
+      matching_rules(overrides).each_value do |rule_description|
+        if rule_description[:rule].(options[:result])
+          return rule_description[:resolve].(options[:result], options[:representer])
+        end
       end
     end
 
-    def matcher
-      Matcher
+    def matching_rules(overrides)
+      DEFAULT_MATCHERS.except(*overrides.keys)
     end
   end
 end
