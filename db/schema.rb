@@ -170,6 +170,7 @@ ActiveRecord::Schema.define(version: 20180407014221) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "content"
+    t.string "image_url"
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 

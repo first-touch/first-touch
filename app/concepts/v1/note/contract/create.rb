@@ -7,9 +7,7 @@ module V1
         property :content
         property :user
         property :name
-        property :image, populate_if_empty: ->(*) { ::Image.new } do
-          property :file
-        end
+        property: image_url
 
         validates :user, :name, presence: true
       end

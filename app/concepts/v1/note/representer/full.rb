@@ -8,7 +8,7 @@ module V1
         property :user_id
         property :name
         property :content
-        property :image, extend: V1::Image::Representer::Full
+        property :image_url
         collection :all_tags_list, as: :tags
       end
     end
