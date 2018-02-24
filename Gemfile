@@ -22,7 +22,7 @@ gem 'simple_command'
 gem 'trailblazer-rails', '~> 1.0'
 
 # tags
-gem 'acts-as-taggable-on', '~> 4.0'
+gem 'acts-as-taggable-on', '~> 5.0'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby

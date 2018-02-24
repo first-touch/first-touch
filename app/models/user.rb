@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   rolify
   has_secure_password
+  acts_as_tagger
 
   has_one :personal_profile
   accepts_nested_attributes_for :personal_profile
@@ -150,6 +151,6 @@ class User < ApplicationRecord
   end
 
   def note_tags
-    notes.includes(:tags)
+    notes.joins(:tags)
   end
 end
