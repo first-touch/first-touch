@@ -17,7 +17,7 @@ module Api
       end
 
       def show
-        render json: @current_user
+        render json: ::V1::User::Representer::SelfProfile.new(@current_user)
       end
 
       def public_profile

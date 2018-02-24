@@ -7,9 +7,10 @@ export const getUserInfo = (store, { token }) => {
     headers: { Authorization: token }
   }).then(res => {
     if (res.status === 200) {
-      res.json().then(r => {
-        store.commit(types.USER_SUCCESS, r.user);
-      });
+      res.json()
+        .then((r) => {
+          store.commit(types.USER_SUCCESS, r);
+        });
     } else if (res.status === 401) {
       store.commit(types.TOKEN_CLEAR);
     } else {
