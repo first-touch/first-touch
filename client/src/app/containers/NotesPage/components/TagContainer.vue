@@ -5,10 +5,10 @@
       <div class="ft-page notes">
         <h4 class="header">Notes</h4>
         <div class="row">
-          <h5 v-if="tag" class="col-12">
+          <h5 class="col-12">
             Showing Notes Tagged by: {{ tag }}
           </h5>
-          <note v-for="note in notebook" :info="note" :noteFn="getNotesByTag" :key="note.id"/>
+          <note v-for="note in notebook" :info="note" :noteFn="redirect" :key="note.id"/>
         </div>
       </div>
     </div>
@@ -19,15 +19,11 @@
 import { mapGetters, mapActions } from 'vuex';
 import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import Note from './components/Note';
+import Note from './Note';
 
 export default {
-  name: 'NotesPage',
-  data: function() {
-    return {
-      tag: null
-    }
-  },
+  name: 'TagContainer',
+  props: ['tag'],
   components: {
     sidebar: NotificationSidebar,
     note: Note,
@@ -40,18 +36,15 @@ export default {
     notebook() {
       return this.note.value;
     },
-    loadedGenre() {
-      return true;
-    }
   },
   methods: {
-    ...mapActions(['getNotes']),
-    getNotesByTag(tag){
+    ...mapActions(['getNotesByTag']),
+    redirect(tag){
       this.$router.push(`/notes/tags/${tag}`);
     }
   },
   mounted() {
-    this.getNotes({ token: this.token.value });
+    this.getNotesByTag({ token: this.token.value, tag: this.tag });
   },
 };
 </script>
