@@ -4,7 +4,7 @@ module V1
       step :get_tags!
 
       def get_tags!(options, current_user:, **)
-        tags = current_user.note_tags
+        tags = current_user.owned_tags.pluck(:name)
         options['models'] = tags
         true
       end

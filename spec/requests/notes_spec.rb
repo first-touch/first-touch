@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Notes', type: :request do
   let!(:existing_user) do
     res = V1::User::Register.(
-      email: 'test@banaas.com',
+      email: 'test@bananas.com',
       password: '123123',
       password_confirmation: '123123',
       role_name: 'manager',

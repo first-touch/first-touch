@@ -16,7 +16,7 @@ module V1
       end
 
       def set_ownership!(params:, model:, current_user:, **)
-        current_user.tag(model, with: params["note"]["tag_list"], on: :tags)
+        current_user.tag(model, with: params[:note]["tag_list"], on: :tags, skip_save: true)
         true
       end
     end
