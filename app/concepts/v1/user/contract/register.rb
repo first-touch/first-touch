@@ -12,6 +12,7 @@ module V1
                    self.personal_profile = ::PersonalProfile.new
                  },
                  form: ::V1::PersonalProfile::Contract::Create
+        property :club_ids
         validates :email,
                   :password,
                   :password_confirmation,
