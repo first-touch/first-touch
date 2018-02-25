@@ -38,9 +38,6 @@ GEM
       activemodel (= 5.1.4)
       activesupport (= 5.1.4)
       arel (~> 8.0)
-    activerecord_json_validator (1.2.0)
-      activerecord (>= 4.2.0, < 6)
-      json-schema (~> 2.8)
     activesupport (5.1.4)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
@@ -315,7 +312,6 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
-  activerecord_json_validator
   acts-as-taggable-on (~> 5.0)
   aws-sdk (~> 2.3.0)
   bcrypt (~> 3.1.7)
@@ -341,6 +337,7 @@ DEPENDENCIES
   puma
   rack-cors
   rails (~> 5.1)
+  redis
   rolify
   rspec-json_expectations
   rspec-rails (~> 3.0)

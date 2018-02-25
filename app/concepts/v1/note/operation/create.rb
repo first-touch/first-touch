@@ -1,3 +1,5 @@
+require "redis"
+
 module V1
   module Note
     class Create < Trailblazer::Operation
@@ -9,6 +11,7 @@ module V1
       step Trailblazer::Operation::Contract::Validate(key: :note)
       step :set_ownership!
       step Trailblazer::Operation::Contract::Persist()
+      step :ping_redis!
 
       def setup_model!(model:, current_user:, **)
         model.user = current_user
@@ -17,6 +20,14 @@ module V1
 
       def set_ownership!(params:, model:, current_user:, **)
         current_user.tag(model, with: params[:note][:tag_list], on: :tags, skip_save: true)
+        true
+      end
+
+      def ping_redis!(model:, **)
+        redis = Redis.new
+        if model.image_url.present?
+          redis.publish "yustynn-channel", model.image_url
+        end
         true
       end
     end
