@@ -7,7 +7,9 @@ namespace :notes do
     redis.subscribe(FirstTouch::REDIS_NOTES_PUBLISH_CHANNEL) do |on|
       print "Listening to new stuff.."
       on.message do |channel, message|
-        print JSON.parse(message)
+        data = JSON.parse(message)
+        ::V1::Note::MLUpdate.(id: data["id"], note: { elements: data["data"]})
+        print "Added new elements for Note #{data['id']}"
       end
     end
   end
