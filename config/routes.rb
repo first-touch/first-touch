@@ -48,6 +48,7 @@ Rails.application.routes.draw do
 
       resources :notes do
         get "tag/:tag", on: :collection, action: :index_by_tag
+        get "field_types", on: :collection, action: :field_types
       end
 
       resources :events, only: %i[index create show]

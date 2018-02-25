@@ -38,6 +38,10 @@ module Api
         end
       end
 
+      def field_types
+        render json: Note.field_types
+      end
+
       def show
         result = ::V1::Note::Show.(params, current_user: current_user)
         response = FirstTouch::Endpoint.(result, ::V1::Note::Representer::Full)
