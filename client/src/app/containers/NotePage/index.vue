@@ -4,7 +4,11 @@
     <div class="container-fluid">
       <div class="ft-page note" v-if="{loaded}">
         <h4 class="header">{{ note.value.name }}</h4>
-        <strategy />
+        <div class="col-6">
+          <strategy />
+        </div>
+        <div class="col-6">
+        </div>
         <span v-for="tag in note.value.tags" :key="tag" v-on:click="getNotesByTag(tag)">
           {{ tag }}
         </span>
