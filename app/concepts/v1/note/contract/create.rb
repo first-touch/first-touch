@@ -8,6 +8,8 @@ module V1
         property :user
         property :name
         property :image_url
+        property :field_type
+        property :elements
 
         validates :user, :name, presence: true
       end

@@ -11,12 +11,9 @@ module Api
       end
 
       def index_by_tag
-        result = FirstTouch::Endpoint.(
-          ::V1::Note::IndexByTag,
-          args: [params, current_user: current_user],
-          representer: ::V1::Note::Representer::Index
-        )
-        render json: result[:data], status: result[:status]
+        result = ::V1::Note::IndexByTag.(params, current_user: current_user)
+        response = FirstTouch::Endpoint.(result, ::V1::Note::Representer::Index)
+        render json: response[:data], status: response[:status]
       end
 
       def create
