@@ -171,6 +171,8 @@ ActiveRecord::Schema.define(version: 20180407014221) do
     t.datetime "updated_at", null: false
     t.text "content"
     t.string "image_url"
+    t.integer "field_type", default: 0
+    t.jsonb "elements"
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
