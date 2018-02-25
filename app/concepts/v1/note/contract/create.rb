@@ -7,7 +7,7 @@ module V1
         property :content
         property :user
         property :name
-        property: image_url
+        property :image_url
 
         validates :user, :name, presence: true
       end
