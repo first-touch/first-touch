@@ -2,6 +2,7 @@ module Api
   module V1
     class NotesController < Api::V1::BaseController
       before_action :find_note, only: :delete
+      skip_before_action :authenticate_request, only: :field_types
 
       def index
         result = ::V1::Note::Index.(params, current_user: current_user)
