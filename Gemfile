@@ -30,7 +30,10 @@ group :deployment do
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails',   require: false
   gem 'capistrano-rvm',     require: false
+  gem 'capistrano-sidekiq', require: false
   gem 'capistrano3-puma',   require: false
+  gem 'capistrano-rails-console', require: false
+  gem 'sshkit-sudo', require: false
 end
 
 group :development, :test do

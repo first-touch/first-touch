@@ -1,34 +1,35 @@
 # Change these
 # config valid only for current version of Capistrano
-lock '3.7.2'
+lock '3.10.1'
 
 set :stages, %w[production staging]
 set :application, 'firsttouch'
+set :user, 'deployer'
+set :deploy_to, "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
+set :deploy_via, :remote_cache
+set :rails_env, 'production'
+set :frontend_path, "#{release_path}/client"
+set :use_sudo, false
 
 set :repo_url, 'git@bitbucket.org:firsttouch/first-touch.git'
-set :puma_threads,    [4, 16]
-set :puma_workers,    0
-set :user, 'deployer'
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
+set :pty, false
+set :ssh_options, user: fetch(:user), keys: %w[~/.ssh/id_rsa]
+
 # Don't change these unless you know what you're doing
-set :pty,             true
-set :use_sudo,        false
-set :stage,           :production
-set :deploy_via,      :remote_cache
-set :deploy_to,       "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
-set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
-set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
-set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
+set :puma_bind, "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
+set :puma_state, "#{shared_path}/tmp/pids/puma.state"
+set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
 set :puma_access_log, "#{release_path}/log/puma.error.log"
-set :puma_error_log,  "#{release_path}/log/puma.access.log"
-set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
+set :puma_error_log, "#{release_path}/log/puma.access.log"
+set :puma_threads, [4, 16]
+set :puma_workers, 0
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
-set :puma_init_active_record, true  # Change to false when not using ActiveRecord
+set :puma_init_active_record, true # Change to false when not using ActiveRecord
 
 ## Defaults:
-# set :scm,           :git
 # set :branch,        :master
 # set :format,        :pretty
 # set :log_level,     :debug
@@ -52,6 +53,7 @@ namespace :puma do
     on roles(:app) do
       execute "mkdir #{shared_path}/tmp/sockets -p"
       execute "mkdir #{shared_path}/tmp/pids -p"
+      execute "mkdir #{shared_path}/log/ -p"
     end
   end
 
@@ -102,7 +104,6 @@ namespace :deploy do
     end
   end
 
-  # before :starting,     :check_revision
   after  :finishing,    :yarn_install
   after  :yarn_install, :build
   after  :finishing,    :cleanup
