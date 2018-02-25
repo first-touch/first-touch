@@ -7,7 +7,7 @@
     <div class="profile">
       <img class="rounded-circle img-fluid" src="https://unsplash.it/500/500" />
       <h4 class="profile-name">{{ name }}</h4>
-      <h5 class="profile-role">Football player</h5>
+      <h5 class="profile-role">{{ role }}</h5>
       <h5 class="profile-club">real madrid</h5>
       <router-link to="/profile/edit" class="profile-edit-button">Edit Profile</router-link>
     </div>
@@ -176,8 +176,12 @@ export default {
             .personal_profile.last_name}`
         : '';
     },
+    role() {
+      return this.user.status === ASYNC_SUCCESS
+      ? this.user.value.role_name : '';
+    },
     isCoach() {
-      return (this.user.state === ASYNC_SUCCESS && this.user.value.role_name === 'coach');
+      return (this.user.status === ASYNC_SUCCESS && this.user.value.role_name === 'coach');
     }
   },
   methods: {
