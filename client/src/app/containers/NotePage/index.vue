@@ -5,10 +5,7 @@
       <div class="ft-page note" v-if="{loaded}">
         <h4 class="header">{{ note.value.name }}</h4>
         <div class="row">
-          <div class="col-6">
-            <img :src=note.value.image_url class="note-image" />
-          </div>
-          <div class="col-6">
+          <div class="col-12">
             <strategy v-bind:info="note.value.elements" />
           </div>
         </div>
@@ -27,7 +24,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import NotificationSidebar from 'app/components/NotificationSidebar';
-import StrategyView from 'app/components/StrategyView';
+import StrategyView from 'app/components/Strategy/StrategyView';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 import Note from '../NotesPage/components/Note';
 
