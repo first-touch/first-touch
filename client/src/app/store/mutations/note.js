@@ -16,11 +16,18 @@ export default {
       { status: ASYNC_LOADING }
     );
   },
-  [ActionTypes.NOTE_SUCCESS] (state, notes) {
+  [ActionTypes.NOTES_SUCCESS] (state, notes) {
     state.note = Object.assign(
       {},
       state.note,
       { status: ASYNC_SUCCESS, value: [...notes] }
+    );
+  },
+  [ActionTypes.NOTE_SUCCESS] (state, note) {
+    state.note = Object.assign(
+      {},
+      state.note,
+      { status: ASYNC_SUCCESS, value: note }
     );
   }
 };

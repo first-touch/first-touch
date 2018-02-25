@@ -8,7 +8,25 @@ export const getNotes = (store, { token }) => {
   }).then(res => {
     if (res.status === 200) {
       res.json().then(r => {
-        store.commit(types.NOTE_SUCCESS, r.notes);
+        store.commit(types.NOTES_SUCCESS, r.notes);
+      });
+    } else if (res.status === 401) {
+      store.commit(types.TOKEN_CLEAR);
+    } else {
+      res.json().then(console.log);
+    }
+  });
+};
+
+export const getNote = (store, { token, id }) => {
+  store.commit(types.NOTE_LOADING);
+  fetch(`/api/v1/notes/${id}`, {
+    method: 'GET',
+    headers: { Authorization: token }
+  }).then(res => {
+    if (res.status === 200) {
+      res.json().then(r => {
+        store.commit(types.NOTE_SUCCESS, r);
       });
     } else if (res.status === 401) {
       store.commit(types.TOKEN_CLEAR);
@@ -26,7 +44,7 @@ export const getNotesByTag = (store, { token, tag }) => {
   }).then(res => {
     if (res.status === 200) {
       res.json().then(r => {
-        store.commit(types.NOTE_SUCCESS, r.notes);
+        store.commit(types.NOTES_SUCCESS, r.notes);
       });
     } else if (res.status === 401) {
       store.commit(types.TOKEN_CLEAR);

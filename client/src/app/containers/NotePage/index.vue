@@ -2,11 +2,11 @@
   <div>
     <sidebar />
     <div class="container-fluid">
-      <div class="ft-page notes">
-        <h4 class="header">Notes</h4>
-        <div class="row" v-if="{loaded}">
-          <note v-for="note in notebook" :info="note" :noteFn="getNotesByTag" :key="note.id"/>
-        </div>
+      <div class="ft-page note" v-if="{loaded}">
+        <h4 class="header">{{ note.value.name }}</h4>
+          <span v-for="tag in note.value.tags" :key="tag" v-on:click="getNotesByTag(tag)">
+            {{ tag }}
+          </span>
       </div>
     </div>
   </div>
@@ -16,10 +16,11 @@
 import { mapGetters, mapActions } from 'vuex';
 import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import Note from './components/Note';
+import Note from '../NotesPage/components/Note';
 
 export default {
-  name: 'NotesPage',
+  name: 'NotePage',
+  props: ['id'],
   components: {
     sidebar: NotificationSidebar,
     note: Note,
@@ -29,18 +30,15 @@ export default {
     loaded() {
       return this.note.status === ASYNC_SUCCESS;
     },
-    notebook() {
-      return this.note.value;
-    }
   },
   methods: {
-    ...mapActions(['getNotes']),
+    ...mapActions(['getNote']),
     getNotesByTag(tag){
       this.$router.push(`/notes/tags/${tag}`);
     }
   },
   mounted() {
-    this.getNotes({ token: this.token.value });
+    this.getNote({ token: this.token.value, id: this.id });
   },
 };
 </script>

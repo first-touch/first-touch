@@ -4,6 +4,8 @@ class Note < ApplicationRecord
 
   belongs_to :user
   validates_presence_of :name
+
   enum field_type: [:full, :half]
+
 
 end
