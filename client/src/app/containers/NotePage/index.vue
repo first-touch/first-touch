@@ -4,9 +4,10 @@
     <div class="container-fluid">
       <div class="ft-page note" v-if="{loaded}">
         <h4 class="header">{{ note.value.name }}</h4>
-          <span v-for="tag in note.value.tags" :key="tag" v-on:click="getNotesByTag(tag)">
-            {{ tag }}
-          </span>
+        <strategy />
+        <span v-for="tag in note.value.tags" :key="tag" v-on:click="getNotesByTag(tag)">
+          {{ tag }}
+        </span>
       </div>
     </div>
   </div>
@@ -14,7 +15,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+import NotificationSidebar from 'app/components/NotificationSidebar';
+import StrategyView from 'app/components/StrategyView';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 import Note from '../NotesPage/components/Note';
 
@@ -23,6 +25,7 @@ export default {
   props: ['id'],
   components: {
     sidebar: NotificationSidebar,
+    strategy: StrategyView,
     note: Note,
   },
   computed: {

@@ -26,7 +26,7 @@ module V1
       def ping_redis!(model:, **)
         redis = Redis.new
         if model.image_url.present?
-          redis.publish "yustynn-channel", model.image_url
+          redis.publish "yustynn-channel", "{image: #{model.image_url}, id: #{model.id} }"
         end
         true
       end
