@@ -45,12 +45,11 @@ Rails.application.routes.draw do
       resources :messages, only: %i[index create]
       get 'messages/:chat_with_id', controller: :messages, action: :show
       get 'notes/tags', controller: :notes, action: :tags
-
       resources :notes do
         get "tag/:tag", on: :collection, action: :index_by_tag
         get "field_types", on: :collection, action: :field_types
       end
-
+      get 'direct_upload/signed_url', to: 'direct_upload#signed_url'
       resources :events, only: %i[index create show]
 
       post 'connect', controller: :connection, action: :create
