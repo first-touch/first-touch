@@ -7,8 +7,8 @@ module V1
         constant: Note::Contract::Create
       )
       step Trailblazer::Operation::Contract::Validate(key: :note)
-      step Trailblazer::Operation::Contract::Persist()
       step :set_ownership!
+      step Trailblazer::Operation::Contract::Persist()
 
       def setup_model!(model:, current_user:, **)
         model.user = current_user
@@ -16,7 +16,7 @@ module V1
       end
 
       def set_ownership!(params:, model:, current_user:, **)
-        current_user.tag(model, with: params[:note]["tag_list"], on: :tags)
+        current_user.tag(model, with: params[:note][:tag_list], on: :tags, skip_save: true)
         true
       end
     end
