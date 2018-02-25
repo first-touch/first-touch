@@ -1,5 +1,5 @@
 module V1
-  class DirectUpload
+  module DirectUpload
     class SignedUrl < FirstTouch::Operation
       step :init_filename!
       step :init_s3!
