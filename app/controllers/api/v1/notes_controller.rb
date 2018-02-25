@@ -42,7 +42,7 @@ module Api
 
       def show
         result = ::V1::Note::Show.(params, current_user: current_user)
-        response = FirstTouch::Endpoint.(result, ::V1::Note::Representer::Full)
+        response = FirstTouch::Endpoint.(result, ::V1::Note::Representer::FullWithElements)
         render json: response[:data], status: response[:status]
       end
 

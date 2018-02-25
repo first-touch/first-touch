@@ -4,10 +4,13 @@
     <div class="container-fluid">
       <div class="ft-page note" v-if="{loaded}">
         <h4 class="header">{{ note.value.name }}</h4>
-        <div class="col-6">
-          <strategy />
-        </div>
-        <div class="col-6">
+        <div class="row">
+          <div class="col-6">
+            <img :src=note.value.image_url class="note-image" />
+          </div>
+          <div class="col-6">
+            <strategy v-bind:info="note.value.elements" />
+          </div>
         </div>
         <span v-for="tag in note.value.tags" :key="tag" v-on:click="getNotesByTag(tag)">
           {{ tag }}
@@ -16,7 +19,11 @@
     </div>
   </div>
 </template>
-
+<style lang="scss" scoped>
+  .note-image {
+    width: 100%;
+  }
+</style>
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import NotificationSidebar from 'app/components/NotificationSidebar';
