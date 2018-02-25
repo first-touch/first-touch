@@ -9,7 +9,11 @@ module V1
         property :name
         property :content
         property :image_url
-        collection :all_tags_list, as: :tags # need to clean up collection to prevent multiple queries
+        property :tags, exec_context: :decorator
+
+        def tags
+          represented.tags.pluck(:name)
+        end
       end
     end
   end
