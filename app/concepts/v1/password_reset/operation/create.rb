@@ -13,17 +13,28 @@ module V1
       step Trailblazer::Operation::Contract::Build(
         constant: PasswordReset::Contract::Create
       )
-      step Trailblazer::Operation::Contract::Validate()
+      step :log_build!, fail_fast: true
+      step Trailblazer::Operation::Contract::Validate(key: :email)
+      step :log_validate!, fail_fast: true
       step Trailblazer::Operation::Contract::Persist()
 
-
-      def associate_user!(options, params, **)
-        options['model'].user = ::User.find_by!(email: params[:email])
-        true
+      def log_build!(options, **)
+        byebug
+        options['result.policy.failure'] = 'contract did not build'
       end
 
-      def remove_existing_tokens(options, **)
-        PasswordReminder.delete_all(user_id: options['model'].user.id)
+      def log_validate!(options, **)
+        byebug
+        options['result.policy.failure'] = 'contract did not validate'
+      end
+
+      def associate_user!(model:, params:, **)
+        model.user = ::User.find_by(email: params[:email])
+      end
+
+      def remove_existing_tokens(model:, **)
+        ::PasswordReminder.where(user_id: model.user.id)
+        .delete_all
       end
 
       def generate_token(model:, **)
@@ -39,7 +50,8 @@ module V1
       end
 
       def remove_expired_tokens(**)
-        PasswordReminder.delete_all("expires_at < '#{Time.now}'")
+        ::PasswordReminder.where("expires_at < '#{Time.now}'")
+        .delete_all
       end
     end
   end
