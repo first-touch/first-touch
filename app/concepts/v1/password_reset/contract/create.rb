@@ -9,7 +9,7 @@ module V1
         property :token
         property :expires_at
 
-        validates :email, :user, :token, :expires_at, presence: true
+        validates :user, :token, presence: true
       end
     end
   end
