@@ -1,7 +1,6 @@
 require 'rails_helper'
-require 'byebug'
 
-RSpec.describe V1::PasswordReset::Request do
+RSpec.describe V1::PasswordReset::Create do
   let(:calvin) do
     res = V1::User::Register.(
       email: 'test@banaas.com',
@@ -19,11 +18,14 @@ RSpec.describe V1::PasswordReset::Request do
   let(:params) do
     { email: 'test@banaas.com' }
   end
-  let(:operation) { V1::PasswordReset::Request.(params) }
+  let(:operation) do
+    calvin.reload
+    V1::PasswordReset::Create.(params)
+  end
 
   describe 'when user provides email for password reset' do
     it 'generates reset token' do
-      byebug
+      debugger
       expect(operation.success?).to eq true
       reminder = operation['model']
       expect(reminder).to be_persisted

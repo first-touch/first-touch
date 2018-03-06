@@ -2,7 +2,7 @@ require 'bcrypt'
 
 module V1
   module PasswordReset
-    class Request < Trailblazer::Operation
+    class Create < Trailblazer::Operation
       step Model(::PasswordReminder, :new)
       step :associate_user!
       step :remove_existing_tokens
@@ -19,6 +19,7 @@ module V1
 
       def associate_user!(options, params, **)
         options['model'].user = ::User.find_by!(email: params[:email])
+        true
       end
 
       def remove_existing_tokens(options, **)
