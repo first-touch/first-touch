@@ -16,25 +16,26 @@ RSpec.describe V1::PasswordReset::Create do
     res['model']
   end
 
-  let(:params) do
-    { email: 'test@banaas.com' }
-  end
-  let(:operation) do
-    # calvin.reload
-    res = V1::PasswordReset::Create.(params)
-    debugger
-    res
+  let(:params) { { email: 'test@banaas.com' } }
+  let(:secure_token) { "ABC123123" }
+  let(:now) { DateTime.now }
+  let(:operation) { V1::PasswordReset::Create.(params) }
+
+  before do
+    allow(SecureRandom).to receive(:urlsafe_base64).and_return(secure_token)
+    Timecop.freeze(now) do
+      operation
+    end
   end
 
   describe 'when user provides email' do
     it 'generates reset token' do
-      debugger
-      # expect(operation.success?).to eq true
+      expect(operation.success?).to eq true
       reminder = operation['model']
       expect(reminder).to be_persisted
       expect(reminder.user).to eq calvin
-      expect(reminder.token).to be_an_instance_of(SecureRandom)
-      expect(reminder.expires_at).to be_an_instance_of(Time)
+      expect(reminder.token).to eq secure_token
+      expect(reminder.expires_at.to_i).to eq (now + 1.hour).to_i
     end
   end
 
