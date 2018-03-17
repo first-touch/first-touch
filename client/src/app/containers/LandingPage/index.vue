@@ -242,8 +242,8 @@
   </div>
 </template>
 
-<style lang="sass">
-  @import "~stylesheets/landingpage";
+<style lang="scss" scoped>
+
 </style>
 
 <script>
