@@ -1,4 +1,6 @@
 {
+  "name": "first-touch",
+  "version": "1.0.0",
   "dependencies": {
     "bootstrap-vue": "^1.0.2",
     "extract-text-webpack-plugin": "^2.1.0",
