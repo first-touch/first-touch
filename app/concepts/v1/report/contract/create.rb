@@ -9,8 +9,9 @@ module V1
         property :price
         property :club_id
         property :player_id
+        property :status
 
-        validates :headline, :user, :price,:type_report, presence: true
+        validates :headline, :user, :price, :type_report, presence: true
 
         validate :type_is_registerable
 

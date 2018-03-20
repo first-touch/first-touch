@@ -37,6 +37,14 @@
           <router-link to="/network">My Network</router-link>
         </div>
       </li>
+      <li class="nav-item" v-if="scout" :class="{ active: page === 'scouting' }">
+        <div class="nav-item-inner">
+          <router-link to="/scouting">Scouting</router-link>
+        </div>
+         <ul class="nav-item-inner-2">
+             <li class="nav-item"> <router-link to="/scouting">Create  Report</router-link></li>
+          </ul>
+      </li>
     </ul>
   </div>
   <div class="sidenav-right">
@@ -55,6 +63,15 @@
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
 @import '~stylesheets/common_style';
+
+.nav-item-inner-2{
+  display: none;
+}
+.nav-item:hover .nav-item-inner-2{
+  display: block;
+  padding-left: 6em;
+  border: 0px;
+}
 
 .sidenav-left {
   .brand {
@@ -171,6 +188,15 @@ export default {
             .personal_profile.last_name}`
         : '';
     },
+     roles() {
+      return this.user.status === ASYNC_SUCCESS
+        ? this.user.value.roles.map(o => o.name)
+        : null;
+    },
+    scout(){
+      return this.user.status === ASYNC_SUCCESS ?
+      this.roles.indexOf('scout') >= 0 :false
+    }
   },
   methods: {
     ...mapActions(['getUserInfo']),
