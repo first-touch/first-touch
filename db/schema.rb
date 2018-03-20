@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180212121423) do
+ActiveRecord::Schema.define(version: 20180319100627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,6 +194,31 @@ ActiveRecord::Schema.define(version: 20180212121423) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
+  create_table "report_data", force: :cascade do |t|
+    t.bigint "report_id"
+    t.json "meta_data"
+    t.integer "version"
+    t.boolean "last_version"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_report_data_on_report_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.text "headline"
+    t.boolean "index"
+    t.string "type_report"
+    t.integer "version"
+    t.bigint "user_id"
+    t.integer "price"
+    t.bigint "club_id"
+    t.integer "player"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["club_id"], name: "index_reports_on_club_id"
+    t.index ["user_id"], name: "index_reports_on_user_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -255,6 +280,9 @@ ActiveRecord::Schema.define(version: 20180212121423) do
   add_foreign_key "club_users", "clubs"
   add_foreign_key "club_users", "users"
   add_foreign_key "notes", "users"
+  add_foreign_key "report_data", "reports"
+  add_foreign_key "reports", "clubs"
+  add_foreign_key "reports", "users"
   add_foreign_key "team_users", "teams"
   add_foreign_key "team_users", "users"
 end
