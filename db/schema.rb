@@ -216,7 +216,6 @@ ActiveRecord::Schema.define(version: 20180407014221) do
     t.bigint "report_id"
     t.json "meta_data"
     t.integer "version"
-    t.boolean "last_version"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["report_id"], name: "index_report_data_on_report_id"
@@ -224,13 +223,12 @@ ActiveRecord::Schema.define(version: 20180407014221) do
 
   create_table "reports", force: :cascade do |t|
     t.text "headline"
-    t.boolean "index"
+    t.string "status"
     t.string "type_report"
-    t.integer "version"
     t.bigint "user_id"
     t.integer "price"
     t.bigint "club_id"
-    t.integer "player"
+    t.integer "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["club_id"], name: "index_reports_on_club_id"

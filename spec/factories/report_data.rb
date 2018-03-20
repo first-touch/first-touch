@@ -3,6 +3,5 @@ FactoryGirl.define do
     report
     meta_data ""
     version 1
-    last_version true
   end
 end

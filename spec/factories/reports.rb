@@ -1,12 +1,11 @@
 FactoryGirl.define do
   factory :report do
-    headline "The new maradona"
-    index true
-    type_report "player"
-    version 1
     user
+    headline "The new maradona"
+    status "indexed"
+    type_report "player"
     price 1
     club nil
-    player 1
+    player_id nil
   end
 end

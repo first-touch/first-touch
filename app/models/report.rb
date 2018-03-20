@@ -9,12 +9,4 @@ class Report < ApplicationRecord
   }
 
   validates_presence_of :headline, :type_report, :price
-
-  includetypes = ['player', 'club'].freeze
-  validates :type_report,
-  inclusion: {
-    in: includetypes,
-    message: 'Should be player or club'
-  }
-
 end

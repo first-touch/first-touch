@@ -22,7 +22,6 @@ describe V1::ReportDatum::Create do
   describe 'when report_datum is persisted' do
     it 'persists the event' do
       expect(report_datum).to be_persisted
-      expect(report_datum.last_version).to be true
     end
   end
 
@@ -41,8 +40,6 @@ describe V1::ReportDatum::Create do
       expect(report_datum.version).to eq(1)
       expect(new_version.version).to eq(report_datum.version + 1)
       report_datum.reload
-      expect(report_datum.last_version).to be false
-      expect(new_version.last_version).to be true
     end
   end
 end

@@ -34,7 +34,16 @@ describe V1::Report::Create do
 
   describe 'when report is valid' do
     let(:report_name) { 'player' }
+
     it 'succeed to register the report' do
+      res = V1::Report::Create.(
+        {
+          user: current_user,
+          headline: 'The new ronaldo',
+          price: 20,
+          type_report: report_name
+        }
+      )
       expect(reportGood).to be_persisted
     end
   end
