@@ -7,7 +7,8 @@ module V1
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
 
-      def setup_model!(model:, params:, **)
+      def setup_model!(model:,current_user:, params:, **)
+        model.user = current_user
         model.type_report = params[:type_report]
       end
 
