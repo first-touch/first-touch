@@ -4,7 +4,6 @@ class CreateReportData < ActiveRecord::Migration[5.1]
       t.references :report, foreign_key: true
       t.json :meta_data
       t.integer :version
-      t.boolean :last_version
 
       t.timestamps
     end

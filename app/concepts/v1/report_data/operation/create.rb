@@ -11,8 +11,6 @@ module V1
       def setup_model!(options, params:, **)
         brothers = ::ReportDatum.where(report: params[:report])
         options['model'].version = brothers.count + 1
-        options['model'].last_version = true
-        brothers.update_all({:last_version => false})
       end
     end
   end

@@ -47,6 +47,8 @@ Rails.application.routes.draw do
       get 'notes/labels', controller: :notes, action: :labels
       resources :notes
 
+      resources :reports
+
       resources :events, only: %i[index create show]
 
       post 'connect', controller: :connection, action: :create
