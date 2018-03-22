@@ -5,12 +5,10 @@ import * as actions from './actions';
 
 Vue.use(Vuex);
 
-const getters = Object.keys(state).reduce(
-  (v, k) => {
-    v[k] = (state) => state[k];
-    return v;
-  }, {}
-);
+const getters = Object.keys(state).reduce((v, k) => {
+  v[k] = state => state[k];
+  return v;
+}, {});
 
 export default new Vuex.Store({
   state,

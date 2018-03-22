@@ -18,7 +18,8 @@ export const initialState = {
   searchResult
 };
 
-export default Object.assign({},
+export default Object.assign(
+  {},
   tokenReducer,
   feedReducer,
   userReducer,
