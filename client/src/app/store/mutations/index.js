@@ -1,6 +1,6 @@
 import tokenReducer, { token } from './token';
 import feedReducer, { feed } from './feed';
-import userReducer, { user } from './user';
+import userReducer, { user, newUser } from './user';
 import networkReducer, { network } from './network';
 import inboxReducer, { inbox } from './inbox';
 import messagesReducer, { messages } from './messages';
@@ -12,6 +12,7 @@ export const initialState = {
   token,
   feed,
   user,
+  newUser,
   network,
   inbox,
   messages,

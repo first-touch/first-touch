@@ -40,6 +40,7 @@ class User < ApplicationRecord
   has_many :teams, through: :team_users
 
   has_many :notes
+  has_many :reports
 
   before_save :update_search_string, if: -> { email_changed? }
 

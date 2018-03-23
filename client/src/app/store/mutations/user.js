@@ -6,6 +6,11 @@ export const user = {
   value: null
 };
 
+export const newUser = {
+  status: ASYNC_NONE,
+  value: null
+};
+
 export default {
   [ActionTypes.USER_LOADING] (state) {
     state.user = Object.assign(
@@ -19,6 +24,13 @@ export default {
       {},
       state.user,
       { status: ASYNC_SUCCESS, value: user }
+    );
+  },
+  [ActionTypes.USER_IMPORT_SUCCESS] (state, newUser) {
+    state.newUser = Object.assign(
+      {},
+      state.newUser,
+      { status: ASYNC_SUCCESS, value: newUser }
     );
   }
 };

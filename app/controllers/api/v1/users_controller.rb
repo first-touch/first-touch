@@ -30,6 +30,17 @@ module Api
         end
       end
 
+      def import
+        result = ::V1::User::Import.(params,club_id: 0)
+        if result.failure?
+         # messages = result['contract.default'].errors.full_messages
+          render json: { error: result },
+                 status: :unprocessable_entity
+        else
+          render json: result['model'], status: :ok
+        end
+      end
+
       def update
         @current_user.update_attributes user_params
         if @current_user.save
@@ -49,13 +60,13 @@ module Api
       end
 
       def search
-        result = ::V1::User::Index.(params)
+        result = ::V1::User::Index.(params, current_user: current_user)
         if result.failure?
           render json: { error_message: result['errors'] },
                  status: :unprocessable_entity
         else
           render json: result['models'],
-                 each_serializer: Users::SearchSerializer,
+                 each_serializer: ::Users::SearchSerializer,
                  status: :ok
         end
       end

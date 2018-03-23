@@ -21,6 +21,8 @@ Rails.application.routes.draw do
       resource :user, only: %i[show update]
 
       post 'users/register', to: 'users#register', as: :register
+      post 'users/import', to: 'users#import', as: :import
+
       get 'users/:id/follows', controller: :users, action: :follows
       resource :users, except: [:show] do
         resources :posts, only: %i[index create], controller: 'users/posts'
@@ -48,6 +50,7 @@ Rails.application.routes.draw do
       resources :notes
 
       resources :reports
+      post 'reports/uploadfiles', controller: :reports, action: :upload_files
 
       resources :events, only: %i[index create show]
 

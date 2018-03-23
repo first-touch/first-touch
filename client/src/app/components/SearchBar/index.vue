@@ -3,7 +3,7 @@
     <div class="input-group">
       <input type="text" v-model="searchTerm"
         @keyup.prevent="search({ searchTerm })"
-        class="form-control" placeholder="Search for players, clubs, events"
+        class="form-control" :placeholder="placeholder"
       />
       <span class="input-group-btn">
         <button class="btn btn-secondary" type="button">
@@ -11,7 +11,7 @@
         </button>
       </span>
       <div class="search-results-container">
-        <result v-for="result in results" :info="result" :key="result.id" />
+        <result v-for="result in results" :info="result" :key="result.id" :uri="target" />
       </div>
     </div>
   </div>
@@ -82,7 +82,7 @@ import SearchResult from './components/SearchResult';
 
 export default {
   name: 'SearchBar',
-  props: ['search', 'results'],
+  props: ['search', 'results','placeholder','target'],
   components: {
     result: SearchResult,
   },
