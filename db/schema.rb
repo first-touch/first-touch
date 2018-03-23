@@ -34,6 +34,19 @@ ActiveRecord::Schema.define(version: 20180407014221) do
     t.index ["user_id"], name: "index_app_notifications_on_user_id"
   end
 
+  create_table "attachment_items", force: :cascade do |t|
+    t.integer "attachment_id"
+    t.integer "report_datum_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "attachments", force: :cascade do |t|
+    t.text "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "awards", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "club_id"

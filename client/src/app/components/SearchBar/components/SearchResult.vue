@@ -1,5 +1,5 @@
 <template>
-  <router-link class="search-results-item" :to="`/users/${info.id}/profile`">
+  <router-link class="search-results-item" :to="target">
     <div class="arrow"></div>
     <img class="img-fluid" src="https://unsplash.it/100/100" />
     <p class="search-results-item-name">{{ info.display_name }}</p>
@@ -39,6 +39,11 @@
 <script>
 export default {
   name: 'SearchResult',
-  props: ['info'],
+  props: ['info','uri'],
+  data() {
+    return {
+      target:  this.uri? this.uri.replace('${info.id}',this.info.id): '#'
+    };
+  }
 };
 </script>

@@ -3,8 +3,7 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page edit-profile">
-        <h4 class="header">Create Report</h4>
-        <CreateReportForm :type="type" />
+        <h4 class="header">Report</h4>
       </div>
     </div>
   </div>
@@ -33,16 +32,14 @@
   import {
     mapActions
   } from 'vuex';
-  import CreateReportForm from './components/CreateReportForm.vue';
   import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 
   export default {
-    name: 'SignupPage',
+    name: 'ReportPage',
     props: [
       'type',
     ],
     components: {
-      CreateReportForm: CreateReportForm,
       sidebar: NotificationSidebar,
     },
     data() {

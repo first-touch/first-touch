@@ -3,8 +3,13 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page edit-profile">
-        <h4 class="header">Create Report</h4>
-        <CreateReportForm :type="type" />
+        <h4 class="header">Create Club Report</h4>
+        <div class="report-form">
+          <div class="arrow"></div>
+          <div class="form-container">
+            <clubreportform :clubId="this.$route.params.id" :createReport="createReport" :reportStatus="reportStatus" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -12,7 +17,7 @@
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
-  .profile-item {
+  .report-form {
     display: flex;
     border-left: 7px solid $main-header-color;
     margin-top: 20px;
@@ -31,23 +36,34 @@
 
 <script>
   import {
+    mapGetters,
     mapActions
   } from 'vuex';
-  import CreateReportForm from './components/CreateReportForm.vue';
   import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+  import ClubReportForm from './components/ClubReportForm.vue';
+  import {
+    ASYNC_SUCCESS,
+    ASYNC_FAIL
+  } from 'app/constants/AsyncStatus';
 
   export default {
-    name: 'SignupPage',
+    name: 'ClubReportPage',
     props: [
       'type',
     ],
     components: {
-      CreateReportForm: CreateReportForm,
       sidebar: NotificationSidebar,
+      clubreportform: ClubReportForm
     },
-    data() {
-      return {};
+    computed: {
+      ...mapGetters(['report']),
+      reportStatus() {
+        return this.report.status === ASYNC_FAIL ?
+          this.report : null
+      }
     },
-    methods: {}
+    methods: {
+      ...mapActions(['createReport']),
+    }
   };
 </script>

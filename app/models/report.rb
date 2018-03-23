@@ -1,6 +1,7 @@
 class Report < ApplicationRecord
   belongs_to :user
   belongs_to :club, optional: true
+  has_many :report_data
 
   validates :price, numericality: {
     only_integer: true,
