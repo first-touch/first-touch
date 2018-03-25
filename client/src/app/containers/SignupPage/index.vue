@@ -30,7 +30,7 @@
             <label>Date Of Birth</label>
             <div class="row">
               <select v-model="month" class="form-control col-md-3">
-                <option disabled value="">Month</option>
+                <option disabled value="" selected>Month</option>
                 <option value="1">January</option>
                 <option value="2">February</option>
                 <option value="3">March</option>
@@ -45,7 +45,7 @@
                 <option value="12">December</option>
               </select>
               <select v-model="day" class="form-control col-md-3">
-                <option disabled value="">Date</option>
+                <option disabled value="" selected>Date</option>
                 <option v-for="d in 31" :key="d" :value="d">{{ d }}</option>
               </select>
               <input type="number" v-model="year" class="form-control col-md-6" placeholder="Year" />
@@ -62,6 +62,26 @@
                 <option value="manager">Manager</option>
                 <option value="coach">Coach</option>
               </select>
+            </div>
+          </fieldset>
+          <fieldset class="form-group col-md-12">
+            <label>Your Club</label>
+            <div class="row">
+              <select v-model="club_country_code" class="form-control col-md-4">
+                <option disabled value="" selected>Country</option>
+                <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
+              </select>
+              <autocomplete class="col-md-8" input-class="form-control"
+                placeholder="Search For Clubs"
+                v-model="item"
+                :get-label="getLabel"
+                :items="clubs"
+                :component-item="template"
+                @update-items="updateItems"
+                :min-len="1"
+                :auto-select-one-item="false"
+                :input-attrs="{disabled: countries.length === 0 || club_country_code === ''}"
+                />
             </div>
           </fieldset>
           <fieldset class="form-group col-md-12">
@@ -103,15 +123,72 @@
   }
 }
 </style>
+<style lang="scss">
+.v-autocomplete {
+  padding-right: 0;
+  .v-autocomplete-input-group {
+    .v-autocomplete-input {
+      font-size: 1.5em;
+      padding: 10px 15px;
+      box-shadow: none;
+      border: 1px solid #157977;
+      width: calc(100% - 32px);
+      outline: none;
+      background-color: #eee;
+    }
+    &.v-autocomplete-selected {
+      .v-autocomplete-input {
+        color: green;
+        background: #f2fff2;
+      }
+    }
+  }
+  .v-autocomplete-list {
+    position: absolute;
+    z-index: 2;
+    width: calc(100% - 15px);
+    text-align: left;
+    border: none;
+    max-height: 400px;
+    overflow-y: auto;
+    border-bottom: 1px solid #157977;
+    .v-autocomplete-list-item {
+      cursor: pointer;
+      background-color: #fff;
+      color: #000;
+      padding: 5px 10px;
+      border-bottom: 1px solid #157977;
+      border-left: 1px solid #157977;
+      border-right: 1px solid #157977;
+      &:last-child {
+        border-bottom: none;
+      }
+      &:hover {
+        background-color: #eee;
+      }
+      abbr {
+        opacity: 0.8;
+        font-size: 0.8em;
+        display: block;
+        font-family: sans-serif;
+      }
+    }
+  }
+}
+</style>
+
 
 <script>
 import { mapActions } from 'vuex';
-import LandingNavbar from 'app/components/LandingNavbar.vue';
+import LandingNavbar from 'app/components/LandingNavbar';
+import AutoComplete from 'v-autocomplete';
+import ItemTemplate from './components/ItemTemplate';
 
 export default {
   name: 'SignupPage',
   components: {
     navbar: LandingNavbar,
+    autocomplete: AutoComplete,
   },
   data() {
     return {
@@ -125,6 +202,12 @@ export default {
       year: '',
       role_name: '',
       tccheck: false,
+      club_country_code: '',
+      countries: [],
+      clubs: [],
+      template: ItemTemplate,
+      item: null,
+      searchText: '',
       error: null,
     };
   },
@@ -137,6 +220,8 @@ export default {
         return this.$set(this, 'error', 'Please Enter Date of Birth!');
       } else if (this.year < 1900 || this.year > new Date().getUTCFullYear()) {
         return this.$set(this, 'error', 'Invalid Year of Birth!');
+      } else if (!this.role_name) {
+        return this.$set(this, 'error', 'Please choose a role!');
       } else if (!this.tccheck) {
         console.log(this.tccheck);
         return this.$set(
@@ -153,6 +238,7 @@ export default {
           first_name: this.first_name,
           last_name: this.last_name,
           birthday: new Date(Date.UTC(this.year, this.month, this.day)),
+          club_id: this.item.id,
         },
         role_name: this.role_name,
       };
@@ -169,6 +255,28 @@ export default {
         }
       });
     },
+    fetchCountries() {
+      fetch('/api/v1/clubs/countries')
+        .then(res => res.status === 200 && res.json())
+        .then(({ countries }) => this.$set(this, 'countries', countries));
+    },
+    updateItems(text) {
+      this.$set(this, 'searchText', text);
+      fetch(`/api/v1/clubs/search?country=${this.club_country_code}&q=${text}`)
+        .then(res => res.status === 200 && res.json())
+        .then(({ clubs }) => {
+          this.$set(this, 'clubs', clubs);
+        });
+    },
+    getLabel(item) {
+      return item ? item.name : this.searchText;
+    },
+    itemSelected(item) {
+      this.$set(this, 'item', item);
+    },
+  },
+  mounted() {
+    this.fetchCountries();
   },
 };
 </script>
