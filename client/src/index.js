@@ -15,7 +15,8 @@ import EditProfilePage from 'app/containers/EditProfilePage';
 import ClubLayout from 'app/components/ClubLayout';
 import ClubStream from 'app/containers/ClubStreamPage';
 import ClubNotes from 'app/containers/ClubNotesPage';
-import TCPage from 'app/containers/TCPage';
+import TCPage from 'app/containers/LegalPages/TCPage';
+import PrivacyPolicy from 'app/containers/LegalPages/PrivacyPolicy';
 
 import store from 'app/store';
 import VueRouter from 'vue-router';
@@ -99,6 +100,10 @@ const router = new VueRouter({
     {
       path: '/terms_conditions',
       component: TCPage
+    },
+    {
+      path: '/privacy_policy',
+      component: PrivacyPolicy
     }
   ]
 });

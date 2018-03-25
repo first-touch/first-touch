@@ -1,0 +1,132 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: #000;
+}
+
+p,
+a {
+  font-size: 19px;
+  font-weight: 100;
+}
+
+section.legal {
+  display: block;
+}
+
+.section-separator {
+  margin-top: 70px;
+}
+
+.title-container {
+  background: url('/images/landing-page/team-logo.jpg') no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+  .title {
+    color: #fff;
+    font-weight: 100;
+  }
+}
+
+.introduction {
+  p {
+    margin-bottom: 50px;
+    &:first-child {
+      font-weight: 100;
+    }
+    &:nth-child(3) {
+      font-weight: 300;
+    }
+  }
+}
+.table-of-content {
+  padding: 36px 40px 42px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 3px rgba(0, 0, 0, 0.2);
+  .toc-title {
+    margin: auto auto 30px 30px;
+    font-size: 21px;
+    font-weight: 100;
+  }
+  .toc-list {
+    list-style-type: decimal;
+    color: #000;
+    a {
+      font-size: 19px;
+    }
+    li {
+      display: list-item;
+      margin-bottom: 20px;
+    }
+    .toc-list-lv2 {
+      list-style-type: lower-latin;
+      margin-top: 10px;
+      a {
+        font-size: 17px;
+      }
+      li {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.section-title,
+.subsection-title,
+.section-text {
+  clear: both;
+}
+.section-title {
+  font-size: 34px;
+  font-weight: 100;
+  line-height: 40px;
+  margin-bottom: 24px;
+}
+.subsection-title {
+  line-height: 24px;
+  font-weight: 600;
+  font-size: 19px;
+  margin: 24px 0 16px;
+}
+.section-text {
+  line-height: 20px;
+  @at-root p#{&},
+    p#{&} a {
+    font-weight: 200px;
+    font-size: 15px;
+  }
+  @at-root ul#{&} {
+    list-style: disc;
+    margin-left: 40px;
+    ul {
+      list-style: circle;
+      margin-left: 40px;
+      margin-top: 20px;
+    }
+    li {
+      display: list-item;
+      margin-bottom: 20px;
+      font-weight: 200;
+      color: #000;
+      font-size: 15px;
+    }
+  }
+  @at-root ol#{&} {
+    list-style: decimal;
+    li {
+      display: list-item;
+      margin-bottom: 20px;
+      font-weight: 200;
+      color: #000;
+      font-size: 15px;
+    }
+  }
+}
