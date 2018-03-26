@@ -7,8 +7,8 @@ module V1
       step Trailblazer::Operation::Contract::Persist()
       step :setup_model!
 
-      def setup_model!(options, params:, current_user:, **)
-        options['model'].report_data << params[:report_data]
+      def setup_model!(model:, params:, current_user:, **)
+        model.report_data << params[:report_data]
       end
 
     end

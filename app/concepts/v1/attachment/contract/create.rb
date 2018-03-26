@@ -3,6 +3,7 @@ module V1
     module Contract
       class Create < Reform::Form
         property :url
+        property :filename
 
       end
     end

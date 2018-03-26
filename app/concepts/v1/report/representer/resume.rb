@@ -1,7 +1,7 @@
 module V1
   module Report
     module Representer
-      class Full < Representable::Decorator
+      class Resume < Representable::Decorator
         include Representable::JSON
 
         property :id
@@ -9,13 +9,14 @@ module V1
           ::V1::PersonalProfile::Representer::Simplified.new(represented.user.personal_profile)
          }
         property :headline
-        property :report_data, getter:  -> (represented:, **) {
-          ::V1::ReportDatum::Representer::Full.new(represented.report_data.last)
-         }
-         property :player, getter:  -> (represented:, **) {
+        property :price
+        property :type_report
+        property :player, getter:  -> (represented:, **) {
           ::V1::PersonalProfile::Representer::Simplified.new(represented.player.personal_profile)
          }
-        property :price
+        property :report_data, getter:  -> (represented:, **) {
+          ::V1::ReportDatum::Representer::Resume.new(represented.report_data.last)
+         }
       end
     end
   end

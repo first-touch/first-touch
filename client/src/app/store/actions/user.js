@@ -18,7 +18,6 @@ export const getUserInfo = (store, { token }) => {
 };
 
 export const updateUserInfo = (store, userInfo) => {
-  console.log('update');
   fetch('/api/v1/user', {
     method: 'PUT',
     headers: {
@@ -41,7 +40,6 @@ export const updateUserInfo = (store, userInfo) => {
 };
 
 export const importUser = (store, userInfo) => {
-  console.log('update');
   fetch('/api/v1/users/import', {
     method: 'POST',
     headers: {

@@ -37,6 +37,7 @@ module V1
         end
         # Create unclaimed account and email
         pwd = SecureRandom.hex
+        model.add_role 'player'
         model.email = model.personal_profile.first_name + model.personal_profile.last_name + "_new@firsttouch.io"
         model.password = pwd
         model.password_confirmation = pwd

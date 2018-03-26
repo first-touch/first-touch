@@ -6,7 +6,9 @@ module Api
 
       def index
         if is_scout?
-          render json: Report.all, status: response[:status]
+          result = ::V1::Report::Index.(params, current_user: current_user)
+          response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Index)
+          render json: response[:data], status: response[:status]
         else
           render json: { error: 'Not Authorized' }, status: :unauthorized
         end
@@ -26,6 +28,7 @@ module Api
           response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
           render json: response[:data] , status: response[:status]
         else
+          # puts result.to_json
           render json: {
             error: result['contract.default'].errors.full_messages
           }, status: :unprocessable_entity
@@ -33,22 +36,35 @@ module Api
       end
 
 
-    def upload_files
-      if (params[:report_id])
-        report =  @current_user.reports.find(params[:report_id])
-        if params[:report_version]
-          @current_user
-          report_datum =  report.report_data.find_by version: params[:report_version]
-        else
-          report_datum =  report.report_data.last
+      def upload_files
+        if (params[:report_id])
+          report =  @current_user.reports.find(params[:report_id])
+          if params[:report_version]
+            report_datum =  report.report_data.find_by version: params[:report_version]
+          else
+            report_datum =  report.report_data.last
+          end
+          params['files'].each do |key|
+            name = params['files'][key].original_filename
+            path = FileUploadUtil.save_file(params['files'][key], report.id.to_s,report_datum.version.to_s)
+            result = ::V1::Attachment::Create.({url:path, filename: name, report_data: report_datum},current_user: current_user)
+          end
+          render json: nil , status: :ok
         end
-        params['files'].each do |key|
-          path = FileUploadUtil.save_file(params['files'][key], report.id.to_s,report_datum.version.to_s)
-          result = ::V1::Attachment::Create.({url:path, report_data: report_datum},current_user: current_user)
-        end
-        render json: nil , status: :ok
       end
-    end
+
+      def download
+        if (params[:attachment_id])
+          # puts 'test'
+          report =  @current_user.reports.ids
+          attachment =  ::Attachment.find(params[:attachment_id]).report_data.find_by report_id: report
+          if attachment
+            attachment = ::Attachment.find(params[:attachment_id])
+            send_file(attachment.url,
+              :filename => attachment.filename)
+          end
+        end
+      end
 
       def update
 
@@ -65,7 +81,7 @@ module Api
       end
 
       def report_params
-        params.permit(:headline, :status,:price,:type_report,:player_id)
+        params.permit(:headline, :status,:price,:type_report,:player_id,:team_id)
       end
     end
   end

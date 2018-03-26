@@ -36,53 +36,53 @@
           <label class="col-sm-2 col-form-label">Nationality</label>
           <div class="col-sm-10">
             <select class="col-sm-4" v-model="meta_data.userinfo.nationality_country_code">
-                    <option v-for="(value, key, index) in countries" :key="index" :value="value[1]">
-                        {{value[0]}}
-                    </option>
-                  </select>
+                      <option v-for="(value, key, index) in countries" :key="index" :value="value[1]">
+                          {{value[0]}}
+                      </option>
+                    </select>
           </div>
         </div>
         <div class="row">
           <label class="col-sm-2 col-form-label">Based In</label>
           <div class="col-sm-10">
             <select class="col-sm-4" v-model="meta_data.userinfo.residence_country_code">
-                    <option v-for="(value, key, index) in countries" :key="index" :value="value[1]">
-                          {{value[0]}}
-                      </option>
-                  </select>
+                      <option v-for="(value, key, index) in countries" :key="index" :value="value[1]">
+                            {{value[0]}}
+                        </option>
+                    </select>
           </div>
         </div>
         <div class="row">
           <label class="col-sm-2 col-form-label">Language</label>
           <div class="col-sm-10">
             <select class="col-sm-4" v-model="meta_data.userinfo.languages" multiple>
-                    <option v-for="(value, key, index) in languages" :key="index" :value="value[1]">
-                        {{value[0]}}
-                    </option>
-                  </select>
+                      <option v-for="(value, key, index) in languages" :key="index" :value="value[1]">
+                          {{value[0]}}
+                      </option>
+                    </select>
           </div>
         </div>
         <div class="row">
           <label class="col-sm-2 col-form-label">Position</label>
           <div class="col-sm-10">
             <select class="col-sm-4" v-model="meta_data.userinfo.playing_position" multiple>
-                  <option disabled value="">Positions</option>
-                  <option value="keeper">GoalKeeper</option>
-                  <option value="defender">Defender</option>
-                  <option value="midfielder">Midfielder</option>
-                  <option value="winger">Winger</option>
-                  <option value="striker">Striker</option>
-                </select>
+                    <option disabled value="">Positions</option>
+                    <option value="keeper">GoalKeeper</option>
+                    <option value="defender">Defender</option>
+                    <option value="midfielder">Midfielder</option>
+                    <option value="winger">Winger</option>
+                    <option value="striker">Striker</option>
+                  </select>
           </div>
         </div>
         <div class="row">
           <label class="col-sm-2 col-form-label">Preferred Foot</label>
           <div class="col-sm-10">
             <select v-model="meta_data.userinfo.preferred_foot" class="col-sm-4">
-                    <option disabled value="">Preferred Foot</option>
-                  <option value="R">Right</option>
-                  <option value="L">Left</option>
-                    </select>
+                      <option disabled value="">Preferred Foot</option>
+                    <option value="R">Right</option>
+                    <option value="L">Left</option>
+                      </select>
           </div>
         </div>
       </div>
@@ -211,9 +211,9 @@
             <td> <input type="text" v-model="match.opponent" /> </td>
             <td> <input type="text" v-model="match.venue" /> </td>
             <td> <select v-model="match.training">
-                            <option value="true" selected>Yes</option>
-                            <option value="false">No</option>
-                          </select> </td>
+                              <option value="true" selected>Yes</option>
+                              <option value="false">No</option>
+                            </select> </td>
             <td> <input type="text" v-model="match.comment" /> </td>
             <td class="remove-items"> <a v-if="meta_data.analyzed_matches.length > 1" @click="removeRowMatches(index)">X</a> </td>
           </tr>
@@ -373,14 +373,12 @@
 </style>
 
 <script>
-  import PlayerForm from './PlayerForm.vue';
   import countrydata from 'country-data';
   import Datepicker from 'vuejs-datepicker';
 
   export default {
     name: 'PlayerReportForm',
     components: {
-      playerform: PlayerForm,
       datepicker: Datepicker
     },
     props: [
@@ -419,7 +417,9 @@
           this.meta_data.userinfo.weight = this.userinfo.weight;
           this.meta_data.userinfo.height = this.userinfo.height;
           this.meta_data.userinfo.preferred_foot = this.userinfo.preferred_foot;
-          this.meta_data.userinfo.playing_position = this.userinfo.playing_position != '' ? JSON.parse(this.userinfo.playing_position) : [];
+this.meta_data.userinfo.playing_position = [];
+          if (this.userinfo.playing_position)
+            this.meta_data.userinfo.playing_position = JSON.parse(this.userinfo.playing_position)
         }
       }
     },
@@ -454,8 +454,6 @@
         var report = {
           headline: this.headline,
           price: this.price,
-          type_report: "player",
-          player_id: this.$route.params.id,
           report: this.meta_data,
         }
         this.createReport(report, this.$refs.myFiles.files)

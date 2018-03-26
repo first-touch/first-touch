@@ -16,8 +16,8 @@ import ClubLayout from 'app/components/ClubLayout';
 import ClubStream from 'app/containers/ClubStreamPage';
 import ClubNotes from 'app/containers/ClubNotesPage';
 import ScoutingPage from 'app/containers/ScoutingPage';
-import PlayerReportPage from 'app/containers/PlayerReportPage';
-import ClubReportPage from 'app/containers/ClubReportPage';
+import ReportPage from 'app/containers/ReportPage';
+import MarketPlacePage from 'app/containers/MarketPlacePage';
 
 import store from 'app/store';
 import VueRouter from 'vue-router';
@@ -66,17 +66,17 @@ const router = new VueRouter({
         { path: 'profile/edit', component: EditProfilePage },
         { path: 'profile', component: ProfilePage, props: { mine: true }},
         { path: 'network', component: Network },
-        { path: '/scouting/report', component: ScoutingPage },
-        {
-          path: '/users/:id/report',
-          component: PlayerReportPage,
-          meta: { reuse: false }
-        },
+        { path: '/report/create', component: ScoutingPage },
+        { path: '/report/marketplace', component: MarketPlacePage },
         {
           path: '/users/:id/profile',
           component: ProfilePage,
           props: { mine: false },
           meta: { reuse: false }
+        },
+        {
+          path: '/report/view/:id',
+          component: ReportPage
         },
         {
           path: '/messages',
@@ -94,11 +94,7 @@ const router = new VueRouter({
       beforeEnter: requireAuth,
       children: [
         { path: '', component: ClubStream },
-        { path: 'notes', component: ClubNotes },
-        {
-          path: '/club/:id/report',
-          component: ClubReportPage
-        }
+        { path: 'notes', component: ClubNotes }
       ]
     },
     // Delete once registration is allowed

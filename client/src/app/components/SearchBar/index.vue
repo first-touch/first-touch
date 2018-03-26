@@ -11,7 +11,7 @@
         </button>
       </span>
       <div class="search-results-container">
-        <result v-for="result in results" :info="result" :key="result.id" :uri="target" />
+        <result v-for="result in results" :info="result" :key="result.id" :action="action" />
       </div>
     </div>
   </div>
@@ -82,14 +82,19 @@ import SearchResult from './components/SearchResult';
 
 export default {
   name: 'SearchBar',
-  props: ['search', 'results','placeholder','target'],
+  props: ['search', 'results','placeholder','action'],
   components: {
     result: SearchResult,
   },
   data() {
     return {
-      searchTerm: '',
+      searchTerm: ''
     };
-  },
+  }, 
+  computed: {
+      searchResult() {
+        return this.searchTerm != '' ? results: []
+      },
+    }
 };
 </script>
