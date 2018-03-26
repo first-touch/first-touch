@@ -1,7 +1,6 @@
 import * as types from '../../constants/ActionTypes';
 
 export const getSearchResults = (store, { searchTerm, role = '' }) => {
-  console.log(role);
   store.commit(types.SEARCH_RESULT_LOADING);
   if (searchTerm === '') return store.commit(types.SEARCH_RESULT_SUCCESS, []);
   fetch(`/api/v1/search?q=${searchTerm}&role=${role}`, {

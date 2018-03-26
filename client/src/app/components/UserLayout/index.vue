@@ -1,7 +1,7 @@
 <template>
   <div>
     <navbar :page="page" />
-    <search-bar :search="getSearchResults" :results="searchResult.value" :placeholder="placeholder" :target="target" />
+    <search-bar :search="getSearchResults" :results="searchResult.value" :placeholder="placeholder" :action="action" />
     <router-view></router-view>
   </div>
 </template>
@@ -47,15 +47,19 @@
           return 'network';
         } else if (/\/users\/\d+\/profile/.test(path)) {
           return 'profile';
-        } else if (path === '/scouting/report' || /\/users\/\d+\/report/.test(path)) {
-          return 'report';
+        } else if (path === '/report/create') {
+          return 'scouting/report/create';
+        } else if (path === '/report/marketplace') {
+          return 'scouting/report/marketplace';
+        } else if (/\/report/.test(path)) {
+          return 'scouting/report/';
         }
-
         return 'home';
       },
     },
     methods: {
       ...mapActions(['getSearchResults']),
+      action(info) {}
     },
   };
 </script>

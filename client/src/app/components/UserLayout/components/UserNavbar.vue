@@ -42,8 +42,11 @@
             Scouting
           </div>
           <ul class="sub-nav">
-            <li class="sub-nav-item" :class="{ active: page === 'report' || !page }">
-              <router-link to="/scouting/report">Create Report</router-link>
+            <li class="sub-nav-item" :class="{ active: page === 'scouting/report/create' || !page }">
+              <router-link to="/report/create">Create Report</router-link>
+            </li>
+             <li class="sub-nav-item" :class="{ active: page === 'scouting/report/marketplace' || !page }">
+              <router-link to="/report/marketplace">Report MarketPlace</router-link>
             </li>
           </ul>
         </li>
@@ -243,7 +246,7 @@
         this.submenu = id;
       },
       reportPage() {
-        if (this.page == 'report' || this.submenu == 0)
+        if (/\/report\//.test(this.page) || this.submenu == 0)
           return true;
         return false;
       }

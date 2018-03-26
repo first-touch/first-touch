@@ -2,8 +2,10 @@
   <div>
     <sidebar />
     <div class="container-fluid">
-      <div class="ft-page edit-profile">
+      <div class="ft-page">
         <h4 class="header">Report</h4>
+        <playerreport v-if="report != null" :report="report"/>
+
       </div>
     </div>
   </div>
@@ -11,28 +13,19 @@
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
-  .profile-item {
-    display: flex;
-    border-left: 7px solid $main-header-color;
-    margin-top: 20px;
-    .arrow {
-      margin-top: 18px;
-      border-left-color: $main-header-color;
-    }
-    .form-container {
-      background-color: #fff;
-      border-radius: 5px;
-      padding: 20px;
-      width: 100%;
-    }
-  }
 </style>
 
 <script>
   import {
+    mapGetters,
     mapActions
   } from 'vuex';
+  import {
+    ASYNC_SUCCESS,
+    ASYNC_FAIL
+  } from 'app/constants/AsyncStatus';
   import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+  import playerReport from './components/PlayerReport';
 
   export default {
     name: 'ReportPage',
@@ -41,10 +34,25 @@
     ],
     components: {
       sidebar: NotificationSidebar,
+      playerreport: playerReport
     },
     data() {
       return {};
     },
-    methods: {}
+    computed: {
+      ...mapGetters(['searchReport']),
+      report() {
+        if (this.searchReport.status === ASYNC_SUCCESS) {
+          return this.searchReport.value
+        }
+        return null;
+      }
+    },
+    mounted() {
+      this.getReport(this.$route.params.id);
+    },
+    methods: {
+      ...mapActions(['getReport']),
+    }
   };
 </script>

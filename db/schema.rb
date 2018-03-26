@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20180407014221) do
 
   create_table "attachments", force: :cascade do |t|
     t.text "url"
+    t.text "filename"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

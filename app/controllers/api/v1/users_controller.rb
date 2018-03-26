@@ -33,7 +33,6 @@ module Api
       def import
         result = ::V1::User::Import.(params,club_id: 0)
         if result.failure?
-         # messages = result['contract.default'].errors.full_messages
           render json: { error: result },
                  status: :unprocessable_entity
         else

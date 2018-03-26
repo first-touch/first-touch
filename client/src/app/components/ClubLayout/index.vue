@@ -1,7 +1,7 @@
 <template>
   <div>
     <navbar :page="page" />
-    <search-bar :search="getSearchResults" :results="searchResult.value" :placeholder="placeholder" :target="target"/>
+    <search-bar :search="getSearchResults" :results="searchResult.value" :placeholder="placeholder" :action="action"/>
     <router-view></router-view>
   </div>
 </template>
@@ -22,8 +22,7 @@ export default {
   },
   data() {
     return {
-      placeholder: 'Search for players, clubs, events',
-      target: '/users/${info.id}/profile'
+      placeholder: 'Search for players, clubs, events'
     };
   },
   computed: {
@@ -34,6 +33,10 @@ export default {
   },
   methods: {
     ...mapActions(['getSearchResults']),
+    action(info){
+      // '/users/${info.id}/profile'
+      // console.log(info)
+    }
   },
 };
 </script>

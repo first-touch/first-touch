@@ -6,7 +6,7 @@ import inboxReducer, { inbox } from './inbox';
 import messagesReducer, { messages } from './messages';
 import profileReducer, { profile } from './profile';
 import searchResultReducer, { searchResult } from './searchResult';
-import reportReducer, { report } from './report';
+import reportReducer, { report, searchReport, filesUpload } from './report';
 
 export const initialState = {
   token,
@@ -18,7 +18,9 @@ export const initialState = {
   messages,
   profile,
   searchResult,
-  report
+  report,
+  searchReport,
+  filesUpload
 };
 
 export default Object.assign(
@@ -31,5 +33,7 @@ export default Object.assign(
   messagesReducer,
   profileReducer,
   searchResultReducer,
+  reportReducer,
+  reportReducer,
   reportReducer
 );
