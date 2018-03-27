@@ -78,6 +78,10 @@
 @import '~stylesheets/common_style';
 
 .sidenav-left {
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .brand {
     margin: 0 0 15px 0;
   }
@@ -125,12 +129,9 @@
     margin: 15px 0 15px -20px;
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
-    &::-webkit-scrollbar {
-      display: none;
-    }
 
     .nav-item {
+      margin-right: -20px;
       .sub-nav {
         max-height: 0;
         overflow: hidden;

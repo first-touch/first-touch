@@ -6,15 +6,17 @@ export const attemptLogIn = (store, { email, password }) => {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: `email=${email}&password=${password}`
-  }).then((res) => {
+  }).then(res => {
     if (res.status === 200) {
-      res.json()
-        .then((r) => { store.commit(types.TOKEN_SUCCESS, r.auth_token); });
+      res.json().then(r => {
+        store.commit(types.TOKEN_SUCCESS, r.auth_token);
+      });
     } else {
-      res.json()
-        .then((r) => store.commit(types.TOKEN_FAILURE, JSON.stringify(r)));
+      res
+        .json()
+        .then(r => store.commit(types.TOKEN_FAILURE, JSON.stringify(r)));
     }
   });
 };
 
-export const clearToken = (store) => store.commit(types.TOKEN_CLEAR);
+export const clearToken = store => store.commit(types.TOKEN_CLEAR);

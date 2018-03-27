@@ -30,7 +30,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~stylesheets/landingpage';
 .container-fluid {
   background: url('/images/landing-page/team-logo.jpg') no-repeat center center
@@ -55,7 +55,7 @@ form {
 import { mapGetters, mapActions } from 'vuex';
 
 import { ASYNC_LOADING, ASYNC_FAILURE } from 'app/constants/AsyncStatus';
-import LandingNavbar from 'app/components/LandingNavbar.vue';
+import LandingNavbar from 'app/components/LandingNavbar';
 
 export default {
   name: 'LoginPage',

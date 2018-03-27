@@ -1,6 +1,9 @@
 import * as ActionTypes from '../../constants/ActionTypes';
 import {
-  ASYNC_NONE, ASYNC_SUCCESS, ASYNC_LOADING, ASYNC_FAILURE
+  ASYNC_NONE,
+  ASYNC_SUCCESS,
+  ASYNC_LOADING,
+  ASYNC_FAILURE
 } from '../../constants/AsyncStatus';
 
 export const token = {
@@ -11,25 +14,19 @@ export const token = {
 
 export default {
   [ActionTypes.TOKEN_LOADING] (state) {
-    state.token = Object.assign(
-      {},
-      state.token,
-      { status: ASYNC_LOADING }
-    );
+    state.token = Object.assign({}, state.token, { status: ASYNC_LOADING });
   },
   [ActionTypes.TOKEN_FAILURE] (state, err) {
-    state.token = Object.assign(
-      {},
-      state.token,
-      { status: ASYNC_FAILURE, err }
-    );
+    state.token = Object.assign({}, state.token, {
+      status: ASYNC_FAILURE,
+      err
+    });
   },
   [ActionTypes.TOKEN_SUCCESS] (state, value) {
-    state.token = Object.assign(
-      {},
-      state.token,
-      { status: ASYNC_SUCCESS, value }
-    );
+    state.token = Object.assign({}, state.token, {
+      status: ASYNC_SUCCESS,
+      value
+    });
     localStorage.setItem('auth_token', value);
     window.location = '/';
   },
