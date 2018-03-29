@@ -3,7 +3,6 @@ module V1
     module Representer
       class Resume < Representable::Decorator
         include Representable::JSON
-        property :id
         property :filename
       end
     end

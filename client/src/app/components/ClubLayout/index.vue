@@ -34,8 +34,6 @@ export default {
   methods: {
     ...mapActions(['getSearchResults']),
     action(info){
-      // '/users/${info.id}/profile'
-      // console.log(info)
     }
   },
 };

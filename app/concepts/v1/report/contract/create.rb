@@ -9,17 +9,24 @@ module V1
         property :price
         property :club_id
         property :player_id
-        property :status
 
         validates :headline, :user, :price, :type_report, presence: true
 
         validate :type_is_registerable
+        validate :status_is_registerable
 
         def type_is_registerable
           current_type = model.type_report
           return if FirstTouch::REGISTERABLE_REPORT_TYPES.include? current_type
           errors.add(:type_report, I18n.t('report.invalid_type'))
         end
+
+        def status_is_registerable
+          current_status = model.status
+          return if FirstTouch::REGISTERABLE_REPORT_STATUS.include? current_status
+          errors.add(:status, I18n.t('report.invalid_status'))
+        end
+
       end
     end
   end

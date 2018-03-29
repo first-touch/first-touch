@@ -37,16 +37,16 @@
             <router-link to="/network">My Network</router-link>
           </div>
         </li>
-        <li class="nav-item" v-if="scout" :class="{ active: reportPage() }">
-          <div class="nav-item-inner" @click="setMenu(0)">
+        <li class="nav-item" v-if="scout" :class="{ active: scoutingPage() }">
+          <div class="nav-item-inner submenu" @click="setMenu(0)">
             Scouting
           </div>
           <ul class="sub-nav">
             <li class="sub-nav-item" :class="{ active: page === 'scouting/report/create' || !page }">
               <router-link to="/report/create">Create Report</router-link>
             </li>
-             <li class="sub-nav-item" :class="{ active: page === 'scouting/report/marketplace' || !page }">
-              <router-link to="/report/marketplace">Report MarketPlace</router-link>
+            <li class="sub-nav-item" :class="{ active: page === 'scouting/jobs/list' || !page }">
+              <router-link to="/jobs/list">Jobs List</router-link>
             </li>
           </ul>
         </li>
@@ -68,16 +68,6 @@
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
   @import '~stylesheets/common_style';
-  .nav-item-inner-2 {
-    display: none;
-  }
-
-  .nav-item:hover .nav-item-inner-2 {
-    display: block;
-    padding-left: 6em;
-    border: 0px;
-  }
-
   .sidenav-left {
     .brand {
       margin: 0 0 15px 0;
@@ -152,6 +142,9 @@
           padding: 10px 0 10px 20px;
           border-top: 1px solid $main-text-color;
           color: $main-text-color;
+          &.submenu{
+            cursor: pointer;
+          }
           a {
             color: $main-text-color;
           }
@@ -245,8 +238,8 @@
       setMenu(id) {
         this.submenu = id;
       },
-      reportPage() {
-        if (/\/report\//.test(this.page) || this.submenu == 0)
+      scoutingPage() {
+        if (/scouting\//.test(this.page) || this.submenu == 0)
           return true;
         return false;
       }

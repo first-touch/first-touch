@@ -188,6 +188,18 @@ ActiveRecord::Schema.define(version: 20180407014221) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "customer_id"
+    t.integer "price"
+    t.bigint "report_id"
+    t.text "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_orders_on_report_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "personal_profiles", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.string "first_name"
@@ -320,6 +332,8 @@ ActiveRecord::Schema.define(version: 20180407014221) do
   add_foreign_key "club_users", "users"
   add_foreign_key "competition_seasons", "competitions"
   add_foreign_key "notes", "users"
+  add_foreign_key "orders", "reports"
+  add_foreign_key "orders", "users"
   add_foreign_key "report_data", "reports"
   add_foreign_key "reports", "clubs"
   add_foreign_key "reports", "users"

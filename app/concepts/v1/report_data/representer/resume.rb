@@ -7,9 +7,19 @@ module V1
           if represented
             if represented.report.type_report == 'player'
               represented.meta_data['userinfo']
+            elsif represented.report.type_report == 'team'
+              {
+                formation: represented.meta_data['formation'],
+                main_threats: represented.meta_data['main_threats']
+              }
             end
           end
         end
+        property :attachments, getter:  -> (represented:, **) {
+          if represented
+          ::V1::Attachment::Representer::Resumes.new(represented.attachments)
+          end
+         }
       end
     end
   end

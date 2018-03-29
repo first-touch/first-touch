@@ -9,6 +9,7 @@ module V1
         property :headline
         property :report_data, getter:  -> (represented:, **) { represented.report_data.last }
         property :price
+        property :type_report
 
       end
     end
