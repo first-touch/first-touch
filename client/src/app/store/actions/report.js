@@ -9,16 +9,15 @@ export const createReport = (store, report) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(report)
-  })
-    .then(res => {
-      if (res.status === 201) {
-        res.json().then(r => store.commit(ActionTypes.UPLOADING_REPORT_SUCCESS, r));
-      } else if (res.status === 401) {
-        store.commit(ActionTypes.TOKEN_CLEAR);
-      } else {
-        store.commit(ActionTypes.UPLOADING_REPORT_FAILURE, res);
-      }
-    });
+  }).then(res => {
+    if (res.status === 201) {
+      res.json().then(r => store.commit(ActionTypes.UPLOADING_REPORT_SUCCESS, r));
+    } else if (res.status === 401) {
+      store.commit(ActionTypes.TOKEN_CLEAR);
+    } else {
+      store.commit(ActionTypes.UPLOADING_REPORT_FAILURE, res);
+    }
+  });
 };
 
 export const updateReport = (store, { report, id }) => {

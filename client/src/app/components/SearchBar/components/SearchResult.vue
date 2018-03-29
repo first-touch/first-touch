@@ -1,9 +1,9 @@
 <template>
-  <a class="search-results-item" @click="action" >
+  <router-link class="search-results-item" :to="`/users/${info.id}/profile`">
     <div class="arrow"></div>
     <img class="img-fluid" src="https://unsplash.it/100/100" />
     <p class="search-results-item-name">{{ info.display_name }}</p>
-  </a>
+  </router-link>
 </template>
 
 <style lang="scss" scoped>
@@ -39,12 +39,6 @@
 <script>
 export default {
   name: 'SearchResult',
-  props: ['info','action'],
-  data() {
-    return {
-      target:  this.action(this.info.id)
-      // ? this.uri.replace('${info.id}',this.info.id): '#'
-    };
-  }
+  props: ['info'],
 };
 </script>
