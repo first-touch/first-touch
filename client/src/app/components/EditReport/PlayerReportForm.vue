@@ -235,32 +235,6 @@
   </form>
 </template>
 
-<style lang="scss">
-.analyzed_matches {
-  .datepicker {
-    background: white;
-    input.input-date {
-      cursor: pointer;
-      width: 100%;
-      border: 0px;
-      height: 2.5em;
-      background: white;
-      background: url('/images/calendar.png') no-repeat;
-      background-size: 3em 2.5em;
-      background-position: center;
-      text-indent: 100%;
-      white-space: nowrap;
-      overflow: hidden;
-      &.selected {
-        background: url('/images/calendar-fill.png') no-repeat;
-        background-size: 3em 2.5em;
-        background-position: center;
-      }
-    }
-  }
-}
-</style>
-
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
 #report-form {

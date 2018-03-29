@@ -15,7 +15,7 @@
       <tbody>
         <tr v-for="(match, index) in analyzed_matches" v-bind:key="match.id">
           <td>
-            <datepicker :input-class="[match.date != '' ? 'selected': '', 'input-date'].join(' ')" v-model="match.date" class="datepicker"></datepicker>
+            <datepicker :input-class="[match.date != '' ? 'selected': '', 'input-date'].join(' ')" v-model="match.date" class="datepicker" format="MM/dd/yyyy"></datepicker>
           </td>
           <td>
             <input type="text" v-model="match.opponent" />
@@ -55,14 +55,11 @@
         background: white;
         background: url('/images/calendar.png') no-repeat;
         background-size: 3em 2.5em;
-        background-position: center;
-        text-indent: 100%;
-        white-space: nowrap;
-        overflow: hidden;
+        background-position: right;
         &.selected {
           background: url('/images/calendar-fill.png') no-repeat;
           background-size: 3em 2.5em;
-          background-position: center;
+          background-position: right;
         }
       }
     }
