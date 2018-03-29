@@ -1,4 +1,6 @@
 {
+  "name": "first-touch",
+  "version": "1.0.0",
   "dependencies": {
     "bootstrap-vue": "^1.0.2",
     "country-data": "0.0.31",
@@ -8,6 +10,7 @@
     "http-proxy-middleware": "^0.17.3",
     "moment": "^2.21.0",
     "url-loader": "^0.5.7",
+    "v-autocomplete": "^1.8.2",
     "vue": "^2.5.3",
     "vue-loader": "^13.5.0",
     "vue-router": "^2.0.0",

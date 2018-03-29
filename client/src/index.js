@@ -15,6 +15,9 @@ import EditProfilePage from 'app/containers/EditProfilePage';
 import ClubLayout from 'app/components/ClubLayout';
 import ClubStream from 'app/containers/ClubStreamPage';
 import ClubNotes from 'app/containers/ClubNotesPage';
+import TCPage from 'app/containers/LegalPages/TCPage';
+import PrivacyPolicy from 'app/containers/LegalPages/PrivacyPolicy';
+
 import CreateReportPage from 'app/containers/CreateReportPage';
 import EditReportPage from 'app/containers/EditReportPage';
 import ReportPage from 'app/containers/ReportPage';
@@ -23,6 +26,7 @@ import JobsList from 'app/containers/JobsList';
 import store from 'app/store';
 import VueRouter from 'vue-router';
 import './app/constants/filters';
+import 'stylesheets/landingpage.scss';
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 
@@ -109,6 +113,14 @@ const router = new VueRouter({
       path: '/pre_registration',
       component: PreRegistration,
       beforeEnter: checkIfLoggedIn
+    },
+    {
+      path: '/terms_conditions',
+      component: TCPage
+    },
+    {
+      path: '/privacy_policy',
+      component: PrivacyPolicy
     }
   ]
 });

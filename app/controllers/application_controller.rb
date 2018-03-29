@@ -12,5 +12,4 @@ class ApplicationController < ActionController::API
   def authenticate_request
     @current_user = nil
   end
-
 end
