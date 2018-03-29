@@ -22,21 +22,21 @@ export const filesUpload = {
 };
 
 export default {
-  [ActionTypes.NEW_REPORT_FAILURE] (state, errors) {
+  [ActionTypes.UPLOADING_REPORT_FAILURE] (state, errors) {
     state.report = Object.assign(
       {},
       state.report,
       { status: ASYNC_FAIL, errors: errors }
     );
   },
-  [ActionTypes.NEW_REPORT_LOADING] (state, errors) {
+  [ActionTypes.UPLOADING_REPORT_LOADING] (state, errors) {
     state.report = Object.assign(
       {},
       state.report,
       { status: ASYNC_LOADING }
     );
   },
-  [ActionTypes.NEW_REPORT_SUCCESS] (state, payload) {
+  [ActionTypes.UPLOADING_REPORT_SUCCESS] (state, payload) {
     state.report = Object.assign(
       {},
       state.report,

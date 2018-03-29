@@ -1,7 +1,7 @@
 import downloadjs from 'downloadjs';
+import * as ActionTypes from '../../constants/ActionTypes';
 
 export const getAttachment = (store, { id, filename }) => {
-  console.log(id);
   fetch('/api/v1/reports/attachments/download/' + id, {
     method: 'GET',
     headers: {
@@ -11,7 +11,7 @@ export const getAttachment = (store, { id, filename }) => {
     if (res.status === 200) {
       return res.blob();
     } else if (res.status === 401) {
-      console.log('no rights');
+      store.commit(ActionTypes.TOKEN_CLEAR);
     } else {
       console.log(res);
     }

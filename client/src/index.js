@@ -15,12 +15,14 @@ import EditProfilePage from 'app/containers/EditProfilePage';
 import ClubLayout from 'app/components/ClubLayout';
 import ClubStream from 'app/containers/ClubStreamPage';
 import ClubNotes from 'app/containers/ClubNotesPage';
-import ScoutingPage from 'app/containers/ScoutingPage';
+import CreateReportPage from 'app/containers/CreateReportPage';
+import EditReportPage from 'app/containers/EditReportPage';
 import ReportPage from 'app/containers/ReportPage';
 import MarketPlacePage from 'app/containers/MarketPlacePage';
-
+import JobsList from 'app/containers/JobsList';
 import store from 'app/store';
 import VueRouter from 'vue-router';
+import './app/constants/filters';
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 
@@ -66,8 +68,8 @@ const router = new VueRouter({
         { path: 'profile/edit', component: EditProfilePage },
         { path: 'profile', component: ProfilePage, props: { mine: true }},
         { path: 'network', component: Network },
-        { path: '/report/create', component: ScoutingPage },
-        { path: '/report/marketplace', component: MarketPlacePage },
+        { path: '/report/create', component: CreateReportPage },
+        { path: '/jobs/list', component: JobsList },
         {
           path: '/users/:id/profile',
           component: ProfilePage,
@@ -77,6 +79,10 @@ const router = new VueRouter({
         {
           path: '/report/view/:id',
           component: ReportPage
+        },
+        {
+          path: '/report/edit/:id',
+          component: EditReportPage
         },
         {
           path: '/messages',
@@ -94,7 +100,8 @@ const router = new VueRouter({
       beforeEnter: requireAuth,
       children: [
         { path: '', component: ClubStream },
-        { path: 'notes', component: ClubNotes }
+        { path: 'notes', component: ClubNotes },
+        { path: '/report/marketplace', component: MarketPlacePage }
       ]
     },
     // Delete once registration is allowed

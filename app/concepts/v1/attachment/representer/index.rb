@@ -4,7 +4,7 @@ module V1
       class Index < Representable::Decorator
         include Representable::JSON
 
-        collection :to_a, as: :attachments, decorator: Resume
+        collection :to_a, as: :attachments, decorator: Show
 
       end
     end

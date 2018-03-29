@@ -2,18 +2,13 @@ module V1
   module Report
     class Show < FirstTouch::Operation
       step :find_model!
-      step Trailblazer::Operation::Contract::Build(
-        constant: Report::Contract::Create
-      )
-      step Trailblazer::Operation::Contract::Persist()
-
+      failure :model_not_found!, fail_fast: true
       private
 
       def find_model!(options, params:, current_user:, **)
-        options['model'] = model = current_user.reports.find_by(id: params[:id])
-        options['result.model.test'] = options['model'].report_data.last
+        options['model'] = model = ::Report.where(id: params[:id]).first
         options['model.class'] = ::Report
-        options['result.model'] = result = Result.new(!model.nil?, {})
+        (model.blank?)? false : true
       end
     end
   end

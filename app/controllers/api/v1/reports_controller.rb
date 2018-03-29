@@ -5,30 +5,35 @@ module Api
     class ReportsController < Api::V1::BaseController
 
       def index
-        if is_scout?
-          result = ::V1::Report::Index.(params, current_user: current_user)
+        result = ::V1::Report::Index.(params, current_user: current_user)
+        if result.success?
           response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Index)
           render json: response[:data], status: response[:status]
         else
           render json: { error: 'Not Authorized' }, status: :unauthorized
         end
+
       end
 
       def show
         result = ::V1::Report::Show.(params, current_user: current_user)
-        response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
-        render json: response[:data], status: response[:status]
+        if result.success?
+          response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
+          render json: { report: response[:data], owner: current_user.reports.where(id: params[:id]).present? } , status: response[:status]
+        else
+          render json: {
+          }, status: :unauthorized
+        end
       end
 
       def create
-        result = ::V1::Report::Create.(report_params, current_user: current_user)
+        result = ::V1::Report::Create.(params, current_user: current_user)
         if result.success?
           report = Report.find(result['model'].id)
-          report_datum = ::V1::ReportDatum::Create.({meta_data: params['report'],report: report})
+          report_datum = ::V1::ReportDatum::Create.({meta_data: params['report_data'],report: report})
           response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
           render json: response[:data] , status: response[:status]
         else
-          # puts result.to_json
           render json: {
             error: result['contract.default'].errors.full_messages
           }, status: :unprocessable_entity
@@ -55,11 +60,8 @@ module Api
 
       def download
         if (params[:attachment_id])
-          # puts 'test'
-          report =  @current_user.reports.ids
-          attachment =  ::Attachment.find(params[:attachment_id]).report_data.find_by report_id: report
+          attachment =  ::Attachment.find(params[:attachment_id])
           if attachment
-            attachment = ::Attachment.find(params[:attachment_id])
             send_file(attachment.url,
               :filename => attachment.filename)
           end
@@ -67,22 +69,18 @@ module Api
       end
 
       def update
-
+        result = ::V1::Report::Update.(params, current_user: current_user)
+        if result.success?
+          response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
+          render json: response[:data] , status: response[:status]
+        else
+          render json: {
+            error: (result['contract.default'].blank?) ? "Sorry but something went wrong" : result['contract.default'].errors.full_messages
+          }, status: :unprocessable_entity
+        end
       end
 
 
-
-      def is_club?
-        #@current_user.role
-      end
-
-      def is_scout?
-        @current_user.roles.first.name == 'scout'
-      end
-
-      def report_params
-        params.permit(:headline, :status,:price,:type_report,:player_id,:team_id)
-      end
     end
   end
 end

@@ -26,7 +26,7 @@
               <option value="11">November</option>
               <option value="12">December</option>
             </select>
-        <select v-model="personal_profile.bDay" class="form-control col-md-3">
+            <select v-model="personal_profile.bDay" class="form-control col-md-3">
               <option disabled value="">Date</option>
               <option v-for="d in 31" :value="d" :key="d.id" >{{ d }}</option>
             </select>
@@ -88,23 +88,21 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/variables';
-  .form-group {
-    label {
-      color: $main-text-color;
-    }
-    .bar-button {
-      color: $main-text-color;
-      border: 1px solid $main-text-color;
-    }
+@import "~stylesheets/variables";
+.form-group {
+  label {
+    color: $main-text-color;
   }
+  .bar-button {
+    color: $main-text-color;
+    border: 1px solid $main-text-color;
+  }
+}
 </style>
 
 <script>
-  export default {
-    name: 'EditProfileForm',
-    props: [
-      'personal_profile',
-    ],
-  };
+export default {
+  name: "EditProfileForm",
+  props: ["personal_profile"]
+};
 </script>

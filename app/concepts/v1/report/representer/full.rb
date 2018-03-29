@@ -13,9 +13,14 @@ module V1
           ::V1::ReportDatum::Representer::Full.new(represented.report_data.last)
          }
          property :player, getter:  -> (represented:, **) {
-          ::V1::PersonalProfile::Representer::Simplified.new(represented.player.personal_profile)
+           if represented.player
+            ::V1::PersonalProfile::Representer::Simplified.new(represented.player.personal_profile)
+           end
          }
         property :price
+        property :type_report
+        property :status
+
       end
     end
   end

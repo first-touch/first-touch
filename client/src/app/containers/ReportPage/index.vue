@@ -4,8 +4,18 @@
     <div class="container-fluid">
       <div class="ft-page">
         <h4 class="header">Report</h4>
-        <playerreport v-if="report != null" :report="report"/>
-
+        <div v-if="report != null" class="report-div">
+          <ul v-if="owner" class="menu">
+            <li >
+                <router-link :to="`/report/view/${report.id}`" class="active">View</router-link>
+            </li>
+            <li>
+              <router-link :to="`/report/edit/${report.id}`">Edit</router-link>
+            </li>
+          </ul>
+          <playerreport v-if="report.type_report == 'player'" :report="report" :downloadFile="downloadFile" class="report" />
+          <clubreport v-if="report.type_report == 'team'" :report="report" :downloadFile="downloadFile" class="report" />
+        </div>
       </div>
     </div>
   </div>
@@ -13,6 +23,30 @@
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
+  .report-div {
+    background: white;
+    color: black;
+    .report {
+      padding: 50px;
+    }
+    .menu {
+      li {
+        display: inline-block;
+        a {
+          display: block;
+          padding: 10px 20px;
+          border-radius: 10px;
+          &.active,
+          &:hover {
+            background: #A8CB5C;
+            cursor: pointer;
+            color: white;
+          }
+          color:black;
+        }
+      }
+    }
+  }
 </style>
 
 <script>
@@ -25,7 +59,8 @@
     ASYNC_FAIL
   } from 'app/constants/AsyncStatus';
   import NotificationSidebar from 'app/components/NotificationSidebar.vue';
-  import playerReport from './components/PlayerReport';
+  import PlayerReport from './components/PlayerReport';
+  import ClubReport from './components/ClubReport';
 
   export default {
     name: 'ReportPage',
@@ -34,7 +69,8 @@
     ],
     components: {
       sidebar: NotificationSidebar,
-      playerreport: playerReport
+      playerreport: PlayerReport,
+      clubreport: ClubReport
     },
     data() {
       return {};
@@ -43,16 +79,28 @@
       ...mapGetters(['searchReport']),
       report() {
         if (this.searchReport.status === ASYNC_SUCCESS) {
-          return this.searchReport.value
+          return this.searchReport.value.report
         }
         return null;
+      },
+      owner() {
+        if (this.searchReport.status === ASYNC_SUCCESS) {
+          return this.searchReport.value.owner
+        }
+        return false;
       }
     },
     mounted() {
       this.getReport(this.$route.params.id);
     },
     methods: {
-      ...mapActions(['getReport']),
+      ...mapActions(['getReport', 'getAttachment']),
+      downloadFile(id, filename) {
+        this.getAttachment({
+          id,
+          filename,
+        });
+      },
     }
   };
 </script>
