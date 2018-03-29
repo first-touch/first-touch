@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="ft-page">
         <h5 class="row">REPORT MARKETPLACE</h5>
-        <div class="filters-marketplace row col-md-12">
+        <div class="filters-marketplace row">
           <form @submit.prevent="search" class="col-md-12">
             <h6 class="row" >Filter Report</h6>
             <fieldset class="form-group col-md-2 filter">
@@ -21,7 +21,7 @@
             </fieldset>
             <fieldset class="form-group col-md-2 filter">
               <label class="col-sm-12">Date Created</label>
-              <datepicker :input-class="[params.created_date != '' ? 'selected': '', 'input-date','col-sm-12'].join(' ')" v-model="params.created_date"
+              <datepicker :input-class="[params.created_date != '' ? 'selected': '', 'input-date','col-sm-12'].join(' ')" v-model="params.created_date" format="MM/dd/yyyy"
                 class="datepicker col-sm-12"></datepicker>
             </fieldset>
             <fieldset class="form-group col-md-4 filter">
@@ -80,10 +80,12 @@
 }
 .filters-marketplace {
   .datepicker {
+    padding: 0;
     color:black;
     margin-right: 5px;
     background: white;
     input.input-date {
+      padding: 0;
       border: 1px solid $secondary-text-color !important;
       cursor: pointer;
       width: 100%;
@@ -92,14 +94,11 @@
       background: white;
       background: url('/images/calendar.png') no-repeat;
       background-size: 2em 1.7em;
-      background-position: center;
-      text-indent: 100%;
-      white-space: nowrap;
-      overflow: hidden;
+      background-position: right;
       &.selected {
         background: url('/images/calendar-fill.png') no-repeat;
         background-size: 2em 1.7em;
-        background-position: center;
+        background-position: right;
       }
     }
   }

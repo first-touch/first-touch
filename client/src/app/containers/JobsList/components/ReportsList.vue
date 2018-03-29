@@ -100,7 +100,7 @@
       max-width: 100px;
       text-align: left;
       .action {
-        float: left;
+        padding:0;
       }
     }
   }
