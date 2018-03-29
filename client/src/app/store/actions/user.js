@@ -44,13 +44,13 @@ export const importUser = (store, userInfo) => {
   fetch('/api/v1/users/import', {
     method: 'POST',
     headers: {
-      'Authorization': store.state.token.value,
+      Authorization: store.state.token.value,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(userInfo)
-  }).then((res) => {
+  }).then(res => {
     if (res.status === 200) {
-      res.json().then((r) => store.commit(types.USER_IMPORT_SUCCESS, r));
+      res.json().then(r => store.commit(types.USER_IMPORT_SUCCESS, r));
     } else {
       res.json().then(console.log);
     }

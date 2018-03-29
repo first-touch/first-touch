@@ -10,6 +10,7 @@
             <fieldset class="form-group col-md-2 filter">
               <label class="col-sm-12">Report Type</label>
               <select v-model="params.type_report" class="col-md-12">
+                <option value="">All</option>
                 <option value="player">Player</option>
                 <option value="team">Team</option>
               </select>

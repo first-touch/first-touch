@@ -13,5 +13,5 @@ Vue.filter('reportId', (str, type) => {
   } else {
     str = 'TR' + str;
   }
-  return (str);
+  return str;
 });
