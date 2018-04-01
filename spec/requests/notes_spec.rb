@@ -58,6 +58,7 @@ RSpec.describe 'Notes', type: :request do
     end
 
     it 'it creates a note associated with the user' do
+      byebug
       expect(response.content_type).to eq('application/json')
       expect(response).to have_http_status(:created)
     end

@@ -19,7 +19,7 @@ RSpec.describe V1::PasswordReset::Create do
   let(:params) { { email: 'test@banaas.com' } }
   let(:secure_token) { "ABC123123" }
   let(:now) { DateTime.now }
-  let(:operation) { V1::PasswordReset::Create.(params) }
+  let(:operation) { V1::PasswordReset::Request.(params) }
 
   before do
     allow(SecureRandom).to receive(:urlsafe_base64).and_return(secure_token)
@@ -36,6 +36,9 @@ RSpec.describe V1::PasswordReset::Create do
       expect(reminder.user).to eq calvin
       expect(reminder.token).to eq secure_token
       expect(reminder.expires_at.to_i).to eq (now + 1.hour).to_i
+      mail = ActionMailer::Base.deliveries.last
+      expect(mail[:to].to_s).to eq(params[:email])
+      expect(mail[:subject].to_s).to eq("FirstTouch Reset Password")
     end
   end
 

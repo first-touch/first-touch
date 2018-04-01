@@ -1,11 +1,11 @@
 module V1
   module PasswordReset
-    class Create < Trailblazer::Operation
+    class Request < Trailblazer::Operation
       step Model(::PasswordReminder, :new)
       step :setup_model
       step :remove_invalid_tokens
       step Trailblazer::Operation::Contract::Build(
-        constant: PasswordReset::Contract::Create
+        constant: PasswordReset::Contract::Request
       )
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
@@ -22,9 +22,8 @@ module V1
         ::PasswordReminder.where("expires_at < ?", DateTime.now).delete_all
       end
 
-      def send_password_reset_email(options)
-        # UserMailer.password_reset(model).deliver_later
-        true
+      def send_password_reset_email(model:, params:, **)
+        UserMailer.password_reset(params[:email], model.token).deliver
       end
     end
   end

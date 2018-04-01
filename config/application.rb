@@ -13,5 +13,6 @@ module FirstTouch
     # -- all .rb files in that directory are automatically loaded.
     config.api_only = true
     config.autoload_paths << Rails.root.join('lib')
+    config.action_mailer.default_url_options = { host: 'firsttouch.io' }
   end
 end

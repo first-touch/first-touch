@@ -43,6 +43,10 @@ Rails.application.routes.draw do
       get 'notes/labels', controller: :notes, action: :labels
       resources :notes
 
+      get 'password/request', controller: :password_reset, action: :request
+      get 'password/update', controller: :password_reset, action: :get_form
+      post 'password/update', controller: :password_reset, action: :update
+
       resources :events, only: %i[index create show]
 
       post 'connect', controller: :connection, action: :create
