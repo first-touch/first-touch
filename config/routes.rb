@@ -4,10 +4,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      post 'authenticate', controller: :authentication, action: :authenticate
-      get 'validate', controller: :authentication, action: :validate
-      post 'logout', controller: :authentication, action: :logout
-      post 'pre_register', controller: :visitors, action: :pre_register
 
       resources :relationships, only: [:create]
       delete 'relationships/:followed_user_id',
@@ -46,6 +42,10 @@ Rails.application.routes.draw do
       get 'messages/:chat_with_id', controller: :messages, action: :show
       get 'notes/labels', controller: :notes, action: :labels
       resources :notes
+
+      get 'password/request', controller: :password_reset, action: :request
+      get 'password/update', controller: :password_reset, action: :get_form
+      post 'password/update', controller: :password_reset, action: :update
 
       resources :events, only: %i[index create show]
 
