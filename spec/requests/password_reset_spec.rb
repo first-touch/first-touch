@@ -16,23 +16,27 @@ RSpec.describe 'Password Reset', type: :request do
     res['model']
   end
 
-  describe 'Request' do
+  describe 'Start Process' do
+    before do
+      request
+    end
+
     describe 'When requesting with an invalid email' do
       let(:request) do
-        get api_v1_password_request_url, params: {email: 'wrong@banaas.com'}
+        get api_v1_password_request_url, params: { email: 'wrong@banaas.com' }
       end
+
       it 'response gives an error' do
-        byebug
         expect(response).to have_http_status(:not_found)
       end
     end
 
     describe 'When requesting with a valid email' do
       let(:request) do
-        get api_v1_password_request_url, params: {email: 'test@banaas.com'}
+        get api_v1_password_request_url, params: { email: 'test@banaas.com' }
       end
+
       it 'response is successful' do
-        byebug
         expect(response).to have_http_status(:ok)
       end
     end

@@ -1,6 +1,7 @@
 module Api
   module V1
     class BaseController < ApplicationController
+      before_action :authenticate_request
       # NOTE: This is generally a bad practice for rails apps. Strong parameters
       # were introduced for avoiding client side injecting. Still, we are using
       # Trailblazer which relies on form builders. As long as ALL your

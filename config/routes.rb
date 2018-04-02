@@ -43,7 +43,7 @@ Rails.application.routes.draw do
       get 'notes/labels', controller: :notes, action: :labels
       resources :notes
 
-      get 'password/request', controller: :password_reset, action: :request
+      get 'password/request', controller: :password_reset, action: :start_process
       get 'password/update', controller: :password_reset, action: :get_form
       post 'password/update', controller: :password_reset, action: :update
 
