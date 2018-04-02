@@ -37,7 +37,7 @@
         <tr v-if="listReport.length > 0" v-for="report in listReport" :key="report.id">
           <td>{{report.id | reportId(report.type_report)}} </td>
           <td>{{report.headline}}</td>
-          <td>{{report.updated_at | moment}}</td>
+          <td>{{report.created_at | moment}}</td>
           <td class="actions">
             <span class="action col col-sm-2">
               <router-link :to="`/report/view/${report.id}`">View Report</router-link>
