@@ -4,6 +4,7 @@ class Report < ApplicationRecord
   belongs_to :player, class_name: 'User'
 
   has_many :report_data
+  has_many :orders
 
   validates :price, numericality: {
     only_integer: true,

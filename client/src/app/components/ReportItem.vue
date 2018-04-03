@@ -27,7 +27,9 @@
       </div>
     </div>
     <div class="buttons" v-if="typeof viewAction === 'function'">
-      <button class="btn-primary" @click="viewAction(report)">View report</button>
+      <button v-if="report.orders_status == null" class="btn-primary" @click="BuyAction(report)">Buy report</button>
+      <button v-if="report.orders_status == 'completed'" class="btn-primary" @click="viewAction(report)">View report</button>
+      <p v-if="report.orders_status == 'pending'">Payment in pending</p>
     </div>
   </div>
 </template>
@@ -72,6 +74,6 @@
 <script>
   export default {
     name: 'ReportItem',
-    props: ['report', 'viewAction', 'summaryAction']
+    props: ['report', 'viewAction', 'summaryAction','BuyAction']
   };
 </script>

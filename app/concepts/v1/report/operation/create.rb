@@ -12,7 +12,6 @@ module V1
         model.type_report = params[:type_report]
         model.status = params[:status]
       end
-
     end
   end
 end

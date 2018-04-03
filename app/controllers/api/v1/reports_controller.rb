@@ -59,12 +59,13 @@ module Api
       end
 
       def download
-        if (params[:attachment_id])
-          attachment =  ::Attachment.find(params[:attachment_id])
-          if attachment
+        result = ::V1::Attachment::Find.(params, current_user: current_user)
+        attachment = result['model']
+        if (attachment.blank?)
+          render json: nil , status: :not_found
+        else
             send_file(attachment.url,
               :filename => attachment.filename)
-          end
         end
       end
 
