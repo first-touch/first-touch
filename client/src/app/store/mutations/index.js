@@ -7,6 +7,7 @@ import messagesReducer, { messages } from './messages';
 import profileReducer, { profile } from './profile';
 import searchResultReducer, { searchResult } from './searchResult';
 import reportReducer, { report, searchReport, filesUpload } from './report';
+import orderReducer, { order } from './order';
 
 export const initialState = {
   token,
@@ -20,7 +21,8 @@ export const initialState = {
   searchResult,
   report,
   searchReport,
-  filesUpload
+  filesUpload,
+  order
 };
 
 export default Object.assign({},
@@ -34,5 +36,6 @@ export default Object.assign({},
   searchResultReducer,
   reportReducer,
   reportReducer,
-  reportReducer
+  reportReducer,
+  orderReducer
 );

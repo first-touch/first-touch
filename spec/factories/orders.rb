@@ -4,6 +4,6 @@ FactoryGirl.define do
     customer_id 1
     price 1
     report nil
-    status "MyText"
+    status "accepted"
   end
 end

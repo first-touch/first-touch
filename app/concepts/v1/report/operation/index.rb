@@ -43,8 +43,11 @@ module V1
             end
           end
         end
-          options['models'] = models
-          true
+        # models = models.joins(:orders).where("orders.user_id = 1")
+        joins = "LEFT JOIN orders ON orders.customer_id = #{current_user.id.to_s} AND orders.report_id = reports.id"
+        models = models.joins(joins).select('reports.*, orders.status AS orders_status').group('reports.id','orders.status')
+        options['models'] = models
+        true
       end
       def is_club?(current_user)
         true

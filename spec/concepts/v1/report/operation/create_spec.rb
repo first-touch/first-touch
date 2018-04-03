@@ -5,30 +5,29 @@ describe V1::Report::Create do
     create :user
   end
 
-  let(:reportGood) do
+  let(:report_good) do
     res = V1::Report::Create.(
       {
-        user: current_user,
         headline: 'The new ronaldo',
         price: 20,
-        type_report: report_name
-      }
+        type_report: report_name,
+        status: 'publish'
+      },
+      current_user: current_user
     )
     res['model']
   end
 
-  let(:reportFailed) do
-    res = V1::Report::Create.(
-      {
-        user: current_user
-      }
+  let(:report_failed) do
+    res = V1::Report::Create.({},
+      current_user: current_user
     )
     res['model']
   end
 
   describe 'when report is invalid' do
     it 'fails to register the report' do
-      expect(reportFailed).to_not be_persisted
+      expect(report_failed).to_not be_persisted
     end
   end
 
@@ -38,20 +37,19 @@ describe V1::Report::Create do
     it 'succeed to register the report' do
       res = V1::Report::Create.(
         {
-          user: current_user,
           headline: 'The new ronaldo',
           price: 20,
           type_report: report_name
-        }
+        }, current_user: current_user
       )
-      expect(reportGood).to be_persisted
+      expect(report_good).to be_persisted
     end
   end
 
   describe 'when report is wrong type' do
     let(:report_name) { 'basketplayer' }
     it 'fails to register the report' do
-      expect(reportGood).to_not be_persisted
+      expect(report_good).to_not be_persisted
     end
   end
 end

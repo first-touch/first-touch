@@ -6,7 +6,7 @@
         <h5 class="row">REPORT MARKETPLACE</h5>
         <div class="filters-marketplace row">
           <form @submit.prevent="search" class="col-md-12">
-            <h6 class="row" >Filter Report</h6>
+            <h6 class="row">Filter Report</h6>
             <fieldset class="form-group col-md-2 filter">
               <label class="col-sm-12">Report Type</label>
               <select v-model="params.type_report" class="col-md-12">
@@ -21,8 +21,8 @@
             </fieldset>
             <fieldset class="form-group col-md-2 filter">
               <label class="col-sm-12">Date Created</label>
-              <datepicker :input-class="[params.created_date != '' ? 'selected': '', 'input-date','col-sm-12'].join(' ')" v-model="params.created_date" format="MM/dd/yyyy"
-                class="datepicker col-sm-12"></datepicker>
+              <datepicker :input-class="[params.created_date != '' ? 'selected': '', 'input-date','col-sm-12'].join(' ')" v-model="params.created_date"
+                format="MM/dd/yyyy" class="datepicker col-sm-12"></datepicker>
             </fieldset>
             <fieldset class="form-group col-md-4 filter">
               <label class="col-sm-12">Price Range (Min - Max)</label>
@@ -37,12 +37,16 @@
         </div>
         <!-- Modal Component -->
         <b-modal id="metaModal" size="lg" ref="metaModal">
-          <playerreportpopup v-if="reportSelected && reportSelected.type_report == 'player'" :report="reportSelected" />
-          <clubreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" />
+          <div v-if="!payment">
+            <playerreportpopup v-if="reportSelected && reportSelected.type_report == 'player'" :report="reportSelected" :closeAction="hideModal"
+            />
+            <clubreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :closeAction="hideModal"
+            />
+          </div>
+          <paymentpopup v-if="payment" :report="reportSelected" :closeAction="hideModal" :paymentAction="PaymentAction" :order="order"/>
         </b-modal>
-
         <reportitem v-for="report in searchReport.value.report" :key="report.id" class="row report col-md-12" :report="report" :viewAction="viewAction"
-          :summaryAction="playerAction" />
+          :BuyAction="BuyAction" :summaryAction="summaryAction" />
       </div>
     </div>
   </div>
@@ -56,11 +60,9 @@
   header {
     display: none;
   }
-  h5 {
-    margin-bottom: 35px;
-  }
+
   .modal-content {
-    padding: 50px 80px;
+    padding: 0;
   }
   .reportHeadline {
     margin-bottom: 40px;
@@ -77,11 +79,24 @@
       }
     }
   }
+  .footer-modal {
+    margin-top: 40px;
+    float: right;
+    button {
+      padding: 5px 30px;
+      border-radius: 15px;
+      font-size: 0.9em;
+    }
+  }
+  footer {
+    display: none;
+  }
 }
+
 .filters-marketplace {
   .datepicker {
     padding: 0;
-    color:black;
+    color: black;
     margin-right: 5px;
     background: white;
     input.input-date {
@@ -116,7 +131,8 @@
     label {
       float: left;
     }
-    input, select {
+    input,
+    select {
       float: left;
       height: 2em;
     }
@@ -172,6 +188,8 @@ import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 import ReportItem from 'app/components/ReportItem';
 import PlayerReportPopup from './components/PlayerReportPopup';
 import ClubReportPopup from './components/ClubReportPopup';
+import PaymentPopup from './components/PaymentPopup';
+
 import Datepicker from 'vuejs-datepicker';
 
 export default {
@@ -181,11 +199,13 @@ export default {
     reportitem: ReportItem,
     playerreportpopup: PlayerReportPopup,
     clubreportpopup: ClubReportPopup,
-    datepicker: Datepicker
+    datepicker: Datepicker,
+    paymentpopup: PaymentPopup
   },
   data() {
     return {
       reportSelected: null,
+      payment: false,
       params: {
         type_report: '',
         price_min: '',
@@ -201,18 +221,30 @@ export default {
     });
   },
   computed: {
-    ...mapGetters(['searchReport'])
+    ...mapGetters(['searchReport','order'])
   },
   methods: {
-    ...mapActions(['getReports']),
+    ...mapActions(['getReports','newOrder']),
     viewAction(report) {
       this.$router.push({
         path: '/report/view/' + report.id
       });
     },
-    playerAction(report) {
+    BuyAction(report) {
+      this.payment = true;
       this.reportSelected = report;
       this.$refs.metaModal.show();
+    },
+    PaymentAction(payment) {
+      this.newOrder({order: payment});
+    },
+    summaryAction(report) {
+      this.payment = false;
+      this.reportSelected = report;
+      this.$refs.metaModal.show();
+    },
+    hideModal() {
+      this.$refs.metaModal.hide();
     },
     search() {
       var params = this.params;

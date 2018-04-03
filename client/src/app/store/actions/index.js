@@ -8,3 +8,4 @@ export * from './user';
 export * from './searchResult';
 export * from './report';
 export * from './attachment';
+export * from './order';
