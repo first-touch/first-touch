@@ -12,7 +12,16 @@ module Api
         else
           render json: { error: 'Not Authorized' }, status: :unauthorized
         end
+      end
 
+      def purchased
+        result = ::V1::Report::Purchased.(params, current_user: current_user)
+        if result.success?
+          response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Index)
+          render json: response[:data], status: response[:status]
+        else
+          render json: { error: 'Not Authorized' }, status: :unauthorized
+        end
       end
 
       def show

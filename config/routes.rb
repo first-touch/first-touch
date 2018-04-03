@@ -52,6 +52,8 @@ Rails.application.routes.draw do
       resources :reports
       post 'reports/uploadfiles', controller: :reports, action: :upload_files
       get 'reports/attachments/download/:attachment_id', controller: :reports, action: :download
+      get 'reports/list/purchased', controller: :reports, action: :purchased
+
       resources :orders
 
       resources :events, only: %i[index create show]

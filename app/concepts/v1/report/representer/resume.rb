@@ -24,7 +24,20 @@ module V1
             report_data.last.updated_at
           end
          }
-        property :orders_status
+        property :orders_status, getter:  -> (represented:, **) {
+          begin
+            represented.orders_status
+          rescue
+          end
+         }
+
+         property :orders_price, getter:  -> (represented:, **) {
+          begin
+            represented.orders_price
+          rescue
+          end
+         }
+
         property :report_data, getter:  -> (represented:, **) {
           ::V1::ReportDatum::Representer::Resume.new(represented.report_data.last)
          }
