@@ -23,6 +23,7 @@ import EditReportPage from 'app/containers/EditReportPage';
 import ReportPage from 'app/containers/ReportPage';
 import MarketPlacePage from 'app/containers/MarketPlacePage';
 import JobsList from 'app/containers/JobsList';
+import MyPurchasedReports from 'app/containers/MyPurchasedReports';
 import store from 'app/store';
 import VueRouter from 'vue-router';
 import './app/constants/filters';
@@ -105,7 +106,12 @@ const router = new VueRouter({
       children: [
         { path: '', component: ClubStream },
         { path: 'notes', component: ClubNotes },
-        { path: '/report/marketplace', component: MarketPlacePage }
+        { path: '/club/report/marketplace', component: MarketPlacePage },
+        { path: '/club/report/list', component: MyPurchasedReports },
+        {
+          path: '/club/report/:id',
+          component: ReportPage
+        }
       ]
     },
     // Delete once registration is allowed

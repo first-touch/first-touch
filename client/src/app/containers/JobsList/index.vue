@@ -25,7 +25,7 @@
   import ReportList from './components/ReportsList';
 
   export default {
-    name: 'MarketPlacePage',
+    name: 'JobList',
     components: {
       sidebar: NotificationSidebar,
       reportlist: ReportList

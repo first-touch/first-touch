@@ -227,7 +227,7 @@ export default {
     ...mapActions(['getReports','newOrder']),
     viewAction(report) {
       this.$router.push({
-        path: '/report/view/' + report.id
+        path: '/club/report/' + report.id
       });
     },
     BuyAction(report) {

@@ -43,13 +43,16 @@
             <li class="sub-nav-item">Coach</li>
           </ul>
         </li>
-        <li class="nav-item" :class="{ active: tab[2] || page === '/report/marketplace' }">
+        <li class="nav-item" :class="{ active: tab[2] || /\/club\/report/.test(page) }">
           <div class="nav-item-inner" @click="onTabClick(2)">
             Scouting
           </div>
           <ul class="sub-nav">
-             <li class="sub-nav-item" :class="{ active: page === '/report/marketplace' || !page }">
-              <router-link to="/report/marketplace">Report MarketPlace</router-link>
+             <li class="sub-nav-item" :class="{ active: page === '/club/report/marketplace' || !page }">
+              <router-link to="/club/report/marketplace">Report MarketPlace</router-link>
+            </li>
+            <li class="sub-nav-item" :class="{ active: page === '/club/report/list' || !page }">
+              <router-link to="/club/report/list">My Purchased Reports</router-link>
             </li>
           </ul>
         </li>

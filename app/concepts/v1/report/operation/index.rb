@@ -10,7 +10,15 @@ module V1
           options['models'] = current_user.reports
           return true
         elsif is_club? current_user
-          options['models'] = ::Report.all.where status: 'publish'
+          if params[:purchased] == 'true'
+            models = ::Report.joins(:orders => :user).where("orders.status" => 'completed',"orders.customer_id" => current_user.id.to_s ).select("distinct reports.*, orders.status AS orders_status, orders.price AS orders_price")
+          else
+            models = ::Report.all.where status: 'publish'
+            joins = "LEFT JOIN orders ON orders.customer_id = #{current_user.id.to_s} AND orders.report_id = reports.id"
+            models = models.joins(joins).select('reports.*, orders.status AS orders_status').group('reports.id','orders.status')
+          end
+          models = models.joins(:user);
+          options['models']  = models
           return true
         end
         false
@@ -22,6 +30,8 @@ module V1
           models = models.where id: params[:id] if !params[:id].blank?
           models = models.where type_report: params[:type_report] if !params[:type_report].blank?
           models = models.where('headline iLIKE ?', "%#{params[:headline]}%") if !params[:headline].blank?
+          models = models.where('users.search_string iLIKE ?', "%#{params[:user_name]}%") if !params[:user_name].blank?
+
           price_min = (params[:price_min].blank?) ? 0 : params[:price_min].to_i
           price_max = (params[:price_max].blank?) ? 999999 : params[:price_max].to_i
           models = models.where price: price_min..price_max
@@ -43,9 +53,6 @@ module V1
             end
           end
         end
-        # models = models.joins(:orders).where("orders.user_id = 1")
-        joins = "LEFT JOIN orders ON orders.customer_id = #{current_user.id.to_s} AND orders.report_id = reports.id"
-        models = models.joins(joins).select('reports.*, orders.status AS orders_status').group('reports.id','orders.status')
         options['models'] = models
         true
       end
