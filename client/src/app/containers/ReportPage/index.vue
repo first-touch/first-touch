@@ -22,85 +22,77 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/variables';
-  .report-div {
-    background: white;
-    color: black;
-    .report {
-      padding: 50px;
-    }
-    .menu {
-      li {
-        display: inline-block;
-        a {
-          display: block;
-          padding: 10px 20px;
-          border-radius: 10px;
-          &.active,
-          &:hover {
-            background: #A8CB5C;
-            cursor: pointer;
-            color: white;
-          }
-          color:black;
+@import '~stylesheets/variables';
+.report-div {
+  background: white;
+  color: black;
+  .report {
+    padding: 50px;
+  }
+  .menu {
+    li {
+      display: inline-block;
+      a {
+        display: block;
+        padding: 10px 20px;
+        border-radius: 10px;
+        &.active,
+        &:hover {
+          background: #a8cb5c;
+          cursor: pointer;
+          color: white;
         }
+        color: black;
       }
     }
   }
+}
 </style>
 
 <script>
-  import {
-    mapGetters,
-    mapActions
-  } from 'vuex';
-  import {
-    ASYNC_SUCCESS,
-    ASYNC_FAIL
-  } from 'app/constants/AsyncStatus';
-  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
-  import PlayerReport from './components/PlayerReport';
-  import ClubReport from './components/ClubReport';
+import { mapGetters, mapActions } from 'vuex';
+import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
+import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+import PlayerReport from './components/PlayerReport';
+import ClubReport from './components/ClubReport';
 
-  export default {
-    name: 'ReportPage',
-    props: [
-      'type',
-    ],
-    components: {
-      sidebar: NotificationSidebar,
-      playerreport: PlayerReport,
-      clubreport: ClubReport
-    },
-    data() {
-      return {};
-    },
-    computed: {
-      ...mapGetters(['searchReport']),
-      report() {
-        if (this.searchReport.status === ASYNC_SUCCESS) {
-          return this.searchReport.value.report
-        }
-        return null;
-      },
-      owner() {
-        if (this.searchReport.status === ASYNC_SUCCESS) {
-          return this.searchReport.value.owner
-        }
-        return false;
+export default {
+  name: 'ReportPage',
+  props: ['type'],
+  components: {
+    sidebar: NotificationSidebar,
+    playerreport: PlayerReport,
+    clubreport: ClubReport
+  },
+  data () {
+    return {};
+  },
+  computed: {
+    ...mapGetters(['searchReport']),
+    report () {
+      if (this.searchReport.status === ASYNC_SUCCESS) {
+        return this.searchReport.value.report;
       }
+      return null;
     },
-    mounted() {
-      this.getReport(this.$route.params.id);
-    },
-    methods: {
-      ...mapActions(['getReport', 'getAttachment']),
-      downloadFile(id, filename) {
-        this.getAttachment({
-          id,
-          filename,
-        });
-      },
+    owner () {
+      if (this.searchReport.status === ASYNC_SUCCESS) {
+        return this.searchReport.value.owner;
+      }
+      return false;
     }
-  };
+  },
+  mounted () {
+    this.getReport(this.$route.params.id);
+  },
+  methods: {
+    ...mapActions(['getReport', 'getAttachment']),
+    downloadFile (id, filename) {
+      this.getAttachment({
+        id,
+        filename
+      });
+    }
+  }
+};
 </script>

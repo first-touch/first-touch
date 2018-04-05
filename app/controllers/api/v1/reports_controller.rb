@@ -14,16 +14,6 @@ module Api
         end
       end
 
-      def purchased
-        result = ::V1::Report::Purchased.(params, current_user: current_user)
-        if result.success?
-          response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Index)
-          render json: response[:data], status: response[:status]
-        else
-          render json: { error: 'Not Authorized' }, status: :unauthorized
-        end
-      end
-
       def show
         result = ::V1::Report::Show.(params, current_user: current_user)
         if result.success?
@@ -53,14 +43,10 @@ module Api
       def upload_files
         if (params[:report_id])
           report =  @current_user.reports.find(params[:report_id])
-          if params[:report_version]
-            report_datum =  report.report_data.find_by version: params[:report_version]
-          else
-            report_datum =  report.report_data.last
-          end
+          report_datum =  report.report_data.last
           params['files'].each do |key|
             name = params['files'][key].original_filename
-            path = FileUploadUtil.save_file(params['files'][key], report.id.to_s,report_datum.version.to_s)
+            path = FileUploadUtil.save_file(params['files'][key], report.id.to_s)
             result = ::V1::Attachment::Create.({url:path, filename: name, report_data: report_datum},current_user: current_user)
           end
           render json: nil , status: :ok

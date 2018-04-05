@@ -3,6 +3,7 @@ module V1
     class Index < FirstTouch::Operation
       step :find_model!
       step :filters!
+      step :orders!
       private
 
       def find_model!(options, params:, current_user:, **)
@@ -56,6 +57,28 @@ module V1
         options['models'] = models
         true
       end
+
+      def orders!(options, params:, current_user:, **)
+        models = options['models']
+        if params[:order] == 'id'
+          models = models.order(:id)
+        elsif params[:order] == 'type_report'
+          models = models.order(:type_report)
+        elsif params[:order] == 'headline'
+          models = models.order(:headline)
+        elsif params[:order] == 'status'
+          models = models.order(:status)
+        elsif params[:order] == 'created_on'
+          models = models.order(:created_at)
+        elsif params[:order] == 'price'
+          models = models.order(:price)
+        end
+
+        options['models'] = models
+        true
+      end
+
+
       def is_club?(current_user)
         true
       end

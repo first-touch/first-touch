@@ -1,5 +1,18 @@
 {
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
-  "files.trimFinalNewlines": true
+  "files.trimFinalNewlines": true,
+  "eslint.workingDirectories": [
+		"client"
+  ],
+  "eslint.packageManager": "yarn",
+  "eslint.validate": [
+    "javascript", {
+      "language": "vue",
+      "autoFix": true
+    }
+  ],
+  "cSpell.words": [
+    "oualid"
+  ]
 }

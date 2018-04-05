@@ -15,3 +15,22 @@ Vue.filter('reportId', (str, type) => {
   }
   return str;
 });
+
+Vue.filter('requestId', (str, type) => {
+  str = str.toString();
+  while (str.length < (5 || 2)) {
+    str = '0' + str;
+  }
+  switch (type) {
+  case 'player':
+    str = 'PJR' + str;
+    break;
+  case 'position':
+    str = 'SJR' + str;
+    break;
+  case 'team':
+    str = 'TJR' + str;
+    break;
+  }
+  return str;
+});

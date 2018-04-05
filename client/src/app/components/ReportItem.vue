@@ -35,45 +35,45 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/variables';
-  .report {
-    font-size: 13px;
-    background: white;
-    color: black;
-    padding: 30px 50px;
-    margin-top: 20px;
-    .buttons {
-      display: flex;
-      button {
-        align-self: flex-end;
-      }
-    }
-    .user {
-      text-align: center;
-      .name {
-        text-align: center;
-        text-transform: capitalize;
-        background: #e8e8e8;
-        margin-top: 15px;
-        padding: 10px;
-      }
-      img{
-        max-height: 180px;
-      }
-    }
-    .report-info {
-      margin-left: 30px;
-      margin-top: 20px;
-      p::first-letter {
-        text-transform: capitalize;
-      }
+@import '~stylesheets/variables';
+.report {
+  font-size: 13px;
+  background: white;
+  color: black;
+  padding: 30px 50px;
+  margin-top: 20px;
+  .buttons {
+    display: flex;
+    button {
+      align-self: flex-end;
     }
   }
+  .user {
+    text-align: center;
+    .name {
+      text-align: center;
+      text-transform: capitalize;
+      background: #e8e8e8;
+      margin-top: 15px;
+      padding: 10px;
+    }
+    img {
+      max-height: 180px;
+    }
+  }
+  .report-info {
+    margin-left: 30px;
+    margin-top: 20px;
+    p::first-letter {
+      text-transform: capitalize;
+    }
+  }
+}
 </style>
 
 <script>
-  export default {
-    name: 'ReportItem',
-    props: ['report', 'viewAction', 'summaryAction','BuyAction']
-  };
+export default {
+  name: 'ReportItem',
+  props: ['report', 'viewAction', 'summaryAction', 'BuyAction']
+};
 </script>

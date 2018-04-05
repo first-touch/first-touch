@@ -64,7 +64,7 @@
     margin-left: 30px;
     margin-bottom: 20px;
   }
-    .btn-attachments {
+  .btn-attachments {
     cursor: pointer;
     padding: 20px;
     margin-right: 20px;
@@ -75,9 +75,9 @@
 <script>
 export default {
   name: 'ClubReport',
-  props: ['report','downloadFile'],
-  data() {
+  props: ['report', 'downloadFile'],
+  data () {
     return {};
-  },
+  }
 };
 </script>

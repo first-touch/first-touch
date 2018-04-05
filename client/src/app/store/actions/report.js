@@ -15,7 +15,7 @@ export const createReport = (store, report) => {
     } else if (res.status === 401) {
       store.commit(ActionTypes.TOKEN_CLEAR);
     } else {
-      store.commit(ActionTypes.UPLOADING_REPORT_FAILURE, res);
+      res.json().then(r => store.commit(ActionTypes.UPLOADING_REPORT_FAILURE, r));
     }
   });
 };

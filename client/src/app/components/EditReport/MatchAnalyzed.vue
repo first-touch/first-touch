@@ -1,6 +1,5 @@
 <template>
   <div>
-    <label class="col-md-12 col-form-label">Analysis of Trainings/Matches</label>
     <table class="table analyzed_matches">
       <thead>
         <tr>
@@ -125,7 +124,7 @@
           date: '',
           opponent: '',
           venue: '',
-          comment: ''
+          comment: '',
         });
       }
     }
