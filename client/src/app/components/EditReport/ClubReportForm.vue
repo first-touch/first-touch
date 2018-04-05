@@ -8,6 +8,7 @@
         </div>
       </div>
       <div class="form-group">
+        <label class=" col-md-12">Analysis of Trainings/Matches</label>
         <matchanalyzed :analyzed_matches="meta_data.analyzed_matches" type="team"/>
       </div>
       <div class="form-group col-md-12">
@@ -87,7 +88,7 @@
       </div>
       <div class="form-group buttons">
         <button id="submit" class="btn btn-primary" @click="handleSubmit">Publish</button>
-        <button href="/link-to/whatever-address/" id="cancel" name="cancel" class="btn btn-default">Cancel</button>
+        <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default">Cancel</button>
       </div>
     </form>
 
@@ -95,146 +96,151 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/variables';
+@import '~stylesheets/variables';
 
-  .info {
-    color: green;
-    font-weight: bold;
-    margin: 0;
+.info {
+  color: green;
+  font-weight: bold;
+  margin: 0;
+}
+
+#report-form {
+  textarea {
+    resize: none;
+    overflow-y: scroll;
   }
-
-  #report-form {
-    textarea {
-      resize: none;
-      overflow-y: scroll;
-    }
-    .text-input {
-      height: 100px;
-    }
-    .price-input {
-      max-width: 450px;
-    }
-    .label-price {
-      margin-top: 8px;
-    }
-    .col-form-label {
-      margin-right: 20px;
-    }
-    label {
-      font-size: 13px;
-    }
-    h3 {
-      color: $main-text-color;
-      font-size: 15px;
-    }
-    .list {
-      color: #535ee2;
-    }
-    .attachments-div {
-      ul {
-        float: right;
-      }
-    }
-
-    .buttons {
+  .text-input {
+    height: 100px;
+  }
+  .price-input {
+    max-width: 450px;
+  }
+  .label-price {
+    margin-top: 8px;
+  }
+  .col-form-label {
+    margin-right: 20px;
+  }
+  label {
+    font-size: 13px;
+  }
+  h3 {
+    color: $main-text-color;
+    font-size: 15px;
+  }
+  .list {
+    color: #535ee2;
+  }
+  .attachments-div {
+    ul {
       float: right;
-    }
-    overflow: hidden;
-    .update-attachments {
-      color: $main-text-color;
-      p {
-        display: inline-block;
-        &.removed {
-          text-decoration: line-through;
-        }
-        &.remove {
-          color: red;
-          cursor: pointer;
-        }
-        &.filename {
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          overflow: hidden;
-        }
+      li {
+        display: list-item;
+        list-style: disc;
       }
     }
   }
 
-  .button {
-    padding: 10px;
+  .buttons {
+    float: right;
   }
+  overflow: hidden;
+  .update-attachments {
+    color: $main-text-color;
+    p {
+      display: inline-block;
+      &.removed {
+        text-decoration: line-through;
+      }
+      &.remove {
+        color: red;
+        cursor: pointer;
+      }
+      &.filename {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+}
 
-  .form-group {
-    label {
-      color: $main-text-color;
-    }
-    .bar-button {
-      color: $main-text-color;
-      border: 1px solid $main-text-color;
-    }
+.button {
+  padding: 10px;
+}
+
+.form-group {
+  label {
+    color: $main-text-color;
   }
+  .bar-button {
+    color: $main-text-color;
+    border: 1px solid $main-text-color;
+  }
+}
 </style>
 
 <script>
-  import MatchAnalyzed from './MatchAnalyzed';
+import MatchAnalyzed from './MatchAnalyzed';
 
-  export default {
-    name: 'ClubReportForm',
-    props: ['submitReport', 'reportStatus', 'report'],
-    components: {
-      matchanalyzed: MatchAnalyzed
-    },
-    data() {
-      return {
-        files: [],
-        meta_data: {
-          analyzed_matches: [{
+export default {
+  name: 'ClubReportForm',
+  props: ['submitReport', 'reportStatus', 'report','cancelAction'],
+  components: {
+    matchanalyzed: MatchAnalyzed
+  },
+  data () {
+    return {
+      files: [],
+      meta_data: {
+        analyzed_matches: [
+          {
             date: '',
             opponent: '',
             venue: '',
             result: ''
-          }]
-        },
-        price: 0,
-        headline: '',
-        remove_attachment: {},
-        status:''
+          }
+        ]
+      },
+      price: 0,
+      headline: '',
+      remove_attachment: {}
+    };
+  },
+  methods: {
+    removeAttachment (id) {
+      if (this.remove_attachment[id] === true) this.remove_attachment[id] = false;
+      else {
+        var obj = {};
+        obj[id] = true;
+        this.remove_attachment = Object.assign({}, this.remove_attachment, obj);
+      }
+    },
+    previewFiles () {
+      this.files = this.$refs.myFiles.files;
+    },
+    handleSubmit () {
+      var report = {
+        headline: this.headline,
+        price: this.price,
+        report_data: this.meta_data,
+        remove_attachment: this.remove_attachment
       };
-    },
-    methods: {
-      removeAttachment(id) {
-        if (this.remove_attachment[id] == true) this.remove_attachment[id] = false;
-        else {
-          var obj = new Object();
-          obj[id] = true;
-          this.remove_attachment = Object.assign({}, this.remove_attachment, obj);
-        }
-      },
-      previewFiles() {
-        this.files = this.$refs.myFiles.files;
-      },
-      handleSubmit() {
-        var report = {
-          headline: this.headline,
-          price: this.price,
-          report_data: this.meta_data,
-          remove_attachment: this.remove_attachment
-        };
-        this.submitReport(report, this.$refs.myFiles.files);
-        var container = this.$el.querySelector('#report-form');
-        $('html, body').animate({
-            scrollTop: 0
-          },
-          100
-        );
-      }
-    },
-    mounted() {
-      if (this.report) {
-        this.meta_data = this.report.report_data.meta_data;
-        this.price = this.report.price;
-        this.headline = this.report.headline;
-      }
+      this.submitReport(report, this.$refs.myFiles.files);
+      $('html, body').animate(
+        {
+          scrollTop: 0
+        },
+        100
+      );
     }
-  };
+  },
+  mounted () {
+    if (this.report) {
+      this.meta_data = this.report.report_data.meta_data;
+      this.price = this.report.price;
+      this.headline = this.report.headline;
+    }
+  }
+};
 </script>

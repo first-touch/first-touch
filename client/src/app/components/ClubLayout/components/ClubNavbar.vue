@@ -5,7 +5,8 @@
         <img class="img-fluid" src="/images/landing-page/ft-navbar-logo.png" alt="Ft Logo" />
       </router-link>
       <div class="profile">
-        <img class="rounded-circle img-fluid" src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Toronto_FC_Logo.svg/1095px-Toronto_FC_Logo.svg.png" />
+        <img class="rounded-circle img-fluid" src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Toronto_FC_Logo.svg/1095px-Toronto_FC_Logo.svg.png"
+        />
         <h4 class="profile-name">The Team FC</h4>
         <router-link to="/profile/edit" class="profile-edit-button">Edit Profile</router-link>
       </div>
@@ -43,12 +44,15 @@
             <li class="sub-nav-item">Coach</li>
           </ul>
         </li>
-        <li class="nav-item" :class="{ active: tab[2] || /\/club\/report/.test(page) }">
+        <li class="nav-item" :class="{ active: tab[2] || /\/club\/report/.test(page) || /\/club\/request/.test(page) }">
           <div class="nav-item-inner" @click="onTabClick(2)">
             Scouting
           </div>
           <ul class="sub-nav">
-             <li class="sub-nav-item" :class="{ active: page === '/club/report/marketplace' || !page }">
+            <li class="sub-nav-item" :class="{ active: page === '/club/request' || !page }">
+              <router-link to="/club/request">Jobs Request</router-link>
+            </li>
+            <li class="sub-nav-item" :class="{ active: page === '/club/report/marketplace' || !page }">
               <router-link to="/club/report/marketplace">Report MarketPlace</router-link>
             </li>
             <li class="sub-nav-item" :class="{ active: page === '/club/report/list' || !page }">
@@ -148,6 +152,7 @@
     }
   }
 }
+
 .sidenav-right {
   height: 124px;
   box-shadow: -2px -2px 2px #555;
@@ -174,34 +179,27 @@
 </style>
 
 <script>
-  import {
-    mapGetters,
-    mapActions
-  } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
-  export default {
-    name: 'ClubNavbar',
-    props: ['page'],
-    data() {
-      return {
-        tab: [
-          ['channel', 'profile', 'scouting', 'calendar', 'messages', 'notes'].indexOf(
-            this.page,
-          ) > -1 || !this.page,
-          false,
-          false,
-          false,
-          false,
-        ],
-      };
-    },
-    methods: {
-      onTabClick(idx) {
-        this.tab = [
-          ...this.tab.slice(0, idx), !this.tab[idx],
-          ...this.tab.slice(idx + 1),
-        ];
-      },
-    },
-  };
+export default {
+  name: 'ClubNavbar',
+  props: ['page'],
+  data() {
+    return {
+      tab: [
+        ['channel', 'profile', 'scouting', 'calendar', 'messages', 'notes'].indexOf(this.page) >
+          -1 || !this.page,
+        false,
+        false,
+        false,
+        false
+      ]
+    };
+  },
+  methods: {
+    onTabClick(idx) {
+      this.tab = [...this.tab.slice(0, idx), !this.tab[idx], ...this.tab.slice(idx + 1)];
+    }
+  }
+};
 </script>

@@ -16,54 +16,45 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/variables';
-  .report-form {
-    display: flex;
-    border-left: 7px solid $main-header-color;
-    margin-top: 20px;
-    .arrow {
-      margin-top: 18px;
-      border-left-color: $main-header-color;
-    }
-    .form-container {
-      background-color: #fff;
-      border-radius: 5px;
-      padding: 20px;
-      width: 100%;
-    }
+@import '~stylesheets/variables';
+.report-form {
+  display: flex;
+  border-left: 7px solid $main-header-color;
+  margin-top: 20px;
+  .arrow {
+    margin-top: 18px;
+    border-left-color: $main-header-color;
   }
+  .form-container {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    width: 100%;
+  }
+}
 </style>
 
 <script>
-  import {
-    mapGetters,
-    mapActions
-  } from 'vuex';
-  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
-  import ClubReportForm from './components/ClubReportForm.vue';
-  import {
-    ASYNC_SUCCESS,
-    ASYNC_FAIL
-  } from 'app/constants/AsyncStatus';
+import { mapGetters, mapActions } from 'vuex';
+import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+import ClubReportForm from './components/ClubReportForm.vue';
+import { ASYNC_FAIL } from 'app/constants/AsyncStatus';
 
-  export default {
-    name: 'ClubReportPage',
-    props: [
-      'type',
-    ],
-    components: {
-      sidebar: NotificationSidebar,
-      clubreportform: ClubReportForm
-    },
-    computed: {
-      ...mapGetters(['report']),
-      reportStatus() {
-        return this.report.status === ASYNC_FAIL ?
-          this.report : null
-      }
-    },
-    methods: {
-      ...mapActions(['createReport']),
+export default {
+  name: 'ClubReportPage',
+  props: ['type'],
+  components: {
+    sidebar: NotificationSidebar,
+    clubreportform: ClubReportForm
+  },
+  computed: {
+    ...mapGetters(['report']),
+    reportStatus () {
+      return this.report.status === ASYNC_FAIL ? this.report : null;
     }
-  };
+  },
+  methods: {
+    ...mapActions(['createReport'])
+  }
+};
 </script>

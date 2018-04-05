@@ -50,41 +50,41 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/variables';
-  .list {
-    text-transform: capitalize;
-    &::after {
-      content: ', '
-    }
-    &:last-child::after {
-      content: ''
-    }
+@import '~stylesheets/variables';
+.list {
+  text-transform: capitalize;
+  &::after {
+    content: ', ';
   }
+  &:last-child::after {
+    content: '';
+  }
+}
 
-  .row {
-    margin-top: 10px;
-  }
-    h5 {
-    margin-bottom: 35px;
-  }
-    .custom-modal-content{
-     padding: 50px 10px 20px 80px;
-  }
+.row {
+  margin-top: 10px;
+}
+h5 {
+  margin-bottom: 35px;
+}
+.custom-modal-content {
+  padding: 50px 10px 20px 80px;
+}
 </style>
 
 <script>
-  import countrydata from 'country-data';
+import countrydata from 'country-data';
 
-  export default {
-    name: 'PlayerReportPopup',
-    props: ['report','closeAction'],
-    methods: {
-      getLanguage(key) {
-        return countrydata.languages[key].name;
-      },
-      getNationality(key) {
-        return countrydata.countries[key].name;
-      }
+export default {
+  name: 'PlayerReportPopup',
+  props: ['report', 'closeAction'],
+  methods: {
+    getLanguage (key) {
+      return countrydata.languages[key].name;
     },
-  };
+    getNationality (key) {
+      return countrydata.countries[key].name;
+    }
+  }
+};
 </script>

@@ -62,7 +62,7 @@ form {
     padding: 0 0 0 50px;
     li {
       display: list-item;
-          list-style: disc;
+      list-style: disc;
     }
   }
 }
@@ -74,7 +74,7 @@ import { ASYNC_SUCCESS, ASYNC_LOADING, ASYNC_FAIL } from 'app/constants/AsyncSta
 export default {
   name: 'PaymentPopup',
   props: ['report', 'closeAction', 'paymentAction', 'order'],
-  data() {
+  data () {
     return {
       payment_method: '',
       name: '',
@@ -86,18 +86,18 @@ export default {
     };
   },
   watch: {
-    order() {
-      this.isloading = this.order.status == ASYNC_LOADING;
-      this.isfailed = this.order.status == ASYNC_FAIL;
-      if (this.order.status == ASYNC_SUCCESS) {
+    order () {
+      this.isloading = this.order.status === ASYNC_LOADING;
+      this.isfailed = this.order.status === ASYNC_FAIL;
+      if (this.order.status === ASYNC_SUCCESS) {
         this.$router.push({
-          path: '/report/view/' + this.report.value.id
+          path: '/club/report/' + this.report.id
         });
       }
     }
   },
   methods: {
-    startPayment() {
+    startPayment () {
       var payment_method = this.payment_method;
       var name = this.name;
       var credit_card = this.credit_card;

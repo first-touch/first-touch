@@ -1,7 +1,5 @@
 import * as ActionTypes from '../../constants/ActionTypes';
-import {
-  ASYNC_NONE, ASYNC_FAIL, ASYNC_SUCCESS, ASYNC_LOADING
-} from '../../constants/AsyncStatus';
+import { ASYNC_NONE, ASYNC_FAIL, ASYNC_SUCCESS, ASYNC_LOADING } from '../../constants/AsyncStatus';
 
 export const report = {
   status: ASYNC_NONE,
@@ -23,59 +21,33 @@ export const filesUpload = {
 
 export default {
   [ActionTypes.UPLOADING_REPORT_FAILURE] (state, errors) {
-    state.report = Object.assign(
-      {},
-      state.report,
-      { status: ASYNC_FAIL, errors: errors }
-    );
+    state.report = Object.assign({}, state.report, { status: ASYNC_FAIL, errors: errors });
   },
   [ActionTypes.UPLOADING_REPORT_LOADING] (state, errors) {
-    state.report = Object.assign(
-      {},
-      state.report,
-      { status: ASYNC_LOADING }
-    );
+    state.report = Object.assign({}, state.report, { status: ASYNC_LOADING });
   },
   [ActionTypes.UPLOADING_REPORT_SUCCESS] (state, payload) {
-    state.report = Object.assign(
-      {},
-      state.report,
-      { status: ASYNC_SUCCESS, value: payload }
-    );
+    state.report = Object.assign({}, state.report, { status: ASYNC_SUCCESS, value: payload });
   },
   [ActionTypes.SEARCH_REPORT_SUCCESS] (state, payload) {
-    state.searchReport = Object.assign(
-      {},
-      state.searchReport,
-      { status: ASYNC_SUCCESS, value: payload }
-    );
+    state.searchReport = Object.assign({}, state.searchReport, {
+      status: ASYNC_SUCCESS,
+      value: payload
+    });
   },
   [ActionTypes.SEARCH_REPORT_LOADING] (state) {
-    state.searchReport = Object.assign(
-      {},
-      state.searchReport,
-      { status: ASYNC_LOADING }
-    );
+    state.searchReport = Object.assign({}, state.searchReport, { status: ASYNC_LOADING });
   },
   [ActionTypes.REPORT_FILES_UPLOAD_SUCCESS] (state) {
-    state.filesUpload = Object.assign(
-      {},
-      state.filesUpload,
-      { status: ASYNC_SUCCESS }
-    );
+    state.filesUpload = Object.assign({}, state.filesUpload, { status: ASYNC_SUCCESS });
   },
   [ActionTypes.REPORT_FILES_UPLOAD_FAILURE] (state, errors) {
-    state.filesUpload = Object.assign(
-      {},
-      state.filesUpload,
-      { status: ASYNC_FAIL, errors: errors }
-    );
+    state.filesUpload = Object.assign({}, state.filesUpload, {
+      status: ASYNC_FAIL,
+      errors: errors
+    });
   },
   [ActionTypes.REPORT_FILES_UPLOAD_LOADING] (state) {
-    state.filesUpload = Object.assign(
-      {},
-      state.filesUpload,
-      { status: ASYNC_LOADING }
-    );
+    state.filesUpload = Object.assign({}, state.filesUpload, { status: ASYNC_LOADING });
   }
 };

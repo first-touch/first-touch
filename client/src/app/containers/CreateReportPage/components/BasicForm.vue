@@ -29,25 +29,11 @@
     </div>
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Select Team</label>
-      <div class="col-sm-8">
-        <input name="team" autocomplete="off" class="search-player" v-model="team_search" type="text" v-on:keyup="getSearchResultsRole('player',team_search)">
-        <div class="search-results">
-          <p v-for="(value, key, index) in searchResult.value" :key="index" @mousedown="setvalue(value,'team')">
-            {{value.display_name}}
-          </p>
-        </div>
-      </div>
+      <inputsearch class="col-sm-8" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team"  v-on:update:val="team_id = $event"/>
     </div>
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Select Player</label>
-      <div class="col-sm-8">
-        <input name="player" autocomplete="off" class="search-player" v-model="player_search" type="text" v-on:keyup="getSearchResultsRole('player',player_search)">
-        <div class="search-results">
-          <p v-for="(value, key, index) in searchResult.value" :key="index" @mousedown="setvalue(value,'player')">
-            {{value.display_name}}
-          </p>
-        </div>
-      </div>
+      <inputsearch class="col-sm-8" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="player"  v-on:update:val="player_id = $event"/>
     </div>
     <div class="formbutton">
       <button :disabled="player_id == '' || type != 'player' " @click="startReport">Create Report for a player</button>
@@ -57,31 +43,7 @@
   </form>
 </template>
 <style lang="scss" scoped>
-@import "~stylesheets/variables";
-.search-player {
-  &:focus ~ .search-results {
-    position: absolute;
-    background: white;
-    width: 220px;
-    z-index: 10;
-    display: block;
-    overflow: hidden;
-    overflow-y: scroll;
-    p {
-      margin: 0;
-      padding: 0;
-      cursor: pointer;
-      &:hover {
-        background: #e6e1e1;
-      }
-    }
-  }
-}
-
-.search-results {
-  display: none;
-}
-
+@import '~stylesheets/variables';
 .form-container {
   background-color: #fff;
   border-radius: 5px;
@@ -129,10 +91,16 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+
+import inputSearch from 'app/components/Input/InputSearch.vue';
+
 export default {
   name: 'ReportBasicForm',
   props: ['prepateReport'],
-  data() {
+  components: {
+    inputsearch: inputSearch
+  },
+  data () {
     return {
       player_report: false,
       team_report: false,
@@ -140,9 +108,7 @@ export default {
       job_type: 'independent',
       job_id: '',
       team_id: '',
-      player_id: '',
-      player_search: '',
-      team_search: ''
+      player_id: ''
     };
   },
   computed: {
@@ -150,22 +116,13 @@ export default {
   },
   methods: {
     ...mapActions(['getSearchResults']),
-    setvalue(info, type) {
-      if (type == 'player') {
-        this.player_search = info.display_name;
-        this.player_id = info.id;
-      } else if (type == 'team') {
-        this.team_search = info.display_name;
-        this.team_id = info.id;
-      }
-    },
-    getSearchResultsRole(role, term) {
+    getSearchResultsRole (role, term) {
       this.getSearchResults({
         searchTerm: term,
         role: role
       });
     },
-    startReport() {
+    startReport () {
       this.prepateReport(this.type, this.player_id, this.team_id, this.job_id);
     }
   }

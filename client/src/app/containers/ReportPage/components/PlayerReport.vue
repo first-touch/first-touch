@@ -175,7 +175,6 @@
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
 .report {
-
   .reportDate {
     margin-left: 30px;
     margin-bottom: 20px;
@@ -228,20 +227,19 @@
 
 <script>
 import countrydata from 'country-data';
-import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'PlayerReport',
-  props: ['report','downloadFile'],
-  data() {
+  props: ['report', 'downloadFile'],
+  data () {
     return {};
   },
   methods: {
-    getLanguage(key) {
-      return countrydata.languages[key]?countrydata.languages[key].name:'key';
+    getLanguage (key) {
+      return countrydata.languages[key] ? countrydata.languages[key].name : 'key';
     },
-    getNationality(key) {
-      return countrydata.countries[key]?countrydata.countries[key].name:'key';
-    },
-  },
+    getNationality (key) {
+      return countrydata.countries[key] ? countrydata.countries[key].name : 'key';
+    }
+  }
 };
 </script>

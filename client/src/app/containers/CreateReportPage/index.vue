@@ -11,11 +11,13 @@
               {{ error }}
             </li>
           </ul>
-          <basicform class="report-type-form" v-if="!showForm" :prepateReport="prepateReport"/>
+          <basicform class="report-type-form" v-if="!showForm" :prepateReport="prepateReport" />
           <div v-if="showForm">
-            <playerreportform v-if="report_type == 'player' && status == '' " :userinfo="userinfo" :submitReport="customCreateReport"
-            />
-            <clubreportform v-if="report_type == 'team' && status == '' " :submitReport="customCreateReport" />
+            <keep-alive>
+              <playerreportform v-if="report_type == 'player' && status == '' " :userinfo="userinfo" :submitReport="customCreateReport" :cancelAction="cancel"
+              />
+              <clubreportform v-if="report_type == 'team' && status == '' " :submitReport="customCreateReport" :cancelAction="cancel"/>
+            </keep-alive>
           </div>
         </div>
       </div>
@@ -24,138 +26,153 @@
 </template>
 
 <style lang="scss">
-/* global styles */
+  /* global styles */
 
-.report-type-form {
-  .searchbar-top.search-bar-report {
-    input {
+  .report-type-form {
+    .searchbar-top.search-bar-report {
+      input {
+        all: unset;
+      }
       all: unset;
-    }
-    all: unset;
-    .input-group-btn {
-      display: none;
+      .input-group-btn {
+        display: none;
+      }
     }
   }
-}
 </style>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+  @import '~stylesheets/variables';
 
-.error {
-  color: red;
-}
-.form-container {
-  background-color: #fff;
-  border-radius: 5px;
-  padding: 20px;
-  width: 100%;
-}
-
+  .error {
+    li {
+      color: red;
+      display: list-item;
+      list-style: disc;
+      &:first-letter {
+        text-transform: capitalize;
+      }
+    }
+  }
+  .form-container {
+    background-color: $form-background;
+    border-radius: 5px;
+    padding: 20px;
+    width: 100%;
+  }
 </style>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import { ASYNC_SUCCESS, ASYNC_FAIL, ASYNC_LOADING } from 'app/constants/AsyncStatus';
-import NotificationSidebar from 'app/components/NotificationSidebar.vue';
-import PlayerReportForm from 'app/components/EditReport/PlayerReportForm.vue';
-import ClubReportForm from 'app/components/EditReport/ClubReportForm.vue';
-import Status from './components/Status';
-import BasicForm from './components/BasicForm';
+  import {
+    mapGetters,
+    mapActions
+  } from 'vuex';
+  import {
+    ASYNC_SUCCESS,
+    ASYNC_LOADING
+  } from 'app/constants/AsyncStatus';
+  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+  import PlayerReportForm from 'app/components/EditReport/PlayerReportForm.vue';
+  import ClubReportForm from 'app/components/EditReport/ClubReportForm.vue';
+  import Status from './components/Status';
+  import BasicForm from './components/BasicForm';
 
-export default {
-  name: 'CreateReportPage',
-  components: {
-    sidebar: NotificationSidebar,
-    playerreportform: PlayerReportForm,
-    clubreportform: ClubReportForm,
-    status: Status,
-    basicform: BasicForm
-  },
-  computed: {
-    ...mapGetters(['report', 'searchResult', 'profile', 'filesUpload']),
-    userinfo() {
-      return this.profile.status === ASYNC_SUCCESS ? this.profile.value.personal_profile : {};
-    }
-  },
-  watch: {
-    report() {
-      this.status = '';
-      if (this.report.status === ASYNC_SUCCESS) {
-        if (this.files.length > 0) {
-          this.startUpload();
-        } else {
+  export default {
+    name: 'CreateReportPage',
+    components: {
+      sidebar: NotificationSidebar,
+      playerreportform: PlayerReportForm,
+      clubreportform: ClubReportForm,
+      status: Status,
+      basicform: BasicForm
+    },
+    computed: {
+      ...mapGetters(['report', 'searchResult', 'profile', 'filesUpload']),
+      userinfo() {
+        return this.profile.status === ASYNC_SUCCESS ? this.profile.value.personal_profile : {};
+      }
+    },
+    watch: {
+      report() {
+        this.status = '';
+        if (this.report.status === ASYNC_SUCCESS) {
+          if (this.files.length > 0) {
+            this.startUpload();
+          } else {
+            this.$router.push({
+              path: '/report/view/' + this.report.value.id
+            });
+          }
+        } else if (this.report.status === ASYNC_LOADING) {
+          this.status = 'reportUploading';
+        } else if (this.report.status === ASYNC_LOADING) {
+          this.status = 'reportUploadingFailure';
+        }
+      },
+      filesUpload() {
+        if (this.filesUpload.status === ASYNC_SUCCESS) {
           this.$router.push({
             path: '/report/view/' + this.report.value.id
           });
+        } else if (this.filesUpload.status === ASYNC_LOADING) {
+          this.status = 'filesUploading';
+        } else if (this.filesUpload.status === ASYNC_LOADING) {
+          this.status = 'filesUploadingFailure';
+          setTimeout(() => {
+            this.$router.push({
+              path: '/report/edit/' + this.report.value.id
+            });
+          }, 3000);
         }
-      } else if (this.report.status === ASYNC_LOADING) {
-        this.status = 'reportUploading';
-      } else if (this.report.status === ASYNC_LOADING) {
-        this.status = 'reportUploadingFailure';
       }
     },
-    filesUpload() {
-      if (this.filesUpload.status === ASYNC_SUCCESS) {
-        this.$router.push({
-          path: '/report/view/' + this.report.value.id
+    methods: {
+      ...mapActions(['createReport', 'fetchUserInfo', 'uploadFiles', 'getSearchResults']),
+      cancel(){
+
+      },
+      startUpload() {
+        var formData = new FormData();
+        var fileList = this.files;
+        var i = 0;
+        $.each(fileList, function (index, value) {
+          formData.append('files[' + i + ']', value);
+          i++;
         });
-      } else if (this.filesUpload.status === ASYNC_LOADING) {
-        this.status = 'filesUploading';
-      } else if (this.filesUpload.status === ASYNC_LOADING) {
-        this.status = 'filesUploadingFailure';
-        setTimeout(() => {
-          this.$router.push({
-            path: '/report/edit/' + this.report.value.id
+        formData.append('report_id', this.report.value.id);
+        this.uploadFiles(formData);
+      },
+      prepateReport(type, player_id, team_id, job_id) {
+        this.report_type = type;
+        this.player_id = player_id;
+        this.team_id = team_id;
+        this.job_id = job_id;
+        this.showForm = true;
+        if (type == 'player') {
+          this.fetchUserInfo({
+            id: this.player_id
           });
-        }, 3000);
-      }
-    }
-  },
-  methods: {
-    ...mapActions(['createReport', 'fetchUserInfo', 'uploadFiles', 'getSearchResults']),
-    startUpload() {
-      var formData = new FormData();
-      var fileList = this.files;
-      var i = 0;
-      $.each(fileList, function(index, value) {
-        formData.append('files[' + i + ']', value);
-        i++;
-      });
-      formData.append('report_id', this.report.value.id);
-      this.uploadFiles(formData);
-    },
-    prepateReport(type, player_id, team_id, job_id) {
-      this.report_type = type;
-      this.player_id = player_id;
-      this.team_id = team_id;
-      this.job_id = job_id;
-      this.showForm = true;
-      if (type == 'player') {
-        this.fetchUserInfo({
-          id: this.player_id
-        });
+        }
+      },
+      customCreateReport(reportdata, filelist) {
+        this.report.errors = null;
+        this.files = filelist;
+        reportdata.type_report = this.report_type;
+        reportdata.status = 'publish';
+        reportdata.player_id = this.player_id;
+        reportdata.team_id = this.team_id;
+        this.createReport(reportdata);
       }
     },
-    customCreateReport(reportdata, filelist) {
-      this.report.errors = null;
-      this.files = filelist;
-      reportdata.type_report = this.report_type;
-      reportdata.status = "publish"
-      reportdata.player_id = this.player_id;
-      reportdata.team_id = this.team_id;
-      this.createReport(reportdata);
+    data() {
+      return {
+        status: '',
+        report_type: '',
+        job_id: '',
+        team_id: '',
+        player_id: '',
+        showForm: false
+      };
     }
-  },
-  data() {
-    return {
-      status: '',
-      report_type: '',
-      job_id: '',
-      team_id: '',
-      player_id: '',
-      showForm: false
-    };
-  }
-};
+  };
 </script>

@@ -20,7 +20,7 @@
               <input class="col-sm-12" type="text" v-model="params.user_name" />
             </fieldset>
             <fieldset class="form-group col-md-2 filter">
-              <label class="col-sm-12">Date Created</label>
+              <label class="col-sm-12">Date Created <span class="clear-date" v-if="params.created_date != ''" @click="params.created_date = ''">X</span></label>
               <datepicker :input-class="[params.created_date != '' ? 'selected': '', 'input-date','col-sm-12'].join(' ')" v-model="params.created_date"
                 format="MM/dd/yyyy" class="datepicker col-sm-12"></datepicker>
             </fieldset>
@@ -117,6 +117,10 @@
       }
     }
   }
+    .clear-date {
+    cursor: pointer;
+    color: red;
+  }
 }
 </style>
 
@@ -184,7 +188,6 @@
 <script>
 import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import { mapGetters, mapActions } from 'vuex';
-import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 import ReportItem from 'app/components/ReportItem';
 import PlayerReportPopup from './components/PlayerReportPopup';
 import ClubReportPopup from './components/ClubReportPopup';
@@ -202,7 +205,7 @@ export default {
     datepicker: Datepicker,
     paymentpopup: PaymentPopup
   },
-  data() {
+  data () {
     return {
       reportSelected: null,
       payment: false,
@@ -215,38 +218,38 @@ export default {
       }
     };
   },
-  mounted() {
+  mounted () {
     this.getReports({
       t: 't'
     });
   },
   computed: {
-    ...mapGetters(['searchReport','order'])
+    ...mapGetters(['searchReport', 'order'])
   },
   methods: {
-    ...mapActions(['getReports','newOrder']),
-    viewAction(report) {
+    ...mapActions(['getReports', 'newOrder']),
+    viewAction (report) {
       this.$router.push({
         path: '/club/report/' + report.id
       });
     },
-    BuyAction(report) {
+    BuyAction (report) {
       this.payment = true;
       this.reportSelected = report;
       this.$refs.metaModal.show();
     },
-    PaymentAction(payment) {
-      this.newOrder({order: payment});
+    PaymentAction (payment) {
+      this.newOrder({ order: payment });
     },
-    summaryAction(report) {
+    summaryAction (report) {
       this.payment = false;
       this.reportSelected = report;
       this.$refs.metaModal.show();
     },
-    hideModal() {
+    hideModal () {
       this.$refs.metaModal.hide();
     },
-    search() {
+    search () {
       var params = this.params;
       if (params.created_date_from) {
         params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
@@ -255,7 +258,7 @@ export default {
         params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
       }
       var url = Object.keys(params)
-        .map(function(k) {
+        .map(function (k) {
           return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
         })
         .join('&');

@@ -22,8 +22,11 @@ import CreateReportPage from 'app/containers/CreateReportPage';
 import EditReportPage from 'app/containers/EditReportPage';
 import ReportPage from 'app/containers/ReportPage';
 import MarketPlacePage from 'app/containers/MarketPlacePage';
-import JobsList from 'app/containers/JobsList';
-import MyPurchasedReports from 'app/containers/MyPurchasedReports';
+import JobsListPage from 'app/containers/JobsListPage';
+import MyPurchasedReportsPage from 'app/containers/MyPurchasedReportsPage';
+import JobRequestPage from 'app/containers/JobRequestPage';
+import RequestPage from 'app/containers/RequestPage';
+
 import store from 'app/store';
 import VueRouter from 'vue-router';
 import 'stylesheets/landingpage.scss';
@@ -74,7 +77,7 @@ const router = new VueRouter({
         { path: 'profile', component: ProfilePage, props: { mine: true }},
         { path: 'network', component: Network },
         { path: '/report/create', component: CreateReportPage },
-        { path: '/jobs/list', component: JobsList },
+        { path: '/jobs/list', component: JobsListPage },
         {
           path: '/users/:id/profile',
           component: ProfilePage,
@@ -107,10 +110,15 @@ const router = new VueRouter({
         { path: '', component: ClubStream },
         { path: 'notes', component: ClubNotes },
         { path: '/club/report/marketplace', component: MarketPlacePage },
-        { path: '/club/report/list', component: MyPurchasedReports },
+        { path: '/club/report/list', component: MyPurchasedReportsPage },
+        { path: '/club/request', component: JobRequestPage },
         {
           path: '/club/report/:id',
           component: ReportPage
+        },
+        {
+          path: '/club/request/:id',
+          component: RequestPage
         }
       ]
     },

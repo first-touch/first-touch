@@ -261,6 +261,19 @@ ActiveRecord::Schema.define(version: 20180407014221) do
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
+  create_table "requests", force: :cascade do |t|
+    t.text "type_request"
+    t.integer "min_price"
+    t.integer "max_price"
+    t.bigint "user_id"
+    t.date "deadline"
+    t.text "status"
+    t.json "meta_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_requests_on_user_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -337,6 +350,7 @@ ActiveRecord::Schema.define(version: 20180407014221) do
   add_foreign_key "report_data", "reports"
   add_foreign_key "reports", "clubs"
   add_foreign_key "reports", "users"
+  add_foreign_key "requests", "users"
   add_foreign_key "team_users", "teams"
   add_foreign_key "team_users", "users"
   add_foreign_key "teams_competitions", "competition_seasons"

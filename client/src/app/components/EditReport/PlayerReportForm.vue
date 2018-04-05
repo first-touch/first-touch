@@ -30,54 +30,31 @@
         <div class="row">
           <label class="col-sm-2 col-form-label">Nationality</label>
           <div class="col-sm-10">
-            <select class="col-sm-4" v-model="meta_data.userinfo.nationality_country_code">
-              <option v-for="(value, key, index) in countries" :key="index" :value="value[1]">
-                {{value[0]}}
-              </option>
-            </select>
+            <countryselect :value="meta_data.userinfo.nationality_country_code" v-on:update:val="meta_data.userinfo.nationality_country_code = $event"  />
           </div>
         </div>
         <div class="row">
           <label class="col-sm-2 col-form-label">Based In</label>
           <div class="col-sm-10">
-            <select class="col-sm-4" v-model="meta_data.userinfo.residence_country_code">
-              <option v-for="(value, key, index) in countries" :key="index" :value="value[1]">
-                {{value[0]}}
-              </option>
-            </select>
+            <countryselect :value="meta_data.userinfo.residence_country_code"  v-on:update:val="meta_data.userinfo.residence_country_code = $event" />
           </div>
         </div>
         <div class="row">
           <label class="col-sm-2 col-form-label">Language</label>
           <div class="col-sm-10">
-            <select class="col-sm-4" v-model="meta_data.userinfo.languages" multiple>
-              <option v-for="(value, key, index) in languages" :key="index" :value="value[1]">
-                {{value[0]}}
-              </option>
-            </select>
+            <language class="col-sm-12" :value="meta_data.userinfo.languages" v-on:update:val="meta_data.userinfo.languages = $event"/>
           </div>
         </div>
         <div class="row">
           <label class="col-sm-2 col-form-label">Position</label>
           <div class="col-sm-10">
-            <select class="col-sm-4" v-model="meta_data.userinfo.playing_position" multiple>
-              <option disabled value="">Positions</option>
-              <option value="keeper">GoalKeeper</option>
-              <option value="defender">Defender</option>
-              <option value="midfielder">Midfielder</option>
-              <option value="winger">Winger</option>
-              <option value="striker">Striker</option>
-            </select>
+            <playerposition class="col-sm-12" :value="meta_data.userinfo.playing_position" v-on:update:val="meta_data.userinfo.playing_position = $event" />
           </div>
         </div>
         <div class="row">
           <label class="col-sm-2 col-form-label">Preferred Foot</label>
           <div class="col-sm-10">
-            <select v-model="meta_data.userinfo.preferred_foot" class="col-sm-4">
-              <option disabled value="">Preferred Foot</option>
-              <option value="R">Right</option>
-              <option value="L">Left</option>
-            </select>
+            <preferredfoot :value="meta_data.userinfo.preferred_foot"  v-on:update:val="meta_data.userinfo.preferred_foot = $event" />
           </div>
         </div>
       </div>
@@ -193,7 +170,8 @@
       </div>
     </div>
     <div class="form-group">
-      <matchanalyzed :analyzed_matches="meta_data.analyzed_matches" type="player"/>
+      <label>Analysis of Trainings/Matches</label>
+      <matchanalyzed :analyzed_matches="meta_data.analyzed_matches" type="player" />
     </div>
     <div class="form-group row">
       <label class="col-md-12 col-form-label">Conclusions</label>
@@ -230,7 +208,7 @@
     </div>
     <div class="form-group buttons">
       <button id="submit" class="btn btn-primary" @click="handleSubmit">Publish</button>
-      <button href="/link-to/whatever-address/" id="cancel" name="cancel" class="btn btn-default">Cancel</button>
+      <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default">Cancel</button>
     </div>
   </form>
 </template>
@@ -268,6 +246,10 @@
   .attachments-div {
     ul {
       float: right;
+      li {
+        display: list-item;
+        list-style: disc;
+      }
     }
   }
 
@@ -289,36 +271,6 @@
       color: $main-text-color;
       border: 1px solid $main-text-color;
     }
-  }
-  .analyzed_matches {
-    margin: 0;
-    td,
-    th {
-      border: 1px solid grey;
-      width: 10%;
-      text-align: center;
-      height: 2.5em;
-    }
-    .remove-items {
-      border: none;
-      a {
-        color: red;
-        cursor: pointer;
-      }
-    }
-    td {
-      padding: 0;
-      margin: 0;
-    }
-    input,
-    select {
-      border: none;
-      text-align: center;
-      width: 100%;
-      height: 100%;
-    }
-    color: $main-text-color;
-    background: white;
   }
   textarea {
     resize: none;
@@ -348,25 +300,36 @@
 </style>
 
 <script>
-import countrydata from 'country-data';
 import MatchAnalyzed from './MatchAnalyzed';
+import PlayerPosition from 'app/components/Input/PlayerPosition';
+import Nationality from 'app/components/Input/Nationality';
+import Language from 'app/components/Input/Language';
+import PreferredFoot from 'app/components/Input/PreferredFoot';
 
 export default {
   name: 'PlayerReportForm',
   components: {
-    matchanalyzed: MatchAnalyzed
+    matchanalyzed: MatchAnalyzed,
+    playerposition: PlayerPosition,
+    countryselect: Nationality,
+    language: Language,
+    preferredfoot: PreferredFoot
   },
-  props: ['userinfo', 'submitReport', 'reportStatus', 'report'],
-  data() {
+  props: ['userinfo', 'submitReport', 'reportStatus', 'report','cancelAction'],
+  data () {
     return {
-      files: [],
       meta_data: {
         userinfo: {
+          nationality_country_code: '',
           languages: [],
           playing_position: [],
           age: null
         },
-        transfert_sum: {},
+        transfert_sum: {
+          loan_interested: false,
+          transfert_interested: false,
+          free_agent: 'false'
+        },
         analyzed_matches: [
           {
             date: '',
@@ -378,14 +341,13 @@ export default {
       },
       price: 0,
       headline: '',
-      status: '',
-      edit_mode: this.report ? true : false,
+      edit_mode: !!this.report,
       files: [],
       remove_attachment: {}
     };
   },
   watch: {
-    userinfo() {
+    userinfo () {
       if (this.userinfo.birthday) {
         var birthday = new Date(this.userinfo.birthday);
         var ageDifMs = Date.now() - birthday.getTime();
@@ -395,58 +357,32 @@ export default {
         this.meta_data.userinfo.height = this.userinfo.height;
         this.meta_data.userinfo.preferred_foot = this.userinfo.preferred_foot;
         this.meta_data.userinfo.playing_position = [];
-        if (this.userinfo.playing_position)
+        if (this.userinfo.playing_position) {
           this.meta_data.userinfo.playing_position = JSON.parse(this.userinfo.playing_position);
+        }
       }
     }
   },
-  mounted() {
+  mounted () {
     if (this.report) {
       this.meta_data = this.report.report_data.meta_data;
       this.price = this.report.price;
       this.headline = this.report.headline;
     }
   },
-  computed: {
-    languages() {
-      var arr = [];
-      var multiple = [];
-      $.each(countrydata.languages, function(key, value) {
-        if (value.alpha2 && !multiple[value.name]) {
-          multiple[value.name] = 1;
-          arr.push([value.name, value.alpha2]);
-        }
-      });
-      arr.sort();
-      return arr;
-    },
-    countries() {
-      var arr = [];
-      var multiple = [];
-      $.each(countrydata.countries, function(key, value) {
-        if (value.alpha2 && !multiple[value.name]) {
-          multiple[value.name] = 1;
-          arr.push([value.name, value.alpha2]);
-        }
-      });
-      arr.sort();
-      return arr;
-    }
-  },
   methods: {
-    removeAttachment(id) {
-      if (this.remove_attachment[id] == true) delete this.remove_attachment[id];
+    removeAttachment (id) {
+      if (this.remove_attachment[id] === true) delete this.remove_attachment[id];
       else {
         var obj = new Object();
         obj[id] = true;
         this.remove_attachment = Object.assign({}, this.remove_attachment, obj);
       }
-
     },
-    previewFiles() {
+    previewFiles () {
       this.files = this.$refs.myFiles.files;
     },
-    handleSubmit() {
+    handleSubmit () {
       var report = {
         headline: this.headline,
         price: this.price,
@@ -454,26 +390,12 @@ export default {
         remove_attachment: this.remove_attachment
       };
       this.submitReport(report, this.$refs.myFiles.files);
-      var container = this.$el.querySelector('#report-form');
       $('html, body').animate(
         {
           scrollTop: 0
         },
         100
       );
-    },
-    addRowMatches: function() {
-      this.meta_data.analyzed_matches.push({
-        date: '',
-        opponent: '',
-        venue: '',
-        comment: ''
-      });
-    },
-    removeRowMatches: function(index) {
-      this.meta_data.analyzed_matches.length > 1
-        ? this.meta_data.analyzed_matches.splice(index, 1)
-        : '';
     }
   }
 };

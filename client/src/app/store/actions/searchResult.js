@@ -14,3 +14,6 @@ export const getSearchResults = (store, { searchTerm, role = '' }) => {
     }
   });
 };
+export const flushSearchResults = (store) => {
+  store.commit(types.SEARCH_RESULT_FLUSH);
+};
