@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180212121423) do
+ActiveRecord::Schema.define(version: 20180406150548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,20 @@ ActiveRecord::Schema.define(version: 20180212121423) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_app_notifications_on_user_id"
+  end
+
+  create_table "attachment_items", force: :cascade do |t|
+    t.integer "attachment_id"
+    t.integer "report_datum_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "attachments", force: :cascade do |t|
+    t.text "url"
+    t.text "filename"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "awards", force: :cascade do |t|
@@ -83,6 +97,23 @@ ActiveRecord::Schema.define(version: 20180212121423) do
     t.string "home_kit_color"
     t.string "away_kit_color"
     t.string "third_kit_color"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "competition_seasons", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "competition_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id"], name: "index_competition_seasons_on_competition_id"
+  end
+
+  create_table "competitions", force: :cascade do |t|
+    t.string "name"
+    t.integer "competition_type"
+    t.string "sponsor"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -149,11 +180,34 @@ ActiveRecord::Schema.define(version: 20180212121423) do
   create_table "notes", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.string "name"
-    t.string "labels", array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "content"
+    t.string "image_url"
+    t.integer "field_type", default: 0
+    t.jsonb "elements"
     t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "customer_id"
+    t.integer "price"
+    t.bigint "report_id"
+    t.text "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_orders_on_report_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "password_reminders", force: :cascade do |t|
+    t.string "token"
+    t.bigint "user_id"
+    t.datetime "expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_password_reminders_on_user_id"
   end
 
   create_table "personal_profiles", id: :serial, force: :cascade do |t|
@@ -194,6 +248,42 @@ ActiveRecord::Schema.define(version: 20180212121423) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
+  create_table "report_data", force: :cascade do |t|
+    t.bigint "report_id"
+    t.json "meta_data"
+    t.integer "version"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_report_data_on_report_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.text "headline"
+    t.string "status"
+    t.string "type_report"
+    t.bigint "user_id"
+    t.integer "price"
+    t.bigint "club_id"
+    t.integer "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["club_id"], name: "index_reports_on_club_id"
+    t.index ["user_id"], name: "index_reports_on_user_id"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.text "type_request"
+    t.integer "min_price"
+    t.integer "max_price"
+    t.bigint "user_id"
+    t.date "deadline"
+    t.text "status"
+    t.json "meta_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_requests_on_user_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -211,6 +301,31 @@ ActiveRecord::Schema.define(version: 20180212121423) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "taggings", id: :serial, force: :cascade do |t|
+    t.integer "tag_id"
+    t.string "taggable_type"
+    t.integer "taggable_id"
+    t.string "tagger_type"
+    t.integer "tagger_id"
+    t.string "context", limit: 128
+    t.datetime "created_at"
+    t.index ["context"], name: "index_taggings_on_context"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
+    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
+    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
+    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
+    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
+  end
+
+  create_table "tags", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
   create_table "team_users", id: :serial, force: :cascade do |t|
     t.integer "team_id"
     t.integer "user_id"
@@ -226,6 +341,15 @@ ActiveRecord::Schema.define(version: 20180212121423) do
     t.datetime "updated_at", null: false
     t.integer "club_id"
     t.index ["club_id"], name: "index_teams_on_club_id"
+  end
+
+  create_table "teams_competitions", force: :cascade do |t|
+    t.bigint "team_id"
+    t.bigint "competition_season_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_season_id"], name: "index_teams_competitions_on_competition_season_id"
+    t.index ["team_id"], name: "index_teams_competitions_on_team_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -254,7 +378,17 @@ ActiveRecord::Schema.define(version: 20180212121423) do
   add_foreign_key "career_entries", "users"
   add_foreign_key "club_users", "clubs"
   add_foreign_key "club_users", "users"
+  add_foreign_key "competition_seasons", "competitions"
   add_foreign_key "notes", "users"
+  add_foreign_key "orders", "reports"
+  add_foreign_key "orders", "users"
+  add_foreign_key "password_reminders", "users"
+  add_foreign_key "report_data", "reports"
+  add_foreign_key "reports", "clubs"
+  add_foreign_key "reports", "users"
+  add_foreign_key "requests", "users"
   add_foreign_key "team_users", "teams"
   add_foreign_key "team_users", "users"
+  add_foreign_key "teams_competitions", "competition_seasons"
+  add_foreign_key "teams_competitions", "teams"
 end
