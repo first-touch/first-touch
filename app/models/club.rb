@@ -8,7 +8,7 @@ class Club < ApplicationRecord
 
   has_many :teams
 
-  validates_presence_of :name, :city, :country_code
+  validates_presence_of :name, :country_code
 
   def events
     Event.in_future.where(organizer_id: id)
