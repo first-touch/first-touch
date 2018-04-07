@@ -23,6 +23,7 @@ install_plugin Capistrano::SCM::Git
 require 'capistrano/rvm'
 require 'capistrano/bundler'
 require 'capistrano/rails'
+require 'capistrano/rake'
 require 'capistrano/puma'
 install_plugin Capistrano::Puma
 require 'capistrano/sidekiq'

@@ -24,18 +24,6 @@ gem 'trailblazer-rails', '~> 1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-# Use Capistrano for deployment
-group :deployment do
-  gem 'capistrano',         require: false
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano-rails',   require: false
-  gem 'capistrano-rvm',     require: false
-  gem 'capistrano-sidekiq', require: false
-  gem 'capistrano3-puma',   require: false
-  gem 'capistrano-rails-console', require: false
-  gem 'sshkit-sudo', require: false
-end
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution
   # and get a debugger console
@@ -52,8 +40,18 @@ group :test do
   gem 'json-schema'
 end
 
+# Use Capistrano for deployment
 group :development do
+  gem 'capistrano', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rake', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano-sidekiq', require: false
+  gem 'capistrano3-puma', require: false
+  gem 'capistrano-rails-console', require: false
   gem 'rubocop'
+  gem 'sshkit-sudo', require: false
   gem 'story_branch'
   gem 'web-console', '~> 2.0'
 end
