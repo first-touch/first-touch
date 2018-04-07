@@ -49,7 +49,7 @@ module Api
       end
 
       def search
-        result = ::V1::User::Index.(params)
+        result = ::V1::User::Index.(params, current_user: current_user)
         if result.failure?
           render json: { error_message: result['errors'] },
                  status: :unprocessable_entity
