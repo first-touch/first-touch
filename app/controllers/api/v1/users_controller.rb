@@ -55,7 +55,7 @@ module Api
                  status: :unprocessable_entity
         else
           render json: result['models'],
-                 each_serializer: Users::SearchSerializer,
+                 each_serializer: ::Users::SearchSerializer,
                  status: :ok
         end
       end
