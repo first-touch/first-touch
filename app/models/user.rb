@@ -43,10 +43,10 @@ class User < ApplicationRecord
   has_many :reports
   has_many :orders
 
-  #@TODO put this in team when they are ready
+  # TODO: put this in team when they are ready
   has_many :requests
   has_many :reports_buy, foreign_key: :customer_id, class_name: 'Order'
-  #/TODO
+  # TODO:
   before_save :update_search_string, if: -> { email_changed? }
 
   def connection_status(user)
