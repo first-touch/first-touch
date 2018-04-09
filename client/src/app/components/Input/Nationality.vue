@@ -1,38 +1,50 @@
 <template>
-  <select v-model="model" @change="update">
-    <option v-for="(value, key, index) in countries" :key="index" :value="value[1]">
-      {{value[0]}}
-    </option>
-  </select>
+  <vselect v-model="model" :onChange="update" :options="countries" />
 </template>
 
 <script>
 import countrydata from 'country-data';
+import vSelect from 'vue-select';
 
 export default {
   name: 'Nationality',
   props: ['value'],
-  data () {
+  components: {
+    vselect: vSelect
+  },
+  data() {
     return {
       model: this.value
     };
   },
+  mounted: function() {
+    const index = this.$options.filters.searchInObj(this.countries, option => option.value === this.value);
+    this.model = this.countries[index];
+  },
   methods: {
-    update () {
-      this.$emit('update:val', this.model);
+    update(val) {
+      if (val.value) this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
     }
   },
   computed: {
-    countries () {
+    countries() {
       var arr = [];
       var multiple = [];
-      $.each(countrydata.countries, function (key, value) {
+      $.each(countrydata.countries, function(key, value) {
         if (value.alpha2 && !multiple[value.name]) {
           multiple[value.name] = 1;
-          arr.push([value.name, value.alpha2]);
+          arr.push({
+            label: value.name,
+            value: value.alpha2
+          });
         }
       });
-      arr.sort();
+      arr.sort(function(a, b) {
+        if (a.label < b.label) return -1;
+        if (a.label > b.label) return 1;
+        return 0;
+      });
+
       return arr;
     }
   }

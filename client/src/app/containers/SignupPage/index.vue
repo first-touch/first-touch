@@ -238,7 +238,7 @@ export default {
           first_name: this.first_name,
           last_name: this.last_name,
           birthday: new Date(Date.UTC(this.year, this.month, this.day)),
-          club_id: this.item.id,
+          // club_id: this.item.id,
         },
         role_name: this.role_name,
       };

@@ -7119,6 +7119,10 @@ vue-router@^2.0.0:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.8.1.tgz#9833c9ee57ac83beb0269056fefee71713f20695"
 
+vue-select@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/vue-select/-/vue-select-2.4.0.tgz#ef06547fe857f3259841ab2f3d29c5d8a1e52630"
+
 vue-style-loader@^3.0.0:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/vue-style-loader/-/vue-style-loader-3.0.3.tgz#623658f81506aef9d121cdc113a4f5c9cac32df7"
