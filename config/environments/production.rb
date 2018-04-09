@@ -78,6 +78,8 @@ Rails.application.configure do
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
+  else
+    RAILS_DEFAULT_LOGGER = Logger.new('log/production.log')
   end
 
   # Do not dump schema after migrations.

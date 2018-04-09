@@ -3,8 +3,8 @@ class Users::SearchSerializer < ActiveModel::Serializer
 
   def display_name
     name = [object.first_name, object.middle_name, object.last_name]
-             .join(' ')
-             .squish
+           .join(' ')
+           .squish
     name = object.email_local_part if name.empty?
     name
   end
