@@ -56,40 +56,40 @@
           <span class="col-sm-2"> {{report.report_data.meta_data.userinfo.preferred_foot == "R" ? "Right" : "Left"}} </span>
         </div>
         <div class="row">
-          <label class="col-sm-4">Interested in Transfert </label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.transfert_interested}} </span>
+          <label class="col-sm-4">Interested in Transfer </label>
+          <span class="col-sm-4"> {{report.report_data.meta_data.transfer_sum.transfer_interested}} </span>
         </div>
         <div class="row">
-          <label class="col-sm-4">Availability for transfert</label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.transfert_availability }} </span>
+          <label class="col-sm-4">Availability for transfer</label>
+          <span class="col-sm-4"> {{report.report_data.meta_data.transfer_sum.transfer_availability }} </span>
         </div>
         <div class="row">
-          <label class="col-sm-4">Transfert Budget </label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.transfert_budget}} </span>
+          <label class="col-sm-4">Transfer Budget </label>
+          <span class="col-sm-4"> {{report.report_data.meta_data.transfer_sum.transfer_budget}} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Interested in Loan</label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.loan_interested}} </span>
+          <span class="col-sm-4"> {{report.report_data.meta_data.transfer_sum.loan_interested}} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Availability for Loan</label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.loan_availability}} </span>
+          <span class="col-sm-4"> {{report.report_data.meta_data.transfer_sum.loan_availability}} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">End of Contract</label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.contract_end}} </span>
+          <span class="col-sm-4"> {{report.report_data.meta_data.transfer_sum.contract_end}} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Free agent</label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.free_agent}} </span>
+          <span class="col-sm-4"> {{report.report_data.meta_data.transfer_sum.free_agent}} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Agent Commission</label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.agent_commission}} </span>
+          <span class="col-sm-4"> {{report.report_data.meta_data.transfer_sum.agent_commission}} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Wage (SGD per year) </label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.wage}} </span>
+          <span class="col-sm-4"> {{report.report_data.meta_data.transfer_sum.wage}} </span>
         </div>
         <div>
           <label class="row col-sm-12">Analyzed Matches</label>

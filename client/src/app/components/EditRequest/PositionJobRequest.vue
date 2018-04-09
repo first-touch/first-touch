@@ -18,16 +18,16 @@
           <div class="blocks col-md-8">
             <div class="block col-md-12">
               <label class="col-sm-3">
-                <input type="checkbox" name="transfert" v-model="meta_data.transfert">Transfert</label>
+                <input type="checkbox" name="transfer" v-model="meta_data.transfer">Transfer</label>
               <div class="block-input">
-                <input type="number" class="col-sm-3" v-model="meta_data.transfert_min" :disabled="!meta_data.transfert">
+                <input type="number" class="col-sm-3" v-model="meta_data.transfer_min" :disabled="!meta_data.transfer">
                 <span class="separator">—</span>
-                <input type="number" class="col-sm-3" v-model="meta_data.transfert_max" :disabled="!meta_data.transfert">
+                <input type="number" class="col-sm-3" v-model="meta_data.transfer_max" :disabled="!meta_data.transfer">
               </div>
             </div>
             <div class="block  col-md-12">
               <label class="col-sm-3">
-                <input type="checkbox" name="transfert" v-model="meta_data.loan">Loan</label>
+                <input type="checkbox" name="transfer" v-model="meta_data.loan">Loan</label>
               <div class="block-input">
                 <input type="number" class="col-sm-3" v-model="meta_data.loan_min" :disabled="!meta_data.loan">
                 <span class="separator">—</span>
@@ -36,11 +36,11 @@
             </div>
             <div class="block col-md-12">
               <label class="col-sm-3">
-                <input type="checkbox" name="transfert" v-model="meta_data.free_agent">Free Agent</label>
+                <input type="checkbox" name="transfer" v-model="meta_data.free_agent">Free Agent</label>
             </div>
             <div class="block col-md-12">
               <label class="col-sm-3">
-                <input type="checkbox" name="transfert" v-model="meta_data.expiring_contract">Expiring Contract</label>
+                <input type="checkbox" name="transfer" v-model="meta_data.expiring_contract">Expiring Contract</label>
               <div class="block-input">
                 <input type="number" class="col-sm-3" v-model="meta_data.expiring_contract_min" :disabled="!meta_data.expiring_contract">
                 <span class="separator">—</span>
@@ -51,8 +51,8 @@
         </fieldset>
 
         <fieldset class="form-group col-md-12 filter">
-          <label class="col-sm-3">Transfert Budget (in SGD)</label>
-          <input type="number" class="col-sm-4" v-model="meta_data.transfert_budget">
+          <label class="col-sm-3">Transfer Budget (in SGD)</label>
+          <input type="number" class="col-sm-4" v-model="meta_data.transfer_budget">
         </fieldset>
 
         <fieldset class="form-group col-md-12 filter">
@@ -262,7 +262,7 @@ export default {
         languages: [],
         expiring_contract: false,
         free_agent: false,
-        transfert: false,
+        transfer: false,
         loan: false
       },
       deadline: '',
