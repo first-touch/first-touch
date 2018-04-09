@@ -17,7 +17,6 @@ import ClubStream from 'app/containers/ClubStreamPage';
 import ClubNotes from 'app/containers/ClubNotesPage';
 import TCPage from 'app/containers/LegalPages/TCPage';
 import PrivacyPolicy from 'app/containers/LegalPages/PrivacyPolicy';
-import ScoutingPage from 'app/containers/ScoutingPage';
 import CreateReportPage from 'app/containers/CreateReportPage';
 import EditReportPage from 'app/containers/EditReportPage';
 import ReportPage from 'app/containers/ReportPage';
