@@ -4,23 +4,36 @@
     <div class="container-fluid">
       <div class="ft-page ">
         <h4 class="header">Edit Report</h4>
+        <div class="timeline-widget" v-if="searchReport.value.report">
+          <div class="arrow"></div>
+          <button class="timeline-widget-button">
+            <span>
+              <icon name='eye' scale="1.5"></icon>
+            </span>
+            <router-link :to="`/report/view/${searchReport.value.report.id}`">View</router-link>
+          </button>
+          <button class="timeline-widget-button">
+            <span>
+              <icon name='edit' scale="1.5"></icon>
+            </span>
+            <router-link :to="`/report/edit/${searchReport.value.report.id}`" class="active">Edit</router-link>
+          </button>
+          <button class="timeline-widget-button button-right" v-if="searchReport.value.report.status == 'publish'" @click="updateStatus('private')">
+            <span class="unpublish">
+              <icon name="eye-slash" scale="1.5"></icon>
+            </span>
+            <a>Unpublish Report</a>
+          </button>
+          <button class="timeline-widget-button button-right" v-if="searchReport.value.report.status == 'private'" @click="updateStatus('publish')">
+            <span class="publish">
+              <icon name="eye"></icon>
+            </span>
+            <a>Publish Report</a>
+          </button>
+        </div>
         <div v-if="searchReport.value.report" class="report-container">
           <div data-v-5d9799ca="" class="arrow"></div>
           <div class="form-container">
-            <ul class="menu">
-              <li>
-                <router-link :to="`/report/view/${searchReport.value.report.id}`">View</router-link>
-              </li>
-              <li>
-                <router-link :to="`/report/edit/${searchReport.value.report.id}`" class="active">Edit</router-link>
-              </li>
-              <li class="updateStatus" v-if="searchReport.value.report.status == 'publish'">
-                <a @click="updateStatus('private')">Unpublish</a>
-              </li>
-              <li class="updateStatus" v-if="searchReport.value.report.status == 'private'">
-                <a @click="updateStatus('publish')">Publish</a>
-              </li>
-            </ul>
             <ul class="error" v-if="report.errors">
               <li v-for="(error) in report.errors.error" v-bind:key="error.id">
                 {{ error }}
@@ -55,6 +68,48 @@
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
+  .timeline-widget {
+    display: flex;
+    border-left: 7px solid $secondary-header-color;
+
+    .timeline-widget-button {
+      color: $secondary-text-color;
+      text-transform: uppercase;
+      background-color: $navbar-background-color;
+      border: none;
+      margin-right: 20px;
+      a {
+        padding-left: 20px;
+        color: $main-text-color;
+        &.active {
+          color: $secondary-header-color;
+        }
+      }
+      span {
+        border-radius: 50%;
+        color: #fff;
+        text-align: center;
+        background: $timeline-widget-button-background;
+        display: inline-block;
+        color: $timeline-widget-button-color;
+        padding: 5px 8px;
+      }
+      &.button-right {
+        cursor: pointer;
+        float: right;
+        margin-left: auto;
+        span.publish {
+          background: $secondary-header-color;
+          color: white;
+        }
+      }
+    }
+    .arrow {
+      margin-top: 18px;
+      border-left-color: $secondary-header-color;
+    }
+  }
+
   .Loading {
     color: black;
     text-align: center;
@@ -192,13 +247,19 @@
   import NotificationSidebar from 'app/components/NotificationSidebar.vue';
   import PlayerReportForm from 'app/components/EditReport/PlayerReportForm.vue';
   import ClubReportForm from 'app/components/EditReport/ClubReportForm.vue';
+  import 'vue-awesome/icons/edit';
+  import 'vue-awesome/icons/eye';
+  import 'vue-awesome/icons/eye-slash';
+
+  import Icon from 'vue-awesome/components/Icon';
 
   export default {
     name: 'CreateReportPage',
     components: {
       sidebar: NotificationSidebar,
       playerreportform: PlayerReportForm,
-      clubreportform: ClubReportForm
+      clubreportform: ClubReportForm,
+      icon: Icon
     },
     computed: {
       ...mapGetters(['report', 'searchReport', 'filesUpload'])

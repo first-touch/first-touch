@@ -1,6 +1,8 @@
 <template>
   <div class="analyzed_matches ">
     <div class="row header col-md-12" :class="type">
+      <div class="remove">
+      </div>
       <div class="col">
         Date
       </div>
@@ -22,9 +24,14 @@
     </div>
     <div class="content col-md-12" :class="type">
       <div class="row col-md-12" v-for="(match, index) in analyzed_matches" v-bind:key="match.id">
-        <div class="col">
-          <datepicker :input-class="[match.date != '' ? 'selected': '', 'input-date'].join(' ')" v-model="match.date" class="datepicker"
-            format="MM/dd/yyyy"></datepicker>
+        <div class="remove" v-if="analyzed_matches.length > 1" @click="removeRowMatches(index)">
+          <icon name='trash'></icon>
+        </div>
+        <div class="col" @click="showCalendar(index)" :class="match.date != '' ? 'date-selected': ''">
+          <datepicker ref="datepicker" input-class="input-date" v-model="match.date" class="datepicker col-md-8" format="MM/dd/yyyy"></datepicker>
+          <icon name='calendar-alt' v-if="match.date == ''"></icon>
+          <icon name='calendar-check' v-if="match.date != ''"></icon>
+
         </div>
         <div class="col">
           <input type="text" v-model="match.opponent" />
@@ -47,127 +54,145 @@
   </div>
 </template>
 <style lang="scss">
-.analyzed_matches {
-  .v-select {
-    height: 2.5em;
-    .clearfix {
+  @import '~stylesheets/variables';
+  .analyzed_matches {
+    .v-select {
       height: 2.5em;
-          border: 0;
+      .selected-tag {
+        color: $main-text-color;
+      }
+      .clearfix {
+        height: 2.5em;
+        border: 0;
+      }
     }
-  }
-  .datepicker {
-    background: white;
-    input.input-date {
-      cursor: pointer;
-      width: 100%;
-      border: 0px;
-      height: 2.5em;
+    .input-date {
+      color: $main-text-color;
+    }
+    .datepicker {
       background: white;
-      background: url('/images/calendar.png') no-repeat;
-      background-size: 3em 2.5em;
-      background-position: right;
-      &.selected {
-        background: url('/images/calendar-fill.png') no-repeat;
-        background-size: 3em 2.5em;
-        background-position: right;
+      display: inline-block;
+      input.input-date {
+        cursor: pointer;
+        width: 100%;
+        border: 0px;
+        height: 2.5em;
+        background: white;
       }
     }
   }
-}
 </style>
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+  @import '~stylesheets/variables';
 
-.header {
-}
+  .header {
+    .col {
+      color: $main-text-color;
+      font-weight: bold;
+    }
+    .remove {
+      width: 2%;
+      max-width: 20px;
+    }
+  }
 
-.content {
-  margin: 0;
-  padding: 0;
-  &.player {
+  .content {
     margin: 0;
     padding: 0;
-    .row {
+    &.player {
       margin: 0;
       padding: 0;
-      .col {
+      .row {
         margin: 0;
         padding: 0;
-        width: 20%;
-        // overflow: hidden;
-        height: 2.5em;
+        .col {
+          color: $main-text-color;
+
+          input,
+          .selected-tag {
+            color: $main-text-color;
+          }
+          margin: 0;
+          padding: 0;
+          width: 20%; // overflow: hidden;
+          height: 2.5em;
+        }
+        .remove {
+          width: 2%;
+          padding-top: 10px;
+          max-width: 20px;
+          cursor: pointer;
+          &:hover {
+            color: red;
+          }
+        }
       }
     }
   }
-}
 
-.analyzed_matches {
-  margin: 0;
-  td,
-  th {
-    border: 1px solid grey;
-    width: 10%;
-    text-align: center;
-    height: 2.5em;
+  .analyzed_matches {
+    margin: 0;
+    input,
+    select {
+      border: none;
+      text-align: center;
+      width: 100%;
+      height: 100%;
+    }
+    color: $main-text-color;
+    background: white;
   }
-  .remove-items {
-    border: none;
-    a {
-      color: red;
-      cursor: pointer;
+
+  .add-match {
+    margin: 0;
+    padding: 4px;
+    font-size: 10px;
+    border-radius: 4px;
+    color: white;
+    min-height: 20px;
+    color: $main-text-color;
+    border: 1px solid $main-text-color;
+    background-color: $button-background;
+    cursor: pointer;
+    &:hover{
+      background-color: $button-background-hover;
     }
   }
-  td {
-    padding: 0;
-    margin: 0;
-  }
-  input,
-  select {
-    border: none;
-    text-align: center;
-    width: 100%;
-    height: 100%;
-  }
-  color: $main-text-color;
-  background: white;
-}
-
-.add-match {
-  margin: 0;
-  padding: 4px;
-  font-size: 10px;
-  background: $main-header-color;
-  border-color: $main-header-color;
-  border-radius: 4px;
-  cursor: pointer;
-  color:white;
-}
 </style>
 
 <script>
-import Datepicker from 'vuejs-datepicker';
-import vSelect from 'vue-select';
+  import Datepicker from 'vuejs-datepicker';
+  import vSelect from 'vue-select';
+  import 'vue-awesome/icons/trash';
+  import 'vue-awesome/icons/calendar-alt';
+  import 'vue-awesome/icons/calendar-check';
 
-export default {
-  name: 'MatchAnalyzed',
-  props: ['analyzed_matches', 'type'],
-  components: {
-    datepicker: Datepicker,
-    vselect: vSelect
-  },
-  methods: {
-    removeRowMatches: function(index) {
-      this.analyzed_matches.length > 1 ? this.analyzed_matches.splice(index, 1) : '';
+  import Icon from 'vue-awesome/components/Icon';
+
+  export default {
+    name: 'MatchAnalyzed',
+    props: ['analyzed_matches', 'type'],
+    components: {
+      datepicker: Datepicker,
+      vselect: vSelect,
+      icon: Icon
     },
-    addRowMatches: function() {
-      this.analyzed_matches.push({
-        date: '',
-        opponent: '',
-        venue: '',
-        comment: '',
-        training: 'No'
-      });
+    methods: {
+      removeRowMatches: function (index) {
+        this.analyzed_matches.length > 1 ? this.analyzed_matches.splice(index, 1) : '';
+      },
+      addRowMatches: function () {
+        this.analyzed_matches.push({
+          date: '',
+          opponent: '',
+          venue: '',
+          comment: '',
+          training: 'No'
+        });
+      },
+      showCalendar: function (index) {
+        this.$refs.datepicker[index].showCalendar();
+      }
     }
-  }
-};
+  };
 </script>
