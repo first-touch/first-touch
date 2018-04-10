@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import moment from 'moment';
 
-Vue.filter('moment', str => moment(str).format('MM/DD/YYYY'));
+Vue.filter('moment', str => moment(str).format('Do,MMM YYYY'));
 Vue.filter('railsdate', str => moment(str).format('YYYY-MM-DD'));
 Vue.filter('reportId', (str, type) => {
   str = str.toString();
@@ -49,4 +49,37 @@ Vue.filter('vueSelect2Val', (selected) => {
 Vue.filter('searchInObj', (array, conditionFn) => {
   const item = array.find(conditionFn);
   return array.indexOf(item);
+});
+
+Vue.filter('currency', (str) => {
+  switch (str) {
+  case 'USD':
+    str = '$';
+    break;
+  case 'SGD':
+    str = 'S$';
+    break;
+  case 'EUR':
+    str = '€';
+    break;
+  case 'GBP':
+    str = '£';
+    break;
+  }
+  return str;
+});
+
+Vue.filter('preferredFoot', (str) => {
+  switch (str) {
+  case 'R':
+    str = 'Right';
+    break;
+  case 'L':
+    str = 'Left';
+    break;
+  case 'B':
+    str = 'Both';
+    break;
+  }
+  return str;
 });

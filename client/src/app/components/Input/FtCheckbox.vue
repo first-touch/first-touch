@@ -65,7 +65,7 @@
   -moz-appearance: none;
   appearance: none;
   background: #315e7f;
-  border-radius: 2px;
+  border-radius: 10px;
   position: relative;
   outline: 0;
   -webkit-transition: all 0.2s;

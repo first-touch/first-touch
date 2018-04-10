@@ -60,7 +60,7 @@
     border-bottom: 7px solid transparent;
     border-left: 7px solid;
         margin-top: 18px;
-    border-left-color: #A8CB5C;
+    border-left-color: $main-header-color;
 }
 
 .error {

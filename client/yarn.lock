@@ -307,6 +307,10 @@ atob@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.0.3.tgz#19c7a760473774468f20b2d2d03372ad7d4cbf5d"
 
+autonumeric@^4.2.9:
+  version "4.2.9"
+  resolved "https://registry.yarnpkg.com/autonumeric/-/autonumeric-4.2.9.tgz#5aadad61fe950c199e99b6663b687d4f1c0f8bb1"
+
 autoprefixer@^6.2.2, autoprefixer@^6.3.1:
   version "6.7.7"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-6.7.7.tgz#1dbd1c835658e35ce3f9984099db00585c782014"
@@ -7078,6 +7082,16 @@ vm-browserify@0.0.4:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-0.0.4.tgz#5d7ea45bbef9e4a6ff65f95438e0a87c357d5a73"
   dependencies:
     indexof "0.0.1"
+
+vue-autonumeric@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vue-autonumeric/-/vue-autonumeric-1.2.0.tgz#8825f522212021d6cdc654e355eb66cea669b150"
+  dependencies:
+    autonumeric "^4.2.9"
+
+vue-awesome@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/vue-awesome/-/vue-awesome-3.0.0.tgz#0b0b37488dd4b7e4b9a269d0e9173cd5ab65ff0f"
 
 vue-functional-data-merge@^2.0.3:
   version "2.0.3"
