@@ -1,41 +1,53 @@
 <template>
-  <div class="autonumeric">
-    <p class="col currency-currency">{{model.currency | currency}}</p>
-    <autonumeric class="col col-md-8 form-control" v-model="model.value" :options="{
+  <div class="autonumeric input-group">
+    <div class="input-group-addon currency">{{model.currency | currency}}</div>
+    <autonumeric class="form-control" v-model="model.value" :options="{
          digitGroupSeparator: '.',
          decimalCharacter: ',',
          decimalCharacterAlternative: '.',
          roundingMethod: 'U',
          minimumValue: '0'
      }"></autonumeric>
-    <select class="currency-selector col col-md-2 form-control" v-model="model.currency">
+
+    <div class="input-group-addon">
+       <select class="currency-selector form-control" v-model="model.currency">
       <option value="USD" data-placeholder="0.00">USD</option>
       <option value="EUR" data-placeholder="0.00">EUR</option>
       <option value="GBP" data-placeholder="0.00">GBP</option>
       <option value="SGD" data-placeholder="0.00">SGD</option>
-    </select>
+      </select>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
+
 .autonumeric {
   height: 100%;
   min-height: 30px;
+  .form-control {
+    z-index: unset;
+  }
+  .input-group-addon {
+    padding: 0;
+  }
+  .currency {
+    padding: 5px 10px;
+  }
   .col {
     float: left;
-    height: 100% !important;
+    height: 100%;
+    input {
+      height: 100%;
+      z-index: 0;
+    }
     color: $main-text-color;
-  }
-  .currency-currency {
-    background: #eceeef;
-    text-align: center;
-    padding: 5px 10px;
-    max-width: 50px;
   }
   select {
     background: #eceeef;
     padding-right: 0;
+    width: 100%;
   }
 }
 </style>

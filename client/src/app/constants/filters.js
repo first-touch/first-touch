@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import moment from 'moment';
 
-Vue.filter('moment', str => moment(str).format('Do,MMM YYYY'));
+Vue.filter('moment', str => moment(str).format('Do, MMM YYYY'));
 Vue.filter('railsdate', str => moment(str).format('YYYY-MM-DD'));
 Vue.filter('reportId', (str, type) => {
   str = str.toString();

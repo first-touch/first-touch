@@ -115,7 +115,7 @@
         <fieldset class="form-group col-md-12 filter">
           <label class="col-sm-3">Report Deadline</label>
           <datepicker :input-class="[deadline != '' ? 'selected': '', 'input-date'].join(' ')" v-model="deadline" class="datepicker col-sm-4"
-            format="MM/dd/yyyy"></datepicker>
+           format="dd,MMM yyyy"></datepicker>
         </fieldset>
 
         <fieldset class="form-group col-md-12 filter">
