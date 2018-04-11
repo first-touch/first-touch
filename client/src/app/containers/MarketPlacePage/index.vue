@@ -22,7 +22,7 @@
             <fieldset class="form-group col-md-2 filter">
               <label class="col-sm-12">Date Created <span class="clear-date" v-if="params.created_date != ''" @click="params.created_date = ''">X</span></label>
               <datepicker :input-class="[params.created_date != '' ? 'selected': '', 'input-date','col-sm-12'].join(' ')" v-model="params.created_date"
-                format="MM/dd/yyyy" class="datepicker col-sm-12"></datepicker>
+               format="dd,MMM yyyy" class="datepicker col-sm-12"></datepicker>
             </fieldset>
             <fieldset class="form-group col-md-4 filter">
               <label class="col-sm-12">Price Range (Min - Max)</label>

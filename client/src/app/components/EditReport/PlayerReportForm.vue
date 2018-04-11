@@ -11,7 +11,6 @@
         <label class="col-md-12 label-price">Price</label>
         <div class="price-input">
           <currencyinput :value="price" />
-          <!-- <input type="number" v-model="price" class="form-control" min="0" max="999999" /> -->
           <p v-if="price.value == 0" class="info">The report will be free</p>
         </div>
       </div>
@@ -177,29 +176,7 @@
         <textarea class="col-md-12 form-control" v-model="meta_data.conclusion" />
       </div>
     </div>
-    <div class="form-group row">
-      <div class="form-group row attachments-div col-md-6">
-        <label class="col-md-12 col-form-label">Add Attachments:
-          <input type="file" name="files" ref="myFiles" @change="previewFiles" multiple class="col-md-4">
-        </label>
-        <div class="col-md-12">
-          <ul class="col-md-6">
-            <li class="list" v-for="file in files" :key="file.id"> {{file.name}} </li>
-          </ul>
-        </div>
-      </div>
-      <div v-if="report" class="form-group row col-md-6">
-        <label class="col-sm-12">Current Attachments</label>
-        <div class="update-attachments col col-sm-12" v-for="attachment in report.report_data.attachments.attachments" :key="attachment.id">
-          <div class="col col-sm-12 file" :class="remove_attachment[attachment.id]?'removed':'remove'" @click="removeAttachment(attachment.id)">
-            <p>{{attachment.filename}}</p>
-            <p class="col col-sm-2">
-              <icon name='trash'></icon>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <addattachments :attachments="report ? report.report_data.attachments.attachments : null"  v-on:update:remove="remove_attachment = $event" v-on:update:files="files = $event"/>
     <div class="form-group buttons">
       <button v-if="!report" id="submit" class="btn btn-primary" @click="handleSubmit">Publish</button>
       <button v-if="report" id="submit" class="btn btn-primary" @click="handleSubmit">Update</button>
@@ -218,7 +195,7 @@
 
   .fade-enter,
   .fade-leave-to {
-    opacity: 0;
+    opacity: 0.1;
     max-height: 0px;
   }
 
@@ -302,15 +279,6 @@
     .list {
       color: #535ee2;
     }
-    .attachments-div {
-      ul {
-        li {
-          display: list-item;
-          list-style: disc;
-        }
-      }
-    }
-
     .price-input {
       .info {
         color: green;
@@ -357,39 +325,17 @@
       }
     }
     overflow: hidden;
-    .update-attachments {
-      color: $main-text-color;
-      .file {
-        cursor: pointer;
-        &.removed {
-          p {
-            text-decoration: line-through;
-            color: red;
-          }
-          .fa-icon {
-            color: green;
-          }
-        }
-        &.remove {
-          .fa-icon {
-            color: red;
-          }
-        }
-        p {
-          display: inline-block;
-        }
-      }
-    }
   }
 </style>
 
 <script>
-  import MatchAnalyzed from './MatchAnalyzed';
+  import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
   import PlayerPosition from 'app/components/Input/PlayerPosition';
   import Nationality from 'app/components/Input/Nationality';
   import Language from 'app/components/Input/Language';
   import PreferredFoot from 'app/components/Input/PreferredFoot';
   import FtCheckbox from 'app/components/Input/FtCheckbox';
+  import AddAttachments from 'app/components/Input/AddAttachments';
   import 'vue-awesome/icons/trash';
   import Icon from 'vue-awesome/components/Icon';
   import CurrencyInput from 'app/components/Input/CurrencyInput';
@@ -403,6 +349,7 @@
       language: Language,
       preferredfoot: PreferredFoot,
       ftcheckbox: FtCheckbox,
+      addattachments: AddAttachments,
       icon: Icon,
       currencyinput: CurrencyInput
     },
@@ -483,17 +430,6 @@
       }
     },
     methods: {
-      removeAttachment(id) {
-        var obj = this.remove_attachment;
-        if (this.remove_attachment[id] === true) delete obj[id];
-        else {
-          obj[id] = true;
-        }
-        this.remove_attachment = Object.assign({}, obj);
-      },
-      previewFiles() {
-        this.files = this.$refs.myFiles.files;
-      },
       handleSubmit() {
         var report = {
           headline: this.headline,
@@ -501,7 +437,7 @@
           report_data: this.meta_data,
           remove_attachment: this.remove_attachment
         };
-        this.submitReport(report, this.$refs.myFiles.files);
+        this.submitReport(report, this.files);
         $('html, body').animate({
             scrollTop: 0
           },

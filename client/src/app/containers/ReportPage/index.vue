@@ -4,8 +4,7 @@
     <div class="container-fluid">
       <div class="ft-page">
         <h4 class="header">Report</h4>
-        <div class="timeline-widget" v-if="owner">
-          <div class="arrow"></div>
+        <action-item v-if="owner && searchReport.value.report">
           <button class="timeline-widget-button">
             <span>
               <icon name='eye' scale="1.5"></icon>
@@ -18,7 +17,7 @@
             </span>
             <router-link :to="`/report/edit/${report.id}`">Edit</router-link>
           </button>
-        </div>
+        </action-item>
         <div v-if="report != null" class="report-container">
           <div class="content">
             <playerreport v-if="report.type_report == 'player'" :report="report" :downloadFile="downloadFile" class="report" />
@@ -32,48 +31,6 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
- .timeline-widget {
-    display: flex;
-    border-left: 7px solid $secondary-header-color;
-
-    .timeline-widget-button {
-      color: $secondary-text-color;
-      text-transform: uppercase;
-      background-color: $navbar-background-color;
-      border: none;
-      margin-right: 20px;
-      a {
-        padding-left: 20px;
-        color: $main-text-color;
-        &.active {
-          color: $secondary-header-color;
-        }
-      }
-      span {
-        border-radius: 50%;
-        color: #fff;
-        text-align: center;
-        background: $timeline-widget-button-background;
-        display: inline-block;
-        color: $timeline-widget-button-color;
-        padding: 5px 8px;
-      }
-      &.button-right {
-        cursor: pointer;
-        float: right;
-        margin-left: auto;
-        span.publish {
-          background: $secondary-header-color;
-          color: white;
-        }
-      }
-    }
-    .arrow {
-      margin-top: 18px;
-      border-left-color: $secondary-header-color;
-    }
-  }
-
 </style>
 
 <script>
@@ -85,6 +42,7 @@ import ClubReport from './components/ClubReport';
 import 'vue-awesome/icons/edit';
 import 'vue-awesome/icons/eye';
 import Icon from 'vue-awesome/components/Icon';
+import ActionsItem from 'app/components/ActionsItem';
 
 export default {
   name: 'ReportPage',
@@ -93,7 +51,8 @@ export default {
     sidebar: NotificationSidebar,
     playerreport: PlayerReport,
     clubreport: ClubReport,
-    icon: Icon
+    icon: Icon,
+    'action-item': ActionsItem
   },
   data() {
     return {};

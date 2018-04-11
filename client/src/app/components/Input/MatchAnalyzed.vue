@@ -1,7 +1,7 @@
 <template>
   <div class="analyzed_matches ">
     <div class="row header col-md-12" :class="type">
-      <div class="remove">
+      <div class="remove" v-if="!readonly">
       </div>
       <div class="col">
         Date
@@ -22,35 +22,45 @@
         Comment
       </div>
     </div>
-    <div class="content col-md-12" :class="type">
+    <div class="content col-md-12" :class="[type, readonly? 'readonly': '']">
       <div class="row col-md-12" v-for="(match, index) in analyzed_matches" v-bind:key="match.id">
-        <div class="remove" v-if="analyzed_matches.length > 1" @click="removeRowMatches(index)">
+        <div class="remove" v-if="!readonly && analyzed_matches.length > 1" @click="removeRowMatches(index)">
           <icon name='trash'></icon>
         </div>
-        <div class="col" @click="showCalendar(index)" :class="match.date != '' ? 'date-selected': ''">
-          <datepicker ref="datepicker" input-class="input-date" v-model="match.date" class="datepicker col-md-8" format="MM/dd/yyyy"></datepicker>
-          <icon name='calendar-alt' v-if="match.date == ''"></icon>
-          <icon name='calendar-check' v-if="match.date != ''"></icon>
-
+        <div class="col form-control" :class="match.date != '' ? 'date-selected': ''">
+          <span v-if="!readonly" class="col-md-12">
+            <datepicker ref="datepicker" input-class="input-date" v-model="match.date" class="datepicker col-md-9" format="dd,MMM yyyy"></datepicker>
+            <span @click="match.date = ''" class="icon-inner">
+              <icon name='times' v-if="match.date != ''"></icon>
+            </span>
+            <span @click="showCalendar(index)" class="icon-inner">
+              <icon name='calendar-alt' v-if="match.date == ''"></icon>
+              <icon name='calendar-check' v-if="match.date != ''"></icon>
+            </span>
+          </span>
+          <p class="read" v-if="readonly">
+            {{match.date | moment}}
+          </p>
         </div>
-        <div class="col">
-          <input type="text" v-model="match.opponent" />
+        <div class="col form-control" :title="match.opponent">
+          <input type="text" :readonly="readonly" v-model="match.opponent" />
         </div>
-        <div class="col">
-          <input type="text" v-model="match.venue" />
+        <div class="col form-control" :title="match.venue">
+          <input type="text" :readonly="readonly" v-model="match.venue" />
         </div>
-        <div class="col" v-if="type == 'team'">
-          <input type="text" v-model="match.result" />
+        <div class="col form-control" v-if="type == 'team'" :title="match.result">
+          <input type="text" :readonly="readonly" v-model="match.result" />
         </div>
-        <div class="col" v-if="type == 'player'">
-          <vselect v-model="match.training" :options="['Yes','No']" />
+        <div class="col form-control" v-if="type == 'player'" :title="match.training">
+          <vselect v-if="!readonly" v-model="match.training" :options="['Yes','No']" />
+          <p class="read" v-if="readonly">{{match.training}}</p>
         </div>
-        <div class="col" v-if="type == 'player'">
-          <input type="text" v-model="match.comment" />
+        <div class="col form-control" v-if="type == 'player'" :title="match.comment">
+          <input type="text" :readonly="readonly" v-model="match.comment" />
         </div>
       </div>
     </div>
-    <button class="button row  add-match" @click="addRowMatches">Add Match</button>
+    <button v-if="!readonly" class="button row  add-match" @click="addRowMatches">Add Match</button>
   </div>
 </template>
 <style lang="scss">
@@ -66,8 +76,9 @@
         border: 0;
       }
     }
-    .input-date {
+    input {
       color: $main-text-color;
+      text-align: left;
     }
     .datepicker {
       background: white;
@@ -76,7 +87,7 @@
         cursor: pointer;
         width: 100%;
         border: 0px;
-        height: 2.5em;
+        height: 2.3em;
         background: white;
       }
     }
@@ -99,32 +110,33 @@
   .content {
     margin: 0;
     padding: 0;
-    &.player {
+    &.readonly {
+      .form-control {
+        border: 0;
+      }
+      .read {
+        margin-top: 9px;
+      }
+    }
+    .remove {
+      width: 2%;
+      padding-top: 10px;
+      max-width: 20px;
+      cursor: pointer;
+      &:hover {
+        color: red;
+      }
+    }
+    .col,
+    .col-md-12 {
       margin: 0;
       padding: 0;
+      margin: 2px;
+    }
+    &.player {
       .row {
-        margin: 0;
-        padding: 0;
         .col {
           color: $main-text-color;
-
-          input,
-          .selected-tag {
-            color: $main-text-color;
-          }
-          margin: 0;
-          padding: 0;
-          width: 20%; // overflow: hidden;
-          height: 2.5em;
-        }
-        .remove {
-          width: 2%;
-          padding-top: 10px;
-          max-width: 20px;
-          cursor: pointer;
-          &:hover {
-            color: red;
-          }
         }
       }
     }
@@ -135,26 +147,31 @@
     input,
     select {
       border: none;
-      text-align: center;
       width: 100%;
       height: 100%;
     }
     color: $main-text-color;
     background: white;
+    .icon-inner {
+      cursor: pointer;
+      &:hover {
+        color: $secondary-header-color;
+      }
+    }
   }
 
   .add-match {
-    margin: 0;
+    margin: 10px 0 0 0 ;
     padding: 4px;
-    font-size: 10px;
-    border-radius: 4px;
-    color: white;
     min-height: 20px;
+    font-size: 10px;
+    color: white;
     color: $main-text-color;
     border: 1px solid $main-text-color;
+    border-radius: 4px;
     background-color: $button-background;
     cursor: pointer;
-    &:hover{
+    &:hover {
       background-color: $button-background-hover;
     }
   }
@@ -166,12 +183,17 @@
   import 'vue-awesome/icons/trash';
   import 'vue-awesome/icons/calendar-alt';
   import 'vue-awesome/icons/calendar-check';
-
+  import 'vue-awesome/icons/times';
   import Icon from 'vue-awesome/components/Icon';
 
   export default {
     name: 'MatchAnalyzed',
-    props: ['analyzed_matches', 'type'],
+    props: ['analyzed_matches', 'type', 'mode'],
+    data() {
+      return {
+        readonly: this.mode == 'read'
+      };
+    },
     components: {
       datepicker: Datepicker,
       vselect: vSelect,

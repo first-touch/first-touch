@@ -69,7 +69,7 @@
         <fieldset class="form-group row col-md-12 filter">
           <label class="col-sm-3">Deadline</label>
           <datepicker :input-class="[deadline != '' ? 'selected': '', 'input-date'].join(' ')" v-model="deadline" class="datepicker col-sm-4"
-            format="MM/dd/yyyy"></datepicker>
+           format="dd,MMM yyyy"></datepicker>
         </fieldset>
         <fieldset class="form-group row col-md-12 filter">
           <label class="col-sm-3">Additional Comments</label>
