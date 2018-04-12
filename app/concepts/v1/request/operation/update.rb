@@ -16,18 +16,7 @@ module V1
         model = current_user.requests.find_by(id: params[:id])
         options['model'] = model
         options['model.class'] = ::Request
-        if model.nil?
-          false
-        else
-          if !params[:status].blank?
-            model.status = params[:status]
-          end
-            true
-
-        end
-
       end
-
     end
   end
 end

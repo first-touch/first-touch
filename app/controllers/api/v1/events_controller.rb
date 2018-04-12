@@ -16,7 +16,7 @@ module Api
                  status: :unprocessable_entity
         end
       end
-      
+
       def index
         result = ::V1::Event::Index.(params, current_user: current_user)
         render json: ::V1::Event::Representer::Index.new(result['models'])

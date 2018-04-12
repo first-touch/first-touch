@@ -9,21 +9,12 @@ module V1
         property :customer_id
 
         validates :price,
-        :status,
-        :user,
-        :report,
-        :customer_id,
-        presence: true
-
-        validate :status_is_registerable
-        validates_uniqueness_of :customer_id, scope: [:report, :customer_id]
-
-        def status_is_registerable
-          current_status = model.status
-          return if FirstTouch::REGISTERABLE_ORDER_STATUS.include? current_status
-          errors.add(:status, I18n.t('order.invalid_status'))
-        end
-
+                  :status,
+                  :user,
+                  :report,
+                  :customer_id,
+                  presence: true
+        validates_uniqueness_of :customer_id, scope: %i[report customer_id]
       end
     end
   end

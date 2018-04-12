@@ -13,5 +13,4 @@ class Message < ApplicationRecord
                                 }
 
   accepts_nested_attributes_for :message_recipient
-
 end
