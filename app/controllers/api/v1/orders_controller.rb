@@ -6,16 +6,12 @@ module Api
       def create
         payment = PaymentUtil.made_payment(order_params)
         if payment
-          result = ::V1::Order::Create.(order_params,current_user: current_user,status: payment[:status])
-          if result.success?
-            render json: {success: true}, status: :ok
-          else
-            errors = (result['contract.default'].blank?) ? ['sometings is wrong with your request']: result['contract.default'].errors.full_messages
-            render json: {success: false, errors: errors }, status: :bad_request
-          end
-        else
-          render json: {success: false, errors: ['Please check again your payment information'] }, status: :bad_request
+          result = ::V1::Order::Create.(params,
+                                        current_user: current_user, status: payment[:status])
+          return render json: { success: true }, status: :ok if result.success?
         end
+        render json: { success: false,
+                       errors: ['Please check again your payment information'] }, status: :bad_request
       end
 
       def order_params

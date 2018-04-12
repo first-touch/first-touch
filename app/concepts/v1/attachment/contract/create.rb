@@ -5,8 +5,6 @@ module V1
         property :url
         property :filename
         property :report
-
-
       end
     end
   end

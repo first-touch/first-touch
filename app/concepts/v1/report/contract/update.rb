@@ -6,14 +6,6 @@ module V1
         property :status
         property :price
         property :meta_data
-
-        validate :status_is_registerable
-
-        def status_is_registerable
-          current_status = model.status
-          return if FirstTouch::REGISTERABLE_REPORT_STATUS.include? current_status
-          errors.add(:status, I18n.t('report.invalid_status'))
-        end
       end
     end
   end

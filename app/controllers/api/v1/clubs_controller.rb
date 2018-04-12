@@ -31,7 +31,7 @@ module Api
                  status: :unprocessable_entity
 
         else
-          render json: { message: 'File being processed and will be available soon'},
+          render json: { message: 'File being processed and will be available soon' },
                  status: :ok
         end
       end

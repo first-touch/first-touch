@@ -24,16 +24,16 @@ module Api
           render json: { error: 'You are not following this user' }, stauts: :uprocessable_entity
           return
         end
-        
+
         if @current_user.unfollow(followed_user)
           render json: { relationship: nil }
         else
           render json: { error: @current_user.errors.full_messages }, status: :unprocessable_entity
         end
       end
-      
+
       private
-      
+
       def destroy_params
         params.permit(:followed_user_id)
       end
