@@ -33,9 +33,9 @@ module V1
           models = models.where('headline iLIKE ?', "%#{params[:headline]}%") if !params[:headline].blank?
           models = models.where('users.search_string iLIKE ?', "%#{params[:user_name]}%") if !params[:user_name].blank?
 
-          price_min = (params[:price_min].blank?) ? 0 : params[:price_min].to_i
-          price_max = (params[:price_max].blank?) ? 999999 : params[:price_max].to_i
-          models = models.where price: price_min..price_max
+          # price_min = (params[:price_min].blank?) ? 0 : params[:price_min].to_i
+          # price_max = (params[:price_max].blank?) ? 999999 : params[:price_max].to_i
+          # models = models.where price: price_min..price_max
           date_from = params[:created_date_from].to_date if !params[:created_date_from].blank?
           date_to = params[:created_date_to].to_date if !params[:created_date_to].blank?
           date = params[:created_date].to_date if !params[:created_date].blank?

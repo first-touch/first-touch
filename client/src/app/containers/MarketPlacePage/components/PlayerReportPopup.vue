@@ -9,36 +9,36 @@
         <p class="col col-sm-12">Report Id: {{report.id | reportId('player')}} </p>
       </div>
     </div>
-    <div class="infos" v-if="report.report_data.meta_data">
+    <div class="infos" v-if="report.meta_data">
       <div class="row">
         <label class="col-sm-6">Player Name</label>
         <p class="col col-sm-4"> {{report.player.first_name}} {{report.player.last_name}} </p>
       </div>
       <div class="row">
         <label class="col-sm-6">Age</label>
-        <p class="col col-sm-4"> {{report.report_data.meta_data.age}} </p>
+        <p class="col col-sm-4"> {{report.meta_data.player_info.age}} </p>
       </div>
       <div class="row">
         <label class="col-sm-6">Approximate Height (cm) </label>
-        <p class="col col-sm-4"> {{report.report_data.meta_data.height}} </p>
+        <p class="col col-sm-4"> {{report.meta_data.player_info.height}} </p>
       </div>
       <div class="row">
         <label class="col-sm-6">Approximate Weight (kg) </label>
-        <p class="col col-sm-4"> {{report.report_data.meta_data.weight}} </p>
+        <p class="col col-sm-4"> {{report.meta_data.player_info.weight}} </p>
       </div>
       <div class="row">
         <label class="col-sm-6">Nationality </label>
-        <p class="col col-sm-4"> {{getNationality(report.report_data.meta_data.nationality_country_code)}} </p>
+        <p class="col col-sm-4"> {{getNationality(report.meta_data.player_info.nationality_country_code)}} </p>
       </div>
       <div class="row">
         <label class="col-sm-6">Language spoken</label>
-        <p class="col col-sm-4"> <span v-for="language in report.report_data.meta_data.languages" class="list" :key="language.id">{{getLanguage(language)}}</span></p>
+        <p class="col col-sm-4"> <span v-for="language in report.meta_data.player_info.languages" class="list" :key="language.id">{{getLanguage(language)}}</span></p>
       </div>
       <div class="row">
         <label class="col-sm-6">Position</label>
-        <p class="col col-sm-4"> <span v-for="position in report.report_data.meta_data.playing_position" class="list" :key="position.id">{{position}}</span> </p>
+        <p class="col col-sm-4"> <span v-for="position in report.meta_data.player_info.playing_position" class="list" :key="position.id">{{position}}</span> </p>
       </div>
-      <div class="row" v-for="attachment in report.report_data.attachments.attachments" :key="attachment.id">
+      <div class="row" v-for="attachment in report.attachments" :key="attachment.id">
         <label class="col-sm-6">Attachment</label>
         <p class="col col-sm-4"> {{attachment.filename}} </p>
       </div>
@@ -79,11 +79,13 @@ export default {
   name: 'PlayerReportPopup',
   props: ['report', 'closeAction'],
   methods: {
-    getLanguage (key) {
-      return countrydata.languages[key].name;
+    getLanguage(key) {
+      var lang = countrydata.languages[key];
+      return lang ? lang.name : key;
     },
-    getNationality (key) {
-      return countrydata.countries[key].name;
+    getNationality(key) {
+      var lang = countrydata.countries[key];
+      return lang ? lang.name : key;
     }
   }
 };
