@@ -168,6 +168,10 @@
         font-weight: 300;
         font-size: 0.9em;
       }
+      a:hover {
+        color: #fff;
+        text-decoration: none;
+      }
     }
   }
 }

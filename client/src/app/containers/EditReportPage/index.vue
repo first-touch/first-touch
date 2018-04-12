@@ -209,17 +209,17 @@ export default {
       formData.append('report_id', this.report.value.id);
       this.uploadFiles(formData);
     },
-    customUpdateReport(report_data, filelist) {
-      for (var f in report_data.remove_attachment) {
-        if (report_data.remove_attachment[f] === false) {
-          delete report_data.remove_attachment[f];
+    customUpdateReport(meta_data, filelist) {
+      for (var f in meta_data.remove_attachment) {
+        if (meta_data.remove_attachment[f] === false) {
+          delete meta_data.remove_attachment[f];
         }
       }
       this.report.errors = null;
       this.files = filelist;
       var id = this.$route.params.id;
       this.updateReport({
-        report: report_data,
+        report: meta_data,
         id
       });
     }

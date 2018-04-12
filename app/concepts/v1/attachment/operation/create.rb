@@ -8,7 +8,7 @@ module V1
       step :setup_model!
 
       def setup_model!(model:, params:, current_user:, **)
-        model.report_data << params[:report_data]
+        model.report = params[:report]
       end
 
     end

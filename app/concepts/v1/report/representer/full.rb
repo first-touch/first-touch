@@ -9,9 +9,7 @@ module V1
           ::V1::PersonalProfile::Representer::Simplified.new(represented.user.personal_profile)
          }
         property :headline
-        property :report_data, getter:  -> (represented:, **) {
-          ::V1::ReportDatum::Representer::Full.new(represented.report_data.last)
-         }
+        property :meta_data
          property :player, getter:  -> (represented:, **) {
            if represented.player
             ::V1::PersonalProfile::Representer::Simplified.new(represented.player.personal_profile)
@@ -20,6 +18,12 @@ module V1
         property :price
         property :type_report
         property :status
+
+        property :attachments, getter:  -> (represented:, **) {
+          if represented.attachments
+           ::V1::Attachment::Representer::Index.new(represented.attachments)
+          end
+        }
 
       end
     end

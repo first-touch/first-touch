@@ -12,84 +12,85 @@
       <div class="row">
         <span class="col-sm-12">Report Name : {{report.headline}} </span>
       </div>
+      <!-- {{report.attachments}} -->
       <div class="reportDate">
         <div class="row">
-          <span class="col-sm-12">Create on {{report.report_data.created_at | moment}} </span>
+          <span class="col-sm-12">Create on {{report.created_at | moment}} </span>
         </div>
         <div class="row">
-          <span class="col-sm-12">Updated on {{report.report_data.updated_at | moment}} </span>
+          <span class="col-sm-12">Updated on {{report.updated_at | moment}} </span>
         </div>
       </div>
       <div class="metas">
         <div class="row">
           <label class="col-sm-4">Age </label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.userinfo.age}} </span>
+          <span class="col-sm-4"> {{report.meta_data.player_info.age}} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Approximate Height </label>
-          <span class="col-sm-4">{{report.report_data.meta_data.userinfo.weight}}</span>
+          <span class="col-sm-4">{{report.meta_data.player_info.weight}}</span>
         </div>
         <div class="row">
           <label class="col-sm-4">Approximate Weight </label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.userinfo.height}}</span>
+          <span class="col-sm-4"> {{report.meta_data.player_info.height}}</span>
         </div>
 
         <div class="row">
           <label class="col-sm-4">Nationality </label>
-          <span class="col-sm-4">{{getNationality(report.report_data.meta_data.userinfo.nationality_country_code)}} </span>
+          <span class="col-sm-4">{{getNationality(report.meta_data.player_info.nationality_country_code)}} </span>
         </div>
 
         <div class="row">
           <label class="col-sm-4">Based In</label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.userinfo.residence_country_code}}</span>
+          <span class="col-sm-4"> {{report.meta_data.player_info.residence_country_code}}</span>
         </div>
         <div class="row">
           <label class="col-sm-4">Language(s) </label>
-          <span class="col-sm-8"> <span v-for="language in report.report_data.meta_data.userinfo.languages" class="list" :key="language.id"> {{getLanguage(language)}} </span> </span>
+          <span class="col-sm-8"> <span v-for="language in report.meta_data.player_info.languages" class="list" :key="language.id"> {{getLanguage(language)}} </span> </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Position(s) </label>
-          <span class="col-sm-8"> <span v-for="position in report.report_data.meta_data.userinfo.playing_position" class="list" :key="position.id">{{position}}</span> </span>
+          <span class="col-sm-8"> <span v-for="position in report.meta_data.player_info.playing_position" class="list" :key="position.id">{{position}}</span> </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Preferred Foot </label>
-          <span class="col-sm-2"> {{report.report_data.meta_data.userinfo.preferred_foot == "R" ? "Right" : "Left"}} </span>
+          <span class="col-sm-2"> {{report.meta_data.player_info.preferred_foot == "R" ? "Right" : "Left"}} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Interested in Transfert </label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.transfert_interested}} </span>
+          <span class="col-sm-4"> {{report.meta_data.transfert_sum.transfert_interested}} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Availability for transfert</label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.transfert_availability }} </span>
+          <span class="col-sm-4"> {{report.meta_data.transfert_sum.transfert_availability }} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Transfert Budget </label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.transfert_budget}} </span>
+          <span class="col-sm-4"> {{report.meta_data.transfert_sum.transfert_budget}} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Interested in Loan</label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.loan_interested}} </span>
+          <span class="col-sm-4"> {{report.meta_data.transfert_sum.loan_interested}} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Availability for Loan</label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.loan_availability}} </span>
+          <span class="col-sm-4"> {{report.meta_data.transfert_sum.loan_availability}} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">End of Contract</label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.contract_end}} </span>
+          <span class="col-sm-4"> {{report.meta_data.transfert_sum.contract_end}} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Free agent</label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.free_agent}} </span>
+          <span class="col-sm-4"> {{report.meta_data.transfert_sum.free_agent}} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Agent Commission</label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.agent_commission}} </span>
+          <span class="col-sm-4"> {{report.meta_data.transfert_sum.agent_commission}} </span>
         </div>
         <div class="row">
           <label class="col-sm-4">Wage (SGD per year) </label>
-          <span class="col-sm-4"> {{report.report_data.meta_data.transfert_sum.wage}} </span>
+          <span class="col-sm-4"> {{report.meta_data.transfert_sum.wage}} </span>
         </div>
         <div>
           <label class="row col-sm-12">Analyzed Matches</label>
@@ -105,7 +106,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(match, index) in report.report_data.meta_data.analyzed_matches" v-bind:key="match.id">
+              <tr v-for="(match, index) in report.meta_data.analyzed_matches" v-bind:key="match.id">
                 <td class="index">
                   {{index}}
                 </td>
@@ -130,40 +131,40 @@
         </div>
         <div class="meta">
           <label class="row col-sm-12">Current Ability Overview</label>
-          <p class="row col-sm-12">{{report.report_data.meta_data.overview}} </p>
+          <p class="row col-sm-12">{{report.meta_data.overview}} </p>
         </div>
         <div class="meta">
           <label class="row col-sm-12">Physical Attribute(s)</label>
-          <p class="row col-sm-12"> {{report.report_data.meta_data.physical_attributes}} </p>
+          <p class="row col-sm-12"> {{report.meta_data.physical_attributes}} </p>
         </div>
         <div class="meta">
           <label class="row col-sm-12">Mental Attribute(s)</label>
-          <p class="row col-sm-12"> {{report.report_data.meta_data.mental_attributes}} </p>
+          <p class="row col-sm-12"> {{report.meta_data.mental_attributes}} </p>
         </div>
         <div class="meta">
           <label class="row col-sm-12">Technical Attribute(s)</label>
-          <p class="row col-sm-12"> {{report.report_data.meta_data.technical_attributes}} </p>
+          <p class="row col-sm-12"> {{report.meta_data.technical_attributes}} </p>
         </div>
         <div class="meta">
           <label class="row col-sm-12">Personality</label>
-          <p class="row col-sm-12"> {{report.report_data.meta_data.personality}}</p>
+          <p class="row col-sm-12"> {{report.meta_data.personality}}</p>
         </div>
         <div class="meta">
           <label class="row col-sm-12">Potential</label>
-          <p class="row col-sm-12"> {{report.report_data.meta_data.potential}} </p>
+          <p class="row col-sm-12"> {{report.meta_data.potential}} </p>
         </div>
         <div class="meta">
           <label class="row col-sm-12">Other Observations & Viewpoints To Note</label>
-          <p class="row col-sm-12"> {{report.report_data.meta_data.observations}} </p>
+          <p class="row col-sm-12"> {{report.meta_data.observations}} </p>
         </div>
         <div class="meta">
           <label class="row col-sm-12">Conclusion</label>
-          <p class="row col-sm-12"> {{report.report_data.meta_data.conclusion}} </p>
+          <p class="row col-sm-12"> {{report.meta_data.conclusion}} </p>
         </div>
         <div>
           <label class="row col-sm-12">Attachments</label>
           <div class="row col-sm-12">
-            <button v-for="attachment in report.report_data.attachments.attachments" :key="attachment.id" class="btn-info btn-attachments" @click="downloadFile(attachment.id, attachment.filename)"> {{attachment.filename}}</button>
+            <button v-if="report.attachments" v-for="attachment in report.attachments.attachments" :key="attachment.id" class="btn-info btn-attachments" @click="downloadFile(attachment.id, attachment.filename)"> {{attachment.filename}}</button>
 
           </div>
         </div>
