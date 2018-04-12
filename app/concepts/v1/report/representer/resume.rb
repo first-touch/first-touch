@@ -12,27 +12,33 @@ module V1
 
         property :created_at
         property :updated_at
-        property :user, getter:  -> (represented:, **) {
-          ::V1::PersonalProfile::Representer::Simplified.new(represented.user.personal_profile)
+        property :user, getter: lambda { |represented:, **|
+          ::V1::PersonalProfile::Representer::Simplified.new(
+            represented.user.personal_profile
+          )
         }
-        property :player, getter:  -> (represented:, **) {
+        property :player, getter: lambda { |represented:, **|
           if represented.player
-            ::V1::PersonalProfile::Representer::Simplified.new(represented.player.personal_profile)
+            ::V1::PersonalProfile::Representer::Simplified.new(
+              represented.player.personal_profile
+            )
           end
         }
-        property :orders_status, getter:  -> (represented:, **) {
+        property :orders_status, getter: lambda { |represented:, **|
           begin
             represented.orders_status
-          rescue
+          rescue StandardError
+            'N/A'
           end
-         }
-         property :orders_price, getter:  -> (represented:, **) {
+        }
+        property :orders_price, getter: lambda { |represented:, **|
           begin
             represented.orders_price
-          rescue
+          rescue StandardError
+            'N/A'
           end
-         }
-        property :meta_data, getter:  -> (represented:, **) {
+        }
+        property :meta_data, getter:  lambda { |represented:, **|
           ::V1::ReportMetaData::Representer::Resume.new(represented.meta_data)
         }
       end

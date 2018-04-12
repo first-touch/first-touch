@@ -4,12 +4,9 @@ module V1
       class Resume < Representable::Decorator
         include Representable::JSON
 
-        property :player_info, getter:  -> (represented:, **) {
-          if represented['player_info']
-            represented['player_info']
-          end
+        property :player_info, getter:  lambda { |represented:, **|
+          represented['player_info'] if represented['player_info']
         }
-
       end
     end
   end
