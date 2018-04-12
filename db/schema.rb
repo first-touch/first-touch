@@ -101,6 +101,24 @@ ActiveRecord::Schema.define(version: 20180410070030) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "competition_seasons", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "competition_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id"], name: "index_competition_seasons_on_competition_id"
+  end
+
+  create_table "competitions", force: :cascade do |t|
+    t.string "name"
+    t.integer "competition_type"
+    t.string "sponsor"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "nation"
+  end
+
   create_table "connections", force: :cascade do |t|
     t.integer "user_id"
     t.integer "connected_to_id"
@@ -290,6 +308,15 @@ ActiveRecord::Schema.define(version: 20180410070030) do
     t.index ["club_id"], name: "index_teams_on_club_id"
   end
 
+  create_table "teams_competitions", force: :cascade do |t|
+    t.bigint "team_id"
+    t.bigint "competition_season_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_season_id"], name: "index_teams_competitions_on_competition_season_id"
+    t.index ["team_id"], name: "index_teams_competitions_on_team_id"
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.datetime "created_at", null: false
@@ -316,6 +343,7 @@ ActiveRecord::Schema.define(version: 20180410070030) do
   add_foreign_key "career_entries", "users"
   add_foreign_key "club_users", "clubs"
   add_foreign_key "club_users", "users"
+  add_foreign_key "competition_seasons", "competitions"
   add_foreign_key "notes", "users"
   add_foreign_key "orders", "reports"
   add_foreign_key "orders", "users"
@@ -325,4 +353,6 @@ ActiveRecord::Schema.define(version: 20180410070030) do
   add_foreign_key "requests", "users"
   add_foreign_key "team_users", "teams"
   add_foreign_key "team_users", "users"
+  add_foreign_key "teams_competitions", "competition_seasons"
+  add_foreign_key "teams_competitions", "teams"
 end

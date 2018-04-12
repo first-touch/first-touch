@@ -11,7 +11,7 @@ set :rails_env, 'production'
 set :frontend_path, "#{release_path}/client"
 set :use_sudo, false
 
-set :repo_url, 'git@bitbucket.org:firsttouch/first-touch.git'
+set :repo_url, 'git@github.com:first-touch/first-touch.git'
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 set :pty, false

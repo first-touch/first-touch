@@ -91,25 +91,11 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables.scss';
-@import '~stylesheets/common_style';
-
-.sidenav-left {
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  .brand {
-    margin: 0 0 15px 0;
-  }
-  .profile {
-    margin: 15px 0;
-    display: flex;
-    flex: 1 0 200px;
-    flex-direction: column;
-    align-items: center;
-    * {
-      margin: 10px 0;
+  @import '~stylesheets/variables.scss';
+  @import '~stylesheets/common_style';
+  .sidenav-left {
+    .brand {
+      margin: 0 0 15px 0;
     }
     .img-fluid {
       max-width: 50%;
@@ -139,39 +125,8 @@
       &:hover {
         text-decoration: none;
       }
-    }
-  }
-
-  .nav-list {
-    margin: 15px 0 15px -20px;
-    display: flex;
-    flex-direction: column;
-
-    .nav-item {
-      margin-right: -20px;
-      .sub-nav {
-        max-height: 0;
-        overflow: hidden;
-        background-color: $main-text-color;
-        margin-left: 7px;
-        display: flex;
-        flex-direction: column;
-        .sub-nav-item {
-          padding: 10px 0 10px 20px;
-          font-weight: 300;
-          text-transform: uppercase;
-          &:not(:last-child) {
-            border-bottom: 1px solid $navbar-background-color;
-          }
-          &.active .router-link-active {
-            color: $main-header-color;
-          }
-          a {
-            color: #fff;
-            text-decoration: none;
-          }
-        }
-        transition: max-height 1s;
+      .img-fluid {
+        max-width: 50%;
       }
       .nav-item-inner {
         text-transform: uppercase;
@@ -214,13 +169,8 @@
         font-weight: 300;
         font-size: 0.9em;
       }
-      a:hover {
-        color: #fff;
-        text-decoration: none;
-      }
     }
   }
-}
 </style>
 
 <script>

@@ -30,6 +30,7 @@ import store from 'app/store';
 import VueRouter from 'vue-router';
 import './app/constants/filters';
 import 'stylesheets/landingpage.scss';
+import './app/constants/filters';
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 

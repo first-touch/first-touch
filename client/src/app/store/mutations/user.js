@@ -20,10 +20,18 @@ export default {
     state.user = Object.assign({}, state.user, { status: ASYNC_LOADING });
   },
   [ActionTypes.USER_SUCCESS] (state, user) {
-    state.user = Object.assign({}, state.user, {
-      status: ASYNC_SUCCESS,
-      value: user
-    });
+    state.user = Object.assign(
+      {},
+      state.user,
+      { status: ASYNC_SUCCESS, value: user }
+    );
+  },
+  [ActionTypes.USER_IMPORT_SUCCESS] (state, newUser) {
+    state.newUser = Object.assign(
+      {},
+      state.newUser,
+      { status: ASYNC_SUCCESS, value: newUser }
+    );
   },
   [ActionTypes.USER_IMPORT_SUCCESS] (state, newUser) {
     state.newUser = Object.assign(
