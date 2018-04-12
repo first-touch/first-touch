@@ -28,8 +28,6 @@ module Api
       def create
         result = ::V1::Report::Create.(params, current_user: current_user)
         if result.success?
-          report = Report.find(result['model'].id)
-          report_datum = ::V1::ReportDatum::Create.({meta_data: params['report_data'],report: report})
           response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
           render json: response[:data] , status: response[:status]
         else
@@ -39,15 +37,13 @@ module Api
         end
       end
 
-
       def upload_files
         if (params[:report_id])
           report =  @current_user.reports.find(params[:report_id])
-          report_datum =  report.report_data.last
           params['files'].each do |key|
             name = params['files'][key].original_filename
             path = FileUploadUtil.save_file(params['files'][key], report.id.to_s)
-            result = ::V1::Attachment::Create.({url:path, filename: name, report_data: report_datum},current_user: current_user)
+            result = ::V1::Attachment::Create.({url:path, filename: name, report: report},current_user: current_user)
           end
           render json: nil , status: :ok
         end

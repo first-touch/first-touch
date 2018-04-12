@@ -7,7 +7,7 @@ module V1
         property :id
         property :user_id
         property :headline
-        property :report_data, getter:  -> (represented:, **) { represented.report_data.last }
+        property :meta_data
         property :price
         property :type_report
 

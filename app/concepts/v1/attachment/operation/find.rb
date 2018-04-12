@@ -6,9 +6,9 @@ module V1
       def setup_model!(options, params:, current_user:, **)
         attachments = []
         if is_scout? current_user
-          attachments = ::Attachment.joins(:report_data => {:report => :user}).where("attachments.id" => params[:attachment_id], "reports.user_id" => current_user.id).select("distinct attachments.*")
+          attachments = ::Attachment.joins(:report => :user).where("attachments.id" => params[:attachment_id], "reports.user_id" => current_user.id).select("distinct attachments.*")
         elsif is_club? current_user
-          attachments = ::Attachment.joins(:report_data => {:report => {:orders => :user}}).where("attachments.id" => params[:attachment_id], "orders.customer_id" => current_user.id, "orders.status" => 'completed').select("distinct attachments.*")
+          attachments = ::Attachment.joins(:report => {:orders => :user}).where("attachments.id" => params[:attachment_id], "orders.customer_id" => current_user.id, "orders.status" => 'completed').select("distinct attachments.*")
         end
         options['model'] = attachments.first
       end

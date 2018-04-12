@@ -5,6 +5,7 @@ module V1
         property :headline
         property :status
         property :price
+        property :meta_data
 
         validate :status_is_registerable
 
