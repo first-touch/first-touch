@@ -3,6 +3,7 @@ require './lib/payment_util'
 module Api
   module V1
     class OrdersController < Api::V1::BaseController
+      # @Todo will change once stripe is set
       def create
         payment = PaymentUtil.made_payment(order_params)
         if payment

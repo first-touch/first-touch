@@ -11,8 +11,8 @@ module V1
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
 
-      def find_report!(options, params:, current_user:, **)
-        options['report'] = report = ::Report.find(params[:report_id])
+      def find_report!(options, params:, **)
+        options['report'] = ::Report.find(params[:report_id])
         options['model.class'] = ::Report
       end
 

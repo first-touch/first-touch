@@ -3,23 +3,14 @@ module Api
     class RequestsController < Api::V1::BaseController
       def index
         result = ::V1::Request::Index.(params, current_user: current_user)
-        if result.success?
-          response = FirstTouch::Endpoint.(result, ::V1::Request::Representer::Index)
-          render json: response[:data], status: response[:status]
-        else
-          render json: { error: 'Not Found' }, status: :not_found
-        end
+        response = FirstTouch::Endpoint.(result, ::V1::Request::Representer::Index)
+        render json: response[:data], status: response[:status]
       end
 
       def show
         result = ::V1::Request::Show.(params, current_user: current_user)
-        if result.success?
-          response = FirstTouch::Endpoint.(result, ::V1::Request::Representer::Full)
-          render json: response[:data], status: response[:status]
-        else
-          render json: {
-          }, status: :unauthorized
-        end
+        response = FirstTouch::Endpoint.(result, ::V1::Request::Representer::Full)
+        render json: response[:data], status: response[:status]
       end
 
       def create
@@ -27,11 +18,12 @@ module Api
         if result.success?
           response = FirstTouch::Endpoint.(result, ::V1::Request::Representer::Full)
           render json: response[:data], status: response[:status]
+        elsif result['result.policy.failure'] == :unauthorized
+          render json: { error: 'Unauthorized' }, status: :unauthorized
         else
-          errors = result['contract.default'].blank? ?
-            ['sometings is wrong with your request'] :
-            result['contract.default'].errors.full_messages
-          render json: { success: false, errors: errors }, status: :bad_request
+          render json: {
+            error: result['contract.default'].errors.full_messages
+          }, status: :unprocessable_entity
         end
       end
 
@@ -40,11 +32,11 @@ module Api
         if result.success?
           response = FirstTouch::Endpoint.(result, ::V1::Request::Representer::Full)
           render json: response[:data], status: response[:status]
+        elsif result['contract.default'].blank?
+          render json: { error: result['result.model.errors'] }, status: :unprocessable_entity
         else
           render json: {
-            error: result['contract.default'].blank? ?
-              'Sorry but something went wrong' :
-              result['contract.default'].errors.full_messages
+            error: result['contract.default'].errors.full_messages
           }, status: :unprocessable_entity
         end
       end
