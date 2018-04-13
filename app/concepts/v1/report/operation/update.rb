@@ -13,6 +13,7 @@ module V1
       private
 
       def find_model!(options, params:, current_user:, **)
+        options['model.class'] = ::Report
         options['model'] = current_user.reports.find_by(id: params[:id])
       end
 

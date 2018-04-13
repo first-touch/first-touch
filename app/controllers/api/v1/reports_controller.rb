@@ -20,6 +20,8 @@ module Api
         if result.success?
           response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
           render json: response[:data], status: response[:status]
+        elsif result['result.policy.failure'] == :unauthorized
+          render json: { error: 'Unauthorized' }, status: :unauthorized
         else
           render json: {
             error: result['contract.default'].errors.full_messages
@@ -56,9 +58,11 @@ module Api
         if result.success?
           response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
           render json: response[:data], status: response[:status]
+        elsif result['contract.default'].blank?
+          render json: { error: result['result.model.errors'] }, status: :unprocessable_entity
         else
           render json: {
-            error: result['contract.default'].blank? ? 'Sorry but something went wrong' : result['contract.default'].errors.full_messages
+            error: result['contract.default'].errors.full_messages
           }, status: :unprocessable_entity
         end
       end
