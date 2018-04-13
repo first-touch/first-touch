@@ -1,5 +1,5 @@
 <template>
-  <vselect v-model="model" :onChange="update" :options="countries" />
+  <vselect v-model="model" :onChange="update" :options="countries" class="ft-input"/>
 </template>
 
 <script>

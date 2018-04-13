@@ -1,5 +1,5 @@
 <template>
-  <vselect v-model="model" :onChange="update" multiple :options="options" />
+  <vselect v-model="model" :onChange="update" multiple :options="options" class="ft-input"/>
 </template>
 <script>
 import vSelect from 'vue-select';

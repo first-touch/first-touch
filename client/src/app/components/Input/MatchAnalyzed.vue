@@ -1,5 +1,5 @@
 <template>
-  <div class="analyzed_matches ">
+  <div class="analyzed_matches ft-input">
     <div class="row header col-md-12" :class="type">
       <div class="remove" v-if="!readonly">
       </div>

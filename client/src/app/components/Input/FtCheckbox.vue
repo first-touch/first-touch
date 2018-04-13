@@ -1,5 +1,5 @@
 <template>
-  <div class="input_wrapper">
+  <div class="input_wrapper ft-input">
 
     <section title=".slideOne">
       <div class="slideOne">

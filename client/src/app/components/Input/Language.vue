@@ -1,5 +1,5 @@
 <template>
-  <vselect v-model="model" multiple :onChange="update" :options="languages" />
+  <vselect v-model="model" multiple :onChange="update" :options="languages" class="ft-input" />
 </template>
 
 

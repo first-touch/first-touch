@@ -1,5 +1,5 @@
 <template>
-  <div class="form-group row">
+  <div class="form-group row ft-input">
     <div class="form-group row attachments-div col-md-6">
       <label class="col-md-12 col-form-label">Add Attachments:
         <input type="file" name="files" ref="myFiles" @change="update" multiple class="col-md-4">

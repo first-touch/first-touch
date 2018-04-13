@@ -1,33 +1,59 @@
 <template>
-  <div class="wrapper">
+    <div class="wrapper">
     <div class="header-wrapper">
       <div class="header col-md-10">
         <div class="img-container">
           <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
         </div>
         <div class="info col-md-8">
-          <h2 class="title" :title="report.headline">{{report.headline}}</h2>
+          <h2 class="title" :title="request.headline">{{request.headline}}</h2>
           <p class="extra">
-            <span class="target" v-if="report.type_report =='player'">{{report.player.first_name}} {{report.player.last_name}} </span>
-            <span class="target" v-if="report.type_report =='team'"> Club Name</span>
-            <span>{{report.updated_at | moment}}</span>
+            <span class="target" v-if="request.type_request =='player'">{{request.player.first_name}} {{request.player.last_name}} </span>
+            <span class="target" v-if="request.type_request =='team'"> Club Name</span>
+            <span>{{request.updated_at | moment}}</span>
           </p>
         </div>
       </div>
       <div class="widget">
-        <router-link :to="`/report/view/${report.id}`">
+        <router-link :to="`/request/view/${request.id}`">
           <button class="btn-round">View</button>
         </router-link>
-        <a v-if="report.status == 'publish'" @click="UpdateReport('private',report.id)">
+        <a v-if="request.status == 'publish'" @click="Updaterequest('private',request.id)">
           <button class="btn-round">Unpublish</button>
         </a>
-        <a v-if="report.status == 'private'" @click="UpdateReport('publish',report.id)">
+        <a v-if="request.status == 'private'" @click="Updaterequest('publish',request.id)">
           <button class="btn-round">Publish</button>
         </a>
       </div>
     </div>
+    <div class="newResult col col-md-12" v-if="false" v-for="request in listRequest" :key="request.id">
+      <p class="col col-md-2">{{request.id | requestId(request.type_request)}} </p>
+      <p class="col col-md-2">
+        <span class="action col-md-6 ">
+          <router-link :to="`/club/request/${request.id}`">Edit</router-link>
+        </span>
+        <span class="action col-md-6 ">
+          <a href='#' @click="updateStatus(request.id,'deleted')">Delete</a>
+        </span>
+      </p>
+      <p class="col col-md-2">{{request.type_request}} Job Request</p>
+      <p class="col col-md-2">{{request.created_at | moment}}</p>
+      <p class="col col-md-2">
+        <span class="action col-md-6 " v-if="request.status == 'publish'">Active</span>
+        <span class="action col-md-6 " v-if="request.status == 'private'">Inactive</span>
+        <span v-if="request.status == 'private'" class="action col-md-6 ">
+          <a href="#" @click="updateStatus(request.id,'publish')">Active</a>
+        </span>
+        <span v-if="request.status == 'publish'" class="action col-md-6 ">
+          <a href="#" @click="updateStatus(request.id,'private')">Desactivate</a>
+        </span>
+      </p>
+      <p class="col col-md-2">WIP</p>
+      <p class="col col-md-2">WIP</p>
+    </div>
   </div>
 </template>
+
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
 
@@ -95,7 +121,7 @@
 </style>
 <script>
   export default {
-    name: 'ReportItem',
-    props: ['report', 'UpdateReport']
+    name: 'RequestItem',
+    props: ['request', 'UpdateRequest'],
   };
 </script>

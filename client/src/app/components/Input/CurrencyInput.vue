@@ -1,5 +1,5 @@
 <template>
-  <div class="autonumeric input-group">
+  <div class="autonumeric input-group ft-input">
     <div class="input-group-addon currency">{{model.currency | currency}}</div>
     <autonumeric class="form-control" v-model="model.value" :options="{
          digitGroupSeparator: '.',
@@ -8,13 +8,13 @@
          roundingMethod: 'U',
          minimumValue: '0'
      }"></autonumeric>
-
+    <slot />
     <div class="input-group-addon">
-       <select class="currency-selector form-control" v-model="model.currency">
-      <option value="USD" data-placeholder="0.00">USD</option>
-      <option value="EUR" data-placeholder="0.00">EUR</option>
-      <option value="GBP" data-placeholder="0.00">GBP</option>
-      <option value="SGD" data-placeholder="0.00">SGD</option>
+      <select class="currency-selector form-control" v-model="model.currency">
+        <option value="USD" data-placeholder="0.00">USD</option>
+        <option value="EUR" data-placeholder="0.00">EUR</option>
+        <option value="GBP" data-placeholder="0.00">GBP</option>
+        <option value="SGD" data-placeholder="0.00">SGD</option>
       </select>
     </div>
   </div>
@@ -66,9 +66,12 @@ export default {
       model: this.value
     };
   },
-  methods: {
-    update() {
-      this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
+  watch: {
+    model: {
+      handler: function(val, oldVal) {
+        this.$emit('update');
+      },
+      deep: true
     }
   }
 };

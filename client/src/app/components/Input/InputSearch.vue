@@ -1,12 +1,16 @@
 <template>
-  <div>
+  <div class="ft-input">
     <div class="col-md-12 inner">
       <input name="team" autocomplete="off" class="search form-control" v-model="search" type="text" v-on:keyup="onkeyup(type,search)"
         @blur="blur" />
       <div class="search-results">
-        <div v-for="(value, key, index) in searchResult.value" :key="index" @mousedown="setvalue(value)">
+        <div v-for="(value, index) in results" :key="index" @mousedown="setvalue(searchResult[index])">
           <img src="https://unsplash.it/50/50" class="rounded-circle img-fluid">
-          <p> {{value.display_name}}</p>
+          <p> {{value}}</p>
+        </div>
+        <div v-if="taggable && allowtag" @mousedown="setvalue('new')">
+          <img src="https://unsplash.it/50/50" class="rounded-circle img-fluid">
+          <p> {{search}} (Non existing)</p>
         </div>
       </div>
     </div>
@@ -60,13 +64,19 @@
   } from 'vuex';
   export default {
     name: 'InputSearch',
-    props: ['onkeyup', 'searchResult', 'type'],
+    props: ['onkeyup', 'searchResult', 'type','taggable'],
     data() {
       return {
         search: '',
         id: '',
         value: ''
       };
+    },
+    computed:{
+      results: function() {return this.searchResult.value.map(r => r.display_name)},
+      allowtag: function() {
+        return this.search!= ''
+      }
     },
     methods: {
       ...mapActions(['flushSearchResults']),
