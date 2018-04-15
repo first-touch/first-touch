@@ -91,64 +91,63 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/variables.scss';
-  @import '~stylesheets/common_style';
-  .sidenav-left {
-    .brand {
-      margin: 0 0 15px 0;
+@import '~stylesheets/variables.scss';
+@import '~stylesheets/common_style';
+.sidenav-left {
+  .brand {
+    margin: 0 0 15px 0;
+  }
+  .img-fluid {
+    max-width: 50%;
+  }
+
+  .profile-name {
+    text-transform: uppercase;
+    color: $main-header-color;
+    font-weight: 300;
+    font-size: 1.2em;
+  }
+  .profile-club,
+  .profile-role {
+    color: $secondary-text-color;
+    font-weight: 300;
+    text-transform: capitalize;
+    font-size: 1em;
+  }
+  .profile-edit-button {
+    border: 1px solid $secondary-text-color;
+    border-radius: 9999px;
+    background-color: transparent;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    padding: 5px 20px;
+    color: $secondary-text-color;
+    &:hover {
+      text-decoration: none;
     }
     .img-fluid {
       max-width: 50%;
     }
-
-    .profile-name {
+    .nav-item-inner {
       text-transform: uppercase;
+      font-weight: 300;
+      padding: 10px 0 10px 20px;
+      border-top: 1px solid $main-text-color;
+      color: $main-text-color;
+    }
+  }
+
+  .nav-item:last-child .nav-item-inner {
+    border-bottom: 1px solid $main-text-color;
+  }
+
+  .nav-item.active {
+    .nav-item-inner {
+      border-left: 7px solid $main-header-color;
       color: $main-header-color;
-      font-weight: 300;
-      font-size: 1.2em;
     }
-    .profile-club,
-    .profile-role {
-      color: $secondary-text-color;
-      font-weight: 300;
-      text-transform: capitalize;
-      font-size: 1em;
-    }
-    .profile-edit-button {
-      border: 1px solid $secondary-text-color;
-      border-radius: 9999px;
-      background-color: transparent;
-      text-transform: uppercase;
-      font-size: 0.85em;
-      padding: 5px 20px;
-      color: $secondary-text-color;
-      &:hover {
-        text-decoration: none;
-      }
-      .img-fluid {
-        max-width: 50%;
-      }
-      .nav-item-inner {
-        text-transform: uppercase;
-        font-weight: 300;
-        padding: 10px 0 10px 20px;
-        border-top: 1px solid $main-text-color;
-        color: $main-text-color;
-      }
-    }
-
-    .nav-item:last-child .nav-item-inner {
-      border-bottom: 1px solid $main-text-color;
-    }
-
-    .nav-item.active {
-      .nav-item-inner {
-        border-left: 7px solid $main-header-color;
-        color: $main-header-color;
-      }
-      .sub-nav {
-        max-height: 400px;
-      }
+    .sub-nav {
+      max-height: 400px;
     }
   }
 }
@@ -171,6 +170,7 @@
       }
     }
   }
+}
 </style>
 
 <script>
@@ -182,19 +182,29 @@ export default {
   data() {
     return {
       tab: [
-        ['channel', 'profile', 'scouting', 'calendar', 'messages', 'notes'].indexOf(this.page) >
-          -1 || !this.page,
+        [
+          'channel',
+          'profile',
+          'scouting',
+          'calendar',
+          'messages',
+          'notes',
+        ].indexOf(this.page) > -1 || !this.page,
         false,
         false,
         false,
-        false
-      ]
+        false,
+      ],
     };
   },
   methods: {
     onTabClick(idx) {
-      this.tab = [...this.tab.slice(0, idx), !this.tab[idx], ...this.tab.slice(idx + 1)];
-    }
-  }
+      this.tab = [
+        ...this.tab.slice(0, idx),
+        !this.tab[idx],
+        ...this.tab.slice(idx + 1),
+      ];
+    },
+  },
 };
 </script>
