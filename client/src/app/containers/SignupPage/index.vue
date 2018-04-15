@@ -48,7 +48,7 @@
                 <option disabled value="" selected>Date</option>
                 <option v-for="d in 31" :key="d" :value="d">{{ d }}</option>
               </select>
-              <input type="number" v-model="year" class="form-control col-md-6" placeholder="Year" />
+              <input type="number" v-model="year" class="form-control col-md-6" placeholder="Year" :min="currentYear - 100" :max="currentYear" />
             </div>
           </fieldset>
           <fieldset class="form-group col-md-12">
@@ -209,6 +209,7 @@ export default {
       item: null,
       searchText: '',
       error: null,
+      currentYear: new Date().getUTCFullYear(),
     };
   },
   methods: {
