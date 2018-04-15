@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="md" variant="dark" type="dark" :sticky="sticky" id="landing-navbar">
+  <b-navbar toggleable="md" variant="dark" type="dark" :sticky="sticky" :fixed="fixed" id="landing-navbar">
     <b-nav-toggle target="ft-nav-collapse" />
     <router-link class="navbar-brand" to="/">
       <img src="/images/landing-page/ft-navbar-logo.png" alt="Ft logo">
