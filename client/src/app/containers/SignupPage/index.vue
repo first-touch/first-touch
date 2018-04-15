@@ -78,7 +78,7 @@
                 :items="clubs"
                 :component-item="template"
                 @update-items="updateItems"
-                :min-len="1"
+                :min-len="0"
                 :auto-select-one-item="false"
                 :input-attrs="{disabled: countries.length === 0 || club_country_code === ''}"
                 />
@@ -224,7 +224,6 @@ export default {
       } else if (!this.role_name) {
         return this.$set(this, 'error', 'Please choose a role!');
       } else if (!this.tccheck) {
-        console.log(this.tccheck);
         return this.$set(
           this,
           'error',
@@ -263,10 +262,11 @@ export default {
     },
     updateItems(text) {
       this.$set(this, 'searchText', text);
+      if (!text) return this.$set(this, 'clubs', []);
       fetch(`/api/v1/clubs/search?country=${this.club_country_code}&q=${text}`)
         .then(res => res.status === 200 && res.json())
         .then(({ clubs }) => {
-          this.$set(this, 'clubs', clubs);
+          this.$set(this, 'clubs', clubs.slice(0, 3));
         });
     },
     getLabel(item) {
