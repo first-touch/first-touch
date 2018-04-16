@@ -29,7 +29,7 @@ module Api
         end
       end
 
-      # @Todo to be change once s3 is set
+      # TODO: to be change once s3 is set
       def upload_files
         if params[:report_id]
           report = @current_user.reports.find(params[:report_id])
@@ -42,7 +42,7 @@ module Api
         end
       end
 
-      # @Todo to be change once s3 is set
+      # TODO: to be change once s3 is set
       def download
         result = ::V1::Attachment::Find.(params, current_user: current_user)
         attachment = result['model']
