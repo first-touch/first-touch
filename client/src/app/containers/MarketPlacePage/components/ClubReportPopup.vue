@@ -9,20 +9,20 @@
         <p class="col col-sm-12">Report Id: {{report.id | reportId('team')}} </p>
       </div>
     </div>
-    <div class="infos" v-if="report.report_data.meta_data">
+    <div class="infos" v-if="report.meta_data">
       <div class="row">
         <label class="col-sm-6">Team Name</label>
         <p class="col col-sm-4"> WFI </p>
       </div>
       <div class="row">
         <label class="col-sm-6">Formation(s) Used & Playing Style </label>
-        <p class="col col-sm-4"> {{report.report_data.meta_data.formation}} </p>
+        <p class="col col-sm-4"> {{report.meta_data.formation}} </p>
       </div>
       <div class="row">
         <label class="col-sm-6">Main threats </label>
-        <p class="col col-sm-4"> {{report.report_data.meta_data.main_threats}} </p>
+        <p class="col col-sm-4"> {{report.meta_data.main_threats}} </p>
       </div>
-      <div class="row" v-for="attachment in report.report_data.attachments.attachments" :key="attachment.id">
+      <div class="row" v-for="attachment in report.attachments.attachments" :key="attachment.id">
         <label class="col-sm-6">Attachment</label>
         <p class="col col-sm-4"> {{attachment.filename}} </p>
       </div>

@@ -14,7 +14,7 @@
           <basicform class="report-type-form" v-if="!showForm" :prepateReport="prepateReport" />
           <div v-if="showForm">
             <keep-alive>
-              <playerreportform v-if="report_type == 'player' && status == '' " :userinfo="userinfo" :submitReport="customCreateReport" :cancelAction="cancel"
+              <playerreportform v-if="report_type == 'player' && status == '' " :player_info="player_info" :submitReport="customCreateReport" :cancelAction="cancel"
               />
               <clubreportform v-if="report_type == 'team' && status == '' " :submitReport="customCreateReport" :cancelAction="cancel"/>
             </keep-alive>
@@ -88,7 +88,7 @@
     },
     computed: {
       ...mapGetters(['report', 'searchResult', 'profile', 'filesUpload']),
-      userinfo() {
+      player_info() {
         return this.profile.status === ASYNC_SUCCESS ? this.profile.value.personal_profile : {};
       }
     },

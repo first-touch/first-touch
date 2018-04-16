@@ -69,7 +69,7 @@
         </div>
       </div>
       <div v-if="report">
-        <div class="form-group row update-attachments" v-for="attachment in report.report_data.attachments.attachments" :key="attachment.id">
+        <div class="form-group row update-attachments" v-for="attachment in report.attachments.attachments" :key="attachment.id">
           <label class="col-sm-2">Attachment</label>
           <div class="col col-sm-10">
             <p :class="[{ 'removed' : remove_attachment[attachment.id] }, 'filename' ,'col col-sm-7']" :title="attachment.filename">{{attachment.filename}} </p>
@@ -223,7 +223,7 @@ export default {
       var report = {
         headline: this.headline,
         price: this.price,
-        report_data: this.meta_data,
+        meta_data: this.meta_data,
         remove_attachment: this.remove_attachment
       };
       this.submitReport(report, this.$refs.myFiles.files);
@@ -237,7 +237,7 @@ export default {
   },
   mounted () {
     if (this.report) {
-      this.meta_data = this.report.report_data.meta_data;
+      this.meta_data = this.report.meta_data;
       this.price = this.report.price;
       this.headline = this.report.headline;
     }

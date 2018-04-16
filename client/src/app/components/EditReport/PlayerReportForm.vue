@@ -12,49 +12,49 @@
         <div class="row">
           <label class="col-sm-2 col-form-label">Age</label>
           <div class="col-sm-10">
-            <input type="number" class="col-sm-4" v-model="meta_data.userinfo.age">
+            <input type="number" class="col-sm-4" v-model="meta_data.player_info.age">
           </div>
         </div>
         <div class="row">
           <label class="col-sm-2 col-form-label">Approximate Height (cm)</label>
           <div class="col-sm-10">
-            <input type="number" class="col-sm-4" v-model="meta_data.userinfo.height">
+            <input type="number" class="col-sm-4" v-model="meta_data.player_info.height">
           </div>
         </div>
         <div class="row">
           <label class="col-sm-2 col-form-label">Approximate Weight (kg)</label>
           <div class="col-sm-10">
-            <input type="number" class="col-sm-4" v-model="meta_data.userinfo.weight">
+            <input type="number" class="col-sm-4" v-model="meta_data.player_info.weight">
           </div>
         </div>
         <div class="row">
           <label class="col-sm-2 col-form-label">Nationality</label>
           <div class="col-sm-10">
-            <countryselect :value="meta_data.userinfo.nationality_country_code" v-on:update:val="meta_data.userinfo.nationality_country_code = $event"  />
+            <countryselect :value="meta_data.player_info.nationality_country_code" v-on:update:val="meta_data.player_info.nationality_country_code = $event"  />
           </div>
         </div>
         <div class="row">
           <label class="col-sm-2 col-form-label">Based In</label>
           <div class="col-sm-10">
-            <countryselect :value="meta_data.userinfo.residence_country_code"  v-on:update:val="meta_data.userinfo.residence_country_code = $event" />
+            <countryselect :value="meta_data.player_info.residence_country_code"  v-on:update:val="meta_data.player_info.residence_country_code = $event" />
           </div>
         </div>
         <div class="row">
           <label class="col-sm-2 col-form-label">Language</label>
           <div class="col-sm-10">
-            <language class="col-sm-12" :value="meta_data.userinfo.languages" v-on:update:val="meta_data.userinfo.languages = $event"/>
+            <language class="col-sm-12" :value="meta_data.player_info.languages" v-on:update:val="meta_data.player_info.languages = $event"/>
           </div>
         </div>
         <div class="row">
           <label class="col-sm-2 col-form-label">Position</label>
           <div class="col-sm-10">
-            <playerposition class="col-sm-12" :value="meta_data.userinfo.playing_position" v-on:update:val="meta_data.userinfo.playing_position = $event" />
+            <playerposition class="col-sm-12" :value="meta_data.player_info.playing_position" v-on:update:val="meta_data.player_info.playing_position = $event" />
           </div>
         </div>
         <div class="row">
           <label class="col-sm-2 col-form-label">Preferred Foot</label>
           <div class="col-sm-10">
-            <preferredfoot :value="meta_data.userinfo.preferred_foot"  v-on:update:val="meta_data.userinfo.preferred_foot = $event" />
+            <preferredfoot :value="meta_data.player_info.preferred_foot"  v-on:update:val="meta_data.player_info.preferred_foot = $event" />
           </div>
         </div>
       </div>
@@ -189,7 +189,7 @@
       </div>
     </div>
     <div v-if="report">
-      <div class="form-group row update-attachments" v-for="attachment in report.report_data.attachments.attachments" :key="attachment.id">
+      <div class="form-group row update-attachments" v-for="attachment in report.attachments.attachments" :key="attachment.id">
         <label class="col-sm-2">Attachment</label>
         <div class="col col-sm-6">
           <p v-bind:class="[{ 'removed' : remove_attachment[attachment.id] }]">{{attachment.filename}}</p>
@@ -315,11 +315,11 @@ export default {
     language: Language,
     preferredfoot: PreferredFoot
   },
-  props: ['userinfo', 'submitReport', 'reportStatus', 'report','cancelAction'],
+  props: ['player_info', 'submitReport', 'reportStatus', 'report','cancelAction'],
   data () {
     return {
       meta_data: {
-        userinfo: {
+        player_info: {
           nationality_country_code: '',
           languages: [],
           playing_position: [],
@@ -341,31 +341,31 @@ export default {
       },
       price: 0,
       headline: '',
-      edit_mode: !!this.report,
+      edit_mode: !this.report,
       files: [],
       remove_attachment: {}
     };
   },
   watch: {
-    userinfo () {
-      if (this.userinfo.birthday) {
-        var birthday = new Date(this.userinfo.birthday);
+    player_info () {
+      if (this.player_info.birthday) {
+        var birthday = new Date(this.player_info.birthday);
         var ageDifMs = Date.now() - birthday.getTime();
         var ageDate = new Date(ageDifMs); // miliseconds from epoch
-        this.meta_data.userinfo.age = Math.abs(ageDate.getUTCFullYear() - 1970);
-        this.meta_data.userinfo.weight = this.userinfo.weight;
-        this.meta_data.userinfo.height = this.userinfo.height;
-        this.meta_data.userinfo.preferred_foot = this.userinfo.preferred_foot;
-        this.meta_data.userinfo.playing_position = [];
-        if (this.userinfo.playing_position) {
-          this.meta_data.userinfo.playing_position = JSON.parse(this.userinfo.playing_position);
+        this.meta_data.player_info.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+        this.meta_data.player_info.weight = this.player_info.weight;
+        this.meta_data.player_info.height = this.player_info.height;
+        this.meta_data.player_info.preferred_foot = this.player_info.preferred_foot;
+        this.meta_data.player_info.playing_position = [];
+        if (this.player_info.playing_position) {
+          this.meta_data.player_info.playing_position = JSON.parse(this.player_info.playing_position);
         }
       }
     }
   },
   mounted () {
     if (this.report) {
-      this.meta_data = this.report.report_data.meta_data;
+      this.meta_data = this.report.meta_data;
       this.price = this.report.price;
       this.headline = this.report.headline;
     }
@@ -386,7 +386,7 @@ export default {
       var report = {
         headline: this.headline,
         price: this.price,
-        report_data: this.meta_data,
+        meta_data: this.meta_data,
         remove_attachment: this.remove_attachment
       };
       this.submitReport(report, this.$refs.myFiles.files);

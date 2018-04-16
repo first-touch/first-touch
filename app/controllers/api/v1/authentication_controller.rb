@@ -1,9 +1,9 @@
 module Api::V1
   class AuthenticationController < Api::V1::BaseController
-    skip_before_action :authenticate_request, only: [:authenticate, :validate]
+    skip_before_action :authenticate_request, only: %i[authenticate validate]
 
     def authenticate
-      command = AuthenticateUser.call(auth_params[:email], auth_params[:password])
+      command = AuthenticateUser.(auth_params[:email], auth_params[:password])
 
       if command.success?
         render json: { auth_token: command.result }
@@ -22,13 +22,13 @@ module Api::V1
     end
 
     def validate
-      token_expired = ValidateToken.call(request.headers).result
+      token_expired = ValidateToken.(request.headers).result
       if token_expired
-        current_user = AuthorizeApiRequest.call(request.headers).result
+        current_user = AuthorizeApiRequest.(request.headers).result
         if current_user
           new_token = JsonWebToken.encode(user_id: current_user.id,
-                              digest: current_user.password_digest,
-                              last_logout: current_user.last_logout_at.to_i)
+                                          digest: current_user.password_digest,
+                                          last_logout: current_user.last_logout_at.to_i)
           render json: { auth_token: new_token }
         else
           render json: { error: 'Not Authorized' }, status: :unauthorized

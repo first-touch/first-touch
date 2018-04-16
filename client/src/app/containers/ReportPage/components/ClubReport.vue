@@ -8,49 +8,49 @@
     </div>
     <div class="reportDate">
       <div class="row">
-        <span class="col-sm-12">Create on {{report.report_data.created_at}} </span>
+        <span class="col-sm-12">Create on {{report.created_at}} </span>
       </div>
       <div class="row">
-        <span class="col-sm-12">Updated on {{report.report_data.updated_at}} </span>
+        <span class="col-sm-12">Updated on {{report.updated_at}} </span>
       </div>
     </div>
     <div class="metas">
       <div>
         <label class="row col-sm-12">Formations(s) Used & playing Style</label>
-        <p class="row col-sm-12"> {{report.report_data.meta_data.formation}} </p>
+        <p class="row col-sm-12"> {{report.meta_data.formation}} </p>
       </div>
       <div>
         <label class="row col-sm-12">Attacking Organisation & Transition After winnig possession</label>
-        <p class="row col-sm-12"> {{report.report_data.meta_data.attacking_organisation}}  </p>
+        <p class="row col-sm-12"> {{report.meta_data.attacking_organisation}}  </p>
       </div>
       <div>
         <label class="row col-sm-12">Defensive Organisation & Transition After losing possession</label>
-        <p class="row col-sm-12"> {{report.report_data.meta_data.defensive_organisation}}  </p>
+        <p class="row col-sm-12"> {{report.meta_data.defensive_organisation}}  </p>
       </div>
       <div>
         <label class="row col-sm-12">Set Plays - For</label>
-        <p class="row col-sm-12"> {{report.report_data.meta_data.setplays_for}} </p>
+        <p class="row col-sm-12"> {{report.meta_data.setplays_for}} </p>
       </div>
       <div>
         <label class="row col-sm-12">Set Plays - Against</label>
-        <p class="row col-sm-12"> {{report.report_data.meta_data.setplays_against}}  </p>
+        <p class="row col-sm-12"> {{report.meta_data.setplays_against}}  </p>
       </div>
       <div>
         <label class="row col-sm-12">Main Threats</label>
-        <p class="row col-sm-12"> {{report.report_data.meta_data.main_threats}}  </p>
+        <p class="row col-sm-12"> {{report.meta_data.main_threats}}  </p>
       </div>
       <div>
         <label class="row col-sm-12">Others Observations & Viewpoint To Note</label>
-        <p class="row col-sm-12"> {{report.report_data.meta_data.observations}}  </p>
+        <p class="row col-sm-12"> {{report.meta_data.observations}}  </p>
       </div>
       <div>
         <label class="row col-sm-12">Conclusion</label>
-        <p class="row col-sm-12"> {{report.report_data.meta_data.conclusions}}  </p>
+        <p class="row col-sm-12"> {{report.meta_data.conclusions}}  </p>
       </div>
         <div>
           <label class="row col-sm-12">Attachments</label>
           <div class="row col-sm-12">
-            <button v-for="attachment in report.report_data.attachments.attachments" :key="attachment.id" class="btn-info btn-attachments" @click="downloadFile(attachment.id, attachment.filename)"> {{attachment.filename}}</button>
+            <button v-for="attachment in report.attachments.attachments" :key="attachment.id" class="btn-info btn-attachments" @click="downloadFile(attachment.id, attachment.filename)"> {{attachment.filename}}</button>
           </div>
         </div>
     </div>
