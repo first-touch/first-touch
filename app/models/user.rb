@@ -43,7 +43,7 @@ class User < ApplicationRecord
   has_many :reports
   has_many :orders
 
-  # @TODO put this in team when they are ready
+  # Todo: put this in team when they are ready
   has_many :requests
   has_many :reports_buy, foreign_key: :customer_id, class_name: 'Order'
   # /TODO
@@ -156,6 +156,6 @@ class User < ApplicationRecord
   end
 
   def scout?
-    roles.find_by name: 'scout'
+    !roles.find_by(name: 'scout').blank?
   end
 end

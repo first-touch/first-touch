@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 20180411094531) do
     t.text "filename"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "report_id"
+    t.index ["report_id"], name: "index_attachments_on_report_id"
   end
 
   create_table "awards", force: :cascade do |t|
@@ -242,8 +244,6 @@ ActiveRecord::Schema.define(version: 20180411094531) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "meta_data"
-    t.bigint "attachments_id"
-    t.index ["attachments_id"], name: "index_reports_on_attachments_id"
     t.index ["club_id"], name: "index_reports_on_club_id"
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
@@ -324,6 +324,7 @@ ActiveRecord::Schema.define(version: 20180411094531) do
   end
 
   add_foreign_key "app_notifications", "users"
+  add_foreign_key "attachments", "reports"
   add_foreign_key "awards", "clubs"
   add_foreign_key "awards", "users"
   add_foreign_key "career_entries", "clubs"
@@ -334,7 +335,6 @@ ActiveRecord::Schema.define(version: 20180411094531) do
   add_foreign_key "notes", "users"
   add_foreign_key "orders", "reports"
   add_foreign_key "orders", "users"
-  add_foreign_key "reports", "attachments", column: "attachments_id"
   add_foreign_key "reports", "clubs"
   add_foreign_key "reports", "users"
   add_foreign_key "requests", "users"

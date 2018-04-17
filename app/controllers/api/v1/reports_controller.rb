@@ -17,19 +17,11 @@ module Api
 
       def create
         result = ::V1::Report::Create.(params, current_user: current_user)
-        if result.success?
-          response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
-          render json: response[:data], status: response[:status]
-        elsif result['result.policy.failure'] == :unauthorized
-          render json: { error: 'Unauthorized' }, status: :unauthorized
-        else
-          render json: {
-            error: result['contract.default'].errors.full_messages
-          }, status: :unprocessable_entity
-        end
+        response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
+        render json: response[:data], status: response[:status]
       end
 
-      # @Todo to be change once s3 is set
+      # Todo:to be change once s3 is set
       def upload_files
         if params[:report_id]
           report = @current_user.reports.find(params[:report_id])
@@ -42,7 +34,7 @@ module Api
         end
       end
 
-      # @Todo to be change once s3 is set
+      # Todo:to be change once s3 is set
       def download
         result = ::V1::Attachment::Find.(params, current_user: current_user)
         attachment = result['model']
@@ -55,17 +47,10 @@ module Api
 
       def update
         result = ::V1::Report::Update.(params, current_user: current_user)
-        if result.success?
-          response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
-          render json: response[:data], status: response[:status]
-        elsif result['contract.default'].blank?
-          render json: { error: result['result.model.errors'] }, status: :unprocessable_entity
-        else
-          render json: {
-            error: result['contract.default'].errors.full_messages
-          }, status: :unprocessable_entity
-        end
+        response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
+        render json: response[:data], status: response[:status]
       end
+
     end
   end
 end

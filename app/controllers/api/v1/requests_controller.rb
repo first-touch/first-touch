@@ -15,30 +15,14 @@ module Api
 
       def create
         result = ::V1::Request::Create.(params, current_user: current_user)
-        if result.success?
-          response = FirstTouch::Endpoint.(result, ::V1::Request::Representer::Full)
-          render json: response[:data], status: response[:status]
-        elsif result['result.policy.failure'] == :unauthorized
-          render json: { error: 'Unauthorized' }, status: :unauthorized
-        else
-          render json: {
-            error: result['contract.default'].errors.full_messages
-          }, status: :unprocessable_entity
-        end
+        response = FirstTouch::Endpoint.(result, ::V1::Request::Representer::Full)
+        render json: response[:data], status: response[:status]
       end
 
       def update
         result = ::V1::Request::Update.(params, current_user: current_user)
-        if result.success?
-          response = FirstTouch::Endpoint.(result, ::V1::Request::Representer::Full)
-          render json: response[:data], status: response[:status]
-        elsif result['contract.default'].blank?
-          render json: { error: result['result.model.errors'] }, status: :unprocessable_entity
-        else
-          render json: {
-            error: result['contract.default'].errors.full_messages
-          }, status: :unprocessable_entity
-        end
+        response = FirstTouch::Endpoint.(result, ::V1::Request::Representer::Full)
+        render json: response[:data], status: response[:status]
       end
     end
   end

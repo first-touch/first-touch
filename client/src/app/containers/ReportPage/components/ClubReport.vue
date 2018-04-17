@@ -1,7 +1,7 @@
 <template>
   <div class="report col-md-12">
     <div class="row">
-      <p class="col-sm-4">Purchassed Price (IN SGD) {{report.price}} </p>
+      <p class="col-sm-4">Purchased Price (IN SGD) {{report.price}} </p>
     </div>
     <div class="row">
       <span class="col-sm-12">Report Name: {{report.headline}} </span>

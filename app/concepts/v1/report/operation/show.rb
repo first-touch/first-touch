@@ -11,7 +11,7 @@ module V1
         if current_user.is_a?(::User)
           model = current_user.reports.find(params[:id])
         elsif current_user.is_a?(::Club) || true
-          # @Todo or true need to be remove when club are ready
+          # Todo: or true need to be remove when club are ready
           order = current_user.reports_buy.find_by(report_id: params[:id],
                                                    status: 'completed')
           model = order.report unless order.blank?
