@@ -284,6 +284,7 @@ export default {
       this.report.errors = null;
       this.files = filelist;
       var id = this.$route.params.id;
+      console.log(report.report_data.userinfo);
       this.updateReport({
         report: report,
         id
