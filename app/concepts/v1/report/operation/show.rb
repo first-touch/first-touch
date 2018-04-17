@@ -8,7 +8,7 @@ module V1
 
       def find_model!(options, params:, current_user:, **)
         model = nil
-        if current_user.is_a?(::User)
+        if current_user.is_a?(::User) && current_user.scout?
           model = current_user.reports.find(params[:id])
         elsif current_user.is_a?(::Club) || true
           # Todo: or true need to be remove when club are ready

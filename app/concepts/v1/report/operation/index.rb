@@ -10,9 +10,9 @@ module V1
       private
 
       def find_model!(options, current_user:, **)
-        if current_user.is_a?(::User) && current_user.scout?
-          options['models'] = current_user.reports
-        elsif current_user.is_a?(::Club) || true
+        # if current_user.is_a?(::User) && current_user.scout?
+        #   options['models'] = current_user.reports
+        if current_user.is_a?(::Club) || true
           # Todo: remove or true once club are ready
           options['models'] = ::Report.all.where status: 'publish'
         end
