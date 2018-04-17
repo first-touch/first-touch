@@ -1,55 +1,49 @@
 <template>
-    <div class="wrapper">
+  <div class="wrapper">
     <div class="header-wrapper">
       <div class="header col-md-10">
         <div class="img-container">
-          <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
+          <img class="img-fluid avatar" :src="src" />
         </div>
-        <div class="info col-md-8">
-          <h2 class="title" :title="request.headline">{{request.headline}}</h2>
+        <div class="info col-md-8" v-if="request.type_request == 'position'">
+          <h2 class="title" :title="request.headline">
+            <span class="list" v-for="position in request.report_data.playing_position" :key="position.id">{{position}}</span>
+            Based in {{getNationality(request.report_data.residence_country_code)}} </h2>
           <p class="extra">
-            <span class="target" v-if="request.type_request =='player'">{{request.player.first_name}} {{request.player.last_name}} </span>
-            <span class="target" v-if="request.type_request =='team'"> Club Name</span>
-            <span>{{request.updated_at | moment}}</span>
+            <span class="target yes" v-if="request.report_data.loan == 'yes'">Interested In Loan</span>
+            <span class="target yes" v-if="request.report_data.transfer == 'yes'">Interested In Transfer</span>
+            <span class="target yes" v-if="request.report_data.expiring_contract == 'yes'">Expiring Contract</span>
+            <span>{{request.created_at | moment}} -> {{request.deadline | moment}}</span>
+          </p>
+        </div>
+        <div class="info col-md-8" v-if="request.type_request == 'player'">
+          <h2 class="title" :title="request.headline">
+            <span class="list" v-for="position in request.report_data.playing_position" :key="position.id">{{position}}</span>
+            Based in {{getNationality(request.report_data.residence_country_code)}} </h2>
+          <p class="extra">
+            <span class="target">{{request.player.first_name}} {{request.player.last_name}} </span>
+            <span>{{request.created_at | moment}} -> {{request.deadline | moment}}</span>
+          </p>
+        </div>
+        <div class="info col-md-8" v-if="request.type_request == 'team'">
+          <h2 class="title" :title="request.headline">
+            Real Madrid Fc WIP </h2>
+          <p class="extra">
+            <span>{{request.created_at | moment}} -> {{request.deadline | moment}}</span>
           </p>
         </div>
       </div>
       <div class="widget">
-        <router-link :to="`/request/view/${request.id}`">
+        <router-link :to="`/club/request/${request.id}`">
           <button class="btn-round">View</button>
         </router-link>
-        <a v-if="request.status == 'publish'" @click="Updaterequest('private',request.id)">
+        <a v-if="request.status == 'publish'" @click="update(request.id, 'private')">
           <button class="btn-round">Unpublish</button>
         </a>
-        <a v-if="request.status == 'private'" @click="Updaterequest('publish',request.id)">
+        <a v-if="request.status == 'private'" @click="update(request.id, 'publish')">
           <button class="btn-round">Publish</button>
         </a>
       </div>
-    </div>
-    <div class="newResult col col-md-12" v-if="false" v-for="request in listRequest" :key="request.id">
-      <p class="col col-md-2">{{request.id | requestId(request.type_request)}} </p>
-      <p class="col col-md-2">
-        <span class="action col-md-6 ">
-          <router-link :to="`/club/request/${request.id}`">Edit</router-link>
-        </span>
-        <span class="action col-md-6 ">
-          <a href='#' @click="updateStatus(request.id,'deleted')">Delete</a>
-        </span>
-      </p>
-      <p class="col col-md-2">{{request.type_request}} Job Request</p>
-      <p class="col col-md-2">{{request.created_at | moment}}</p>
-      <p class="col col-md-2">
-        <span class="action col-md-6 " v-if="request.status == 'publish'">Active</span>
-        <span class="action col-md-6 " v-if="request.status == 'private'">Inactive</span>
-        <span v-if="request.status == 'private'" class="action col-md-6 ">
-          <a href="#" @click="updateStatus(request.id,'publish')">Active</a>
-        </span>
-        <span v-if="request.status == 'publish'" class="action col-md-6 ">
-          <a href="#" @click="updateStatus(request.id,'private')">Desactivate</a>
-        </span>
-      </p>
-      <p class="col col-md-2">WIP</p>
-      <p class="col col-md-2">WIP</p>
     </div>
   </div>
 </template>
@@ -57,14 +51,21 @@
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
 
-
   .wrapper {
     padding: 0 30px;
     border-top: 1px solid $secondary-text-color;
     &:last-child {
       border-bottom: 1px solid $secondary-text-color;
     }
-
+    .list {
+      text-transform: capitalize;
+      &::after {
+        content: ', ';
+      }
+      &:last-child::after {
+        content: '';
+      }
+    }
     .avatar {
       height: 300px;
       border-radius: 50%;
@@ -74,6 +75,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      font-size: 15px;
     }
     .header-wrapper {
       display: flex;
@@ -92,6 +94,12 @@
           display: flex;
           flex-direction: column;
           justify-content: center;
+          .target {
+            display: block;
+            &.yes {
+              color: $timeline-widget-button-background;
+            }
+          }
           .extra {
             text-transform: none;
             .author {
@@ -120,8 +128,35 @@
   }
 </style>
 <script>
+  import countrydata from 'country-data';
+
   export default {
     name: 'RequestItem',
-    props: ['request', 'UpdateRequest'],
+    props: ['request', 'update'],
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : key;
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : key;
+      }
+    },
+    computed: {
+      src: function () {
+        var src = '';
+        switch (this.request.type_request) {
+          case 'player':
+            src = '/images/landing-page/ft-icons-player.png';
+            break;
+          case 'team':
+            src = '/images/landing-page/ft-icons-club.png';
+            break;
+          case 'position':
+            src = '/images/landing-page/ft-icons-player.png';
+            break;
+        }
+        return src;
+      }
+    }
   };
 </script>

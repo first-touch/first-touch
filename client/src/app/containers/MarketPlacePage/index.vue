@@ -3,57 +3,64 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
-        <h5 class="row">REPORT MARKETPLACE</h5>
-        <div class="filters-marketplace row">
-          <form @submit.prevent="search" class="col-md-12">
-            <h6 class="row">Filter Report</h6>
-            <fieldset class="form-group col-md-2 filter">
-              <label class="col-sm-12">Report Type</label>
-              <select v-model="params.type_report" class="col-md-12">
-                <option value="">All</option>
-                <option value="player">Player</option>
-                <option value="team">Team</option>
-              </select>
-            </fieldset>
-            <fieldset class="form-group col-md-2 filter">
-              <label class="col-sm-12">Scout Name</label>
-              <input class="col-sm-12" type="text" v-model="params.user_name" />
-            </fieldset>
-            <fieldset class="form-group col-md-2 filter">
-              <label class="col-sm-12">Date Created <span class="clear-date" v-if="params.created_date != ''" @click="params.created_date = ''">X</span></label>
-              <datepicker :input-class="[params.created_date != '' ? 'selected': '', 'input-date','col-sm-12'].join(' ')" v-model="params.created_date"
-               format="dd,MMM yyyy" class="datepicker col-sm-12"></datepicker>
-            </fieldset>
-            <fieldset class="form-group col-md-4 filter">
-              <label class="col-sm-12">Price Range (Min - Max)</label>
-              <input type="number" class="col-sm-5" v-model="params.price_min" />
-              <span class="separator">—</span>
-              <input type="number" class="col-sm-5" v-model="params.price_max" />
-            </fieldset>
-            <fieldset class="form-group col-md-1 filter">
-              <button class="btn-info">Filter</button>
-            </fieldset>
-          </form>
-        </div>
-        <!-- Modal Component -->
-        <b-modal id="metaModal" size="lg" ref="metaModal">
-          <div v-if="!payment">
-            <playerreportpopup v-if="reportSelected && reportSelected.type_report == 'player'" :report="reportSelected" :closeAction="hideModal"
-            />
-            <clubreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :closeAction="hideModal"
+        <h4 class="header">My independent reports</h4>
+        <timeline-item>
+          <div class="widget-reports col col-md-12">
+            <div class="row">
+              <div class="col-md-2">
+                <h6 class="list-title">Reports Count</h6>
+                <h1 class="list-count">{{listReport.length}}</h1>
+              </div>
+              <form @submit.prevent="search" class="col-md-10">
+                <div class="row">
+                  <fieldset class="col-md-3 filter form-control">
+                    <vselect v-model="type_select" @input="search" :options="options.report_type" :searchable="false" />
+                  </fieldset>
+                  <ftdatepicker class="col-md-3 filter form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
+                  />
+                  <fieldset class="col-md-3 filter form-control">
+                    <input class="col-sm-12 form-control" placeholder="Search tags" type="text" v-model="params.headline" />
+                  </fieldset>
+                  <fieldset class="col-md-3 filter form-control">
+                    <vselect v-model="sort_select" @input="search" :options="options.order" :searchable="false" />
+                  </fieldset>
+                </div>
+              </form>
+            </div>
+            <b-modal id="metaModal" size="lg" ref="metaModal">
+              <playerreportpopup v-if="reportSelected && reportSelected.type_report == 'player'" :report="reportSelected" :buyAction="BuyAction"
+                :closeAction="hideModal" />
+              <clubreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :buyAction="BuyAction"
+                :closeAction="hideModal" />
+              <paymentpopup v-if="payment" :report="reportSelected" :closeAction="hideModal" :paymentAction="PaymentAction" :order="order"
+              />
+            </b-modal>
+            <report v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :buyAction="BuyAction" :summaryAction="summaryAction"
             />
           </div>
-          <paymentpopup v-if="payment" :report="reportSelected" :closeAction="hideModal" :paymentAction="PaymentAction" :order="order"/>
-        </b-modal>
-        <reportitem v-for="report in searchReport.value.report" :key="report.id" class="row report col-md-12" :report="report" :viewAction="viewAction"
-          :BuyAction="BuyAction" :summaryAction="summaryAction" />
+        </timeline-item>
       </div>
     </div>
   </div>
 </template>
-
 <style lang="scss">
 @import '~stylesheets/variables';
+@import '~stylesheets/form';
+
+.widget-reports {
+  .datepicker {
+    padding: 0;
+    input.input-date {
+      cursor: pointer;
+      min-height: 2em;
+      border: 0px;
+    }
+  }
+  .dropdown-toggle {
+    max-height: 35px;
+    border: 0px;
+  }
+}
 
 #metaModal {
   color: black;
@@ -61,8 +68,18 @@
     display: none;
   }
 
+  .modal-dialog {
+    border: 10px solid $main-text-color;
+    border-radius: 10px;
+    max-width: 1200px;
+    min-height: 500px;
+  }
   .modal-content {
     padding: 0;
+    margin: 0;
+    min-height: 700px;
+    border: 0px;
+    border-radius: 0;
   }
   .reportHeadline {
     margin-bottom: 40px;
@@ -92,164 +109,138 @@
     display: none;
   }
 }
-
-.filters-marketplace {
-  .datepicker {
-    padding: 0;
-    color: black;
-    margin-right: 5px;
-    background: white;
-    input.input-date {
-      padding: 0;
-      border: 1px solid $secondary-text-color !important;
-      cursor: pointer;
-      width: 100%;
-      height: 2em;
-      border: 0px;
-      background: white;
-      background: url('/images/calendar.png') no-repeat;
-      background-size: 2em 1.7em;
-      background-position: right;
-      &.selected {
-        background: url('/images/calendar-fill.png') no-repeat;
-        background-size: 2em 1.7em;
-        background-position: right;
-      }
-    }
-  }
-    .clear-date {
-    cursor: pointer;
-    color: red;
-  }
-}
 </style>
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
-
-.filters-marketplace {
-  background: white;
-  color: black;
+.widget-reports {
+  color: $main-text-color;
+  .form-control {
+    padding: 0;
+  }
+  .list-title {
+    color: $main-text-color;
+    font-size: 0.95em;
+    text-transform: uppercase;
+  }
+  .list-count {
+    color: $main-header-color;
+    font-size: 4em;
+    text-align: center;
+  }
   .filter {
-    display: inline-block;
-    label {
-      float: left;
-    }
+    margin: 5px;
+    max-width: 23%;
     input,
     select {
-      float: left;
-      height: 2em;
+      height: 100%;
+      padding: 10px;
+    }
+    .icon-inner {
+      margin-top: 5px;
+      display: inline-block;
+      cursor: pointer;
+      &:hover {
+        color: $secondary-header-color;
+      }
     }
     .datepicker {
       float: left;
-    }
-    button {
-      float: left;
-    }
-    .separator {
-      float: left;
-      margin-right: 5px;
-      font-size: 19px;
-      font-weight: 800;
-    }
-  }
-}
-
-.report {
-  background: white;
-  color: black;
-  padding: 30px 50px;
-  margin-top: 20px;
-  .buttons {
-    display: flex;
-    button {
-      align-self: flex-end;
-    }
-  }
-  .user {
-    .name {
-      text-align: center;
-      text-transform: capitalize;
-      background: #e8e8e8;
-      margin-top: 15px;
-      padding: 10px;
-    }
-  }
-  .report-info {
-    margin-left: 30px;
-    margin-top: 20px;
-    p::first-letter {
-      text-transform: capitalize;
     }
   }
 }
 </style>
 
 <script>
-import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import { mapGetters, mapActions } from 'vuex';
+import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
+import TimelineItem from 'app/components/TimelineItem';
 import ReportItem from 'app/components/ReportItem';
+import vSelect from 'vue-select';
+import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import PlayerReportPopup from './components/PlayerReportPopup';
 import ClubReportPopup from './components/ClubReportPopup';
 import PaymentPopup from './components/PaymentPopup';
-
-import Datepicker from 'vuejs-datepicker';
+import FtDatepicker from 'app/components/Input/FtDatepicker';
 
 export default {
-  name: 'MarketPlacePage',
+  name: 'ReportsList',
   components: {
     sidebar: NotificationSidebar,
-    reportitem: ReportItem,
+    'timeline-item': TimelineItem,
+    report: ReportItem,
+    vselect: vSelect,
     playerreportpopup: PlayerReportPopup,
     clubreportpopup: ClubReportPopup,
-    datepicker: Datepicker,
-    paymentpopup: PaymentPopup
+    paymentpopup: PaymentPopup,
+    ftdatepicker: FtDatepicker
   },
-  data () {
+  data() {
     return {
-      reportSelected: null,
       payment: false,
+      reportSelected: null,
+      sort_select: {
+        label: 'Sort by',
+        value: ''
+      },
+      type_select: {
+        label: 'Report Type',
+        value: ''
+      },
       params: {
-        type_report: '',
-        price_min: '',
-        price_max: '',
-        user_name: '',
-        created_date: ''
+        id: '',
+        headline: '',
+        report_type: '',
+        created_date_from: '',
+        created_date_to: '',
+        created_date: '',
+        sort: ''
+      },
+      options: {
+        report_type: [
+          {
+            label: 'Report Type',
+            value: ''
+          },
+          {
+            label: 'Player',
+            value: 'player'
+          },
+          {
+            label: 'Team',
+            value: 'team'
+          }
+        ],
+        order: [
+          {
+            label: 'Sort by',
+            value: ''
+          },
+          {
+            label: 'Updated date',
+            value: 'updated_at'
+          },
+          {
+            label: 'Type',
+            value: 'Type'
+          },
+          {
+            label: 'Price',
+            value: 'price'
+          }
+        ]
       }
     };
   },
-  mounted () {
-    this.getReports({
-      t: 't'
-    });
-  },
   computed: {
-    ...mapGetters(['searchReport', 'order'])
-  },
-  methods: {
-    ...mapActions(['getReports', 'newOrder']),
-    viewAction (report) {
-      this.$router.push({
-        path: '/club/report/' + report.id
-      });
+    ...mapGetters(['searchReport', 'order']),
+    listReport() {
+      if (this.searchReport.status === ASYNC_SUCCESS) {
+        return this.searchReport.value.report;
+      }
+      return [];
     },
-    BuyAction (report) {
-      this.payment = true;
-      this.reportSelected = report;
-      this.$refs.metaModal.show();
-    },
-    PaymentAction (payment) {
-      this.newOrder({ order: payment });
-    },
-    summaryAction (report) {
-      this.payment = false;
-      this.reportSelected = report;
-      this.$refs.metaModal.show();
-    },
-    hideModal () {
-      this.$refs.metaModal.hide();
-    },
-    search () {
+    url() {
       var params = this.params;
       if (params.created_date_from) {
         params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
@@ -257,12 +248,57 @@ export default {
       if (params.created_date_to) {
         params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
       }
+      params.sort = this.sort_select.value;
+      params.report_type = this.type_select.value;
+
       var url = Object.keys(params)
-        .map(function (k) {
+        .map(function(k) {
           return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
         })
         .join('&');
-      this.getReports(url);
+
+      return url;
+    }
+  },
+  mounted() {
+    this.search();
+  },
+  watch: {
+    report() {
+      if (this.report.status === ASYNC_SUCCESS) {
+        var index = this.listReport.findIndex(x => x.id === this.report.value.id);
+        this.listReport[index] = this.report.value;
+        this.$forceUpdate();
+      }
+    }
+  },
+  methods: {
+    ...mapActions(['getReports', 'newOrder']),
+    viewAction(report) {
+      this.$router.push({
+        path: '/club/report/' + report.id
+      });
+    },
+    BuyAction(report) {
+      this.payment = true;
+      this.reportSelected = report;
+      this.$refs.metaModal.show();
+    },
+    hideModal() {
+      this.$refs.metaModal.hide();
+    },
+    PaymentAction(payment) {
+      this.newOrder({
+        order: payment
+      });
+    },
+    summaryAction(report) {
+      this.payment = false;
+      this.reportSelected = report;
+      this.$refs.metaModal.show();
+    },
+    search() {
+      this.getReports(this.url);
     }
   }
 };

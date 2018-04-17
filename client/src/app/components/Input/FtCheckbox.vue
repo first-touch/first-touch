@@ -3,7 +3,7 @@
 
     <section title=".slideOne">
       <div class="slideOne">
-        <input type="checkbox" v-model="model" @change="update" false-value="false" true-value="true" />
+        <input type="checkbox" v-model="model" @change="update" false-value="no" true-value="yes" />
         <label for="slideOne"></label>
       </div>
     </section>

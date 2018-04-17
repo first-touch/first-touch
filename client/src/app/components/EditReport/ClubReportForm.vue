@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent id="report-form">
+    <form @submit.prevent id="report-form ft-form">
       <div class="form-group row report-name">
         <div class="col-sm-12">
           <label class="col-md-12 col-form-label">Report Name</label>
@@ -18,155 +18,70 @@
       </div>
       <div class="form-group">
         <label class=" col-md-12">Analysis of Trainings/Matches</label>
-        <matchanalyzed :analyzed_matches="meta_data.analyzed_matches" type="team" />
+        <matchanalyzed :analyzed_matches="report_data.analyzed_matches" type="team" />
       </div>
       <div class="form-group col-md-12">
         <label>Formation(s) Used & Playing Style</label>
         <div class="row">
-          <textarea v-model="meta_data.formation" class="col col-md-12 form-control" />
+          <textarea v-model="report_data.formation" class="col col-md-12 form-control" />
         </div>
       </div>
       <div class="form-group col-md-12">
         <label>Attacking organisation & Transition After Winning Possession</label>
         <div class="row">
-          <textarea v-model="meta_data.attacking_organisation" class="col col-md-12 form-control" />
+          <textarea v-model="report_data.attacking_organisation" class="col col-md-12 form-control" />
         </div>
       </div>
       <div class="form-group col-md-12">
         <label>Defensive Organisation & Transition After Losing Possession</label>
         <div class="row">
-          <textarea v-model="meta_data.defensive_organisation" class="col col-md-12 form-control" />
+          <textarea v-model="report_data.defensive_organisation" class="col col-md-12 form-control" />
         </div>
       </div>
       <div class="form-group col-md-12">
         <label>Set plays - For</label>
         <div class="row">
-          <textarea v-model="meta_data.setplays_for" class="col col-md-12 form-control" />
+          <textarea v-model="report_data.setplays_for" class="col col-md-12 form-control" />
         </div>
       </div>
       <div class="form-group col-md-12">
         <label>Set plays - Against</label>
         <div class="row">
-          <textarea v-model="meta_data.setplays_against" class="col col-md-12 form-control" />
+          <textarea v-model="report_data.setplays_against" class="col col-md-12 form-control" />
         </div>
       </div>
       <div class="form-group col-md-12">
         <label>Main threats</label>
         <div class="row">
-          <textarea v-model="meta_data.main_threats" class="col col-md-12 form-control" />
+          <textarea v-model="report_data.main_threats" class="col col-md-12 form-control" />
         </div>
       </div>
       <div class="form-group col-md-12">
         <label>Other Observations & Viewpoints to Note</label>
         <div class="row">
-          <textarea v-model="meta_data.observations" class="col col-md-12 form-control" />
+          <textarea v-model="report_data.observations" class="col col-md-12 form-control" />
         </div>
       </div>
       <div class="form-group col-md-12">
         <label>Conclusions</label>
         <div class="row">
-          <textarea v-model="meta_data.conclusions" class="col col-md-12 form-control" />
+          <textarea v-model="report_data.conclusions" class="col col-md-12 form-control" />
         </div>
       </div>
       <addattachments :attachments="report ? report.report_data.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
         v-on:update:files="files = $event" />
-      <div class="form-group buttons">
-        <button id="submit" class="btn btn-primary" @click="handleSubmit">Publish</button>
-        <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default">Cancel</button>
+      <div class="form-group buttons-inner">
+        <button id="submit" class="btn btn-primary ft-button " @click="handleSubmit">Publish</button>
+        <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default ft-button ">Cancel</button>
       </div>
     </form>
-
   </div>
 </template>
+<style lang="scss">
+@import '~stylesheets/form';
 
-<style lang="scss" scoped>
-  @import '~stylesheets/variables';
-
-  .info {
-    color: green;
-    font-weight: bold;
-    margin: 0;
-  }
-
-  #report-form {
-    textarea {
-      resize: none;
-      overflow-y: scroll;
-      height: 100px;
-    }
-    .label-price {
-      margin-top: 8px;
-    }
-    .col-form-label {
-      margin-right: 20px;
-    }
-    label {
-      font-size: 13px;
-    }
-    h3 {
-      color: $main-text-color;
-      font-size: 15px;
-    }
-    .list {
-      color: #535ee2;
-    }
-    .attachments-div {
-      ul {
-        float: right;
-        li {
-          display: list-item;
-          list-style: disc;
-        }
-      }
-    }
-
-    .buttons {
-      float: right;
-      button {
-        margin: 0;
-        padding: 4px;
-        border-radius: 4px;
-        color: white;
-        min-height: 20px;
-        color: $main-text-color;
-        border: 1px solid $main-text-color;
-        background-color: $button-background;
-        cursor: pointer;
-        &:hover {
-          background-color: $button-background-hover;
-        }
-      }
-    }
-    overflow: hidden;
-    .update-attachments {
-      color: $main-text-color;
-      p {
-        display: inline-block;
-        &.removed {
-          text-decoration: line-through;
-        }
-        &.remove {
-          color: red;
-          cursor: pointer;
-        }
-        &.filename {
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          overflow: hidden;
-        }
-      }
-    }
-  }
-  .form-group {
-    label {
-      color: $main-text-color;
-    }
-    .bar-button {
-      color: $main-text-color;
-      border: 1px solid $main-text-color;
-    }
-  }
 </style>
+
 
 <script>
   import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
@@ -184,7 +99,7 @@
     data() {
       return {
         files: [],
-        meta_data: {
+        report_data: {
           analyzed_matches: [{
             date: '',
             opponent: '',
@@ -216,7 +131,7 @@
         var report = {
           headline: this.headline,
           price: this.price,
-          report_data: this.meta_data,
+          report_data: this.report_data,
           remove_attachment: this.remove_attachment
         };
         this.submitReport(report, this.files);
@@ -229,7 +144,7 @@
     },
     mounted() {
       if (this.report) {
-        this.meta_data = this.report.report_data.meta_data;
+        this.report_data = this.report.report_data.meta_data;
         this.price = this.report.price;
         this.headline = this.report.headline;
       }

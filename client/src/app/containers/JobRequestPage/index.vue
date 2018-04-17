@@ -10,28 +10,6 @@
         <teamjobrequest v-if="page == 'team'" :submit="customCreateRequest" :errors="errors" :cancelAction="cancel" />
       </div>
     </div>
-    <!-- <div class="container-fluid">
-      <div class="ft-page">
-        <div v-if="page == 'index'">
-          <div class="header col col-md-12">
-            <h5 class="col col-md-3">My Purchased Reports</h5>
-            <div class="new-request col col-md-9">
-              <button class="btn-info" @click="page = 'player'">CREATE PLAYER JOB REQUESTS</button>
-              <button class="btn-info" @click="page = 'team'">CREATE TEAM JOB REQUESTS</button>
-              <button class="btn-info" @click="page = 'position'">CREATE JOB REQUEST ON A POSITION</button>
-            </div>
-          </div>
-          <jobrequestwidget :listRequest="listRequest" :getRequests="search" :update="customUpdateRequest" />
-        </div>
-        <div v-if="page != 'index'" class="request-inner">
-          <h5>CREATE {{ page }} JOB REQUEST</h5>
-
-          <playerjobrequest v-if="page == 'player'" :submit="customCreateRequest" :errors="errors" :cancelAction="cancel" />
-          <positionjobrequest v-if="page == 'position'" :submit="customCreateRequest" :errors="errors" :cancelAction="cancel" />
-          <teamjobrequest v-if="page == 'team'" :submit="customCreateRequest" :errors="errors" :cancelAction="cancel" />
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 

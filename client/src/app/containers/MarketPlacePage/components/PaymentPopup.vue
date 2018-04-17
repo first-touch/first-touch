@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h3>PAYMENT DETAILS </h3>
-    <span> Report Name : {{report.headline}} </span>
-    <p> Price : {{report.price}} S$ </p>
     <div class="error" v-if="isfailed">
       Errors:
       <ul v-if="order.errors">
@@ -10,7 +7,7 @@
       </ul>
     </div>
     <div class="custom-modal-content">
-      <h5>Choose a Payment Method</h5>
+      <h5>Choose a Payment Method {{report.price.value}} {{report.price.currency | currency}} </h5>
       <form @submit.prevent :class="{isloading: 'loading'}">
         <fieldset class="form-group col-md-12 filter">
           <label class="col-sm-4">Payment Method:</label>
@@ -35,9 +32,8 @@
           <label class="col-sm-4">Expiry Date</label>
           <input id="month" type="month" v-model="expiry">
         </fieldset>
-        <div class="footer-modal">
-          <button class="btn-primary close-modal" @click="startPayment">PAY NOW</button>
-          <button class="btn-primary" @click="closeAction">CLOSE</button>
+        <div class="footer-modal buttons-inner">
+          <button class="btn-primary ft-button" @click="startPayment">PAY NOW</button>
         </div>
       </form>
     </div>

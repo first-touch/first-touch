@@ -1,7 +1,7 @@
 <template>
   <div class="autonumeric input-group ft-input">
     <div class="input-group-addon currency">{{model.currency | currency}}</div>
-    <autonumeric class="form-control" v-model="model.value" :options="{
+    <autonumeric class="form-control" :class="max ?'col-md-5':''" v-model="model.value" :options="{
          digitGroupSeparator: '.',
          decimalCharacter: ',',
          decimalCharacterAlternative: '.',
@@ -9,6 +9,14 @@
          minimumValue: '0'
      }"></autonumeric>
     <slot />
+      <span v-if="max" class="separator">—</span>
+      <autonumeric class="form-control col-md-5" v-if="max" v-model="model.max"  :options="{
+         digitGroupSeparator: '.',
+         decimalCharacter: ',',
+         decimalCharacterAlternative: '.',
+         roundingMethod: 'U',
+         minimumValue: '0'
+     }" />
     <div class="input-group-addon">
       <select class="currency-selector form-control" v-model="model.currency">
         <option value="USD" data-placeholder="0.00">USD</option>
@@ -26,6 +34,13 @@
 .autonumeric {
   height: 100%;
   min-height: 30px;
+
+    .separator {
+      float: left;
+    }
+    .second {
+    }
+
   .form-control {
     z-index: unset;
   }
@@ -60,7 +75,7 @@ export default {
   components: {
     autonumeric: VueAutonumeric
   },
-  props: ['value'],
+  props: ['value', 'max'],
   data() {
     return {
       model: this.value

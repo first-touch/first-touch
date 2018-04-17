@@ -164,8 +164,8 @@
           </div>
           <div>
             <label class="row col-sm-12 summary-title">Attachments</label>
-            <div class="row col-sm-12">
-              <button v-for="attachment in report.report_data.attachments.attachments" :key="attachment.id" class="btn-info btn-attachments"
+            <div class="row col-sm-12 buttons-inner">
+              <button v-for="attachment in report.report_data.attachments.attachments" :key="attachment.id" class="btn-info btn-attachments ft-button"
                 @click="downloadFile(attachment.id, attachment.filename)"> {{attachment.filename}}</button>
 
             </div>
@@ -178,6 +178,8 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
+@import '~stylesheets/form';
+
 h5 {
   color: $main-text-color;
   font-size: 1.5em;
@@ -273,21 +275,6 @@ h5 {
           padding: 0;
           margin: 0;
         }
-      }
-    }
-    .btn-attachments {
-      margin: 0;
-      padding: 4px;
-      border-radius: 4px;
-      color: white;
-      min-height: 20px;
-      color: $main-text-color;
-      border: 1px solid $main-text-color;
-      background-color: $button-background;
-      margin-right: 10px;
-      cursor: pointer;
-      &:hover {
-        background-color: $button-background-hover;
       }
     }
     .list {

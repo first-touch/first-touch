@@ -24,7 +24,7 @@ export default {
   },
   mounted() {
     this.model = [];
-    for (var val in this.value) {
+      for (var val in this.value) {
       const index = this.$options.filters.searchInObj(this.languages, option => option.value === this.value[val]);
       this.model.push(this.languages[index]);
     }

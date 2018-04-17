@@ -3,36 +3,27 @@
     <h4 class="header">My Jobs Request</h4>
     <timeline-item>
       <div class="widget-content col col-md-12">
-        <div class="row">
+        <div class="row align-items-start">
           <div class="col-md-2">
             <h6 class="list-title">Request Count</h6>
             <h1 class="list-count">{{listRequest.length}}</h1>
           </div>
           <form @submit.prevent="search" class="col-md-10 row">
-            <fieldset class="col-md-2 filter">
-              <vselect v-model="params.type_request" :on-change="search" :options="options.type_request" :searchable="false" />
+            <fieldset class="col-md-4 filter form-control">
+              <vselect v-model="vselect_type" :options="options.type_request" :searchable="false" clearable="false" />
             </fieldset>
-            <fieldset class="col-md-2 filter">
-              <vselect v-model="params.status" :on-change="search" :options="options.status" :searchable="false" />
+            <fieldset class="col-md-4 filter form-control">
+              <vselect v-model="vselect_status" :options="options.status" :searchable="false" />
             </fieldset>
-            <fieldset class="col-md-3 filter form-control">
-              <datepicker ref="datepicker" @closed="search" :input-class="[params.created_date != '' ? 'selected': '', 'input-date','col-sm-10'].join(' ')"
-                v-model="params.created_date" class="datepicker col-md-10" format="dd,MMM yyyy"></datepicker>
-              <span @click="params.created_date  = ''; search()" v-if="params.created_date  != ''" class="icon-inner">
-                <icon name='times'></icon>
-              </span>
-              <span @click="showCalendar()" class="icon-inner">
-                <icon name='calendar-alt' v-if="params.created_date == ''"></icon>
-                <icon name='calendar-check' v-if="params.created_date != ''"></icon>
-              </span>
-            </fieldset>
-            <fieldset class="col-md-3 filter form-control">
-              <input type="number" class="col-sm-12" v-model="params.min_bids" />
+            <ftdatepicker class="col-md-5 filter form-control" :value="params.created_date" :clearable="false" v-on:update:val="params.created_date = $event; search()"
+            />
+            <fieldset class="col-md-4 filter form-control">
+              <input type="number form-control" class="col-sm-12" v-model="params.min_bids" placeholder="Nb bids" />
             </fieldset>
           </form>
         </div>
       </div>
-      <request v-for="request in listRequest" :key="request.id" :request="request" ></request>
+      <request v-for="request in listRequest" :key="request.id" :request="request" :update="updateStatus"></request>
     </timeline-item>
   </div>
 </template>
@@ -52,6 +43,17 @@
   .dropdown-toggle {
     max-height: 35px;
     border: 0px;
+  }
+}
+
+.widget-request {
+  .v-select {
+    .selected-tag {
+      color: $main-text-color;
+    }
+    .clear{
+      display: none;
+    }
   }
 }
 </style>
@@ -105,6 +107,8 @@ import 'vue-awesome/icons/calendar-check';
 import 'vue-awesome/icons/times';
 import Icon from 'vue-awesome/components/Icon';
 import vSelect from 'vue-select';
+import FtDatepicker from 'app/components/Input/FtDatepicker';
+
 export default {
   name: 'JobRequestWidget',
   props: ['listRequest', 'getRequests', 'update'],
@@ -113,7 +117,8 @@ export default {
     'timeline-item': TimelineItem,
     request: RequestItem,
     icon: Icon,
-    vselect: vSelect
+    vselect: vSelect,
+    ftdatepicker: FtDatepicker
   },
   data() {
     return {
@@ -123,6 +128,14 @@ export default {
         order: '',
         status: '',
         type_request: ''
+      },
+      vselect_type: {
+        label: 'Request Type',
+        value: ''
+      },
+      vselect_status: {
+        label: 'Status',
+        value: ''
       },
       options: {
         type_request: [
@@ -145,7 +158,7 @@ export default {
         ],
         status: [
           {
-            label: 'All',
+            label: 'Status',
             value: ''
           },
           {
@@ -161,7 +174,7 @@ export default {
             value: 'publish'
           },
           {
-            label: 'Privete',
+            label: 'Private',
             value: 'private'
           }
         ]
@@ -179,6 +192,16 @@ export default {
           return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
         })
         .join('&');
+    }
+  },
+  watch: {
+    vselect_type: function() {
+      this.params.type_request = this.vselect_type.value;
+      this.search();
+    },
+    vselect_status: function() {
+      this.params.status = this.vselect_status.value;
+      this.search();
     }
   },
   methods: {
