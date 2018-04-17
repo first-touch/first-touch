@@ -18,5 +18,11 @@ module FirstTouch
       error_message = I18n.t('models.not_found', model: model_name)
       options['result.model.errors'] = [error_message]
     end
+
+    def process_payment_failure!(options, **)
+      model_name = options['stripe.errors']
+      error_message = I18n.t('payments.failure', errors: model_errors)
+      options['result.model.errors'] = [error_message]
+    end
   end
 end

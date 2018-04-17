@@ -13,7 +13,7 @@ module V1
         if current_user.is_a?(::User) && current_user.scout?
           options['models'] = current_user.reports
         elsif current_user.is_a?(::Club) || true
-          # @Todo remove or true once club are ready
+          # Todo: remove or true once club are ready
           options['models'] = ::Report.all.where status: 'publish'
         end
         options['models'].blank?
@@ -22,9 +22,9 @@ module V1
 
       def join_orders!(options, params:, current_user:, **)
         if current_user.is_a?(::Club) || true
-          # @Todo remove or true once club are ready
+          # Todo: remove or true once club are ready
           models = if params[:purchased] == 'true'
-                     purchassed!(options['models'], current_user)
+                     purchased!(options['models'], current_user)
                    else
                      order_status!(options['models'], current_user)
             end
@@ -41,7 +41,7 @@ module V1
         models
       end
 
-      def purchassed!(models, current_user)
+      def purchased!(models, current_user)
         models = models.joins(orders: :user)
         models = models.where('orders.status' => 'completed',
                               'orders.customer_id' => current_user.id.to_s)
@@ -69,7 +69,7 @@ module V1
       end
 
       def filters_price(models, _params)
-        # @Todo to be review after switching price to json (to add the currency)
+        # Todo: to be review after switching price to json (to add the currency)
         # price_min = (params[:price_min].blank?) ? 0 : params[:price_min].to_i
         # price_max = (params[:price_max].blank?) ? 999999 : params[:price_max].to_i
         # models = models.where price: price_min..price_max

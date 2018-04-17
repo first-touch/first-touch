@@ -19,7 +19,7 @@ module V1
 
       def update_attachments!(model:, params:, **)
         unless params['remove_attachment'].blank?
-          model.reports.attachments.destroy(params['remove_attachment'].keys)
+          model.attachments.where(id: params['remove_attachment'].keys).destroy_all
         end
       end
     end

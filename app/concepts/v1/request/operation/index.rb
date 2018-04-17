@@ -11,7 +11,7 @@ module V1
         if current_user.is_a?(::User) && current_user.scout?
           models = ::Request.all.where status: 'publish'
         elsif current_user.is_a?(::Club) || true
-          # @Todo or true need to be remove when club are ready
+          # Todo: or true need to be remove when club are ready
           models = current_user.requests.where.not(status: 'deleted')
         end
         options['models'] = models
