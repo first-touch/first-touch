@@ -5,7 +5,7 @@ module Api
     class OrdersController < Api::V1::BaseController
       # Todo:will change once stripe is set
       def create
-          result = ::V1::Order::PurchaseReport.(params,current_user: current_user)
+          result = ::V1::Report::Buy.(params,current_user: current_user)
           response = FirstTouch::Endpoint.(result)
           render json: response[:data], status: response[:status]
       end
