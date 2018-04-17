@@ -56,6 +56,8 @@ Rails.application.routes.draw do
       get 'reports/list/purchased', controller: :reports, action: :purchased
       resources :orders
       resources :requests
+      resources :bids
+
     end
   end
 end

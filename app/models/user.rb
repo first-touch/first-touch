@@ -45,6 +45,7 @@ class User < ApplicationRecord
 
   # Todo: put this in team when they are ready
   has_many :requests
+  has_many :request_bids
   has_many :reports_buy, foreign_key: :customer_id, class_name: 'Order'
   # /TODO
   before_save :update_search_string, if: -> { email_changed? }
