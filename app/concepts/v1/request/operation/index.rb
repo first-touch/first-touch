@@ -15,7 +15,7 @@ module V1
           models = current_user.requests.where.not(status: 'deleted')
         end
         options['models'] = models
-        !models.empty?
+        options['model.class'] = ::Request
       end
 
       def filters!(options, params:, **)
