@@ -44,19 +44,19 @@
             <li class="sub-nav-item">Coach</li>
           </ul>
         </li>
-        <li class="nav-item" :class="{ active: tab[2] || /\/club\/report/.test(page) || /\/club\/request/.test(page) }">
+        <li class="nav-item" :class="{ active: tab[2] || /\/club\/scouting/.test(page) || /\/club\/request/.test(page) }">
           <div class="nav-item-inner" @click="onTabClick(2)">
             Scouting
           </div>
           <ul class="sub-nav">
             <li class="sub-nav-item" :class="{ active: page === '/club/request' || !page }">
-              <router-link to="/club/request">Jobs Request</router-link>
+              <router-link  :to="{ name: 'clubRequestList'}" >Jobs Request</router-link>
             </li>
-            <li class="sub-nav-item" :class="{ active: page === '/club/report/marketplace' || !page }">
-              <router-link to="/club/report/marketplace">Report MarketPlace</router-link>
+            <li class="sub-nav-item" :class="{ active: page === '/club/scouting/report/marketplace' || !page }">
+              <router-link :to="{ name: 'clubReportMarketplace'}">Report MarketPlace</router-link>
             </li>
-            <li class="sub-nav-item" :class="{ active: page === '/club/report/list' || !page }">
-              <router-link to="/club/report/list">My Purchased Reports</router-link>
+            <li class="sub-nav-item" :class="{ active: page === '/club/scouting/report/list' || !page }">
+              <router-link :to="{ name: 'clubReportList'}">My Purchased Reports</router-link>
             </li>
           </ul>
         </li>

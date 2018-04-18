@@ -86,9 +86,7 @@ export default {
       this.isloading = this.order.status === ASYNC_LOADING;
       this.isfailed = this.order.status === ASYNC_FAIL;
       if (this.order.status === ASYNC_SUCCESS) {
-        this.$router.push({
-          path: '/club/report/' + this.report.id
-        });
+        this.$router.push({ name: 'clubReport', params: { id: this.report.id }}) // -> /user/123router.push({
       }
     }
   },

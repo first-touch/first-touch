@@ -9,13 +9,13 @@
             <span>
               <icon name='eye' scale="1.5"></icon>
             </span>
-            <router-link :to="`/report/view/${report.id}`" class="active">View</router-link>
+              <router-link :to="{ name: 'scoutReportView', params: { id: report.id }}" class="active">View</router-link>
           </button>
           <button class="timeline-widget-button">
             <span>
               <icon name='edit' scale="1.5"></icon>
             </span>
-            <router-link :to="`/report/edit/${report.id}`">Edit</router-link>
+              <router-link :to="{ name: 'scoutReportEdit', params: { id: report.id }}">Edit</router-link>
           </button>
         </action-item>
         <div v-if="report != null" class="report-container">

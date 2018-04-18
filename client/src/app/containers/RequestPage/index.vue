@@ -46,9 +46,7 @@ export default {
         this.show = this.show === '' ? this.request.value.type_request : this.show;
         this.value = this.request.value;
         if (this.update) {
-          this.$router.push({
-            path: '/club/request/'
-          });
+          this.$router.push({ name: 'clubRequestList'}); // -> /user/123router.push({
         }
       }
     }
@@ -66,9 +64,7 @@ export default {
       });
     },
     cancel () {
-      this.$router.push({
-        path: '/club/request/'
-      });
+      this.$router.push({ name: 'clubRequestList' }); // -> /user/123router.push({
     }
   }
 };

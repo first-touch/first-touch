@@ -113,9 +113,7 @@ export default {
         if (this.files.length > 0) {
           this.startUpload();
         } else {
-          this.$router.push({
-            path: '/report/view/' + this.report.value.id
-          });
+  		this.$router.push({ name: 'scoutReportView', params: { id: this.report.value.id } }); // -> /user/123router.push({
         }
       } else if (this.report.status === ASYNC_LOADING) {
         this.status = 'reportUploading';
@@ -125,17 +123,14 @@ export default {
     },
     filesUpload() {
       if (this.filesUpload.status === ASYNC_SUCCESS) {
-        this.$router.push({
-          path: '/report/view/' + this.report.value.id
-        });
+  this.$router.push({ name: 'scoutReportView', params: { id: this.report.value.id } });
+
       } else if (this.filesUpload.status === ASYNC_LOADING) {
         this.status = 'filesUploading';
       } else if (this.filesUpload.status === ASYNC_LOADING) {
         this.status = 'filesUploadingFailure';
         setTimeout(() => {
-          this.$router.push({
-            path: '/report/edit/' + this.report.value.id
-          });
+          this.$router.push({ name: 'scoutReportEdit', params: { id: this.report.value.id } });
         }, 3000);
       }
     }

@@ -40,23 +40,30 @@ Vue.use(BootstrapVue);
 // }
 
 function requireAuth (to, from, next) {
-  store.state.token.value =
-    store.state.token.value || localStorage.getItem('auth_token');
-  if (!store.state.token.value) next({ path: '/welcome' });
-  else next();
+  store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
+  if (!store.state.token.value) {
+    next({
+      path: '/welcome'
+    });
+  } else next();
 }
 
 function checkIfLoggedIn (to, from, next) {
-  store.state.token.value =
-    store.state.token.value || localStorage.getItem('auth_token');
-  if (store.state.token.value) next({ path: '/' });
-  else next();
+  store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
+  if (store.state.token.value) {
+    next({
+      path: '/'
+    });
+  } else next();
 }
 
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    { path: '/welcome', component: LandingPage },
+    {
+      path: '/welcome',
+      component: LandingPage
+    },
     {
       path: '/users/sign_in',
       component: LoginPage,
@@ -72,32 +79,67 @@ const router = new VueRouter({
       component: UserLayout,
       beforeEnter: requireAuth,
       children: [
-        { path: '', component: FeedPage },
-        { path: 'profile/edit', component: EditProfilePage },
-        { path: 'profile', component: ProfilePage, props: { mine: true }},
-        { path: 'network', component: Network },
-        { path: '/report/create', component: CreateReportPage },
-        { path: '/jobs/list', component: JobsListPage },
+        {
+          path: '',
+          component: FeedPage
+        },
+        {
+          path: 'profile/edit',
+          component: EditProfilePage
+        },
+        {
+          path: 'profile',
+          component: ProfilePage,
+          props: {
+            mine: true
+          }
+        },
         {
           path: '/users/:id/profile',
           component: ProfilePage,
-          props: { mine: false },
-          meta: { reuse: false }
+          props: {
+            mine: false
+          },
+          meta: {
+            reuse: false
+          }
         },
         {
-          path: '/report/view/:id',
-          component: ReportPage
+          path: 'network',
+          component: Network
         },
         {
-          path: '/report/edit/:id',
-          component: EditReportPage
+          path: '/scouting/report/create',
+          component: CreateReportPage,
+          name: 'scoutReportCreate'
+        },
+        {
+          path: '/scouting/report/view/:id',
+          component: ReportPage,
+          name: 'scoutReportView'
+        },
+        {
+          path: '/scouting/report/edit/:id',
+          component: EditReportPage,
+          name: 'scoutReportEdit'
+        },
+        {
+          path: '/scouting/jobs/list',
+          component: JobsListPage,
+          name: 'scoutJobsList'
         },
         {
           path: '/messages',
           component: Messages,
           children: [
-            { path: '', component: ConvoContainer },
-            { path: ':id', component: ConvoContainer }
+            {
+              path: '',
+              component: ConvoContainer
+            },
+            {
+              path: ':id',
+              component: ConvoContainer
+            }
           ]
         }
       ]
@@ -107,18 +149,38 @@ const router = new VueRouter({
       component: ClubLayout,
       beforeEnter: requireAuth,
       children: [
-        { path: '', component: ClubStream },
-        { path: 'notes', component: ClubNotes },
-        { path: '/club/report/marketplace', component: MarketPlacePage },
-        { path: '/club/report/list', component: MyPurchasedReportsPage },
-        { path: '/club/request', component: JobRequestPage },
         {
-          path: '/club/report/:id',
-          component: ReportPage
+          path: '',
+          component: ClubStream
         },
         {
-          path: '/club/request/:id',
-          component: RequestPage
+          path: 'notes',
+          component: ClubNotes
+        },
+        {
+          path: '/club/scouting/report/marketplace',
+          component: MarketPlacePage,
+          name: 'clubReportMarketplace'
+        },
+        {
+          path: '/club/scouting/report/list',
+          component: MyPurchasedReportsPage,
+          name: 'clubReportList'
+        },
+        {
+          path: '/club/scouting/request',
+          component: JobRequestPage,
+          name: 'clubRequestList'
+        },
+        {
+          path: '/club/scouting/report/:id',
+          component: ReportPage,
+          name: 'clubReport'
+        },
+        {
+          path: '/club/scouting/request/:id',
+          component: RequestPage,
+          name: 'clubRequest'
         }
       ]
     },

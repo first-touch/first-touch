@@ -275,9 +275,7 @@ export default {
   methods: {
     ...mapActions(['getReports', 'newOrder']),
     viewAction(report) {
-      this.$router.push({
-        path: '/club/report/' + report.id
-      });
+      this.$router.push({ name: 'clubReport', params: { id: report.id } });
     },
     BuyAction(report) {
       this.payment = true;

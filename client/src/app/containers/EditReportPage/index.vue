@@ -9,13 +9,13 @@
             <span>
               <icon name='eye' scale="1.5"></icon>
             </span>
-            <router-link :to="`/report/view/${searchReport.value.report.id}`">View</router-link>
+              <router-link :to="{ name: 'scoutReportView', params: { id: searchReport.value.report.id }}">View</router-link>
           </button>
           <button class="timeline-widget-button">
             <span>
               <icon name='edit' scale="1.5"></icon>
             </span>
-            <router-link :to="`/report/edit/${searchReport.value.report.id}`" class="active">Edit</router-link>
+    <router-link  :to="{ name: 'scoutReportEdit', params: { id: searchReport.value.report.id }}" class="active">Edit</router-link>
           </button>
           <button class="timeline-widget-button button-right" v-if="searchReport.value.report.status == 'publish'" @click="updateStatus('private')">
             <span class="unpublish">
@@ -226,10 +226,13 @@ export default {
           if (this.files.length > 0) {
             this.startUpload();
           } else {
-            this.$router.push({
-              path: '/report/view/' + this.report.value.id
-            });
-          }
+           this.$router.push({
+            name: 'scoutReportView',
+            params: {
+              id: this.report.value.id
+            }
+          });
+        }
         }
       } else if (this.report.status === ASYNC_LOADING) {
         this.status = 'reportUploading';
@@ -238,8 +241,11 @@ export default {
     filesUpload() {
       if (this.filesUpload.status === ASYNC_SUCCESS) {
         this.$router.push({
-          path: '/report/view/' + this.report.value.id
-        });
+          name: 'scoutReportView',
+          params: {
+            id: this.report.value.id
+          }
+        }); 
       } else if (this.filesUpload.status === ASYNC_LOADING) {
         this.status = 'filesUploading';
       }
