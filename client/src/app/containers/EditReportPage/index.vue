@@ -245,7 +245,7 @@ export default {
           params: {
             id: this.report.value.id
           }
-        }); 
+        });
       } else if (this.filesUpload.status === ASYNC_LOADING) {
         this.status = 'filesUploading';
       }
@@ -290,7 +290,6 @@ export default {
       this.report.errors = null;
       this.files = filelist;
       var id = this.$route.params.id;
-      console.log(report.report_data.userinfo);
       this.updateReport({
         report: report,
         id

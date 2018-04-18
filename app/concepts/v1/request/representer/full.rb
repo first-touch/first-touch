@@ -10,9 +10,16 @@ module V1
             represented.user.personal_profile
           )
         }
+        property :player, getter: lambda { |represented:, **|
+          if represented.meta_data['player_id'].to_i > 0
+            personal_profile = ::PersonalProfile.find_by user_id: represented.meta_data['player_id']
+            ::V1::PersonalProfile::Representer::Simplified.new(
+              personal_profile
+            )
+          end
+        }
         property :meta_data
-        property :min_price
-        property :max_price
+        property :price
         property :type_request
         property :status
         property :deadline

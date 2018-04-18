@@ -23,7 +23,15 @@
           </form>
         </div>
       </div>
-      <request v-for="request in listRequest" :key="request.id" :request="request" :update="updateStatus"></request>
+      <b-modal id="metaModal" size="lg" ref="metaModal">
+        <playerrequestpopup v-if="selected && selected.type_request == 'player' " :request="selected" :closeAction="closeAction" :bid="wantbid" :newBid="newBid"
+        />
+        <teamrequestpopup v-if="selected && selected.type_request == 'team' " :request="selected" :closeAction="closeAction" :bid="wantbid" :newBid="newBid"/>
+        <positionrequestpopup v-if="selected && selected.type_request == 'position' " :request="selected" :closeAction="closeAction" :bid="wantbid" :newBid="newBid"
+        />
+        <!-- <bidpopup v-if="selected && bid " :request="selected" /> -->
+      </b-modal>
+      <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :addBid="addBid"></request>
     </timeline-item>
   </div>
 </template>
@@ -31,6 +39,8 @@
 
 <style lang="scss">
 @import '~stylesheets/variables';
+@import '~stylesheets/modal';
+
 .widget-request {
   .datepicker {
     padding: 0;
@@ -51,7 +61,7 @@
     .selected-tag {
       color: $main-text-color;
     }
-    .clear{
+    .clear {
       display: none;
     }
   }
@@ -99,7 +109,7 @@
 </style>
 <script>
 import Datepicker from 'vuejs-datepicker';
-import RequestItem from './RequestItem';
+import RequestItem from 'app/components/RequestItem';
 import TimelineItem from 'app/components/TimelineItem';
 import 'vue-awesome/icons/trash';
 import 'vue-awesome/icons/calendar-alt';
@@ -108,20 +118,30 @@ import 'vue-awesome/icons/times';
 import Icon from 'vue-awesome/components/Icon';
 import vSelect from 'vue-select';
 import FtDatepicker from 'app/components/Input/FtDatepicker';
+import PlayerRequestPopup from './PlayerRequestPopup';
+import PositionRequestPopup from './PositionRequestPopup';
+import BidPopup from './BidPopup';
+import TeamRequestPopup from './TeamRequestPopup';
 
 export default {
   name: 'JobRequestWidget',
-  props: ['listRequest', 'getRequests', 'update'],
+  props: ['listRequest', 'getRequests', 'update','bid','createBid'],
   components: {
     datepicker: Datepicker,
     'timeline-item': TimelineItem,
     request: RequestItem,
     icon: Icon,
     vselect: vSelect,
-    ftdatepicker: FtDatepicker
+    ftdatepicker: FtDatepicker,
+    teamrequestpopup: TeamRequestPopup,
+    playerrequestpopup: PlayerRequestPopup,
+    positionrequestpopup: PositionRequestPopup,
+    bidpopup: BidPopup
   },
   data() {
     return {
+      selected: null,
+      wantbid: false,
       params: {
         id: '',
         created_date: '',
@@ -208,10 +228,26 @@ export default {
     search() {
       this.getRequests(this.url);
     },
-    updateStatus(id, status) {
-      this.update(id, {
-        status
-      });
+    newBid(request,price){
+      this.createBid({
+        id: request.id,
+        price
+      })
+    },
+    closeAction(request) {
+      this.$refs.metaModal.hide();
+      this.wantbid = false;
+      this.selected = null;
+    },
+    viewSummary(request) {
+      this.wantbid = false;
+      this.selected = request;
+      this.$refs.metaModal.show();
+    },
+    addBid(request) {
+      this.wantbid = true;
+      this.selected = request;
+      this.$refs.metaModal.show();
     }
   }
 };

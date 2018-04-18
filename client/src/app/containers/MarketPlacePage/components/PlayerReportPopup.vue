@@ -24,16 +24,16 @@
           <h2 class="title" :title="report.headline">{{report.headline}}</h2>
           <p class="extra">
             <span class="target player_name">{{report.player.first_name}} {{report.player.last_name}} </span>
-            <span class="target">{{report.report_data.meta_data.age}} years, {{report.report_data.meta_data.height}} cm and {{report.report_data.meta_data.weight}}
+            <span class="target">{{report.meta_data.age}} years, {{report.meta_data.height}} cm and {{report.meta_data.weight}}
               kg </span>
             <span class="target"></span>
             <span class="target"></span>
-            <span class="target">From {{getNationality(report.report_data.meta_data.nationality_country_code)}}</span>
+            <span class="target">From {{getNationality(report.meta_data.nationality_country_code)}}</span>
             <span class="target">Speak
-              <span v-for="language in report.report_data.meta_data.languages" class="list" :key="language.id">{{getLanguage(language)}}</span>
+              <span v-for="language in report.meta_data.languages" class="list" :key="language.id">{{getLanguage(language)}}</span>
             </span>
             <span class="target">Play
-              <span v-for="position in report.report_data.meta_data.playing_position" class="list" :key="position.id">{{position}}</span>
+              <span v-for="position in report.meta_data.playing_position" class="list" :key="position.id">{{position}}</span>
             </span>
           </p>
         </div>

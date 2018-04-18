@@ -1,15 +1,16 @@
 module V1
-  module Request
+  module RequestBids
     module Contract
       class Create < Reform::Form
-        property :min_price
-        property :max_price
-        property :meta_data
-        property :deadline
-        property :type_request
-        property :status
-        validates :min_price, :status, :meta_data, :deadline,
-                  :type_request, presence: true
+      property :price
+      property :status
+      property :request
+
+      validates :price, presence: true  do
+        false
+        puts price
+      end
+
       end
     end
   end

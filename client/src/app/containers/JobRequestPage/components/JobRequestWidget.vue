@@ -23,7 +23,7 @@
           </form>
         </div>
       </div>
-      <request v-for="request in listRequest" :key="request.id" :request="request" :update="updateStatus"></request>
+      <request v-for="request in listRequest" :key="request.id" :request="request" :update="updateStatus" own="true" ></request>
     </timeline-item>
   </div>
 </template>
@@ -99,7 +99,7 @@
 </style>
 <script>
 import Datepicker from 'vuejs-datepicker';
-import RequestItem from './RequestItem';
+import RequestItem from 'app/components/RequestItem';
 import TimelineItem from 'app/components/TimelineItem';
 import 'vue-awesome/icons/trash';
 import 'vue-awesome/icons/calendar-alt';

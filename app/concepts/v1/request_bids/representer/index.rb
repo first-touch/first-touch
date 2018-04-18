@@ -1,5 +1,5 @@
 module V1
-  module Request
+  module RequestBid
     module Representer
       class Index < Representable::Decorator
         include Representable::JSON

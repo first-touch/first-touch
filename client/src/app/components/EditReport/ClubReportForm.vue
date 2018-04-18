@@ -18,57 +18,57 @@
       </div>
       <div class="form-group">
         <label class=" col-md-12">Analysis of Trainings/Matches</label>
-        <matchanalyzed :analyzed_matches="report_data.analyzed_matches" type="team" />
+        <matchanalyzed :analyzed_matches="meta_data.analyzed_matches" type="team" />
       </div>
       <div class="form-group col-md-12">
         <label>Formation(s) Used & Playing Style</label>
         <div class="row">
-          <textarea v-model="report_data.formation" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.formation" class="col col-md-12 form-control" />
         </div>
       </div>
       <div class="form-group col-md-12">
         <label>Attacking organisation & Transition After Winning Possession</label>
         <div class="row">
-          <textarea v-model="report_data.attacking_organisation" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.attacking_organisation" class="col col-md-12 form-control" />
         </div>
       </div>
       <div class="form-group col-md-12">
         <label>Defensive Organisation & Transition After Losing Possession</label>
         <div class="row">
-          <textarea v-model="report_data.defensive_organisation" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.defensive_organisation" class="col col-md-12 form-control" />
         </div>
       </div>
       <div class="form-group col-md-12">
         <label>Set plays - For</label>
         <div class="row">
-          <textarea v-model="report_data.setplays_for" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.setplays_for" class="col col-md-12 form-control" />
         </div>
       </div>
       <div class="form-group col-md-12">
         <label>Set plays - Against</label>
         <div class="row">
-          <textarea v-model="report_data.setplays_against" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.setplays_against" class="col col-md-12 form-control" />
         </div>
       </div>
       <div class="form-group col-md-12">
         <label>Main threats</label>
         <div class="row">
-          <textarea v-model="report_data.main_threats" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.main_threats" class="col col-md-12 form-control" />
         </div>
       </div>
       <div class="form-group col-md-12">
         <label>Other Observations & Viewpoints to Note</label>
         <div class="row">
-          <textarea v-model="report_data.observations" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.observations" class="col col-md-12 form-control" />
         </div>
       </div>
       <div class="form-group col-md-12">
         <label>Conclusions</label>
         <div class="row">
-          <textarea v-model="report_data.conclusions" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.conclusions" class="col col-md-12 form-control" />
         </div>
       </div>
-      <addattachments :attachments="report ? report.report_data.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
+      <addattachments :attachments="report.attachments ? report.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
         v-on:update:files="files = $event" />
       <div class="form-group buttons-inner">
         <button id="submit" class="btn btn-primary ft-button " @click="handleSubmit">Publish</button>
@@ -99,7 +99,7 @@
     data() {
       return {
         files: [],
-        report_data: {
+        meta_data: {
           analyzed_matches: [{
             date: '',
             opponent: '',
@@ -131,7 +131,7 @@
         var report = {
           headline: this.headline,
           price: this.price,
-          report_data: this.report_data,
+          meta_data: this.meta_data,
           remove_attachment: this.remove_attachment
         };
         this.submitReport(report, this.files);
@@ -144,7 +144,7 @@
     },
     mounted() {
       if (this.report) {
-        this.report_data = this.report.report_data.meta_data;
+        this.meta_data = this.report.meta_data;
         this.price = this.report.price;
         this.headline = this.report.headline;
       }

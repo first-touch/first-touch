@@ -6,7 +6,7 @@
         <div class="header row col-md-12">
           <div class="row col col-sm-6">
             <p class="col-sm-2">UPDATED </p>
-            <p class="col-md-5"> {{report.report_data.created_at | moment}}</p>
+            <p class="col-md-5"> {{report.meta_data.created_at | moment}}</p>
           </div>
           <div class="row col col-sm-6">
             <p class="col-sm-5">Purchassed for: </p>
@@ -40,44 +40,44 @@
           </h5>
           <div>
             <label class="row col-sm-12 summary-title">Analyzed Matches</label>
-            <matchanalyzed :analyzed_matches="report.report_data.meta_data.analyzed_matches" type="team" mode="read" />
+            <matchanalyzed :analyzed_matches="report.meta_data.analyzed_matches" type="team" mode="read" />
           </div>
           <div class="meta">
             <label class="row col-sm-12 summary-title">Formations(s) Used & playing Style</label>
-            <p class="row col-sm-12">{{report.report_data.meta_data.formation}} </p>
+            <p class="row col-sm-12">{{report.meta_data.formation}} </p>
           </div>
           <div class="meta">
             <label class="row col-sm-12 summary-title">Attacking Organisation & Transition After winnig possession</label>
-            <p class="row col-sm-12">{{report.report_data.meta_data.attacking_organisation}} </p>
+            <p class="row col-sm-12">{{report.meta_data.attacking_organisation}} </p>
           </div>
           <div class="meta">
             <label class="row col-sm-12 summary-title">Defensive Organisation & Transition After losing possession</label>
-            <p class="row col-sm-12"> {{report.report_data.meta_data.defensive_organisation}} </p>
+            <p class="row col-sm-12"> {{report.meta_data.defensive_organisation}} </p>
           </div>
           <div class="meta">
             <label class="row col-sm-12 summary-title">Set Plays - For</label>
-            <p class="row col-sm-12"> {{report.report_data.meta_data.setplays_for}} </p>
+            <p class="row col-sm-12"> {{report.meta_data.setplays_for}} </p>
           </div>
           <div class="meta">
             <label class="row col-sm-12 summary-title">Set Plays - Against</label>
-            <p class="row col-sm-12"> {{report.report_data.meta_data.setplays_against}}</p>
+            <p class="row col-sm-12"> {{report.meta_data.setplays_against}}</p>
           </div>
           <div class="meta">
             <label class="row col-sm-12 summary-title">Main Threats</label>
-            <p class="row col-sm-12"> {{report.report_data.meta_data.main_threats}} </p>
+            <p class="row col-sm-12"> {{report.meta_data.main_threats}} </p>
           </div>
           <div class="meta">
             <label class="row col-sm-12 summary-title">Other Observations & Viewpoints To Note</label>
-            <p class="row col-sm-12"> {{report.report_data.meta_data.observations}} </p>
+            <p class="row col-sm-12"> {{report.meta_data.observations}} </p>
           </div>
           <div class="meta">
             <label class="row col-sm-12 summary-title">Conclusion</label>
-            <p class="row col-sm-12"> {{report.report_data.meta_data.conclusion}} </p>
+            <p class="row col-sm-12"> {{report.meta_data.conclusion}} </p>
           </div>
           <div>
             <label class="row col-sm-12 summary-title">Attachments</label>
             <div class="row col-sm-12">
-              <button v-for="attachment in report.report_data.attachments.attachments" :key="attachment.id" class="btn-info btn-attachments"
+              <button v-for="attachment in report.attachments.attachments" :key="attachment.id" class="btn-info btn-attachments"
                 @click="downloadFile(attachment.id, attachment.filename)"> {{attachment.filename}}</button>
 
             </div>
