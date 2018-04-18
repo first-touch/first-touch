@@ -6,11 +6,11 @@
         <h4 class="header">Report</h4>
         <div v-if="report != null" class="report-div">
           <ul v-if="owner" class="menu">
-            <li >
-                <router-link :to="`/report/view/${report.id}`" class="active">View</router-link>
+            <li>
+              <router-link :to="{ name: 'scoutReportView', params: { id: report.id }}" class="active">View</router-link>
             </li>
             <li>
-              <router-link :to="`/report/edit/${report.id}`">Edit</router-link>
+              <router-link :to="{ name: 'scoutReportEdit', params: { id: report.id }}">Edit</router-link>
             </li>
           </ul>
           <playerreport v-if="report.type_report == 'player'" :report="report" :downloadFile="downloadFile" class="report" />
@@ -64,30 +64,30 @@ export default {
     playerreport: PlayerReport,
     clubreport: ClubReport
   },
-  data () {
+  data() {
     return {};
   },
   computed: {
     ...mapGetters(['searchReport']),
-    report () {
+    report() {
       if (this.searchReport.status === ASYNC_SUCCESS) {
         return this.searchReport.value.report;
       }
       return null;
     },
-    owner () {
+    owner() {
       if (this.searchReport.status === ASYNC_SUCCESS) {
         return this.searchReport.value.owner;
       }
       return false;
     }
   },
-  mounted () {
+  mounted() {
     this.getReport(this.$route.params.id);
   },
   methods: {
     ...mapActions(['getReport', 'getAttachment']),
-    downloadFile (id, filename) {
+    downloadFile(id, filename) {
       this.getAttachment({
         id,
         filename

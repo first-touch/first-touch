@@ -44,7 +44,8 @@
         <p class="col col-md-3">{{report.created_at | moment}}</p>
         <p class="col col-md-3">
           <span class="action col col-sm-2">
-            <router-link :to="`/report/view/${report.id}`">View Report</router-link>
+            <router-link :to="{ name: 'scoutReportView', params: { id: report.id }}"
+            >View Report</router-link>
           </span>
           <span class="action col col-sm-2" v-if="report.status == 'publish'">
             <a @click="customUpdateReport('private',report.id)" href="#" class="col-sm-2">Unpublish</a>

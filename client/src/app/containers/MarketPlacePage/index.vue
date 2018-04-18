@@ -117,7 +117,7 @@
       }
     }
   }
-    .clear-date {
+  .clear-date {
     cursor: pointer;
     color: red;
   }
@@ -205,7 +205,7 @@ export default {
     datepicker: Datepicker,
     paymentpopup: PaymentPopup
   },
-  data () {
+  data() {
     return {
       reportSelected: null,
       payment: false,
@@ -218,7 +218,7 @@ export default {
       }
     };
   },
-  mounted () {
+  mounted() {
     this.getReports({
       t: 't'
     });
@@ -228,28 +228,26 @@ export default {
   },
   methods: {
     ...mapActions(['getReports', 'newOrder']),
-    viewAction (report) {
-      this.$router.push({
-        path: '/club/report/' + report.id
-      });
+    viewAction(report) {
+      this.$router.push({ name: 'clubReport', params: { id: report.id } }); // -> /user/123router.push({
     },
-    BuyAction (report) {
+    BuyAction(report) {
       this.payment = true;
       this.reportSelected = report;
       this.$refs.metaModal.show();
     },
-    PaymentAction (payment) {
+    PaymentAction(payment) {
       this.newOrder({ order: payment });
     },
-    summaryAction (report) {
+    summaryAction(report) {
       this.payment = false;
       this.reportSelected = report;
       this.$refs.metaModal.show();
     },
-    hideModal () {
+    hideModal() {
       this.$refs.metaModal.hide();
     },
-    search () {
+    search() {
       var params = this.params;
       if (params.created_date_from) {
         params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
@@ -258,7 +256,7 @@ export default {
         params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
       }
       var url = Object.keys(params)
-        .map(function (k) {
+        .map(function(k) {
           return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
         })
         .join('&');

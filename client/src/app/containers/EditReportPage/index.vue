@@ -7,10 +7,10 @@
         <div v-if="searchReport.value.report" class="report-div">
           <ul class="menu">
             <li>
-              <router-link :to="`/report/view/${searchReport.value.report.id}`">View</router-link>
+              <router-link :to="{ name: 'scoutReportView', params: { id: searchReport.value.report.id }}">View</router-link>
             </li>
             <li>
-              <router-link :to="`/report/edit/${searchReport.value.report.id}`" class="active">Edit</router-link>
+              <router-link  :to="{ name: 'scoutReportEdit', params: { id: searchReport.value.report.id }}" class="active">Edit</router-link>
             </li>
           </ul>
           <div class="form-container">
@@ -171,8 +171,11 @@ export default {
           this.startUpload();
         } else {
           this.$router.push({
-            path: '/report/view/' + this.report.value.id
-          });
+            name: 'scoutReportView',
+            params: {
+              id: this.report.value.id
+            }
+          }); // -> /user/123router.push({
         }
       } else if (this.report.status === ASYNC_LOADING) {
         this.status = 'reportUploading';
@@ -181,8 +184,11 @@ export default {
     filesUpload() {
       if (this.filesUpload.status === ASYNC_SUCCESS) {
         this.$router.push({
-          path: '/report/view/' + this.report.value.id
-        });
+          name: 'scoutReportView',
+          params: {
+            id: this.report.value.id
+          }
+        }); // -> /user/123router.push({
       } else if (this.filesUpload.status === ASYNC_LOADING) {
         this.status = 'filesUploading';
       }
@@ -195,8 +201,11 @@ export default {
     ...mapActions(['updateReport', 'getReport', 'uploadFiles']),
     cancel() {
       this.$router.push({
-        path: '/report/view/' + this.$route.params.id
-      });
+        name: 'scoutReportView',
+        params: {
+          id: this.report.value.id
+        }
+      }); // -> /user/123router.push({
     },
     startUpload() {
       var formData = new FormData();

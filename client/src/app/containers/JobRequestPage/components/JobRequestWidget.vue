@@ -59,7 +59,7 @@
         <p class="col col-md-2">{{request.id | requestId(request.type_request)}} </p>
         <p class="col col-md-2">
           <span class="action col-md-6 ">
-            <router-link :to="`/club/request/${request.id}`">Edit</router-link>
+            <router-link :to="{ name: 'clubRequest', params: { id: request.id }}">Edit</router-link>
           </span>
           <span class="action col-md-6 ">
             <a href='#' @click="updateStatus(request.id,'deleted')">Delete</a>

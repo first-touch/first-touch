@@ -43,10 +43,10 @@
           </div>
           <ul class="sub-nav">
             <li class="sub-nav-item" :class="{ active: page === 'scouting/report/create' || !page }">
-              <router-link to="/report/create">Create Report</router-link>
+              <router-link  :to="{ name: 'scoutReportCreate'}" >Create Report</router-link>
             </li>
             <li class="sub-nav-item" :class="{ active: page === 'scouting/jobs/list' || !page }">
-              <router-link to="/jobs/list">Jobs List</router-link>
+              <router-link :to="{ name: 'scoutJobsList'}" >Jobs List</router-link>
             </li>
           </ul>
         </li>

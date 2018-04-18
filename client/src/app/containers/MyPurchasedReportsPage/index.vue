@@ -56,7 +56,7 @@
               </p>
               <p class="col col-md-3">
                 <span class="action col-4 ">
-                  <router-link :to="`/club/report/${report.id}`">View Report</router-link>
+                  <router-link :to="{ name: 'clubReport', params: { id: report.id }}">View Report</router-link>
                 </span>
                 <span class="action col-4">
                   <a href="#">Request Refund</a>
