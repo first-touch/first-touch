@@ -9,25 +9,59 @@ export const bid = {
   errors: null
 };
 
+export const bids = {
+  status: ASYNC_NONE,
+  value: null,
+  errors: null
+};
+
 export default {
-  [ActionTypes.BIDS_REQUEST_LOADING] (state, errors) {
-    state.order = Object.assign(
-      {},
-      state.bid,
-      { status: ASYNC_LOADING, errors: errors }
-    );
-  },
-  [ActionTypes.BIDS_REQUEST_SUCCESS] (state, errors) {
+  [ActionTypes.BID_CLEAR] (state, bid) {
     state.bid = Object.assign(
       {},
       state.bid,
-      { status: ASYNC_SUCCESS, errors: errors }
+      { status: ASYNC_NONE, value: null, errors: null }
+    );
+  },
+  [ActionTypes.BID_LOADING] (state, bid) {
+    state.bid = Object.assign(
+      {},
+      state.bid,
+      { status: ASYNC_LOADING, value: bid }
+    );
+  },
+  [ActionTypes.BID_SUCCESS] (state, bid) {
+    state.bid = Object.assign(
+      {},
+      state.bid,
+      { status: ASYNC_SUCCESS, value: bid }
+    );
+  },
+  [ActionTypes.BID_FAILURE] (state, errors) {
+    state.bid = Object.assign(
+      {},
+      state.bid,
+      { status: ASYNC_FAIL, errors: errors }
+    );
+  },
+  [ActionTypes.BIDS_REQUEST_LOADING] (state, bids) {
+    state.bids = Object.assign(
+      {},
+      state.bids,
+      { status: ASYNC_LOADING, value: bids }
+    );
+  },
+  [ActionTypes.BIDS_REQUEST_SUCCESS] (state, bids) {
+    state.bids = Object.assign(
+      {},
+      state.bids,
+      { status: ASYNC_SUCCESS, value: bids }
     );
   },
   [ActionTypes.BIDS_REQUEST_FAILURE] (state, errors) {
-    state.bid = Object.assign(
+    state.bids = Object.assign(
       {},
-      state.bid,
+      state.bids,
       { status: ASYNC_FAIL, errors: errors }
     );
   }

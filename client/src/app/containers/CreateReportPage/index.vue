@@ -113,7 +113,7 @@ export default {
         if (this.files.length > 0) {
           this.startUpload();
         } else {
-  		this.$router.push({ name: 'scoutReportView', params: { id: this.report.value.id } }); // -> /user/123router.push({
+  		this.$router.push({ name: 'scoutReportView', params: { id: this.report.value.id } });
         }
       } else if (this.report.status === ASYNC_LOADING) {
         this.status = 'reportUploading';

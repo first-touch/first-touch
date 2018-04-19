@@ -6,9 +6,6 @@
           <h5 class="title">Position Request</h5>
           <p class="id">{{request.id | requestId(request.type_request) }}</p>
         </div>
-        <div class="col-md-8 buttons-inner">
-          <button class="ft-button" @click="closeAction(request)">Close</button>
-        </div>
       </div>
     </div>
     <div class="content-wrapper">
@@ -18,7 +15,7 @@
           <p>
             <span>DEADLINE {{request.deadline | moment}}</span>
           </p>
-          <p class="price" v-if="request.price">{{request.price.value}}  to {{request.price.max}} {{request.price.currency | currency}}</p>
+          <p class="price" v-if="request.price">{{request.price.value}} {{request.price.currency | currency}}</p>
         </div>
         <div class="info col-md-8" v-if="request.type_request == 'position'">
           <h2 class="title">
@@ -130,7 +127,7 @@ import countrydata from 'country-data';
 
 export default {
   name: 'RequestItem',
-  props: ['request', 'buyAction', 'closeAction','newBid'],
+  props: ['request'],
   methods: {
     getLanguage(key) {
       return countrydata.languages[key] ? countrydata.languages[key].name : '';

@@ -42,13 +42,13 @@
             Scouting
           </div>
           <ul class="sub-nav">
-            <li class="sub-nav-item" :class="{ active: page === 'scouting/report/create' || !page }">
+            <li class="sub-nav-item" :class="{ active: page === '/scouting/report/create' || !page }">
               <router-link :to="{ name: 'scoutReportCreate'}">Create Report</router-link>
             </li>
-            <li class="sub-nav-item" :class="{ active: page === 'scouting/jobs/list' || !page }">
+            <li class="sub-nav-item" :class="{ active: page === '/scouting/jobs/list' || !page }">
               <router-link :to="{ name: 'scoutJobsList'}">Jobs List</router-link>
             </li>
-            <li class="sub-nav-item" :class="{ active: page === 'scouting/jobs/bank' || !page }">
+            <li class="sub-nav-item" :class="{ active: page === '/scouting/jobs/bank' || !page }">
               <router-link :to="{ name: 'scoutJobsBank'}">Jobs Bank</router-link>
             </li>
           </ul>

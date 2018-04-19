@@ -2,7 +2,7 @@ module V1
   module RequestBids
     module Contract
       class Update < Reform::Form
-        property :status
+        property :price
 
       end
     end

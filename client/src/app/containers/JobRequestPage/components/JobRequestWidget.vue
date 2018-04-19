@@ -1,5 +1,5 @@
 <template>
-  <div class="widget-request">
+  <div class="widget-request ft-search-widget">
     <h4 class="header">My Jobs Request</h4>
     <timeline-item>
       <div class="widget-content col col-md-12">
@@ -9,21 +9,21 @@
             <h1 class="list-count">{{listRequest.length}}</h1>
           </div>
           <form @submit.prevent="search" class="col-md-10 row">
-            <fieldset class="col-md-4 filter form-control">
+            <fieldset class="col-md-4 filter">
               <vselect v-model="vselect_type" :options="options.type_request" :searchable="false" clearable="false" />
             </fieldset>
-            <fieldset class="col-md-4 filter form-control">
+            <fieldset class="col-md-4 filter">
               <vselect v-model="vselect_status" :options="options.status" :searchable="false" />
             </fieldset>
             <ftdatepicker class="col-md-5 filter form-control" :value="params.created_date" :clearable="false" v-on:update:val="params.created_date = $event; search()"
             />
             <fieldset class="col-md-4 filter form-control">
-              <input type="number form-control" class="col-sm-12" v-model="params.min_bids" placeholder="Nb bids" />
+              <input type="number form-control" class="col-sm-12" v-model="params.min_bids" placeholder="Minimum bids" @keyup="bidkey" />
             </fieldset>
           </form>
         </div>
       </div>
-      <request v-for="request in listRequest" :key="request.id" :request="request" :update="updateStatus" own="true" ></request>
+      <request v-for="request in listRequest" :key="request.id" :request="request" :update="updateStatus" own="true"></request>
     </timeline-item>
   </div>
 </template>
@@ -31,71 +31,11 @@
 
 <style lang="scss">
 @import '~stylesheets/variables';
-.widget-request {
-  .datepicker {
-    padding: 0;
-    input.input-date {
-      cursor: pointer;
-      min-height: 2em;
-      border: 0px;
-    }
-  }
-  .dropdown-toggle {
-    max-height: 35px;
-    border: 0px;
-  }
-}
-
-.widget-request {
-  .v-select {
-    .selected-tag {
-      color: $main-text-color;
-    }
-    .clear{
-      display: none;
-    }
-  }
-}
+@import '~stylesheets/search';
 </style>
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
-.widget-request {
-  color: $main-text-color;
-  .form-control {
-    padding: 0;
-  }
-  .list-title {
-    color: $main-text-color;
-    font-size: 0.95em;
-    text-transform: uppercase;
-  }
-  .list-count {
-    color: $main-header-color;
-    font-size: 4em;
-    text-align: center;
-  }
-  .filter {
-    margin: 5px;
-    max-width: 23%;
-    input,
-    select {
-      height: 100%;
-      padding: 10px;
-    }
-    .icon-inner {
-      margin-top: 5px;
-      display: inline-block;
-      cursor: pointer;
-      &:hover {
-        color: $secondary-header-color;
-      }
-    }
-    .datepicker {
-      float: left;
-    }
-  }
-}
 </style>
 <script>
 import Datepicker from 'vuejs-datepicker';
@@ -137,6 +77,7 @@ export default {
         label: 'Status',
         value: ''
       },
+      timer: null,
       options: {
         type_request: [
           {
@@ -207,6 +148,13 @@ export default {
   methods: {
     search() {
       this.getRequests(this.url);
+    },
+    bidkey() {
+      var search = this.search
+      clearTimeout(this.timer);
+      this.timer = setTimeout(function() {
+        search();
+      }, 500);
     },
     updateStatus(id, status) {
       this.update(id, {

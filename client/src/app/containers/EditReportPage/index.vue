@@ -25,7 +25,7 @@
           </button>
           <button class="timeline-widget-button button-right" v-if="searchReport.value.report.status == 'private'" @click="updateStatus('publish')">
             <span class="publish">
-              <icon name="eye"></icon>
+              <icon name="eye" scale="1.5"></icon>
             </span>
             <a>Publish Report</a>
           </button>

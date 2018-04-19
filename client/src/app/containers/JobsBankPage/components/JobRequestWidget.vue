@@ -1,5 +1,5 @@
 <template>
-  <div class="widget-request">
+  <div class="widget-request ft-search-widget">
     <h4 class="header">My Jobs Request</h4>
     <timeline-item>
       <div class="widget-content col col-md-12">
@@ -9,27 +9,30 @@
             <h1 class="list-count">{{listRequest.length}}</h1>
           </div>
           <form @submit.prevent="search" class="col-md-10 row">
-            <fieldset class="col-md-4 filter form-control">
+            <fieldset class="col-md-4 filter">
               <vselect v-model="vselect_type" :options="options.type_request" :searchable="false" clearable="false" />
-            </fieldset>
-            <fieldset class="col-md-4 filter form-control">
-              <vselect v-model="vselect_status" :options="options.status" :searchable="false" />
             </fieldset>
             <ftdatepicker class="col-md-5 filter form-control" :value="params.created_date" :clearable="false" v-on:update:val="params.created_date = $event; search()"
             />
-            <fieldset class="col-md-4 filter form-control">
-              <input type="number form-control" class="col-sm-12" v-model="params.min_bids" placeholder="Nb bids" />
+            <fieldset class="col-md-3 filter">
+              <vselect v-model="vselect_sort" @input="search" :options="options.order" :searchable="false" />
             </fieldset>
           </form>
         </div>
       </div>
-      <b-modal id="metaModal" size="lg" ref="metaModal">
-        <playerrequestpopup v-if="selected && selected.type_request == 'player' " :request="selected" :closeAction="closeAction" :bid="wantbid" :newBid="newBid"
-        />
-        <teamrequestpopup v-if="selected && selected.type_request == 'team' " :request="selected" :closeAction="closeAction" :bid="wantbid" :newBid="newBid"/>
-        <positionrequestpopup v-if="selected && selected.type_request == 'position' " :request="selected" :closeAction="closeAction" :bid="wantbid" :newBid="newBid"
-        />
-        <!-- <bidpopup v-if="selected && bid " :request="selected" /> -->
+      <b-modal id="metaModal" :size="bid? 'md' : 'lg'" ref="metaModal" :class="bid? 'successModal' : 'formModal' ">
+        <div v-if="!bid">
+          <playerrequestpopup v-if="selected && selected.type_request == 'player' " :request="selected" :closeAction="closeAction"
+            :bid="wantbid" :newBid="newBid" />
+          <teamrequestpopup v-if="selected && selected.type_request == 'team' " :request="selected" :closeAction="closeAction" :bid="wantbid"
+            :newBid="newBid" />
+          <positionrequestpopup v-if="selected && selected.type_request == 'position' " :request="selected" :closeAction="closeAction"
+            :bid="wantbid" :newBid="newBid" />
+        </div>
+        <div v-if="bid" class="divSuccess">
+          <h5 class="success">Payment Success</h5>
+          <button class="btn btn-dark" @click="closeAction()">✓ Close</button>
+        </div>
       </b-modal>
       <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :addBid="addBid"></request>
     </timeline-item>
@@ -40,6 +43,10 @@
 <style lang="scss">
 @import '~stylesheets/variables';
 @import '~stylesheets/modal';
+@import '~stylesheets/search';
+.ft-form {
+  padding: 0 !important;
+}
 
 .widget-request {
   .datepicker {
@@ -56,16 +63,6 @@
   }
 }
 
-.widget-request {
-  .v-select {
-    .selected-tag {
-      color: $main-text-color;
-    }
-    .clear {
-      display: none;
-    }
-  }
-}
 </style>
 
 <style lang="scss" scoped>
@@ -108,147 +105,172 @@
 }
 </style>
 <script>
-import Datepicker from 'vuejs-datepicker';
-import RequestItem from 'app/components/RequestItem';
-import TimelineItem from 'app/components/TimelineItem';
-import 'vue-awesome/icons/trash';
-import 'vue-awesome/icons/calendar-alt';
-import 'vue-awesome/icons/calendar-check';
-import 'vue-awesome/icons/times';
-import Icon from 'vue-awesome/components/Icon';
-import vSelect from 'vue-select';
-import FtDatepicker from 'app/components/Input/FtDatepicker';
-import PlayerRequestPopup from './PlayerRequestPopup';
-import PositionRequestPopup from './PositionRequestPopup';
-import BidPopup from './BidPopup';
-import TeamRequestPopup from './TeamRequestPopup';
+  import Datepicker from 'vuejs-datepicker';
+  import RequestItem from 'app/components/RequestItem';
+  import TimelineItem from 'app/components/TimelineItem';
+  import 'vue-awesome/icons/trash';
+  import 'vue-awesome/icons/calendar-alt';
+  import 'vue-awesome/icons/calendar-check';
+  import 'vue-awesome/icons/times';
+  import Icon from 'vue-awesome/components/Icon';
+  import vSelect from 'vue-select';
+  import FtDatepicker from 'app/components/Input/FtDatepicker';
+  import PlayerRequestPopup from './PlayerRequestPopup';
+  import PositionRequestPopup from './PositionRequestPopup';
+  import BidPopup from './BidPopup';
+  import TeamRequestPopup from './TeamRequestPopup';
 
-export default {
-  name: 'JobRequestWidget',
-  props: ['listRequest', 'getRequests', 'update','bid','createBid'],
-  components: {
-    datepicker: Datepicker,
-    'timeline-item': TimelineItem,
-    request: RequestItem,
-    icon: Icon,
-    vselect: vSelect,
-    ftdatepicker: FtDatepicker,
-    teamrequestpopup: TeamRequestPopup,
-    playerrequestpopup: PlayerRequestPopup,
-    positionrequestpopup: PositionRequestPopup,
-    bidpopup: BidPopup
-  },
-  data() {
-    return {
-      selected: null,
-      wantbid: false,
-      params: {
-        id: '',
-        created_date: '',
-        order: '',
-        status: '',
-        type_request: ''
-      },
-      vselect_type: {
-        label: 'Request Type',
-        value: ''
-      },
-      vselect_status: {
-        label: 'Status',
-        value: ''
-      },
-      options: {
-        type_request: [
-          {
-            label: 'Request Type',
-            value: ''
-          },
-          {
-            label: 'Player',
-            value: 'player'
-          },
-          {
-            label: 'Position',
-            value: 'position'
-          },
-          {
-            label: 'Team',
-            value: 'team'
-          }
-        ],
-        status: [
-          {
-            label: 'Status',
-            value: ''
-          },
-          {
-            label: 'Draft',
-            value: 'draft'
-          },
-          {
-            label: 'Closed',
-            value: 'close'
-          },
-          {
-            label: 'Publish',
-            value: 'publish'
-          },
-          {
-            label: 'Private',
-            value: 'private'
-          }
-        ]
+  export default {
+    name: 'JobRequestWidget',
+    props: ['listRequest', 'getRequests', 'update', 'bid', 'createBid', 'updateBid', 'clearBid'],
+    components: {
+      datepicker: Datepicker,
+      'timeline-item': TimelineItem,
+      request: RequestItem,
+      icon: Icon,
+      vselect: vSelect,
+      ftdatepicker: FtDatepicker,
+      teamrequestpopup: TeamRequestPopup,
+      playerrequestpopup: PlayerRequestPopup,
+      positionrequestpopup: PositionRequestPopup,
+      bidpopup: BidPopup
+    },
+    data() {
+      return {
+        selected: null,
+        wantbid: false,
+        params: {
+          id: '',
+          created_date: '',
+          order: '',
+          status: '',
+          type_request: ''
+        },
+        vselect_type: {
+          label: 'Request Type',
+          value: ''
+        },
+        vselect_sort: {
+          label: 'Sort by',
+          value: ''
+        },
+        options: {
+          type_request: [{
+              label: 'Request Type',
+              value: ''
+            },
+            {
+              label: 'Player',
+              value: 'player'
+            },
+            {
+              label: 'Position',
+              value: 'position'
+            },
+            {
+              label: 'Team',
+              value: 'team'
+            }
+          ],
+          order: [{
+              label: 'Sort by',
+              value: ''
+            },
+            {
+              label: 'Updated date',
+              value: 'updated_at'
+            },
+            {
+              label: 'Type',
+              value: 'type_request'
+            },
+            {
+              label: 'Max Price',
+              value: 'max_price'
+            }
+          ],
+          status: [{
+              label: 'Status',
+              value: ''
+            },
+            {
+              label: 'Draft',
+              value: 'draft'
+            },
+            {
+              label: 'Closed',
+              value: 'close'
+            },
+            {
+              label: 'Publish',
+              value: 'publish'
+            },
+            {
+              label: 'Private',
+              value: 'private'
+            }
+          ]
+        }
+      };
+    },
+    mounted() {
+      this.search();
+    },
+    computed: {
+      url() {
+        var params = this.params;
+        return Object.keys(params)
+          .map(function (k) {
+            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+          })
+          .join('&');
       }
-    };
-  },
-  mounted() {
-    this.search();
-  },
-  computed: {
-    url() {
-      var params = this.params;
-      return Object.keys(params)
-        .map(function(k) {
-          return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-        })
-        .join('&');
+    },
+    watch: {
+      vselect_type: function () {
+        this.params.type_request = this.vselect_type.value;
+        this.search();
+      },
+      vselect_status: function () {
+        this.params.status = this.vselect_status.value;
+        this.search();
+      }
+    },
+    methods: {
+      search() {
+        this.getRequests(this.url);
+      },
+      newBid(request, price) {
+        if (request.request_bids) {
+          this.updateBid({
+            requestId: request.id,
+            id: request.request_bids.id,
+            price
+          });
+        } else {
+          this.createBid({
+            id: request.id,
+            price
+          });
+        }
+      },
+      closeAction(request) {
+        this.$refs.metaModal.hide();
+        this.wantbid = false;
+        this.selected = null;
+        this.clearBid();
+        this.search();
+      },
+      viewSummary(request) {
+        this.wantbid = false;
+        this.selected = request;
+        this.$refs.metaModal.show();
+      },
+      addBid(request) {
+        this.wantbid = true;
+        this.selected = request;
+        this.$refs.metaModal.show();
+      }
     }
-  },
-  watch: {
-    vselect_type: function() {
-      this.params.type_request = this.vselect_type.value;
-      this.search();
-    },
-    vselect_status: function() {
-      this.params.status = this.vselect_status.value;
-      this.search();
-    }
-  },
-  methods: {
-    search() {
-      this.getRequests(this.url);
-    },
-    newBid(request,price){
-      this.createBid({
-        id: request.id,
-        price
-      })
-    },
-    closeAction(request) {
-      this.$refs.metaModal.hide();
-      this.wantbid = false;
-      this.selected = null;
-    },
-    viewSummary(request) {
-      this.wantbid = false;
-      this.selected = request;
-      this.$refs.metaModal.show();
-    },
-    addBid(request) {
-      this.wantbid = true;
-      this.selected = request;
-      this.$refs.metaModal.show();
-    }
-  }
-};
+  };
 </script>

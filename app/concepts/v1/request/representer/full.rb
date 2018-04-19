@@ -6,9 +6,9 @@ module V1
 
         property :id
         property :user, getter: lambda { |represented:, **|
-          ::V1::PersonalProfile::Representer::Simplified.new(
-            represented.user.personal_profile
-          )
+          # ::V1::PersonalProfile::Representer::Simplified.new(
+          #   represented.user.personal_profile
+          # )
         }
         property :player, getter: lambda { |represented:, **|
           if represented.meta_data['player_id'].to_i > 0
@@ -24,6 +24,18 @@ module V1
         property :status
         property :deadline
         property :created_at
+        property :request_bids_count, getter: lambda { |represented:, **|
+          if represented.request_bids_count
+            represented.request_bids_count
+          end
+        }
+
+        property :request_bids, getter: lambda { |represented:, **|
+          if represented.request_bids
+            represented.request_bids.first
+          end
+        }
+
       end
     end
   end

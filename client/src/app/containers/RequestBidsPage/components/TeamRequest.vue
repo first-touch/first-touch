@@ -6,9 +6,6 @@
           <h5 class="title">Team Request</h5>
           <p class="id">{{request.id | requestId(request.type_request) }}</p>
         </div>
-        <div class="col-md-8 buttons-inner">
-          <button class="ft-button" @click="closeAction(request)">Close</button>
-        </div>
       </div>
     </div>
     <div class="content-wrapper">
@@ -42,7 +39,6 @@
               </span>
             </span>
           </p>
-          <bidpopup class="bid col-md-6" :request="request" :newBid="buyAction"/>
         </div>
       </div>
     </div>
@@ -58,17 +54,12 @@
 </style>
 <script>
 import countrydata from 'country-data';
-import BidPopup from './BidPopup';
 
 export default {
   name: 'RequestItem',
-  props: ['request', 'buyAction', 'closeAction', 'newBid'],
-  components: {
-    bidpopup: BidPopup
-  },
+  props: ['request'],
   data() {
     return {
-      price: this.request.price.value
     };
   },
   methods: {

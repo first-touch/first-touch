@@ -1,6 +1,6 @@
 <template>
   <div class="autonumeric input-group ft-input">
-    <div class="input-group-addon currency">{{model.currency | currency}}</div>
+    <div class="input-group-addon currency">{{currency?currency:model.currency | currency}}</div>
     <autonumeric class="form-control" :class="max ?'col-md-5':''" v-model="model.value" :options="{
          digitGroupSeparator: '.',
          decimalCharacter: ',',
@@ -18,12 +18,14 @@
          minimumValue: '0'
      }" />
     <div class="input-group-addon">
-      <select class="currency-selector form-control" v-model="model.currency">
+
+      <select  v-if="!currency" class="currency-selector form-control" v-model="model.currency">
         <option value="USD" data-placeholder="0.00">USD</option>
         <option value="EUR" data-placeholder="0.00">EUR</option>
         <option value="GBP" data-placeholder="0.00">GBP</option>
         <option value="SGD" data-placeholder="0.00">SGD</option>
       </select>
+      <span class="currency" v-if="currency">{{currency}}</span>
     </div>
   </div>
 </template>
@@ -75,7 +77,7 @@ export default {
   components: {
     autonumeric: VueAutonumeric
   },
-  props: ['value', 'max'],
+  props: ['value', 'max','currency'],
   data() {
     return {
       model: this.value

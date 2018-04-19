@@ -12,7 +12,6 @@ module V1
           )
         }
         property :price
-        property :request
         property :created_at
       end
     end

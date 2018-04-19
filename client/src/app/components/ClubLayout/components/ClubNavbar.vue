@@ -49,7 +49,7 @@
             Scouting
           </div>
           <ul class="sub-nav">
-            <li class="sub-nav-item" :class="{ active: page === '/club/request' || !page }">
+            <li class="sub-nav-item" :class="{ active: page === '/club/scouting/request' || !page }">
               <router-link  :to="{ name: 'clubRequestList'}" >Jobs Request</router-link>
             </li>
             <li class="sub-nav-item" :class="{ active: page === '/club/scouting/report/marketplace' || !page }">

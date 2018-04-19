@@ -6,10 +6,9 @@ module V1
       property :status
       property :request
 
-      validates :price, presence: true  do
-        false
-        puts price
-      end
+      validates :price, presence: true
+
+      validates_uniqueness_of :request, scope: %i[request user]
 
       end
     end

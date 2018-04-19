@@ -1,6 +1,37 @@
 @import '~stylesheets/variables';
+.successModal {
+  .modal-dialog {
+    min-height: unset;
+    max-height: 200px !important;
+    max-width: 700px !important;
+    .divSuccess {
+      display: flex;
+      width: 100%;
+      height: 150px;
+      button {
+        margin-top: auto;
+        margin-left: auto;
+      }
+    }
+  }
+}
+
 #metaModal {
   color: black;
+  .modal-lg{
+    max-width: 1200px;
+    min-height: 500px;
+    .modal-content {
+      min-height: 700px;
+    }
+  }
+  .modal-md{
+      max-width: 800px;
+      min-height: 500px;
+    .modal-content {
+      min-height: 200px;
+    }
+  }
   .buttons-inner {
     display: flex;
     flex-direction: row-reverse;
@@ -40,13 +71,10 @@
   .modal-dialog {
     border: 10px solid $main-text-color;
     border-radius: 10px;
-    max-width: 1200px;
-    min-height: 500px;
   }
   .modal-content {
     padding: 0;
     margin: 0;
-    min-height: 700px;
     border: 0px;
     border-radius: 0;
     .yes {

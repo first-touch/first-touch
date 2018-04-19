@@ -5,7 +5,7 @@
       <div class="ft-page">
         <h4 class="header">My independent reports</h4>
         <timeline-item>
-          <div class="widget-reports col col-md-12">
+          <div class="widget-reports ft-search-widget col col-md-12">
             <div class="row">
               <div class="col-md-2">
                 <h6 class="list-title">Reports Count</h6>
@@ -13,7 +13,7 @@
               </div>
               <form @submit.prevent="search" class="col-md-10">
                 <div class="row">
-                  <fieldset class="col-md-3 filter form-control">
+                  <fieldset class="col-md-3 filter">
                     <vselect v-model="type_select" @input="search" :options="options.report_type" :searchable="false" />
                   </fieldset>
                   <ftdatepicker class="col-md-3 filter form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
@@ -21,7 +21,7 @@
                   <fieldset class="col-md-3 filter form-control">
                     <input class="col-sm-12 form-control" placeholder="Search tags" type="text" v-model="params.headline" />
                   </fieldset>
-                  <fieldset class="col-md-3 filter form-control">
+                  <fieldset class="col-md-3 filter">
                     <vselect v-model="sort_select" @input="search" :options="options.order" :searchable="false" />
                   </fieldset>
                 </div>
@@ -37,69 +37,8 @@
 <style lang="scss">
 @import '~stylesheets/variables';
 @import '~stylesheets/form';
+@import '~stylesheets/search';
 
-.widget-reports {
-  .datepicker {
-    padding: 0;
-    input.input-date {
-      cursor: pointer;
-      min-height: 2em;
-      border: 0px;
-    }
-  }
-  .dropdown-toggle {
-    max-height: 35px;
-    border: 0px;
-  }
-}
-
-#metaModal {
-  color: black;
-  header {
-    display: none;
-  }
-
-  .modal-dialog {
-    border: 10px solid $main-text-color;
-    border-radius: 10px;
-    max-width: 1200px;
-    min-height: 500px;
-  }
-  .modal-content {
-    padding: 0;
-    margin: 0;
-    min-height: 700px;
-    border: 0px;
-    border-radius: 0;
-  }
-  .reportHeadline {
-    margin-bottom: 40px;
-    p.col {
-      margin: 0;
-    }
-  }
-  .infos .row {
-    margin-top: 10px;
-    .col {
-      margin: 0;
-      .list {
-        text-transform: capitalize;
-      }
-    }
-  }
-  .footer-modal {
-    margin-top: 40px;
-    float: right;
-    button {
-      padding: 5px 30px;
-      border-radius: 15px;
-      font-size: 0.9em;
-    }
-  }
-  footer {
-    display: none;
-  }
-}
 </style>
 
 <style lang="scss" scoped>

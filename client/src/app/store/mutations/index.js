@@ -9,7 +9,7 @@ import searchResultReducer, { searchResult } from './searchResult';
 import reportReducer, { report, searchReport, filesUpload } from './report';
 import orderReducer, { order } from './order';
 import requestReducer, { request, searchRequest } from './request';
-import bidReducer, { bid } from './bid';
+import bidReducer, { bid, bids } from './bid';
 
 export const initialState = {
   token,
@@ -27,7 +27,8 @@ export const initialState = {
   order,
   request,
   searchRequest,
-  bid
+  bid,
+  bids
 };
 
 export default Object.assign({},

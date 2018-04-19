@@ -1,12 +1,12 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper ft-item">
     <div class="header-wrapper col-md-12">
       <div class="header col-md-12 row">
         <div class="col-md-4 header-title">
           <h5 class="title">Player Request</h5>
           <p class="id">{{request.id | requestId(request.type_request) }}</p>
         </div>
-        <div class="col-md-8 buttons-inner ft-form">
+        <div class="col-md-8 buttons-inner">
           <button class="ft-button" @click="closeAction(request)">Close</button>
         </div>
       </div>
@@ -18,7 +18,7 @@
           <p>
             <span>DEADLINE {{request.deadline | moment}}</span>
           </p>
-          <p class="price" v-if="request.price">{{request.price.value}} {{request.price.currency | currency}}</p>
+          <p class="price" v-if="request.price">{{request.price.value}} to {{request.price.max}} {{request.price.currency | currency}}</p>
         </div>
         <div class="info col-md-8">
           <h2 class="title">
@@ -75,13 +75,7 @@
               <span class="col-md-6">{{ request.meta_data.comments}}
               </span>
             </span>
-            <span class="field bid row">
-              <span class="col-md-4">Bid price in {{ request.price.currency }}</span>
-              <input class="col-sm-6 form-control" type="number" v-model="price" />
-            </span>
-            <span class="footer-modal buttons-inner">
-              <button class="btn-primary ft-button" @click="newBid(request,price)">Bid</button>
-            </span>
+            <bidpopup class="bid col-md-6" :request="request" :newBid="newBid" />
           </p>
         </div>
       </div>
@@ -98,10 +92,14 @@
 </style>
 <script>
 import countrydata from 'country-data';
+import BidPopup from './BidPopup';
 
 export default {
   name: 'RequestItem',
-  props: ['request', 'buyAction', 'closeAction','newBid'],
+  props: ['request', 'buyAction', 'closeAction', 'newBid'],
+  components: {
+    bidpopup: BidPopup
+  },
   data() {
     return {
       price: this.request.price.value
