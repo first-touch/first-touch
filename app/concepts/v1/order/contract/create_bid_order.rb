@@ -7,6 +7,7 @@ module V1
         property :user
         property :report
         property :customer_id
+        property :request_bid_id
 
         validates :price,
                   :status,

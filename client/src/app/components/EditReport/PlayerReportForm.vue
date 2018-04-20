@@ -8,7 +8,8 @@
     </div>
     <div class="form-group row">
       <div class="col-sm-12">
-        <label class="col-md-12 label-price">Price</label>
+        <label class="col-md-12 label-price" v-if="request">Price In Marketplace</label>
+        <label class="col-md-12 label-price" v-if="!request">Price</label>
         <div class="price-input">
           <currencyinput :value="price" />
           <p v-if="price.value == 0" class="info">The report will be free</p>
@@ -23,15 +24,15 @@
           <div class="row">
             <div class="col-sm-4">
               <label class="col-sm-12 col-form-label">Age</label>
-              <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.age" placeholder="Age">
+              <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.age" :placeholder="agePlaceHolder">
             </div>
             <div class="col-sm-4">
               <label class="col-sm-12 col-form-label">Approximate Height (cm)</label>
-              <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.height" placeholder="Height">
+              <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.height" :placeholder="heightPlaceHolder">
             </div>
             <div class="col-sm-4">
               <label class="col-sm-12 col-form-label">Approximate Weight (kg)</label>
-              <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.weight" placeholder="Weight">
+              <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.weight" :placeholder="weightPlaceHolder">
             </div>
           </div>
           <div class="row">
@@ -176,10 +177,13 @@
         <textarea class="col-md-12 form-control" v-model="meta_data.conclusion" />
       </div>
     </div>
-    <addattachments  :attachments="report.attachments ? report.attachments.attachments : null"  v-on:update:remove="remove_attachment = $event" v-on:update:files="files = $event"/>
+    <addattachments :attachments="report ? report.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
+      v-on:update:files="files = $event" />
     <div class="form-group buttons-inner">
-      <button v-if="!report" id="submit" class="btn btn-primary ft-button" @click="handleSubmit">Publish</button>
+      <button v-if="!report && !request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('publish')">Publish</button>
       <button v-if="report" id="submit" class="btn btn-primary ft-button" @click="handleSubmit">Update</button>
+      <button v-if="!report && request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('publish')">Send Report & Publish in MarketPlace</button>
+      <button v-if="!report && request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('private')">Send Report</button>
       <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default ft-button">Cancel</button>
     </div>
   </form>
@@ -187,7 +191,6 @@
 
 <style lang="scss">
 @import '~stylesheets/form';
-
 </style>
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
@@ -290,7 +293,7 @@ export default {
     icon: Icon,
     currencyinput: CurrencyInput
   },
-  props: ['userinfo', 'submitReport', 'reportStatus', 'report', 'cancelAction'],
+  props: ['userinfo', 'submitReport', 'reportStatus', 'report', 'cancelAction', 'request'],
   data() {
     return {
       playersummary: true,
@@ -344,6 +347,27 @@ export default {
       remove_attachment: {}
     };
   },
+  computed: {
+    agePlaceHolder() {
+      if (this.request && this.request.type_request == 'position')
+        return `Between ${this.request.meta_data.age_min} and ${this.request.meta_data.age_max}`;
+      return 'Age';
+    },
+    weightPlaceHolder() {
+      if (this.request && this.request.type_request == 'position')
+        return `Between ${this.request.meta_data.min_weight} and ${
+          this.request.meta_data.max_weight
+        }`;
+      return 'Weight';
+    },
+    heightPlaceHolder() {
+      if (this.request && this.request.type_request == 'position')
+        return `Between ${this.request.meta_data.min_heigth} and ${
+          this.request.meta_data.max_height
+        }`;
+      return 'Height';
+    }
+  },
   watch: {
     userinfo() {
       if (this.userinfo.birthday && !this.report) {
@@ -367,16 +391,29 @@ export default {
       this.price = this.report.price;
       this.headline = this.report.headline;
     }
+    if (this.request) {
+      this.price = this.request.price;
+      this.price.value = parseInt(this.request.request_bids.price);
+      this.headline = 'Report on ';
+      this.headline += this.request.meta_data.player_name ? this.request.meta_data.player_name : '';
+      this.meta_data.userinfo.languages = this.request.meta_data.languages;
+      this.meta_data.userinfo.preferred_foot = this.request.meta_data.preferred_foot;
+      this.meta_data.userinfo.residence_country_code = this.request.meta_data.residence_country_code;
+      this.meta_data.userinfo.nationality_country_code = this.request.meta_data.nationality_country_code;
+      this.meta_data.userinfo.playing_position = this.request.meta_data.playing_position;
+      // this.$forceUpdate();
+      console.log(this.request);
+    }
   },
   methods: {
-    handleSubmit() {
+    handleSubmit(status) {
       var report = {
         headline: this.headline,
         price: this.price,
         meta_data: this.meta_data,
         remove_attachment: this.remove_attachment
       };
-      this.submitReport(report, this.files);
+      this.submitReport(report, this.files, status);
       $('html, body').animate(
         {
           scrollTop: 0

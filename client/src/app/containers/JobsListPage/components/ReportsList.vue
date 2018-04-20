@@ -24,7 +24,7 @@
             </div>
           </form>
         </div>
-        <report v-for="report in listReport" :report="report" :key="report.id" :UpdateReport="customUpdateReport" />
+        <report v-for="report in listReport" :report="report" :key="report.id" :UpdateReport="customUpdateReport" :own="true" :viewAction="viewAction"/>
       </div>
     </timeline-item>
   </div>
@@ -52,14 +52,13 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
-
 </style>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 import TimelineItem from 'app/components/TimelineItem';
-import ReportItem from './ReportItem';
+import ReportItem from 'app/components/ReportItem';
 import vSelect from 'vue-select';
 import FtDatepicker from 'app/components/Input/FtDatepicker';
 
@@ -168,6 +167,14 @@ export default {
     ...mapActions(['getReports', 'updateReport']),
     showCalendar: function(index) {
       this.$refs.datepicker.showCalendar();
+    },
+    viewAction(report) {
+      this.$router.push({
+        name: 'scoutReportView',
+        params: {
+          id: report.id
+        }
+      });
     },
     customUpdateReport(status, id) {
       var report = {

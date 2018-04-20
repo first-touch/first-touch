@@ -17,7 +17,7 @@
           <div class="top">
             <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
             <div class="info">
-              <h4 class="name">{{report.player.first_name}} {{report.player.last_name}}</h4>
+              <h4 class="name" v-if="report.player">{{report.player.first_name}} {{report.player.last_name}}</h4>
               <p class="role">Football Player</p>
               <p class="club">Real Madrid FC, Spain</p>
               <p class="detail">
@@ -38,7 +38,7 @@
           <div class="bottom">
             <div class="summary">
               <h5 class="summary-title">Summary</h5>
-              <p class="summary-field">{{report.player.first_name}} {{report.player.last_name}}</p>
+              <p class="summary-field" v-if="report.player">{{report.player.first_name}} {{report.player.last_name}}</p>
               <p class="summary-field">
                 <span class="summary-field-title">Height:</span>
                 {{report.meta_data.userinfo.height}} cm

@@ -10,6 +10,7 @@ module V1
 
       def find_model!(options,  params:, current_user:, **)
         requestId = params[:request_id]
+        models = nil
         if current_user.is_a?(::User) && current_user.scout?
           models = ::RequestBid.find_by(request_id: requestId, user: current_user)
         elsif current_user.is_a?(::Club) || true

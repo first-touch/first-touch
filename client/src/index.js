@@ -115,7 +115,8 @@ const router = new VueRouter({
         {
           path: '/scouting/report/create',
           component: CreateReportPage,
-          name: 'scoutReportCreate'
+          name: 'scoutReportCreate',
+          props: true
         },
         {
           path: '/scouting/report/view/:id',

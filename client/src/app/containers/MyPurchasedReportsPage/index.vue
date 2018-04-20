@@ -27,7 +27,8 @@
                 </div>
               </form>
             </div>
-            <report v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :refundAction="refundAction"/>
+            <report v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :refundAction="refundAction"
+            />
           </div>
         </timeline-item>
       </div>
@@ -38,7 +39,6 @@
 @import '~stylesheets/variables';
 @import '~stylesheets/form';
 @import '~stylesheets/search';
-
 </style>
 
 <style lang="scss" scoped>
@@ -200,11 +200,14 @@ export default {
     ...mapActions(['getReports', 'newOrder']),
     viewAction(report) {
       this.$router.push({
-        path: '/club/report/' + report.id
+        name: 'clubReport',
+        params: {
+          id: report.id
+        }
       });
     },
-    refundAction(report){
-      console.log("Soon #Refund")
+    refundAction(report) {
+      console.log('Soon #Refund');
     },
     hideModal() {
       this.$refs.metaModal.hide();

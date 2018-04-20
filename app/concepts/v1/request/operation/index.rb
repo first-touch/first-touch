@@ -30,7 +30,7 @@ module V1
 
       def club(current_user:)
         models = current_user.requests.where.not(status: 'deleted')
-        joins = "LEFT OUTER JOIN request_bids ON request_bids.request_id = requests.id"
+        joins = "LEFT OUTER JOIN request_bids ON request_bids.request_id = requests.id AND request_bids.status = 'pending'"
         models = models.joins(joins)
         models = models.select('requests.*, COUNT(request_bids.id) as request_bids_count')
         models = models.group('requests.id')
@@ -38,11 +38,11 @@ module V1
 
       def filters!(options, params:, **)
         models = options['models']
-        models = add_where(models, 'requests.id = ', params[:id])
-        models = add_where(models, 'requests.type_request = ', params[:type_request])
-        models = add_where(models, 'requests.status = ', params[:status])
-        models = add_where(models, 'request_bids.status = ', params[:bids_status])
-        models = models.having("count(request_bids.id) > #{params[:min_bids]} ") unless params[:min_bids].blank?
+        models = add_where(models, 'requests.id', params[:id])
+        models = add_where(models, 'requests.type_request', params[:type_request])
+        models = add_where(models, 'requests.status', params[:status])
+        models = add_where(models, 'request_bids.status', params[:bids_status].split(',')) if params[:bids_status]
+        models = models.having("count(request_bids.id) >= #{params[:min_bids]} ") unless params[:min_bids].blank?
 
         date = params[:created_date].to_date unless params[:created_date].blank?
         models = models.where created_at: date.all_day if date
@@ -51,7 +51,8 @@ module V1
       end
 
       def add_where(models, column, value)
-        models = models.where("#{column} ?", value) unless value.blank?
+        obj = {column.to_sym => value}
+        models = models.where(obj) unless value.blank?
         models
       end
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="ft-item">
     <div class="header-wrapper">
       <div class="header col-md-10">
         <div class="img-container">
@@ -13,6 +13,11 @@
             <span class="field row">
               <span class="col-md-4">Request Id:</span>
               <span class="col-md-6"> {{request.id | requestId(request.type_request) }}
+              </span>
+            </span>
+            <span class="field row" v-if="haveBid">
+              <span class="col-md-4">Bid Price:</span>
+              <span class="col-md-6"> {{request.request_bids.price}} {{request.price.currency | currency}}
               </span>
             </span>
             <span class="field row">
@@ -37,7 +42,7 @@
             <span class="field yes row" v-if="request.meta_data.transfer == 'yes'">
               <span class="col-md-12">Interested In Transfer</span>
             </span>
-            <span class="field yes row" v-if="request.meta_data.expiring_contract == 'yes'">
+            <span class="field row" v-if="request.meta_data.expiring_contract == 'yes'">
               <span class="col-md-4">Expiring Contract: </span>
               <span class="col-md-6">
                 {{request.meta_data.expiring_contract_min | moment}} to {{request.meta_data.expiring_contract_max | moment}}
@@ -50,11 +55,16 @@
             <span class="target" v-if="request.player">{{request.player.first_name}} {{request.player.last_name}} </span>
             <span class="target" v-if="!request.player">{{request.meta_data.player_name}}</span>
           </h2>
-            <span class="pending" v-if="request.request_bids && request.request_bids.status =='pending'">Bid in pending</span>
+          <span class="pending" v-if="!own && request.request_bids && request.request_bids.status =='pending'">Bid in pending</span>
           <p class="extra">
             <span class="field row">
               <span class="col-md-4">Request Id:</span>
               <span class="col-md-6"> {{request.id | requestId(request.type_request) }}
+              </span>
+            </span>
+            <span class="field row" v-if="haveBid">
+              <span class="col-md-4">Bid Price:</span>
+              <span class="col-md-6"> {{request.request_bids.price}} {{request.price.currency | currency}}
               </span>
             </span>
             <span class="field row">
@@ -78,11 +88,16 @@
         <div class="info col-md-8" v-if="request.type_request == 'team'">
           <h2 class="title">
             Real Madrid Fc WIP </h2>
-          <span class="pending" v-if="request.request_bids && request.request_bids.status =='pending'">Bid in pending</span>
+          <span class="pending" v-if="!own && request.request_bids && request.request_bids.status =='pending'">Bid in pending</span>
           <p class="extra">
             <span class="field row">
               <span class="col-md-4">Request Id:</span>
               <span class="col-md-6"> {{request.id | requestId(request.type_request) }}
+              </span>
+            </span>
+            <span class="field row" v-if="haveBid">
+              <span class="col-md-4">Bid Price:</span>
+              <span class="col-md-6"> {{request.request_bids.price}} {{request.price.currency | currency}}
               </span>
             </span>
             <span class="field row">
@@ -121,11 +136,17 @@
           <button class="btn-round">View Details</button>
         </a>
         <a v-if="!own && request.type_request != 'position' && addBid" @click="addBid(request)">
-          <button class="btn-round" v-if="request.request_bids">Update Bid</button>
-          <button class="btn-round" v-if="!request.request_bids">Bid</button>
+          <button class="btn-round" v-if="bidStatus == 'U'">Update Bid</button>
+          <button class="btn-round" v-if="bidStatus == 'N'">Bid</button>
         </a>
-        <a v-if="!own && request.type_request == 'position' && addBid" @click="addBid(request)">
+        <a v-if="!own && !haveBid && request.type_request == 'position' && addBid" @click="addBid(request)">
           <button class="btn-round">+ To job list</button>
+        </a>
+        <a v-if="bidStatus == 'C' && createReport" @click="createReport(request)">
+          <button class="btn-round">Create Report</button>
+        </a>
+        <a v-if="bidStatus == 'R' && viewReport" @click="viewReport(request.request_bids.report_id)">
+          <button class="btn-round">View Report</button>
         </a>
       </div>
     </div>
@@ -133,106 +154,15 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+ @import '~stylesheets/light_item';
 
-.wrapper {
-  padding: 0 30px;
-  border-top: 1px solid $secondary-text-color;
-  &:last-child {
-    border-bottom: 1px solid $secondary-text-color;
-  }
-  .list {
-    text-transform: capitalize;
-    &::after {
-      content: ', ';
-    }
-    &:last-child::after {
-      content: '';
-    }
-  }
-  .avatar {
-    height: 300px;
-    border-radius: 50%;
-  }
-
-  .title {
-    color: $secondary-header-color;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    font-size: 15px;
-  }
-  .pending{
-    font-weight: bold;
-  }
-  .header-wrapper {
-    display: flex;
-    justify-content: space-between;
-    .header {
-      display: flex;
-      .img-container {
-        height: 120px;
-        max-width: 120px;
-        margin-right: 30px;
-        .img-fluid {
-          max-height: 100%;
-        }
-      }
-      .info {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        .target {
-          display: block;
-          &.yes {
-            color: $timeline-widget-button-background;
-          }
-        }
-        .extra {
-          text-transform: none;
-          .author {
-            color: #000;
-          }
-        }
-      }
-    }
-    .widget {
-      padding: 0 0;
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-      justify-content: space-around;
-      a {
-        display: flex;
-        flex: 1;
-        max-height: 50px;
-        .btn-round {
-          margin: 10px;
-          width: 100%;
-          max-width: 140px;
-          flex: 1;
-          display: flex;
-          justify-content: center;
-          text-align: center;
-          color: $main-text-color;
-          cursor: pointer;
-          border-radius: 9999px;
-          border: 1px solid $secondary-text-color;
-          background: #fff;
-          &:hover {
-            background: $button-background-hover;
-          }
-        }
-      }
-    }
-  }
-}
 </style>
 <script>
 import countrydata from 'country-data';
 
 export default {
   name: 'RequestItem',
-  props: ['request', 'update', 'own', 'viewSummary', 'addBid'],
+  props: ['request', 'update', 'own', 'viewSummary', 'addBid', 'createReport','viewReport'],
   methods: {
     getLanguage(key) {
       return countrydata.languages[key] ? countrydata.languages[key].name : key;
@@ -256,6 +186,37 @@ export default {
           break;
       }
       return src;
+    },
+    bidStatus() {
+      if (this.own) return false;
+      if (this.request.request_bids) {
+        if (
+          this.request.request_bids.status == 'accepted' ||
+          this.request.request_bids.status == 'joblist'
+        )
+          return 'C';
+        if (this.request.request_bids.status == 'completed') return 'R';
+        if (this.request.request_bids.status == 'pending') return 'U';
+      }
+      return 'N';
+    },
+    canUpdate() {
+      if (this.request.request_bids) if (this.request.request_bids.status != 'pending') return true;
+      return false;
+    },
+    haveBid() {
+      return this.request.request_bids;
+    },
+    isAccepted() {
+      if (this.request.request_bids) {
+        if (
+          this.request.request_bids.status == 'accepted' ||
+          this.request.request_bids.status == 'joblist'
+        )
+          return true;
+        return false;
+      }
+      return false;
     }
   }
 };

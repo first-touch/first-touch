@@ -23,12 +23,15 @@ module V1
       end
 
       def logic(options, params:, current_user:, **)
+        if options['model'].request.type_request == 'position'
+          params[:price] = options['model'].request.price['value']
+        end
         params[:price].to_i >= options['model'].request.price['value'] and params[:price].to_i <= options['model'].request.price['max']
       end
 
       def setup_model!(model:, current_user:, **)
         model.user = current_user
-        model.status = 'pending'
+        model.status = model.request.type_request == 'position'? 'joblist' : 'pending'
       end
 
       def authorized!(current_user:, **)

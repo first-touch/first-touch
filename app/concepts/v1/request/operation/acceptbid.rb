@@ -6,6 +6,7 @@ module V1
       step :payment
       failure :process_payment_failure!, fail_fast: true
       step :order
+      failure :model_not_found!, fail_fast: true
       step :finalize
       step Trailblazer::Operation::Contract::Build(
         constant: RequestBids::Contract::Update
@@ -17,18 +18,16 @@ module V1
       def find_model!(options,  params:, current_user:, **)
         requestId = params[:request_id]
         bidId = params[:bid_id]
-        request = nil
-        model = nil
         if current_user.is_a?(::Club) || true
           request = current_user.requests.find(requestId)
           model = request.request_bids.find_by(id: bidId, status: 'pending')
           if model
             params['currency'] = request.price['currency']
           end
+          options['model'] = model
+          options['model.class'] = ::RequestBid
         end
-        options['model'] = model
-        options['model.class'] = ::RequestBid
-        model
+        options['model']
       end
 
       def payment(options,  params:, current_user:, **)
@@ -40,13 +39,14 @@ module V1
       def order(options,  params:, model:, current_user:, **)
         order_params = {
           'customer_id' => current_user.id,
-          'user_id' => model.user.id,
+          'user' => model.user,
           'price' => model.price,
           'currency' => params['currency'],
-          'status' => 'waiting_report',
-          'bid_id' => model.id
+          'status' => 'pending_report',
+          'request_bid_id' => model.id
         }
         result = ::V1::Order::CreateBidOrder.(order_params)
+        result.success?
       end
 
       def finalize(options,  params:, model:, current_user:, **)

@@ -23,14 +23,13 @@
       <b-modal id="metaModal" size="lg" ref="metaModal">
         <div>
           <playerrequestpopup v-if="selected && selected.type_request == 'player' " :request="selected" :closeAction="closeAction"
-            />
-          <teamrequestpopup v-if="selected && selected.type_request == 'team' " :request="selected" :closeAction="closeAction"
-             />
+          />
+          <teamrequestpopup v-if="selected && selected.type_request == 'team' " :request="selected" :closeAction="closeAction" />
           <positionrequestpopup v-if="selected && selected.type_request == 'position' " :request="selected" :closeAction="closeAction"
-             />
+          />
         </div>
       </b-modal>
-      <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" ></request>
+      <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :createReport="createReport" />
     </timeline-item>
   </div>
 </template>
@@ -133,7 +132,7 @@ export default {
         order: '',
         status: '',
         type_request: '',
-        bids_status: 'accepted'
+        bids_status: 'accepted,joblist'
       },
       vselect_type: {
         label: 'Request Type',
@@ -240,12 +239,16 @@ export default {
     search() {
       this.getRequests(this.url);
     },
+    createReport(request) {
+      this.$router.push({
+        name: 'scoutReportCreate',
+        params: {
+          request: request
+        }
+      });
+    },
     closeAction(request) {
       this.$refs.metaModal.hide();
-      // this.wantbid = false;
-      // this.selected = null;
-      // this.clearBid();
-      // this.search();
     },
     viewSummary(request) {
       this.wantbid = false;
