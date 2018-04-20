@@ -20,10 +20,11 @@ module V1
       end
 
       def scout(current_user:)
-        models = ::Request.all.where status: 'publish'
+        models = ::Request.all
         joins = "LEFT OUTER JOIN request_bids ON request_bids.user_id = #{current_user.id}"\
         ' AND request_bids.request_id = requests.id'
         models = models.joins(joins)
+        models = models.where('requests.status = ? OR request_bids.user_id = ?  ','publish',current_user.id)
         models = models.group('requests.id')
       end
 
@@ -38,9 +39,8 @@ module V1
       def filters!(options, params:, **)
         models = options['models']
         models = add_where(models, 'requests.id = ', params[:id])
-        models = add_where(models, 'reports.type_request = ', params[:type_request])
-        models = add_where(models, 'reports.status = ', params[:status])
-        models = add_where(models, 'request_bids.status = ', params[:bids_status])
+        models = add_where(models, 'requests.type_request = ', params[:type_request])
+        models = add_where(models, 'requests.status = ', params[:status])
         models = add_where(models, 'request_bids.status = ', params[:bids_status])
         models = models.having("count(request_bids.id) > #{params[:min_bids]} ") unless params[:min_bids].blank?
 
