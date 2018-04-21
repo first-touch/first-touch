@@ -20,4 +20,14 @@ class Report < ApplicationRecord
   }
 
   validates_presence_of :headline, :type_report, :price
+
+  scope :published, -> { where(status: 'publish') }
+  def self.purchased_by_user(user_id)
+    joins(orders: :user)
+      .where(orders: { status: 'completed', customer_id: user_id })
+      .select(
+        'reports.*, orders.status AS orders_status,'\
+        ' orders.price AS orders_price'
+      )
+  end
 end
