@@ -5,6 +5,7 @@
       <div class="ft-page timeline">
         <h4 class="header">Timeline</h4>
         <widget
+          :content="content"
           :posting="posting"
           :handleContentChange="handleContentChange"
           :handleSubmit="handleSubmit" />
@@ -57,7 +58,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['getInitialFeed', 'clearToken']),
+    ...mapActions(['getInitialFeed', 'clearToken', 'succeedToPost']),
     handleContentChange(event) {
       this.$set(this, 'content', event.target.value);
     },
@@ -71,9 +72,9 @@ export default {
         },
         body: JSON.stringify({ content: this.content }),
       }).then(res => {
-        if (res.status === 200) {
+        if (res.status === 200 || res.status === 201) {
           this.$set(this, 'content', '');
-          res.json().then(console.log);
+          res.json().then(post => this.succeedToPost({ post }));
         } else if (res.status === 401) {
           this.clearToken();
         } else {

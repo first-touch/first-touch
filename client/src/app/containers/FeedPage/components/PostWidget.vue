@@ -13,7 +13,7 @@
       <div class="container">
         <form @submit.prevent="handleSubmit">
           <fieldset class="form-group">
-            <textarea @keyup="handleContentChange" class="form-control" rows="4" placeholder="What's on your mind?"></textarea>
+            <textarea :value="content" @keyup="handleContentChange" class="form-control" rows="4" placeholder="What's on your mind?"></textarea>
           </fieldset>
           <button v-if="posting" type="button" class="bar-button" disabled>Posting...</button>
           <button v-else type="submit" class="bar-button">Post</button>
@@ -82,7 +82,7 @@
 <script>
 export default {
   name: 'PostWidget',
-  props: ['posting', 'handleContentChange', 'handleSubmit'],
+  props: ['posting', 'handleContentChange', 'handleSubmit', 'content'],
   data() {
     return {
       active: false,
