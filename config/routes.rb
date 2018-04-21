@@ -21,6 +21,8 @@ Rails.application.routes.draw do
       resource :user, only: %i[show update]
 
       post 'users/register', to: 'users#register', as: :register
+      post 'users/import', to: 'users#import', as: :import
+
       get 'users/:id/follows', controller: :users, action: :follows
       resource :users, except: [:show] do
         resources :posts, only: %i[index create], controller: 'users/posts'
@@ -46,10 +48,14 @@ Rails.application.routes.draw do
       get 'messages/:chat_with_id', controller: :messages, action: :show
       get 'notes/labels', controller: :notes, action: :labels
       resources :notes
-
       resources :events, only: %i[index create show]
-
       post 'connect', controller: :connection, action: :create
+      resources :reports
+      post 'reports/uploadfiles', controller: :reports, action: :upload_files
+      get 'reports/attachments/download/:attachment_id', controller: :reports, action: :download
+      get 'reports/list/purchased', controller: :reports, action: :purchased
+      resources :orders
+      resources :requests
     end
   end
 end

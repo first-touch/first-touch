@@ -6,3 +6,7 @@ export * from './profile';
 export * from './token';
 export * from './user';
 export * from './searchResult';
+export * from './report';
+export * from './attachment';
+export * from './order';
+export * from './request';

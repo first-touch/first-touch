@@ -34,3 +34,7 @@ node_modules
 
 public/paperclip
 .story_branch
+/public/report
+
+# Ignore encrypted secrets key file.
+config/secrets.yml.key

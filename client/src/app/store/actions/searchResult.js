@@ -1,9 +1,9 @@
 import * as types from '../../constants/ActionTypes';
 
-export const getSearchResults = (store, { searchTerm }) => {
+export const getSearchResults = (store, { searchTerm, role = '' }) => {
   store.commit(types.SEARCH_RESULT_LOADING);
   if (searchTerm === '') return store.commit(types.SEARCH_RESULT_SUCCESS, []);
-  fetch(`/api/v1/search?q=${searchTerm}`, {
+  fetch(`/api/v1/search?q=${searchTerm}&role=${role}`, {
     method: 'GET',
     headers: { Authorization: store.state.token.value }
   }).then(res => {
@@ -13,4 +13,7 @@ export const getSearchResults = (store, { searchTerm }) => {
       res.json().then(console.log);
     }
   });
+};
+export const flushSearchResults = (store) => {
+  store.commit(types.SEARCH_RESULT_FLUSH);
 };

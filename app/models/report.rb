@@ -1,0 +1,16 @@
+class Report < ApplicationRecord
+  belongs_to :user
+  belongs_to :club, optional: true
+  belongs_to :player, class_name: 'User'
+
+  has_many :report_data
+  has_many :orders
+
+  validates :price, numericality: {
+    only_integer: true,
+    greater_than_or_equal_to: 0,
+    less_than_or_equal_to: 999999
+  }
+
+  validates_presence_of :headline, :type_report, :price
+end

@@ -17,10 +17,20 @@ import ClubStream from 'app/containers/ClubStreamPage';
 import ClubNotes from 'app/containers/ClubNotesPage';
 import TCPage from 'app/containers/LegalPages/TCPage';
 import PrivacyPolicy from 'app/containers/LegalPages/PrivacyPolicy';
+import CreateReportPage from 'app/containers/CreateReportPage';
+import EditReportPage from 'app/containers/EditReportPage';
+import ReportPage from 'app/containers/ReportPage';
+import MarketPlacePage from 'app/containers/MarketPlacePage';
+import JobsListPage from 'app/containers/JobsListPage';
+import MyPurchasedReportsPage from 'app/containers/MyPurchasedReportsPage';
+import JobRequestPage from 'app/containers/JobRequestPage';
+import RequestPage from 'app/containers/RequestPage';
 
 import store from 'app/store';
 import VueRouter from 'vue-router';
+import './app/constants/filters';
 import 'stylesheets/landingpage.scss';
+import './app/constants/filters';
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 
@@ -66,11 +76,21 @@ const router = new VueRouter({
         { path: 'profile/edit', component: EditProfilePage },
         { path: 'profile', component: ProfilePage, props: { mine: true }},
         { path: 'network', component: Network },
+        { path: '/report/create', component: CreateReportPage },
+        { path: '/jobs/list', component: JobsListPage },
         {
           path: '/users/:id/profile',
           component: ProfilePage,
           props: { mine: false },
           meta: { reuse: false }
+        },
+        {
+          path: '/report/view/:id',
+          component: ReportPage
+        },
+        {
+          path: '/report/edit/:id',
+          component: EditReportPage
         },
         {
           path: '/messages',
@@ -88,7 +108,18 @@ const router = new VueRouter({
       beforeEnter: requireAuth,
       children: [
         { path: '', component: ClubStream },
-        { path: 'notes', component: ClubNotes }
+        { path: 'notes', component: ClubNotes },
+        { path: '/club/report/marketplace', component: MarketPlacePage },
+        { path: '/club/report/list', component: MyPurchasedReportsPage },
+        { path: '/club/request', component: JobRequestPage },
+        {
+          path: '/club/report/:id',
+          component: ReportPage
+        },
+        {
+          path: '/club/request/:id',
+          component: RequestPage
+        }
       ]
     },
     // Delete once registration is allowed
