@@ -9,7 +9,7 @@
             <p class="col-md-5"> {{report.created_at | moment}}</p>
           </div>
           <div class="row col col-sm-6">
-            <p class="col-sm-5">Purchassed for: </p>
+            <p class="col-sm-5">Price: </p>
             <p class="col-md-7">{{report.price.value}} {{report.price.currency | currency}}</p>
           </div>
         </div>
@@ -187,6 +187,7 @@ h5 {
 .top {
   display: flex;
   .avatar {
+    margin-right: 10%;
     height: 300px;
     border-radius: 50%;
   }

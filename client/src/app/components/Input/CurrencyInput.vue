@@ -98,6 +98,9 @@ export default {
         this.$emit('update');
       },
       deep: true
+    },
+    value(){
+      this.model = this.value;
     }
   }
 };

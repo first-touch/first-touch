@@ -42,7 +42,7 @@
               </span>
             </span>
           </p>
-          <bidpopup class="bid col-md-6" :request="request"  v-if="newBid"  :newBid="buyAction"/>
+          <bidpopup class="bid col-md-6" :request="request"  v-if="newBid"  :newBid="newBid"/>
         </div>
       </div>
     </div>
@@ -62,7 +62,7 @@ import BidPopup from './BidPopup';
 
 export default {
   name: 'RequestItem',
-  props: ['request', 'buyAction', 'closeAction', 'newBid'],
+  props: ['request', 'closeAction', 'newBid'],
   components: {
     bidpopup: BidPopup
   },

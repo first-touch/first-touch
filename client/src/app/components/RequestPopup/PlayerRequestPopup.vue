@@ -96,7 +96,7 @@ import BidPopup from './BidPopup';
 
 export default {
   name: 'RequestItem',
-  props: ['request', 'buyAction', 'closeAction', 'newBid'],
+  props: ['request', 'closeAction', 'newBid'],
   components: {
     bidpopup: BidPopup
   },

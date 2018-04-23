@@ -8,9 +8,26 @@
         <div class="info col-md-8">
           <h2 class="title" :title="report.headline">{{report.headline}}</h2>
           <p class="extra" v-if="report.type_report =='team'">
-            <span class="target" v-if="report.type_report =='team'"> Club Name</span>
-            <span class="target">{{report.price.value}} {{report.price.currency | currency}}</span>
-            <span class="target">{{report.updated_at | moment}}</span>
+            <span class="field row">
+              <span class="col-md-4">Report Id:</span>
+              <span class="col-md-6"> {{report.id | reportId(report.type_report) }}
+              </span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Club Name:</span>
+              <span class="col-md-6">Club Name
+              </span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Price:</span>
+              <span class="col-md-6"> {{report.price.value}} {{report.price.currency | currency}}
+              </span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Last Update on:</span>
+              <span class="col-md-6">{{report.updated_at | moment}}
+              </span>
+            </span>
           </p>
           <p class="extra" v-if="report.type_report =='player'">
             <span class="field row">
@@ -41,6 +58,11 @@
             <span class="field row">
               <span class="col-md-4">Price:</span>
               <span class="col-md-6"> {{report.price.value}} {{report.price.currency | currency}}
+              </span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Last Update on:</span>
+              <span class="col-md-6">{{report.updated_at | moment}}
               </span>
             </span>
           </p>
@@ -74,30 +96,30 @@
   </div>
 </template>
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
-@import '~stylesheets/light_item';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/light_item';
 </style>
 <script>
-import countrydata from 'country-data';
+  import countrydata from 'country-data';
 
-export default {
-  name: 'ReportItem',
-  props: [
-    'report',
-    'UpdateReport',
-    'viewAction',
-    'summaryAction',
-    'BuyAction',
-    'refundAction',
-    'own'
-  ],
-  methods: {
-    getLanguage(key) {
-      return countrydata.languages[key] ? countrydata.languages[key].name : key;
-    },
-    getNationality(key) {
-      return countrydata.countries[key] ? countrydata.countries[key].name : key;
+  export default {
+    name: 'ReportItem',
+    props: [
+      'report',
+      'UpdateReport',
+      'viewAction',
+      'summaryAction',
+      'BuyAction',
+      'refundAction',
+      'own'
+    ],
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : key;
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : key;
+      }
     }
-  }
-};
+  };
 </script>

@@ -355,16 +355,12 @@ export default {
     },
     weightPlaceHolder() {
       if (this.request && this.request.type_request == 'position')
-        return `Between ${this.request.meta_data.min_weight} and ${
-          this.request.meta_data.max_weight
-        }`;
+        return `Between ${this.request.meta_data.min_weight} and ${this.request.meta_data.max_weight}`;
       return 'Weight';
     },
     heightPlaceHolder() {
       if (this.request && this.request.type_request == 'position')
-        return `Between ${this.request.meta_data.min_heigth} and ${
-          this.request.meta_data.max_height
-        }`;
+        return `Between ${this.request.meta_data.min_heigth} and ${this.request.meta_data.max_heigth}`;
       return 'Height';
     }
   },

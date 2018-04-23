@@ -24,7 +24,7 @@ module V1
       end
 
       def is_a_bid?(options, model:,params:, current_user:, **)
-        if params[:job_id]
+        if !params[:job_id].blank?
           bid = ::RequestBid.find_by request_id: params[:job_id], user_id: current_user.id, status: ['accepted','joblist']
           options['bid'] = bid
           !bid.blank?
@@ -40,6 +40,7 @@ module V1
           bid.report_id = model.id
           bid.save
         end
+        true
       end
 
       def send_money(options, model:, params:, current_user:, **)

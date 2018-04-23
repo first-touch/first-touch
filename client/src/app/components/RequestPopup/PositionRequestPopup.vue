@@ -35,12 +35,12 @@
                 </span>
               </span>
               <span class="field row">
-                <span class="col-md-4">Weight Range: </span>
+                <span class="col-md-4">Height Range: </span>
                 <span class="col-md-6">{{ request.meta_data.min_heigth}} to {{ request.meta_data.max_heigth}} cm
                 </span>
               </span>
               <span class="field row">
-                <span class="col-md-4">Height Range: </span>
+                <span class="col-md-4">Weight Range: </span>
                 <span class="col-md-6">{{ request.meta_data.min_weight}} to {{ request.meta_data.max_weight}} kg
                 </span>
               </span>
@@ -130,7 +130,7 @@ import countrydata from 'country-data';
 
 export default {
   name: 'RequestItem',
-  props: ['request', 'buyAction', 'closeAction','newBid'],
+  props: ['request', 'closeAction'],
   methods: {
     getLanguage(key) {
       return countrydata.languages[key] ? countrydata.languages[key].name : '';

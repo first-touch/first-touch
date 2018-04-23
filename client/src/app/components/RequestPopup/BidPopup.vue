@@ -5,8 +5,8 @@
       <input class="col-sm-12 form-control" type="number" v-model="price" />
     </span>
     <span class="footer-modal buttons-inner">
-      <button class="btn-primary ft-button" @click="newBid(request,price)">Send Bid</button>
-      <button class="btn-primary ft-button" @click="newBid(request,price)">Update Bid</button>
+      <button class="btn-primary ft-button" v-if="!this.request.request_bids" @click="newBid(request,price)">Send Bid</button>
+      <button class="btn-primary ft-button" v-if="this.request.request_bids" @click="newBid(request,price)">Update Bid</button>
     </span>
   </div>
 </template>

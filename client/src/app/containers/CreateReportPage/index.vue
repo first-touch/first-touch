@@ -210,7 +210,7 @@ export default {
       this.report.errors = null;
       this.files = filelist;
       reportdata.type_report = this.report_type;
-      if (status) reportdata.status = 'publish';
+      if (status) reportdata.status = status;
       reportdata.player_id = this.player_id;
       reportdata.team_id = this.team_id;
       reportdata.job_id = this.job_id;
