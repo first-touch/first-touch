@@ -7,7 +7,7 @@
       </div>
       <form @submit.prevent="search" class="col-md-10">
         <div class="row">
-          <fieldset class="col-md-6 form-control">
+          <fieldset class="col-md-6">
             <currencyinput :value="price" max="true" :currency="currency" />
           </fieldset>
           <ftdatepicker class="col-md-3 form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
@@ -15,7 +15,7 @@
         </div>
       </form>
       <div class="ft-form-result ft-bids-result col-md-12" v-if="bids">
-        <div v-for="bid in bids.bid " :key="bid.key" class="result ft-bid ft-item">
+        <div v-for="bid in bids.bid " :key="bid.key" class="result col-md-5 ft-bid ft-item">
           <div class="content-wrapper">
             <div class="content col-md-12">
               <div class="img-container col-md-4">

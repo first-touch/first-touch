@@ -30,13 +30,16 @@
             :bid="wantbid" :newBid="newBid" />
         </div>
         <div v-if="bid && !bidPosition" class="divSuccess">
-          <h5 class="success">Payment Success</h5>
+          <h5 class="success">Bid has been Submitted</h5>
           <button class="btn btn-dark" @click="closeAction()">✓ Close</button>
         </div>
         <div v-if="bid && bidPosition" class="divSuccess">
           <h5 class="success">Added to job !</h5>
           <button class="btn btn-dark" @click="closeAction()">✓ Close</button>
         </div>
+      </b-modal>
+      <b-modal id="metaModal" size="md" ref="bidModal" :class="bid? 'successModal' : 'formModal' ">
+        <bidpopup v-if="selected" :request="selected" :newBid="newBid" />
       </b-modal>
       <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :addBid="addBid"
         :viewReport="viewReport" :createReport="createReport" />
@@ -116,6 +119,7 @@
     ASYNC_SUCCESS
   } from 'app/constants/AsyncStatus';
   import vSelect from 'vue-select';
+  import BidPopup from './BidPopup';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
   import PositionRequestPopup from 'app/components/RequestPopup/PositionRequestPopup';
@@ -127,6 +131,7 @@
     components: {
       datepicker: Datepicker,
       'timeline-item': TimelineItem,
+      bidpopup:BidPopup,
       request: RequestItem,
       vselect: vSelect,
       ftdatepicker: FtDatepicker,
@@ -297,7 +302,7 @@
         } else {
           this.wantbid = true;
           this.selected = request;
-          this.$refs.metaModal.show();
+          this.$refs.bidModal.show();
         }
       }
     }

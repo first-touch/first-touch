@@ -75,7 +75,6 @@
               <span class="col-md-6">{{ request.meta_data.comments}}
               </span>
             </span>
-            <bidpopup class="bid col-md-6" v-if="newBid" :request="request" :newBid="newBid" />
           </p>
         </div>
       </div>

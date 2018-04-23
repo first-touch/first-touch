@@ -56,7 +56,7 @@
               <router-link :to="{ name: 'clubReportMarketplace'}">Report MarketPlace</router-link>
             </li>
             <li class="sub-nav-item" :class="{ active: page === '/club/scouting/report/list' || !page }">
-              <router-link :to="{ name: 'clubReportList'}">My Purchased Reports</router-link>
+              <router-link :to="{ name: 'clubReportList'}">My Reports</router-link>
             </li>
           </ul>
         </li>

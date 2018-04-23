@@ -55,7 +55,7 @@
             <span class="target" v-if="request.player">{{request.player.first_name}} {{request.player.last_name}} </span>
             <span class="target" v-if="!request.player">{{request.meta_data.player_name}}</span>
           </h2>
-          <span class="pending" v-if="!own && request.request_bids && request.request_bids.status =='pending'">Bid in pending</span>
+          <span class="pending" v-if="!own && request.request_bids && request.request_bids.status =='pending'">Bid pending</span>
           <p class="extra">
             <span class="field row">
               <span class="col-md-4">Request Id:</span>
@@ -88,7 +88,7 @@
         <div class="info col-md-8" v-if="request.type_request == 'team'">
           <h2 class="title">
             Real Madrid Fc WIP </h2>
-          <span class="pending" v-if="!own && request.request_bids && request.request_bids.status =='pending'">Bid in pending</span>
+          <span class="pending" v-if="!own && request.request_bids && request.request_bids.status =='pending'">Bid pending</span>
           <p class="extra">
             <span class="field row">
               <span class="col-md-4">Request Id:</span>

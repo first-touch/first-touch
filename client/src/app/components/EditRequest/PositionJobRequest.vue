@@ -145,7 +145,7 @@
             <label class="col-md-12 required">Deadline</label>
             <ftdatepicker class="col-md-6 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" />
           </div>
-          <div class="row">
+          <div class="row col form-group">
             <label class="col-md-12">Price Range</label>
             <currencyinput :value="price" max="true" />
           </div>

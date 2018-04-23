@@ -42,7 +42,6 @@
               </span>
             </span>
           </p>
-          <bidpopup class="bid col-md-6" :request="request"  v-if="newBid"  :newBid="newBid"/>
         </div>
       </div>
     </div>
