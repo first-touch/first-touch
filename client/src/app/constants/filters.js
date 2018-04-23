@@ -4,7 +4,7 @@ import moment from 'moment';
 Vue.filter('moment', str => {
   var date = moment(str);
   if (date.isValid()) {
-    return date.format('Do, MMM YYYY');
+    return date.format('Do,\ MMM YYYY');
   }
   return '';
 });

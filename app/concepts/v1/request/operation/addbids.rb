@@ -23,10 +23,11 @@ module V1
       end
 
       def logic(options, params:, current_user:, **)
-        if options['model'].request.type_request == 'position'
-          params[:price] = options['model'].request.price['value']
+        if options['model'].request.type_request != 'position'
+          params[:price].to_i >= options['model'].request.price['value'] and params[:price].to_i <= options['model'].request.price['max']
+        else
+          true
         end
-        params[:price].to_i >= options['model'].request.price['value'] and params[:price].to_i <= options['model'].request.price['max']
       end
 
       def setup_model!(model:, current_user:, **)
