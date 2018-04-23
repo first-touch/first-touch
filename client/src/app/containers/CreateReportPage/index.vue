@@ -21,8 +21,8 @@
           <div class="form-container">
             <status :status="status" />
             <ul class="error" v-if="report.errors">
-              <li v-for="(error) in report.errors.error" v-bind:key="error.id">
-                {{ error }}
+              <li v-for="(error, key) in report.errors.errors" v-bind:key="error.id">
+                {{ key }}: <span class="error-field" v-for="reason in error" :key="reason.id">{{ reason }}</span>
               </li>
             </ul>
             <basicform class="report-type-form" v-if="!showForm" :prepateReport="prepateReport" />

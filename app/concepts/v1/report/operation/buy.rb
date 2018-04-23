@@ -31,7 +31,7 @@ module V1
       # Todo: Wait for stripe integration
       def made_payment!(model:, current_user:, **)
         model.status = "completed"
-          true
+        true
       end
 
       def authorized!(current_user:, **)
