@@ -24,14 +24,14 @@ module V1
 
       def setup_model!(options, model:, current_user:, **)
         model.customer_id = current_user.id
-        model.price = model.report.price
+        model.price = model.report.price['value']
         model.user = model.report.user
       end
 
       # Todo: Wait for stripe integration
       def made_payment!(model:, current_user:, **)
         model.status = "completed"
-          true
+        true
       end
 
       def authorized!(current_user:, **)
