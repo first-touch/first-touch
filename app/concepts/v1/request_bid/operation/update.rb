@@ -4,7 +4,7 @@ module V1
       step :find_model!
       failure :model_not_found!, fail_fast: true
       step Trailblazer::Operation::Contract::Build(
-        constant: RequestBids::Contract::Update
+        constant: RequestBid::Contract::Update
       )
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()

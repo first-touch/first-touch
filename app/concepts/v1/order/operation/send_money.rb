@@ -1,6 +1,6 @@
 module V1
   module Order
-    class SendMoney < Trailblazer::Operation
+    class SendMoney < FirstTouch::Operation
       step :find_model!
       failure :model_not_found!, fail_fast: true
       step :pay_scout!

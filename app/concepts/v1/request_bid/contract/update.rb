@@ -1,5 +1,5 @@
 module V1
-  module RequestBids
+  module RequestBid
     module Contract
       class Update < Reform::Form
         property :price

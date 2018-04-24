@@ -28,7 +28,7 @@
                   </span>
                 </h2>
                 <h5 class="price">
-                  {{bid.price}} {{currency}}
+                  {{bid.price.value}} {{bid.price.currency}}
                 </h5>
               </div>
             </div>

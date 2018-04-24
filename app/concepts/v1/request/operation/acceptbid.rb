@@ -9,7 +9,7 @@ module V1
       failure :model_not_found!, fail_fast: true
       step :finalize
       step Trailblazer::Operation::Contract::Build(
-        constant: RequestBids::Contract::Update
+        constant: ::V1::RequestBid::Contract::Update
       )
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
@@ -40,7 +40,7 @@ module V1
         order_params = {
           'customer_id' => current_user.id,
           'user' => model.user,
-          'price' => model.price,
+          'price' => model.price['value'],
           'currency' => params['currency'],
           'status' => 'pending_report',
           'request_bid_id' => model.id
