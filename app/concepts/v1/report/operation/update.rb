@@ -21,6 +21,7 @@ module V1
         unless params['remove_attachment'].blank?
           model.attachments.where(id: params['remove_attachment'].keys).destroy_all
         end
+        true
       end
     end
   end
