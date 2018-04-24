@@ -4,6 +4,7 @@
       <div class="header col-md-12 row">
         <div class="col-md-4">
           <h5 class="title">Club Report</h5>
+          <span>Price {{report.price.value}} {{report.price.currency | currency}}</span>
         </div>
         <div class="col-md-8 buttons-inner">
           <button class="ft-button" @click="closeAction(report)">Close</button>
@@ -18,7 +19,6 @@
       <div class="content col-md-12">
         <div class="img-container">
           <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
-          <p class="price">{{report.price.value}} {{report.price.currency | currency}}</p>
         </div>
         <div class="info col-md-8">
           <h2 class="title" :title="report.headline">{{report.headline}}</h2>

@@ -38,9 +38,7 @@ module V1
             'N/A'
           end
         }
-        property :meta_data, getter:  lambda { |represented:, **|
-          ::V1::ReportMetaData::Representer::Resume.new(represented.meta_data)
-        }
+        property :meta_data
       end
     end
   end
