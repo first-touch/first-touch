@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import moment from 'moment';
 
-Vue.filter('moment', str => moment(str).format('MM/DD/YYYY'));
+Vue.filter('moment', str => moment(str).format('Do, MMM YYYY'));
 Vue.filter('railsdate', str => moment(str).format('YYYY-MM-DD'));
 Vue.filter('reportId', (str, type) => {
   str = str.toString();
@@ -30,6 +30,55 @@ Vue.filter('requestId', (str, type) => {
     break;
   case 'team':
     str = 'TJR' + str;
+    break;
+  }
+  return str;
+});
+
+Vue.filter('vueSelect2Val', (selected) => {
+  if (selected.constructor === Array) {
+    var arr = [];
+    for (var obj in selected) {
+      arr.push(selected[obj].value);
+    }
+    return arr;
+  } else if (selected.value) return selected.value;
+  return '';
+});
+
+Vue.filter('searchInObj', (array, conditionFn) => {
+  const item = array.find(conditionFn);
+  return array.indexOf(item);
+});
+
+Vue.filter('currency', (str) => {
+  switch (str) {
+  case 'USD':
+    str = '$';
+    break;
+  case 'SGD':
+    str = 'S$';
+    break;
+  case 'EUR':
+    str = '€';
+    break;
+  case 'GBP':
+    str = '£';
+    break;
+  }
+  return str;
+});
+
+Vue.filter('preferredFoot', (str) => {
+  switch (str) {
+  case 'R':
+    str = 'Right';
+    break;
+  case 'L':
+    str = 'Left';
+    break;
+  case 'B':
+    str = 'Both';
     break;
   }
   return str;

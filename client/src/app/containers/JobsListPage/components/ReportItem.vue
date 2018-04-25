@@ -10,32 +10,27 @@
           <p class="extra">
             <span class="target" v-if="report.type_report =='player'">{{report.player.first_name}} {{report.player.last_name}} </span>
             <span class="target" v-if="report.type_report =='team'"> Club Name</span>
-            <span class="target">{{report.price.value}} {{report.price.currency | currency}}</span>
-            <span class="target">{{report.updated_at | moment}}</span>
+            <span>{{report.updated_at | moment}}</span>
           </p>
         </div>
       </div>
       <div class="widget">
-        <a v-if="report.orders_status == null && typeof BuyAction === 'function'">
-          <button class="btn-round" @click="BuyAction(report)">Buy report</button>
+        <router-link :to="`/report/view/${report.id}`">
+          <button class="btn-round">View</button>
+        </router-link>
+        <a v-if="report.status == 'publish'" @click="UpdateReport('private',report.id)">
+          <button class="btn-round">Unpublish</button>
         </a>
-        <a v-if="typeof summaryAction === 'function'">
-            <button class="btn-round"  @click="summaryAction(report)">View Summary</button>
+        <a v-if="report.status == 'private'" @click="UpdateReport('publish',report.id)">
+          <button class="btn-round">Publish</button>
         </a>
-        <a v-if="report.orders_status == 'completed'">
-          <button class="btn-round" @click="refundAction(report)">Refund</button>
-        </a>
-        <a v-if="report.orders_status == 'completed'">
-          <button class="btn-round" @click="viewAction(report)">View report</button>
-        </a>
-        <p v-if="report.orders_status == 'pending'">Payment in pending</p>
-
       </div>
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
+
 
   .wrapper {
     padding: 0 30px;
@@ -73,9 +68,6 @@
           justify-content: center;
           .extra {
             text-transform: none;
-            .target {
-              display: block;
-            }
             .author {
               color: #000;
             }
@@ -104,6 +96,6 @@
 <script>
   export default {
     name: 'ReportItem',
-    props: ['report', 'UpdateReport', 'viewAction', 'summaryAction', 'BuyAction','refundAction']
+    props: ['report', 'UpdateReport']
   };
 </script>
