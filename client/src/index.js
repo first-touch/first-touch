@@ -25,6 +25,9 @@ import JobsListPage from 'app/containers/JobsListPage';
 import MyPurchasedReportsPage from 'app/containers/MyPurchasedReportsPage';
 import JobRequestPage from 'app/containers/JobRequestPage';
 import RequestPage from 'app/containers/RequestPage';
+import RequestBidsPage from 'app/containers/RequestBidsPage';
+
+import JobsBankPage from 'app/containers/JobsBankPage';
 
 import store from 'app/store';
 import VueRouter from 'vue-router';
@@ -97,6 +100,7 @@ const router = new VueRouter({
         {
           path: '/users/:id/profile',
           component: ProfilePage,
+          name: 'userProfilePage',
           props: {
             mine: false
           },
@@ -111,7 +115,8 @@ const router = new VueRouter({
         {
           path: '/scouting/report/create',
           component: CreateReportPage,
-          name: 'scoutReportCreate'
+          name: 'scoutReportCreate',
+          props: true
         },
         {
           path: '/scouting/report/view/:id',
@@ -127,6 +132,11 @@ const router = new VueRouter({
           path: '/scouting/jobs/list',
           component: JobsListPage,
           name: 'scoutJobsList'
+        },
+        {
+          path: '/scouting/jobs/bank',
+          component: JobsBankPage,
+          name: 'scoutJobsBank'
         },
         {
           path: '/messages',
@@ -181,6 +191,11 @@ const router = new VueRouter({
           path: '/club/scouting/request/:id',
           component: RequestPage,
           name: 'clubRequest'
+        },
+        {
+          path: '/club/scouting/request/:id/bids',
+          component: RequestBidsPage,
+          name: 'clubRequestBids'
         }
       ]
     },
