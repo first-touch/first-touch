@@ -46,7 +46,7 @@ export default {
         this.show = this.show === '' ? this.request.value.type_request : this.show;
         this.value = this.request.value;
         if (this.update) {
-          this.$router.push({ name: 'clubRequestList'}); // -> /user/123router.push({
+          this.$router.push({ name: 'clubRequestList'});
         }
       }
     }
@@ -64,7 +64,7 @@ export default {
       });
     },
     cancel () {
-      this.$router.push({ name: 'clubRequestList' }); // -> /user/123router.push({
+      this.$router.push({ name: 'clubRequestList' });
     }
   }
 };
