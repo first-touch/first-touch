@@ -2,6 +2,8 @@ class Report < ApplicationRecord
   belongs_to :user
   belongs_to :club, optional: true
   belongs_to :player, class_name: 'User'
+  belongs_to :team, optional: true
+
   has_many :attachments
   has_one :request_bid
   has_one :request, through: :request_bid
