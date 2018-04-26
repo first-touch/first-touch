@@ -7,7 +7,7 @@ module V1
         property :status
         property :type_report
         property :price
-        property :club_id
+        property :team_id
         property :player_id
         property :meta_data
 

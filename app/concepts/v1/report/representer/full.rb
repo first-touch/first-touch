@@ -27,10 +27,12 @@ module V1
           end
         }
         property :team, getter: lambda { |represented:, **|
+          'N/A'
           if represented.team
-            true
+            ::V1::Team::Representer::Simplified.new(
+              represented.team
+              )
           end
-          false
         }
         property :price
         property :type_report
