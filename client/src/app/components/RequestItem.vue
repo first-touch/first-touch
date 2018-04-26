@@ -86,8 +86,8 @@
           </p>
         </div>
         <div class="info col-md-8" v-if="request.type_request == 'team'">
-          <h2 class="title">
-            Real Madrid Fc WIP </h2>
+          <h2 class="title" v-if="request.team" >{{request.team.team_name}}</h2>
+          <h2 class="title" v-if="!request.team" > {{request.meta_data.search.team}} </h2>
           <span class="pending" v-if="!own && request.request_bids && request.request_bids.status =='pending'">Bid pending</span>
           <p class="extra">
             <span class="field row">
@@ -102,13 +102,16 @@
             </span>
             <span class="field row">
               <span class="col-md-4">League:</span>
-              <span class="col-md-6">
-                WIP
+              <span class="col-md-6" v-if="!request.team">
+                {{request.meta_data.search.league}}
+              </span>
+              <span class="col-md-6" v-if="request.team">
+                <span class="list" v-for="cp in request.team.competitions.competitions" :key="cp.id" >{{cp.name}} </span>
               </span>
             </span>
             <span class="field row">
-              <span class="col-md-4">Player In Databases</span>
-              <span class="col-md-6">WIP
+              <span class="col-md-4">Created</span>
+              <span class="col-md-6">{{request.created_at | moment}}
               </span>
             </span>
             <span class="field row">
