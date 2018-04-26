@@ -1,21 +1,25 @@
 <template>
-  <vselect v-model="model" :onChange="update" multiple :options="options" class="ft-input"/>
+  <vselect :disabled="readonly" v-model="model" :onChange="update" multiple :options="options" class="ft-input" />
 </template>
 <script>
 import vSelect from 'vue-select';
 
 export default {
   name: 'PlayerPosition',
-  props: ['value'],
+  props: ['value','readonly'],
   components: {
     vselect: vSelect
   },
   mounted() {
     this.model = [];
-    for (var val in this.value) {
-      const index = this.$options.filters.searchInObj(this.options, option => option.value === this.value[val])
-      this.model.push(this.options[index]);
-    }
+    if (this.value.constructor == Array)
+      for (var val in this.value) {
+        const index = this.$options.filters.searchInObj(
+          this.options,
+          option => option.value === this.value[val]
+        );
+        if (index > 0) this.model.push(this.options[index]);
+      }
   },
   data() {
     return {
@@ -45,7 +49,6 @@ export default {
     };
   },
   methods: {
-
     update(val) {
       if (val) this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
     },

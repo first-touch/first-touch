@@ -27,20 +27,20 @@
         <input type="text" class="col-sm-12 form-control" v-model="job_id" :disabled="job_type == 'independent'" />
       </div>
     </div>
-    <div class="form-group row" v-if="type == 'player'">
-      <label class="col-sm-3 col-form-label">Select a Player</label>
-      <inputsearch class="col-sm-6" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="player" v-on:update:val="player_id = $event"
-      />
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Select a League</label>
+      <inputsearch class="col-sm-6" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition" v-on:update:val="setLeague($event)" ref="league_search"
+        minChar=3 label="name" />
     </div>
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Select a Team</label>
-      <inputsearch class="col-sm-6" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" v-on:update:val="team_id = $event"
-      />
+      <inputsearch class="col-sm-6" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" ref="team_search"
+        v-on:update:obj="setTeam($event)" minChar=3 label="team_name" />
     </div>
-    <div class="form-group row" >
-      <label class="col-sm-3 col-form-label">Select a League</label>
-      <inputsearch class="col-sm-6" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="league" v-on:update:val="league = $event"
-      />
+    <div class="form-group row" v-if="type == 'player'">
+      <label class="col-sm-3 col-form-label">Select a Player</label>
+      <inputsearch class="col-sm-6" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="player"
+        label="display_name" v-on:update:val="player_id = $event" />
     </div>
     <div class="formbutton col-md-9">
       <button v-if="type == 'player'" class="bar-button col-md-6" :disabled="player_id == ''" @click="startReport">Create Report for a player</button>
@@ -86,7 +86,6 @@
       border: 1px;
       border-style: inset;
     }
-    overflow: hidden;
   }
 </style>
 
@@ -100,7 +99,7 @@
 
   export default {
     name: 'ReportBasicForm',
-    props: ['prepateReport'],
+    props: ['prepareReport'],
     components: {
       inputsearch: inputSearch
     },
@@ -112,6 +111,7 @@
         job_type: 'independent',
         job_id: '',
         team_id: '',
+        league_id: '',
         player_id: ''
       };
     },
@@ -119,15 +119,52 @@
       ...mapGetters(['searchResult'])
     },
     methods: {
-      ...mapActions(['getSearchResults']),
-      getSearchResultsRole(role, term) {
-        this.getSearchResults({
-          searchTerm: term,
-          role: role
-        });
+      ...mapActions([
+        'getSearchResults',
+        'getSearchResultsTeams',
+        'getSearchResultsCompetition',
+        'flushSearchResults'
+      ]),
+      setLeague(league_id) {
+        if (this.league_id != league_id) {
+          this.league_id = league_id;
+          this.$refs.team_search.clear();
+        }
+      },
+      setTeam(team) {
+        if (team != null){
+          this.team_id = team.id;
+          if (this.league_id == '')
+            this.league_id = team.competition_id;
+          this.$refs.league_search.search = team.competition_name;
+          console.log(team)
+        }
+      },
+      getSearchResultsRole(role, searchTerm) {
+        this.flushSearchResults();
+        switch (role) {
+          case 'team':
+            this.getSearchResultsTeams({
+              searchTerm,
+              league: this.league_id
+            });
+            break;
+          case 'competition':
+            this.getSearchResultsCompetition({
+              searchTerm
+            });
+            break;
+          default:
+            this.getSearchResults({
+              searchTerm,
+              role,
+              team: this.team_id
+            });
+            break;
+        }
       },
       startReport() {
-        this.prepateReport(this.type, this.player_id, this.team_id, this.job_id);
+        this.prepareReport(this.type, this.player_id, this.team_id, this.job_id);
       }
     }
   };

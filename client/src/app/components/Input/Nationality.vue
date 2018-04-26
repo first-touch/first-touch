@@ -1,5 +1,5 @@
 <template>
-  <vselect v-model="model" :onChange="update" :options="countries" class="ft-input"/>
+  <vselect :disabled="readonly" v-model="model" :onChange="update" :options="countries" class="ft-input"/>
 </template>
 
 <script>
@@ -8,7 +8,7 @@ import vSelect from 'vue-select';
 
 export default {
   name: 'Nationality',
-  props: ['value'],
+  props: ['value','readonly'],
   components: {
     vselect: vSelect
   },

@@ -49,6 +49,8 @@ class User < ApplicationRecord
   has_many :reports_buy, foreign_key: :customer_id, class_name: 'Order'
   has_one :stripe_ft
   # /TODO
+
+  has_many :competitions, through: :teams
   before_save :update_search_string, if: -> { email_changed? }
 
   def connection_status(user)

@@ -5,7 +5,7 @@
         <h5 class="col-md-9">{{report.headline}}</h5>
         <div class="header row col-md-12">
           <div class="row col col-sm-6">
-            <p class="col-sm-2">UPDATED </p>
+            <p class="col-sm-3">UPDATED </p>
             <p class="col-md-5"> {{report.created_at | moment}}</p>
           </div>
           <div class="row col col-sm-6">
@@ -19,7 +19,7 @@
             <div class="info">
               <h4 class="name" v-if="report.player">{{report.player.first_name}} {{report.player.last_name}}</h4>
               <p class="role">Football Player</p>
-              <p class="club">Real Madrid FC, Spain</p>
+              <p class="club"><span class="list" v-for="team in report.team_info.teams" :key="team.id" >{{team.team_name}} {{team.competitions.competitions[0].name}} </span></p>
               <p class="detail">
                 <span class="detail-title">Age:</span>
                 {{ report.meta_data.userinfo.age }}
