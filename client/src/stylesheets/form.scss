@@ -4,6 +4,7 @@
     color: $main-text-color !important;
   }
 }
+
 .buttons-inner {
   float: right;
   button {
@@ -21,6 +22,9 @@
     cursor: pointer;
     &:hover {
       background-color: $button-background-hover;
+    }
+    &:disabled {
+      cursor: not-allowed;
     }
   }
   .ft-button-success {
@@ -125,5 +129,4 @@
       color: red;
     }
   }
-
 }
