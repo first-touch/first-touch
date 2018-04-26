@@ -8,13 +8,15 @@
           <img src="https://unsplash.it/50/50" class="rounded-circle img-fluid">
           <p> {{value}}</p>
         </div>
-        <div v-if="taggable && allowtag" @mousedown="newentry()">
+        <div v-if="minChar && search.length < minChar">
+          <p>Pleast type at least {{minChar}} chars </p>
+        </div>
+        <div v-if="taggable && allowtag && (!minChar || search.length >= minChar) " @mousedown="newentry()">
           <img src="https://unsplash.it/50/50" class="rounded-circle img-fluid">
           <p> {{search}} (Non existing)</p>
         </div>
         <div v-if="!taggable && results.length == 0">
           <p v-if="search != '' && (!minChar || search.length >= minChar)  "> No result found </p>
-          <p v-if="minChar && search.length < minChar">Pleast type at least {{minChar}} chars </p>
           <p v-if="search == '' && !minChar"> Type to search </p>
         </div>
       </div>
@@ -118,11 +120,17 @@ export default {
       if (this.search === '') {
         this.clear();
       }
+      this.search = this.value;
       this.$emit('update:val', this.id);
       this.$emit('update:search', this.value);
-      this.$emit('update:obj', this.selected);
 
-      this.search = this.value;
+      if(this.taggable && this.id == -1){
+        this.$emit('update:obj', {id: -1, name: this.search});
+      }
+      else{
+        this.$emit('update:obj', this.selected);
+      }
+
     },
     startSearch() {
       if (this.search != '' && (!this.minChar || this.search.length >= this.minChar))

@@ -139,7 +139,6 @@ export default {
         remove_attachment: this.remove_attachment,
         status
       };
-      console.log(this.meta_data);
       this.submitReport(report, this.files,status);
       $('html, body').animate(
         {
