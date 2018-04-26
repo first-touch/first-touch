@@ -17,17 +17,17 @@
           <div class="top">
             <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
             <div class="info">
-              <h4 class="name">Real Madrid FC, Spain</h4>
+              <h4 class="name">{{report.team.team_name}}</h4>
             </div>
           </div>
           <hr />
           <div class="bottom">
             <div class="summary">
               <h5 class="summary-title">Summary</h5>
-              <p class="summary-field">Real Madrid Fc</p>
-              <p class="summary-field">
+              <p class="summary-field">{{report.team.team_name}}</p>
+              <p class="summary-field" v-if="report.team.competitions">
                 <span class="summary-field-title">League:</span>
-                Liga
+                <span class="list" v-for="cp in report.team.competitions.competitions" :key="cp.id" >{{cp.name}} </span>
               </p>
             </div>
           </div>
