@@ -4,7 +4,7 @@
       <span>
         <icon name='edit' scale="1.5"></icon>
       </span>
-      <router-link :to="`/report/create`">Create Report</router-link>
+      <router-link :to="{ name: 'scoutReportCreate'}">Create Report</router-link>
     </button>
   </action-item>
 </template>

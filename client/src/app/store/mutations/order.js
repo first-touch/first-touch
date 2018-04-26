@@ -10,18 +10,18 @@ export const order = {
 };
 
 export default {
-  [ActionTypes.ORDER_REPORT_LOADING] (state, errors) {
+  [ActionTypes.ORDER_REPORT_LOADING] (state, order) {
     state.order = Object.assign(
       {},
       state.order,
-      { status: ASYNC_LOADING, errors: errors }
+      { status: ASYNC_LOADING, value: order }
     );
   },
-  [ActionTypes.ORDER_REPORT_SUCCESS] (state, errors) {
+  [ActionTypes.ORDER_REPORT_SUCCESS] (state, order) {
     state.order = Object.assign(
       {},
       state.order,
-      { status: ASYNC_SUCCESS, errors: errors }
+      { status: ASYNC_SUCCESS, errors: order }
     );
   },
   [ActionTypes.ORDER_REPORT_FAILURE] (state, errors) {

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180417095148) do
+ActiveRecord::Schema.define(version: 20180420075036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,7 +191,9 @@ ActiveRecord::Schema.define(version: 20180417095148) do
     t.text "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "request_bid_id"
     t.index ["report_id"], name: "index_orders_on_report_id"
+    t.index ["request_bid_id"], name: "index_orders_on_request_bid_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -253,22 +255,23 @@ ActiveRecord::Schema.define(version: 20180417095148) do
     t.bigint "user_id"
     t.text "status"
     t.bigint "request_id"
+    t.bigint "report_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_request_bids_on_report_id"
     t.index ["request_id"], name: "index_request_bids_on_request_id"
     t.index ["user_id"], name: "index_request_bids_on_user_id"
   end
 
   create_table "requests", force: :cascade do |t|
     t.text "type_request"
-    t.integer "min_price"
-    t.integer "max_price"
     t.bigint "user_id"
     t.date "deadline"
     t.text "status"
     t.json "meta_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "price"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
@@ -345,9 +348,11 @@ ActiveRecord::Schema.define(version: 20180417095148) do
   add_foreign_key "competition_seasons", "competitions"
   add_foreign_key "notes", "users"
   add_foreign_key "orders", "reports"
+  add_foreign_key "orders", "request_bids"
   add_foreign_key "orders", "users"
   add_foreign_key "reports", "clubs"
   add_foreign_key "reports", "users"
+  add_foreign_key "request_bids", "reports"
   add_foreign_key "request_bids", "requests"
   add_foreign_key "request_bids", "users"
   add_foreign_key "requests", "users"

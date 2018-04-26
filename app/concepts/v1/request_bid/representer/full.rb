@@ -1,5 +1,5 @@
 module V1
-  module Request
+  module RequestBid
     module Representer
       class Full < Representable::Decorator
         include Representable::JSON
@@ -11,6 +11,7 @@ module V1
             represented.user.personal_profile
           )
         }
+        property :price
         property :created_at
       end
     end
