@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180509092809) do
+ActiveRecord::Schema.define(version: 20180426082006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -241,12 +241,12 @@ ActiveRecord::Schema.define(version: 20180509092809) do
     t.string "type_report"
     t.bigint "user_id"
     t.json "price"
-    t.bigint "club_id"
+    t.bigint "team_id"
     t.integer "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "meta_data"
-    t.index ["club_id"], name: "index_reports_on_club_id"
+    t.index ["team_id"], name: "index_reports_on_team_id"
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
@@ -290,15 +290,6 @@ ActiveRecord::Schema.define(version: 20180509092809) do
     t.jsonb "metadata", default: "{}", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "stripe_fts", force: :cascade do |t|
-    t.text "preferred_account"
-    t.text "stripe_id"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_stripe_fts_on_user_id"
   end
 
   create_table "team_users", id: :serial, force: :cascade do |t|
@@ -359,13 +350,12 @@ ActiveRecord::Schema.define(version: 20180509092809) do
   add_foreign_key "orders", "reports"
   add_foreign_key "orders", "request_bids"
   add_foreign_key "orders", "users"
-  add_foreign_key "reports", "clubs"
+  add_foreign_key "reports", "clubs", column: "team_id"
   add_foreign_key "reports", "users"
   add_foreign_key "request_bids", "reports"
   add_foreign_key "request_bids", "requests"
   add_foreign_key "request_bids", "users"
   add_foreign_key "requests", "users"
-  add_foreign_key "stripe_fts", "users"
   add_foreign_key "team_users", "teams"
   add_foreign_key "team_users", "users"
   add_foreign_key "teams_competitions", "competition_seasons"
