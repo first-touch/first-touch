@@ -40,7 +40,7 @@ module FirstTouch
       },
       invalid: {
         rule: ->(result) { result.failure? },
-        resolve: ->(_result, _representer) { { 'data': {}, 'status': :unprocessable_entity } }
+        resolve: ->(_result, _representer) { {  'data': { errors: _result["result.contract.default"].errors }, 'status': :unprocessable_entity } }
       },
       fallback: {
         rule: ->(_result) { true },

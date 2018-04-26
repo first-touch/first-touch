@@ -19,10 +19,22 @@ module V1
             )
           end
         }
+        property :team_info, getter: lambda { |represented:, **|
+          if represented.player
+            ::V1::Team::Representer::Index.new(
+            represented.player.teams
+            )
+          end
+        }
+        property :team, getter: lambda { |represented:, **|
+          if represented.team
+            true
+          end
+          false
+        }
         property :price
         property :type_report
         property :status
-
         property :attachments, getter: lambda { |represented:, **|
           if represented.attachments
             ::V1::Attachment::Representer::Index.new(represented.attachments)

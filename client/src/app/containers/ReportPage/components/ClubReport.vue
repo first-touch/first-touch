@@ -5,7 +5,7 @@
         <h5 class="col-md-12">{{report.headline}}</h5>
         <div class="header row col-md-12">
           <div class="row col col-sm-6">
-            <p class="col-sm-2">UPDATED </p>
+            <p class="col-sm-4">UPDATED </p>
             <p class="col-md-5"> {{report.meta_data.created_at | moment}}</p>
           </div>
           <div class="row col col-sm-6">

@@ -1,6 +1,6 @@
 module V1
   module Report
-    class Create < Trailblazer::Operation
+    class Create < FirstTouch::Operation
       step Model(::Report, :new)
       step :authorized!
       failure :unauthenticated, fail_fast: true
