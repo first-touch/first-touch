@@ -7,6 +7,9 @@ module V1
         property :deadline
         property :type_request
         property :status
+        property :player_id
+        property :team_id
+
         validates :status, :meta_data, :deadline, :price,
                   :type_request, presence: true
       end

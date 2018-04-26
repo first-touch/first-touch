@@ -1,7 +1,7 @@
 <template>
   <div class="ft-input">
     <div class="col-md-12 inner">
-      <input name="team" autocomplete="off" class="search form-control" v-model="search" type="text" v-on:keyup="startSearch" :required="required"
+      <input name="team" autocomplete="off" :readonly="readonly" class="search form-control" :class="readonly ? 'readonly':''" v-model="search" type="text" v-on:keyup="startSearch" :required="required"
         @blur="blur" @click="focus()" />
       <div class="search-results">
         <div v-for="(value, index) in results" :key="index" @mousedown="setvalue(index)">
@@ -33,7 +33,7 @@
 
 .search {
   -webkit-appearance: menulist;
-  &:focus ~ .search-results {
+  &:not(.readonly):focus ~ .search-results {
     position: absolute;
     background: white;
     width: 100%;
@@ -70,7 +70,7 @@
 import { mapActions } from 'vuex';
 export default {
   name: 'InputSearch',
-  props: ['onkeyup', 'searchResult', 'type', 'taggable', 'edit', 'required', 'minChar', 'label'],
+  props: ['onkeyup', 'searchResult', 'type', 'taggable', 'edit', 'required', 'minChar', 'label','readonly'],
   data() {
     return {
       search: '',
@@ -122,15 +122,16 @@ export default {
       }
       this.search = this.value;
       this.$emit('update:val', this.id);
-      this.$emit('update:search', this.value);
 
-      if(this.taggable && this.id == -1){
-        this.$emit('update:obj', {id: -1, name: this.search});
-      }
-      else{
+      if (this.taggable && this.id == -1) {
+        this.$emit('update:search', this.value);
+        this.$emit('update:obj', {
+          id: -1,
+          name: this.search
+        });
+      } else {
         this.$emit('update:obj', this.selected);
       }
-
     },
     startSearch() {
       if (this.search != '' && (!this.minChar || this.search.length >= this.minChar))

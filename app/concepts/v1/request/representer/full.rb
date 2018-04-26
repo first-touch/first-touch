@@ -18,6 +18,15 @@ module V1
             )
           end
         }
+
+        property :team, getter: lambda { |represented:, **|
+          if represented.team
+            ::V1::Team::Representer::Simplified.new(
+            represented.team
+            )
+          end
+        }
+
         property :meta_data
         property :price
         property :type_request

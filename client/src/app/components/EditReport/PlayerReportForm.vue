@@ -402,8 +402,6 @@ export default {
   },
   methods: {
     handleSubmit(status) {
-      if (this.player_search)
-        this.meta_data.userinfo.player_search = this.player_search;
       var report = {
         headline: this.headline,
         price: this.price,
