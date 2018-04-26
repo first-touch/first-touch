@@ -11,14 +11,16 @@
             </li>
           </ul>
           <div class="row">
-            <div class="col-sm-4 form-group">
+            <div class="col-sm-6 form-group" v-if="!edit">
               <label class="col-md-12">League Name</label>
-              <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition" v-on:update:val="setLeague($event)" ref="league_search"
-                minChar=3 label="name" /> </div>
-            <div class="col-sm-4 form-group">
+              <inputsearch :readonly="edit" class="col-md-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
+               v-on:update:val="setLeague($event)" v-on:update:search="meta_data.search.league = $event" ref="team_search" minChar=3 label="name" />
+            </div>
+            <div class="col-sm-6 form-group">
               <label class="col-md-12 required">Team Name</label>
-              <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" v-on:update:obj="setTeam($event)"
-                :required="true" minChar=3 label="team_name" /> </div>
+              <inputsearch :edit="team_search" :readonly="edit" class="col-md-12" :taggable="true" v-if="league_id != ''" :onkeyup="getSearchResultsRole" ref="team_search" v-on:update:search="meta_data.search.team = $event"  :searchResult="searchResult" type="team" v-on:update:obj="setTeam($event)"
+                :required="true" minChar=3 label="team_name" />
+            </div>
           </div>
 
           <div class="row">
@@ -85,15 +87,16 @@ export default {
       disabled: {
         to: new Date()
       },
+      team_id: '',
+      league_id: '',
+      team_search: '',
       training_report_select: {
         label: 'No',
         value: 'no'
       },
       meta_data: {
-        team_id: '',
-        league_id: '',
-        player_id: '',
-        training_report: 'no'
+        training_report: 'no',
+        search: {league: '', team: '' }
       },
       options: {
         required: [
@@ -123,6 +126,8 @@ export default {
       this.meta_data = this.edit.meta_data;
       this.deadline = this.edit.deadline;
       this.price = this.edit.price;
+      this.league_id = -1;
+      this.team_search = {search: this.edit.team.team_name}
     }
   },
   methods: {
@@ -146,14 +151,17 @@ export default {
     setLeague(league_id) {
       if (this.league_id != league_id) {
         this.league_id = league_id;
+      if (this.$refs.team_search)
         this.$refs.team_search.clear();
+        if (this.league_id > 0) this.meta_data.search.league = ''
       }
     },
     setTeam(team) {
       if (team != null) {
         this.team_id = team.id;
+        if (this.team_id > 0) this.meta_data.search.team = ''
         this.league_id = team.competition_id;
-        this.$refs.league_search.search = team.competition_name;
+        this.$refs.team_search.search = team.competition_name;
       }
     },
     showCalendar: function(index) {
@@ -163,6 +171,7 @@ export default {
       this.submit({
         meta_data: this.meta_data,
         deadline: this.deadline,
+        team_id: this.team_id,
         price: this.price,
         type_request: 'team',
         status: 'publish'

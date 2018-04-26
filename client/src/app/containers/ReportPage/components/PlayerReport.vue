@@ -18,9 +18,16 @@
             <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
             <div class="info">
               <h4 class="name" v-if="report.player">{{report.player.first_name}} {{report.player.last_name}}</h4>
-               <h4 class="name" v-if="!report.player">{{report.meta_data.userinfo.player_search}} </h4>
+              <h4 class="name" v-if="!report.player">{{report.meta_data.search.player}} </h4>
               <p class="role">Football Player</p>
-              <p class="club" v-if="report.team_info"><span class="list" v-for="team in report.team_info.teams" :key="team.id" >{{team.team_name}} {{team.competitions.competitions[0].name}} </span></p>
+              <p class="club" v-if="report.team_info">
+                <span class="list" v-for="team in report.team_info.teams" :key="team.id">{{team.team_name}}
+                  <span class="list" v-for="comp in team.competitions.competitions" :key="comp.id"> {{comp.name}}</span>
+                </span>
+              </p>
+              <p class="club" v-if="!report.team_info && report.team">{{report.team.team_name}}
+                <span class="list" v-for="comp in report.team.competitions.competitions" :key="comp.id"> {{comp.name}}</span>
+              </p>
               <p class="detail">
                 <span class="detail-title">Age:</span>
                 {{ report.meta_data.userinfo.age }}
@@ -82,8 +89,7 @@
           <div class="contract-summary">
             <div class="row" v-if="report.meta_data.transfer_sum.wage.value">
               <label class="col-sm-4 summary-title">Wage </label>
-              <span class="col-sm-4 summary-field"> {{report.meta_data.transfer_sum.wage.value}} {{report.meta_data.transfer_sum.wage.currency
-                | currency}} </span>
+              <span class="col-sm-4 summary-field"> {{report.meta_data.transfer_sum.wage.value}} {{report.meta_data.transfer_sum.wage.currency | currency}} </span>
             </div>
             <div class="row">
               <span class="col col-md-12 transfer-title summary-title">
@@ -185,6 +191,7 @@ h5 {
   color: $main-text-color;
   font-size: 1.5em;
 }
+
 .top {
   display: flex;
   .avatar {
