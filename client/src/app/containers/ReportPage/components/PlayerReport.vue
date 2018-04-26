@@ -18,8 +18,9 @@
             <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
             <div class="info">
               <h4 class="name" v-if="report.player">{{report.player.first_name}} {{report.player.last_name}}</h4>
+               <h4 class="name" v-if="!report.player">{{report.meta_data.userinfo.player_search}} </h4>
               <p class="role">Football Player</p>
-              <p class="club"><span class="list" v-for="team in report.team_info.teams" :key="team.id" >{{team.team_name}} {{team.competitions.competitions[0].name}} </span></p>
+              <p class="club" v-if="report.team_info"><span class="list" v-for="team in report.team_info.teams" :key="team.id" >{{team.team_name}} {{team.competitions.competitions[0].name}} </span></p>
               <p class="detail">
                 <span class="detail-title">Age:</span>
                 {{ report.meta_data.userinfo.age }}

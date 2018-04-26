@@ -292,7 +292,7 @@ export default {
     icon: Icon,
     currencyinput: CurrencyInput
   },
-  props: ['userinfo', 'submitReport', 'reportStatus', 'report', 'cancelAction', 'request'],
+  props: ['userinfo', 'submitReport', 'reportStatus', 'report', 'cancelAction', 'request','player_search'],
   data() {
     return {
       playersummary: true,
@@ -402,6 +402,8 @@ export default {
   },
   methods: {
     handleSubmit(status) {
+      if (this.player_search)
+        this.meta_data.userinfo.player_search = this.player_search;
       var report = {
         headline: this.headline,
         price: this.price,

@@ -13,12 +13,12 @@
           <div class="row">
             <div class="col-sm-4 form-group">
               <label class="col-md-12">League Name</label>
-              <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="league" v-on:update:val="meta_data.league_id = $event"
-              /> </div>
+              <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition" v-on:update:val="setLeague($event)" ref="league_search"
+                minChar=3 label="name" /> </div>
             <div class="col-sm-4 form-group">
               <label class="col-md-12 required">Team Name</label>
-              <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" v-on:update:val="meta_data.team_id = $event"
-                :required="true" /> </div>
+              <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" v-on:update:obj="setTeam($event)"
+                :required="true" minChar=3 label="team_name" /> </div>
           </div>
 
           <div class="row">
@@ -28,7 +28,8 @@
             </div>
             <div class="col-md-6 form-group">
               <label class="col-md-12">Training Report Required</label>
-              <vselect v-model="training_report_select" @input="meta_data.training_report = training_report_select.value" :options="options.required" :searchable="false" />
+              <vselect v-model="training_report_select" @input="meta_data.training_report = training_report_select.value" :options="options.required"
+                :searchable="false" />
             </div>
           </div>
           <div class="row col-md-12 form-group">
@@ -125,12 +126,35 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getSearchResults']),
-    getSearchResultsRole(role, term) {
-      this.getSearchResults({
-        searchTerm: term,
-        role: role
-      });
+    ...mapActions(['getSearchResultsTeams', 'getSearchResultsCompetition', 'flushSearchResults']),
+    getSearchResultsRole(role, searchTerm) {
+      this.flushSearchResults();
+      switch (role) {
+        case 'team':
+          this.getSearchResultsTeams({
+            searchTerm,
+            league: this.league_id
+          });
+          break;
+        case 'competition':
+          this.getSearchResultsCompetition({
+            searchTerm
+          });
+          break;
+      }
+    },
+    setLeague(league_id) {
+      if (this.league_id != league_id) {
+        this.league_id = league_id;
+        this.$refs.team_search.clear();
+      }
+    },
+    setTeam(team) {
+      if (team != null) {
+        this.team_id = team.id;
+        this.league_id = team.competition_id;
+        this.$refs.league_search.search = team.competition_name;
+      }
     },
     showCalendar: function(index) {
       this.$refs.datepicker.showCalendar();
