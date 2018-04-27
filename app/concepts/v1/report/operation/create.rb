@@ -4,9 +4,9 @@ module V1
       step Model(::Report, :new)
       step :authorized!
       failure :unauthenticated, fail_fast: true
-      step :setup_model!
       step :is_a_bid?
       failure :bid_not_found!, fail_fast: true
+      step :setup_model!
       step Trailblazer::Operation::Contract::Build(
         constant: Report::Contract::Create
         )
@@ -15,7 +15,15 @@ module V1
       step :send_money
       step :persist_bid
 
-      def setup_model!(model:, current_user:, **)
+      def setup_model!(options, model:, current_user:, **)
+        if options['bid']
+          request = options['bid'].request
+          if request.type_request != 'position'
+            model.team = request.team
+            model.player = request.player
+            model.league = request.league
+          end
+        end
         model.user = current_user
       end
 
@@ -51,7 +59,7 @@ module V1
               'user' => model.user,
               'report_id' => model.id
             }
-            result = ::V1::Order::SendMoney.(order_params, user_id: options['bid'].user_id )
+            result = ::V1::Order::SendMoney.(order_params, current_user: current_user, user_id: options['bid'].user_id )
             return result.success?
           end
         end

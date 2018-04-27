@@ -25,43 +25,43 @@
             <div class="row">
               <div class="col-sm-4">
                 <label class="col-sm-12 col-form-label">Age</label>
-                <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.age" :placeholder="agePlaceHolder">
+                <input type="number" class="col-sm-12 form-control" v-model="meta_data.player_info.age" :placeholder="agePlaceHolder">
               </div>
               <div class="col-sm-4">
                 <label class="col-sm-12 col-form-label">Approximate Height (cm)</label>
-                <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.height" :placeholder="heightPlaceHolder">
+                <input type="number" class="col-sm-12 form-control" v-model="meta_data.player_info.height" :placeholder="heightPlaceHolder">
               </div>
               <div class="col-sm-4">
                 <label class="col-sm-12 col-form-label">Approximate Weight (kg)</label>
-                <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.weight" :placeholder="weightPlaceHolder">
+                <input type="number" class="col-sm-12 form-control" v-model="meta_data.player_info.weight" :placeholder="weightPlaceHolder">
               </div>
             </div>
             <div class="row">
               <div class="col-sm-6">
                 <label class="col-sm-12 col-form-label">Position</label>
-                <playerposition :value="meta_data.userinfo.playing_position" v-on:update:val="meta_data.userinfo.playing_position = $event"
+                <playerposition :value="meta_data.player_info.playing_position" v-on:update:val="meta_data.player_info.playing_position = $event"
                 />
               </div>
               <div class="col-sm-6">
                 <label class="col-sm-12 col-form-label">Preferred Foot</label>
-                <preferredfoot :value="meta_data.userinfo.preferred_foot" v-on:update:val="meta_data.userinfo.preferred_foot = $event" />
+                <preferredfoot :value="meta_data.player_info.preferred_foot" v-on:update:val="meta_data.player_info.preferred_foot = $event" />
               </div>
             </div>
             <div class="row">
               <div class="col-sm-6">
                 <label class="col-sm-12 col-form-label">Nationality</label>
-                <countryselect :value="meta_data.userinfo.nationality_country_code" v-on:update:val="meta_data.userinfo.nationality_country_code = $event"
+                <countryselect :value="meta_data.player_info.nationality_country_code" v-on:update:val="meta_data.player_info.nationality_country_code = $event"
                 /> </div>
               <div class="col-sm-6">
                 <label class="col-sm-12 col-form-label">Based In</label>
-                <countryselect :value="meta_data.userinfo.residence_country_code" v-on:update:val="meta_data.userinfo.residence_country_code = $event"
+                <countryselect :value="meta_data.player_info.residence_country_code" v-on:update:val="meta_data.player_info.residence_country_code = $event"
                 />
               </div>
             </div>
             <div class="row">
               <div class="col-sm-12">
                 <label class="col-sm-12 col-form-label">Language(s)</label>
-                <language :value="meta_data.userinfo.languages" v-on:update:val="meta_data.userinfo.languages = $event" />
+                <language :value="meta_data.player_info.languages" v-on:update:val="meta_data.player_info.languages = $event" />
               </div>
             </div>
           </div>
@@ -300,7 +300,7 @@ export default {
       playersummary: true,
       transfersummary: true,
       meta_data: {
-        userinfo: {
+        player_info: {
           nationality_country_code: '',
           languages: [],
           playing_position: [],
@@ -384,11 +384,11 @@ export default {
       this.headline = 'Report on ';
       this.headline += this.request.meta_data.player_name ? this.request.meta_data.player_name : '';
       if (!this.request.player) {
-        this.meta_data.userinfo.languages = this.request.meta_data.languages;
-        this.meta_data.userinfo.preferred_foot = this.request.meta_data.preferred_foot;
-        this.meta_data.userinfo.residence_country_code = this.request.meta_data.residence_country_code;
-        this.meta_data.userinfo.nationality_country_code = this.request.meta_data.nationality_country_code;
-        this.meta_data.userinfo.playing_position = this.request.meta_data.playing_position;
+        this.meta_data.player_info.languages = this.request.meta_data.languages;
+        this.meta_data.player_info.preferred_foot = this.request.meta_data.preferred_foot;
+        this.meta_data.player_info.residence_country_code = this.request.meta_data.residence_country_code;
+        this.meta_data.player_info.nationality_country_code = this.request.meta_data.nationality_country_code;
+        this.meta_data.player_info.playing_position = this.request.meta_data.playing_position;
       }
       this.$forceUpdate();
     }
