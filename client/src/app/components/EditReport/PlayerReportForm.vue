@@ -392,7 +392,6 @@ export default {
       }
       this.$forceUpdate();
     }
-    console.log(this.playerEditable);
   },
   methods: {
     handleSubmit(status) {

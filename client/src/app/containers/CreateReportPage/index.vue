@@ -31,7 +31,7 @@
               <keep-alive>
                 <playerreportform v-if="report_type == 'player' && status == '' " :submitReport="customCreateReport" :playerEditable="player_id == ''"
                    :request="request" :cancelAction="cancel" />
-                <clubreportform v-if="report_type == 'team' && status == '' " :submitReport="customCreateReport" :team_id="team_id" :cancelAction="cancel"
+                <teamreportform v-if="report_type == 'team' && status == '' " :submitReport="customCreateReport" :team_id="team_id" :cancelAction="cancel"
                   :request="request" />
               </keep-alive>
             </div>
@@ -89,7 +89,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { ASYNC_SUCCESS, ASYNC_LOADING } from 'app/constants/AsyncStatus';
 import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import PlayerReportForm from 'app/components/EditReport/PlayerReportForm.vue';
-import ClubReportForm from 'app/components/EditReport/ClubReportForm.vue';
+import TeamReportForm from 'app/components/EditReport/TeamReportForm.vue';
 import Status from './components/Status';
 import BasicForm from './components/BasicForm';
 import TimelineItem from 'app/components/TimelineItem';
@@ -104,7 +104,7 @@ export default {
   components: {
     sidebar: NotificationSidebar,
     playerreportform: PlayerReportForm,
-    clubreportform: ClubReportForm,
+    teamreportform: TeamReportForm,
     status: Status,
     basicform: BasicForm,
     'timeline-item': TimelineItem,
