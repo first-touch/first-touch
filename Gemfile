@@ -21,7 +21,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'
 gem 'simple_command'
 gem 'trailblazer-rails', '~> 1.0'
-
+gem 'paper_trail'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
