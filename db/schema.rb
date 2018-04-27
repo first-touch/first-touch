@@ -246,6 +246,7 @@ ActiveRecord::Schema.define(version: 20180426110344) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "meta_data"
+    t.integer "league_id"
     t.index ["team_id"], name: "index_reports_on_team_id"
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
@@ -274,6 +275,7 @@ ActiveRecord::Schema.define(version: 20180426110344) do
     t.json "price"
     t.integer "player_id"
     t.integer "team_id"
+    t.integer "league_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 

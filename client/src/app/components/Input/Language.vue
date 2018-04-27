@@ -19,19 +19,20 @@ export default {
   },
   data() {
     return {
-      model: this.value
+      model: ''
     };
   },
   mounted() {
-    this.model = [];
+    var model = [];
     if (this.value.constructor == Array)
       for (var val in this.value) {
         const index = this.$options.filters.searchInObj(
           this.languages,
-          option => option.value === val
+          option => option.value === this.value[val]
         );
-        if (index >= 0) this.model.push(this.languages[index]);
+        if (index >= 0) model.push(this.languages[index]);
       }
+      this.model = model;
   },
   methods: {
     update(val) {

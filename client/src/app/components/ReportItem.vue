@@ -14,9 +14,9 @@
               </span>
             </span>
             <span class="field row">
-              <span class="col-md-4">Club Name:</span>
-              <span class="col-md-6">Club Name
-              </span>
+              <span class="col-md-4">Team Name:</span>
+              <p class="col-md-6" v-if="report.team">{{report.team.team_name}}</p>
+              <p class="col-md-6" v-if="!report.team">{{report.meta_data.search.team}}</p>
             </span>
             <span class="field row">
               <span class="col-md-4">Price:</span>
@@ -47,7 +47,9 @@
             </span>
             <span class="field row" v-if="report.meta_data.userinfo.playing_position.length">
               <span class="col-md-4">Position in: </span>
-              <span class="list col-md-8" v-for="position in report.meta_data.userinfo.playing_position" :key="position.id">{{position}}</span>
+              <span class="col-md-8">
+                <span class="list" v-for="position in report.meta_data.userinfo.playing_position" :key="position.id">{{position}}</span>
+              </span>
             </span>
             <span class="field yes row" v-if="report.meta_data.transfer_sum.loan_interested == 'yes'">
               <span class="col-md-12">Interested In Loan</span>
@@ -96,30 +98,30 @@
   </div>
 </template>
 <style lang="scss" scoped>
-  @import '~stylesheets/variables';
-  @import '~stylesheets/light_item';
+@import '~stylesheets/variables';
+@import '~stylesheets/light_item';
 </style>
 <script>
-  import countrydata from 'country-data';
+import countrydata from 'country-data';
 
-  export default {
-    name: 'ReportItem',
-    props: [
-      'report',
-      'UpdateReport',
-      'viewAction',
-      'summaryAction',
-      'BuyAction',
-      'refundAction',
-      'own'
-    ],
-    methods: {
-      getLanguage(key) {
-        return countrydata.languages[key] ? countrydata.languages[key].name : key;
-      },
-      getNationality(key) {
-        return countrydata.countries[key] ? countrydata.countries[key].name : key;
-      }
+export default {
+  name: 'ReportItem',
+  props: [
+    'report',
+    'UpdateReport',
+    'viewAction',
+    'summaryAction',
+    'BuyAction',
+    'refundAction',
+    'own'
+  ],
+  methods: {
+    getLanguage(key) {
+      return countrydata.languages[key] ? countrydata.languages[key].name : key;
+    },
+    getNationality(key) {
+      return countrydata.countries[key] ? countrydata.countries[key].name : key;
     }
-  };
+  }
+};
 </script>

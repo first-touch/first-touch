@@ -10,16 +10,16 @@
               {{ error }}
             </li>
           </ul>
-          <div class="row">
-            <div class="col-sm-6 form-group" v-if="!edit">
+          <div class="row" v-if="!edit">
+            <div class="col-sm-6 form-group" >
               <label class="col-md-12">League Name</label>
-              <inputsearch :readonly="edit" class="col-md-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
+              <inputsearch  class="col-md-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
                v-on:update:val="setLeague($event)" v-on:update:search="meta_data.search.league = $event" ref="team_search" minChar=3 label="name" />
             </div>
             <div class="col-sm-6 form-group">
               <label class="col-md-12 required">Team Name</label>
-              <inputsearch :edit="team_search" :readonly="edit" class="col-md-12" :taggable="true" v-if="league_id != ''" :onkeyup="getSearchResultsRole" ref="team_search" v-on:update:search="meta_data.search.team = $event"  :searchResult="searchResult" type="team" v-on:update:obj="setTeam($event)"
-                :required="true" minChar=3 label="team_name" />
+              <inputsearch :edit="team_search" :readonly="league_id == ''" class="col-md-12" :taggable="true" :onkeyup="getSearchResultsRole" ref="team_search"
+               v-on:update:search="meta_data.search.team = $event"  :searchResult="searchResult" type="team" v-on:update:obj="setTeam($event)" :required="true" minChar=3 label="team_name" />
             </div>
           </div>
 
@@ -49,8 +49,8 @@
 
           </div>
           <div class="form-group buttons-inner">
-            <button v-if="!edit" id="submit" class="btn btn-primary ft-button" @click="handleSubmit"> CREATE</button>
-            <button v-if="edit" id="submit" class="btn btn-primary ft-button" @click="handleSubmit"> UPDATE</button>
+            <button v-if="!edit" id="submit" class="btn btn-primary ft-button" :disabled="!canValidate" @click="handleSubmit"> CREATE</button>
+            <button v-if="edit" id="submit" class="btn btn-primary ft-button" :disabled="!canValidate" @click="handleSubmit"> UPDATE</button>
             <button id="cancel" name="cancel" class="btn btn-default ft-button" @click="cancelAction">CANCEL</button>
           </div>
         </div>
@@ -119,15 +119,24 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['searchResult'])
+    ...mapGetters(['searchResult']),
+        canValidate(){
+      if (this.team_id == '') return false;
+      if (this.deadline == '') return false;
+      return true;
+    }
   },
   created() {
     if (this.edit) {
       this.meta_data = this.edit.meta_data;
       this.deadline = this.edit.deadline;
       this.price = this.edit.price;
-      this.league_id = -1;
-      this.team_search = {search: this.edit.team.team_name}
+      const index = this.$options.filters.searchInObj(
+          this.options.required,
+          option => option.value === this.edit.meta_data.training_report
+        );
+      if (index > 0)
+      this.training_report_select = this.options.required[index];
     }
   },
   methods: {
@@ -151,17 +160,19 @@ export default {
     setLeague(league_id) {
       if (this.league_id != league_id) {
         this.league_id = league_id;
-      if (this.$refs.team_search)
-        this.$refs.team_search.clear();
-        if (this.league_id > 0) this.meta_data.search.league = ''
+        this.team_id = '';
+        if (this.$refs.team_search) this.$refs.team_search.clear();
+        if (this.league_id > 0) this.meta_data.search.league = '';
       }
     },
     setTeam(team) {
+      this.team_id = ''
       if (team != null) {
         this.team_id = team.id;
-        if (this.team_id > 0) this.meta_data.search.team = ''
-        this.league_id = team.competition_id;
-        this.$refs.team_search.search = team.competition_name;
+        if (team.id == -1) {
+        } else {
+          this.meta_data.search.team = '';
+        }
       }
     },
     showCalendar: function(index) {

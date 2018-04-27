@@ -20,25 +20,47 @@
               <h4 class="name" v-if="report.player">{{report.player.first_name}} {{report.player.last_name}}</h4>
               <h4 class="name" v-if="!report.player">{{report.meta_data.search.player}} </h4>
               <p class="role">Football Player</p>
-              <p class="club" v-if="report.team_info">
-                <span class="list" v-for="team in report.team_info.teams" :key="team.id">{{team.team_name}}
-                  <span class="list" v-for="comp in team.competitions.competitions" :key="comp.id"> {{comp.name}}</span>
-                </span>
-              </p>
               <p class="club" v-if="!report.team_info && report.team">{{report.team.team_name}}
                 <span class="list" v-for="comp in report.team.competitions.competitions" :key="comp.id"> {{comp.name}}</span>
               </p>
               <p class="detail">
                 <span class="detail-title">Age:</span>
-                {{ report.meta_data.userinfo.age }}
+                <span v-if="report.player"> {{ playerInfo.birthday | age }}</span>
+                <span v-if="!report.player"> {{ playerInfo.age }}</span>
+              </p>
+              <p class="detail">
+                <span class="detail-title">Team:</span>
+                <span v-if="report.team_info">
+                  <span class="list" v-for="team in report.team_info.teams" :key="team.id">{{team.team_name}}</span>
+                </span>
+                <span v-if="!report.team_info">
+                  {{report.meta_data.search.team}}
+                </span>
+              </p>
+              <p class="detail">
+                <span class="detail-title">League:</span>
+                <span v-if="report.team_info">
+                  <span v-if="report.team_info" class="list" v-for="team in report.team_info.teams" :key="team.id">
+                    <span class="list" v-for="comp in team.competitions.competitions" :key="comp.id"> {{comp.name}}</span>
+                  </span>
+                </span>
+                <span v-if="!report.team_info">
+                  <span v-if="report.league">
+                    {{report.league.name}}
+                  </span>
+                  <span v-if="!report.league">
+                    {{report.meta_data.search.league}}
+                  </span>
+
+                </span>
               </p>
               <p class="detail">
                 <span class="detail-title">Nationality:</span>
-                {{getNationality(report.meta_data.userinfo.nationality_country_code)}}
+                <span v-if="playerInfo.nationality_country_code"> {{getNationality(playerInfo.nationality_country_code)}}</span>
               </p>
               <p class="detail">
                 <span class="detail-title">Place of birth:</span>
-                {{getNationality(report.meta_data.userinfo.nationality_country_code)}}
+                <span v-if="playerInfo.nationality_country_code"> {{getNationality(playerInfo.nationality_country_code)}}</span>
               </p>
             </div>
           </div>
@@ -46,34 +68,33 @@
           <div class="bottom">
             <div class="summary">
               <h5 class="summary-title">Summary</h5>
-              <p class="summary-field" v-if="report.player">{{report.player.first_name}} {{report.player.last_name}}</p>
-              <p class="summary-field">
+              <p class="summary-field" v-if="playerInfo.height">
                 <span class="summary-field-title">Height:</span>
-                {{report.meta_data.userinfo.height}} cm
+                <span v-if="playerInfo.height">{{playerInfo.height}} cm</span>
               </p>
-              <p class="summary-field">
+              <p class="summary-field" v-if="playerInfo.weight">
                 <span class="summary-field-title">Weight:</span>
-                {{report.meta_data.userinfo.weight}} kg
+                <span v-if="playerInfo.weight">{{playerInfo.weight}} kg</span>
               </p>
-              <p class="summary-field">
+              <p class="summary-field" v-if="playerInfo.preferred_foot">
                 <span class="summary-field-title">Preferred Foot:</span>
-                {{report.meta_data.userinfo.preferred_foot | preferredFoot}}
+                <span v-if="playerInfo.preferred_foot">{{playerInfo.preferred_foot | preferredFoot}}</span>
               </p>
-              <p class="summary-field">
+              <p class="summary-field" v-if="playerInfo.languages">
                 <label class="summary-field-title">Language(s): </label>
                 <span class="">
-                  <span v-for="language in report.meta_data.userinfo.languages" class="list" :key="language.id">{{getLanguage(language)}}</span>
+                  <span v-for="language in playerInfo.languages" class="list" :key="language.id">{{getLanguage(language)}}</span>
                 </span>
               </p>
-              <p class="summary-field">
+              <p class="summary-field" v-if="playerInfo.residence_country_code">
                 <span class="summary-field-title">Based in:</span>
-                {{getNationality(report.meta_data.userinfo.residence_country_code)}}
+                {{getNationality(playerInfo.residence_country_code)}}
               </p>
             </div>
-            <div class="position">
+            <div class="position" v-if="playerInfo.playing_position">
               <p class="position-title">Playing position(s):</p>
               <p class="position-content">
-                <span v-for="position in report.meta_data.userinfo.playing_position" class="list" :key="position.id">{{position}}</span>
+                <span v-for="position in playerInfo.playing_position" class="list" :key="position.id">{{position}}</span>
               </p>
               <img class="img-fluid position-map" src="http://www.conceptdraw.com/solution-park/resource/images/solutions/soccer/Sport-Soccer-Football-Formation-4-4-1-1.png"
               />
@@ -184,152 +205,158 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 
-h5 {
-  color: $main-text-color;
-  font-size: 1.5em;
-}
-
-.top {
-  display: flex;
-  .avatar {
-    margin-right: 10%;
-    height: 300px;
-    border-radius: 50%;
-  }
-  .info {
-    margin-top: 40px;
-    margin-left: 20px;
-    flex: 1 0 calc(100% - 320px);
-    .name {
-      color: $main-header-color;
-      text-transform: uppercase;
-    }
-    .role,
-    .club,
-    .detail {
-      color: $main-text-color;
-    }
-    .role {
-      font-size: 1.2em;
-    }
-    .detail-title {
-      color: $secondary-text-color;
-    }
-  }
-}
-
-.bottom {
-  display: flex;
-  margin-top: 30px;
-  .summary {
-    flex: 1 0 55%;
-    .summary-title {
-      color: $secondary-text-color;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-    .summary-field {
-      color: $main-text-color;
-      margin-bottom: 5px;
-    }
-  }
-  .position {
-    flex: 1 0 45%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    .position-title {
-      color: $secondary-text-color;
-      font-size: 1.2em;
-      margin-bottom: 0;
-    }
-    .position-content {
-      color: $main-text-color;
-      font-size: 1.2em;
-    }
-  }
-}
-
-.report {
-  padding: 0;
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 12pt;
-  .header {
-    padding: 20px;
-  }
-  .content {
-    padding: 20px 50px;
+  h5 {
     color: $main-text-color;
-    .fa-icon {
-      margin-right: 20px;
-      color: #a8cb5c;
+    font-size: 1.5em;
+  }
+
+  .top {
+    display: flex;
+    .avatar {
+      margin-right: 10%;
+      height: 300px;
+      border-radius: 50%;
     }
-    .player-summary,
-    .contract-summary {
-      padding: 20px;
-      .transfer-title {
-        color: $main-text-color;
-        padding: 0;
-        margin: 0;
+    .info {
+      margin-top: 40px;
+      margin-left: 20px;
+      flex: 1 0 calc(100% - 320px);
+      .name {
+        color: $main-header-color;
+        text-transform: uppercase;
       }
-      .values {
-        padding: 10px 40px;
-        .summary-title {
+      .role,
+      .club,
+      .detail {
+        color: $main-text-color;
+      }
+      .role {
+        font-size: 1.2em;
+      }
+      .detail-title {
+        color: $secondary-text-color;
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    margin-top: 30px;
+    .summary {
+      flex: 1 0 55%;
+      .summary-title {
+        color: $secondary-text-color;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+      .summary-field {
+        color: $main-text-color;
+        margin-bottom: 5px;
+      }
+    }
+    .position {
+      flex: 1 0 45%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .position-title {
+        color: $secondary-text-color;
+        font-size: 1.2em;
+        margin-bottom: 0;
+      }
+      .position-content {
+        color: $main-text-color;
+        font-size: 1.2em;
+      }
+    }
+  }
+
+  .report {
+    padding: 0;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 12pt;
+    .header {
+      padding: 20px;
+    }
+    .content {
+      padding: 20px 50px;
+      color: $main-text-color;
+      .fa-icon {
+        margin-right: 20px;
+        color: #a8cb5c;
+      }
+      .player-summary,
+      .contract-summary {
+        padding: 20px;
+        .transfer-title {
           color: $main-text-color;
-        }
-        .summary-field {
           padding: 0;
           margin: 0;
         }
+        .values {
+          padding: 10px 40px;
+          .summary-title {
+            color: $main-text-color;
+          }
+          .summary-field {
+            padding: 0;
+            margin: 0;
+          }
+        }
       }
-    }
-    .list {
-      text-transform: capitalize;
-      &:not(:last-child):after {
-        content: ', ';
+      .list {
+        text-transform: capitalize;
+        &:not(:last-child):after {
+          content: ', ';
+        }
       }
-    }
-    .meta {
-      margin: 20px 0;
-      p {
-        margin-left: 20px;
+      .meta {
+        margin: 20px 0;
+        p {
+          margin-left: 20px;
+        }
       }
     }
   }
-}
 </style>
 
 <script>
-import 'vue-awesome/icons/user';
-import 'vue-awesome/icons/handshake';
-import 'vue-awesome/icons/check';
-import 'vue-awesome/icons/times';
-import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
+  import 'vue-awesome/icons/user';
+  import 'vue-awesome/icons/handshake';
+  import 'vue-awesome/icons/check';
+  import 'vue-awesome/icons/times';
+  import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
 
-import Icon from 'vue-awesome/components/Icon';
-import countrydata from 'country-data';
-import TimelineItem from 'app/components/TimelineItem';
-export default {
-  name: 'PlayerReport',
-  props: ['report', 'downloadFile'],
-  components: {
-    icon: Icon,
-    matchanalyzed: MatchAnalyzed,
-    'timeline-item': TimelineItem
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    getLanguage(key) {
-      return countrydata.languages[key] ? countrydata.languages[key].name : 'key';
+  import Icon from 'vue-awesome/components/Icon';
+  import countrydata from 'country-data';
+  import TimelineItem from 'app/components/TimelineItem';
+  export default {
+    name: 'PlayerReport',
+    props: ['report', 'downloadFile'],
+    components: {
+      icon: Icon,
+      matchanalyzed: MatchAnalyzed,
+      'timeline-item': TimelineItem
     },
-    getNationality(key) {
-      return countrydata.countries[key] ? countrydata.countries[key].name : 'key';
+    data() {
+      return {};
+    },
+    computed: {
+      playerInfo() {
+        if (this.report.player) return this.report.player;
+        if (this.report.meta_data.userinfo) return this.report.meta_data.userinfo;
+      }
+    },
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : 'key';
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : 'key';
+      }
     }
-  }
-};
+  };
 </script>
