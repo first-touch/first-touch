@@ -3,7 +3,7 @@
     <div class="header-wrapper col-md-12">
       <div class="header col-md-12 row">
         <div class="col-md-4">
-          <h5 class="title">Club Report</h5>
+          <h5 class="title">Team Report</h5>
           <span>Price {{report.price.value}} {{report.price.currency | currency}}</span>
         </div>
         <div class="col-md-8 buttons-inner">

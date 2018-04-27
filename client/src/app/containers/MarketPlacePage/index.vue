@@ -31,7 +31,7 @@
             <b-modal id="metaModal" size="lg" ref="metaModal">
               <playerreportpopup v-if="reportSelected && reportSelected.type_report == 'player'" :report="reportSelected" :buyAction="BuyAction"
                 :closeAction="hideModal" />
-              <clubreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :buyAction="BuyAction"
+              <teamreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :buyAction="BuyAction"
                 :closeAction="hideModal" />
               <paymentpopup v-if="payment" :paymentAction="paymentAction" :closeAction="hideModal" :result="order" :StripeCardToken="StripeCardToken"
                 :stripeClubCards="stripeClubCards" :stripePayment="stripePayment" :stripeJs="stripeJs" />
@@ -85,7 +85,7 @@
       report: ReportItem,
       vselect: vSelect,
       playerreportpopup: PlayerReportPopup,
-      clubreportpopup: ClubReportPopup,
+      teamreportpopup: TeamReportPopup,
       paymentpopup: PaymentPopup,
       ftdatepicker: FtDatepicker,
       request: RequestItem,

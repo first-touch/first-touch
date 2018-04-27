@@ -20,7 +20,7 @@
               <h4 class="name" v-if="report.player">{{report.player.first_name}} {{report.player.last_name}}</h4>
               <h4 class="name" v-if="!report.player">{{report.meta_data.search.player}} </h4>
               <p class="role">Football Player</p>
-              <p class="club" v-if="!report.team_info && report.team">{{report.team.team_name}}
+              <p class="team" v-if="!report.team_info && report.team">{{report.team.team_name}}
                 <span class="list" v-for="comp in report.team.competitions.competitions" :key="comp.id"> {{comp.name}}</span>
               </p>
               <p class="detail">
@@ -229,7 +229,7 @@
         text-transform: uppercase;
       }
       .role,
-      .club,
+      .team,
       .detail {
         color: $main-text-color;
       }
