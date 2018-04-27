@@ -30,7 +30,7 @@
             <b-modal id="metaModal" size="lg" ref="metaModal">
               <playerreportpopup v-if="reportSelected && reportSelected.type_report == 'player'" :report="reportSelected" :buyAction="BuyAction"
                 :closeAction="hideModal" />
-              <clubreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :buyAction="BuyAction"
+              <teamreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :buyAction="BuyAction"
                 :closeAction="hideModal" />
               <paymentpopup v-if="payment" :report="reportSelected" :closeAction="hideModal" :paymentAction="PaymentAction" :order="order"
               />
@@ -62,7 +62,7 @@ import ReportItem from 'app/components/ReportItem';
 import vSelect from 'vue-select';
 import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import PlayerReportPopup from './components/PlayerReportPopup';
-import ClubReportPopup from './components/ClubReportPopup';
+import TeamReportPopup from './components/TeamReportPopup';
 import PaymentPopup from './components/PaymentPopup';
 import FtDatepicker from 'app/components/Input/FtDatepicker';
 
@@ -74,7 +74,7 @@ export default {
     report: ReportItem,
     vselect: vSelect,
     playerreportpopup: PlayerReportPopup,
-    clubreportpopup: ClubReportPopup,
+    teamreportpopup: TeamReportPopup,
     paymentpopup: PaymentPopup,
     ftdatepicker: FtDatepicker
   },

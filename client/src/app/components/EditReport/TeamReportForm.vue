@@ -91,7 +91,7 @@ import CurrencyInput from 'app/components/Input/CurrencyInput';
 import AddAttachments from 'app/components/Input/AddAttachments';
 
 export default {
-  name: 'ClubReportForm',
+  name: 'TeamReportForm',
   props: ['submitReport', 'report', 'cancelAction', 'request'],
   components: {
     matchanalyzed: MatchAnalyzed,

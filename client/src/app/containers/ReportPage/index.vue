@@ -21,7 +21,7 @@
         <div v-if="report != null" class="report-container">
           <div class="content">
             <playerreport v-if="report.type_report == 'player'" :report="report" :downloadFile="downloadFile" class="report" />
-            <clubreport v-if="report.type_report == 'team'" :report="report" :downloadFile="downloadFile" class="report" />
+            <teamreport v-if="report.type_report == 'team'" :report="report" :downloadFile="downloadFile" class="report" />
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import PlayerReport from './components/PlayerReport';
-import ClubReport from './components/ClubReport';
+import TeamReport from './components/TeamReport';
 import 'vue-awesome/icons/edit';
 import 'vue-awesome/icons/eye';
 import Icon from 'vue-awesome/components/Icon';
@@ -50,7 +50,7 @@ export default {
   components: {
     sidebar: NotificationSidebar,
     playerreport: PlayerReport,
-    clubreport: ClubReport,
+    teamreport: TeamReport,
     icon: Icon,
     'action-item': ActionsItem
   },
