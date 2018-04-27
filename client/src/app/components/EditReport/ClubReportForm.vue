@@ -92,7 +92,7 @@ import AddAttachments from 'app/components/Input/AddAttachments';
 
 export default {
   name: 'ClubReportForm',
-  props: ['submitReport', 'reportStatus', 'report', 'cancelAction', 'request','team_id'],
+  props: ['submitReport', 'report', 'cancelAction', 'request'],
   components: {
     matchanalyzed: MatchAnalyzed,
     currencyinput: CurrencyInput,
@@ -127,9 +127,6 @@ export default {
         obj[id] = true;
         this.remove_attachment = Object.assign({}, this.remove_attachment, obj);
       }
-    },
-    previewFiles() {
-      this.files = this.$refs.myFiles.files;
     },
     handleSubmit(status) {
       var report = {

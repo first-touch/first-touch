@@ -7,6 +7,7 @@
         <actions v-if="request.value" :id="request.value.id" :status="request.value.status" :updateStatus="customUpdateRequest">
         </actions>
         <timeline-item v-if="request.value">
+        <!-- <teamrequestpopup v-if="request.value.type_request == 'team'" :request="request.value" /> -->
           <teamrequest v-if="request.value.type_request == 'team'" :request="request.value" />
           <playerrequest v-if="request.value.type_request == 'player'" :request="request.value" />
           <positionrequest v-if="request.value.type_request == 'position'" :request="request.value" />
@@ -30,23 +31,18 @@
 
 
 <script>
-  import {
-    mapGetters,
-    mapActions
-  } from 'vuex';
-  import {
-    ASYNC_SUCCESS
-  } from 'app/constants/AsyncStatus';
-  import TimelineItem from 'app/components/TimelineItem';
-  import vSelect from 'vue-select';
-  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
-  import FtDatepicker from 'app/components/Input/FtDatepicker';
-  import PlayerRequest from './components/PlayerRequest';
-  import PositionRequest from './components/PositionRequest';
-  import TeamRequest from './components/TeamRequest';
-  import Bids from './components/Bids';
-  import Actions from './components/Actions';
-  import PaymentPopup from 'app/components/Stripe/PaymentPopup';
+import { mapGetters, mapActions } from 'vuex';
+import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
+import TimelineItem from 'app/components/TimelineItem';
+import vSelect from 'vue-select';
+import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+import FtDatepicker from 'app/components/Input/FtDatepicker';
+import Bids from './components/Bids';
+import Actions from './components/Actions';
+import PaymentPopup from 'app/components/Stripe/PaymentPopup';
+import TeamRequest from 'app/components/RequestPopup/TeamRequestPopup';
+import PlayerRequest from 'app/components/RequestPopup/PlayerRequestPopup';
+import PositionRequest from 'app/components/RequestPopup/PositionRequestPopup';
 
   export default {
     name: 'RequestBidsList',

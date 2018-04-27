@@ -29,8 +29,8 @@
             <basicform class="report-type-form" v-if="!showForm" :prepareReport="prepareReport" />
             <div v-if="showForm">
               <keep-alive>
-                <playerreportform v-if="report_type == 'player' && status == '' " :userinfo="userinfo" :submitReport="customCreateReport"
-                  :player_search="player_search" :request="request" :cancelAction="cancel" />
+                <playerreportform v-if="report_type == 'player' && status == '' " :submitReport="customCreateReport" :playerEditable="player_id == ''"
+                   :request="request" :cancelAction="cancel" />
                 <clubreportform v-if="report_type == 'team' && status == '' " :submitReport="customCreateReport" :team_id="team_id" :cancelAction="cancel"
                   :request="request" />
               </keep-alive>
@@ -114,12 +114,7 @@ export default {
     positionrequestpopup: PositionRequestPopup
   },
   computed: {
-    ...mapGetters(['report', 'searchResult', 'profile', 'filesUpload']),
-    userinfo() {
-      return this.profile.status === ASYNC_SUCCESS
-        ? this.profile.value.personal_profile
-        : this.profile.status === ASYNC_LOADING ? 'loading' : null;
-    }
+    ...mapGetters(['report', 'searchResult', 'filesUpload']),
   },
   watch: {
     report() {
@@ -166,17 +161,25 @@ export default {
   },
   mounted() {
     if (this.request) {
+    var ids = {
+        player: this.request.player_id,
+        team:  this.request.team_id,
+        job: this.request.id,
+        league: this.request.league_id
+      }
       if (this.request.type_request == 'team')
-        this.prepareReport('team', -1, this.request.meta_data.team_id, this.request.id);
+        this.prepareReport('team', ids);
       else if (this.request.type_request == 'player')
-        this.prepareReport('player', this.request.meta_data.player_id, null, this.request.id);
+        this.prepareReport('player', ids);
       else if (this.request.type_request == 'position')
-        this.prepareReport('player', this.request.meta_data.player_id, null, this.request.id);
+        this.prepareReport('player', ids);
     }
   },
   methods: {
-    ...mapActions(['createReport', 'fetchUserInfo', 'uploadFiles', 'getSearchResults']),
-    cancel() {},
+    ...mapActions(['createReport', 'uploadFiles', 'getSearchResults']),
+    cancel() {
+      this.showForm = false;
+    },
     startUpload() {
       var formData = new FormData();
       var fileList = this.files;
@@ -188,21 +191,15 @@ export default {
       formData.append('report_id', this.report.value.id);
       this.uploadFiles(formData);
     },
-    prepareReport(type, player_id, team_id, job_id, search) {
+    prepareReport(type, ids, search) {
       this.report_type = type;
-      this.job_id = job_id;
-      this.showForm = true;
-      this.player_id = player_id;
-      this.team_id = team_id;
+      this.job_id = ids.job;
+      this.player_id = ids.player;
+      this.team_id = ids.team;
       this.search = search;
-      if (type == 'player' && this.player_id > 0) {
-        this.fetchUserInfo({
-          id: this.player_id
-        });
-      }
+      this.showForm = true;
     },
-    customCreateReport(reportdata, filelist, status) {
-      this.report.errors = null;
+    customCreateReport(reportdata, filelist) {
       this.files = filelist;
       reportdata.type_report = this.report_type;
       reportdata.player_id = this.player_id;
@@ -224,6 +221,7 @@ export default {
       report_type: '',
       job_id: '',
       team_id: '',
+      league_id: '',
       player_id: '',
       search: {},
       showForm: false

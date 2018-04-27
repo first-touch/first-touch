@@ -16,55 +16,57 @@
         </div>
       </div>
     </div>
-    <h5 class="menu" @click="playersummary = !playersummary" :class="playersummary ? 'active' : ''">
-      <i class="sub-menu-arrow" :class="playersummary ? 'active' : ''"></i> Player Summary </h5>
-    <div class="form-group form-inner" v-if="playerEditable">
-      <transition name="fade">
-        <div class="form-group" v-if="playersummary">
-          <div class="row">
-            <div class="col-sm-4">
-              <label class="col-sm-12 col-form-label">Age</label>
-              <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.age" :placeholder="agePlaceHolder" :readonly="userinfo != null">
+    <div v-if="playerEditable">
+      <h5 class="menu" @click="playersummary = !playersummary" :class="playersummary ? 'active' : ''">
+        <i class="sub-menu-arrow" :class="playersummary ? 'active' : ''"></i> Player Summary </h5>
+      <div class="form-group form-inner">
+        <transition name="fade">
+          <div class="form-group" v-if="playersummary">
+            <div class="row">
+              <div class="col-sm-4">
+                <label class="col-sm-12 col-form-label">Age</label>
+                <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.age" :placeholder="agePlaceHolder">
+              </div>
+              <div class="col-sm-4">
+                <label class="col-sm-12 col-form-label">Approximate Height (cm)</label>
+                <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.height" :placeholder="heightPlaceHolder">
+              </div>
+              <div class="col-sm-4">
+                <label class="col-sm-12 col-form-label">Approximate Weight (kg)</label>
+                <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.weight" :placeholder="weightPlaceHolder">
+              </div>
             </div>
-            <div class="col-sm-4">
-              <label class="col-sm-12 col-form-label">Approximate Height (cm)</label>
-              <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.height" :placeholder="heightPlaceHolder" :readonly="userinfo != null">
+            <div class="row">
+              <div class="col-sm-6">
+                <label class="col-sm-12 col-form-label">Position</label>
+                <playerposition :value="meta_data.userinfo.playing_position" v-on:update:val="meta_data.userinfo.playing_position = $event"
+                />
+              </div>
+              <div class="col-sm-6">
+                <label class="col-sm-12 col-form-label">Preferred Foot</label>
+                <preferredfoot :value="meta_data.userinfo.preferred_foot" v-on:update:val="meta_data.userinfo.preferred_foot = $event" />
+              </div>
             </div>
-            <div class="col-sm-4">
-              <label class="col-sm-12 col-form-label">Approximate Weight (kg)</label>
-              <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.weight" :placeholder="weightPlaceHolder" :readonly="userinfo != null">
+            <div class="row">
+              <div class="col-sm-6">
+                <label class="col-sm-12 col-form-label">Nationality</label>
+                <countryselect :value="meta_data.userinfo.nationality_country_code" v-on:update:val="meta_data.userinfo.nationality_country_code = $event"
+                /> </div>
+              <div class="col-sm-6">
+                <label class="col-sm-12 col-form-label">Based In</label>
+                <countryselect :value="meta_data.userinfo.residence_country_code" v-on:update:val="meta_data.userinfo.residence_country_code = $event"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <label class="col-sm-12 col-form-label">Language(s)</label>
+                <language :value="meta_data.userinfo.languages" v-on:update:val="meta_data.userinfo.languages = $event" />
+              </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <label class="col-sm-12 col-form-label">Position</label>
-              <playerposition :value="meta_data.userinfo.playing_position" v-on:update:val="meta_data.userinfo.playing_position = $event" :readonly="userinfo != null"
-              />
-            </div>
-            <div class="col-sm-6">
-              <label class="col-sm-12 col-form-label">Preferred Foot</label>
-              <preferredfoot :value="meta_data.userinfo.preferred_foot" v-on:update:val="meta_data.userinfo.preferred_foot = $event" :readonly="userinfo != null" />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <label class="col-sm-12 col-form-label">Nationality</label>
-              <countryselect :value="meta_data.userinfo.nationality_country_code" v-on:update:val="meta_data.userinfo.nationality_country_code = $event" :readonly="userinfo != null"
-              /> </div>
-            <div class="col-sm-6">
-              <label class="col-sm-12 col-form-label">Based In</label>
-              <countryselect :value="meta_data.userinfo.residence_country_code" v-on:update:val="meta_data.userinfo.residence_country_code = $event" :readonly="userinfo != null"
-              />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-12">
-              <label class="col-sm-12 col-form-label">Language(s)</label>
-              <language :value="meta_data.userinfo.languages" v-on:update:val="meta_data.userinfo.languages = $event" :readonly="userinfo != null" />
-            </div>
-          </div>
-        </div>
-      </transition>
+        </transition>
+      </div>
     </div>
     <h5 class="menu" @click="transfersummary = !transfersummary" :class="transfersummary ? 'active' : ''">
       <i class="sub-menu-arrow" :class="transfersummary ? 'active' : ''"></i> Transfer Summary </h5>
@@ -292,11 +294,10 @@ export default {
     icon: Icon,
     currencyinput: CurrencyInput
   },
-  props: ['userinfo', 'submitReport', 'reportStatus', 'report', 'cancelAction', 'request','player_search'],
+  props: ['playerEditable', 'submitReport', 'report', 'cancelAction', 'request'],
   data() {
     return {
       playersummary: true,
-      playerEditable: this.userinfo == undefined ? true : false,
       transfersummary: true,
       meta_data: {
         userinfo: {
@@ -368,37 +369,30 @@ export default {
       return 'Height';
     }
   },
-  watch: {
-    userinfo() {
-      if (this.userinfo.constructor === Object && !this.report) {
-        var birthday = new Date(this.userinfo.birthday);
-        var ageDifMs = Date.now() - birthday.getTime();
-        var ageDate = new Date(ageDifMs); // miliseconds from epoch
-        this.meta_data.userinfo = this.userinfo;
-        this.meta_data.userinfo.age = Math.abs(ageDate.getUTCFullYear() - 1970);
-        this.playerEditable = true;
-        this.playersummary = false;
-      }
-    }
-  },
   beforeMount() {
     if (this.report) {
       this.meta_data = this.report.meta_data;
       this.price = this.report.price;
       this.headline = this.report.headline;
+      if (!this.report.player) {
+        this.playerEditable = false;
+      }
     }
     if (this.request) {
       this.price = this.request.price;
       this.price.value = parseInt(this.request.request_bids.price);
       this.headline = 'Report on ';
       this.headline += this.request.meta_data.player_name ? this.request.meta_data.player_name : '';
-      this.meta_data.userinfo.languages = this.request.meta_data.languages;
-      this.meta_data.userinfo.preferred_foot = this.request.meta_data.preferred_foot;
-      this.meta_data.userinfo.residence_country_code = this.request.meta_data.residence_country_code;
-      this.meta_data.userinfo.nationality_country_code = this.request.meta_data.nationality_country_code;
-      this.meta_data.userinfo.playing_position = this.request.meta_data.playing_position;
+      if (!this.request.player) {
+        this.meta_data.userinfo.languages = this.request.meta_data.languages;
+        this.meta_data.userinfo.preferred_foot = this.request.meta_data.preferred_foot;
+        this.meta_data.userinfo.residence_country_code = this.request.meta_data.residence_country_code;
+        this.meta_data.userinfo.nationality_country_code = this.request.meta_data.nationality_country_code;
+        this.meta_data.userinfo.playing_position = this.request.meta_data.playing_position;
+      }
       this.$forceUpdate();
     }
+    console.log(this.playerEditable);
   },
   methods: {
     handleSubmit(status) {

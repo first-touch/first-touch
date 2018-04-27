@@ -6,7 +6,7 @@
           <h5 class="title">Player Request</h5>
           <p class="id">{{request.id | requestId(request.type_request) }}</p>
         </div>
-        <div class="col-md-8 buttons-inner">
+        <div class="col-md-8 buttons-inner" v-if="typeof closeAction !== 'undefined'">
           <button class="ft-button" @click="closeAction(request)">Close</button>
         </div>
       </div>
@@ -23,42 +23,67 @@
         <div class="info col-md-8">
           <h2 class="title">
             <span class="target" v-if="request.player">
-              <router-link :to="{ name: 'userProfilePage', params: { id: request.meta_data.player_id }}" target="_blank">{{request.player.first_name}} {{request.player.last_name}}</router-link>
+              <router-link :to="{ name: 'userProfilePage', params: { id: request.player.id }}" target="_blank">{{request.player.first_name}} {{request.player.last_name}}</router-link>
             </span>
-            <span class="target" v-if="!request.player">{{request.meta_data.player_name}}</span>
+            <span class="target" v-if="!request.player">{{request.meta_data.search.player}}</span>
           </h2>
           <p class="extra">
-            <span v-if="!request.player">
+            <span>
+              <span class="field row" v-if="request.team">
+                <span class="col-md-4">Team: </span>
+                <span class="col-md-6">{{ request.team.team_name}}
+                </span>
+              </span>
+              <span class="field row" v-if="request.league">
+                <span class="col-md-4">League: </span>
+                <span class="col-md-6">{{ request.league.name}}
+                </span>
+              </span>
               <span class="field row">
                 <span class="col-md-4">Age: </span>
-                <span class="col-md-6">{{ request.meta_data.age}}
+                <span class="col-md-6" v-if="!request.player">{{ request.meta_data.age}}
+                </span>
+                <span class="col-md-6" v-if="request.player">
+                  {{ request.player.birthday | age}}
                 </span>
               </span>
               <span class="field row">
                 <span class="col-md-4">Position(s):</span>
-                <span class="col-md-6">
+                <span class="col-md-6" v-if="!request.player">
                   <span class="list" v-for="position in request.meta_data.playing_position" :key="position.id">{{position}}</span>
+                </span>
+                <span class="col-md-6" v-if="request.player">
+                  <span class="list" v-for="position in request.player.playing_position" :key="position.id">{{position}}</span>
                 </span>
               </span>
               <span class="field row">
                 <span class="col-md-4">Preferred Foot:</span>
-                <span class="col-md-6">{{ request.meta_data.preferred_foot | preferredFoot}}
+                <span class="col-md-6" v-if="!request.player">{{ request.meta_data.preferred_foot | preferredFoot}}
+                </span>
+                <span class="col-md-6" v-if="request.player">{{ request.player.preferred_foot | preferredFoot}}
                 </span>
               </span>
               <span class="field row">
                 <span class="col-md-4">Language(s):</span>
-                <span class="col-md-6">
+                <span class="col-md-6" v-if="!request.player">
                   <span class="list" v-for="language in request.meta_data.languages" :key="language.id">{{getLanguage(language)}}</span>
+                </span>
+                <span class="col-md-6" v-if="request.player">
+                  <span class="list" v-for="language in request.player.languages" :key="language.id">{{getLanguage(language)}}</span>
                 </span>
               </span>
               <span class="field row">
                 <span class="col-md-4">Nationality: </span>
-                <span class="col-md-6">{{getNationality(request.meta_data.nationality_country_code)}}
+                <span class="col-md-6" v-if="!request.player">{{getNationality(request.meta_data.nationality_country_code)}}
+                </span>
+                <span class="col-md-6" v-if="request.player">{{getNationality(request.player.nationality_country_code)}}
                 </span>
               </span>
               <span class="field row">
                 <span class="col-md-4">Based in: </span>
-                <span class="col-md-6">{{getNationality(request.meta_data.residence_country_code)}}
+                <span class="col-md-6" v-if="!request.player">{{getNationality(request.meta_data.residence_country_code)}}
+                </span>
+                <span class="col-md-6" v-if="request.player">{{getNationality(request.player.residence_country_code)}}
                 </span>
               </span>
             </span>
@@ -82,31 +107,42 @@
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 </style>
 
 <style lang="scss" scoped>
-@import '~stylesheets/item';
+  @import '~stylesheets/item';
 </style>
 <script>
-import countrydata from 'country-data';
+  import countrydata from 'country-data';
+  import {
+    mapGetters,
+    mapActions
+  } from 'vuex';
+  import {
+    ASYNC_SUCCESS,
+    ASYNC_LOADING
+  } from 'app/constants/AsyncStatus';
 
-export default {
-  name: 'RequestItem',
-  props: ['request', 'closeAction', 'newBid'],
-  data() {
-    return {
-      price: this.request.price.value
-    };
-  },
-  methods: {
-    getLanguage(key) {
-      return countrydata.languages[key] ? countrydata.languages[key].name : '';
+  export default {
+    name: 'RequestItem',
+    props: ['request', 'closeAction'],
+    data() {
+      return {
+        price: this.request.price.value
+      };
     },
-    getNationality(key) {
-      return countrydata.countries[key] ? countrydata.countries[key].name : '';
+    computed: {
+      ...mapGetters(['profile'])
+    },
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : '';
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : '';
+      }
     }
-  }
-};
+  };
 </script>

@@ -62,7 +62,6 @@ export default {
       team_report: false,
       type: '',
       job_type: 'independent',
-      job_id: '',
       team_id: '',
       league_id: '',
       player_id: '',
@@ -128,7 +127,12 @@ export default {
       }
     },
     startReport() {
-      this.prepareReport(this.type, this.player_id, this.team_id, this.job_id, this.search);
+      var ids = {
+        player: this.player_id > 0? this.player_id: '',
+        team:  this.team_id > 0? this.team_id: '',
+        league: this.league_id > 0? this.league_id: '',
+      }
+      this.prepareReport(this.type, ids, this.search);
     }
   }
 };
