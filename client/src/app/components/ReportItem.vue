@@ -13,10 +13,11 @@
               <span class="col-md-6"> {{report.id | reportId(report.type_report) }}
               </span>
             </span>
+            {{report}}
             <span class="field row">
               <span class="col-md-4">Team Name:</span>
               <p class="col-md-6" v-if="report.team">{{report.team.team_name}}</p>
-              <p class="col-md-6" v-if="!report.team">{{report.meta_data.search.team}}</p>
+              <p class="col-md-6" v-if="!report.team && report.meta_data.search">{{report.meta_data.search.team}}</p>
             </span>
             <span class="field row">
               <span class="col-md-4">Price:</span>
@@ -42,20 +43,14 @@
             </span>
             <span class="field row">
               <span class="col-md-4">Based in: </span>
-              <span class="col-md-6">{{getNationality(report.meta_data.userinfo.residence_country_code)}}
+              <span class="col-md-6">{{getNationality(report.meta_data.player_info.residence_country_code)}}
               </span>
             </span>
-            <span class="field row" v-if="report.meta_data.userinfo.playing_position.length">
+            <span class="field row" v-if="report.meta_data.player_info.playing_position.length">
               <span class="col-md-4">Position in: </span>
               <span class="col-md-8">
-                <span class="list" v-for="position in report.meta_data.userinfo.playing_position" :key="position.id">{{position}}</span>
+                <span class="list" v-for="position in report.meta_data.player_info.playing_position" :key="position.id">{{position}}</span>
               </span>
-            </span>
-            <span class="field yes row" v-if="report.meta_data.transfer_sum.loan_interested == 'yes'">
-              <span class="col-md-12">Interested In Loan</span>
-            </span>
-            <span class="field yes row" v-if="report.meta_data.transfer_sum.transfer_interested  == 'yes'">
-              <span class="col-md-12">Interested In Transfer</span>
             </span>
             <span class="field row">
               <span class="col-md-4">Price:</span>
