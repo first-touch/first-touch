@@ -347,7 +347,7 @@
     computed: {
       playerInfo() {
         if (this.report.player) return this.report.player;
-        if (this.report.meta_data.userinfo) return this.report.meta_data.userinfo;
+        if (this.report.meta_data.player_info) return this.report.meta_data.player_info;
       }
     },
     methods: {

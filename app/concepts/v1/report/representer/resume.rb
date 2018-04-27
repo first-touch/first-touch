@@ -17,11 +17,35 @@ module V1
             represented.user.personal_profile
           )
         }
+
         property :player, getter: lambda { |represented:, **|
-          if represented.player
+          if represented.player and represented.type_report == 'player'
             ::V1::PersonalProfile::Representer::Simplified.new(
               represented.player.personal_profile
             )
+          end
+        }
+
+        property :team_info, getter: lambda { |represented:, **|
+          if represented.player and represented.type_report == 'player'
+            ::V1::Team::Representer::Index.new(
+            represented.player.teams
+            )
+          end
+        }
+        property :league, getter: lambda { |represented:, **|
+          if represented.league
+            ::V1::Competition::Representer::Simplified.new(
+            represented.league
+            )
+          end
+        }
+        property :team, getter: lambda { |represented:, **|
+          'N/A'
+          if represented.team
+            ::V1::Team::Representer::Simplified.new(
+              represented.team
+              )
           end
         }
         property :orders_status, getter: lambda { |represented:, **|
@@ -38,7 +62,13 @@ module V1
             'N/A'
           end
         }
-        property :meta_data
+        property :meta_data, getter: lambda { |represented:, **|
+          if represented.meta_data
+            ::V1::ReportMetaData::Representer::Resume.new(
+            represented.meta_data
+            )
+          end
+        }
       end
     end
   end
