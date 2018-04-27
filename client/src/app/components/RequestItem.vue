@@ -53,7 +53,7 @@
         <div class="info col-md-8" v-if="request.type_request == 'player'">
           <h2 class="title">
             <span class="target" v-if="request.player">{{request.player.first_name}} {{request.player.last_name}} </span>
-            <span class="target" v-if="!request.player">{{request.meta_data.player_name}}</span>
+            <span class="target" v-if="!request.player">{{request.meta_data.search.player}}</span>
           </h2>
           <span class="pending" v-if="!own && request.request_bids && request.request_bids.status =='pending'">Bid pending</span>
           <p class="extra">
@@ -69,13 +69,17 @@
             </span>
             <span class="field row">
               <span class="col-md-4">Position:</span>
-              <span class="col-md-6">
+              <span class="col-md-6"  v-if="request.player">
+              <span class="list" v-for="position in request.player.playing_position" :key="position.id">{{position}}</span>
+              </span>
+              <span class="col-md-6" v-if="!request.player">
                 <span class="list" v-for="position in request.meta_data.playing_position" :key="position.id">{{position}}</span>
               </span>
             </span>
             <span class="field row">
               <span class="col-md-4">Based in: </span>
-              <span class="col-md-6">{{getNationality(request.meta_data.residence_country_code)}}
+              <span class="col-md-6" v-if="request.player">{{getNationality(request.player.residence_country_code)}}       </span>
+              <span class="col-md-6" v-if="!request.player">{{getNationality(request.meta_data.residence_country_code)}}
               </span>
             </span>
             <span class="field row">

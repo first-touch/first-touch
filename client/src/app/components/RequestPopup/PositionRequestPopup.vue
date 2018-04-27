@@ -6,7 +6,7 @@
           <h5 class="title">Position Request</h5>
           <p class="id">{{request.id | requestId(request.type_request) }}</p>
         </div>
-        <div class="col-md-8 buttons-inner">
+        <div class="col-md-8 buttons-inner" v-if="typeof closeAction !== 'undefined'" >
           <button class="ft-button" @click="closeAction(request)">Close</button>
         </div>
       </div>

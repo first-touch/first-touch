@@ -9,6 +9,13 @@ Vue.filter('moment', str => {
   }
   return '';
 });
+Vue.filter('age', str => {
+  var date = moment(str);
+  if (date.isValid()) {
+    return moment().diff(date, 'years');
+  }
+  return '';
+});
 Vue.filter('railsdate', str => moment(str).format('YYYY-MM-DD'));
 Vue.filter('reportId', (str, type) => {
   str = str.toString();

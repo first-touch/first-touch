@@ -1,7 +1,8 @@
 <template>
   <div class="ft-input">
     <div class="col-md-12 inner">
-      <input name="team" autocomplete="off" :readonly="readonly" class="search form-control" :class="readonly ? 'readonly':''" v-model="search" type="text" v-on:keyup="startSearch" :required="required"
+      <input name="team" autocomplete="off" :readonly="readonly" class="search form-control" :class="readonly ? 'readonly':''" v-model="search"
+      type="text" v-on:keyup="startSearch" :required="required == true"
         @blur="blur" @click="focus()" />
       <div class="search-results">
         <div v-for="(value, index) in results" :key="index" @mousedown="setvalue(index)">
@@ -81,7 +82,7 @@ export default {
   },
   computed: {
     results: function() {
-      if (this.searchResult.value.constructor === Array)
+      if (this.searchResult.value && this.searchResult.value.constructor === Array)
         return this.searchResult.value.map(r => r[this.label]);
       return [];
     },
@@ -111,6 +112,7 @@ export default {
       this.search = '';
       this.id = '';
       this.value = '';
+      this.selected = null;
     },
     focus() {
       this.startSearch();

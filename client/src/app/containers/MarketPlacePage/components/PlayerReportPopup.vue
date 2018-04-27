@@ -1,14 +1,14 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper ft-item">
     <div class="header-wrapper col-md-12">
       <div class="header col-md-12 row">
         <div class="col-md-4">
           <h5 class="title">Player Report</h5>
-          <span>Price {{report.price.value}} {{report.price.currency | currency}}</span>
+          <p class="id">{{report.id | reportId(report.type_report) }}</p>
         </div>
         <div class="col-md-8 buttons-inner">
-          <button class="ft-button" @click="closeAction(report)"  >Close</button>
-          <button class="ft-button-success"  @click="buyAction(report)" >Buy Report</button>
+          <button class="ft-button" @click="closeAction(report)">Close</button>
+          <button class="ft-button-success" @click="buyAction(report)">Buy Report</button>
         </div>
       </div>
     </div>
@@ -16,8 +16,6 @@
       CREATED {{report.created_at | moment}}
       <br/>
     </p>
-    <p class="date"></p>
-
     <div class="content-wrapper">
       <div class="content col-md-12">
         <div class="img-container">
@@ -25,121 +23,83 @@
         </div>
         <div class="info col-md-8">
           <h2 class="title" :title="report.headline">{{report.headline}}</h2>
-          <p class="extra">
-            <!-- <span class="target player_name">{{report.player.first_name}} {{report.player.last_name}} </span> -->
-            <span class="target">{{report.meta_data.age}} years, {{report.meta_data.height}} cm and {{report.meta_data.weight}}
-              kg </span>
-            <span class="target"></span>
-            <span class="target"></span>
-            <span class="target">From {{getNationality(report.meta_data.nationality_country_code)}}</span>
-            <span class="target">Speak
-              <span v-for="language in report.meta_data.languages" class="list" :key="language.id">{{getLanguage(language)}}</span>
-            </span>
-            <span class="target">Play
-              <span v-for="position in report.meta_data.playing_position" class="list" :key="position.id">{{position}}</span>
-            </span>
-          </p>
+          <div class="extra">
+            <p class="summary-field row" v-if="report.price">
+              <span class="summary-field-title col-md-4">Price:</span>
+              <span class="col-md-8">{{report.price.value}} {{report.price.currency | currency}}</span>
+            </p>
+            <p class="summary-field row" v-if="playerInfo.height">
+              <span class="summary-field-title col-md-4">Height:</span>
+              <span class="col-md-8">{{playerInfo.height}} cm</span>
+            </p>
+            <p class="summary-field row" v-if="playerInfo.weight">
+              <span class="summary-field-title col-md-4">Weight:</span>
+              <span class="col-md-8">{{playerInfo.weight}} kg</span>
+            </p>
+            <p class="summary-field row" v-if="playerInfo.preferred_foot">
+              <span class="summary-field-title col-md-4">Preferred Foot:</span>
+              <span v-if="playerInfo.preferred_foot" class="col-md-8">{{playerInfo.preferred_foot | preferredFoot}}</span>
+            </p>
+            <p class="summary-field row" v-if="playerInfo.preferred_foot">
+              <span class="summary-field-title col-md-4">Playing position(s):</span>
+              <span class="col-md-8">
+                <span v-for="position in playerInfo.playing_position" class="list" :key="position.id">{{position}}</span>
+              </span>
+            </p>
+            <p class="summary-field row" v-if="playerInfo.languages">
+              <label class="summary-field-title col-md-4">Language(s): </label>
+              <span class="col-md-8">
+                <span v-for="language in playerInfo.languages" class="list" :key="language.id">{{getLanguage(language)}}</span>
+              </span>
+            </p>
+            <p class="summary-field row" v-if="playerInfo.residence_country_code">
+              <span class="summary-field-title col-md-4">Based in:</span>
+              <span class="col-md-8">{{getNationality(playerInfo.residence_country_code)}} </span>
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
-.buttons-inner {
-  button {
-    float: right;
-    margin-right: 20px;
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
+  .buttons-inner {
+    button {
+      float: right;
+      margin-right: 20px;
+    }
   }
-}
 </style>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/item';
 
-.wrapper {
-  padding: 0 0;
-  color: $main-text-alpha-50;
-  .date {
-    font-size: 1.3em;
-    margin: 20px 0 40px 0;
-    padding: 0 30px;
+  .id {
+    margin-left: 20px;
   }
-  .header-wrapper {
-    padding: 0 30px;
-    .header {
-      .btn {
-        background: $main-header-color;
-        color: white;
-        border: 0;
-        border-radius: 12px;
-      }
-    }
-  }
-
-  .avatar {
-    height: 300px;
-    border-radius: 50%;
-  }
-
-  .title {
-    color: $popup-title-color;
-    font-size: $popup-title-font-size;
-  }
-  .content-wrapper {
-    padding: 0 30px;
-    display: flex;
-    justify-content: space-between;
-    .content {
-      display: flex;
-      .img-container {
-        height: 200px;
-        max-width: 200px;
-        margin-right: 100px;
-        .img-fluid {
-          max-height: 100%;
-        }
-        .price {
-          text-align: center;
-        }
-      }
-      .info {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        .extra {
-          text-transform: none;
-          .player_name {
-            color: $secondary-header-color;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-          }
-          .target {
-            display: block;
-          }
-          .author {
-            color: #000;
-          }
-        }
-      }
-    }
-  }
-}
 </style>
 <script>
-import countrydata from 'country-data';
+  import countrydata from 'country-data';
 
-export default {
-  name: 'ReportItem',
-  props: ['report','buyAction','closeAction'],
-  methods: {
-    getLanguage(key) {
-      return countrydata.languages[key] ? countrydata.languages[key].name : '';
+  export default {
+    name: 'ReportItem',
+    props: ['report', 'buyAction', 'closeAction'],
+    computed: {
+      playerInfo() {
+        if (this.report.player) return this.report.player;
+        if (this.report.meta_data.userinfo) return this.report.meta_data.userinfo;
+      }
     },
-    getNationality(key) {
-      return countrydata.countries[key] ? countrydata.countries[key].name : '';
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : '';
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : '';
+      }
     }
-  }
-};
+  };
 </script>
