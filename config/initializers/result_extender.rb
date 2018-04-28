@@ -11,6 +11,14 @@ module Trailblazer
         self['result.policy.failure'].present?
       end
 
+      def unauthenticated?
+        policy_error? && self['result.policy.failure'] == :unauthenticated
+      end
+
+      def unauthorized?
+        policy_error? && self['result.policy.failure'] == :unauthorized
+      end
+
       def model_error?
         self['result.model'].present?
       end
