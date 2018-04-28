@@ -2,7 +2,7 @@ module V1
   module User
     class Update < FirstTouch::Operation
       step Model(::User, :find_by)
-      failure :model_not_fount!, fail_fast: true
+      failure :model_not_found!, fail_fast: true
       step Policy::Guard(:authorize!, name: :authorize)
       failure :unauthorized!, fail_fast: true
       step Trailblazer::Operation::Contract::Build(
