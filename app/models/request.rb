@@ -5,4 +5,6 @@ class Request < ApplicationRecord
   validates :status, inclusion: {
     in: FirstTouch::REGISTERABLE_REQUEST_STATUS
   }
+
+  scope :published, -> { where(status: 'publish') }
 end
