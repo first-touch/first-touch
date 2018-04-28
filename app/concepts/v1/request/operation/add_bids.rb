@@ -14,10 +14,7 @@ module V1
       step Trailblazer::Operation::Contract::Persist()
 
       def find_request!(options, params:, **)
-        request = ::Request.published.find_by(id: params[:id])
-        options['model'].request = request
-        options['model.class'] = ::RequestBid
-        options['model'].request
+        options['model'].request = ::Request.published.find_by(id: params[:id])
       end
 
       def setup_model!(model:, current_user:, **)
