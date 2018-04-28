@@ -10,6 +10,7 @@ module V1
         property :birthday
         property :nationality_country_code
         property :residence_country_code
+        property :place_of_birth
         property :weight
         property :height
         property :preferred_foot

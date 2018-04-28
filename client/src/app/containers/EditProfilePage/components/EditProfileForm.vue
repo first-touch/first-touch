@@ -109,6 +109,7 @@ export default {
       const {
         first_name,
         last_name,
+        middle_name,
         bMonth,
         bDay,
         bYear,
@@ -122,6 +123,7 @@ export default {
       const birthday = new Date(Date.UTC(this.bYear, bMonth, bDay));
       this.updateUserInfo({
         first_name,
+        middle_name,
         last_name,
         birthday,
         nationality_country_code,
