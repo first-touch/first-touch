@@ -171,14 +171,19 @@ export default {
   computed: {
     ...mapGetters(['token', 'user']),
     name() {
-      return this.user.status === ASYNC_SUCCESS
-        ? `${this.user.value.personal_profile.first_name} ${this.user.value
-            .personal_profile.last_name}`
-        : '';
+      if(this.user.status === ASYNC_SUCCESS) {
+        return `${this.user.value.personal_profile.first_name} ${this.user.value
+            .personal_profile.last_name}`;
+      } else {
+        return '';
+      }
     },
     role() {
-      return this.user.status === ASYNC_SUCCESS
-      ? this.user.value.role_name : '';
+      if(this.user.status === ASYNC_SUCCESS) {
+        return this.user.value.role_name;
+      } else {
+        return '';
+      }
     },
     isCoach() {
       return (this.user.status === ASYNC_SUCCESS && this.user.value.role_name === 'coach');

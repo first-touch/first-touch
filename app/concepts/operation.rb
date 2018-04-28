@@ -1,5 +1,4 @@
 module FirstTouch
-
   class BaseOperation < Trailblazer::Operation
     def model_not_found!(options, **)
       model_name = options['model.class'].name.titlecase
@@ -23,5 +22,4 @@ module FirstTouch
       options['result.policy.failure'] = :unauthenticated
     end
   end
-
 end

@@ -31,13 +31,9 @@ module Api
       end
 
       def update
-        @current_user.update_attributes user_params
-        if @current_user.save
-          render json: ::Users::PublicProfileSerializer.new(@current_user).as_json
-        else
-          render json: { error: @current_user.errors.full_messages },
-                 status: :unprocessable_entity
-        end
+        result = ::V1::User::Update.(params, current_user: current_user)
+        response = FirstTouch::Endpoint.(result, ::V1::User::Representer::SelfProfile)
+        render json: response[:data], status: response[:status]
       end
 
       def follows

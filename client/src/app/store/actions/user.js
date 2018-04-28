@@ -28,8 +28,8 @@ export const updateUserInfo = (store, userInfo) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      personal_profile_attributes: userInfo, // eslint-disable-line camelcase
-      id: store.state.user.value.id
+      id: store.state.user.value.id,
+      personal_profile: userInfo // eslint-disable-line camelcase
     })
   }).then(res => {
     if (res.status === 200) {

@@ -49,6 +49,7 @@
           <option disabled value="">Preferred Foot</option>
           <option value="R">Right</option>
           <option value="L">Left</option>
+          <option value="B">Both</option>
         </select>
       </div>
     </fieldset>

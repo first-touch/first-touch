@@ -28,8 +28,12 @@ module FirstTouch
         end
       },
       unauthenticated: {
-        rule: ->(result) { result.policy_error? },
+        rule: ->(result) { result.unauthenticated? },
         resolve: ->(_result, _representer) { { 'data': {}, 'status': :unauthorized } }
+      },
+      unauthorized: {
+        rule: ->(result) { result.unauthorized? },
+        resolve: ->(_result, _representer) { { 'data': {}, 'status': :forbidden } }
       },
       not_found: {
         rule: ->(result) { result.failure? && result['result.model']&.failure? },
