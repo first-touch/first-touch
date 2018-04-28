@@ -1,6 +1,6 @@
 module V1
   module Request
-    class AddBids < Trailblazer::Operation
+    class AddBids < FirstTouch::Operation
       step Model(::RequestBid, :new)
       step :authorized!
       failure :unauthenticated, fail_fast: true
