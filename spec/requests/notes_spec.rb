@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Notes', type: :request do
   let!(:existing_user) do
     res = V1::User::Register.(
-      email: 'test@banaas.com',
+      email: 'test@bananas.com',
       password: '123123',
       password_confirmation: '123123',
       role_name: 'manager',
@@ -19,26 +19,20 @@ RSpec.describe 'Notes', type: :request do
     instance_double(SimpleCommand, result: existing_user)
   end
   let!(:existing_notes) do
-    ::V1::Note::Create.(
-      {
-        note: {
-          name: 'n1',
-          content: 'hello',
-          labels: %w[l1 l2]
-        }
-      },
-      current_user: existing_user
-    )
-    ::V1::Note::Create.(
-      {
-        note: {
-          name: 'n2',
-          content: 'hello2',
-          labels: %w[l2 l3]
-        }
-      },
-      current_user: existing_user
-    )
+    ::V1::Note::Create.({
+      note: {
+        name: 'n1',
+        content: 'hello',
+        tag_list: 'banana, potato'
+      }
+    }, current_user: existing_user)
+    ::V1::Note::Create.({
+      note: {
+        name: 'n2',
+        content: 'hello2',
+        tag_list: 'fire, banana'
+      }
+    }, current_user: existing_user)
   end
 
   before do
@@ -76,16 +70,16 @@ RSpec.describe 'Notes', type: :request do
     end
   end
 
-  describe 'Get Labels' do
+  describe 'Get Tags' do
     let(:request) do
-      get api_v1_notes_labels_url
+      get api_v1_notes_tags_url
     end
 
     it 'it creates a note associated with the user' do
       expect(response.content_type).to eq('application/json')
       expect(response).to have_http_status(:ok)
       json_response = JSON.parse(response.body)
-      expect(json_response['labels'].length).to eq 3
+      expect(json_response['tags'].length).to eq 3
     end
   end
 end

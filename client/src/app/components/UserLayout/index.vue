@@ -38,6 +38,8 @@ export default {
         return 'network';
       } else if (/\/users\/\d+\/profile/.test(path)) {
         return 'profile';
+      } else if (/\/notes/.test(path)) {
+        return 'notes';
       }
 
       return 'home';

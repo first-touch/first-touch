@@ -1,11 +1,11 @@
 module V1
   module Note
     module Representer
-      class Full < Representable::Decorator
+      class FullWithElements < Representable::Decorator
         include Representable::JSON
 
         property :id
-        property :user_id
+        property :elements
         property :name
         property :content
         property :image_url

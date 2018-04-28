@@ -7,7 +7,7 @@
     <div class="profile">
       <img class="rounded-circle img-fluid" src="https://unsplash.it/500/500" />
       <h4 class="profile-name">{{ name }}</h4>
-      <h5 class="profile-role">Football player</h5>
+      <h5 class="profile-role">{{ role }}</h5>
       <h5 class="profile-club">real madrid</h5>
       <router-link to="/profile/edit" class="profile-edit-button">Edit Profile</router-link>
     </div>
@@ -25,6 +25,11 @@
       <li class="nav-item" :class="{ active: page === 'calendar' }">
         <div class="nav-item-inner">
           <router-link to="/calendar">Calendar</router-link>
+        </div>
+      </li>
+      <li class="nav-item" v-if="{ isCoach }" :class="{ active: page === 'notes' }">
+        <div class="nav-item-inner">
+          <router-link to="/notes">Notes</router-link>
         </div>
       </li>
       <li class="nav-item" :class="{ active: page === 'messages' }">
@@ -171,6 +176,13 @@ export default {
             .personal_profile.last_name}`
         : '';
     },
+    role() {
+      return this.user.status === ASYNC_SUCCESS
+      ? this.user.value.role_name : '';
+    },
+    isCoach() {
+      return (this.user.status === ASYNC_SUCCESS && this.user.value.role_name === 'coach');
+    }
   },
   methods: {
     ...mapActions(['getUserInfo']),

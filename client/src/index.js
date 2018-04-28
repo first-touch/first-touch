@@ -17,6 +17,9 @@ import ClubStream from 'app/containers/ClubStreamPage';
 import ClubNotes from 'app/containers/ClubNotesPage';
 import TCPage from 'app/containers/LegalPages/TCPage';
 import PrivacyPolicy from 'app/containers/LegalPages/PrivacyPolicy';
+import NotesPage from 'app/containers/NotesPage';
+import NotePage from 'app/containers/NotePage';
+import TagContainer from 'app/containers/NotesPage/components/TagContainer';
 
 import store from 'app/store';
 import VueRouter from 'vue-router';
@@ -66,6 +69,9 @@ const router = new VueRouter({
         { path: 'profile/edit', component: EditProfilePage },
         { path: 'profile', component: ProfilePage, props: { mine: true }},
         { path: 'network', component: Network },
+        { path: 'notes', component: NotesPage },
+        { path: 'notes/:id', component: NotePage, props: true },
+        { path: 'notes/tags/:tag', component: TagContainer, props: true },
         {
           path: '/users/:id/profile',
           component: ProfilePage,
