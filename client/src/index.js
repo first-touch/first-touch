@@ -20,6 +20,7 @@ import PrivacyPolicy from 'app/containers/LegalPages/PrivacyPolicy';
 import NotesPage from 'app/containers/NotesPage';
 import NotePage from 'app/containers/NotePage';
 import TagContainer from 'app/containers/NotesPage/components/TagContainer';
+import AboutPage from 'app/containers/AboutPage';
 
 import store from 'app/store';
 import VueRouter from 'vue-router';
@@ -110,6 +111,10 @@ export const router = new VueRouter({
     {
       path: '/privacy_policy',
       component: PrivacyPolicy
+    },
+    {
+      path: '/about',
+      component: AboutPage
     }
   ]
 });
