@@ -1,7 +1,7 @@
 module V1
   module Request
     class AddBids < Trailblazer::Operation
-      step Model(::RequestBid, :new)
+      step :model!
       step :authorized!
       failure :unauthenticated, fail_fast: true
       step :find_request!
@@ -12,6 +12,15 @@ module V1
       )
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
+
+      def model!(options, params:, current_user:, **)
+        options['model.class'] = ::RequestBid
+        model = current_user.request_bids.find_by(request_id: params[:id])
+        if model.blank?
+          model = ::RequestBid.new
+        end
+        options['model'] = model
+      end
 
       def find_request!(options, params:, current_user:, **)
         request = ::Request.all.where(status: 'publish', id: params[:id])
@@ -28,6 +37,7 @@ module V1
       def authorized!(current_user:, **)
         current_user.scout?
       end
+
     end
   end
 end

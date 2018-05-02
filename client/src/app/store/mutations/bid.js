@@ -64,5 +64,19 @@ export default {
       state.bids,
       { status: ASYNC_FAIL, errors: errors }
     );
+  },
+  [ActionTypes.BID_DELETE_SUCCESS] (state, bid) {
+    state.bid = Object.assign(
+      {},
+      state.bid,
+      { status: ASYNC_SUCCESS, value: bid }
+    );
+  },
+  [ActionTypes.BID_DELETE_FAILURE] (state, errors) {
+    state.bid = Object.assign(
+      {},
+      state.bid,
+      { status: ASYNC_FAIL, errors: errors }
+    );
   }
 };

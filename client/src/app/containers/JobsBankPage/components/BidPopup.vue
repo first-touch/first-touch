@@ -5,8 +5,8 @@
       <input class="col-sm-12 form-control" type="number" v-model="price.value" />
     </span>
     <span class="footer-modal buttons-inner">
-      <button class="btn-primary ft-button" v-if="!this.request.request_bids" @click="newBid(request,price)">Send Bid</button>
-      <button class="btn-primary ft-button" v-if="this.request.request_bids" @click="newBid(request,price)">Update Bid</button>
+      <button class="btn-primary ft-button" v-if="!this.request.bid_status" @click="newBid(request,price)">Send Bid</button>
+      <button class="btn-primary ft-button" v-if="this.request.bid_status" @click="newBid(request,price)">Update Bid</button>
     </span>
   </div>
 </template>
@@ -38,8 +38,8 @@
       this.price.value = this.request.price.value;
       if (this.request.price.currency)
         this.price.currency = this.request.price.currency;
-      if (this.request.request_bids)
-        this.price = this.request.request_bids.price
+      if (this.request.bid_status)
+        this.price = this.request.bid_price
     }
   };
 </script>

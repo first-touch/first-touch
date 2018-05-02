@@ -15,8 +15,6 @@ module V1
         end
       end
 
-      validates_uniqueness_of :request, scope: %i[request user]
-
       end
     end
   end

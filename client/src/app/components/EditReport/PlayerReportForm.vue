@@ -389,7 +389,7 @@ export default {
     }
     if (this.request) {
       this.price = this.request.price;
-      this.price.value = parseInt(this.request.request_bids.price);
+      this.price.value = parseInt(this.request.bid_price.value);
       this.headline = 'Report on ';
       this.headline += this.request.meta_data.player_name ? this.request.meta_data.player_name : '';
       this.meta_data.userinfo.languages = this.request.meta_data.languages;

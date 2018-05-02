@@ -21,11 +21,10 @@ module V1
 
       def scout(current_user:)
         models = ::Request.all
-        joins = "LEFT OUTER JOIN request_bids ON request_bids.user_id = #{current_user.id}"\
-        ' AND request_bids.request_id = requests.id'
+        joins = "LEFT OUTER JOIN request_bids ON request_bids.request_id = requests.id AND request_bids.user_id = #{current_user.id} AND request_bids.status != 'canceled' "
         models = models.joins(joins)
-        models = models.where('requests.status = ? OR request_bids.user_id = ?  ','publish',current_user.id)
-        models = models.group('requests.id')
+        models = models.where('request_bids.status IN (\'pending\', \'accepted\') OR requests.status = ?','publish')
+        models = models.select('requests.*, request_bids.status as bid_status, request_bids.price as bid_price, request_bids.report_id as report_id')
       end
 
       def club(current_user:)

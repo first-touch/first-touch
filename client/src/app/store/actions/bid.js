@@ -68,3 +68,21 @@ export const acceptBid = (store, { id, params }) => {
     }
   });
 };
+
+export const cancelBid = (store, { id, params }) => {
+  store.commit(ActionTypes.BID_LOADING);
+  fetch(`/api/v1/bids/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: store.state.token.value,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(params)
+  }).then(res => {
+    if (res.status === 200) {
+      res.json().then(r => store.commit(ActionTypes.BID_DELETE_SUCCESS, r));
+    } else {
+      res.json().then(r => store.commit(ActionTypes.BID_DELETE_FAILURE, r));
+    }
+  });
+};

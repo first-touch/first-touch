@@ -9,9 +9,15 @@ module Api
       end
 
       def create
-          result = ::V1::Request::AddBids.(params,current_user: current_user)
-          response = FirstTouch::Endpoint.(result,::V1::RequestBid::Representer::Full)
-          render json: response[:data], status: response[:status]
+        result = ::V1::Request::AddBids.(params,current_user: current_user)
+        response = FirstTouch::Endpoint.(result,::V1::RequestBid::Representer::Full)
+        render json: response[:data], status: response[:status]
+      end
+
+      def destroy
+        result = ::V1::RequestBid::Cancel.(params,current_user: current_user)
+        response = FirstTouch::Endpoint.(result,::V1::RequestBid::Representer::Full)
+        render json: response[:data], status: response[:status]
       end
 
       def requestbids
