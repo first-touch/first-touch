@@ -32,9 +32,26 @@ module V1
           end
         }
 
-        property :request_bids, getter: lambda { |represented:, **|
-          if represented.request_bids
-            represented.request_bids.first
+        property :bid_price, getter: lambda { |represented:, **|
+          begin
+            represented.bid_price
+          rescue StandardError
+            'N/A'
+          end
+        }
+
+        property :bid_status, getter: lambda { |represented:, **|
+          begin
+            represented.bid_status
+          rescue StandardError
+            'N/A'
+          end
+        }
+        property :report_id, getter: lambda { |represented:, **|
+          begin
+            represented.report_id
+          rescue StandardError
+            'N/A'
           end
         }
 

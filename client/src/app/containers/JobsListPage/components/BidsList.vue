@@ -21,15 +21,24 @@
         </div>
       </div>
       <b-modal id="metaModal" size="lg" ref="metaModal">
-        <div>
-          <playerrequestpopup v-if="selected && selected.type_request == 'player' " :request="selected" :closeAction="closeAction"
-          />
-          <teamrequestpopup v-if="selected && selected.type_request == 'team' " :request="selected" :closeAction="closeAction" />
-          <positionrequestpopup v-if="selected && selected.type_request == 'position' " :request="selected" :closeAction="closeAction"
-          />
+        <div v-if="!cancel && selected">
+          <playerrequestpopup v-if="selected.type_request == 'player' " :request="selected" :closeAction="closeAction" />
+          <teamrequestpopup v-if="selected.type_request == 'team' " :request="selected" :closeAction="closeAction" />
+          <positionrequestpopup v-if="selected.type_request == 'position' " :request="selected" :closeAction="closeAction" />
+        </div>
+        <div v-if="cancel && selected">
+          <cancelrequestpopup :request="selected" :closeAction="closeAction" :cancelReport="cancelReport" :bid="bid" />
         </div>
       </b-modal>
-      <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :createReport="createReport" />
+
+      <b-modal id="metaModal" size="sm" ref="infoModal">
+        <div>
+          <h4>Bid has been Canceled</h4>
+        </div>
+      </b-modal>
+
+      <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :createReport="createReport"
+        :cancelReport="cancelReportPopup" />
     </timeline-item>
   </div>
 </template>
@@ -109,6 +118,7 @@ import FtDatepicker from 'app/components/Input/FtDatepicker';
 import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
 import PositionRequestPopup from 'app/components/RequestPopup/PositionRequestPopup';
 import TeamRequestPopup from 'app/components/RequestPopup/TeamRequestPopup';
+import CancelRequestPopup from 'app/components/RequestPopup/CancelRequestPopup';
 
 export default {
   name: 'JobRequestWidget',
@@ -120,11 +130,13 @@ export default {
     ftdatepicker: FtDatepicker,
     teamrequestpopup: TeamRequestPopup,
     playerrequestpopup: PlayerRequestPopup,
-    positionrequestpopup: PositionRequestPopup
+    positionrequestpopup: PositionRequestPopup,
+    cancelrequestpopup: CancelRequestPopup
   },
   data() {
     return {
       selected: null,
+      cancel: false,
       wantbid: false,
       params: {
         id: '',
@@ -208,7 +220,7 @@ export default {
     this.search();
   },
   computed: {
-    ...mapGetters(['searchRequest']),
+    ...mapGetters(['searchRequest', 'bid']),
     listRequest() {
       if (this.searchRequest.status === ASYNC_SUCCESS) {
         return this.searchRequest.value.request;
@@ -232,12 +244,28 @@ export default {
     vselect_status: function() {
       this.params.status = this.vselect_status.value;
       this.search();
+    },
+    bid() {
+      if (this.bid.status == ASYNC_SUCCESS) this.search();
     }
   },
   methods: {
-    ...mapActions(['getRequests', 'createBid', 'clearBid', 'updateBid']),
+    ...mapActions(['getRequests', 'createBid', 'clearBid', 'updateBid', 'cancelBid']),
     search() {
       this.getRequests(this.url);
+    },
+    cancelReportPopup(request) {
+      this.wantbid = false;
+      this.cancel = true;
+      this.selected = request;
+      this.$refs.metaModal.show();
+    },
+    cancelReport(data) {
+      var obj = {
+        id: this.selected.id,
+        params: data
+      };
+      this.cancelBid(obj);
     },
     createReport(request) {
       this.$router.push({
@@ -249,6 +277,7 @@ export default {
     },
     closeAction(request) {
       this.$refs.metaModal.hide();
+      this.cancel = false;
     },
     viewSummary(request) {
       this.wantbid = false;

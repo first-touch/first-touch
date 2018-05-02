@@ -17,7 +17,7 @@
             </span>
             <span class="field row" v-if="haveBid">
               <span class="col-md-4">Bid Price:</span>
-              <span class="col-md-6"> {{request.request_bids.price}} {{request.price.currency | currency}}
+              <span class="col-md-6"> {{request.bid_price.price}} {{request.bid_price.currency | currency}}
               </span>
             </span>
             <span class="field row">
@@ -55,7 +55,7 @@
             <span class="target" v-if="request.player">{{request.player.first_name}} {{request.player.last_name}} </span>
             <span class="target" v-if="!request.player">{{request.meta_data.player_name}}</span>
           </h2>
-          <span class="pending" v-if="!own && request.request_bids && request.request_bids.status =='pending'">Bid pending</span>
+          <span class="pending" v-if="!own && request.bid_status && request.bid_status =='pending'">Bid pending</span>
           <p class="extra">
             <span class="field row">
               <span class="col-md-4">Request Id:</span>
@@ -64,7 +64,7 @@
             </span>
             <span class="field row" v-if="haveBid">
               <span class="col-md-4">Bid Price:</span>
-              <span class="col-md-6"> {{request.request_bids.price}} {{request.price.currency | currency}}
+              <span class="col-md-6"> {{request.bid_price.price}} {{request.bid_price.currency | currency}}
               </span>
             </span>
             <span class="field row">
@@ -88,7 +88,7 @@
         <div class="info col-md-8" v-if="request.type_request == 'team'">
           <h2 class="title">
             Real Madrid Fc WIP </h2>
-          <span class="pending" v-if="!own && request.request_bids && request.request_bids.status =='pending'">Bid pending</span>
+          <span class="pending" v-if="!own && request.bid_status && request.bid_status.status =='pending'">Bid pending</span>
           <p class="extra">
             <span class="field row">
               <span class="col-md-4">Request Id:</span>
@@ -97,7 +97,7 @@
             </span>
             <span class="field row" v-if="haveBid">
               <span class="col-md-4">Bid Price:</span>
-              <span class="col-md-6"> {{request.request_bids.price}} {{request.price.currency | currency}}
+              <span class="col-md-6"> {{request.bid_price.price}} {{request.price.currency | currency}}
               </span>
             </span>
             <span class="field row">
@@ -145,7 +145,10 @@
         <a v-if="bidStatus == 'C' && createReport" @click="createReport(request)">
           <button class="btn-round">Create Report</button>
         </a>
-        <a v-if="bidStatus == 'R' && viewReport" @click="viewReport(request.request_bids.report_id)">
+        <a v-if="bidStatus == 'C' && cancelReport" @click="cancelReport(request)">
+          <button class="btn-round">Cancel Report</button>
+        </a>
+        <a v-if="bidStatus == 'R' && viewReport" @click="viewReport(request.report_id)">
           <button class="btn-round">View Report</button>
         </a>
       </div>
@@ -162,7 +165,7 @@ import countrydata from 'country-data';
 
 export default {
   name: 'RequestItem',
-  props: ['request', 'update', 'own', 'viewSummary', 'addBid', 'createReport','viewReport'],
+  props: ['request', 'update', 'own', 'viewSummary', 'addBid', 'createReport','viewReport','cancelReport'],
   methods: {
     getLanguage(key) {
       return countrydata.languages[key] ? countrydata.languages[key].name : key;
@@ -189,29 +192,29 @@ export default {
     },
     bidStatus() {
       if (this.own) return false;
-      if (this.request.request_bids) {
+      if (this.request.bid_status) {
         if (
-          this.request.request_bids.status == 'accepted' ||
-          this.request.request_bids.status == 'joblist'
+          this.request.bid_status == 'accepted' ||
+          this.request.bid_status == 'joblist'
         )
           return 'C';
-        if (this.request.request_bids.status == 'completed') return 'R';
-        if (this.request.request_bids.status == 'pending') return 'U';
+        if (this.request.bid_status == 'completed') return 'R';
+        if (this.request.bid_status == 'pending') return 'U';
       }
       return 'N';
     },
     canUpdate() {
-      if (this.request.request_bids) if (this.request.request_bids.status != 'pending') return true;
+      if (this.request.bid_status) if (this.request.bid_status != 'pending') return true;
       return false;
     },
     haveBid() {
-      return this.request.request_bids;
+      return this.request.bid_status;
     },
     isAccepted() {
-      if (this.request.request_bids) {
+      if (this.request.bid_status) {
         if (
-          this.request.request_bids.status == 'accepted' ||
-          this.request.request_bids.status == 'joblist'
+          this.request.bid_status == 'accepted' ||
+          this.request.bid_status == 'joblist'
         )
           return true;
         return false;
