@@ -5,8 +5,7 @@ module V1
         include Representable::JSON
 
         property :legal_entity
-        property :country
-        property :default_currency
+
       end
     end
   end
