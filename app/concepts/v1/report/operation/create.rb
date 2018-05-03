@@ -25,6 +25,10 @@ module V1
         current_user.scout?
       end
 
+      def stripe
+        !current_user.stripe_id.nil?
+      end
+
       def is_a_bid?(options, model:,params:, current_user:, **)
         if !params[:job_id].blank?
           bid = ::RequestBid.find_by request_id: params[:job_id], user_id: current_user.id, status: ['accepted','joblist']

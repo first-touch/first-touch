@@ -2,11 +2,6 @@ import * as ActionTypes from '../../constants/ActionTypes';
 import {
   ASYNC_NONE, ASYNC_FAIL, ASYNC_SUCCESS, ASYNC_LOADING
 } from '../../constants/AsyncStatus';
-
-import {
-  StripePublicKey
-} from 'app/constants/StripeConstant';
-
 export const stripe = {
   status: ASYNC_NONE,
   value: null,
@@ -15,19 +10,6 @@ export const stripe = {
 };
 
 export const stripeFtouch = {
-  status: ASYNC_NONE,
-  value: null,
-  errors: null
-};
-
-export const stripeJs = window.Stripe(StripePublicKey);
-export const stripeDelete = {
-  status: ASYNC_NONE,
-  value: null,
-  errors: null
-};
-
-export const stripeRequiredFields = {
   status: ASYNC_NONE,
   value: null,
   errors: null
@@ -77,73 +59,24 @@ export default {
     );
   },
   [ActionTypes.GET_STRIPE_ACCOUNT_LOADING] (state) {
-    state.stripeFtouch = Object.assign(
+    state.stripe = Object.assign(
       {},
-      state.stripeFtouch,
-      { status: ASYNC_LOADING }
+      state.stripe,
+      { status: ASYNC_LOADING, saving: false }
     );
   },
   [ActionTypes.GET_STRIPE_ACCOUNT_SUCCESS] (state, stripe) {
-    state.stripeFtouch = Object.assign(
+    state.stripe = Object.assign(
       {},
-      state.stripeFtouch,
-      { status: ASYNC_SUCCESS, value: stripe }
+      state.stripe,
+      { status: ASYNC_SUCCESS, value: stripe, saving: false }
     );
   },
   [ActionTypes.GET_STRIPE_ACCOUNT_FAILURE] (state, errors) {
-    state.stripeFtouch = Object.assign(
+    state.stripe = Object.assign(
       {},
-      state.stripeFtouch,
-      { status: ASYNC_FAIL, errors: errors }
-    );
-  },
-  [ActionTypes.STRIPE_REQUIRED_FIELDS_LOADING] (state) {
-    state.stripeRequiredFields = Object.assign(
-      {},
-      state.stripeRequiredFields,
-      { status: ASYNC_LOADING, saving: false }
-    );
-  },
-  [ActionTypes.STRIPE_REQUIRED_FIELDS_SUCCESS] (state, stripe) {
-    state.stripeRequiredFields = Object.assign(
-      {},
-      state.stripeRequiredFields,
-      { status: ASYNC_SUCCESS, value: stripe, saving: false }
-    );
-  },
-  [ActionTypes.STRIPE_REQUIRED_FIELDS_FAILURE] (state, errors) {
-    state.stripeRequiredFields = Object.assign(
-      {},
-      state.stripeRequiredFields,
+      state.stripe,
       { status: ASYNC_FAIL, errors: errors, saving: false }
     );
-  },
-  [ActionTypes.DELETE_STRIPE_LOADING] (state) {
-    state.stripeDelete = Object.assign(
-      {},
-      state.stripeDelete,
-      { status: ASYNC_LOADING, saving: false }
-    );
-  },
-  [ActionTypes.DELETE_STRIPE_SUCCESS] (state, stripe) {
-    state.stripeDelete = Object.assign(
-      {},
-      state.stripeDelete,
-      { status: ASYNC_SUCCESS, value: stripe, saving: false }
-    );
-  },
-  [ActionTypes.DELETE_STRIPE_FAILURE] (state, errors) {
-    state.stripeDelete = Object.assign(
-      {},
-      state.stripeDelete,
-      { status: ASYNC_FAIL, errors: errors, saving: false }
-    );
-  },
-  [ActionTypes.DELETE_STRIPE_FLUSH] (state) {
-    state.stripeDelete = Object.assign({}, state.stripeDelete, {
-      status: ASYNC_NONE,
-      value: []
-    });
   }
-
 };

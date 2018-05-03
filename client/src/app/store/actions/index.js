@@ -11,6 +11,4 @@ export * from './attachment';
 export * from './order';
 export * from './request';
 export * from './bid';
-export * from './stripePayment';
 export * from './stripe';
-export * from './stripeClub';
