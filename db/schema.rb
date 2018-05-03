@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180426110344) do
+ActiveRecord::Schema.define(version: 20180502092853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -241,13 +241,12 @@ ActiveRecord::Schema.define(version: 20180426110344) do
     t.string "type_report"
     t.bigint "user_id"
     t.json "price"
-    t.bigint "team_id"
+    t.bigint "club_id"
     t.integer "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "meta_data"
-    t.integer "league_id"
-    t.index ["team_id"], name: "index_reports_on_team_id"
+    t.index ["club_id"], name: "index_reports_on_club_id"
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
@@ -259,6 +258,7 @@ ActiveRecord::Schema.define(version: 20180426110344) do
     t.bigint "report_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "reason"
     t.index ["report_id"], name: "index_request_bids_on_report_id"
     t.index ["request_id"], name: "index_request_bids_on_request_id"
     t.index ["user_id"], name: "index_request_bids_on_user_id"
@@ -273,9 +273,6 @@ ActiveRecord::Schema.define(version: 20180426110344) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "price"
-    t.integer "player_id"
-    t.integer "team_id"
-    t.integer "league_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
@@ -330,6 +327,7 @@ ActiveRecord::Schema.define(version: 20180426110344) do
     t.string "password_digest"
     t.datetime "last_logout_at"
     t.boolean "unclaimed"
+    t.text "stripe_id"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -339,6 +337,16 @@ ActiveRecord::Schema.define(version: 20180426110344) do
     t.index ["role_id"], name: "index_users_roles_on_role_id"
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
     t.index ["user_id"], name: "index_users_roles_on_user_id"
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   add_foreign_key "app_notifications", "users"
@@ -354,7 +362,7 @@ ActiveRecord::Schema.define(version: 20180426110344) do
   add_foreign_key "orders", "reports"
   add_foreign_key "orders", "request_bids"
   add_foreign_key "orders", "users"
-  add_foreign_key "reports", "clubs", column: "team_id"
+  add_foreign_key "reports", "clubs"
   add_foreign_key "reports", "users"
   add_foreign_key "request_bids", "reports"
   add_foreign_key "request_bids", "requests"
