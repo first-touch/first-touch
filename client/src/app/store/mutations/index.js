@@ -32,8 +32,7 @@ export const initialState = {
   bid,
   bids,
   stripe,
-  stripeFtouch,
-  stripeRequiredFields
+  stripeFtouch
   stripeJs,
   stripePayment,
   stripeClubCards
