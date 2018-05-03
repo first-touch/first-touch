@@ -13,6 +13,7 @@ import bidReducer, { bid, bids } from './bid';
 import stripeReducer, { stripeJs } from './stripe';
 import stripePaymentReducer, { stripePayment } from './stripePayment';
 import stripeClubReducer, { stripeClubCards } from './stripeClub';
+import stripeReducer, { stripe, stripeFtouch } from './stripe';
 
 export const initialState = {
   token,
@@ -32,6 +33,8 @@ export const initialState = {
   searchRequest,
   bid,
   bids,
+  stripe,
+  stripeFtouch,
   stripeJs,
   stripePayment,
   stripeClubCards
