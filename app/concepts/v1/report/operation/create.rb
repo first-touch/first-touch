@@ -4,9 +4,11 @@ module V1
       step Model(::Report, :new)
       step :authorized!
       failure :unauthenticated, fail_fast: true
-      step :stripe
-      failure :stripe_account_not_found!, fail_fast: true      step :is_a_bid?
+      step :is_a_bid?
       failure :bid_not_found!, fail_fast: true
+      failure :stripe_account_not_found!, fail_fast: true
+      step :setup_model!
+      step :is_a_bid?
       step :setup_model!
       step Trailblazer::Operation::Contract::Build(
         constant: Report::Contract::Create
@@ -34,9 +36,7 @@ module V1
 
       def stripe(model:, current_user:, **)
         true
-      end
-
-      def is_a_bid?(options, model:,params:, current_user:, **)
+      end      def is_a_bid?(options, model:,params:, current_user:, **)
         if !params[:job_id].blank?
           bid = ::RequestBid.find_by request_id: params[:job_id], user_id: current_user.id, status: ['accepted','joblist']
           options['bid'] = bid
