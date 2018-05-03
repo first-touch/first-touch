@@ -14,12 +14,6 @@ module Api
         render json: response[:data], status: response[:status]
       end
 
-      def required
-        result = ::V1::Stripe::FieldNeeded.(params, current_user: current_user)
-        response = FirstTouch::Endpoint.(result, ::V1::Stripe::Representer::FieldNeeded)
-        render json: response[:data], status: response[:status]
-      end
-
     end
   end
 end

@@ -19,7 +19,8 @@ module FirstTouch
       options['result.model.errors'] = [error_message]
     end
 
-    def stripe_failure!(options, **)
+    def process_payment_failure!(options, **)
+      # model_name = options['stripe.errors']
       error_message = options['stripe.errors']
       options['result.model.errors'] = [error_message]
     end
