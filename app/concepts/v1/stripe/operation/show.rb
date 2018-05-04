@@ -6,8 +6,10 @@ module V1
       private
 
       def find_account!(options,  params:, current_user:, **)
+        options['model.class'] = ::Stripe::Account
         if !current_user.stripe_id.nil?
           account = ::Stripe::Account.retrieve(current_user.stripe_id)
+          puts account.to_json
           if !account.nil?
             options['model'] = account
           end

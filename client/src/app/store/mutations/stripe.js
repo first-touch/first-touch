@@ -22,6 +22,12 @@ export const stripeFtouch = {
 
 export const stripeJs = window.Stripe(StripePublicKey);
 
+export const stripeRequiredFields = {
+  status: ASYNC_NONE,
+  value: null,
+  errors: null
+};
+
 export default {
   [ActionTypes.SAVE_STRIPE_ACCOUNT_LOADING] (state) {
     state.stripeFtouch = Object.assign(
@@ -83,6 +89,27 @@ export default {
     state.stripe = Object.assign(
       {},
       state.stripe,
+      { status: ASYNC_FAIL, errors: errors, saving: false }
+    );
+  },
+  [ActionTypes.STRIPE_REQUIRED_FIELDS_LOADING] (state) {
+    state.stripeRequiredFields = Object.assign(
+      {},
+      state.stripeRequiredFields,
+      { status: ASYNC_LOADING, saving: false }
+    );
+  },
+  [ActionTypes.STRIPE_REQUIRED_FIELDS_SUCCESS] (state, stripe) {
+    state.stripeRequiredFields = Object.assign(
+      {},
+      state.stripeRequiredFields,
+      { status: ASYNC_SUCCESS, value: stripe, saving: false }
+    );
+  },
+  [ActionTypes.STRIPE_REQUIRED_FIELDS_FAILURE] (state, errors) {
+    state.stripeRequiredFields = Object.assign(
+      {},
+      state.stripeRequiredFields,
       { status: ASYNC_FAIL, errors: errors, saving: false }
     );
   }

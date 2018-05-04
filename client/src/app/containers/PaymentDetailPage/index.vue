@@ -2,11 +2,13 @@
   <div>
     <sidebar />
     <div class="container-fluid">
-      <b-modal ref="metaModal" id="metaModal" size="md">
-        <addpaymentpopup :submit="newStripe" :loading="loading" :success="success" :closeAction="closeAction" :info="info" />
+      <b-modal ref="metaModal" id="metaModal" size="lg">
+        <personalinformationpopup v-if="personalInformation" :submit="custonNewStripe" :loading="loading" :success="success" :stripeRequired="stripeRequired"
+          :closeAction="closeAction" :info="info" :getRequiredInfo="getStripeRequiredInfo" />
+          <bankaccountpopup v-if="bank" :PersonalInformationAction="PersonalInformation" :closeAction="closeAction" :loading="loading" :success="success" :submit="custonNewStripe" :info="info" :errors="errors"/>
       </b-modal>
       <div class="ft-page">
-        <actions class="widget" :AddPayment="AddPayment" />
+        <actions class="widget" :PersonalInformation="PersonalInformation" :AddPayment="AddPayment" />
         <h4 class="header">Payment Details</h4>
         <timeline-item>
         </timeline-item>
@@ -28,11 +30,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { ASYNC_SUCCESS, ASYNC_LOADING, ASYNC_FAILURE } from 'app/constants/AsyncStatus';
+import { ASYNC_SUCCESS, ASYNC_LOADING, ASYNC_FAIL } from 'app/constants/AsyncStatus';
 import TimelineItem from 'app/components/TimelineItem';
 import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import Actions from './components/Actions';
-import AddPaymentPopup from './components/AddPaymentPopup';
+import PersonalInformationPopup from './components/PersonalInformationPopup';
+import BankAccountPopup from './components/BankAccountPopup';
 
 export default {
   name: 'PaymentDetailPage',
@@ -40,31 +43,39 @@ export default {
     sidebar: NotificationSidebar,
     actions: Actions,
     'timeline-item': TimelineItem,
-    addpaymentpopup: AddPaymentPopup
+    personalinformationpopup: PersonalInformationPopup,
+    bankaccountpopup:BankAccountPopup
   },
-  data: () => {
+  data() {
     return {
+      bank: false,
+      personalInformation: false,
       loading: false,
       success: false,
       errors: null,
-      info: null
+      info: null,
+      country: null,
+      stripeRequired: null
     };
   },
   watch: {
     stripe() {
       this.errors = false;
+      console.log(this.stripe)
       if (this.stripe.saving)
         switch (this.stripe.status) {
           case ASYNC_SUCCESS:
             this.loading = false;
             this.saveStripe({
-              token: this.stripe.value.token.id
+              token: this.stripe.value.token.id,
+              type: this.stripe.value.token.type,
+              country: this.country
             });
             break;
           case ASYNC_LOADING:
             this.loading = true;
             break;
-          case ASYNC_FAILURE:
+          case ASYNC_FAIL:
             this.loading = false;
             this.errors = this.stripe.errors;
             break;
@@ -78,7 +89,8 @@ export default {
           case ASYNC_LOADING:
             this.loading = true;
             break;
-          case ASYNC_FAILURE:
+          case ASYNC_FAIL:
+            this.info = null;
             this.loading = false;
             this.errors = this.stripe.errors;
             break;
@@ -94,6 +106,21 @@ export default {
         case ASYNC_LOADING:
           this.loading = true;
           break;
+        case ASYNC_FAIL:
+          this.loading = false;
+          this.errors = this.stripe.errors;
+          break;
+      }
+    },
+    stripeRequiredFields() {
+      switch (this.stripeRequiredFields.status) {
+        case ASYNC_SUCCESS:
+          this.loading = false;
+          this.stripeRequired = this.stripeRequiredFields.value.verification_fields;
+          break;
+        case ASYNC_LOADING:
+          this.loading = true;
+          break;
         case ASYNC_FAILURE:
           this.loading = false;
           this.errors = this.stripe.errors;
@@ -105,12 +132,23 @@ export default {
     this.getStripe();
   },
   computed: {
-    ...mapGetters(['stripe', 'stripeFtouch'])
+    ...mapGetters(['stripe', 'stripeFtouch', 'stripeRequiredFields'])
   },
   methods: {
-    ...mapActions(['newStripe', 'saveStripe', 'getStripe']),
-    AddPayment() {
+    ...mapActions(['newStripeToken', 'saveStripe', 'getStripe', 'getStripeRequiredInfo']),
+    PersonalInformation() {
+      this.personalInformation = true;
+      this.bank = false;
       this.$refs.metaModal.show();
+    },
+    AddPayment() {
+      this.bank = true;
+      this.personalInformation = false;
+      this.$refs.metaModal.show();
+    },
+    custonNewStripe(data, country, tokenType) {
+      this.country = country;
+      this.newStripeToken({ data, tokenType });
     },
     closeAction() {
       this.$refs.metaModal.hide();
