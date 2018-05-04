@@ -1,7 +1,6 @@
 <template>
   <div>
-    <vselect v-model="model" :disabled="disabled" :onChange="update" :options="options" class="ft-input" placeholder="Please select a country"
-    />
+    <vselect v-model="model" :disabled="disabled" :onChange="update" :options="options" class="ft-input" placeholder="Please select a country" />
   </div>
 </template>
 
@@ -17,7 +16,7 @@ export default {
   components: {
     vselect: vSelect
   },
-  props: ['value', 'disabled', 'filter'],
+  props: ['value','disabled'],
   data() {
     return {
       model: null,
@@ -75,7 +74,7 @@ export default {
         {
           label: 'United Kingdom',
           value: 'GB',
-          bank_column_needed: ['sort_code', 'account_number']
+          bank_column_needed: ['iban', 'sort_code', 'account_number']
         },
         {
           label: 'Hong Kong',
@@ -149,41 +148,21 @@ export default {
   },
   watch: {
     value() {
-      this.refactorValue();
-    },
-    filter() {
-      this.refactorValue();
-    },
-    model() {
-      this.$emit('update:obj', this.model);
-    }
-  },
-  mounted() {
-    this.refactorValue();
-  },
-  methods: {
-    update(val) {
-      if (val) {
-        this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
-      }
-    },
-    refactorValue() {
       const index = this.$options.filters.searchInObj(
         this.options,
         option => option.value === this.value
       );
       this.model = this.options[index];
-
-      var newOptions = [];
-      if (this.filter && this.filter.length > 0) {
-        this.filter.forEach(e => {
-          const index = this.$options.filters.searchInObj(
-            this.options,
-            option => option.value === e
-          );
-          if (this.options[index]) newOptions.push(this.options[index]);
-        });
-        this.options = newOptions;
+    },
+    model(){
+      console.log(this.model);
+      this.$emit('update:obj', this.model);
+    },
+  },
+  methods: {
+    update(val) {
+      if (val) {
+        this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
       }
     }
   }
