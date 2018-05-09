@@ -10,7 +10,7 @@ import reportReducer, { report, searchReport, filesUpload } from './report';
 import orderReducer, { order } from './order';
 import requestReducer, { request, searchRequest } from './request';
 import bidReducer, { bid, bids } from './bid';
-import stripeReducer, { stripe, stripeFtouch, stripeJs } from './stripe';
+import stripeReducer, { stripe, stripeFtouch, stripeJs, stripeRequiredFields, stripeDelete  } from './stripe';
 import stripePaymentReducer, { stripePayment } from './stripePayment';
 import stripeClubReducer, { stripeClubCards } from './stripeClub';
 export const initialState = {
@@ -32,7 +32,9 @@ export const initialState = {
   bid,
   bids,
   stripe,
-  stripeFtouch
+  stripeFtouch,
+  stripeRequiredFields,
+  stripeDelete
   stripeJs,
   stripePayment,
   stripeClubCards

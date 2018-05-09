@@ -21,12 +21,19 @@ export const stripeFtouch = {
 };
 
 export const stripeJs = window.Stripe(StripePublicKey);
+export const stripeDelete = {
+  status: ASYNC_NONE,
+  value: null,
+  errors: null
+};
 
 export const stripeRequiredFields = {
   status: ASYNC_NONE,
   value: null,
   errors: null
-};export default {
+};
+
+export default {
   [ActionTypes.SAVE_STRIPE_ACCOUNT_LOADING] (state) {
     state.stripeFtouch = Object.assign(
       {},
@@ -70,24 +77,73 @@ export const stripeRequiredFields = {
     );
   },
   [ActionTypes.GET_STRIPE_ACCOUNT_LOADING] (state) {
-    state.stripe = Object.assign(
+    state.stripeFtouch = Object.assign(
       {},
-      state.stripe,
-      { status: ASYNC_LOADING, saving: false }
+      state.stripeFtouch,
+      { status: ASYNC_LOADING }
     );
   },
   [ActionTypes.GET_STRIPE_ACCOUNT_SUCCESS] (state, stripe) {
-    state.stripe = Object.assign(
+    state.stripeFtouch = Object.assign(
       {},
-      state.stripe,
-      { status: ASYNC_SUCCESS, value: stripe, saving: false }
+      state.stripeFtouch,
+      { status: ASYNC_SUCCESS, value: stripe }
     );
   },
   [ActionTypes.GET_STRIPE_ACCOUNT_FAILURE] (state, errors) {
-    state.stripe = Object.assign(
+    state.stripeFtouch = Object.assign(
       {},
-      state.stripe,
+      state.stripeFtouch,
+      { status: ASYNC_FAIL, errors: errors }
+    );
+  },
+  [ActionTypes.STRIPE_REQUIRED_FIELDS_LOADING] (state) {
+    state.stripeRequiredFields = Object.assign(
+      {},
+      state.stripeRequiredFields,
+      { status: ASYNC_LOADING, saving: false }
+    );
+  },
+  [ActionTypes.STRIPE_REQUIRED_FIELDS_SUCCESS] (state, stripe) {
+    state.stripeRequiredFields = Object.assign(
+      {},
+      state.stripeRequiredFields,
+      { status: ASYNC_SUCCESS, value: stripe, saving: false }
+    );
+  },
+  [ActionTypes.STRIPE_REQUIRED_FIELDS_FAILURE] (state, errors) {
+    state.stripeRequiredFields = Object.assign(
+      {},
+      state.stripeRequiredFields,
       { status: ASYNC_FAIL, errors: errors, saving: false }
     );
+  },
+  [ActionTypes.DELETE_STRIPE_LOADING] (state) {
+    state.stripeDelete = Object.assign(
+      {},
+      state.stripeDelete,
+      { status: ASYNC_LOADING, saving: false }
+    );
+  },
+  [ActionTypes.DELETE_STRIPE_SUCCESS] (state, stripe) {
+    state.stripeDelete = Object.assign(
+      {},
+      state.stripeDelete,
+      { status: ASYNC_SUCCESS, value: stripe, saving: false }
+    );
+  },
+  [ActionTypes.DELETE_STRIPE_FAILURE] (state, errors) {
+    state.stripeDelete = Object.assign(
+      {},
+      state.stripeDelete,
+      { status: ASYNC_FAIL, errors: errors, saving: false }
+    );
+  },
+  [ActionTypes.DELETE_STRIPE_FLUSH] (state) {
+    state.stripeDelete = Object.assign({}, state.stripeDelete, {
+      status: ASYNC_NONE,
+      value: []
+    });
   }
+
 };

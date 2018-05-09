@@ -5,7 +5,8 @@ module V1
         include Representable::JSON
 
         property :verification_fields
-
+        property :supported_bank_account_currencies
+        property :id
       end
     end
   end
