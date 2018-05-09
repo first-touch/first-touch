@@ -142,7 +142,7 @@ const router = new VueRouter({
         {
           path: '/scouting/payment',
           component: PaymentDetailPage,
-          name: 'paymentDetailPage'
+          name: 'scoutPaymentDetailPage'
         },
         {
           path: '/messages',
