@@ -32,7 +32,8 @@
                 :closeAction="hideModal" />
               <clubreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :buyAction="BuyAction"
                 :closeAction="hideModal" />
-              <paymentpopup v-if="payment" :report="reportSelected" :closeAction="hideModal" :paymentAction="PaymentAction" :order="order"
+              <paymentpopup v-if="payment" :report="reportSelected" :closeAction="hideModal" :StripeCardToken="StripeCardToken"
+              :stripePayment="stripePayment" :order="order" :newOrder="newOrder" :stripeJs="stripeJs"
               />
             </b-modal>
             <report v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :buyAction="BuyAction" :summaryAction="summaryAction"
@@ -47,7 +48,6 @@
 @import '~stylesheets/form';
 @import '~stylesheets/modal';
 @import '~stylesheets/search';
-
 </style>
 
 <style lang="scss" scoped>
@@ -136,7 +136,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['searchReport', 'order']),
+    ...mapGetters(['searchReport', 'order', 'stripePayment','stripeJs']),
     listReport() {
       if (this.searchReport.status === ASYNC_SUCCESS) {
         return this.searchReport.value.report;
@@ -176,7 +176,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getReports', 'newOrder']),
+    ...mapActions(['getReports', 'newOrder', 'StripeCardToken']),
     viewAction(report) {
       this.$router.push({ name: 'clubReport', params: { id: report.id } });
     },
@@ -187,11 +187,6 @@ export default {
     },
     hideModal() {
       this.$refs.metaModal.hide();
-    },
-    PaymentAction(payment) {
-      this.newOrder({
-        order: payment
-      });
     },
     summaryAction(report) {
       this.payment = false;

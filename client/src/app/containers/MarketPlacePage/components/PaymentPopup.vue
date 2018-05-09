@@ -7,12 +7,11 @@
       </ul>
     </div>
     <div class="custom-modal-content">
-      <h5>Choose a Payment Method {{report.price.value}} {{report.price.currency | currency}} </h5>
-      <form @submit.prevent :class="{isloading: 'loading'}">
-        <div class="footer-modal buttons-inner">
-          <button class="btn-primary ft-button" @click="startPayment">PAY NOW</button>
-        </div>
-      </form>
+      <div ref="card"></div>
+      <div class="buttons-inner">
+        <button class="ft-button-success" v-on:click="purchase">Purchase</button>
+
+      </div>
     </div>
   </div>
 </template>
@@ -22,6 +21,10 @@
 form {
   border: 1px solid $secondary-header-color;
   padding: 20px;
+}
+
+.buttons-inner {
+  margin-top: 20px;
 }
 
 .custom-modal-content {
@@ -42,48 +45,65 @@ form {
 </style>
 
 <script>
-import { ASYNC_SUCCESS, ASYNC_LOADING, ASYNC_FAIL } from 'app/constants/AsyncStatus';
+  import {
+    ASYNC_SUCCESS,
+    ASYNC_LOADING,
+    ASYNC_FAIL
+  } from 'app/constants/AsyncStatus';
+  import {
+    StripePublicKey
+  } from 'app/constants/StripeConstant';
+  export default {
+    name: 'PaymentPopup',
+    props: ['report', 'closeAction', 'stripePayment', 'StripeCardToken', 'order', 'newOrder', 'stripeJs'],
+    data() {
+      return {
+        payment_method: '',
+        name: '',
+        credit_card: '',
+        cvv: '',
+        expiry: '',
+        isloading: false,
+        isfailed: false,
+        card: null
+      };
+    },
+    watch: {
+      order() {
+        this.isloading = this.order.status === ASYNC_LOADING;
+        this.isfailed = this.order.status === ASYNC_FAIL;
+        if (this.order.status === ASYNC_SUCCESS) {
+          this.$router.push({
+            name: 'clubReport',
+            params: {
+              id: this.report.id
+            }
+          });
+        }
+      },
+      stripePayment() {
+        if (this.stripePayment.status == ASYNC_SUCCESS) {
+          this.newOrder({
+            token : this.stripePayment.value.token.id,
+            report_id : this.report.id
+          })
+        }
+      }
+    },
+    computed: {
+      elements(){
+        return this.stripeJs.elements();
+      }
+    },
+    mounted: function () {
+      this.card = this.elements.create('card');
+      this.card.mount(this.$refs.card);
+    },
 
-export default {
-  name: 'PaymentPopup',
-  props: ['report', 'closeAction', 'paymentAction', 'order'],
-  data () {
-    return {
-      payment_method: '',
-      name: '',
-      credit_card: '',
-      cvv: '',
-      expiry: '',
-      isloading: false,
-      isfailed: false
-    };
-  },
-  watch: {
-    order () {
-      this.isloading = this.order.status === ASYNC_LOADING;
-      this.isfailed = this.order.status === ASYNC_FAIL;
-      if (this.order.status === ASYNC_SUCCESS) {
-        this.$router.push({ name: 'clubReport', params: { id: this.report.id }})
+    methods: {
+      purchase: function () {
+        this.StripeCardToken(this.card);
       }
     }
-  },
-  methods: {
-    startPayment () {
-      var payment_method = this.payment_method;
-      var name = this.name;
-      var credit_card = this.credit_card;
-      var cvv = this.cvv;
-      var expiry = this.expiry;
-      var report_id = this.report.id;
-      this.paymentAction({
-        payment_method,
-        name,
-        credit_card,
-        cvv,
-        expiry,
-        report_id
-      });
-    }
-  }
-};
+  };
 </script>
