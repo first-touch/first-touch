@@ -53,6 +53,8 @@ module V1
             :type => "custom",
             :account_token => token
             })
+            account.transfer_schedule.interval = 'manual'
+            account.save
           options['stripe_id'] = account.id
           options['model'] = account
           rescue => e

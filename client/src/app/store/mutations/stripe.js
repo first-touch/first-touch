@@ -8,7 +8,11 @@ export const stripe = {
   errors: null,
   saving: false
 };
+import {
+  StripePublicKey
+} from 'app/constants/StripeConstant';
 
+export const stripeJs = window.Stripe(StripePublicKey);
 export const stripeFtouch = {
   status: ASYNC_NONE,
   value: null,

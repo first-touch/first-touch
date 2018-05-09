@@ -26,7 +26,7 @@
         <div class="info col-md-8">
           <h2 class="title" :title="report.headline">{{report.headline}}</h2>
           <p class="extra">
-            <span class="target player_name">{{report.player.first_name}} {{report.player.last_name}} </span>
+            <!-- <span class="target player_name">{{report.player.first_name}} {{report.player.last_name}} </span> -->
             <span class="target">{{report.meta_data.age}} years, {{report.meta_data.height}} cm and {{report.meta_data.weight}}
               kg </span>
             <span class="target"></span>
