@@ -10,6 +10,7 @@ module Api
 
       def create
         result = ::V1::Stripe::Create.(params, current_user: current_user)
+        puts result.to_json
         response = FirstTouch::Endpoint.(result, ::V1::Stripe::Representer::Full)
         render json: response[:data], status: response[:status]
       end
