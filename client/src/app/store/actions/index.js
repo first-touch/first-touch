@@ -12,3 +12,4 @@ export * from './order';
 export * from './request';
 export * from './bid';
 export * from './stripe';
+export * from './stripePayment';
