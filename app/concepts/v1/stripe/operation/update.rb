@@ -10,16 +10,15 @@ module V1
         options['model.class'] = ::Stripe::Account
         id = params[:id]
         type = params[:type]
-        if !current_user.stripe_id.nil?
-          account = ::Stripe::Account.retrieve(current_user.stripe_id)
+        if !current_user.stripe_ft.stripe_id.nil?
+          account = ::Stripe::Account.retrieve(current_user.stripe_ft.stripe_id)
           if !account.nil?
-            if type == 'bank_account'
-              begin
-                account.external_accounts.retrieve(id)
-                options['model'] = account
-              rescue => e
-                options['stripe.errors'] = e.to_s
-              end
+            begin
+              account.external_accounts.retrieve(id)
+              account['preferred_id'] = current_user.stripe_ft.preferred_account
+              options['model'] = account
+            rescue => e
+              options['stripe.errors'] = e.to_s
             end
           end
         end
@@ -37,6 +36,14 @@ module V1
             bank_account.save
             return true
           end
+        end
+        if type == 'preferred'
+          account.external_accounts.retrieve(id)
+          stripe_ft = current_user.stripe_ft
+          stripe_ft.preferred_account = id
+          stripe_ft.save!
+          options['model']['preferred_id'] = stripe_ft.preferred_account
+          return true
         end
         false
       end
