@@ -10,7 +10,13 @@ module Api
 
       def create
         result = ::V1::Stripe::Create.(params, current_user: current_user)
-        response = FirstTouch::Endpoint.(result, ::V1::Order::Representer::Empty)
+        response = FirstTouch::Endpoint.(result, ::V1::Stripe::Representer::Full)
+        render json: response[:data], status: response[:status]
+      end
+
+      def update
+        result = ::V1::Stripe::Update.(params, current_user: current_user)
+        response = FirstTouch::Endpoint.(result, ::V1::Stripe::Representer::Full)
         render json: response[:data], status: response[:status]
       end
 
@@ -20,6 +26,11 @@ module Api
         render json: response[:data], status: response[:status]
       end
 
+      def destroy
+        result = ::V1::Stripe::Delete.(params, current_user: current_user)
+        response = FirstTouch::Endpoint.(result, ::V1::Order::Representer::Empty)
+        render json: response[:data], status: response[:status]
+      end
     end
   end
 end

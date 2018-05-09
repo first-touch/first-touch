@@ -4,7 +4,7 @@ module V1
       step :find_model!
       failure :model_not_found!, fail_fast: true
       step :payment
-      failure :process_payment_failure!, fail_fast: true
+      failure :stripe_failure!, fail_fast: true
       step :order
       failure :model_not_found!, fail_fast: true
       step :finalize

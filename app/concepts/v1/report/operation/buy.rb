@@ -7,7 +7,7 @@ module V1
       step :find_report!
       failure :model_not_found!, fail_fast: true
       step :made_payment!
-      failure :process_payment_failure!, fail_fast: true
+      failure :stripe_failure!, fail_fast: true
       step :setup_model!
       step Trailblazer::Operation::Contract::Build(
         constant: Order::Contract::Create

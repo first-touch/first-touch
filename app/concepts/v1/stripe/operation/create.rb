@@ -3,7 +3,7 @@ module V1
     class Create < FirstTouch::Operation
       step :setup_model!
       step :create!
-      failure :process_payment_failure!, fail_fast: true
+      failure :stripe_failure!, fail_fast: true
       step :persist_stripe_id!
 
       private
@@ -32,12 +32,12 @@ module V1
         if !current_user.stripe_id.nil?
           begin
             account = ::Stripe::Account.retrieve(current_user.stripe_id)
+            options['model'] = account
             account.external_account = token
             account.save
             options['update'] = true
           rescue => e
             options['stripe.errors'] = e.to_s
-            puts e.to_s
           end
         else
           options['stripe.errors'] = 'no_stripe_account'
@@ -47,25 +47,25 @@ module V1
       def create_update_stripe_account(options,  current_user, token, country)
         if current_user.stripe_id.nil? and country
           begin
-          customer = ::Stripe::Account.create({
+            account = ::Stripe::Account.create({
             :country => country,
             :type => "custom",
             :account_token => token
             })
-          options['stripe_id'] = customer.id
+          options['stripe_id'] = account.id
+          options['model'] = account
           rescue => e
             options['stripe.errors'] = e.to_s
-            puts e.to_s
           end
         else
           begin
             account = ::Stripe::Account.retrieve(current_user.stripe_id)
             account.account_token = token
             account.save
+            options['model'] = account
             options['update'] = true
           rescue => e
             options['stripe.errors'] = e.to_s
-            puts e.to_s
           end
         end
       end
