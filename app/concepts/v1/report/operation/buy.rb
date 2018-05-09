@@ -1,5 +1,3 @@
-require './lib/payment_util'
-
 module V1
   module Report
     class Buy < FirstTouch::Operation
@@ -8,23 +6,20 @@ module V1
       failure :unauthenticated, fail_fast: true
       step :find_report!
       failure :model_not_found!, fail_fast: true
-      step :find_report!
-      failure :model_not_found!, fail_fast: true
       step :setup_model!
       step :dest_has_stripe!
       failure :stripe_failure!, fail_fast: true
       step :made_payment!
       failure :stripe_failure!, fail_fast: true
-      step :complete_order!
       step Trailblazer::Operation::Contract::Build(
         constant: Order::Contract::Create
       )
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
-      step :persist_stripe_transaction!
+
 
       def find_report!(options, params:, **)
-        options['model'].report = ::Report.find_by("(price->>'value')::int > 0 and id = ?", params[:order]['report_id'])
+        options['model'].report = ::Report.find(params[:order]['report_id'])
         options['model.class'] = ::Order
         !options['model'].report.nil?
       end
@@ -37,66 +32,61 @@ module V1
       end
 
       def dest_has_stripe!(options, params:, model:,   **)
-        stripe_ft = model.user.stripe_ft
-        if stripe_ft.nil? or stripe_ft.stripe_id.nil?
-          options['stripe.errors'] = ['scout_stripe_not_found']
-        end
-        (stripe_ft.nil?) ? false: stripe_ft.stripe_id
+        model.user.stripe_ft.stripe_id
       end
-
-      def made_payment!(options, params:, model:, current_user:,  **)
+      # Todo: Wait for stripe integration
+      def made_payment!(options, params:, model:,   **)
         card_token = params[:token]
         report = options['model'].report
         user = report.user
-        amount = report.price['value'] * 100
+        amount = report.price['value']
         success = false
-        charge = nil
         if amount == 0
           success = true
         elsif !card_token.nil?
           currency = report.price['currency']
+          fees = (amount * 0.05).round
           if !amount.nil? and !currency.nil?
-            params = {
-              amount: amount,
-              currency: currency,
-              card_token: card_token,
-              account: user.stripe_ft.stripe_id
-            }
-            charge = PaymentUtil.stripe_charge(params, current_user: current_user)
-            if !charge.nil?
-              options['stripe_charge_id'] = charge.id
+            begin
+              charge = ::Stripe::Charge.create({
+                :amount => amount,
+                :currency => currency,
+                :source => card_token,
+                :application_fee => fees,
+                :destination => {
+                  :account => user.stripe_ft.stripe_id,
+                }
+              })
+            rescue => e
+              body = e.json_body
+              err = body[:error]
+              options['stripe.errors'] = [err[:message]]
+            end
+            if charge
+              stripe_ft = user.stripe_ft
+              begin
+                payout = ::Stripe::Payout.create({
+                  :amount => charge.amount - fees,
+                  :currency => currency,
+                  :destination => !(stripe_ft.preferred_account.nil?) ? stripe_ft.preferred_account: nil
+                }, {:stripe_account => stripe_ft.stripe_id})
+                rescue => e
+                  body = e.json_body
+                  puts body.to_json
+                end
               success = true
+              #TODO Create stripe Transaction model
             end
           end
+        end
+        if success
+          model.status = "completed"
         end
         success
       end
 
-      def complete_order!(model: ,  **)
-        model.status = "completed"
-        true
-      end
-
       def authorized!(current_user:, **)
         current_user.is_a?(::Club) || true
-      end
-
-      def persist_stripe_transaction!(options, params:, model:,   **)
-        stripe_logger = ::Logger.new("#{Rails.root}/log/stripe_payout.log")
-        transaction_params = {
-          stripe_id: options['stripe_charge_id'],
-          order: model,
-          type_transaction: 'charge',
-          payout: false
-        }
-        result = ::V1::StripeTransaction::Create.(transaction_params)
-        if result.success?
-          stripeTransaction = result['model']
-          ::StripePayoutJob.set(wait: Rails.configuration.stripe[:payout_schedule]).perform_later stripeTransaction.id
-        else
-          stripe_logger.error("StripeTransaction creation failed, Payout had not be schedule, charge_id: #{options['stripe_charge_id']}")
-        end
-        true
       end
 
     end

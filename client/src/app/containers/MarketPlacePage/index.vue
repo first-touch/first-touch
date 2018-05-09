@@ -32,8 +32,9 @@
                 :closeAction="hideModal" />
               <clubreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :buyAction="BuyAction"
                 :closeAction="hideModal" />
-              <paymentpopup v-if="payment" :paymentAction="paymentAction" :closeAction="hideModal" :result="order" :StripeCardToken="StripeCardToken"
-                :stripePayment="stripePayment" :stripeJs="stripeJs" />
+              <paymentpopup v-if="payment" :report="reportSelected" :closeAction="hideModal" :StripeCardToken="StripeCardToken"
+              :stripePayment="stripePayment" :order="order" :newOrder="newOrder" :stripeJs="stripeJs"
+              />
             </b-modal>
             <report v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :buyAction="BuyAction" :summaryAction="summaryAction"
             />
@@ -44,180 +45,157 @@
   </div>
 </template>
 <style lang="scss">
-  @import '~stylesheets/form';
-  @import '~stylesheets/modal';
-  @import '~stylesheets/search';
+@import '~stylesheets/form';
+@import '~stylesheets/modal';
+@import '~stylesheets/search';
 </style>
 
 <style lang="scss" scoped>
+
 </style>
 
 <script>
-  import {
-    mapGetters,
-    mapActions
-  } from 'vuex';
-  import {
-    ASYNC_SUCCESS
-  } from 'app/constants/AsyncStatus';
-  import TimelineItem from 'app/components/TimelineItem';
-  import ReportItem from 'app/components/ReportItem';
-  import vSelect from 'vue-select';
-  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
-  import PlayerReportPopup from './components/PlayerReportPopup';
-  import ClubReportPopup from './components/ClubReportPopup';
-  import PaymentPopup from 'app/components/Stripe/PaymentPopup';
-  import FtDatepicker from 'app/components/Input/FtDatepicker';
+import { mapGetters, mapActions } from 'vuex';
+import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
+import TimelineItem from 'app/components/TimelineItem';
+import ReportItem from 'app/components/ReportItem';
+import vSelect from 'vue-select';
+import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+import PlayerReportPopup from './components/PlayerReportPopup';
+import ClubReportPopup from './components/ClubReportPopup';
+import PaymentPopup from './components/PaymentPopup';
+import FtDatepicker from 'app/components/Input/FtDatepicker';
 
-  export default {
-    name: 'ReportsList',
-    components: {
-      sidebar: NotificationSidebar,
-      'timeline-item': TimelineItem,
-      report: ReportItem,
-      vselect: vSelect,
-      playerreportpopup: PlayerReportPopup,
-      clubreportpopup: ClubReportPopup,
-      paymentpopup: PaymentPopup,
-      ftdatepicker: FtDatepicker
-    },
-    data() {
-      return {
-        payment: false,
-        reportSelected: null,
-        sort_select: {
-          label: 'Sort by',
-          value: ''
-        },
-        type_select: {
-          label: 'Report Type',
-          value: ''
-        },
-        params: {
-          id: '',
-          headline: '',
-          report_type: '',
-          created_date_from: '',
-          created_date_to: '',
-          created_date: '',
-          sort: ''
-        },
-        options: {
-          report_type: [{
-              label: 'Report Type',
-              value: ''
-            },
-            {
-              label: 'Player',
-              value: 'player'
-            },
-            {
-              label: 'Team',
-              value: 'team'
-            }
-          ],
-          order: [{
-              label: 'Sort by',
-              value: ''
-            },
-            {
-              label: 'Updated date',
-              value: 'updated_at'
-            },
-            {
-              label: 'Type',
-              value: 'Type'
-            },
-            {
-              label: 'Price',
-              value: 'price'
-            }
-          ]
-        }
-      };
-    },
-    computed: {
-      ...mapGetters(['searchReport', 'order', 'stripePayment', 'stripeJs']),
-      listReport() {
-        if (this.searchReport.status === ASYNC_SUCCESS) {
-          return this.searchReport.value.report;
-        }
-        return [];
+export default {
+  name: 'ReportsList',
+  components: {
+    sidebar: NotificationSidebar,
+    'timeline-item': TimelineItem,
+    report: ReportItem,
+    vselect: vSelect,
+    playerreportpopup: PlayerReportPopup,
+    clubreportpopup: ClubReportPopup,
+    paymentpopup: PaymentPopup,
+    ftdatepicker: FtDatepicker
+  },
+  data() {
+    return {
+      payment: false,
+      reportSelected: null,
+      sort_select: {
+        label: 'Sort by',
+        value: ''
       },
-      url() {
-        var params = this.params;
-        if (params.created_date_from) {
-          params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
-        }
-        if (params.created_date_to) {
-          params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
-        }
-        params.sort = this.sort_select.value;
-        params.report_type = this.type_select.value;
-
-        var url = Object.keys(params)
-          .map(function (k) {
-            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-          })
-          .join('&');
-
-        return url;
-      }
-    },
-    mounted() {
-      this.search();
-    },
-    watch: {
-      report() {
-        if (this.report.status === ASYNC_SUCCESS) {
-          var index = this.listReport.findIndex(x => x.id === this.report.value.id);
-          this.listReport[index] = this.report.value;
-          this.$forceUpdate();
-        }
+      type_select: {
+        label: 'Report Type',
+        value: ''
       },
-      order() {
-        if (this.order.status === ASYNC_SUCCESS) {
-          this.$router.push({
-            name: 'clubReport',
-            params: {
-              id: this.reportSelected.id
-            }
-          });
-        }
+      params: {
+        id: '',
+        headline: '',
+        report_type: '',
+        created_date_from: '',
+        created_date_to: '',
+        created_date: '',
+        sort: ''
       },
-    },
-    methods: {
-      ...mapActions(['getReports', 'newOrder', 'StripeCardToken']),
-      viewAction(report) {
-        this.$router.push({
-          name: 'clubReport',
-          params: {
-            id: report.id
+      options: {
+        report_type: [
+          {
+            label: 'Report Type',
+            value: ''
+          },
+          {
+            label: 'Player',
+            value: 'player'
+          },
+          {
+            label: 'Team',
+            value: 'team'
           }
-        });
-      },
-      BuyAction(report) {
-        this.payment = true;
-        this.reportSelected = report;
-        this.$refs.metaModal.show();
-      },
-      hideModal() {
-        this.$refs.metaModal.hide();
-      },
-      summaryAction(report) {
-        this.payment = false;
-        this.reportSelected = report;
-        this.$refs.metaModal.show();
-      },
-      search() {
-        this.getReports(this.url);
-      },
-      paymentAction(token) {
-        this.newOrder({
-          token: token,
-          report_id: this.reportSelected.id
-        });
+        ],
+        order: [
+          {
+            label: 'Sort by',
+            value: ''
+          },
+          {
+            label: 'Updated date',
+            value: 'updated_at'
+          },
+          {
+            label: 'Type',
+            value: 'Type'
+          },
+          {
+            label: 'Price',
+            value: 'price'
+          }
+        ]
+      }
+    };
+  },
+  computed: {
+    ...mapGetters(['searchReport', 'order', 'stripePayment','stripeJs']),
+    listReport() {
+      if (this.searchReport.status === ASYNC_SUCCESS) {
+        return this.searchReport.value.report;
+      }
+      return [];
+    },
+    url() {
+      var params = this.params;
+      if (params.created_date_from) {
+        params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
+      }
+      if (params.created_date_to) {
+        params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
+      }
+      params.sort = this.sort_select.value;
+      params.report_type = this.type_select.value;
+
+      var url = Object.keys(params)
+        .map(function(k) {
+          return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+        })
+        .join('&');
+
+      return url;
+    }
+  },
+  mounted() {
+    this.search();
+  },
+  watch: {
+    report() {
+      if (this.report.status === ASYNC_SUCCESS) {
+        var index = this.listReport.findIndex(x => x.id === this.report.value.id);
+        this.listReport[index] = this.report.value;
+        this.$forceUpdate();
       }
     }
-  };
+  },
+  methods: {
+    ...mapActions(['getReports', 'newOrder', 'StripeCardToken']),
+    viewAction(report) {
+      this.$router.push({ name: 'clubReport', params: { id: report.id } });
+    },
+    BuyAction(report) {
+      this.payment = true;
+      this.reportSelected = report;
+      this.$refs.metaModal.show();
+    },
+    hideModal() {
+      this.$refs.metaModal.hide();
+    },
+    summaryAction(report) {
+      this.payment = false;
+      this.reportSelected = report;
+      this.$refs.metaModal.show();
+    },
+    search() {
+      this.getReports(this.url);
+    }
+  }
+};
 </script>
