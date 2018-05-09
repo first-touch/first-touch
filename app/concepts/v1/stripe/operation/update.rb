@@ -42,7 +42,7 @@ module V1
           stripe_ft = current_user.stripe_ft
           stripe_ft.preferred_account = id
           stripe_ft.save!
-          puts stripe_ft.to_json
+          options['model']['preferred_id'] = stripe_ft.preferred_account
           return true
         end
         false
