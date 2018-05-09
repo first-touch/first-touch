@@ -6,10 +6,13 @@
         <li v-for="error in order.errors.errors" :key="error.id">{{error}}</li>
       </ul>
     </div>
-    <div class="custom-modal-content">
-      <div ref="card"></div>
-      <div class="buttons-inner">
-        <button class="ft-button-success" v-on:click="purchase">Purchase</button>
+    <div class="contentPayment" :class="loading ? 'loading' : ''">
+      <loading class="loader" />
+      <div class="payment">
+        <div ref="card"></div>
+        <div class="buttons-inner">
+          <button class="ft-button-success" v-on:click="purchase">Purchase</button>
+        </div>
 
       </div>
     </div>
@@ -27,8 +30,20 @@ form {
   margin-top: 20px;
 }
 
-.custom-modal-content {
+.contentPayment {
   padding: 50px 10px 20px 10px;
+  .loader {
+    display: none;
+    margin-left: 40%;
+  }
+  &.loading {
+    .loader {
+      display: block;
+    }
+    .payment {
+      display: none;
+    }
+  }
 }
 
 .error {
@@ -45,65 +60,68 @@ form {
 </style>
 
 <script>
-  import {
-    ASYNC_SUCCESS,
-    ASYNC_LOADING,
-    ASYNC_FAIL
-  } from 'app/constants/AsyncStatus';
-  import {
-    StripePublicKey
-  } from 'app/constants/StripeConstant';
-  export default {
-    name: 'PaymentPopup',
-    props: ['report', 'closeAction', 'stripePayment', 'StripeCardToken', 'order', 'newOrder', 'stripeJs'],
-    data() {
-      return {
-        payment_method: '',
-        name: '',
-        credit_card: '',
-        cvv: '',
-        expiry: '',
-        isloading: false,
-        isfailed: false,
-        card: null
-      };
-    },
-    watch: {
-      order() {
-        this.isloading = this.order.status === ASYNC_LOADING;
-        this.isfailed = this.order.status === ASYNC_FAIL;
-        if (this.order.status === ASYNC_SUCCESS) {
-          this.$router.push({
-            name: 'clubReport',
-            params: {
-              id: this.report.id
-            }
-          });
-        }
-      },
-      stripePayment() {
-        if (this.stripePayment.status == ASYNC_SUCCESS) {
-          this.newOrder({
-            token : this.stripePayment.value.token.id,
-            report_id : this.report.id
-          })
-        }
-      }
-    },
-    computed: {
-      elements(){
-        return this.stripeJs.elements();
-      }
-    },
-    mounted: function () {
-      this.card = this.elements.create('card');
-      this.card.mount(this.$refs.card);
-    },
+import { ASYNC_SUCCESS, ASYNC_LOADING, ASYNC_FAIL } from 'app/constants/AsyncStatus';
+import { StripePublicKey } from 'app/constants/StripeConstant';
+import Loading from 'app/components/Loading';
 
-    methods: {
-      purchase: function () {
-        this.StripeCardToken(this.card);
+export default {
+  name: 'PaymentPopup',
+  props: [
+    'report',
+    'closeAction',
+    'stripePayment',
+    'StripeCardToken',
+    'order',
+    'newOrder',
+    'stripeJs'
+  ],
+  components: {
+    loading: Loading
+  },
+  data() {
+    return {
+      isfailed: false,
+      card: null
+    };
+  },
+  watch: {
+    order() {
+      this.isfailed = this.order.status === ASYNC_FAIL;
+      if (this.order.status === ASYNC_SUCCESS) {
+        this.$router.push({
+          name: 'clubReport',
+          params: {
+            id: this.report.id
+          }
+        });
+      }
+    },
+    stripePayment() {
+      if (this.stripePayment.status == ASYNC_SUCCESS) {
+        this.newOrder({
+          token: this.stripePayment.value.token.id,
+          report_id: this.report.id
+        });
       }
     }
-  };
+  },
+  computed: {
+    elements() {
+      return this.stripeJs.elements();
+    },
+    loading() {
+      return this.order.status === ASYNC_LOADING || this.stripePayment.status === ASYNC_LOADING;
+    }
+  },
+  mounted: function() {
+    this.card = this.elements.create('card');
+    this.card.mount(this.$refs.card);
+  },
+
+  methods: {
+    purchase: function() {
+      this.StripeCardToken(this.card);
+    }
+  }
+};
 </script>
