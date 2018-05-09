@@ -26,7 +26,7 @@
             </div>
           </div>
           <div class="buttons-inner col-md-12" v-if="info.external_accounts.length > 1">
-            <button class="ft-button ft-button-success" @click="preferredBank">Make this preferred</button>
+            <button class="ft-button ft-button-success" v-if="preferred != bankAccount.id " @click="preferredBank(bankAccount)">Make this preferred</button>
             <button class="ft-button" @click="deleteBank(bankAccount)">Delete</button>
           </div>
         </div>
@@ -63,7 +63,7 @@
       display: block;
     }
     .empty {
-     display: none;
+      display: none;
     }
   }
   .ft-banks-result {
@@ -128,6 +128,9 @@ export default {
     info() {
       if (this.stripe.value && !this.loading) return this.stripe.value;
       return {};
+    },
+    preferred() {
+      if (this.stripe.value && !this.loading) return this.stripe.value.preferred_account;
     }
   }
 };
