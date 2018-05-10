@@ -29,14 +29,15 @@ module V1
       end
 
       def create_update_bank_account(options,  current_user, token, country)
-        if !current_user.stripe_id.nil?
+        if !current_user.stripe_ft.nil?
           begin
-            account = ::Stripe::Account.retrieve(current_user.stripe_id)
+            account = ::Stripe::Account.retrieve(current_user.stripe_ft.stripe_id)
             options['model'] = account
             account.external_account = token
             account.save
             options['update'] = true
           rescue => e
+            puts e.to_json
             options['stripe.errors'] = e.to_s
           end
         else
@@ -45,7 +46,7 @@ module V1
       end
 
       def create_update_stripe_account(options,  current_user, token, country)
-        if current_user.stripe_id.nil? and country
+        if current_user.stripe_ft.nil? and country
           begin
             account = ::Stripe::Account.create({
             :country => country,
@@ -59,7 +60,7 @@ module V1
           end
         else
           begin
-            account = ::Stripe::Account.retrieve(current_user.stripe_id)
+            account = ::Stripe::Account.retrieve(current_user.stripe_ft.stripe_id)
             account.account_token = token
             account.save
             options['model'] = account
@@ -72,8 +73,15 @@ module V1
 
       def persist_stripe_id!(options,  params:, current_user:, **)
         if !options['stripe_id'].nil?
-          current_user.stripe_id = options['stripe_id']
+          stripe_ft = ::StripeFt.new(
+            stripe_id: options['stripe_id'],
+            user: current_user
+            )
+          current_user.stripe_ft = stripe_ft
           current_user.save!
+          account = options['model']
+          account['preferred_id'] = current_user.stripe_ft.preferred_account
+          options['model'] = account
           true
         elsif options['update']
           true
