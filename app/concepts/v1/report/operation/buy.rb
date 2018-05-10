@@ -41,18 +41,21 @@ module V1
         (stripe_ft.nil?) ? false: stripe_ft.stripe_id
       end
 
-      def made_payment!(options, params:, model:,   **)
+      def made_payment!(options, params:, model:, current_user:,  **)
         card_token = params[:token]
         report = options['model'].report
         user = report.user
         amount = report.price['value'] * 100
         success = false
+        charge = nil
         if amount == 0
           success = true
         elsif !card_token.nil?
           currency = report.price['currency']
-          fees = (amount * 0.05).round
+          ft_fees = (Rails.configuration.stripe[:fees].nil?) ? 0.05: Rails.configuration.stripe[:fees]
+          fees = (amount * ft_fees).round
           if !amount.nil? and !currency.nil?
+            stripe_logger = ::Logger.new("#{Rails.root}/log/stripe.log")
             begin
               charge = ::Stripe::Charge.create({
                 :amount => amount - fees,
@@ -63,17 +66,17 @@ module V1
                   :account => user.stripe_ft.stripe_id,
                 }
               })
-              puts charge.to_json
             rescue => e
+              stripe_logger = ::Logger.new("#{Rails.root}/log/stripe_error.log")
               body = e.json_body
               err = body[:error]
-              puts err.to_json
+              stripe_logger.warn("Charge has been refused for user #{current_user.id} : #{err[:message]}")
               options['stripe.errors'] = [err[:message]]
             end
-            if charge
+            if !charge.nil?
+              stripe_logger.info("Succefully charge for report_id #{report.id} by user #{current_user.id} amount of #{amount} #{currency} stripe_id: #{charge.id}")
               options['stripe_charge_id'] = charge.id
               success = true
-              #TODO Create stripe Transaction model
             end
           end
         end
@@ -88,12 +91,20 @@ module V1
       end
 
       def persist_stripe_transaction!(options, params:, model:,   **)
+        stripe_logger = ::Logger.new("#{Rails.root}/log/stripe_payout.log")
         transaction_params = {
           stripe_id: options['stripe_charge_id'],
           order: model,
-          type_transaction: 'charge'
+          type_transaction: 'charge',
+          payout: false
         }
         result = ::V1::StripeTransaction::Create.(transaction_params)
+        if result.success?
+          stripeTransaction = result['model']
+          ::StripePayoutJob.set(wait: Rails.configuration.stripe[:payout_schedule]).perform_later stripeTransaction.id
+        else
+          stripe_logger.error("StripeTransaction creation failed, Payout had not be schedule, charge_id: #{options['stripe_charge_id']}")
+        end
         true
       end
 
