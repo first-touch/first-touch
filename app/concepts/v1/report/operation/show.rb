@@ -12,9 +12,14 @@ module V1
           model = current_user.reports.find(params[:id])
         elsif current_user.is_a?(::Club) || true
           # Todo: or true need to be remove when club are ready
-          order = current_user.reports_buy.find_by(report_id: params[:id],
-                                                   status: 'completed')
-          model = order.report unless order.blank?
+          free_report = ::Report.find_by("(price->>'value')::int = 0 and id = ?", params[:id])
+          if !free_report.nil?
+            model = free_report
+          else
+            order = current_user.reports_buy.find_by(report_id: params[:id],
+                                                    status: 'completed')
+            model = order.report unless order.blank?
+          end
         end
         options['model.class'] = ::Report
         options['model'] = model

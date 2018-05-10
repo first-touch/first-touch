@@ -6,6 +6,8 @@ module V1
       failure :unauthenticated, fail_fast: true
       step :find_report!
       failure :model_not_found!, fail_fast: true
+      step :find_report!
+      failure :model_not_found!, fail_fast: true
       step :setup_model!
       step :dest_has_stripe!
       failure :stripe_failure!, fail_fast: true
@@ -19,7 +21,7 @@ module V1
 
 
       def find_report!(options, params:, **)
-        options['model'].report = ::Report.find(params[:order]['report_id'])
+        options['model'].report = ::Report.find_by("(price->>'value')::int > 0 and id = ?", params[:order]['report_id'])
         options['model.class'] = ::Order
         !options['model'].report.nil?
       end
@@ -32,7 +34,11 @@ module V1
       end
 
       def dest_has_stripe!(options, params:, model:,   **)
-        model.user.stripe_ft.stripe_id
+        stripe_ft = model.user.stripe_ft
+        if stripe_ft.nil? or stripe_ft.stripe_id.nil?
+          options['stripe.errors'] = ['scout_stripe_not_found']
+        end
+        (stripe_ft.nil?) ? false: stripe_ft.stripe_id
       end
       # Todo: Wait for stripe integration
       def made_payment!(options, params:, model:,   **)
@@ -60,6 +66,7 @@ module V1
             rescue => e
               body = e.json_body
               err = body[:error]
+              puts err.to_json
               options['stripe.errors'] = [err[:message]]
             end
             if charge
