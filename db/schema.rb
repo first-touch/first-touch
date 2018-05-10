@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180509092809) do
+ActiveRecord::Schema.define(version: 20180510081850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -301,6 +301,18 @@ ActiveRecord::Schema.define(version: 20180509092809) do
     t.index ["user_id"], name: "index_stripe_fts_on_user_id"
   end
 
+  create_table "stripe_transactions", force: :cascade do |t|
+    t.text "stripe_id"
+    t.boolean "refounded"
+    t.date "refound_at"
+    t.bigint "order_id"
+    t.text "type_transaction"
+    t.boolean "payout"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_stripe_transactions_on_order_id"
+  end
+
   create_table "team_users", id: :serial, force: :cascade do |t|
     t.integer "team_id"
     t.integer "user_id"
@@ -366,6 +378,7 @@ ActiveRecord::Schema.define(version: 20180509092809) do
   add_foreign_key "request_bids", "users"
   add_foreign_key "requests", "users"
   add_foreign_key "stripe_fts", "users"
+  add_foreign_key "stripe_transactions", "orders"
   add_foreign_key "team_users", "teams"
   add_foreign_key "team_users", "users"
   add_foreign_key "teams_competitions", "competition_seasons"

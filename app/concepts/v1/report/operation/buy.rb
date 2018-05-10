@@ -18,7 +18,7 @@ module V1
       )
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
-
+      step :persist_stripe_transaction!
 
       def find_report!(options, params:, **)
         options['model'].report = ::Report.find_by("(price->>'value')::int > 0 and id = ?", params[:order]['report_id'])
@@ -40,12 +40,12 @@ module V1
         end
         (stripe_ft.nil?) ? false: stripe_ft.stripe_id
       end
-      # Todo: Wait for stripe integration
+
       def made_payment!(options, params:, model:,   **)
         card_token = params[:token]
         report = options['model'].report
         user = report.user
-        amount = report.price['value']
+        amount = report.price['value'] * 100
         success = false
         if amount == 0
           success = true
@@ -55,7 +55,7 @@ module V1
           if !amount.nil? and !currency.nil?
             begin
               charge = ::Stripe::Charge.create({
-                :amount => amount,
+                :amount => amount - fees,
                 :currency => currency,
                 :source => card_token,
                 :application_fee => fees,
@@ -63,6 +63,7 @@ module V1
                   :account => user.stripe_ft.stripe_id,
                 }
               })
+              puts charge.to_json
             rescue => e
               body = e.json_body
               err = body[:error]
@@ -70,17 +71,7 @@ module V1
               options['stripe.errors'] = [err[:message]]
             end
             if charge
-              stripe_ft = user.stripe_ft
-              begin
-                payout = ::Stripe::Payout.create({
-                  :amount => charge.amount - fees,
-                  :currency => currency,
-                  :destination => !(stripe_ft.preferred_account.nil?) ? stripe_ft.preferred_account: nil
-                }, {:stripe_account => stripe_ft.stripe_id})
-                rescue => e
-                  body = e.json_body
-                  puts body.to_json
-                end
+              options['stripe_charge_id'] = charge.id
               success = true
               #TODO Create stripe Transaction model
             end
@@ -94,6 +85,16 @@ module V1
 
       def authorized!(current_user:, **)
         current_user.is_a?(::Club) || true
+      end
+
+      def persist_stripe_transaction!(options, params:, model:,   **)
+        transaction_params = {
+          stripe_id: options['stripe_charge_id'],
+          order: model,
+          type_transaction: 'charge'
+        }
+        result = ::V1::StripeTransaction::Create.(transaction_params)
+        true
       end
 
     end
