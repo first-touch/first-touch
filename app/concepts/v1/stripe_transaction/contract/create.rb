@@ -5,7 +5,6 @@ module V1
         property :order
         property :type_transaction
         property :stripe_id
-        property :payout
 
         validates :order,
                   :type_transaction,
