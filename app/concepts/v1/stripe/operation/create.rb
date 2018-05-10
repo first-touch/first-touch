@@ -79,7 +79,9 @@ module V1
             )
           current_user.stripe_ft = stripe_ft
           current_user.save!
-          options['model']['preferred_id'] = current_user.stripe_ft.preferred_account
+          account = options['model']
+          account['preferred_id'] = current_user.stripe_ft.preferred_account
+          options['model'] = account
           true
         elsif options['update']
           true
