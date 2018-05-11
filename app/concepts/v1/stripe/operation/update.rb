@@ -15,7 +15,6 @@ module V1
           if !account.nil?
             begin
               account.external_accounts.retrieve(id)
-              account['preferred_id'] = current_user.stripe_ft.preferred_account
               options['model'] = account
             rescue => e
               options['stripe.errors'] = e.to_s
@@ -29,23 +28,19 @@ module V1
         id = params[:id]
         type = params[:type]
         account = options['model']
-        if type == 'bank_account'
-          bank_account = account.external_accounts.retrieve(id)
-          if !bank_account.nil?
-            bank_account.default_for_currency = true
-            bank_account.save
-            return true
-          end
-        end
+        success = false
         if type == 'preferred'
           account.external_accounts.retrieve(id)
           stripe_ft = current_user.stripe_ft
           stripe_ft.preferred_account = id
           stripe_ft.save!
-          options['model']['preferred_id'] = stripe_ft.preferred_account
-          return true
+          success = true
         end
-        false
+        if success
+          account['preferred_id'] = current_user.stripe_ft.preferred_account
+          options['model'] = account
+        end
+        success
       end
 
     end

@@ -9,7 +9,7 @@
           :stripe="stripe" :stripeFtouch="stripeFtouch" :submit="custonNewStripe" :getCountryInfo="getStripeRequiredInfo" />
       </b-modal>
       <b-modal class="ft-modal" ref="DeleteBankModal" size="md" @hide="flushDelete()">
-        <confirmdelete v-if="selectedBankAccount" :bankAccount="selectedBankAccount" :stripeDelete="stripeDelete" :deleteAction="deleteBankAccountAction"
+        <confirmdelete v-if="selectedBankAccount" :bankAccount="selectedBankAccount" :stripeFtouch="stripeFtouch" :deleteAction="deleteBankAccountAction"
           :closeAction="closeAction" />
       </b-modal>
       <div class="ft-page">
@@ -73,7 +73,6 @@ export default {
   watch: {
     stripe() {
       this.errors = false;
-      console.log(this.stripe);
       if (this.stripe.saving)
         switch (this.stripe.status) {
           case ASYNC_SUCCESS:

@@ -113,23 +113,23 @@ export default {
     );
   },
   [ActionTypes.DELETE_STRIPE_LOADING] (state) {
-    state.stripeDelete = Object.assign(
+    state.stripeFtouch = Object.assign(
       {},
-      state.stripeDelete,
+      state.stripeFtouch,
       { status: ASYNC_LOADING, saving: false }
     );
   },
   [ActionTypes.DELETE_STRIPE_SUCCESS] (state, stripe) {
-    state.stripeDelete = Object.assign(
+    state.stripeFtouch = Object.assign(
       {},
-      state.stripeDelete,
+      state.stripeFtouch,
       { status: ASYNC_SUCCESS, value: stripe, saving: false }
     );
   },
   [ActionTypes.DELETE_STRIPE_FAILURE] (state, errors) {
-    state.stripeDelete = Object.assign(
+    state.stripeFtouch = Object.assign(
       {},
-      state.stripeDelete,
+      state.stripeFtouch,
       { status: ASYNC_FAIL, errors: errors, saving: false }
     );
   },

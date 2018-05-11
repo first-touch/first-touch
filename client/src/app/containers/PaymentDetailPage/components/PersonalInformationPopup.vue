@@ -21,7 +21,7 @@
           <li>{{errors.error.message}}</li>
         </ul>
         <ul v-if="errors.errors" class="error ftouchErrors">
-          <li>{{errors.errors.message}}</li>
+          <li>{{errors.errors}}</li>
         </ul>
       </div>
       <input type="hidden" name="token" id="token">

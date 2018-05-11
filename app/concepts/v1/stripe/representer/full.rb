@@ -38,6 +38,7 @@ module V1
         property :last4
         property :id
         property :default_for_currency
+        property :currency
       end
     end
   end

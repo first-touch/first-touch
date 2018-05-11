@@ -28,7 +28,7 @@ module Api
 
       def destroy
         result = ::V1::Stripe::Delete.(params, current_user: current_user)
-        response = FirstTouch::Endpoint.(result, ::V1::Order::Representer::Empty)
+        response = FirstTouch::Endpoint.(result, ::V1::Stripe::Representer::Full)
         render json: response[:data], status: response[:status]
       end
     end
