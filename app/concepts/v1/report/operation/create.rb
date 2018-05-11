@@ -57,7 +57,7 @@ module V1
               'user' => model.user,
               'report_id' => model.id
             }
-            result = ::V1::Order::SendMoney.(order_params, user_id: options['bid'].user_id )
+            result = ::V1::Order::SendMoney.(order_params, user_id: options['bid'].user_id, current_user: current_user )
             return result.success?
           end
         end

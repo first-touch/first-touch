@@ -91,8 +91,8 @@ module V1
         }
         result = ::V1::StripeTransaction::Create.(transaction_params)
         if result.success?
-          stripeTransaction = result['model']
-          ::StripePayoutJob.set(wait: Rails.configuration.stripe[:payout_schedule]).perform_later stripeTransaction.id
+          stripe_transaction = result['model']
+          ::StripePayoutJob.set(wait: Rails.configuration.stripe[:payout_schedule]).perform_later stripe_transaction.id
         else
           stripe_logger.error("StripeTransaction creation failed, Payout had not be schedule, charge_id: #{options['stripe_charge_id']}")
         end
