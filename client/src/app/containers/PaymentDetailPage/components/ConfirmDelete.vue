@@ -15,7 +15,7 @@
         </li>
       </ul>
     </div>
-    <div class="content" >
+    <div class="content">
       <div v-if="none">
         <div class="row">
           <p class="col-md-6">Holder name</p>
@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="col-md-12 buttons-inner">
-        <button class="ft-button ft-button-danger" v-if="none" @click="deleteAction()">Delete
+        <button class="ft-button ft-button-danger" v-if="none" @click="startDelete()">Delete
         </button>
         <button class="ft-button ft-button-right" @click="closeAction()">Close
           <span v-if="success">✓</span>
@@ -49,43 +49,59 @@
 </template>
 
 <style lang="scss" scoped>
-.loader {
-  margin-left: 40%;
-}
+  .loader {
+    margin-left: 40%;
+  }
 
-.errors {
-  li {
-    color: red;
-    &:first-letter {
-      text-transform: capitalize;
+  .errors {
+    li {
+      color: red;
+      &:first-letter {
+        text-transform: capitalize;
+      }
     }
   }
-}
 </style>
 
 <script>
-import { ASYNC_SUCCESS, ASYNC_LOADING, ASYNC_FAIL, ASYNC_NONE } from 'app/constants/AsyncStatus';
-import Loading from 'app/components/Loading';
+  import {
+    ASYNC_SUCCESS,
+    ASYNC_LOADING,
+    ASYNC_FAIL,
+    ASYNC_NONE
+  } from 'app/constants/AsyncStatus';
+  import Loading from 'app/components/Loading';
 
-export default {
-  name: 'confirmDelete',
-  props: ['bankAccount', 'deleteAction', 'closeAction', 'stripeDelete'],
-  components: {
-    loading: Loading
-  },
-  computed: {
-    loading() {
-      return this.stripeDelete.status == ASYNC_LOADING;
+  export default {
+    name: 'confirmDelete',
+    props: ['bankAccount', 'deleteAction', 'closeAction', 'stripeFtouch'],
+    components: {
+      loading: Loading
     },
-    errors() {
-      return this.stripeDelete.status == ASYNC_FAIL ? this.stripeDelete.errors.errors : null;
+    data() {
+      return {
+        start: false,
+      }
     },
-    success() {
-      return this.stripeDelete.status == ASYNC_SUCCESS;
+    computed: {
+      loading() {
+        return this.stripeFtouch.status == ASYNC_LOADING;
+      },
+      errors() {
+        return this.stripeFtouch.status == ASYNC_FAIL ? this.stripeFtouch.errors.errors : null;
+      },
+      success() {
+        return this.stripeFtouch.status == ASYNC_SUCCESS && this.start == true;
+      },
+      none() {
+        return this.start == false;
+      }
     },
-    none() {
-      return this.stripeDelete.status == ASYNC_NONE;
+    methods: {
+      startDelete() {
+        this.start = true;
+        this.deleteAction();
+      }
     }
-  }
-};
+  };
 </script>

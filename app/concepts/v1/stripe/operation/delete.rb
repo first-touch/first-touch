@@ -5,6 +5,7 @@ module V1
       failure :model_not_found!, fail_fast: true
       step :delete!
       failure :stripe_failure!, fail_fast: true
+      step :update_preferred_account!
       private
 
       def find!(options,  params:, current_user:, **)
@@ -36,12 +37,27 @@ module V1
             rescue => e
               body = e.json_body
               err = body[:error]
-              options['stripe.errors'] = [I18n.t(err[:type])]
-              # Something else happened, completely unrelated to Stripe
+              options['stripe.errors'] = err[:message]
             end
           end
+          options['model'] = ::Stripe::Account.retrieve(account.id)
         end
         options['stripe.errors'].nil?
+      end
+
+      def update_preferred_account!(options,  params:, current_user:, **)
+        id = params[:id]
+        account = options['model']
+        stripe_ft = current_user.stripe_ft
+        if id == stripe_ft.preferred_account
+          if account.external_accounts.data.length > 0
+            stripe_ft.preferred_account = account.external_accounts.data[0].id
+          else
+            stripe_ft.preferred_account = nil
+          end
+          stripe_ft.save!
+        end
+        true
       end
 
     end

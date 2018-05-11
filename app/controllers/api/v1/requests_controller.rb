@@ -15,7 +15,6 @@ module Api
 
       def create
         result = ::V1::Request::Create.(params, current_user: current_user)
-        puts result['contract.default'].errors
         response = FirstTouch::Endpoint.(result, ::V1::Request::Representer::Full)
         render json: response[:data], status: response[:status]
       end

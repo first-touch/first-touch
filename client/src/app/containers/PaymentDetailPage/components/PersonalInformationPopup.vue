@@ -7,6 +7,13 @@
         </button>
       </div>
     </div>
+    <div class="divSuccess" v-if="success">
+      <ul class="success">
+        <li>
+          Account successfully created !
+        </li>
+      </ul>
+    </div>
     <loading class="loader" />
     <form class="ft-form" action="/create-account" method="post" v-on:submit.prevent="prepareSubmit">
       <div class="row col-md-12" v-if="errors">
@@ -14,7 +21,7 @@
           <li>{{errors.error.message}}</li>
         </ul>
         <ul v-if="errors.errors" class="error ftouchErrors">
-          <li>{{errors.error.message}}</li>
+          <li>{{errors.errors}}</li>
         </ul>
       </div>
       <input type="hidden" name="token" id="token">
@@ -341,6 +348,7 @@ export default {
       }
     },
     prepareSubmit: function() {
+      this.start = true;
       this.legal_entity.dob = Object.assign({}, this.legal_entity.dob, {
         day: this.dob.getDay() + 1,
         month: this.dob.getMonth() + 1,
@@ -350,7 +358,6 @@ export default {
         legal_entity: this.legal_entity,
         tos_shown_and_accepted: true
       };
-      console.log(this.legal_entity);
       this.submit(obj, this.country, 'account');
     },
     removeOwners: function(index) {
