@@ -1,3 +1,5 @@
+require './lib/payment_util'
+
 module V1
   module Report
     class Buy < FirstTouch::Operation
@@ -13,6 +15,7 @@ module V1
       failure :stripe_failure!, fail_fast: true
       step :made_payment!
       failure :stripe_failure!, fail_fast: true
+      step :complete_order!
       step Trailblazer::Operation::Contract::Build(
         constant: Order::Contract::Create
       )
@@ -52,38 +55,26 @@ module V1
           success = true
         elsif !card_token.nil?
           currency = report.price['currency']
-          ft_fees = (Rails.configuration.stripe[:fees].nil?) ? 0.05: Rails.configuration.stripe[:fees]
-          fees = (amount * ft_fees).round
           if !amount.nil? and !currency.nil?
-            stripe_logger = ::Logger.new("#{Rails.root}/log/stripe.log")
-            begin
-              charge = ::Stripe::Charge.create({
-                :amount => amount - fees,
-                :currency => currency,
-                :source => card_token,
-                :application_fee => fees,
-                :destination => {
-                  :account => user.stripe_ft.stripe_id,
-                }
-              })
-            rescue => e
-              stripe_logger = ::Logger.new("#{Rails.root}/log/stripe_error.log")
-              body = e.json_body
-              err = body[:error]
-              stripe_logger.warn("Charge has been refused for user #{current_user.id} : #{err[:message]}")
-              options['stripe.errors'] = [err[:message]]
-            end
+            params = {
+              amount: amount,
+              currency: currency,
+              card_token: card_token,
+              account: user.stripe_ft.stripe_id
+            }
+            charge = PaymentUtil.stripe_charge(params, current_user: current_user)
             if !charge.nil?
-              stripe_logger.info("Succefully charge for report_id #{report.id} by user #{current_user.id} amount of #{amount} #{currency} stripe_id: #{charge.id}")
               options['stripe_charge_id'] = charge.id
               success = true
             end
           end
         end
-        if success
-          model.status = "completed"
-        end
         success
+      end
+
+      def complete_order!(model: ,  **)
+        model.status = "completed"
+        true
       end
 
       def authorized!(current_user:, **)
