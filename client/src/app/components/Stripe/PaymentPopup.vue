@@ -8,12 +8,17 @@
     </div>
     <div class="contentPayment" :class="loading ? 'loading' : ''">
       <loading class="loader" />
-      <div class="payment">
+      <div class="payment" v-if="!success">
         <div ref="card"></div>
         <div class="buttons-inner">
           <button class="ft-button-success" v-on:click="purchase">Purchase</button>
         </div>
-
+      </div>
+      <div v-if="success">
+        <p>Success !</p>
+        <div class="col-md-12 buttons-inner">
+          <button class="ft-button-success ft-button-right" @click="closeAction()">Close</button>
+        </div>
       </div>
     </div>
   </div>
@@ -105,6 +110,9 @@
       },
       loading() {
         return this.result.status === ASYNC_LOADING || this.stripePayment.status === ASYNC_LOADING;
+      },
+      success(){
+        return this.result.status === ASYNC_SUCCESS && this.stripePayment.status === ASYNC_SUCCESS;
       }
     },
     mounted: function () {
