@@ -123,6 +123,13 @@
   align-items: center;
   .row {
     margin: 0 1px;
+    justify-content: space-between;
+    .col-md-6 {
+      flex-basis: calc(50% - 5px);
+    }
+    .col-md-3 {
+      flex-basis: calc(25% - 5px);
+    }
   }
 }
 </style>
