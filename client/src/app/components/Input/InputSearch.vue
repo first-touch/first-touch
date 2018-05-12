@@ -111,6 +111,7 @@
         }
 
         this.$emit('update:val', this.id);
+        this.$emit('update:search', this.value);
         this.search = this.value;
       }
     }
