@@ -94,7 +94,7 @@
           <button class="bar-button center" type="submit">Sign Up</button>
           <fieldset class="col-md-12">
             <div v-if="error" class="alert alert-danger">
-              {{ error }}
+              <em>{{ error }}</em>
             </div>
           </fieldset>
         </form>
@@ -146,6 +146,14 @@
       }
     }
   }
+}
+
+.alert.alert-danger {
+  background: transparent;
+  border: none;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #fff;
 }
 </style>
 <style lang="scss">
