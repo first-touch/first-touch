@@ -49,14 +49,14 @@
             Scouting
           </div>
           <ul class="sub-nav">
-            <li class="sub-nav-item" :class="{ active: page === '/club/request' || !page }">
+            <li class="sub-nav-item" :class="{ active: page === '/club/scouting/request' || !page }">
               <router-link  :to="{ name: 'clubRequestList'}" >Jobs Request</router-link>
             </li>
             <li class="sub-nav-item" :class="{ active: page === '/club/scouting/report/marketplace' || !page }">
               <router-link :to="{ name: 'clubReportMarketplace'}">Report MarketPlace</router-link>
             </li>
             <li class="sub-nav-item" :class="{ active: page === '/club/scouting/report/list' || !page }">
-              <router-link :to="{ name: 'clubReportList'}">My Purchased Reports</router-link>
+              <router-link :to="{ name: 'clubReportList'}">My Reports</router-link>
             </li>
           </ul>
         </li>
