@@ -30,7 +30,7 @@
             <label>Date Of Birth</label>
             <div class="row">
               <select v-model="day" class="form-control col-md-3">
-                <option disabled value="" selected>Date</option>
+                <option disabled value="" selected>Day</option>
                 <option v-for="d in 31" :key="d" :value="d">{{ d }}</option>
               </select>
               <select v-model="month" class="form-control col-md-3">
