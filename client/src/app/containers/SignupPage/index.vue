@@ -29,6 +29,10 @@
           <fieldset class="form-group col-md-12">
             <label>Date Of Birth</label>
             <div class="row">
+              <select v-model="day" class="form-control col-md-3">
+                <option disabled value="" selected>Date</option>
+                <option v-for="d in 31" :key="d" :value="d">{{ d }}</option>
+              </select>
               <select v-model="month" class="form-control col-md-3">
                 <option disabled value="" selected>Month</option>
                 <option value="1">January</option>
@@ -43,10 +47,6 @@
                 <option value="10">October</option>
                 <option value="11">November</option>
                 <option value="12">December</option>
-              </select>
-              <select v-model="day" class="form-control col-md-3">
-                <option disabled value="" selected>Date</option>
-                <option v-for="d in 31" :key="d" :value="d">{{ d }}</option>
               </select>
               <select v-model="year" class="form-control col-md-6">
                 <option disabled value="" selected>Year</option>
