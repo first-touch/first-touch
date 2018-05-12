@@ -275,7 +275,13 @@ export default {
     fetchCountries() {
       fetch('/api/v1/clubs/countries')
         .then(res => res.status === 200 && res.json())
-        .then(({ countries }) => this.$set(this, 'countries', countries));
+        .then(({ countries }) =>
+          this.$set(
+            this,
+            'countries',
+            countries.sort((a, b) => a.country_name > b.country_name),
+          ),
+        );
     },
     updateItems(text) {
       this.$set(this, 'searchText', text);
