@@ -4,6 +4,35 @@
     color: $main-text-color !important;
   }
 }
+.buttons-inner {
+  float: right;
+  button {
+    margin: 0;
+    border: 0;
+    padding: 10px;
+    min-width: 100px;
+    min-height: 20px;
+    border-radius: 10px;
+  }
+  .ft-button {
+    color: $main-text-color;
+    border: 1px solid $main-text-color;
+    background-color: $button-background;
+    cursor: pointer;
+    &:hover {
+      background-color: $button-background-hover;
+    }
+  }
+  .ft-button-success {
+    color: white;
+    min-height: 20px;
+    background-color: $main-header-color;
+    cursor: pointer;
+    &:hover {
+      background-color: $secondary-header-color;
+    }
+  }
+}
 
 .ft-form {
   .ftcheckbox-inner {
@@ -96,33 +125,5 @@
       color: red;
     }
   }
-  .buttons-inner {
-    float: right;
-    button {
-      margin: 0;
-      border: 0;
-      padding: 10px;
-      min-width: 100px;
-      min-height: 20px;
-      border-radius: 10px;
-    }
-    .ft-button {
-      color: $main-text-color;
-      border: 1px solid $main-text-color;
-      background-color: $button-background;
-      cursor: pointer;
-      &:hover {
-        background-color: $button-background-hover;
-      }
-    }
-    .ft-button-success {
-      color: white;
-      min-height: 20px;
-      background-color: $main-header-color;
-      cursor: pointer;
-      &:hover {
-        background-color: $secondary-header-color;
-      }
-    }
-  }
+
 }
