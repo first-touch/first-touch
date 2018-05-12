@@ -87,7 +87,7 @@
                 />
             </div>
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-md-12 tc-container">
             <input type="checkbox" id="tc" name="termsandconditions" v-model="tccheck" />
             <label for="tc">By checking this box, you agree to our <router-link to="/terms_conditions">Terms &amp; Conditions</router-link> </label>
           </fieldset>
@@ -129,6 +129,14 @@
     }
     .col-md-3 {
       flex-basis: calc(25% - 5px);
+    }
+  }
+  .tc-container {
+    #tc {
+      height: 16px;
+    }
+    label {
+      margin-bottom: 0;
     }
   }
 }
