@@ -104,6 +104,7 @@
 </template>
 
 <style lang="scss" scoped>
+@import '~stylesheets/variables.scss';
 .container-fluid {
   background: url('/images/landing-page/team-logo.jpg') no-repeat center center
     fixed;
@@ -137,6 +138,12 @@
     }
     label {
       margin-bottom: 0;
+      a {
+        color: $secondary-text-color;
+      }
+      a:hover {
+        color: $main-text-color;
+      }
     }
   }
 }
