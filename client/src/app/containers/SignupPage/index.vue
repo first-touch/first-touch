@@ -48,7 +48,10 @@
                 <option disabled value="" selected>Date</option>
                 <option v-for="d in 31" :key="d" :value="d">{{ d }}</option>
               </select>
-              <input type="number" v-model="year" class="form-control col-md-6" placeholder="Year" :min="currentYear - 100" :max="currentYear" />
+              <select v-model="year" class="form-control col-md-6">
+                <option disabled value="" selected>Year</option>
+                <option v-for="y in validYears" :key="y" :value="y">{{y}}</option>
+              </select>
             </div>
           </fieldset>
           <fieldset class="form-group col-md-12">
@@ -210,6 +213,15 @@ export default {
       searchText: '',
       error: null,
       currentYear: new Date().getUTCFullYear(),
+      validYears: (() => {
+        const currentYear = new Date().getUTCFullYear();
+        let rtv = [];
+        for (let i = currentYear - 99; i < currentYear - 15; i++) {
+          rtv.push(i);
+        }
+
+        return rtv.reverse();
+      })(),
     };
   },
   methods: {
@@ -219,8 +231,6 @@ export default {
         return this.$set(this, 'error', "Password Doesn't Match!");
       } else if (this.day.length === 0 || this.month.length === 0) {
         return this.$set(this, 'error', 'Please Enter Date of Birth!');
-      } else if (this.year < 1900 || this.year > new Date().getUTCFullYear()) {
-        return this.$set(this, 'error', 'Invalid Year of Birth!');
       } else if (!this.role_name) {
         return this.$set(this, 'error', 'Please choose a role!');
       } else if (!this.tccheck) {
