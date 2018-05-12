@@ -46,7 +46,7 @@ function checkIfLoggedIn (to, from, next) {
   else next();
 }
 
-const router = new VueRouter({
+export const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: '/welcome', component: LandingPage },

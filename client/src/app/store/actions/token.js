@@ -19,4 +19,4 @@ export const attemptLogIn = (store, { email, password }) => {
   });
 };
 
-export const clearToken = store => store.commit(types.TOKEN_CLEAR);
+export const logout = store => store.commit(types.TOKEN_CLEAR);
