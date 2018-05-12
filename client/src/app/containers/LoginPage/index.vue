@@ -21,7 +21,7 @@
             class="bar-button center" type="submit">Login</button>
           <fieldset class="col-md-8">
             <div v-if="error" class="alert alert-danger">
-              {{ error }}
+              <em>{{ error }}</em>
             </div>
           </fieldset>
         </form>
@@ -48,6 +48,14 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.alert.alert-danger {
+  background: transparent;
+  border: none;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #fff;
 }
 </style>
 
