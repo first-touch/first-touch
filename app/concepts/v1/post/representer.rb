@@ -18,7 +18,7 @@ module V1
         end
 
         def author_status
-          'Football Player at F.C. Porto'
+          represented.author.roles.first.name
         end
       end
     end
