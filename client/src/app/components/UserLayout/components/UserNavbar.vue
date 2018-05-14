@@ -113,7 +113,7 @@
       text-transform: uppercase;
       font-weight: 300;
       margin: 0 0 0 20px;
-      padding: 10px 0;
+      padding: 10px 0 10px 7px;
       border-top: 1px solid $main-text-color;
       a {
         color: $main-text-color;

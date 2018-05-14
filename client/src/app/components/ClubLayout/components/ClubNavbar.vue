@@ -136,7 +136,7 @@
         max-height: 0;
         overflow: hidden;
         background-color: $main-text-color;
-        margin-left: 7px;
+        margin: 0 10px;
         display: flex;
         flex-direction: column;
         .sub-nav-item {
@@ -157,6 +157,7 @@
         transition: max-height 1s;
       }
       .nav-item-inner {
+        margin: 0 10px;
         text-transform: uppercase;
         font-weight: 300;
         padding: 10px 0 10px 20px;
@@ -170,9 +171,15 @@
     }
 
     .nav-item.active {
-      .nav-item-inner {
-        border-left: 7px solid $main-header-color;
+      position: relative;
+      &::before {
+        content: '';
+        border-left: 4px solid $main-header-color;
         color: $main-header-color;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 45px;
       }
       .sub-nav {
         max-height: 400px;
