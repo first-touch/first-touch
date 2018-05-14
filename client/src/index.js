@@ -26,6 +26,7 @@ import MyPurchasedReportsPage from 'app/containers/MyPurchasedReportsPage';
 import JobRequestPage from 'app/containers/JobRequestPage';
 import RequestPage from 'app/containers/RequestPage';
 import RequestBidsPage from 'app/containers/RequestBidsPage';
+import ClubPaymentDetails from 'app/containers/ClubPaymentDetailsPage';
 
 import JobsBankPage from 'app/containers/JobsBankPage';
 
@@ -196,6 +197,11 @@ const router = new VueRouter({
           path: '/club/scouting/request/:id/bids',
           component: RequestBidsPage,
           name: 'clubRequestBids'
+        },
+        {
+          path: '/club/scouting/payments',
+          component: ClubPaymentDetails,
+          name: 'ClubPaymentDetails'
         }
       ]
     },
