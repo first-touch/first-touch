@@ -2,7 +2,7 @@ module V1
   module ClubStripe
     class Create < FirstTouch::Operation
       step :before_create!
-      failure :process_payment_failure!, fail_fast: true
+      failure :stripe_failure!, fail_fast: true
       step :create!
       failure :stripe_failure!, fail_fast: true
       step :persist_stripe_id!
@@ -36,12 +36,13 @@ module V1
           end
           customer = Stripe::Customer.retrieve(customer.id)
           rescue => e
-            customer = nil
+            success = false
             body = e.json_body
             err  = body[:error]
             options['stripe.errors'] = err[:message]
         end
         options['model'] = customer
+        success
       end
 
 
