@@ -35,6 +35,8 @@
       flex: 1 0 80%;
       border-radius: 0;
       border: none;
+      font-size: 0.85rem;
+      font-weight: 300;
       &:focus {
         border-color: #ccc;
       }
