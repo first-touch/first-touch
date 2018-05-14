@@ -6,11 +6,25 @@
         <li v-for="error in result.errors.errors" :key="error.id">{{error}}</li>
       </ul>
     </div>
-    <div class="contentPayment" :class="loading ? 'loading' : ''">
+    <div class="contentPayment ft-form" :class="loading ? 'loading' : ''">
       <loading class="loader" />
       <div class="payment" v-if="!success">
-        <div ref="card"></div>
+        <vselect v-model="cardSelect" v-if="!newCard" @input="cardToken = cardSelect.value" :options="cards" :searchable="false"
+        />
+        <div :class="!newCard? 'hide' : ''">
+          <label class="col-sm-12 ftcheckbox-inner col-form-label" :class="saveCard? 'active' : ''">
+            <span class="title" v-if="saveCard"> Save the card for further use</span>
+            <span class="not" v-if="!saveCard"> Do not save the card for further use</span>
+            <ftcheckbox class="ftcheckbox" :value="saveCard" v-on:update:val="saveCard = $event" :trueValue="true" :falseValue="false"
+            />
+          </label>
+          <div ref="card"></div>
+        </div>
         <div class="buttons-inner">
+          <button class="ft-button" v-on:click="newCard = !newCard">
+            <span v-if="!newCard">Add a new card</span>
+            <span v-if="newCard">Use existing card</span>
+          </button>
           <button class="ft-button-success" v-on:click="purchase">Purchase</button>
         </div>
       </div>
@@ -24,8 +38,22 @@
   </div>
 </template>
 
+<style lang="scss">
+  .contentPayment {
+    .selected-tag {
+      color: red;
+    }
+  }
+
+  .hide {
+    display: none;
+  }
+</style>
+
+
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
+
   form {
     border: 1px solid $secondary-header-color;
     padding: 20px;
@@ -48,6 +76,12 @@
       .payment {
         display: none;
       }
+    }
+    .not {
+      color: #ff2121;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 15px;
     }
   }
 
@@ -74,6 +108,8 @@
     StripePublicKey
   } from 'app/constants/StripeConstant';
   import Loading from 'app/components/Loading';
+  import vSelect from 'vue-select';
+  import FtCheckbox from 'app/components/Input/FtCheckbox';
 
   export default {
     name: 'PaymentPopup',
@@ -83,36 +119,68 @@
       'StripeCardToken',
       'stripeJs',
       'paymentAction',
+      'stripeClubCards',
       'result'
     ],
     components: {
-      loading: Loading
+      loading: Loading,
+      vselect: vSelect,
+      ftcheckbox: FtCheckbox
     },
     data() {
       return {
         isfailed: false,
-        card: null
+        card: null,
+        cardSelect: null,
+        cardToken: null,
+        newCard: false,
+        saveCard: true
       };
     },
     watch: {
       stripePayment() {
         if (this.stripePayment.status == ASYNC_SUCCESS) {
-          this.paymentAction(this.token);
+          this.paymentAction(this.token, this.saveCard);
         }
       }
     },
     computed: {
       token() {
-        return (this.stripePayment.value.token.id)
+        return this.stripePayment.value.token.id;
       },
       elements() {
         return this.stripeJs.elements();
       },
       loading() {
-        return this.result.status === ASYNC_LOADING || this.stripePayment.status === ASYNC_LOADING;
+        return (
+          this.result.status === ASYNC_LOADING ||
+          this.stripePayment.status === ASYNC_LOADING ||
+          this.stripeClubCards.status === ASYNC_LOADING
+        );
       },
-      success(){
+      success() {
         return this.result.status === ASYNC_SUCCESS && this.stripePayment.status === ASYNC_SUCCESS;
+      },
+      stripe() {
+        return this.stripeClubCards.status == ASYNC_SUCCESS ? this.stripeClubCards.value : {};
+      },
+      cards() {
+        var options = [];
+        for (var i in this.stripe.cards) {
+          var card = this.stripe.cards[i];
+          options.push({
+            label: ` ${card.brand} **${card.last4} expire on ${card.exp_month}/${card.exp_year} `,
+            value: card.id
+          });
+          if (card.id == this.stripe.default_source)
+            this.cardSelect = {
+              label: `Default: ${card.brand} **${card.last4} expire on ${card.exp_month}/${
+              card.exp_year
+            } `,
+              value: card.id
+            };
+        }
+        return options;
       }
     },
     mounted: function () {
@@ -121,7 +189,10 @@
     },
     methods: {
       purchase: function () {
-        this.StripeCardToken(this.card);
+        if (this.newCard) this.StripeCardToken(this.card);
+        else {
+          this.paymentAction(this.cardToken);
+        }
       }
     }
   };

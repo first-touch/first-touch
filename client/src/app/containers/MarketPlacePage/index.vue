@@ -32,7 +32,7 @@
                 :closeAction="hideModal" />
               <clubreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :buyAction="BuyAction"
                 :closeAction="hideModal" />
-              <paymentpopup v-if="payment" :paymentAction="paymentAction" :closeAction="hideModal" :result="order" :StripeCardToken="StripeCardToken"
+              <paymentpopup v-if="payment" :paymentAction="paymentAction" :closeAction="hideModal" :result="order" :StripeCardToken="StripeCardToken" :stripeClubCards="stripeClubCards"
                 :stripePayment="stripePayment" :stripeJs="stripeJs" />
             </b-modal>
             <report v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :buyAction="BuyAction" :summaryAction="summaryAction"
@@ -58,7 +58,8 @@
     mapActions
   } from 'vuex';
   import {
-    ASYNC_SUCCESS
+    ASYNC_SUCCESS,
+    ASYNC_NONE
   } from 'app/constants/AsyncStatus';
   import TimelineItem from 'app/components/TimelineItem';
   import ReportItem from 'app/components/ReportItem';
@@ -137,7 +138,7 @@
       };
     },
     computed: {
-      ...mapGetters(['searchReport', 'order', 'stripePayment', 'stripeJs']),
+      ...mapGetters(['searchReport', 'order', 'stripePayment', 'stripeJs','stripeClubCards']),
       listReport() {
         if (this.searchReport.status === ASYNC_SUCCESS) {
           return this.searchReport.value.report;
@@ -187,7 +188,7 @@
       },
     },
     methods: {
-      ...mapActions(['getReports', 'newOrder', 'StripeCardToken']),
+      ...mapActions(['getReports', 'newOrder', 'StripeCardToken','getClubsCards']),
       viewAction(report) {
         this.$router.push({
           name: 'clubReport',
@@ -197,6 +198,8 @@
         });
       },
       BuyAction(report) {
+        if (this.stripeClubCards.status == ASYNC_NONE)
+          this.getClubsCards();
         this.payment = true;
         this.reportSelected = report;
         this.$refs.metaModal.show();
@@ -212,12 +215,13 @@
       search() {
         this.getReports(this.url);
       },
-      paymentAction(token) {
+      paymentAction(token, save) {
         this.newOrder({
           token: token,
-          report_id: this.reportSelected.id
+          report_id: this.reportSelected.id,
+          save: save
         });
-      }
+      },
     }
   };
 </script>
