@@ -4,14 +4,14 @@
     <div class="container-fluid">
       <div class="ft-page">
         <h4 class="header">Payments Details Page </h4>
-        <actions :AddPayment="AddPayment">
+        <actions :addPayment="addPayment">
         </actions>
         <timeline-item>
-          <cardslist :stripeClubCards="stripeClubCards"></cardslist>
+          <cardslist :stripeClubCards="stripeClubCards" :deleteCard="deleteCard" :updateCards="updateCards" ></cardslist>
         </timeline-item>
         <b-modal id="metaModal" size="md" ref="metaModal" class="formModal">
-          <paymentpopup :paymentAction="paymentAction" :closeAction="hideModal" :result="stripeClubCard" :StripeCardToken="StripeCardToken" :stripePayment="createClubsCard"
-            :stripeJs="stripeJs" />
+          <addcard :saveCard="saveCard" :closeAction="hideModal" :result="stripeClubCards" :StripeCardToken="StripeCardToken"
+            :stripePayment="stripePayment" :stripeJs="stripeJs" />
         </b-modal>
       </div>
     </div>
@@ -35,7 +35,7 @@
   import NotificationSidebar from 'app/components/NotificationSidebar.vue';
   import CardsList from './components/CardsList.vue';
   import Actions from './components/Actions';
-  import PaymentPopup from 'app/components/Stripe/PaymentPopup';
+  import AddCard from './components/AddCard';
 
   export default {
     name: 'ClubPaymentDetailsPage',
@@ -44,7 +44,7 @@
       'timeline-item': TimelineItem,
       actions: Actions,
       cardslist: CardsList,
-      paymentpopup: PaymentPopup
+      addcard: AddCard
     },
     data() {
       return {
@@ -52,7 +52,7 @@
       };
     },
     computed: {
-      ...mapGetters(['stripeClubCards', 'stripeClubCard']),
+      ...mapGetters(['stripeClubCards', 'stripeClubCard', 'stripeJs','stripePayment']),
       cards() {
         // return this.clubCards.status === ASYNC_SUCCESS? this.clubCards.value : []
       }
@@ -61,9 +61,15 @@
       this.getClubsCards();
     },
     methods: {
-      ...mapActions(['getClubsCards', 'createClubsCard']),
-      AddPayment(){
+      ...mapActions(['getClubsCards', 'createClubsCard', 'StripeCardToken','deleteCard','updateCards']),
+      addPayment() {
         this.$refs.metaModal.show();
+      },
+      hideModal() {
+        this.$refs.metaModal.hide();
+      },
+      saveCard(token) {
+        this.createClubsCard( { token } );
       }
     }
   };

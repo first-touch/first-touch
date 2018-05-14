@@ -1,6 +1,6 @@
 <template>
   <action-item>
-    <button class="timeline-widget-button" @click="AddPayment">
+    <button class="timeline-widget-button" @click="addPayment">
       <span>
         <icon name='edit' scale="1.5"></icon>
       </span>
@@ -20,7 +20,7 @@
 
   export default {
     name: 'Actions',
-    props: ['AddPayment'],
+    props: ['addPayment'],
     components: {
       'action-item': ActionsItem,
       icon: Icon
