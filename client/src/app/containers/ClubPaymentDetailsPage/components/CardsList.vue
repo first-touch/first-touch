@@ -128,8 +128,12 @@
       success() {
         return this.stripeClubCards.status == ASYNC_SUCCESS;
       },
+      failure(){
+        return this.stripeClubCards.status == ASYNC_FAIL;
+      },
       info() {
         if (this.stripeClubCards.value && this.success) return this.stripeClubCards.value;
+        if (this.stripeClubCards.errors && this.failure) return this.stripeClubCards.errors.old_result;
         return {};
       },
       preferred() {

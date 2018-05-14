@@ -10,10 +10,7 @@ export const stripeClubCards = {
   status: ASYNC_NONE,
   value: []
 };
-export const stripeClubCard = {
-  status: ASYNC_NONE,
-  value: []
-};
+
 export default {
   [ActionTypes.GET_CLUB_STRIPE_ACCOUNT_LOADING] (state) {
     state.stripeClubCards = Object.assign({}, state.stripeClubCards, {

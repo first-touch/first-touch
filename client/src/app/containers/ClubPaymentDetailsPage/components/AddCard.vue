@@ -2,15 +2,14 @@
   <div>
     <div class="error" v-if="failed">
       Errors:
-      <ul v-if="result.errors">
-        <li v-for="error in result.errors.errors" :key="error.id">{{error}}</li>
+      <ul v-if="errors">
+        <li>{{errors}}</li>
       </ul>
     </div>
     <div class="contentPayment" :class="loading ? 'loading' : ''">
       <loading class="loader" />
       <div class="payment" v-if="!success">
-        <cardinput ref="cardInput" :stripeJs="stripeJs"
-        />
+        <cardinput ref="cardInput" :stripeJs="stripeJs" />
         <div class="buttons-inner">
           <button class="ft-button ft-button-success" v-on:click="getStripeToken">AddCard</button>
         </div>
@@ -24,7 +23,12 @@
     </div>
   </div>
 </template>
+<style lang="scss">
+  @import '~stylesheets/modal';
+  @import '~stylesheets/form';
 
+
+</style>
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
   form {
@@ -95,11 +99,16 @@
         return this.result.status === ASYNC_SUCCESS && this.stripePayment.status === ASYNC_SUCCESS;
       },
       failed() {
-        return this.result.status === ASYNC_FAIL && this.stripePayment.status === ASYNC_FAIL;
+        return this.result.status === ASYNC_FAIL || this.stripePayment.status === ASYNC_FAIL;
       },
       token() {
         return (this.stripePayment.value.token.id)
       },
+      errors() {
+        if (this.result.status === ASYNC_FAIL)
+          return this.result.errors.errors;
+        return (this.stripePayment.status === ASYNC_FAIL ? this.stripePayment.errors : null);
+      }
     },
     methods: {
       getStripeToken() {
