@@ -37,9 +37,8 @@ export const initialState = {
   stripeRequiredFields,
   stripeDelete,
   stripePayment,
-  stripeJs
-  stripeClubCards,
-  stripeClubCard
+  stripeJs,
+  stripeClubCards
 };
 
 export default Object.assign({},

@@ -8,9 +8,9 @@ module V1
       failure :unauthenticated, fail_fast: true
       step :find_report!
       failure :model_not_found!, fail_fast: true
-      step :find_report!
-      failure :model_not_found!, fail_fast: true
       step :setup_model!
+      step :save_card!
+      failure :model_not_found!, fail_fast: true
       step :dest_has_stripe!
       failure :stripe_failure!, fail_fast: true
       step :made_payment!
@@ -56,13 +56,16 @@ module V1
         elsif !card_token.nil?
           currency = report.price['currency']
           if !amount.nil? and !currency.nil?
-            params = {
+            charge_params = {
               amount: amount,
               currency: currency,
               card_token: card_token,
-              account: user.stripe_ft.stripe_id
+              account: user.stripe_ft.stripe_id,
             }
-            charge = PaymentUtil.stripe_charge(params, current_user: current_user)
+            if (params[:save].nil)? || params[:save] == true) and !current_user.stripe_ft.nil?
+              charge_params['customer'] = current_user.stripe_ft.stripe_id
+            end
+            charge = PaymentUtil.stripe_charge(charge_params, current_user: current_user)
             if !charge.nil?
               options['stripe_charge_id'] = charge.id
               success = true
@@ -70,6 +73,29 @@ module V1
           end
         end
         success
+      end
+
+      def save_card!(options, params:, model:, current_user:,  **)
+        save = params[:save]
+        if save
+          if current_user.stripe_ft.nil?
+            customer = ::Stripe::Customer.create({
+              source: params['token'],
+              email: current_user.email,
+            })
+            stripe_ft = ::StripeFt.new(
+              stripe_id: customer.id,
+              user: current_user
+            )
+            current_user.stripe_ft = stripe_ft
+            current_user.save!
+          else
+            stripe_ft = current_user.stripe_ft
+            customer = ::Stripe::Customer.retrieve(stripe_ft.stripe_id)
+            customer.sources.create(source: params['token'])
+          end
+        end
+        true
       end
 
       def complete_order!(model: ,  **)
