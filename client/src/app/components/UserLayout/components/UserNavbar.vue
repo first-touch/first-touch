@@ -115,6 +115,10 @@
       margin: 0 0 0 20px;
       padding: 10px 0 10px 7px;
       border-top: 1px solid $main-text-color;
+      &:hover {
+        background: #5e5e5e;
+        cursor: pointer;
+      }
       a {
         color: $main-text-color;
       }

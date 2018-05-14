@@ -163,6 +163,10 @@
         padding: 10px 0 10px 20px;
         border-top: 1px solid $main-text-color;
         color: $main-text-color;
+        &:hover {
+          background: #5e5e5e;
+          cursor: pointer;
+        }
       }
     }
 
