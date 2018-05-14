@@ -33,7 +33,7 @@
     flex-wrap: wrap;
     .form-control {
       flex: 1 0 80%;
-      border-radius: 0;
+      // border-radius: 0;
       border: none;
       font-size: 0.85rem;
       font-weight: 300;
@@ -51,7 +51,7 @@
     }
     .input-group-btn .btn {
       flex: 1 0 20%;
-      border-radius: 0;
+      border-radius: 0 0.25rem 0.25rem 0;
       border: none;
       background-color: #fff;
       &:hover {
