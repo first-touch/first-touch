@@ -89,3 +89,11 @@ Vue.filter('preferredFoot', (str) => {
   }
   return str;
 });
+
+Vue.filter('formatNumber', (str, limit) => {
+  str = str.toString();
+  while (str.length < limit) {
+    str = '0' + str;
+  }
+  return str;
+});

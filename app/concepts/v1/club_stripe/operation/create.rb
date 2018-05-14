@@ -2,10 +2,9 @@ module V1
   module ClubStripe
     class Create < FirstTouch::Operation
       step :before_create!
-      failure :stripe_failure!, fail_fast: true
+      failure :process_payment_failure!, fail_fast: true
       step :create!
       step :persist_stripe_id!
-      step :set_preferred_account!
       private
 
       def before_create!(options,  params:, current_user:, **)
@@ -19,7 +18,7 @@ module V1
         result
       end
 
-      def create(options, params:, current_user:, **)
+      def create!(options, params:, current_user:, **)
         customer = nil
         begin
           if current_user.stripe_ft.nil?
@@ -30,10 +29,11 @@ module V1
             options['stripe_id'] = customer.id
           else
             stripe_ft = current_user.stripe_ft
-            customer = Stripe::retrieve.create(stripe_ft.stripe_id)
+            customer = Stripe::Customer.retrieve(stripe_ft.stripe_id)
             customer.sources.create(source: params['token'])
           end
           rescue => e
+            customer = nil
             body = e.json_body
             err  = body[:error]
             options['stripe.errors'] = err[:message]
