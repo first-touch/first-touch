@@ -13,6 +13,7 @@ import bidReducer, { bid, bids } from './bid';
 import stripeReducer, { stripe, stripeFtouch, stripeRequiredFields, stripeDelete, stripeJs } from './stripe';
 import stripePaymentReducer, { stripePayment } from './stripePayment';
 
+import stripeClubReducer, { stripeClubCards, stripeClubCard } from './stripeClub';
 export const initialState = {
   token,
   feed,
@@ -37,6 +38,8 @@ export const initialState = {
   stripeDelete,
   stripePayment,
   stripeJs
+  stripeClubCards,
+  stripeClubCard
 };
 
 export default Object.assign({},
@@ -57,4 +60,5 @@ export default Object.assign({},
   bidReducer,
   stripeReducer,
   stripePaymentReducer
+  stripeClubReducer
 );
