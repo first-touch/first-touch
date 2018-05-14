@@ -6,6 +6,8 @@ import {
   ASYNC_FAILURE
 } from '../../constants/AsyncStatus';
 
+import { router } from '../../../index';
+
 export const token = {
   status: ASYNC_NONE,
   value: null,
@@ -28,11 +30,11 @@ export default {
       value
     });
     localStorage.setItem('auth_token', value);
-    window.location = '/';
+    router.push('/');
   },
   [ActionTypes.TOKEN_CLEAR] (state) {
     state.token = { status: ASYNC_NONE, value: null, err: null };
     localStorage.removeItem('auth_token');
-    window.location = '/users/sign_in';
+    router.push('/users/sign_in');
   }
 };

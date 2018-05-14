@@ -34,6 +34,20 @@ ActiveRecord::Schema.define(version: 20180407014221) do
     t.index ["user_id"], name: "index_app_notifications_on_user_id"
   end
 
+  create_table "attachment_items", force: :cascade do |t|
+    t.integer "attachment_id"
+    t.integer "report_datum_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "attachments", force: :cascade do |t|
+    t.text "url"
+    t.text "filename"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "awards", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "club_id"
@@ -176,6 +190,18 @@ ActiveRecord::Schema.define(version: 20180407014221) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "customer_id"
+    t.integer "price"
+    t.bigint "report_id"
+    t.text "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_orders_on_report_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "personal_profiles", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.string "first_name"
@@ -212,6 +238,42 @@ ActiveRecord::Schema.define(version: 20180407014221) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "report_data", force: :cascade do |t|
+    t.bigint "report_id"
+    t.json "meta_data"
+    t.integer "version"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_report_data_on_report_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.text "headline"
+    t.string "status"
+    t.string "type_report"
+    t.bigint "user_id"
+    t.integer "price"
+    t.bigint "club_id"
+    t.integer "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["club_id"], name: "index_reports_on_club_id"
+    t.index ["user_id"], name: "index_reports_on_user_id"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.text "type_request"
+    t.integer "min_price"
+    t.integer "max_price"
+    t.bigint "user_id"
+    t.date "deadline"
+    t.text "status"
+    t.json "meta_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -310,6 +372,12 @@ ActiveRecord::Schema.define(version: 20180407014221) do
   add_foreign_key "club_users", "users"
   add_foreign_key "competition_seasons", "competitions"
   add_foreign_key "notes", "users"
+  add_foreign_key "orders", "reports"
+  add_foreign_key "orders", "users"
+  add_foreign_key "report_data", "reports"
+  add_foreign_key "reports", "clubs"
+  add_foreign_key "reports", "users"
+  add_foreign_key "requests", "users"
   add_foreign_key "team_users", "teams"
   add_foreign_key "team_users", "users"
   add_foreign_key "teams_competitions", "competition_seasons"
