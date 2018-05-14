@@ -1,9 +1,10 @@
 module Api
   module V1
-    class ClubStripeController < Api::V1::BaseController
+    class ClubStripesController < Api::V1::BaseController
 
-      def index
+      def show
         result = ::V1::ClubStripe::Show.(params, current_user: current_user)
+        puts result['model'].to_json
         response = FirstTouch::Endpoint.(result, ::V1::ClubStripe::Representer::Full)
         render json: response[:data], status: response[:status]
       end

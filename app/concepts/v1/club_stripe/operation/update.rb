@@ -11,10 +11,10 @@ module V1
         id = params[:id]
         type = params[:type]
         if !current_user.stripe_ft.stripe_id.nil?
-          account = ::Stripe::Account.retrieve(current_user.stripe_ft.stripe_id)
+          account = ::Stripe::Customer.retrieve(current_user.stripe_ft.stripe_id)
           if !account.nil?
             begin
-              account.external_accounts.retrieve(id)
+              account.sources.retrieve(id)
               options['model'] = account
             rescue => e
               options['stripe.errors'] = e.to_s
@@ -26,21 +26,9 @@ module V1
 
       def update!(options,  params:, current_user:, **)
         id = params[:id]
-        type = params[:type]
         account = options['model']
-        success = false
-        if type == 'preferred'
-          account.external_accounts.retrieve(id)
-          stripe_ft = current_user.stripe_ft
-          stripe_ft.preferred_account = id
-          stripe_ft.save!
-          success = true
-        end
-        if success
-          account['preferred_id'] = current_user.stripe_ft.preferred_account
-          options['model'] = account
-        end
-        success
+        account.default_source = id
+        options['model'] = account
       end
 
     end
