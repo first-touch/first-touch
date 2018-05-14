@@ -28,7 +28,11 @@ module FirstTouch
         end
       },
       unauthenticated: {
-        rule: ->(result) { result.policy_error? },
+        rule: ->(result) { result.unauthenticated? },
+        resolve: ->(_result, _representer) { { 'data': {}, 'status': :forbidden } }
+      },
+      unauthorized: {
+        rule: ->(result) { result.unauthorized? },
         resolve: ->(_result, _representer) { { 'data': {}, 'status': :unauthorized } }
       },
       not_found: {
@@ -63,7 +67,7 @@ module FirstTouch
         rule = rule_description[:rule] || DEFAULT_MATCHERS[rule_key][:rule]
         resolve = rule_description[:resolve] || DEFAULT_MATCHERS[rule_key][:resolve]
         if rule.nil? || resolve.nil?
-          puts 'Matcher is not properly set. #{rule_key} will be ignored'
+          puts "Matcher is not properly set. #{rule_key} will be ignored"
           next
         end
 

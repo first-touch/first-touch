@@ -57,7 +57,8 @@ Rails.application.routes.draw do
       resources :orders
       resources :requests
       resources :bids
-
+      get 'requests/bids/:request_id', controller: :bids, action: :request_bids
+      post 'requests/bids/:request_id', controller: :bids, action: :accept_bid
     end
   end
 end
