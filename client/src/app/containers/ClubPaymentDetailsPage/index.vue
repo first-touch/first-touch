@@ -7,11 +7,11 @@
         <actions :addPayment="addPayment">
         </actions>
         <timeline-item>
-          <cardslist :stripeClubCards="stripeClubCards" :deleteCard="deleteCard" :updateCards="updateCards" ></cardslist>
+          <cardslist :stripeClubCards="stripeClubCards" :deleteCard="deleteCard" :updateCards="updateCards"></cardslist>
         </timeline-item>
-        <b-modal id="metaModal" size="md" ref="metaModal" class="formModal">
-          <addcard :saveCard="saveCard" :closeAction="hideModal" :result="stripeClubCards" :StripeCardToken="StripeCardToken"
-            :stripePayment="stripePayment" :stripeJs="stripeJs" />
+        <b-modal id="metaModal" size="md" ref="metaModal" class="formModal" @hidden="AddCardHidden">
+          <addcard :saveCard="saveCard" :closeAction="hideModal" :result="stripeClubCards" :StripeCardToken="StripeCardToken" :stripePayment="stripePayment"
+            :stripeJs="stripeJs" />
         </b-modal>
       </div>
     </div>
@@ -29,7 +29,7 @@
     mapActions
   } from 'vuex';
   import {
-    ASYNC_SUCCESS
+    ASYNC_SUCCESS,
   } from 'app/constants/AsyncStatus';
   import TimelineItem from 'app/components/TimelineItem';
   import NotificationSidebar from 'app/components/NotificationSidebar.vue';
@@ -52,7 +52,7 @@
       };
     },
     computed: {
-      ...mapGetters(['stripeClubCards', 'stripeClubCard', 'stripeJs','stripePayment']),
+      ...mapGetters(['stripeClubCards', 'stripeJs', 'stripePayment']),
       cards() {
         // return this.clubCards.status === ASYNC_SUCCESS? this.clubCards.value : []
       }
@@ -61,15 +61,23 @@
       this.getClubsCards();
     },
     methods: {
-      ...mapActions(['getClubsCards', 'createClubsCard', 'StripeCardToken','deleteCard','updateCards']),
+      ...mapActions(['getClubsCards', 'createClubsCard', 'StripeCardToken', 'deleteCard', 'updateCards',
+        'flushStripeCardToken'
+      ]),
       addPayment() {
         this.$refs.metaModal.show();
       },
       hideModal() {
         this.$refs.metaModal.hide();
       },
+      AddCardHidden() {
+        if (this.stripeClubCards.status == ASYNC_SUCCESS)
+          this.flushStripeCardToken();
+      },
       saveCard(token) {
-        this.createClubsCard( { token } );
+        this.createClubsCard({
+          token
+        });
       }
     }
   };

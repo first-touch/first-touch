@@ -2,8 +2,9 @@ module V1
   module ClubStripe
     class Create < FirstTouch::Operation
       step :before_create!
-      failure :process_payment_failure!, fail_fast: true
+      failure :stripe_failure!, fail_fast: true
       step :create!
+      failure :stripe_failure!, fail_fast: true
       step :persist_stripe_id!
       private
 
@@ -13,13 +14,14 @@ module V1
         if !token.nil?
           result = true
         else
-          options['stripe.errors'] = 'token_not_found'
+          options['stripe.errors'] = I18n.t 'token_not_found'
         end
         result
       end
 
       def create!(options, params:, current_user:, **)
         customer = nil
+        success = true
         begin
           if current_user.stripe_ft.nil?
             customer = Stripe::Customer.create({
@@ -32,13 +34,15 @@ module V1
             customer = Stripe::Customer.retrieve(stripe_ft.stripe_id)
             customer.sources.create(source: params['token'])
           end
+          customer = Stripe::Customer.retrieve(customer.id)
           rescue => e
-            customer = nil
+            success = false
             body = e.json_body
             err  = body[:error]
             options['stripe.errors'] = err[:message]
         end
         options['model'] = customer
+        success
       end
 
 
