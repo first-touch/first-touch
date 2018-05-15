@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="error" v-if="isfailed">
+    <div class="error" v-if="errors">
       Errors:
-      <ul v-if="result.errors">
-        <li v-for="error in result.errors.errors" :key="error.id">{{error}}</li>
+      <ul>
+        <li>{{result.errors.errors}}</li>
       </ul>
     </div>
     <div class="contentPayment ft-form" :class="loading ? 'loading' : ''">
@@ -21,7 +21,7 @@
           <div ref="card"></div>
         </div>
         <div class="buttons-inner">
-          <button class="ft-button" v-on:click="newCard = !newCard">
+          <button class="ft-button" v-if="!emptyCard" v-on:click="newCard = !newCard">
             <span v-if="!newCard">Add a new card</span>
             <span v-if="newCard">Use existing card</span>
           </button>
@@ -129,12 +129,12 @@
     },
     data() {
       return {
-        isfailed: false,
         card: null,
         cardSelect: null,
         cardToken: null,
         newCard: false,
-        saveCard: true
+        saveCard: true,
+        emptyCard: false
       };
     },
     watch: {
@@ -142,6 +142,13 @@
         if (this.stripePayment.status == ASYNC_SUCCESS) {
           this.paymentAction(this.token, this.saveCard);
         }
+      },
+      stripeClubCards() {
+        if (this.stripeClubCards.status == ASYNC_SUCCESS)
+          if (this.cards.length == 0) {
+            this.emptyCard = true
+            this.newCard = true
+          }
       }
     },
     computed: {
@@ -160,6 +167,9 @@
       },
       success() {
         return this.result.status === ASYNC_SUCCESS && this.stripePayment.status === ASYNC_SUCCESS;
+      },
+      errors(){
+        return this.result.status === ASYNC_FAIL || this.stripePayment.status === ASYNC_FAIL;
       },
       stripe() {
         return this.stripeClubCards.status == ASYNC_SUCCESS ? this.stripeClubCards.value : {};
