@@ -24,17 +24,17 @@ module V1
         success = true
         begin
           if current_user.stripe_ft.nil?
-            customer = Stripe::Customer.create({
+            customer = ::Stripe::Customer.create({
               source: params['token'],
               email: current_user.email,
             })
             options['stripe_id'] = customer.id
           else
             stripe_ft = current_user.stripe_ft
-            customer = Stripe::Customer.retrieve(stripe_ft.stripe_id)
+            customer = ::Stripe::Customer.retrieve(stripe_ft.stripe_id)
             customer.sources.create(source: params['token'])
           end
-          customer = Stripe::Customer.retrieve(customer.id)
+          customer = ::Stripe::Customer.retrieve(customer.id)
           rescue => e
             success = false
             body = e.json_body
