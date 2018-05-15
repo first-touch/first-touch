@@ -4,7 +4,6 @@ module Api
 
       def show
         result = ::V1::ClubStripe::Show.(params, current_user: current_user)
-        puts result['model'].to_json
         response = FirstTouch::Endpoint.(result, ::V1::ClubStripe::Representer::Full)
         render json: response[:data], status: response[:status]
       end

@@ -15,7 +15,8 @@
           <bids :bids="bids.value" :currency="request.value.price.currency" :getBids="customGetBids" :acceptAction="acceptAction" />
         </timeline-item>
         <b-modal id="metaModal" :size="paymentSuccess? 'md' : 'lg'" ref="metaModal" :class="paymentSuccess? 'successModal' : 'formModal' ">
-          <paymentpopup :paymentAction="paymentAction" :closeAction="hideModal" :result="bid" :StripeCardToken="StripeCardToken" :stripePayment="stripePayment"
+          <paymentpopup :paymentAction="paymentAction" :stripeClubCards="stripeClubCards"
+          :closeAction="hideModal" :result="bid" :StripeCardToken="StripeCardToken" :stripePayment="stripePayment"
             :stripeJs="stripeJs" />
         </b-modal>
       </div>
@@ -71,7 +72,7 @@
       this.customGetBids('');
     },
     computed: {
-      ...mapGetters(['request', 'bids', 'bid', 'stripePayment', 'stripeJs']),
+      ...mapGetters(['request', 'bids', 'bid', 'stripePayment', 'stripeJs','stripeClubCards']),
       paymentSuccess() {
         if (this.bid.status == ASYNC_SUCCESS) {
           if (this.bid.value.status == 'accepted') return true;
@@ -87,7 +88,7 @@
       }
     },
     methods: {
-      ...mapActions(['getRequest', 'getBids', 'updateRequest', 'acceptBid', 'clearBid', 'StripeCardToken']),
+      ...mapActions(['getRequest', 'getBids', 'updateRequest', 'acceptBid', 'clearBid', 'StripeCardToken','getClubsCards']),
       customGetBids(params) {
         this.getBids({
           id: this.$route.params.id,
@@ -95,14 +96,17 @@
         });
       },
       acceptAction(bid) {
-        this.$refs.metaModal.show();
         this.clearBid();
+        this.getClubsCards();
+        this.$refs.metaModal.show();
         this.selected = bid;
       },
-      paymentAction(token) {
+      paymentAction(token, save, usesaved) {
         var params = {
           token,
-          bid_id: this.selected.id
+          bid_id: this.selected.id,
+          save,
+          usesaved
         };
         var obj = {
           id: this.$route.params.id,

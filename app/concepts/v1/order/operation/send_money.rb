@@ -13,7 +13,6 @@ module V1
       step Trailblazer::Operation::Contract::Persist()
 
       def find_model!(options, params:, user_id:, **)
-        puts params.to_json
         options['model.class'] = ::Order
         options['model'] = ::Order.find_by request_bid_id: params['bid_id'], user_id: user_id, status: 'pending_report'
       end
@@ -31,7 +30,6 @@ module V1
 
         stripe_transaction = model.stripe_transactions.find_by(type_transaction: 'charge')
         if !stripe_transaction.nil?
-          puts "PayoutScheduled"
           ::StripePayoutJob.set(wait: Rails.configuration.stripe[:payout_schedule]).perform_later stripe_transaction.id
         else
           stripe_logger = ::Logger.new("#{Rails.root}/log/stripe_payout.log")

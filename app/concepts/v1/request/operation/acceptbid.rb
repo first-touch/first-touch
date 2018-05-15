@@ -5,6 +5,8 @@ module V1
     class AcceptBid < FirstTouch::Operation
       step :find_model!
       failure :model_not_found!, fail_fast: true
+      step :save_card!
+      failure :stripe_failure!, fail_fast: true
       step :payment
       failure :stripe_failure!, fail_fast: true
       step :order
@@ -34,6 +36,40 @@ module V1
         options['model']
       end
 
+      def save_card!(options, params:, model:, current_user:,  **)
+        save = params[:save]
+        success = true
+        if save
+          if current_user.stripe_ft.nil?
+            begin
+              customer = ::Stripe::Customer.create({
+                source: params['token'],
+                email: current_user.email,
+              })
+            rescue => e
+              options['stripe.errors'] = e
+            end
+            params['token'] = customer.default_source
+            stripe_ft = ::StripeFt.new(
+              stripe_id: customer.id,
+              user: current_user
+            )
+            current_user.stripe_ft = stripe_ft
+            current_user.save!
+          else
+            stripe_ft = current_user.stripe_ft
+            begin
+            customer = ::Stripe::Customer.retrieve(stripe_ft.stripe_id)
+            source = customer.sources.create(source: params['token'])
+            rescue => e
+              options['stripe.errors'] = e
+            end
+            params['token'] = source
+          end
+        end
+        success
+      end
+
       def payment(options,  params:, current_user:, **)
         card_token = params[:token]
         bid = options['model']
@@ -46,13 +82,20 @@ module V1
         elsif !card_token.nil?
           currency = bid.price['currency']
           if !amount.nil? and !currency.nil?
-            params = {
+            charge_params = {
               amount: amount,
               currency: currency,
               card_token: card_token,
               account: user.stripe_ft.stripe_id
             }
-            charge = PaymentUtil.stripe_charge(params, current_user: current_user)
+            if params[:save] == true or params[:usesaved]
+              charge_params[:customer] = current_user.stripe_ft.stripe_id
+            end
+            begin
+              charge = PaymentUtil.stripe_charge(charge_params, current_user: current_user)
+            rescue => e
+              options['stripe.errors'] = e
+            end
             if !charge.nil?
               options['stripe_charge_id'] = charge.id
               success = true
