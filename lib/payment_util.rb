@@ -21,13 +21,12 @@ class PaymentUtil
           charge_params['customer'] = params[:customer]
         end
         charge = ::Stripe::Charge.create(charge_params)
-        puts charge
       rescue => e
         stripe_logger = ::Logger.new("#{Rails.root}/log/stripe_error.log")
         body = e.json_body
         err = body[:error]
-        stripe_logger.warn("Charge has been refused for user #{current_user.id} : #{err[:message]}")
-        errors = [err[:message]]
+        stripe_logger.warn("Charge has been refused for user #{current_user.id} with customer id given ? #{!charge_params['customer'].nil?}: #{err[:message]}")
+        raise e
       end
       if charge
         stripe_logger.info("Succefully charge by user #{current_user.id} amount of #{amount} #{params[:currency]} stripe_id: #{charge.id}")

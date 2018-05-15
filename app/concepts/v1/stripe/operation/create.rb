@@ -42,9 +42,7 @@ module V1
             end
             options['update'] = true
           rescue => e
-            body = e.json_body
-            err  = body[:error]
-            options['stripe.errors'] = err[:message]
+            options['stripe.errors'] = e
           end
         else
           options['stripe.errors'] = 'no_stripe_account'
@@ -64,9 +62,7 @@ module V1
           options['stripe_id'] = account.id
           options['model'] = account
           rescue => e
-            body = e.json_body
-            err  = body[:error]
-            options['stripe.errors'] = err[:message]
+            options['stripe.errors'] = e
           end
         else
           begin
@@ -76,9 +72,7 @@ module V1
             options['model'] = account
             options['update'] = true
           rescue => e
-            body = e.json_body
-            err  = body[:error]
-            options['stripe.errors'] = err[:message]
+            options['stripe.errors'] = e
           end
         end
       end

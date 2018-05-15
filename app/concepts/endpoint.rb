@@ -45,27 +45,6 @@ module FirstTouch
             'status': :unprocessable_entity }
         end
       },
-      stripe_errors: {
-        rule: ->(result) { result.failure? && !result['stripe.errors'].nil? },
-        resolve: lambda do |result, _representer|
-          { 'data': { errors: result['stripe.errors'] },
-            'status': :unprocessable_entity }
-        end
-      },
-      stripe_errors: {
-        rule: ->(result) { result.failure? && !result['stripe.errors'].nil? },
-        resolve: lambda do |result, _representer|
-          { 'data': { errors: result['stripe.errors'] },
-            'status': :unprocessable_entity }
-        end
-      },
-      stripe_errors: {
-        rule: ->(result) { result.failure? && !result['stripe.errors'].nil? },
-        resolve: lambda do |result, _representer|
-          { 'data': { errors: result['stripe.errors'] },
-            'status': :unprocessable_entity }
-        end
-      },
       invalid: {
         rule: ->(result) { result.failure? },
         resolve: ->(_result, _representer) { { 'data': {}, 'status': :unprocessable_entity } }
