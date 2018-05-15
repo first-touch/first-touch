@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180510081850) do
+ActiveRecord::Schema.define(version: 20180515091513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -246,7 +246,9 @@ ActiveRecord::Schema.define(version: 20180510081850) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "meta_data"
+    t.bigint "request_id"
     t.index ["club_id"], name: "index_reports_on_club_id"
+    t.index ["request_id"], name: "index_reports_on_request_id"
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
@@ -372,6 +374,7 @@ ActiveRecord::Schema.define(version: 20180510081850) do
   add_foreign_key "orders", "request_bids"
   add_foreign_key "orders", "users"
   add_foreign_key "reports", "clubs"
+  add_foreign_key "reports", "requests"
   add_foreign_key "reports", "users"
   add_foreign_key "request_bids", "reports"
   add_foreign_key "request_bids", "requests"

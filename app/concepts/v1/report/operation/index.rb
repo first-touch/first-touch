@@ -9,26 +9,26 @@ module V1
 
       private
 
-      def find_model!(options, current_user:, **)
+      def find_model!(options, params:, current_user:, **)
         if current_user.is_a?(::User) && current_user.scout?
           options['models'] = current_user.reports
         elsif current_user.is_a?(::Club) || true
           # Todo: remove or true once club are ready
-          options['models'] = club(current_user: current_user)
+          options['models'] = club(params, current_user: current_user)
 
         end
         options['models'].blank?
         options['model.class'] = ::Report
       end
 
-      def club(current_user:)
+      def club(params, current_user:)
         models = ::Report.all
         joins = "LEFT JOIN orders ON orders.customer_id = #{current_user.id}"\
         ' AND orders.report_id = reports.id'
         models = models.joins(joins)
-        models = models.where('reports.status = ? OR orders.status = ?','publish','completed')
+        request = current_user.requests.find(params[:request_id])
+        models = models.where('reports.status = ? OR orders.status = ? OR reports.request_id = ?','publish','completed', (request.nil?) ? nil : request.id)
         models = models.select('reports.*, orders.status AS orders_status')
-        # models = models.group('reports.id', 'orders.status')
       end
 
       def join_orders!(options, params:, current_user:, **)
