@@ -22,7 +22,7 @@
         </div>
         <div class="buttons-inner">
           <button class="ft-button" v-if="!emptyCard" v-on:click="newCard = !newCard">
-            <span v-if="!newCard">Add a new card</span>
+            <span v-if="!newCard">Add a new card {{emptyCard}} </span>
             <span v-if="newCard">Use existing card</span>
           </button>
           <button class="ft-button-success" v-on:click="purchase">Purchase</button>
@@ -151,6 +151,10 @@
             this.emptyCard = true
             this.newCard = true
           }
+        if (this.stripeClubCards.status == ASYNC_FAIL) {
+          this.emptyCard = true
+          this.newCard = true
+        }
       }
     },
     computed: {

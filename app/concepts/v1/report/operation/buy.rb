@@ -62,7 +62,7 @@ module V1
               card_token: card_token,
               account: user.stripe_ft.stripe_id,
             }
-            if params[:save] == true and !current_user.stripe_ft.nil?
+            if params[:save] == true or params[:usesaved] == true
               charge_params[:customer] = current_user.stripe_ft.stripe_id
             end
             begin
