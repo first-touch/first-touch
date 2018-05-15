@@ -34,6 +34,7 @@ module V1
           bid = ::RequestBid.find_by request_id: params[:job_id], user_id: current_user.id, status: ['accepted','joblist']
           options['bid'] = bid
           !bid.blank?
+          model.request_id = bid.request_id
         else
           true
         end

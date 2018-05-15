@@ -3,7 +3,21 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
-        <h4 class="header">My independent reports</h4>
+        <div v-if="request">
+          <h4 class="header">Request</h4>
+          <timeline-item>
+            <request :key="request.id" :request="request" :viewSummary="viewSummary" class="onlyone"></request>
+            <b-modal class="ft-modal" size="lg" ref="requestModal">
+              <div>
+                <playerrequestpopup v-if="request.type_request == 'player' " :request="request" :closeAction="closeAction" />
+                <teamrequestpopup v-if="request.type_request == 'team' " :request="request" :closeAction="closeAction" />
+                <positionrequestpopup v-if="request.type_request == 'position' " :request="request" :closeAction="closeAction" />
+              </div>
+            </b-modal>
+          </timeline-item>
+        </div>
+        <h4 class="header" v-if="!request">Report Marketplace</h4>
+        <h4 class="header" v-if="request">Proposed report</h4>
         <timeline-item>
           <div class="ft-search-widget widget-reports col col-md-12">
             <div class="row">
@@ -32,8 +46,8 @@
                 :closeAction="hideModal" />
               <clubreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :buyAction="BuyAction"
                 :closeAction="hideModal" />
-              <paymentpopup v-if="payment" :paymentAction="paymentAction" :closeAction="hideModal" :result="order" :StripeCardToken="StripeCardToken" :stripeClubCards="stripeClubCards"
-                :stripePayment="stripePayment" :stripeJs="stripeJs" />
+              <paymentpopup v-if="payment" :paymentAction="paymentAction" :closeAction="hideModal" :result="order" :StripeCardToken="StripeCardToken"
+                :stripeClubCards="stripeClubCards" :stripePayment="stripePayment" :stripeJs="stripeJs" />
             </b-modal>
             <report v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :buyAction="BuyAction" :summaryAction="summaryAction"
             />
@@ -69,9 +83,14 @@
   import ClubReportPopup from './components/ClubReportPopup';
   import PaymentPopup from 'app/components/Stripe/PaymentPopup';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
+  import RequestItem from 'app/components/RequestItem';
+  import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
+  import PositionRequestPopup from 'app/components/RequestPopup/PositionRequestPopup';
+  import TeamRequestPopup from 'app/components/RequestPopup/TeamRequestPopup';
 
   export default {
     name: 'ReportsList',
+    props: ['request'],
     components: {
       sidebar: NotificationSidebar,
       'timeline-item': TimelineItem,
@@ -80,7 +99,11 @@
       playerreportpopup: PlayerReportPopup,
       clubreportpopup: ClubReportPopup,
       paymentpopup: PaymentPopup,
-      ftdatepicker: FtDatepicker
+      ftdatepicker: FtDatepicker,
+      request: RequestItem,
+      teamrequestpopup: TeamRequestPopup,
+      playerrequestpopup: PlayerRequestPopup,
+      positionrequestpopup: PositionRequestPopup
     },
     data() {
       return {
@@ -138,7 +161,7 @@
       };
     },
     computed: {
-      ...mapGetters(['searchReport', 'order', 'stripePayment', 'stripeJs','stripeClubCards']),
+      ...mapGetters(['searchReport', 'order', 'stripePayment', 'stripeJs', 'stripeClubCards']),
       listReport() {
         if (this.searchReport.status === ASYNC_SUCCESS) {
           return this.searchReport.value.report;
@@ -155,7 +178,8 @@
         }
         params.sort = this.sort_select.value;
         params.report_type = this.type_select.value;
-
+        if (this.request)
+          params.request_id = this.request.id
         var url = Object.keys(params)
           .map(function (k) {
             return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
@@ -188,7 +212,7 @@
       },
     },
     methods: {
-      ...mapActions(['getReports', 'newOrder', 'StripeCardToken','getClubsCards']),
+      ...mapActions(['getReports', 'newOrder', 'StripeCardToken', 'getClubsCards']),
       viewAction(report) {
         this.$router.push({
           name: 'clubReport',
@@ -222,6 +246,12 @@
           save: save
         });
       },
+      closeAction(request) {
+        this.$refs.requestModal.hide();
+      },
+      viewSummary(request) {
+        this.$refs.requestModal.show();
+      }
     }
   };
 </script>

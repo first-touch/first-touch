@@ -3,7 +3,8 @@ class Report < ApplicationRecord
   belongs_to :club, optional: true
   belongs_to :player, class_name: 'User'
   has_many :attachments
-
+  has_one :request_bid
+  has_one :request, through: :request_bid
   has_many :orders
 
   # Todo: Valid price in json
