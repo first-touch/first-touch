@@ -7,7 +7,13 @@ module V1
         property :legal_entity
         property :country
         property :default_currency
-
+        property :preferred_account, getter: lambda { |represented:, **|
+          begin
+           represented.preferred_id
+          rescue StandardError
+            'N/A'
+          end
+        }
         property :external_accounts, getter: lambda { |represented:, **|
           if represented.external_accounts.data
             obj = []

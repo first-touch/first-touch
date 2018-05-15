@@ -11,8 +11,8 @@ module V1
       def find!(options,  params:, current_user:, **)
         options['model.class'] = ::Stripe::Account
         id = params[:id]
-        if !current_user.stripe_id.nil?
-          account = ::Stripe::Account.retrieve(current_user.stripe_id)
+        if !current_user.stripe_ft.nil?
+          account = ::Stripe::Account.retrieve(current_user.stripe_ft.stripe_id)
           if !account.nil?
             begin
               account.external_accounts.retrieve(id)

@@ -3,8 +3,8 @@
     <sidebar />
     <div class="container-fluid">
       <b-modal ref="metaModal" id="metaModal" size="lg" @hide="flushEdit()">
-        <personalinformationpopup v-if="personalInformation" :submit="custonNewStripe" :stripeRequired="stripeRequiredFields" :stripe="stripe" :stripeFtouch="stripeFtouch"
-          :closeAction="closeAction" :getCountryInfo="getStripeRequiredInfo" />
+        <personalinformationpopup v-if="personalInformation" :submit="custonNewStripe" :stripeRequired="stripeRequiredFields" :stripe="stripe"
+          :stripeFtouch="stripeFtouch" :closeAction="closeAction" :getCountryInfo="getStripeRequiredInfo" />
         <bankaccountpopup v-if="bank" :PersonalInformationAction="PersonalInformation" :closeAction="closeAction" :stripeRequired="stripeRequiredFields"
           :stripe="stripe" :stripeFtouch="stripeFtouch" :submit="custonNewStripe" :getCountryInfo="getStripeRequiredInfo" />
       </b-modal>
@@ -155,7 +155,8 @@ export default {
       'getStripeRequiredInfo',
       'deleteStripe',
       'flushDelete',
-      'flushStripe'
+      'flushStripe',
+      'updateStripe'
     ]),
     PersonalInformation() {
       this.personalInformation = true;
@@ -183,14 +184,19 @@ export default {
     },
     deleteBank(bankInfo) {
       this.selectedBankAccount = bankInfo;
-      console.log(bankInfo);
       this.$refs.DeleteBankModal.show();
     },
     flushEdit() {
       this.bank = false;
       this.personalInformation = false;
     },
-    preferredBank(bankInfo) {},
+    preferredBank(bankInfo) {
+      var obj = {
+        type: 'preferred',
+        id: bankInfo.id
+      };
+      this.updateStripe(obj);
+    },
     closeAction() {
       this.$refs.metaModal.hide();
       this.$refs.DeleteBankModal.hide();

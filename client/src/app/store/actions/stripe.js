@@ -87,3 +87,21 @@ export const deleteStripe = (store, data) => {
     }
   });
 };
+
+export const updateStripe = (store, data) => {
+  store.commit(ActionTypes.SAVE_STRIPE_ACCOUNT_LOADING);
+  fetch('/api/v1/stripe', {
+    method: 'PUT',
+    headers: {
+      Authorization: store.state.token.value,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(res => {
+    if (res.status >= 200 && res.status < 400) {
+      res.json().then(r => store.commit(ActionTypes.SAVE_STRIPE_ACCOUNT_SUCCESS, r));
+    } else {
+      res.json().then(r => store.commit(ActionTypes.SAVE_STRIPE_ACCOUNT_FAILURE, r));
+    }
+  });
+};
