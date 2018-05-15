@@ -180,6 +180,12 @@ const router = new VueRouter({
           name: 'clubReportMarketplace'
         },
         {
+          path: '/club/scouting/report/proposed',
+          component: MarketPlacePage,
+          name: 'clubReportProposed',
+          props: true
+        },
+        {
           path: '/club/scouting/report/list',
           component: MyPurchasedReportsPage,
           name: 'clubReportList'
