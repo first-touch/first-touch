@@ -17,7 +17,7 @@ module V1
           end
         end
         options['result.model'] = result = Result.new(!model.nil?, {})
-        !options['model'].nil?
+        true
       end
 
     end

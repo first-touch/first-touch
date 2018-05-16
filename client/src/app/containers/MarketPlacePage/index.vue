@@ -67,7 +67,7 @@
   import vSelect from 'vue-select';
   import NotificationSidebar from 'app/components/NotificationSidebar.vue';
   import PlayerReportPopup from './components/PlayerReportPopup';
-  import ClubReportPopup from './components/ClubReportPopup';
+  import TeamReportPopup from './components/TeamReportPopup';
   import PaymentPopup from 'app/components/Stripe/PaymentPopup';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import RequestItem from 'app/components/RequestItem';

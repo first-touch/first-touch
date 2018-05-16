@@ -241,14 +241,15 @@ ActiveRecord::Schema.define(version: 20180515091513) do
     t.string "type_report"
     t.bigint "user_id"
     t.json "price"
-    t.bigint "club_id"
+    t.bigint "team_id"
     t.integer "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "meta_data"
+    t.integer "league_id"
     t.bigint "request_id"
-    t.index ["club_id"], name: "index_reports_on_club_id"
     t.index ["request_id"], name: "index_reports_on_request_id"
+    t.index ["team_id"], name: "index_reports_on_team_id"
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
@@ -274,6 +275,9 @@ ActiveRecord::Schema.define(version: 20180515091513) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "price"
+    t.integer "player_id"
+    t.integer "team_id"
+    t.integer "league_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
@@ -349,6 +353,7 @@ ActiveRecord::Schema.define(version: 20180515091513) do
     t.string "password_digest"
     t.datetime "last_logout_at"
     t.boolean "unclaimed"
+    t.text "stripe_id"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -373,7 +378,7 @@ ActiveRecord::Schema.define(version: 20180515091513) do
   add_foreign_key "orders", "reports"
   add_foreign_key "orders", "request_bids"
   add_foreign_key "orders", "users"
-  add_foreign_key "reports", "clubs"
+  add_foreign_key "reports", "clubs", column: "team_id"
   add_foreign_key "reports", "requests"
   add_foreign_key "reports", "users"
   add_foreign_key "request_bids", "reports"

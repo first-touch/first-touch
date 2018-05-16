@@ -21,6 +21,12 @@ module FirstTouch
           { 'data': representer.new(result['models']), 'status': :ok }
         end
       },
+      success_not_found: {
+        rule: ->(result) { result.success? && result['model'].nil? },
+        resolve: lambda do |result, representer|
+          { 'data': {}, 'status': :ok }
+        end
+      },
       success: {
         rule: ->(result) { result.success? && !result['model'].nil? },
         resolve: lambda do |result, representer|
