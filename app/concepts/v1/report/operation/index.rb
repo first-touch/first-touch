@@ -26,8 +26,12 @@ module V1
         joins = "LEFT JOIN orders ON orders.customer_id = #{current_user.id}"\
         ' AND orders.report_id = reports.id'
         models = models.joins(joins)
-        request = current_user.requests.find(params[:request_id])
-        models = models.where('reports.status = ? OR orders.status = ? OR reports.request_id = ?','publish','completed', (request.nil?) ? nil : request.id)
+        request = current_user.requests.find(params[:request_id]) if params[:request_id]
+        if !request.nil?
+          models = models.where('reports.request_id = ?',request.id)
+        else
+          models = models.where('reports.status = ? OR orders.status = ?','publish','completed')
+        end
         models = models.select('reports.*, orders.status AS orders_status')
       end
 
@@ -67,7 +71,7 @@ module V1
         models = add_where(models, 'reports.id = ', params[:id])
         models = add_where(models, 'reports.type_report = ', params[:type_report])
         models = add_where(models, 'reports.headline iLIKE ', "%#{params[:headline]}%")
-        models = add_where(models, 'users.search_string iLIKE ', "%#{params[:user_name]}%")
+        models = add_where(models, 'users.search_string iLIKE ', "%#{params[:scout_name]}%")
         models = filters_date(models, params)
         models = filters_price(models, params)
         options['models'] = models
@@ -79,10 +83,8 @@ module V1
       end
 
       def filters_price(models, _params)
-        # Todo: to be review after switching price to json (to add the currency)
-        # price_min = (params[:price_min].blank?) ? 0 : params[:price_min].to_i
-        # price_max = (params[:price_max].blank?) ? 999999 : params[:price_max].to_i
-        # models = models.where price: price_min..price_max
+        models = models.where("(reports.price->>'value')::int >= ?", _params[:min_price]) unless _params[:min_price].blank?
+        models = models.where("(reports.price->>'value')::int <= ?", _params[:max_price]) unless _params[:max_price].blank?
         models
       end
 
