@@ -25,20 +25,7 @@
                 <h6 class="list-title">Reports Count</h6>
                 <h1 class="list-count">{{listReport.length}}</h1>
               </div>
-              <form @submit.prevent="search" class="col-md-10">
-                <div class="row">
-                  <fieldset class="col-md-3 filter">
-                    <vselect v-model="type_select" @input="search" :options="options.report_type" :searchable="false" />
-                  </fieldset>
-                  <ftdatepicker class="col-md-3 filter form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
-                  />
-                  <fieldset class="col-md-3 filter form-control">
-                    <input class="col-sm-12 form-control" placeholder="Search tags" type="text" v-model="params.headline" />
-                  </fieldset>
-                  <fieldset class="col-md-3 filter">
-                    <vselect v-model="sort_select" @input="search" :options="options.order" :searchable="false" />
-                  </fieldset>
-                </div>
+              <filters :request="proposed ? request : null" ref="filter" v-on:update:search="search();"></filters>
               </form>
             </div>
             <b-modal id="metaModal" size="lg" ref="metaModal">
@@ -87,9 +74,10 @@
   import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
   import PositionRequestPopup from 'app/components/RequestPopup/PositionRequestPopup';
   import TeamRequestPopup from 'app/components/RequestPopup/TeamRequestPopup';
+  import Filters from './components/Filters';
 
   export default {
-    name: 'ReportsList',
+    name: 'MarketPlace',
     props: ['request'],
     components: {
       sidebar: NotificationSidebar,
@@ -103,7 +91,8 @@
       request: RequestItem,
       teamrequestpopup: TeamRequestPopup,
       playerrequestpopup: PlayerRequestPopup,
-      positionrequestpopup: PositionRequestPopup
+      positionrequestpopup: PositionRequestPopup,
+      filters: Filters
     },
     data() {
       return {
@@ -162,6 +151,9 @@
     },
     computed: {
       ...mapGetters(['searchReport', 'order', 'stripePayment', 'stripeJs', 'stripeClubCards']),
+      proposed() {
+        return this.$route.name == 'clubReportProposed'
+      },
       listReport() {
         if (this.searchReport.status === ASYNC_SUCCESS) {
           return this.searchReport.value.report;
@@ -178,8 +170,10 @@
         }
         params.sort = this.sort_select.value;
         params.report_type = this.type_select.value;
-        if (this.request)
-          params.request_id = this.request.id
+        if (this.proposed)
+          params.request_id = this.request.id;
+        else if (params.request_id)
+          delete(params.request_id)
         var url = Object.keys(params)
           .map(function (k) {
             return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
@@ -190,6 +184,11 @@
       }
     },
     mounted() {
+      if (!this.request && this.$route.name == 'clubReportProposed') {
+        this.$router.push({
+          name: 'clubReportMarketplace',
+        });
+      }
       this.search();
     },
     watch: {
@@ -199,6 +198,9 @@
           this.listReport[index] = this.report.value;
           this.$forceUpdate();
         }
+      },
+      proposed() {
+        this.search();
       },
       order() {
         if (this.order.status === ASYNC_SUCCESS) {
@@ -237,7 +239,7 @@
         this.$refs.metaModal.show();
       },
       search() {
-        this.getReports(this.url);
+        this.getReports(this.$refs.filter.url);
       },
       paymentAction(token, save, usesaved) {
         this.newOrder({
