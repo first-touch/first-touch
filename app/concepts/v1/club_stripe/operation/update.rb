@@ -28,6 +28,7 @@ module V1
         id = params[:id]
         account = options['model']
         account.default_source = id
+        account.save
         options['model'] = account
       end
 
