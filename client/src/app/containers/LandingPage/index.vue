@@ -281,5 +281,8 @@ export default {
       });
     });
   },
+  beforeDestroy() {
+    $(window).off('scroll');
+  },
 };
 </script>
