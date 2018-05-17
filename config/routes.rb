@@ -56,6 +56,10 @@ Rails.application.routes.draw do
       get 'reports/list/purchased', controller: :reports, action: :purchased
       resources :orders
       resources :requests
+      resources :bids
+      get 'requests/bids/:request_id', controller: :bids, action: :requestbids
+      post 'requests/bids/:request_id', controller: :bids, action: :acceptbid
+
     end
   end
 end

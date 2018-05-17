@@ -19,19 +19,19 @@ module Api
         begin
           user = ::User.find(chat_params[:chat_with_id])
         rescue ActiveRecord::RecordNotFound => e
-          render json: { error: "User not found" }, status: :unprocessable_entity
+          render json: { error: 'User not found' }, status: :unprocessable_entity
           return
         end
 
         full_chat = @current_user.full_chat_with user
 
         render json: {
-                 chat_with: {
-                   id: user.id,
-                   display_name: user.display_name
-                 },
-                 messages: full_chat
-               }, status: :ok
+          chat_with: {
+            id: user.id,
+            display_name: user.display_name
+          },
+          messages: full_chat
+        }, status: :ok
       end
 
       def create
@@ -48,10 +48,10 @@ module Api
 
       def message_params
         params.require(:message)
-          .permit(:message_body,
-                  message_recipient_attributes: [
-                    :recipient_id
-                  ])
+              .permit(:message_body,
+                      message_recipient_attributes: [
+                        :recipient_id
+                      ])
       end
 
       def chat_params

@@ -4,7 +4,7 @@ module V1
       class Create < Reform::Form
         property :url
         property :filename
-
+        property :report
       end
     end
   end

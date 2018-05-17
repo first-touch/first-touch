@@ -10,7 +10,7 @@ export const newOrder = (store, order) => {
     },
     body: JSON.stringify(order)
   }).then(res => {
-    if (res.status === 200) {
+    if (res.status >= 200 && res.status < 400) {
       res.json().then(r => store.commit(ActionTypes.ORDER_REPORT_SUCCESS, r));
     } else {
       res.json().then(r => store.commit(ActionTypes.ORDER_REPORT_FAILURE, r));

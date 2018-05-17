@@ -47,14 +47,8 @@
           return 'network';
         } else if (/\/users\/\d+\/profile/.test(path)) {
           return 'profile';
-        } else if (path === '/report/create') {
-          return 'scouting/report/create';
-        } else if (path === '/report/marketplace') {
-          return 'scouting/report/marketplace';
-        } else if (path === '/jobs/list') {
-          return 'scouting/jobs/list';
-        } else if (/\/report/.test(path)) {
-          return 'scouting/report/';
+        } else if (/\/scouting/.test(path)) {
+          return path;
         }
         return 'home';
       },

@@ -18,5 +18,11 @@ module FirstTouch
       error_message = I18n.t('models.not_found', model: model_name)
       options['result.model.errors'] = [error_message]
     end
+
+    def stripe_failure!(options, **)
+      error_message = options['stripe.errors']
+      options['result.model.errors'] = [error_message]
+    end
+
   end
 end

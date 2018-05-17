@@ -11,7 +11,7 @@ module V1
           user_list = user_list.where(
             'search_string ILIKE ?', "%#{query_params}%"
           )
-          if FirstTouch::REGISTERABLE_ROLE_NAMES.include?  params[:role]
+          if FirstTouch::REGISTERABLE_ROLE_NAMES.include? params[:role]
             user_list = user_list.with_role params[:role]
           end
           options['models'] = user_list

@@ -43,10 +43,12 @@ class User < ApplicationRecord
   has_many :reports
   has_many :orders
 
-  #@TODO put this in team when they are ready
+  # Todo: put this in team when they are ready
   has_many :requests
+  has_many :request_bids
   has_many :reports_buy, foreign_key: :customer_id, class_name: 'Order'
-  #/TODO
+  has_one :stripe_ft
+  # /TODO
   before_save :update_search_string, if: -> { email_changed? }
 
   def connection_status(user)
@@ -153,5 +155,9 @@ class User < ApplicationRecord
 
   def career_history
     career_entries.order(start_date: :desc)
+  end
+
+  def scout?
+    !roles.find_by(name: 'scout').blank?
   end
 end

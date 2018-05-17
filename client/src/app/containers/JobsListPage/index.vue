@@ -3,7 +3,9 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
-          <reportlist />
+        <actions class="widget"/>
+          <bidslist class="widget" />
+          <reportlist class="widget" />
       </div>
     </div>
   </div>
@@ -11,19 +13,26 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
+.widget {
+  margin-bottom: 20px;
+}
 </style>
 
 <script>
 import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import ReportList from './components/ReportsList';
+import BidsList from './components/BidsList';
+import Actions from './components/Actions';
 
 export default {
   name: 'JobList',
   components: {
     sidebar: NotificationSidebar,
-    reportlist: ReportList
+    actions: Actions,
+    reportlist: ReportList,
+    bidslist: BidsList
   },
-  data () {
+  data() {
     return {
       reportSelected: null
     };

@@ -3,223 +3,218 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
-        <h3>My Purchased Reports</h3>
-        <div class="widget col col-md-12">
-          <div class="widget-header">
-            <p> No of Completed Report
-              <span v-once> {{listReport.length}}</span>
-            </p>
-          </div>
-          <div class="widget-content">
-            <h5>Filter</h5>
-            <form @submit.prevent="search">
-              <fieldset class="form-group col-md-2 filter">
-                <label class="col-sm-12">Report ID</label>
-                <input class="col-md-12" type="text" v-model="params.id" />
-              </fieldset>
-              <fieldset class="form-group col-md-2 filter">
-                <label class="col-sm-12">Scout Name</label>
-                <input class="col-sm-12" type="text" v-model="params.user_name" />
-              </fieldset>
-              <fieldset class="form-group col-md-2 filter">
-                <label class="col-sm-12">Report Status</label>
-                <select name="status" class="col-sm-12" id="report-status"></select>
-              </fieldset>
-              <fieldset class="form-group col-md-4 filter">
-                <label class="col-sm-12">Price Range (Min - Max)</label>
-                <input type="number" class="col-sm-5" v-model="params.price_min" />
-                <span class="separator">—</span>
-                <input type="number" class="col-sm-5" v-model="params.price_max" />
-              </fieldset>
-              <fieldset class="form-group col-md-2 filter">
-                <label class="col-sm-12"> - </label>
-                <button class="btn-info">Filter</button>
-              </fieldset>
-            </form>
-
-            <div class="header col col-md-12">
-              <p :class="[params.order == 'id'? 'active':'','order','col col-md-3']" @click="params.order = 'id'; search()">REPORT ID</p>
-              <p :class="[params.order == 'username'? 'active':'','order','col col-md-3']" @click="params.order = 'username'; search()">SCOUT'S NAME</p>
-              <p :class="[params.order == 'price'? 'active':'','order','col col-md-3']" @click="params.order = 'created_on'; search()">REPORT PRICE</p>
-              <p :class="[params.order == 'status'? 'active':'','order','col col-md-3']" @click="params.order = 'status'; search()">STATUS</p>
-              <p class="col col-md-3">ACTION</p>
+        <h4 class="header">My independent reports</h4>
+        <timeline-item>
+          <div class="widget-reports ft-search-widget col col-md-12">
+            <div class="row">
+              <div class="col-md-2">
+                <h6 class="list-title">Reports Count</h6>
+                <h1 class="list-count">{{listReport.length}}</h1>
+              </div>
+              <form @submit.prevent="search" class="col-md-10">
+                <div class="row">
+                  <fieldset class="col-md-3 filter">
+                    <vselect v-model="type_select" @input="search" :options="options.report_type" :searchable="false" />
+                  </fieldset>
+                  <ftdatepicker class="col-md-3 filter form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
+                  />
+                  <fieldset class="col-md-3 filter form-control">
+                    <input class="col-sm-12 form-control" placeholder="Search tags" type="text" v-model="params.headline" />
+                  </fieldset>
+                  <fieldset class="col-md-3 filter">
+                    <vselect v-model="sort_select" @input="search" :options="options.order" :searchable="false" />
+                  </fieldset>
+                </div>
+              </form>
             </div>
-
-            <div class="newResult col col-md-12" v-if="listReport.length > 0" v-for="report in listReport" :key="report.id">
-              <p class="col col-md-3">{{report.id | reportId(report.type_report)}}</p>
-              <p class="col col-md-3" :title="report.headline">
-                {{report.user.first_name}} {{report.user.last_name}}
-              </p>
-              <p class="col col-md-3">{{report.orders_price}}</p>
-              <p class="col col-md-3">
-                {{report.status}}
-              </p>
-              <p class="col col-md-3">
-                <span class="action col-4 ">
-                  <router-link :to="`/club/report/${report.id}`">View Report</router-link>
-                </span>
-                <span class="action col-4">
-                  <a href="#">Request Refund</a>
-                </span>
-              </p>
-            </div>
+            <report v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :refundAction="refundAction"
+            />
           </div>
-        </div>
+        </timeline-item>
       </div>
     </div>
   </div>
 </template>
+<style lang="scss">
+@import '~stylesheets/variables';
+@import '~stylesheets/form';
+@import '~stylesheets/search';
+</style>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/variables';
-  .widget {
-    color: $secondary-text-color;
-    background: $div-filter-background;
-    padding-left: 10px;
-    .widget-content {
-      padding: 0 30px 20px 30px;
-      form {
-        background: white;
-        overflow: hidden;
-        border: 1px solid black;
-        label {
-          padding: 0;
-          color: black;
-        }
-      }
+@import '~stylesheets/variables';
 
-      .header {
-        font-size: 13px;
-        padding: 0;
-        background: white;
-        color: black;
-        text-align: left;
-        margin: 0;
-        overflow: hidden;
-        margin: 30px 0;
-        max-height: 50px;
-
-        p {
-          border: 1px solid black;
-          padding: 20px 0 20px 0px;
-          font-weight: bold;
-          float: left;
-          text-align: center;
-          width: 20%;
-          &.order {
-            cursor: pointer;
-            &.active {
-              text-decoration: underline;
-            }
-          }
-        }
+.widget-reports {
+  color: $main-text-color;
+  .form-control {
+    padding: 0;
+  }
+  .list-title {
+    color: $main-text-color;
+    font-size: 0.95em;
+    text-transform: uppercase;
+  }
+  .list-count {
+    color: $main-header-color;
+    font-size: 4em;
+    text-align: center;
+  }
+  .filter {
+    margin: 5px;
+    max-width: 23%;
+    input,
+    select {
+      height: 100%;
+      padding: 10px;
+    }
+    .icon-inner {
+      margin-top: 5px;
+      display: inline-block;
+      cursor: pointer;
+      &:hover {
+        color: $secondary-header-color;
       }
-      .newResult {
-        font-size: 12px;
-        padding: 0;
-        overflow: hidden;
-        background: white;
-        color: black;
-        border: 1px solid black;
-        height: 40px;
-        p {
-          height: 40px;
-          width: 20%;
-          border-right: 1px solid black;
-          float: left;
-          text-align: center;
-
-          span {
-            padding: 0;
-            float: left;
-          }
-          &:first-letter {
-            text-transform: capitalize;
-          }
-        }
-        &::last-child {
-          padding: 0;
-          p {
-            padding: 0;
-          }
-        }
-      }
-      .filter {
-        float: left;
-        label {
-          float: left;
-        }
-        input,
-        select {
-          float: left;
-          height: 2em;
-          box-shadow: 1px 0px #000000;
-        }
-        .datepicker {
-          float: left;
-        }
-        .separator {
-          float: left;
-          margin: 0 5px;
-          font-size: 19px;
-          font-weight: 800;
-        }
-      }
+    }
+    .datepicker {
+      float: left;
     }
   }
+}
 </style>
-<script>
-  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
-  import {
-    mapGetters,
-    mapActions
-  } from 'vuex';
-  import {
-    ASYNC_SUCCESS
-  } from 'app/constants/AsyncStatus';
 
-  export default {
-    name: 'MyPurchasedReports',
-    components: {
-      sidebar: NotificationSidebar
-    },
-    data() {
-      return {
-        params: {
-          id: '',
-          headline: '',
-          user_name: '',
-          created_date_from: '',
-          created_date_to: '',
-          purchased: true
-        }
-      };
-    },
-    computed: {
-      ...mapGetters(['searchReport']),
-      listReport() {
-        if (this.searchReport.status === ASYNC_SUCCESS) {
-          return this.searchReport.value.report;
-        }
-        return [];
+<script>
+import { mapGetters, mapActions } from 'vuex';
+import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
+import TimelineItem from 'app/components/TimelineItem';
+import ReportItem from 'app/components/ReportItem';
+import vSelect from 'vue-select';
+import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+import FtDatepicker from 'app/components/Input/FtDatepicker';
+
+export default {
+  name: 'ReportsList',
+  components: {
+    sidebar: NotificationSidebar,
+    'timeline-item': TimelineItem,
+    report: ReportItem,
+    vselect: vSelect,
+    ftdatepicker: FtDatepicker
+  },
+  data() {
+    return {
+      payment: false,
+      reportSelected: null,
+      sort_select: {
+        label: 'Sort by',
+        value: ''
       },
-      url() {
-        var params = this.params;
-        return Object.keys(params)
-          .map(function (k) {
-            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-          })
-          .join('&');
+      type_select: {
+        label: 'Report Type',
+        value: ''
+      },
+      params: {
+        id: '',
+        headline: '',
+        report_type: '',
+        created_date_from: '',
+        created_date_to: '',
+        created_date: '',
+        sort: '',
+        purchased: true
+      },
+      options: {
+        report_type: [
+          {
+            label: 'Report Type',
+            value: ''
+          },
+          {
+            label: 'Player',
+            value: 'player'
+          },
+          {
+            label: 'Team',
+            value: 'team'
+          }
+        ],
+        order: [
+          {
+            label: 'Sort by',
+            value: ''
+          },
+          {
+            label: 'Updated date',
+            value: 'updated_at'
+          },
+          {
+            label: 'Type',
+            value: 'Type'
+          },
+          {
+            label: 'Price',
+            value: 'price'
+          }
+        ]
       }
+    };
+  },
+  computed: {
+    ...mapGetters(['searchReport', 'order']),
+    listReport() {
+      if (this.searchReport.status === ASYNC_SUCCESS) {
+        return this.searchReport.value.report;
+      }
+      return [];
     },
-    mounted() {
-      this.search();
-    },
-    methods: {
-      ...mapActions(['getReports', 'updateReport']),
-      search() {
-        this.getReports(this.url);
+    url() {
+      var params = this.params;
+      if (params.created_date_from) {
+        params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
+      }
+      if (params.created_date_to) {
+        params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
+      }
+      params.sort = this.sort_select.value;
+      params.report_type = this.type_select.value;
+      var url = Object.keys(params)
+        .map(function(k) {
+          return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+        })
+        .join('&');
+      return url;
+    }
+  },
+  mounted() {
+    this.search();
+  },
+  watch: {
+    report() {
+      if (this.report.status === ASYNC_SUCCESS) {
+        var index = this.listReport.findIndex(x => x.id === this.report.value.id);
+        this.listReport[index] = this.report.value;
+        this.$forceUpdate();
       }
     }
-  };
+  },
+  methods: {
+    ...mapActions(['getReports', 'newOrder']),
+    viewAction(report) {
+      this.$router.push({
+        name: 'clubReport',
+        params: {
+          id: report.id
+        }
+      });
+    },
+    refundAction(report) {
+      console.log('Soon #Refund');
+    },
+    hideModal() {
+      this.$refs.metaModal.hide();
+    },
+    search() {
+      this.getReports(this.url);
+    }
+  }
+};
 </script>

@@ -1,236 +1,261 @@
 <template>
-  <form @submit.prevent id="report-form">
+  <form @submit.prevent class="report-form ft-form">
     <div class="form-group row report-name">
-      <div class="col-sm-10">
-        <label class="col-form-label">Report Name</label>
-        <input type="text" class="col-md-6" v-model="headline">
+      <div class="col-sm-12">
+        <label class="col-md-12 col-form-label">Report Name</label>
+        <input type="text" class="col-md-12 form-control" v-model="headline">
       </div>
     </div>
-    <h3> Player Summary </h3>
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <label class="col-md-12 label-price" v-if="request">Price In Marketplace</label>
+        <label class="col-md-12 label-price" v-if="!request">Price</label>
+        <div class="price-input">
+          <currencyinput :value="price" />
+          <p v-if="price.value == 0" class="info">The report will be free</p>
+        </div>
+      </div>
+    </div>
+    <h5 class="menu" @click="playersummary = !playersummary" :class="playersummary ? 'active' : ''">
+      <i class="sub-menu-arrow" :class="playersummary ? 'active' : ''"></i> Player Summary </h5>
     <div class="form-group form-inner">
-      <div class="form-group">
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Age</label>
-          <div class="col-sm-10">
-            <input type="number" class="col-sm-4" v-model="meta_data.userinfo.age">
+      <transition name="fade">
+        <div class="form-group" v-if="playersummary">
+          <div class="row">
+            <div class="col-sm-4">
+              <label class="col-sm-12 col-form-label">Age</label>
+              <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.age" :placeholder="agePlaceHolder">
+            </div>
+            <div class="col-sm-4">
+              <label class="col-sm-12 col-form-label">Approximate Height (cm)</label>
+              <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.height" :placeholder="heightPlaceHolder">
+            </div>
+            <div class="col-sm-4">
+              <label class="col-sm-12 col-form-label">Approximate Weight (kg)</label>
+              <input type="number" class="col-sm-12 form-control" v-model="meta_data.userinfo.weight" :placeholder="weightPlaceHolder">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <label class="col-sm-12 col-form-label">Position</label>
+              <playerposition v-once :value="meta_data.userinfo.playing_position" v-on:update:val="meta_data.userinfo.playing_position = $event"
+              />
+            </div>
+            <div class="col-sm-6">
+              <label class="col-sm-12 col-form-label">Preferred Foot</label>
+              <preferredfoot v-once :value="meta_data.userinfo.preferred_foot" v-on:update:val="meta_data.userinfo.preferred_foot = $event"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <label class="col-sm-12 col-form-label">Nationality</label>
+              <countryselect v-once :value="meta_data.userinfo.nationality_country_code" v-on:update:val="meta_data.userinfo.nationality_country_code = $event"
+              /> </div>
+            <div class="col-sm-6">
+              <label class="col-sm-12 col-form-label">Based In</label>
+              <countryselect v-once :value="meta_data.userinfo.residence_country_code" v-on:update:val="meta_data.userinfo.residence_country_code = $event"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <label class="col-sm-12 col-form-label">Language(s)</label>
+              <language :value="meta_data.userinfo.languages" v-on:update:val="meta_data.userinfo.languages = $event" />
+            </div>
           </div>
         </div>
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Approximate Height (cm)</label>
-          <div class="col-sm-10">
-            <input type="number" class="col-sm-4" v-model="meta_data.userinfo.height">
-          </div>
-        </div>
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Approximate Weight (kg)</label>
-          <div class="col-sm-10">
-            <input type="number" class="col-sm-4" v-model="meta_data.userinfo.weight">
-          </div>
-        </div>
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Nationality</label>
-          <div class="col-sm-10">
-            <countryselect :value="meta_data.userinfo.nationality_country_code" v-on:update:val="meta_data.userinfo.nationality_country_code = $event"  />
-          </div>
-        </div>
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Based In</label>
-          <div class="col-sm-10">
-            <countryselect :value="meta_data.userinfo.residence_country_code"  v-on:update:val="meta_data.userinfo.residence_country_code = $event" />
-          </div>
-        </div>
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Language</label>
-          <div class="col-sm-10">
-            <language class="col-sm-12" :value="meta_data.userinfo.languages" v-on:update:val="meta_data.userinfo.languages = $event"/>
-          </div>
-        </div>
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Position</label>
-          <div class="col-sm-10">
-            <playerposition class="col-sm-12" :value="meta_data.userinfo.playing_position" v-on:update:val="meta_data.userinfo.playing_position = $event" />
-          </div>
-        </div>
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Preferred Foot</label>
-          <div class="col-sm-10">
-            <preferredfoot :value="meta_data.userinfo.preferred_foot"  v-on:update:val="meta_data.userinfo.preferred_foot = $event" />
-          </div>
-        </div>
-      </div>
+      </transition>
     </div>
-    <h3> Transfert Summary </h3>
+    <h5 class="menu" @click="transfersummary = !transfersummary" :class="transfersummary ? 'active' : ''">
+      <i class="sub-menu-arrow" :class="transfersummary ? 'active' : ''"></i> Transfer Summary </h5>
     <div class="form-group form-inner">
-      <div class="form-group">
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Interested in Transfert</label>
-          <div class="col-sm-10 radio-group">
-            <label class="radio-inline">
-              <input type="radio" id="one" value="true" v-model="meta_data.transfert_sum.transfert_interested">Yes</label>
-            <label class="radio-inline">
-              <input type="radio" id="one" value="false" v-model="meta_data.transfert_sum.transfert_interested">No</label>
+      <transition name="fade">
+        <div class="form-group" v-if="transfersummary">
+          <div class="row">
+            <label class="col-sm-1 col-form-label">Wage</label>
+            <div class="col-sm-11">
+              <currencyinput :value="meta_data.transfer_sum.wage" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <label class="col-sm-12 ftcheckbox-inner col-form-label" :class="meta_data.transfer_sum.transfer_interested == 'yes' ? 'active' : ''">
+                <span class="title">Interested in Transfer ?</span>
+                <i class="sub-menu-arrow" :class="meta_data.transfer_sum.transfer_interested == 'yes' ? 'active' : ''"></i>
+                <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.transfer_interested" v-on:update:val="meta_data.transfer_sum.transfer_interested = $event"
+                />
+              </label>
+              <transition name="fade">
+                <div class="transfer-value col-sm-12 row" v-if="meta_data.transfer_sum.transfer_interested === 'yes'">
+                  <div class="col-sm-6">
+                    <label class="col-sm-12 col-form-label">Availability for transfer</label>
+                    <currencyinput :value="meta_data.transfer_sum.transfer_availability" />
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="col-sm-12 col-form-label">Transfer Budget</label>
+                    <currencyinput :value="meta_data.transfer_sum.transfer_budget" />
+                  </div>
+                </div>
+              </transition>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <label class="col-sm-12 ftcheckbox-inner col-form-label" :class="meta_data.transfer_sum.loan_interested == 'yes' ? 'active' : ''">
+                <span class="title">Interested in Loan ?</span>
+                <i class="sub-menu-arrow" :class="meta_data.transfer_sum.loan_interested == 'yes' ? 'active' : ''"></i>
+                <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.loan_interested" v-on:update:val="meta_data.transfer_sum.loan_interested = $event"
+                />
+              </label>
+              <transition name="fade">
+                <div class="transfer-value col-sm-12 row" v-if="meta_data.transfer_sum.loan_interested === 'yes'">
+                  <div class="col-sm-6">
+                    <label class="col-sm-12 col-form-label">Availability for Loan</label>
+                    <currencyinput :value="meta_data.transfer_sum.loan_availability" />
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="col-sm-12 col-form-label">End of Contract</label>
+                    <input type="number" v-model="meta_data.transfer_sum.contract_end" class="col-sm-12 form-control">
+                  </div>
+                </div>
+              </transition>
+            </div>
           </div>
         </div>
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Availability for transfert</label>
-          <div class="col-sm-10">
-            <input type="number" v-model="meta_data.transfert_sum.transfert_availability" class="col-sm-4">
-          </div>
-        </div>
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Transfert Budget</label>
-          <div class="col-sm-10">
-            <input type="number" v-model="meta_data.transfert_sum.transfert_budget" class="col-sm-4">
-          </div>
-        </div>
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Interested in Loan</label>
-          <div class="col-sm-10 radio-group">
-            <label class="radio-inline">
-              <input type="radio" id="one" value="true" v-model="meta_data.transfert_sum.loan_interested">Yes</label>
-            <label class="radio-inline">
-              <input type="radio" id="one" value="false" v-model="meta_data.transfert_sum.loan_interested">No</label>
-          </div>
-        </div>
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Availability for Loan</label>
-          <div class="col-sm-10">
-            <input type="number" v-model="meta_data.transfert_sum.loan_availability" class="col-sm-4">
-          </div>
-        </div>
-        <div class="row">
-          <label class="col-sm-2 col-form-label">End of Contract</label>
-          <div class="col-sm-10">
-            <input type="number" v-model="meta_data.transfert_sum.contract_end" class="col-sm-4">
-          </div>
-        </div>
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Free agent</label>
-          <div class="col-sm-10 radio-group">
-            <label class="radio-inline">
-              <input type="radio" id="one" value="true" v-model="meta_data.transfert_sum.free_agent">Yes</label>
-            <label class="radio-inline">
-              <input type="radio" id="one" value="false" v-model="meta_data.transfert_sum.free_agent">No</label>
-          </div>
-        </div>
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Agent Commission</label>
-          <div class="col-sm-10">
-            <input type="number" v-model="meta_data.transfert_sum.agent_commission" class="col-sm-4">
-          </div>
-        </div>
-        <div class="row">
-          <label class="col-sm-2 col-form-label">Wage (SGD per year) </label>
-          <div class="col-sm-10">
-            <input type="number" v-model="meta_data.transfert_sum.wage" class="col-sm-4">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-md-12 col-form-label">Current Ability Overview</label>
-      <div class="col-md-12">
-        <textarea class="col-md-8" v-model="meta_data.overview" />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-md-12 col-form-label">Physical Attribute(s)</label>
-      <div class="col-md-12">
-        <textarea class="col-md-8" v-model="meta_data.physical_attributes" />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-md-12 col-form-label">Mental Attribute(s)</label>
-      <div class="col-md-12">
-        <textarea class="col-md-8" v-model="meta_data.mental_attributes" />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-md-12 col-form-label">Technical Attribute(s)</label>
-      <div class="col-md-12">
-        <input type="text" class="col-md-8" v-model="meta_data.technical_attributes" />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-md-12 col-form-label">Personality</label>
-      <div class="col-md-12">
-        <input type="text" class="col-md-8" v-model="meta_data.personality" />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-md-12 col-form-label">Potential</label>
-      <div class="col-md-12">
-        <input type="text" class="col-md-8" v-model="meta_data.potential" />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-md-12 col-form-label">Other Observations & Viewpoints To Note</label>
-      <div class="col-md-12 ">
-        <input type="text" class="col-md-8" v-model="meta_data.observations" />
-      </div>
+      </transition>
     </div>
     <div class="form-group">
       <label>Analysis of Trainings/Matches</label>
       <matchanalyzed :analyzed_matches="meta_data.analyzed_matches" type="player" />
     </div>
     <div class="form-group row">
+      <label class="col-md-12 col-form-label">Current Ability Overview</label>
+      <div class="col-md-12">
+        <textarea class="col-md-12 form-control" v-model="meta_data.overview" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label">Physical Attribute(s)</label>
+      <div class="col-md-12">
+        <textarea class="col-md-12 form-control" v-model="meta_data.physical_attributes" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label">Mental Attribute(s)</label>
+      <div class="col-md-12">
+        <textarea class="col-md-12 form-control" v-model="meta_data.mental_attributes" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label">Technical Attribute(s)</label>
+      <div class="col-md-12">
+        <textarea class="col-md-12 form-control" v-model="meta_data.technical_attributes" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label">Personality</label>
+      <div class="col-md-12">
+        <textarea type="text" class="col-md-12 form-control" v-model="meta_data.personality" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label">Potential</label>
+      <div class="col-md-12">
+        <textarea type="text" class="col-md-12 form-control" v-model="meta_data.potential" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label">Other Observations & Viewpoints To Note</label>
+      <div class="col-md-12 ">
+        <textarea type="text" class="col-md-12 form-control" v-model="meta_data.observations" />
+      </div>
+    </div>
+    <div class="form-group row">
       <label class="col-md-12 col-form-label">Conclusions</label>
       <div class="col-md-12">
-        <input type="text" class="col-md-8" v-model="meta_data.conclusion" />
+        <textarea class="col-md-12 form-control" v-model="meta_data.conclusion" />
       </div>
     </div>
-    <div class="form-group row attachments-div">
-      <label class="col-md-12 col-form-label">Attachments:</label>
-      <div class="col-md-12">
-        <input type="file" name="files" ref="myFiles" @change="previewFiles" multiple class="col-md-4">
-        <ul class="col-md-6">
-          <li class="list" v-for="file in files" :key="file.id"> {{file.name}} </li>
-        </ul>
-      </div>
-    </div>
-    <div v-if="report">
-      <div class="form-group row update-attachments" v-for="attachment in report.report_data.attachments.attachments" :key="attachment.id">
-        <label class="col-sm-2">Attachment</label>
-        <div class="col col-sm-6">
-          <p v-bind:class="[{ 'removed' : remove_attachment[attachment.id] }]">{{attachment.filename}}</p>
-          <p class="remove col col-sm-2" @click="removeAttachment(attachment.id)">X</p>
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-md-12">
-      <div class="row">
-        <label class="col-md-2 label-price">Price (in SGD)</label>
-        <div class="price-input col-md-6">
-          <input type="number" v-model="price" class="form-control" min="0" max="999999" />
-          <p v-if="price == 0" class="info">The report will be free</p>
-        </div>
-      </div>
-    </div>
-    <div class="form-group buttons">
-      <button id="submit" class="btn btn-primary" @click="handleSubmit">Publish</button>
-      <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default">Cancel</button>
+    <addattachments :attachments="report ? report.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
+      v-on:update:files="files = $event" />
+    <div class="form-group buttons-inner">
+      <button v-if="!report && !request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('publish')">Publish</button>
+      <button v-if="report" id="submit" class="btn btn-primary ft-button" @click="handleSubmit">Update</button>
+      <button v-if="!report && request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('publish')">Send Report & Publish in MarketPlace</button>
+      <button v-if="!report && request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('private')">Send Report</button>
+      <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default ft-button">Cancel</button>
     </div>
   </form>
 </template>
 
+<style lang="scss">
+@import '~stylesheets/form';
+</style>
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
-#report-form {
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.75s;
+  max-height: 500px;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0.1;
+  max-height: 0px;
+}
+
+.report-form {
   .radio-group {
     label {
       width: 10%;
     }
   }
-  label {
-    font-size: 12px;
+  .transfer-value {
+    padding: 0 30px;
+    div {
+      overflow: hidden;
+      height: 100%;
+    }
   }
-  h3 {
+  h5 {
+    &.menu {
+      cursor: pointer;
+    }
+  }
+
+  .sub-menu-arrow {
+    &::before {
+      margin-top: 3px;
+      border-color: rgba(60, 60, 60, 0.5);
+      border-style: solid;
+      border-width: 3px 3px 0 0;
+      content: '';
+      height: 10px;
+      vertical-align: top;
+      transform: rotate(45deg);
+      box-sizing: inherit;
+      display: inline-block;
+      transition: all 0.15s cubic-bezier(1, -0.115, 0.975, 0.855);
+      transition-timing-function: cubic-bezier(1, -0.115, 0.975, 0.855);
+      width: 10px;
+    }
+    &.active::before {
+      transform: rotate(133deg);
+    }
+  }
+  h5 {
     color: $main-text-color;
     font-size: 15px;
     font-weight: 700;
   }
   .form-inner {
     margin-left: 20px;
+    .form-group {
+      padding: 10px;
+    }
   }
   .report-name {
     label {
@@ -240,71 +265,20 @@
   .label-price {
     margin-top: 8px;
   }
-  .list {
-    color: #535ee2;
-  }
-  .attachments-div {
-    ul {
-      float: right;
-      li {
-        display: list-item;
-        list-style: disc;
-      }
-    }
-  }
-
-  .price-input {
-    .info {
-      color: green;
-      font-weight: bold;
-      margin: 0;
-    }
-  }
-  .button {
-    padding: 10px;
-  }
-  .form-group {
-    label {
-      color: $main-text-color;
-    }
-    .bar-button {
-      color: $main-text-color;
-      border: 1px solid $main-text-color;
-    }
-  }
-  textarea {
-    resize: none;
-    overflow-y: scroll;
-  }
-  .text-input {
-    height: 100px;
-  }
-  .buttons {
-    float: right;
-  }
-  overflow: hidden;
-  .update-attachments {
-    color: $main-text-color;
-    p {
-      display: inline-block;
-      &.removed {
-        text-decoration: line-through;
-      }
-      &.remove {
-        color: red;
-        cursor: pointer;
-      }
-    }
-  }
 }
 </style>
 
 <script>
-import MatchAnalyzed from './MatchAnalyzed';
+import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
 import PlayerPosition from 'app/components/Input/PlayerPosition';
 import Nationality from 'app/components/Input/Nationality';
 import Language from 'app/components/Input/Language';
 import PreferredFoot from 'app/components/Input/PreferredFoot';
+import FtCheckbox from 'app/components/Input/FtCheckbox';
+import AddAttachments from 'app/components/Input/AddAttachments';
+import 'vue-awesome/icons/trash';
+import Icon from 'vue-awesome/components/Icon';
+import CurrencyInput from 'app/components/Input/CurrencyInput';
 
 export default {
   name: 'PlayerReportForm',
@@ -313,42 +287,86 @@ export default {
     playerposition: PlayerPosition,
     countryselect: Nationality,
     language: Language,
-    preferredfoot: PreferredFoot
+    preferredfoot: PreferredFoot,
+    ftcheckbox: FtCheckbox,
+    addattachments: AddAttachments,
+    icon: Icon,
+    currencyinput: CurrencyInput
   },
-  props: ['userinfo', 'submitReport', 'reportStatus', 'report','cancelAction'],
-  data () {
+  props: ['userinfo', 'submitReport', 'reportStatus', 'report', 'cancelAction', 'request'],
+  data() {
     return {
+      playersummary: true,
+      transfersummary: true,
       meta_data: {
         userinfo: {
           nationality_country_code: '',
           languages: [],
           playing_position: [],
-          age: null
+          age: null,
+          preferred_foot: ''
         },
-        transfert_sum: {
-          loan_interested: false,
-          transfert_interested: false,
-          free_agent: 'false'
+        transfer_sum: {
+          loan_interested: 'No',
+          transfer_interested: 'No',
+          free_agent: 'No',
+          wage: {
+            value: null,
+            currency: 'USD'
+          },
+          loan_availability: {
+            value: null,
+            currency: 'USD'
+          },
+          transfer_budget: {
+            value: null,
+            currency: 'USD'
+          },
+          transfer_availability: {
+            value: null,
+            currency: 'USD'
+          }
         },
         analyzed_matches: [
           {
             date: '',
             opponent: '',
             venue: '',
-            comment: ''
+            comment: '',
+            training: 'No'
           }
         ]
       },
-      price: 0,
+      price: {
+        value: 0,
+        currency: 'USD'
+      },
       headline: '',
       edit_mode: !!this.report,
       files: [],
       remove_attachment: {}
     };
   },
+  computed: {
+    agePlaceHolder() {
+      if (this.request && this.request.type_request == 'position')
+        return `Between ${this.request.meta_data.age_min} and ${this.request.meta_data.age_max}`;
+      return 'Age';
+    },
+    weightPlaceHolder() {
+      if (this.request && this.request.type_request == 'position')
+        return `Between ${this.request.meta_data.min_weight} and ${this.request.meta_data.max_weight}`;
+      return 'Weight';
+    },
+    heightPlaceHolder() {
+      if (this.request && this.request.type_request == 'position')
+        return `Between ${this.request.meta_data.min_heigth} and ${this.request.meta_data.max_heigth}`;
+      return 'Height';
+    }
+  },
   watch: {
-    userinfo () {
-      if (this.userinfo.birthday) {
+    userinfo() {
+      if (this.userinfo.birthday && !this.report) {
         var birthday = new Date(this.userinfo.birthday);
         var ageDifMs = Date.now() - birthday.getTime();
         var ageDate = new Date(ageDifMs); // miliseconds from epoch
@@ -363,33 +381,35 @@ export default {
       }
     }
   },
-  mounted () {
+  beforeMount() {
     if (this.report) {
-      this.meta_data = this.report.report_data.meta_data;
+      this.meta_data = this.report.meta_data;
       this.price = this.report.price;
       this.headline = this.report.headline;
     }
+    if (this.request) {
+      this.price = this.request.price;
+      this.price.value = parseInt(this.request.request_bids.price);
+      this.headline = 'Report on ';
+      this.headline += this.request.meta_data.player_name ? this.request.meta_data.player_name : '';
+      this.meta_data.userinfo.languages = this.request.meta_data.languages;
+      this.meta_data.userinfo.preferred_foot = this.request.meta_data.preferred_foot;
+      this.meta_data.userinfo.residence_country_code = this.request.meta_data.residence_country_code;
+      this.meta_data.userinfo.nationality_country_code = this.request.meta_data.nationality_country_code;
+      this.meta_data.userinfo.playing_position = this.request.meta_data.playing_position;
+      // this.$forceUpdate();
+      console.log(this.request);
+    }
   },
   methods: {
-    removeAttachment (id) {
-      if (this.remove_attachment[id] === true) delete this.remove_attachment[id];
-      else {
-        var obj = new Object();
-        obj[id] = true;
-        this.remove_attachment = Object.assign({}, this.remove_attachment, obj);
-      }
-    },
-    previewFiles () {
-      this.files = this.$refs.myFiles.files;
-    },
-    handleSubmit () {
+    handleSubmit(status) {
       var report = {
         headline: this.headline,
         price: this.price,
-        report_data: this.meta_data,
+        meta_data: this.meta_data,
         remove_attachment: this.remove_attachment
       };
-      this.submitReport(report, this.$refs.myFiles.files);
+      this.submitReport(report, this.files, status);
       $('html, body').animate(
         {
           scrollTop: 0

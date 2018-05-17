@@ -10,3 +10,4 @@ export * from './report';
 export * from './attachment';
 export * from './order';
 export * from './request';
+export * from './bid';

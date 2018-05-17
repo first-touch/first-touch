@@ -35,7 +35,14 @@ module FirstTouch
         rule: ->(result) { result.failure? && result['result.model']&.failure? },
         resolve: lambda do |result, _representer|
           { 'data': { errors: result['result.model.errors'] },
-          'status': :unprocessable_entity }
+            'status': :not_found }
+        end
+      },
+      stripe_errors: {
+        rule: ->(result) { result.failure? && !result['stripe.errors'].nil? },
+        resolve: lambda do |result, _representer|
+          { 'data': { errors: result['stripe.errors'] },
+            'status': :unprocessable_entity }
         end
       },
       invalid: {

@@ -1,79 +1,125 @@
 <template>
-  <div class="report">
-    <div class="user col-sm-3" v-if="report.user">
-      <img class="rounded-circle img-fluid" src="https://unsplash.it/500/500" />
-      <p class="name"> {{report.user.first_name}} {{report.user.last_name}} </p>
-    </div>
-    <div class="report-info col-sm-6">
-      <div class="row">
-        <label class="col col-sm-4">Report Name</label>
-        <p class="col col-sm-6"> {{report.headline}} </p>
+  <div class="ft-item">
+    <div class="header-wrapper">
+      <div class="header col-md-10">
+        <div class="img-container">
+          <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
+        </div>
+        <div class="info col-md-8">
+          <h2 class="title" :title="report.headline">{{report.headline}}</h2>
+          <p class="extra" v-if="report.type_report =='team'">
+            <span class="field row">
+              <span class="col-md-4">Report Id:</span>
+              <span class="col-md-6"> {{report.id | reportId(report.type_report) }}
+              </span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Club Name:</span>
+              <span class="col-md-6">Club Name
+              </span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Price:</span>
+              <span class="col-md-6"> {{report.price.value}} {{report.price.currency | currency}}
+              </span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Last Update on:</span>
+              <span class="col-md-6">{{report.updated_at | moment}}
+              </span>
+            </span>
+          </p>
+          <p class="extra" v-if="report.type_report =='player'">
+            <span class="field row">
+              <span class="col-md-4">Report Id:</span>
+              <span class="col-md-6"> {{report.id | reportId(report.type_report) }}
+              </span>
+            </span>
+            <span class="field row" v-if="report.player">
+              <span class="col-md-4">Player name:</span>
+              <span class="col-md-6" v-if="report.player">{{report.player.first_name}} {{report.player.last_name}}
+              </span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Based in: </span>
+              <span class="col-md-6">{{getNationality(report.meta_data.userinfo.residence_country_code)}}
+              </span>
+            </span>
+            <span class="field row" v-if="report.meta_data.userinfo.playing_position.length">
+              <span class="col-md-4">Position in: </span>
+              <span class="list col-md-8" v-for="position in report.meta_data.userinfo.playing_position" :key="position.id">{{position}}</span>
+            </span>
+            <span class="field yes row" v-if="report.meta_data.transfer_sum.loan_interested == 'yes'">
+              <span class="col-md-12">Interested In Loan</span>
+            </span>
+            <span class="field yes row" v-if="report.meta_data.transfer_sum.transfer_interested  == 'yes'">
+              <span class="col-md-12">Interested In Transfer</span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Price:</span>
+              <span class="col-md-6"> {{report.price.value}} {{report.price.currency | currency}}
+              </span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Last Update on:</span>
+              <span class="col-md-6">{{report.updated_at | moment}}
+              </span>
+            </span>
+          </p>
+        </div>
       </div>
-      <div class="row">
-        <label class="col col-sm-4">Report Type</label>
-        <p class="col col-sm-6"> {{report.type_report}} </p>
+      <div class="widget">
+        <a v-if="own && report.status == 'publish'" @click="UpdateReport('private',report.id)">
+          <button class="btn-round">Unpublish</button>
+        </a>
+        <a v-if="own && report.status == 'private'" @click="UpdateReport('publish',report.id)">
+          <button class="btn-round">Publish</button>
+        </a>
+
+
+        <a v-if="report.orders_status == null && typeof BuyAction === 'function'">
+          <button class="btn-round" @click="BuyAction(report)">Buy report</button>
+        </a>
+        <a v-if="typeof summaryAction === 'function'">
+          <button class="btn-round" @click="summaryAction(report)">View Summary</button>
+        </a>
+        <a v-if="report.orders_status == 'completed'">
+          <button class="btn-round" @click="refundAction(report)">Refund</button>
+        </a>
+        <a v-if="own || report.orders_status == 'completed'">
+          <button class="btn-round" @click="viewAction(report)">View report</button>
+        </a>
+        <p v-if="report.orders_status == 'pending'">Payment in pending</p>
+
       </div>
-      <div class="row">
-        <label class="col col-sm-4">Name</label>
-        <p class="col col-sm-6"> What is that </p>
-      </div>
-      <div class="row">
-        <label class="col col-sm-4">Price</label>
-        <p class="col col-sm-6"> {{report.price}} </p>
-      </div>
-      <div class="row" v-if="typeof summaryAction === 'function'">
-        <label class="col col-sm-4">Report Summary </label>
-        <a class="col col-sm-6" @click="summaryAction(report)" href="#">View Summary</a>
-      </div>
-    </div>
-    <div class="buttons" v-if="typeof viewAction === 'function'">
-      <button v-if="report.orders_status == null" class="btn-primary" @click="BuyAction(report)">Buy report</button>
-      <button v-if="report.orders_status == 'completed'" class="btn-primary" @click="viewAction(report)">View report</button>
-      <p v-if="report.orders_status == 'pending'">Payment in pending</p>
     </div>
   </div>
 </template>
-
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
-.report {
-  font-size: 13px;
-  background: white;
-  color: black;
-  padding: 30px 50px;
-  margin-top: 20px;
-  .buttons {
-    display: flex;
-    button {
-      align-self: flex-end;
-    }
-  }
-  .user {
-    text-align: center;
-    .name {
-      text-align: center;
-      text-transform: capitalize;
-      background: #e8e8e8;
-      margin-top: 15px;
-      padding: 10px;
-    }
-    img {
-      max-height: 180px;
-    }
-  }
-  .report-info {
-    margin-left: 30px;
-    margin-top: 20px;
-    p::first-letter {
-      text-transform: capitalize;
-    }
-  }
-}
+  @import '~stylesheets/variables';
+  @import '~stylesheets/light_item';
 </style>
-
 <script>
-export default {
-  name: 'ReportItem',
-  props: ['report', 'viewAction', 'summaryAction', 'BuyAction']
-};
+  import countrydata from 'country-data';
+
+  export default {
+    name: 'ReportItem',
+    props: [
+      'report',
+      'UpdateReport',
+      'viewAction',
+      'summaryAction',
+      'BuyAction',
+      'refundAction',
+      'own'
+    ],
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : key;
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : key;
+      }
+    }
+  };
 </script>

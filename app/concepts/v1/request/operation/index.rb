@@ -4,56 +4,67 @@ module V1
       step :find_model!
       step :filters!
       step :orders!
+
       private
 
-      def find_model!(options, params:, current_user:, **)
-        if is_scout? current_user
-          models = ::Request.all.where status: 'publish'
-        elsif is_club? current_user
-          models = current_user.requests.where.not(status: 'deleted')
+      def find_model!(options, current_user:, **)
+        if current_user.is_a?(::User) && current_user.scout?
+          models = scout(current_user: current_user)
+          # models = ::Request.all.where status: 'publish'
+        elsif current_user.is_a?(::Club) || true
+          # Todo: or true need to be remove when club are ready
+          models = club(current_user: current_user)
         end
         options['models'] = models
-        models.length > 0 ? true : false
+        options['model.class'] = ::Request
       end
 
-      def filters!(options, params:, current_user:, **)
-          models = options['models']
-          models = models.where id: params[:id] if !params[:id].blank?
-          models = models.where type_request: params[:type_request] if !params[:type_request].blank?
-          models = models.where status: params[:status] if !params[:status].blank?
-
-          date = params[:created_date].to_date if !params[:created_date].blank?
-          if date
-            models = models.where :created_at => date.all_day
-          end
-        options['models'] = models
-        true
+      def scout(current_user:)
+        models = ::Request.all
+        joins = "LEFT OUTER JOIN request_bids ON request_bids.user_id = #{current_user.id}"\
+        ' AND request_bids.request_id = requests.id'
+        models = models.joins(joins)
+        models = models.where('requests.status = ? OR request_bids.user_id = ?  ','publish',current_user.id)
+        models = models.group('requests.id')
       end
 
-      def orders!(options, params:, current_user:, **)
+      def club(current_user:)
+        models = current_user.requests.where.not(status: 'deleted')
+        joins = "LEFT OUTER JOIN request_bids ON request_bids.request_id = requests.id AND request_bids.status = 'pending'"
+        models = models.joins(joins)
+        models = models.select('requests.*, COUNT(request_bids.id) as request_bids_count')
+        models = models.group('requests.id')
+      end
+
+      def filters!(options, params:, **)
         models = options['models']
-        if params[:order] == 'id'
-          models = models.order(:id)
-        elsif params[:order] == 'type_request'
-          models = models.order(:type_request)
-        elsif params[:order] == 'status'
-          models = models.order(:status)
-        elsif params[:order] == 'created_on'
-          models = models.order(:created_at)
-        elsif params[:order] == 'nb_bids'
-          models = models.order(:id)
-        end
+        models = add_where(models, 'requests.id', params[:id])
+        models = add_where(models, 'requests.type_request', params[:type_request])
+        models = add_where(models, 'requests.status', params[:status])
+        models = add_where(models, 'request_bids.status', params[:bids_status].split(',')) if params[:bids_status]
+        models = models.having("count(request_bids.id) >= #{params[:min_bids]} ") unless params[:min_bids].blank?
 
+        date = params[:created_date].to_date unless params[:created_date].blank?
+        models = models.where created_at: date.all_day if date
         options['models'] = models
         true
       end
 
-      def is_club?(current_user)
-        true
+      def add_where(models, column, value)
+        obj = {column.to_sym => value}
+        models = models.where(obj) unless value.blank?
+        models
       end
 
-      def is_scout?(current_user)
-        current_user.roles.first.name == 'scout'
+      def orders!(options, params:, **)
+        models = options['models']
+        if !params[:order].blank? &&
+           %w[id type_request status created_at nb_bids report_type]
+           .include?(params[:order])
+          models = models.order params[:order].to_sym
+        end
+        options['models'] = models
+        true
       end
     end
   end

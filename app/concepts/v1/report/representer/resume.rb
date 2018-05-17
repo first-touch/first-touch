@@ -5,42 +5,40 @@ module V1
         include Representable::JSON
 
         property :id
-        property :user, getter:  -> (represented:, **) {
-          ::V1::PersonalProfile::Representer::Simplified.new(represented.user.personal_profile)
-         }
         property :headline
         property :price
         property :type_report
         property :status
 
-        property :player, getter:  -> (represented:, **) {
-          if represented.player
-          ::V1::PersonalProfile::Representer::Simplified.new(represented.player.personal_profile)
-          end
-         }
         property :created_at
-        property :updated_at, getter:  -> (represented:, **) {
-          if represented.report_data.last
-            report_data.last.updated_at
+        property :updated_at
+        property :user, getter: lambda { |represented:, **|
+          ::V1::PersonalProfile::Representer::Simplified.new(
+            represented.user.personal_profile
+          )
+        }
+        property :player, getter: lambda { |represented:, **|
+          if represented.player
+            ::V1::PersonalProfile::Representer::Simplified.new(
+              represented.player.personal_profile
+            )
           end
-         }
-        property :orders_status, getter:  -> (represented:, **) {
+        }
+        property :orders_status, getter: lambda { |represented:, **|
           begin
             represented.orders_status
-          rescue
+          rescue StandardError
+            'N/A'
           end
-         }
-
-         property :orders_price, getter:  -> (represented:, **) {
+        }
+        property :orders_price, getter: lambda { |represented:, **|
           begin
             represented.orders_price
-          rescue
+          rescue StandardError
+            'N/A'
           end
-         }
-
-        property :report_data, getter:  -> (represented:, **) {
-          ::V1::ReportDatum::Representer::Resume.new(represented.report_data.last)
-         }
+        }
+        property :meta_data
       end
     end
   end

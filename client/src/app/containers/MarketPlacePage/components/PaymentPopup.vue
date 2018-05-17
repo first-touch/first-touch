@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h3>PAYMENT DETAILS </h3>
-    <span> Report Name : {{report.headline}} </span>
-    <p> Price : {{report.price}} S$ </p>
     <div class="error" v-if="isfailed">
       Errors:
       <ul v-if="order.errors">
@@ -10,34 +7,10 @@
       </ul>
     </div>
     <div class="custom-modal-content">
-      <h5>Choose a Payment Method</h5>
+      <h5>Choose a Payment Method {{report.price.value}} {{report.price.currency | currency}} </h5>
       <form @submit.prevent :class="{isloading: 'loading'}">
-        <fieldset class="form-group col-md-12 filter">
-          <label class="col-sm-4">Payment Method:</label>
-          <select name="payment" id="payment-select" v-model="payment_method">
-            <option value="fake-success">Success payment</option>
-            <option value="fake-errors">Failure payment</option>
-          </select>
-        </fieldset>
-        <fieldset class="form-group col-md-12 filter">
-          <label class="col-sm-4">Name on Card:</label>
-          <input class="col-sm-5" type="text" v-model="name" />
-        </fieldset>
-        <fieldset class="form-group col-md-12 filter">
-          <label class="col-sm-4">Credit Card Number</label>
-          <input class="col-sm-5" type="text" v-model="credit_card" />
-        </fieldset>
-        <fieldset class="form-group col-md-12 filter">
-          <label class="col-sm-4">CVV Number</label>
-          <input class="col-sm-2" type="number" v-model="cvv" />
-        </fieldset>
-        <fieldset class="form-group col-md-12 filter">
-          <label class="col-sm-4">Expiry Date</label>
-          <input id="month" type="month" v-model="expiry">
-        </fieldset>
-        <div class="footer-modal">
-          <button class="btn-primary close-modal" @click="startPayment">PAY NOW</button>
-          <button class="btn-primary" @click="closeAction">CLOSE</button>
+        <div class="footer-modal buttons-inner">
+          <button class="btn-primary ft-button" @click="startPayment">PAY NOW</button>
         </div>
       </form>
     </div>
@@ -47,7 +20,7 @@
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
 form {
-  border: 1px solid black;
+  border: 1px solid $secondary-header-color;
   padding: 20px;
 }
 
@@ -90,9 +63,7 @@ export default {
       this.isloading = this.order.status === ASYNC_LOADING;
       this.isfailed = this.order.status === ASYNC_FAIL;
       if (this.order.status === ASYNC_SUCCESS) {
-        this.$router.push({
-          path: '/club/report/' + this.report.id
-        });
+        this.$router.push({ name: 'clubReport', params: { id: this.report.id }})
       }
     }
   },
