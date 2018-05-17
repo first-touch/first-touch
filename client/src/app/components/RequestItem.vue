@@ -139,7 +139,7 @@
         <a v-if="!own" @click="viewSummary(request)">
           <button class="btn-round">View Details</button>
         </a>
-        <a v-if="!own && position && addBid" @click="addBid(request)">
+        <a v-if="!own && !position && addBid" @click="addBid(request)">
           <button class="btn-round" v-if="bidStatus == 'U'">Update Bid</button>
           <button class="btn-round" v-if="bidStatus == 'N'">Bid</button>
         </a>
