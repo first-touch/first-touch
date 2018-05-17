@@ -250,7 +250,7 @@
         this.getRequests(this.url);
       },
       newBid(request, price) {
-        if (request.request_bids) {
+        if (request.bid_status) {
           this.updateBid({
             requestId: request.id,
             id: request.request_bids.id,

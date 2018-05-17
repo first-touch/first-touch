@@ -58,6 +58,8 @@ export const ORDER_REPORT_LOADING = 'ORDER_REPORT_LOADING';
 
 export const BID_FAILURE = 'BID_FAILURE';
 export const BID_SUCCESS = 'BID_SUCCESS';
+export const BID_DELETE_FAILURE = 'BID_DELETE_FAILURE';
+export const BID_DELETE_SUCCESS = 'BID_DELETE_SUCCESS';
 export const BID_LOADING = 'BID_LOADING';
 export const BID_CLEAR = 'BID_CLEAR';
 
