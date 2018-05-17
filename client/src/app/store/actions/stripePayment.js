@@ -11,3 +11,7 @@ export const StripeCardToken = (store, card) => {
     }
   });
 };
+
+export const flushStripeCardToken = (store) => {
+  store.commit(ActionTypes.FLUSH_STRIPE_CARD_TOKEN);
+};
