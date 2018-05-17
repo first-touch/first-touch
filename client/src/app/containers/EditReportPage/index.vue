@@ -4,15 +4,34 @@
     <div class="container-fluid">
       <div class="ft-page ">
         <h4 class="header">Edit Report</h4>
-        <div v-if="searchReport.value.report" class="report-div">
-          <ul class="menu">
-            <li>
-              <router-link :to="`/report/view/${searchReport.value.report.id}`">View</router-link>
-            </li>
-            <li>
-              <router-link :to="`/report/edit/${searchReport.value.report.id}`" class="active">Edit</router-link>
-            </li>
-          </ul>
+        <action-item v-if="searchReport.value.report">
+          <button class="timeline-widget-button">
+            <span>
+              <icon name='eye' scale="1.5"></icon>
+            </span>
+              <router-link :to="{ name: 'scoutReportView', params: { id: searchReport.value.report.id }}">View</router-link>
+          </button>
+          <button class="timeline-widget-button">
+            <span>
+              <icon name='edit' scale="1.5"></icon>
+            </span>
+    <router-link  :to="{ name: 'scoutReportEdit', params: { id: searchReport.value.report.id }}" class="active">Edit</router-link>
+          </button>
+          <button class="timeline-widget-button button-right" v-if="searchReport.value.report.status == 'publish'" @click="updateStatus('private')">
+            <span class="unpublish">
+              <icon name="eye-slash" scale="1.5"></icon>
+            </span>
+            <a>Unpublish Report</a>
+          </button>
+          <button class="timeline-widget-button button-right" v-if="searchReport.value.report.status == 'private'" @click="updateStatus('publish')">
+            <span class="publish">
+              <icon name="eye"></icon>
+            </span>
+            <a>Publish Report</a>
+          </button>
+        </action-item>
+        <div v-if="searchReport.value.report" class="report-container">
+          <div data-v-5d9799ca="" class="arrow"></div>
           <div class="form-container">
             <ul class="error" v-if="report.errors">
               <li v-for="(error) in report.errors.error" v-bind:key="error.id">
@@ -20,9 +39,9 @@
               </li>
             </ul>
             <playerreportform v-if="searchReport.value && searchReport.value.report.type_report == 'player' " :submitReport="customUpdateReport"
-              :report="searchReport.value.report" :cancelAction="cancel" />
+              class="report" :report="searchReport.value.report" :cancelAction="cancel" />
             <clubreportform v-if="searchReport.value && searchReport.value.report.type_report == 'team' " :submitReport="customUpdateReport"
-              :report="searchReport.value.report" :cancelAction="cancel" />
+              class="report" :report="searchReport.value.report" :cancelAction="cancel" />
           </div>
         </div>
       </div>
@@ -82,23 +101,50 @@
   display: none;
 }
 
-.report-div {
-  background-color: #fff;
+.report-container {
+  display: flex;
+  border-left: 7px solid #a8cb5c;
+  margin-top: 20px;
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  margin-right: 20px;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 7px solid;
+  margin-top: 18px;
+  border-left-color: #a8cb5c;
+}
+
+.form-container {
+  background-color: $form-background;
   border-radius: 5px;
   width: 100%;
-  .form-container {
-    padding: 20px;
-  }
+}
+
+.report {
+  padding: 50px;
+}
+
+.report-container {
   .menu {
     li {
       display: inline-block;
+      &.updateStatus {
+        float: right;
+        a:hover {
+          background: $secondary-header-color;
+        }
+      }
       a {
         display: block;
         padding: 10px 20px;
         border-radius: 10px;
         &.active,
         &:hover {
-          background: #a8cb5c;
+          background: $main-header-color;
           cursor: pointer;
           color: white;
         }
@@ -152,13 +198,21 @@ import { ASYNC_SUCCESS, ASYNC_LOADING } from 'app/constants/AsyncStatus';
 import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import PlayerReportForm from 'app/components/EditReport/PlayerReportForm.vue';
 import ClubReportForm from 'app/components/EditReport/ClubReportForm.vue';
+import 'vue-awesome/icons/edit';
+import 'vue-awesome/icons/eye';
+import 'vue-awesome/icons/eye-slash';
+
+import Icon from 'vue-awesome/components/Icon';
+import ActionsItem from 'app/components/ActionsItem';
 
 export default {
   name: 'CreateReportPage',
   components: {
     sidebar: NotificationSidebar,
     playerreportform: PlayerReportForm,
-    clubreportform: ClubReportForm
+    clubreportform: ClubReportForm,
+    icon: Icon,
+    'action-item': ActionsItem
   },
   computed: {
     ...mapGetters(['report', 'searchReport', 'filesUpload'])
@@ -167,12 +221,18 @@ export default {
     report() {
       this.status = '';
       if (this.report.status === ASYNC_SUCCESS) {
-        if (this.files.length > 0) {
-          this.startUpload();
-        } else {
-          this.$router.push({
-            path: '/report/view/' + this.report.value.id
+        this.searchReport.value.report = this.report.value;
+        if (this.files) {
+          if (this.files.length > 0) {
+            this.startUpload();
+          } else {
+           this.$router.push({
+            name: 'scoutReportView',
+            params: {
+              id: this.report.value.id
+            }
           });
+        }
         }
       } else if (this.report.status === ASYNC_LOADING) {
         this.status = 'reportUploading';
@@ -181,8 +241,11 @@ export default {
     filesUpload() {
       if (this.filesUpload.status === ASYNC_SUCCESS) {
         this.$router.push({
-          path: '/report/view/' + this.report.value.id
-        });
+          name: 'scoutReportView',
+          params: {
+            id: this.report.value.id
+          }
+        }); 
       } else if (this.filesUpload.status === ASYNC_LOADING) {
         this.status = 'filesUploading';
       }
@@ -198,6 +261,15 @@ export default {
         path: '/report/view/' + this.$route.params.id
       });
     },
+    updateStatus(status) {
+      var report = {
+        status: status
+      };
+      this.updateReport({
+        report,
+        id: this.searchReport.value.report.id
+      });
+    },
     startUpload() {
       var formData = new FormData();
       var fileList = this.files;
@@ -209,17 +281,18 @@ export default {
       formData.append('report_id', this.report.value.id);
       this.uploadFiles(formData);
     },
-    customUpdateReport(report_data, filelist) {
-      for (var f in report_data.remove_attachment) {
-        if (report_data.remove_attachment[f] === false) {
-          delete report_data.remove_attachment[f];
+    customUpdateReport(report, filelist) {
+      for (var f in report.remove_attachment) {
+        if (report.remove_attachment[f] === false) {
+          delete report.remove_attachment[f];
         }
       }
       this.report.errors = null;
       this.files = filelist;
       var id = this.$route.params.id;
+      console.log(report.report_data.userinfo);
       this.updateReport({
-        report: report_data,
+        report: report,
         id
       });
     }

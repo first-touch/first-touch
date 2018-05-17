@@ -4,56 +4,44 @@ module V1
       step :find_model!
       step :filters!
       step :orders!
+
       private
 
-      def find_model!(options, params:, current_user:, **)
-        if is_scout? current_user
+      def find_model!(options, current_user:, **)
+        if current_user.is_a?(::User) && current_user.scout?
           models = ::Request.all.where status: 'publish'
-        elsif is_club? current_user
+        elsif current_user.is_a?(::Club) || true
+          # Todo: or true need to be remove when club are ready
           models = current_user.requests.where.not(status: 'deleted')
         end
         options['models'] = models
-        models.length > 0 ? true : false
+        options['model.class'] = ::Request
       end
 
-      def filters!(options, params:, current_user:, **)
-          models = options['models']
-          models = models.where id: params[:id] if !params[:id].blank?
-          models = models.where type_request: params[:type_request] if !params[:type_request].blank?
-          models = models.where status: params[:status] if !params[:status].blank?
-
-          date = params[:created_date].to_date if !params[:created_date].blank?
-          if date
-            models = models.where :created_at => date.all_day
-          end
-        options['models'] = models
-        true
-      end
-
-      def orders!(options, params:, current_user:, **)
+      def filters!(options, params:, **)
         models = options['models']
-        if params[:order] == 'id'
-          models = models.order(:id)
-        elsif params[:order] == 'type_request'
-          models = models.order(:type_request)
-        elsif params[:order] == 'status'
-          models = models.order(:status)
-        elsif params[:order] == 'created_on'
-          models = models.order(:created_at)
-        elsif params[:order] == 'nb_bids'
-          models = models.order(:id)
+        models = models.where id: params[:id] unless params[:id].blank?
+        unless params[:type_request].blank?
+          models = models.where type_request: params[:type_request]
         end
-
+        unless params[:status].blank?
+          models = models.where status: params[:status]
+        end
+        date = params[:created_date].to_date unless params[:created_date].blank?
+        models = models.where created_at: date.all_day if date
         options['models'] = models
         true
       end
 
-      def is_club?(current_user)
+      def orders!(options, params:, **)
+        models = options['models']
+        if !params[:order].blank? &&
+           %w[id type_request status created_at nb_bids report_type]
+           .include?(params[:order])
+          models = models.order params[:order].to_sym
+        end
+        options['models'] = models
         true
-      end
-
-      def is_scout?(current_user)
-        current_user.roles.first.name == 'scout'
       end
     end
   end

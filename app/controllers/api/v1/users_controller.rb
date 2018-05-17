@@ -31,7 +31,7 @@ module Api
       end
 
       def import
-        result = ::V1::User::Import.(params,club_id: 0)
+        result = ::V1::User::Import.(params, club_id: 0)
         if result.failure?
           render json: { error: result },
                  status: :unprocessable_entity
@@ -89,28 +89,28 @@ module Api
       def user_params
         params.require(:user)
               .permit(
-                personal_profile_attributes: [
-                  :id,
-                  :first_name,
-                  :middle_name,
-                  :last_name,
-                  :birthday,
-                  :achievements,
-                  :languages,
-                  :nationality_country_code,
-                  :residence_country_code,
-                  :summary,
-                  :height,
-                  :place_of_birth,
-                  :preferred_foot,
-                  :weight
+                personal_profile_attributes: %i[
+                  id
+                  first_name
+                  middle_name
+                  last_name
+                  birthday
+                  achievements
+                  languages
+                  nationality_country_code
+                  residence_country_code
+                  summary
+                  height
+                  place_of_birth
+                  preferred_foot
+                  weight
                 ],
-                career_entries_attributes: [
-                  :start_date,
-                  :end_date,
-                  :club_id,
-                  :club_name,
-                  :role
+                career_entries_attributes: %i[
+                  start_date
+                  end_date
+                  club_id
+                  club_name
+                  role
                 ]
               )
       end

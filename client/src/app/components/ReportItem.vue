@@ -1,79 +1,109 @@
 <template>
-  <div class="report">
-    <div class="user col-sm-3" v-if="report.user">
-      <img class="rounded-circle img-fluid" src="https://unsplash.it/500/500" />
-      <p class="name"> {{report.user.first_name}} {{report.user.last_name}} </p>
-    </div>
-    <div class="report-info col-sm-6">
-      <div class="row">
-        <label class="col col-sm-4">Report Name</label>
-        <p class="col col-sm-6"> {{report.headline}} </p>
+  <div class="wrapper">
+    <div class="header-wrapper">
+      <div class="header col-md-10">
+        <div class="img-container">
+          <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
+        </div>
+        <div class="info col-md-8">
+          <h2 class="title" :title="report.headline">{{report.headline}}</h2>
+          <p class="extra">
+            <span class="target" v-if="report.type_report =='player'">{{report.player.first_name}} {{report.player.last_name}} </span>
+            <span class="target" v-if="report.type_report =='team'"> Club Name</span>
+            <span class="target">{{report.price.value}} {{report.price.currency | currency}}</span>
+            <span class="target">{{report.updated_at | moment}}</span>
+          </p>
+        </div>
       </div>
-      <div class="row">
-        <label class="col col-sm-4">Report Type</label>
-        <p class="col col-sm-6"> {{report.type_report}} </p>
+      <div class="widget">
+        <a v-if="report.orders_status == null && typeof BuyAction === 'function'">
+          <button class="btn-round" @click="BuyAction(report)">Buy report</button>
+        </a>
+        <a v-if="typeof summaryAction === 'function'">
+            <button class="btn-round"  @click="summaryAction(report)">View Summary</button>
+        </a>
+        <a v-if="report.orders_status == 'completed'">
+          <button class="btn-round" @click="refundAction(report)">Refund</button>
+        </a>
+        <a v-if="report.orders_status == 'completed'">
+          <button class="btn-round" @click="viewAction(report)">View report</button>
+        </a>
+        <p v-if="report.orders_status == 'pending'">Payment in pending</p>
+
       </div>
-      <div class="row">
-        <label class="col col-sm-4">Name</label>
-        <p class="col col-sm-6"> What is that </p>
-      </div>
-      <div class="row">
-        <label class="col col-sm-4">Price</label>
-        <p class="col col-sm-6"> {{report.price}} </p>
-      </div>
-      <div class="row" v-if="typeof summaryAction === 'function'">
-        <label class="col col-sm-4">Report Summary </label>
-        <a class="col col-sm-6" @click="summaryAction(report)" href="#">View Summary</a>
-      </div>
-    </div>
-    <div class="buttons" v-if="typeof viewAction === 'function'">
-      <button v-if="report.orders_status == null" class="btn-primary" @click="BuyAction(report)">Buy report</button>
-      <button v-if="report.orders_status == 'completed'" class="btn-primary" @click="viewAction(report)">View report</button>
-      <p v-if="report.orders_status == 'pending'">Payment in pending</p>
     </div>
   </div>
 </template>
-
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
-.report {
-  font-size: 13px;
-  background: white;
-  color: black;
-  padding: 30px 50px;
-  margin-top: 20px;
-  .buttons {
-    display: flex;
-    button {
-      align-self: flex-end;
-    }
-  }
-  .user {
-    text-align: center;
-    .name {
-      text-align: center;
-      text-transform: capitalize;
-      background: #e8e8e8;
-      margin-top: 15px;
-      padding: 10px;
-    }
-    img {
-      max-height: 180px;
-    }
-  }
-  .report-info {
-    margin-left: 30px;
-    margin-top: 20px;
-    p::first-letter {
-      text-transform: capitalize;
-    }
-  }
-}
-</style>
+  @import '~stylesheets/variables';
 
+  .wrapper {
+    padding: 0 30px;
+    border-top: 1px solid $secondary-text-color;
+    &:last-child {
+      border-bottom: 1px solid $secondary-text-color;
+    }
+
+    .avatar {
+      height: 300px;
+      border-radius: 50%;
+    }
+
+    .title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .header-wrapper {
+      display: flex;
+      justify-content: space-between;
+      .header {
+        display: flex;
+        .img-container {
+          height: 120px;
+          max-width: 120px;
+          margin-right: 30px;
+          .img-fluid {
+            max-height: 100%;
+          }
+        }
+        .info {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          .extra {
+            text-transform: none;
+            .target {
+              display: block;
+            }
+            .author {
+              color: #000;
+            }
+          }
+        }
+      }
+      .widget {
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        .btn-round {
+          cursor: pointer;
+          border-radius: 9999px;
+          border: 1px solid $secondary-text-color;
+          background: #fff;
+          width: 100px;
+          &:hover {
+            background: $button-background-hover;
+          }
+        }
+      }
+    }
+  }
+</style>
 <script>
-export default {
-  name: 'ReportItem',
-  props: ['report', 'viewAction', 'summaryAction', 'BuyAction']
-};
+  export default {
+    name: 'ReportItem',
+    props: ['report', 'UpdateReport', 'viewAction', 'summaryAction', 'BuyAction','refundAction']
+  };
 </script>

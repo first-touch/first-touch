@@ -1,0 +1,128 @@
+@import '~stylesheets/variables';
+.form-group {
+  label {
+    color: $main-text-color !important;
+  }
+}
+
+.ft-form {
+  .ftcheckbox-inner {
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+    .ftcheckbox {
+      transform: scale(0.7);
+      float: left;
+      margin-right: 20px;
+    }
+    .sub-menu-arrow {
+      float: right;
+    }
+    .title {
+      margin-top: 10px;
+      display: inline-block;
+    }
+  }
+  .separator {
+    text-align: center;
+  }
+  .v-select {
+    .selected-tag {
+      color: $main-text-color !important;
+    }
+    .clear {
+      display: none;
+    }
+  }
+  .update-attachments {
+    color: $main-text-color;
+    p {
+      display: inline-block;
+      &.removed {
+        text-decoration: line-through;
+      }
+      &.remove {
+        color: red;
+        cursor: pointer;
+      }
+      &.filename {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+  .attachments-div {
+    ul {
+      float: right;
+      li {
+        display: list-item;
+        list-style: disc;
+      }
+    }
+  }
+  .error {
+    li {
+      color: red;
+      display: list-item;
+      list-style: disc;
+      &:first-letter {
+        text-transform: capitalize;
+      }
+    }
+  }
+  background: $form-background;
+  color: $main-text-color;
+  padding: 40px 40px 80px 40px;
+  .info {
+    color: green;
+    font-weight: bold;
+    margin: 0;
+  }
+  .ft-input {
+    padding: 0;
+  }
+  .v-select:not(:focus) {
+    input.form-control {
+      width: 0px !important;
+    }
+    input.form-control:focus {
+      width: auto !important;
+    }
+  }
+  .required {
+    &:after {
+      content: '*';
+      color: red;
+    }
+  }
+  .buttons-inner {
+    float: right;
+    button {
+      margin: 0;
+      border: 0;
+      padding: 10px;
+      min-width: 100px;
+      min-height: 20px;
+      border-radius: 10px;
+    }
+    .ft-button {
+      color: $main-text-color;
+      border: 1px solid $main-text-color;
+      background-color: $button-background;
+      cursor: pointer;
+      &:hover {
+        background-color: $button-background-hover;
+      }
+    }
+    .ft-button-success {
+      color: white;
+      min-height: 20px;
+      background-color: $main-header-color;
+      cursor: pointer;
+      &:hover {
+        background-color: $secondary-header-color;
+      }
+    }
+  }
+}

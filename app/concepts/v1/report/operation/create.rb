@@ -1,16 +1,22 @@
 module V1
   module Report
-    class Create < Trailblazer::Operation
+    class Create < FirstTouch::Operation
       step Model(::Report, :new)
+      step :authorized!
+      failure :unauthenticated, fail_fast: true
       step :setup_model!
-      step Trailblazer::Operation::Contract::Build(constant: Report::Contract::Create)
+      step Trailblazer::Operation::Contract::Build(
+        constant: Report::Contract::Create
+      )
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
 
-      def setup_model!(model:,current_user:, params:, **)
+      def setup_model!(model:, current_user:, **)
         model.user = current_user
-        model.type_report = params[:type_report]
-        model.status = params[:status]
+      end
+
+      def authorized!(current_user:, **)
+        current_user.scout?
       end
     end
   end

@@ -7,7 +7,7 @@ module Importer
     def perform(roster_file = nil, club_id = nil)
       return if club_id.nil?
       headers = %w[first_name last_name email
-                    phone_number birthday nationality]
+                   phone_number birthday nationality]
 
       workbook = RubyXL::Parser.parse(roster_file)
       worksheet = workbook.worksheets[0]

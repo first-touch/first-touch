@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180404034328) do
+ActiveRecord::Schema.define(version: 20180418035045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,13 +32,6 @@ ActiveRecord::Schema.define(version: 20180404034328) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_app_notifications_on_user_id"
-  end
-
-  create_table "attachment_items", force: :cascade do |t|
-    t.integer "attachment_id"
-    t.integer "report_datum_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "attachments", force: :cascade do |t|
@@ -238,39 +231,45 @@ ActiveRecord::Schema.define(version: 20180404034328) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
-  create_table "report_data", force: :cascade do |t|
-    t.bigint "report_id"
-    t.json "meta_data"
-    t.integer "version"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["report_id"], name: "index_report_data_on_report_id"
-  end
-
   create_table "reports", force: :cascade do |t|
     t.text "headline"
     t.string "status"
     t.string "type_report"
     t.bigint "user_id"
-    t.integer "price"
+    t.json "price"
     t.bigint "club_id"
     t.integer "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "meta_data"
+    t.bigint "attachments_id"
+    t.index ["attachments_id"], name: "index_reports_on_attachments_id"
     t.index ["club_id"], name: "index_reports_on_club_id"
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
+  create_table "request_bids", force: :cascade do |t|
+    t.json "price"
+    t.bigint "user_id"
+    t.text "status"
+    t.bigint "request_id"
+    t.bigint "report_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_request_bids_on_report_id"
+    t.index ["request_id"], name: "index_request_bids_on_request_id"
+    t.index ["user_id"], name: "index_request_bids_on_user_id"
+  end
+
   create_table "requests", force: :cascade do |t|
     t.text "type_request"
-    t.integer "min_price"
-    t.integer "max_price"
     t.bigint "user_id"
     t.date "deadline"
     t.text "status"
     t.json "meta_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "price"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
@@ -347,9 +346,12 @@ ActiveRecord::Schema.define(version: 20180404034328) do
   add_foreign_key "notes", "users"
   add_foreign_key "orders", "reports"
   add_foreign_key "orders", "users"
-  add_foreign_key "report_data", "reports"
+  add_foreign_key "reports", "attachments", column: "attachments_id"
   add_foreign_key "reports", "clubs"
   add_foreign_key "reports", "users"
+  add_foreign_key "request_bids", "reports"
+  add_foreign_key "request_bids", "requests"
+  add_foreign_key "request_bids", "users"
   add_foreign_key "requests", "users"
   add_foreign_key "team_users", "teams"
   add_foreign_key "team_users", "users"

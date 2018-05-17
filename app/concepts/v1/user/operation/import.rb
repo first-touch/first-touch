@@ -32,13 +32,12 @@ module V1
           model.personal_profile.residence_country_code = IsoCountryCodes.search_by_name(params['residence_country_code']).first
           iso_country = IsoCountryCodes.search_by_name(params['nationality']).first
           model.personal_profile.nationality_country_code = iso_country&.alpha2
-        rescue
-
+        rescue StandardError
         end
         # Create unclaimed account and email
         pwd = SecureRandom.hex
         model.add_role 'player'
-        model.email = model.personal_profile.first_name + model.personal_profile.last_name + "_new@firsttouch.io"
+        model.email = model.personal_profile.first_name + model.personal_profile.last_name + '_new@firsttouch.io'
         model.password = pwd
         model.password_confirmation = pwd
         model.unclaimed = true
@@ -46,9 +45,7 @@ module V1
 
       def associate_club(model:, club_id:, **)
         club = ::Club.find_by id: club_id
-        if club
-          model.clubs << club
-        end
+        model.clubs << club if club
         model.save
       end
     end

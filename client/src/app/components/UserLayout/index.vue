@@ -47,13 +47,13 @@
           return 'network';
         } else if (/\/users\/\d+\/profile/.test(path)) {
           return 'profile';
-        } else if (path === '/report/create') {
+        } else if (path === '/scouting/report/create') {
           return 'scouting/report/create';
-        } else if (path === '/report/marketplace') {
-          return 'scouting/report/marketplace';
-        } else if (path === '/jobs/list') {
+        } else if (path === '/scouting/report/marketplace') {
+          return 'scouting/scouting/report/marketplace';
+        } else if (path === '/scouting/jobs/list') {
           return 'scouting/jobs/list';
-        } else if (/\/report/.test(path)) {
+        } else if (/\/scouting/.test(path)) {
           return 'scouting/report/';
         }
         return 'home';
