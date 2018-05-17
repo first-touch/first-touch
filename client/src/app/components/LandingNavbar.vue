@@ -6,9 +6,9 @@
     </router-link>
     <b-collapse isNav id="ft-nav-collapse">
       <b-nav class="ml-auto">
-        <b-nav-item>
+        <!-- <b-nav-item>
           <router-link to="#" class="nav-link">Change Language</router-link>
-        </b-nav-item>
+        </b-nav-item> -->
         <b-nav-item>
           <router-link to="/users/sign_in" class="nav-link">Sign In</router-link>
         </b-nav-item>

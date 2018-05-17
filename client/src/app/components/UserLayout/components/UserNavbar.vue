@@ -91,6 +91,9 @@
       <div class="nav-item">
         <a href="/about">About</a>
       </div>
+      <div class="nav-item">
+        <button @click="logout">Logout</button>
+      </div>
     </div>
   </div>
 </template>
@@ -210,17 +213,26 @@
     display: flex;
     height: 119px;
     align-items: center;
+    justify-content: space-around;
     .nav-item {
-      padding: 20px;
       text-transform: uppercase;
-      a {
+      a,
+      button {
         color: $main-header-color;
         font-weight: 300;
         font-size: 0.9em;
       }
-      a:hover {
+      button {
+        background: transparent;
+        border: none;
+        text-transform: uppercase;
+        padding: 0;
+      }
+      a:hover,
+      button:hover {
         color: #fff;
         text-decoration: none;
+        cursor: pointer;
       }
     }
   }
@@ -242,9 +254,10 @@ export default {
   computed: {
     ...mapGetters(['token', 'user']),
     name() {
-      if(this.user.status === ASYNC_SUCCESS) {
-        return `${this.user.value.personal_profile.first_name} ${this.user.value
-            .personal_profile.last_name}`;
+      if (this.user.status === ASYNC_SUCCESS) {
+        return `${this.user.value.personal_profile.first_name} ${
+          this.user.value.personal_profile.last_name
+        }`;
       } else {
         return '';
       }
@@ -256,18 +269,21 @@ export default {
       return this.user.status === ASYNC_SUCCESS ? this.roles.indexOf('scout') >= 0 : false;
     }
     role() {
-      if(this.user.status === ASYNC_SUCCESS) {
+      if (this.user.status === ASYNC_SUCCESS) {
         return this.user.value.role_name;
       } else {
         return '';
       }
     },
     isCoach() {
-      return (this.user.status === ASYNC_SUCCESS && this.user.value.role_name === 'coach');
-    }
+      return (
+        this.user.status === ASYNC_SUCCESS &&
+        this.user.value.role_name === 'coach'
+      );
+    },
   },
   methods: {
-    ...mapActions(['getUserInfo']),
+    ...mapActions(['getUserInfo', 'logout']),
     setMenu(id) {
       this.submenu = id;
     },

@@ -30,14 +30,10 @@ module Api
         end
       end
 
-      def import
-        result = ::V1::User::Import.(params, club_id: 0)
-        if result.failure?
-          render json: { error: result },
-                 status: :unprocessable_entity
-        else
-          render json: result['model'], status: :ok
-        end
+      def update
+        result = ::V1::User::Update.(params, current_user: current_user)
+        response = FirstTouch::Endpoint.(result, ::V1::User::Representer::SelfProfile)
+        render json: response[:data], status: response[:status]
       end
 
       def update

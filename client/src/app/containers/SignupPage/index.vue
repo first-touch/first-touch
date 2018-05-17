@@ -29,6 +29,10 @@
           <fieldset class="form-group col-md-12">
             <label>Date Of Birth</label>
             <div class="row">
+              <select v-model="day" class="form-control col-md-3">
+                <option disabled value="" selected>Day</option>
+                <option v-for="d in 31" :key="d" :value="d">{{ d }}</option>
+              </select>
               <select v-model="month" class="form-control col-md-3">
                 <option disabled value="" selected>Month</option>
                 <option value="1">January</option>
@@ -44,11 +48,10 @@
                 <option value="11">November</option>
                 <option value="12">December</option>
               </select>
-              <select v-model="day" class="form-control col-md-3">
-                <option disabled value="" selected>Date</option>
-                <option v-for="d in 31" :key="d" :value="d">{{ d }}</option>
+              <select v-model="year" class="form-control col-md-6">
+                <option disabled value="" selected>Year</option>
+                <option v-for="y in validYears" :key="y" :value="y">{{y}}</option>
               </select>
-              <input type="number" v-model="year" class="form-control col-md-6" placeholder="Year" :min="currentYear - 100" :max="currentYear" />
             </div>
           </fieldset>
           <fieldset class="form-group col-md-12">
@@ -84,14 +87,14 @@
                 />
             </div>
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-md-12 tc-container">
             <input type="checkbox" id="tc" name="termsandconditions" v-model="tccheck" />
-            <label for="tc">By checking this box, you agree to our <router-link to="/terms_conditions">Terms&amp;Conditions</router-link> </label>
+            <label for="tc">By checking this box, you agree to our <router-link to="/terms_conditions">Terms &amp; Conditions</router-link> </label>
           </fieldset>
           <button class="bar-button center" type="submit">Sign Up</button>
           <fieldset class="col-md-12">
             <div v-if="error" class="alert alert-danger">
-              {{ error }}
+              <em>{{ error }}</em>
             </div>
           </fieldset>
         </form>
@@ -101,6 +104,7 @@
 </template>
 
 <style lang="scss" scoped>
+@import '~stylesheets/variables.scss';
 .container-fluid {
   background: url('/images/landing-page/team-logo.jpg') no-repeat center center
     fixed;
@@ -120,7 +124,36 @@
   align-items: center;
   .row {
     margin: 0 1px;
+    justify-content: space-between;
+    .col-md-6 {
+      flex-basis: calc(50% - 5px);
+    }
+    .col-md-3 {
+      flex-basis: calc(25% - 5px);
+    }
   }
+  .tc-container {
+    #tc {
+      height: 16px;
+    }
+    label {
+      margin-bottom: 0;
+      a {
+        color: $secondary-text-color;
+      }
+      a:hover {
+        color: $main-text-color;
+      }
+    }
+  }
+}
+
+.alert.alert-danger {
+  background: transparent;
+  border: none;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #fff;
 }
 </style>
 <style lang="scss">
@@ -210,6 +243,15 @@ export default {
       searchText: '',
       error: null,
       currentYear: new Date().getUTCFullYear(),
+      validYears: (() => {
+        const currentYear = new Date().getUTCFullYear();
+        let rtv = [];
+        for (let i = currentYear - 99; i < currentYear - 15; i++) {
+          rtv.push(i);
+        }
+
+        return rtv.reverse();
+      })(),
     };
   },
   methods: {
@@ -219,8 +261,6 @@ export default {
         return this.$set(this, 'error', "Password Doesn't Match!");
       } else if (this.day.length === 0 || this.month.length === 0) {
         return this.$set(this, 'error', 'Please Enter Date of Birth!');
-      } else if (this.year < 1900 || this.year > new Date().getUTCFullYear()) {
-        return this.$set(this, 'error', 'Invalid Year of Birth!');
       } else if (!this.role_name) {
         return this.$set(this, 'error', 'Please choose a role!');
       } else if (!this.tccheck) {
@@ -258,7 +298,13 @@ export default {
     fetchCountries() {
       fetch('/api/v1/clubs/countries')
         .then(res => res.status === 200 && res.json())
-        .then(({ countries }) => this.$set(this, 'countries', countries));
+        .then(({ countries }) =>
+          this.$set(
+            this,
+            'countries',
+            countries.sort((a, b) => a.country_name > b.country_name),
+          ),
+        );
     },
     updateItems(text) {
       this.$set(this, 'searchText', text);
