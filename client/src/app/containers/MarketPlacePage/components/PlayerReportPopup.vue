@@ -7,8 +7,8 @@
           <p class="id">{{report.id | reportId(report.type_report) }}</p>
         </div>
         <div class="col-md-8 buttons-inner">
-          <button class="ft-button" @click="closeAction(report)">Close</button>
-          <button class="ft-button-success" @click="buyAction(report)">Buy Report</button>
+          <button class="ft-button" @click="closeAction(report)"  >Close</button>
+          <button class="ft-button-success" v-if="!report.is_free" @click="buyAction(report)" >Buy Report</button>
         </div>
       </div>
     </div>

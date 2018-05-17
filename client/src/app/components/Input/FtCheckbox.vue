@@ -3,7 +3,7 @@
 
     <section title=".slideOne">
       <div class="slideOne">
-        <input type="checkbox" v-model="model" @change="update" false-value="no" true-value="yes" />
+        <input type="checkbox" v-model="model" @change="update" :false-value="falseValue != null ? falseValue : 'no'" :true-value="trueValue ? trueValue : 'yes'" />
         <label for="slideOne"></label>
       </div>
     </section>
@@ -77,7 +77,7 @@
 <script>
   export default {
     name: 'FtCheckbox',
-    props: ['value'],
+    props: ['value', 'falseValue', 'trueValue'],
     watch: {
       value() {
         this.model = this.value;

@@ -27,8 +27,12 @@ module FirstTouch
     end
 
     def stripe_failure!(options, **)
-      error_message = options['stripe.errors']
-      options['result.model.errors'] = [error_message]
+      stripe_error = options['stripe.errors']
+      if stripe_error.is_a?(::Stripe::StripeError)
+        body = stripe_error.json_body
+        err  = body[:error]
+        options['stripe.errors'] = err[:message]
+      end
     end
 
   end

@@ -1,99 +1,209 @@
 <template>
   <div>
-    <div class="error" v-if="status == 'failed' ">
+    <div class="error" v-if="errors">
       Errors:
-      <ul v-if="errors">
-        <li v-for="error in errors.errors" :key="error.id">{{error}}</li>
+      <ul>
+        <li>{{result.errors.errors}}</li>
       </ul>
     </div>
-    <div class="custom-modal-content">
-      <h5>Choose a Payment Method {{price.value}} {{price.currency | currency}} </h5>
-      <form @submit.prevent :class="status == 'loading'? 'loading' : '' ">
-        <fieldset class="form-group col-md-12 filter">
-          <label class="col-sm-4">Payment Method:</label>
-          <select name="payment" id="payment-select" v-model="payment_method">
-            <option value="fake-success">Success payment</option>
-            <option value="fake-errors">Failure payment</option>
-          </select>
-        </fieldset>
-        <fieldset class="form-group col-md-12 filter">
-          <label class="col-sm-4">Name on Card:</label>
-          <input class="col-sm-5" type="text" v-model="name" />
-        </fieldset>
-        <fieldset class="form-group col-md-12 filter">
-          <label class="col-sm-4">Credit Card Number</label>
-          <input class="col-sm-5" type="text" v-model="credit_card" />
-        </fieldset>
-        <fieldset class="form-group col-md-12 filter">
-          <label class="col-sm-4">CVV Number</label>
-          <input class="col-sm-2" type="number" v-model="cvv" />
-        </fieldset>
-        <fieldset class="form-group col-md-12 filter">
-          <label class="col-sm-4">Expiry Date</label>
-          <input id="month" type="month" v-model="expiry">
-        </fieldset>
-        <div class="footer-modal buttons-inner">
-          <button class="btn-primary ft-button" @click="startPayment">PAY NOW</button>
+    <div class="contentPayment ft-form" :class="loading ? 'loading' : ''">
+      <loading class="loader" />
+      <div class="payment" v-if="!success">
+        <vselect v-model="cardSelect" v-if="!newCard" @input="cardToken = cardSelect.value" :options="cards" :searchable="false"
+        />
+        <div :class="!newCard? 'hide' : ''">
+          <label class="col-sm-12 ftcheckbox-inner col-form-label" :class="saveCard? 'active' : ''">
+            <span class="title" v-if="saveCard"> Save the card for further use</span>
+            <span class="not" v-if="!saveCard"> Do not save the card for further use</span>
+            <ftcheckbox class="ftcheckbox" :value="saveCard" v-on:update:val="saveCard = $event" :trueValue="true" :falseValue="false"
+            />
+          </label>
+          <div ref="card"></div>
         </div>
-      </form>
+        <div class="buttons-inner">
+          <button class="ft-button" v-if="!emptyCard" v-on:click="newCard = !newCard">
+            <span v-if="!newCard">Add a new card</span>
+            <span v-if="newCard">Use existing card</span>
+          </button>
+          <button class="ft-button-success" v-on:click="purchase">Purchase</button>
+        </div>
+      </div>
+      <div v-if="success">
+        <p>Success !</p>
+        <div class="col-md-12 buttons-inner">
+          <button class="ft-button-success ft-button-right" @click="closeAction()">Close</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
-@import '~stylesheets/variables';
-form {
-  border: 1px solid black;
-  padding: 20px;
-}
-
-.custom-modal-content {
-  padding: 50px 10px 20px 10px;
-}
-
-.error {
-  color: red;
-  ul {
-    display: list-item;
-    padding: 0 0 0 50px;
-    li {
-      display: list-item;
-      list-style: disc;
+<style lang="scss">
+  .contentPayment {
+    .selected-tag {
+      color: red;
     }
   }
-}
+
+  .hide {
+    display: none;
+  }
+</style>
+
+
+<style lang="scss" scoped>
+  @import '~stylesheets/variables';
+
+  form {
+    border: 1px solid $secondary-header-color;
+    padding: 20px;
+  }
+
+  .buttons-inner {
+    margin-top: 20px;
+  }
+
+  .contentPayment {
+    padding: 50px 10px 20px 10px;
+    .loader {
+      display: none;
+      margin-left: 40%;
+    }
+    &.loading {
+      .loader {
+        display: block;
+      }
+      .payment {
+        display: none;
+      }
+    }
+    .not {
+      color: #ff2121;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 15px;
+    }
+  }
+
+  .error {
+    color: red;
+    ul {
+      display: list-item;
+      padding: 0 0 0 50px;
+      li {
+        display: list-item;
+        list-style: disc;
+      }
+    }
+  }
 </style>
 
 <script>
-import { ASYNC_SUCCESS, ASYNC_LOADING, ASYNC_FAIL } from 'app/constants/AsyncStatus';
+  import {
+    ASYNC_SUCCESS,
+    ASYNC_LOADING,
+    ASYNC_FAIL
+  } from 'app/constants/AsyncStatus';
+  import {
+    StripePublicKey
+  } from 'app/constants/StripeConstant';
+  import Loading from 'app/components/Loading';
+  import vSelect from 'vue-select';
+  import FtCheckbox from 'app/components/Input/FtCheckbox';
 
-export default {
-  name: 'PaymentPopup',
-  props: ['price', 'closeAction', 'paymentAction','status','errors'],
-  data () {
-    return {
-      payment_method: '',
-      name: '',
-      credit_card: '',
-      cvv: '',
-      expiry: '',
-    };
-  },
-  methods: {
-    startPayment () {
-      var payment_method = this.payment_method;
-      var name = this.name;
-      var credit_card = this.credit_card;
-      var cvv = this.cvv;
-      var expiry = this.expiry;
-      this.paymentAction({
-        payment_method,
-        name,
-        credit_card,
-        cvv,
-        expiry
-      });
+  export default {
+    name: 'PaymentPopup',
+    props: [
+      'closeAction',
+      'stripePayment',
+      'StripeCardToken',
+      'stripeJs',
+      'paymentAction',
+      'stripeClubCards',
+      'result'
+    ],
+    components: {
+      loading: Loading,
+      vselect: vSelect,
+      ftcheckbox: FtCheckbox
+    },
+    data() {
+      return {
+        card: null,
+        cardSelect: null,
+        cardToken: null,
+        newCard: false,
+        saveCard: true,
+        emptyCard: false
+      };
+    },
+    watch: {
+      stripePayment() {
+        if (this.stripePayment.status == ASYNC_SUCCESS) {
+          this.paymentAction(this.token, this.saveCard);
+        }
+      },
+      stripeClubCards() {
+        if (this.stripeClubCards.status == ASYNC_SUCCESS)
+          if (this.cards.length == 0) {
+            this.emptyCard = true
+            this.newCard = true
+          }
+      }
+    },
+    computed: {
+      token() {
+        return this.stripePayment.value.token.id;
+      },
+      elements() {
+        return this.stripeJs.elements();
+      },
+      loading() {
+        return (
+          this.result.status === ASYNC_LOADING ||
+          this.stripePayment.status === ASYNC_LOADING ||
+          this.stripeClubCards.status === ASYNC_LOADING
+        );
+      },
+      success() {
+        return this.result.status === ASYNC_SUCCESS && this.stripePayment.status === ASYNC_SUCCESS;
+      },
+      errors(){
+        return this.result.status === ASYNC_FAIL || this.stripePayment.status === ASYNC_FAIL;
+      },
+      stripe() {
+        return this.stripeClubCards.status == ASYNC_SUCCESS ? this.stripeClubCards.value : {};
+      },
+      cards() {
+        var options = [];
+        for (var i in this.stripe.cards) {
+          var card = this.stripe.cards[i];
+          options.push({
+            label: ` ${card.brand} **${card.last4} expire on ${card.exp_month}/${card.exp_year} `,
+            value: card.id
+          });
+          if (card.id == this.stripe.default_source)
+            this.cardSelect = {
+              label: `Default: ${card.brand} **${card.last4} expire on ${card.exp_month}/${
+              card.exp_year
+            } `,
+              value: card.id
+            };
+        }
+        return options;
+      }
+    },
+    mounted: function () {
+      this.card = this.elements.create('card');
+      this.card.mount(this.$refs.card);
+    },
+    methods: {
+      purchase: function () {
+        if (this.newCard) this.StripeCardToken(this.card);
+        else {
+          this.paymentAction(this.cardToken);
+        }
+      }
     }
-  }
-};
+  };
 </script>

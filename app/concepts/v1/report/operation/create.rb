@@ -34,6 +34,9 @@ module V1
         current_user.scout?
       end
 
+      def stripe(model:, current_user:, **)
+        true
+      end
 
       def is_a_bid?(options, model:,params:, current_user:, **)
         if !params[:job_id].blank?

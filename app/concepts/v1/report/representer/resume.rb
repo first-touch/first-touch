@@ -17,6 +17,11 @@ module V1
             represented.user.personal_profile
           )
         }
+        property :is_free, getter: lambda { |represented:, **|
+          if represented.price
+             represented.price['value'] == 0
+          end
+        }
 
         property :player, getter: lambda { |represented:, **|
           if represented.player and represented.type_report == 'player'

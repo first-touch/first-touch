@@ -18,7 +18,7 @@ module V1
               account.external_accounts.retrieve(id)
               options['model'] = account
             rescue => e
-              options['stripe.errors'] = e.to_s
+              options['stripe.errors'] = e
             end
           end
         end
@@ -35,9 +35,7 @@ module V1
             begin
               bank_account.delete()
             rescue => e
-              body = e.json_body
-              err = body[:error]
-              options['stripe.errors'] = err[:message]
+              options['stripe.errors'] = e
             end
           end
           options['model'] = ::Stripe::Account.retrieve(account.id)

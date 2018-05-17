@@ -54,7 +54,9 @@
             </span>
             <span class="field row">
               <span class="col-md-4">Price:</span>
-              <span class="col-md-6"> {{report.price.value}} {{report.price.currency | currency}}
+              <span class="col-md-6" v-if="!report.is_free"> {{report.price.value}} {{report.price.currency | currency}}
+              </span>
+              <span class="col-md-6 yes" v-if="report.is_free"> Free
               </span>
             </span>
             <span class="field row">
@@ -83,7 +85,7 @@
         <a v-if="report.orders_status == 'completed'">
           <button class="btn-round" @click="refundAction(report)">Refund</button>
         </a>
-        <a v-if="own || report.orders_status == 'completed'">
+        <a v-if="own || report.orders_status == 'completed' || report.is_free">
           <button class="btn-round" @click="viewAction(report)">View report</button>
         </a>
         <p v-if="report.orders_status == 'pending'">Payment in pending</p>
