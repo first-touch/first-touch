@@ -42,9 +42,16 @@ module FirstTouch
             'status': :unprocessable_entity }
         end
       },
+      model_not_found: {
+        rule: ->(result) { result.failure? && result['result.model.not_found']},
+        resolve: lambda do |result, _representer|
+          { 'data': { errors: result['result.model.errors'] },
+            'status': :not_found }
+        end
+      },
       invalid: {
         rule: ->(result) { result.failure? },
-        resolve: ->(_result, _representer) { { 'data': {}, 'status': :unprocessable_entity } }
+        resolve: ->(_result, _representer) { { 'data':  { errors: _result['contract.default'].errors }, 'status': :unprocessable_entity } }
       },
       fallback: {
         rule: ->(_result) { true },

@@ -5,7 +5,7 @@
       <div class="ft-page">
         <h4 class="header">My independent reports</h4>
         <timeline-item>
-          <div class="widget-reports col col-md-12">
+          <div class="ft-search-widget widget-reports col col-md-12">
             <div class="row">
               <div class="col-md-2">
                 <h6 class="list-title">Reports Count</h6>
@@ -13,7 +13,7 @@
               </div>
               <form @submit.prevent="search" class="col-md-10">
                 <div class="row">
-                  <fieldset class="col-md-3 filter form-control">
+                  <fieldset class="col-md-3 filter">
                     <vselect v-model="type_select" @input="search" :options="options.report_type" :searchable="false" />
                   </fieldset>
                   <ftdatepicker class="col-md-3 filter form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
@@ -21,7 +21,7 @@
                   <fieldset class="col-md-3 filter form-control">
                     <input class="col-sm-12 form-control" placeholder="Search tags" type="text" v-model="params.headline" />
                   </fieldset>
-                  <fieldset class="col-md-3 filter form-control">
+                  <fieldset class="col-md-3 filter">
                     <vselect v-model="sort_select" @input="search" :options="options.order" :searchable="false" />
                   </fieldset>
                 </div>
@@ -44,111 +44,14 @@
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/variables';
 @import '~stylesheets/form';
+@import '~stylesheets/modal';
+@import '~stylesheets/search';
 
-.widget-reports {
-  .datepicker {
-    padding: 0;
-    input.input-date {
-      cursor: pointer;
-      min-height: 2em;
-      border: 0px;
-    }
-  }
-  .dropdown-toggle {
-    max-height: 35px;
-    border: 0px;
-  }
-}
-
-#metaModal {
-  color: black;
-  header {
-    display: none;
-  }
-
-  .modal-dialog {
-    border: 10px solid $main-text-color;
-    border-radius: 10px;
-    max-width: 1200px;
-    min-height: 500px;
-  }
-  .modal-content {
-    padding: 0;
-    margin: 0;
-    min-height: 700px;
-    border: 0px;
-    border-radius: 0;
-  }
-  .reportHeadline {
-    margin-bottom: 40px;
-    p.col {
-      margin: 0;
-    }
-  }
-  .infos .row {
-    margin-top: 10px;
-    .col {
-      margin: 0;
-      .list {
-        text-transform: capitalize;
-      }
-    }
-  }
-  .footer-modal {
-    margin-top: 40px;
-    float: right;
-    button {
-      padding: 5px 30px;
-      border-radius: 15px;
-      font-size: 0.9em;
-    }
-  }
-  footer {
-    display: none;
-  }
-}
 </style>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
-.widget-reports {
-  color: $main-text-color;
-  .form-control {
-    padding: 0;
-  }
-  .list-title {
-    color: $main-text-color;
-    font-size: 0.95em;
-    text-transform: uppercase;
-  }
-  .list-count {
-    color: $main-header-color;
-    font-size: 4em;
-    text-align: center;
-  }
-  .filter {
-    margin: 5px;
-    max-width: 23%;
-    input,
-    select {
-      height: 100%;
-      padding: 10px;
-    }
-    .icon-inner {
-      margin-top: 5px;
-      display: inline-block;
-      cursor: pointer;
-      &:hover {
-        color: $secondary-header-color;
-      }
-    }
-    .datepicker {
-      float: left;
-    }
-  }
-}
+
 </style>
 
 <script>

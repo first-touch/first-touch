@@ -21,61 +21,61 @@
       </fieldset>
       <fieldset class="form-group col-md-12">
         <label class="form-group row col-md-2">Matches Analysed</label>
-        <div class="row row_match_analyzed" v-for="(match, index) in report_data.analyzed_matches" v-bind:key="match.id">
+        <div class="row row_match_analyzed" v-for="(match, index) in meta_data.analyzed_matches" v-bind:key="match.id">
           <input type="text" v-model="match.date" class="col col-md-2" placeholder="Date" />
           <input type="text" v-model="match.opponent" class="col col-md-2" placeholder="opponent" />
           <input type="text" v-model="match.venue" class="col col-md-2" placeholder="venue" />
           <input type="text" v-model="match.result" class="col col-md-2" placeholder="Result (Win,Draw,Lose) and score" />
-          <a v-if="report_data.analyzed_matches.length > 1" @click="removeRowMatches(index)">X</a>
+          <a v-if="meta_data.analyzed_matches.length > 1" @click="removeRowMatches(index)">X</a>
         </div>
         <button class="button row btn-primary" @click="addRowMatches">Add Match</button>
       </fieldset>
       <fieldset class="form-group col-md-12">
         <label>Formation Used</label>
         <div class="row">
-          <textarea v-model="report_data.formaton" class="col col-md-12" />
+          <textarea v-model="meta_data.formaton" class="col col-md-12" />
         </div>
       </fieldset>
       <fieldset class="form-group col-md-12">
         <label>Attacking organisation</label>
         <div class="row">
-          <textarea v-model="report_data.attacking_organisation" class="col col-md-12" />
+          <textarea v-model="meta_data.attacking_organisation" class="col col-md-12" />
         </div>
       </fieldset>
       <fieldset class="form-group col-md-12">
         <label>Defensive Organisation</label>
         <div class="row">
-          <textarea v-model="report_data.defensive_organisation" class="col col-md-12" />
+          <textarea v-model="meta_data.defensive_organisation" class="col col-md-12" />
         </div>
       </fieldset>
       <fieldset class="form-group col-md-12">
         <label>Set plays - For</label>
         <div class="row">
-          <textarea v-model="report_data.setplays_for" class="col col-md-12" />
+          <textarea v-model="meta_data.setplays_for" class="col col-md-12" />
         </div>
       </fieldset>
       <fieldset class="form-group col-md-12">
         <label>Set plays - Against</label>
         <div class="row">
-          <textarea v-model="report_data.setplays_against" class="col col-md-12" />
+          <textarea v-model="meta_data.setplays_against" class="col col-md-12" />
         </div>
       </fieldset>
       <fieldset class="form-group col-md-12">
         <label>Main threats</label>
         <div class="row">
-          <textarea v-model="report_data.main_threats" class="col col-md-12" />
+          <textarea v-model="meta_data.main_threats" class="col col-md-12" />
         </div>
       </fieldset>
       <fieldset class="form-group col-md-12">
         <label>Observations</label>
         <div class="row">
-          <textarea v-model="report_data.observations" class="col col-md-12" />
+          <textarea v-model="meta_data.observations" class="col col-md-12" />
         </div>
       </fieldset>
       <fieldset class="form-group col-md-12">
         <label>Conclusions</label>
         <div class="row">
-          <textarea v-model="report_data.conclusions" class="col col-md-12" />
+          <textarea v-model="meta_data.conclusions" class="col col-md-12" />
         </div>
       </fieldset>
       <fieldset class="form-group col-md-12">
@@ -129,7 +129,7 @@
     ],
     data() {
       return {
-        report_data: {
+        meta_data: {
           analyzed_matches: [{
             date: '',
             opponent: '',
@@ -148,7 +148,7 @@
           price: this.price,
           type_report: "club",
           club_id: this.club_id,
-          report: this.report_data,
+          report: this.meta_data,
         }
         this.createReport(report)
         var container = this.$el.querySelector("#report-form");
@@ -157,7 +157,7 @@
         }, 100);
       },
       addRowMatches: function() {
-        this.report_data.analyzed_matches.push({
+        this.meta_data.analyzed_matches.push({
           date: '',
           opponent: '',
           venue: '',
@@ -165,7 +165,7 @@
         })
       },
       removeRowMatches: function(index) {
-        this.report_data.analyzed_matches.length > 1 ? this.report_data.analyzed_matches.splice(index, 1) : ''
+        this.meta_data.analyzed_matches.length > 1 ? this.meta_data.analyzed_matches.splice(index, 1) : ''
       }
     }
   };

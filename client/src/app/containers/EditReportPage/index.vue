@@ -9,13 +9,13 @@
             <span>
               <icon name='eye' scale="1.5"></icon>
             </span>
-              <router-link :to="{ name: 'scoutReportView', params: { id: searchReport.value.report.id }}">View</router-link>
+            <router-link :to="{ name: 'scoutReportView', params: { id: searchReport.value.report.id }}">View</router-link>
           </button>
           <button class="timeline-widget-button">
             <span>
               <icon name='edit' scale="1.5"></icon>
             </span>
-    <router-link  :to="{ name: 'scoutReportEdit', params: { id: searchReport.value.report.id }}" class="active">Edit</router-link>
+            <router-link :to="{ name: 'scoutReportEdit', params: { id: searchReport.value.report.id }}" class="active">Edit</router-link>
           </button>
           <button class="timeline-widget-button button-right" v-if="searchReport.value.report.status == 'publish'" @click="updateStatus('private')">
             <span class="unpublish">
@@ -25,13 +25,12 @@
           </button>
           <button class="timeline-widget-button button-right" v-if="searchReport.value.report.status == 'private'" @click="updateStatus('publish')">
             <span class="publish">
-              <icon name="eye"></icon>
+              <icon name="eye" scale="1.5"></icon>
             </span>
             <a>Publish Report</a>
           </button>
         </action-item>
-        <div v-if="searchReport.value.report" class="report-container">
-          <div data-v-5d9799ca="" class="arrow"></div>
+        <timeline-item class="report-container" v-if="searchReport.value.report">
           <div class="form-container">
             <ul class="error" v-if="report.errors">
               <li v-for="(error) in report.errors.error" v-bind:key="error.id">
@@ -43,7 +42,7 @@
             <clubreportform v-if="searchReport.value && searchReport.value.report.type_report == 'team' " :submitReport="customUpdateReport"
               class="report" :report="searchReport.value.report" :cancelAction="cancel" />
           </div>
-        </div>
+        </timeline-item>
       </div>
     </div>
   </div>
@@ -201,18 +200,20 @@ import ClubReportForm from 'app/components/EditReport/ClubReportForm.vue';
 import 'vue-awesome/icons/edit';
 import 'vue-awesome/icons/eye';
 import 'vue-awesome/icons/eye-slash';
+import TimelineItem from 'app/components/TimelineItem';
 
 import Icon from 'vue-awesome/components/Icon';
 import ActionsItem from 'app/components/ActionsItem';
 
 export default {
-  name: 'CreateReportPage',
+  name: 'EditReportPage',
   components: {
     sidebar: NotificationSidebar,
     playerreportform: PlayerReportForm,
     clubreportform: ClubReportForm,
     icon: Icon,
-    'action-item': ActionsItem
+    'action-item': ActionsItem,
+    'timeline-item': TimelineItem
   },
   computed: {
     ...mapGetters(['report', 'searchReport', 'filesUpload'])
@@ -226,13 +227,13 @@ export default {
           if (this.files.length > 0) {
             this.startUpload();
           } else {
-           this.$router.push({
-            name: 'scoutReportView',
-            params: {
-              id: this.report.value.id
-            }
-          });
-        }
+            this.$router.push({
+              name: 'scoutReportView',
+              params: {
+                id: this.report.value.id
+              }
+            });
+          }
         }
       } else if (this.report.status === ASYNC_LOADING) {
         this.status = 'reportUploading';
@@ -245,7 +246,7 @@ export default {
           params: {
             id: this.report.value.id
           }
-        }); 
+        });
       } else if (this.filesUpload.status === ASYNC_LOADING) {
         this.status = 'filesUploading';
       }
@@ -290,7 +291,6 @@ export default {
       this.report.errors = null;
       this.files = filelist;
       var id = this.$route.params.id;
-      console.log(report.report_data.userinfo);
       this.updateReport({
         report: report,
         id
