@@ -10,8 +10,9 @@ import reportReducer, { report, searchReport, filesUpload } from './report';
 import orderReducer, { order } from './order';
 import requestReducer, { request, searchRequest } from './request';
 import bidReducer, { bid, bids } from './bid';
-import stripeReducer, { stripeJs } from './stripe';
+import stripeReducer, { stripe, stripeFtouch, stripeRequiredFields, stripeDelete, stripeJs } from './stripe';
 import stripePaymentReducer, { stripePayment } from './stripePayment';
+import stripeClubReducer, { stripeClubCards } from './stripeClub';
 
 export const initialState = {
   token,
@@ -31,8 +32,13 @@ export const initialState = {
   searchRequest,
   bid,
   bids,
+  stripe,
+  stripeFtouch,
+  stripeRequiredFields,
+  stripeDelete,
+  stripePayment,
   stripeJs,
-  stripePayment
+  stripeClubCards
 };
 
 export default Object.assign({},
@@ -52,5 +58,6 @@ export default Object.assign({},
   requestReducer,
   bidReducer,
   stripeReducer,
-  stripePaymentReducer
+  stripePaymentReducer,
+  stripeClubReducer
 );

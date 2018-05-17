@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-8 buttons-inner">
           <button class="ft-button" @click="closeAction(report)"  >Close</button>
-          <button class="ft-button-success"  @click="buyAction(report)" >Buy Report</button>
+          <button class="ft-button-success" v-if="!report.is_free" @click="buyAction(report)" >Buy Report</button>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
         <div class="info col-md-8">
           <h2 class="title" :title="report.headline">{{report.headline}}</h2>
           <p class="extra">
-            <span class="target player_name">{{report.player.first_name}} {{report.player.last_name}} </span>
+            <!-- <span class="target player_name">{{report.player.first_name}} {{report.player.last_name}} </span> -->
             <span class="target">{{report.meta_data.age}} years, {{report.meta_data.height}} cm and {{report.meta_data.weight}}
               kg </span>
             <span class="target"></span>

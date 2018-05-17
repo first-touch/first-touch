@@ -51,6 +51,10 @@
             <li class="sub-nav-item" :class="{ active: page === '/scouting/jobs/bank' || !page }">
               <router-link :to="{ name: 'scoutJobsBank'}">Jobs Bank</router-link>
             </li>
+            <li class="sub-nav-item" :class="{ active: page === '/scouting/payment' || !page }">
+              <router-link :to="{ name: 'scoutPaymentDetailPage'}">Payment Details</router-link>
+            </li>
+
           </ul>
         </li>
       </ul>
