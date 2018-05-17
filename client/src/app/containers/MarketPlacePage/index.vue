@@ -54,39 +54,44 @@
 </style>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import TimelineItem from 'app/components/TimelineItem';
-import ReportItem from 'app/components/ReportItem';
-import vSelect from 'vue-select';
-import NotificationSidebar from 'app/components/NotificationSidebar.vue';
-import PlayerReportPopup from './components/PlayerReportPopup';
-import TeamReportPopup from './components/TeamReportPopup';
-import PaymentPopup from './components/PaymentPopup';
-import FtDatepicker from 'app/components/Input/FtDatepicker';
+  import {
+    mapGetters,
+    mapActions
+  } from 'vuex';
+  import {
+    ASYNC_SUCCESS
+  } from 'app/constants/AsyncStatus';
+  import TimelineItem from 'app/components/TimelineItem';
+  import ReportItem from 'app/components/ReportItem';
+  import vSelect from 'vue-select';
+  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+  import PlayerReportPopup from './components/PlayerReportPopup';
+  import TeamReportPopup from './components/TeamReportPopup';
+  import PaymentPopup from 'app/components/Stripe/PaymentPopup';
+  import FtDatepicker from 'app/components/Input/FtDatepicker';
   import RequestItem from 'app/components/RequestItem';
   import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
   import PositionRequestPopup from 'app/components/RequestPopup/PositionRequestPopup';
   import TeamRequestPopup from 'app/components/RequestPopup/TeamRequestPopup';
   import Filters from './components/Filters';
 
-export default {
-  name: 'ReportsList',
-  components: {
-    sidebar: NotificationSidebar,
-    'timeline-item': TimelineItem,
-    report: ReportItem,
-    vselect: vSelect,
-    playerreportpopup: PlayerReportPopup,
-    teamreportpopup: TeamReportPopup,
-    paymentpopup: PaymentPopup,
-    ftdatepicker: FtDatepicker,
-   	request: RequestItem,
-	teamrequestpopup: TeamRequestPopup,
-	playerrequestpopup: PlayerRequestPopup,
-	positionrequestpopup: PositionRequestPopup,
-	filters: Filters
-  },
+  export default {
+    name: 'ReportsList',
+    components: {
+      sidebar: NotificationSidebar,
+      'timeline-item': TimelineItem,
+      report: ReportItem,
+      vselect: vSelect,
+      playerreportpopup: PlayerReportPopup,
+      teamreportpopup: TeamReportPopup,
+      paymentpopup: PaymentPopup,
+      ftdatepicker: FtDatepicker,
+      request: RequestItem,
+      teamrequestpopup: TeamRequestPopup,
+      playerrequestpopup: PlayerRequestPopup,
+      positionrequestpopup: PositionRequestPopup,
+      filters: Filters
+    },
 
     data() {
       return {

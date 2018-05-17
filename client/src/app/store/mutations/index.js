@@ -52,7 +52,7 @@ export default Object.assign({},
   messagesReducer,
   profileReducer,
   searchResultReducer,
-  noteReducer
+  noteReducer,
   searchResultReducer,
   reportReducer,
   reportReducer,

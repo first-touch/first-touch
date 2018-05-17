@@ -42,6 +42,13 @@ module FirstTouch
             'status': :not_found }
         end
       },
+      empty: {
+        rule: ->(result) { result.success? && result['model'].nil? },
+        resolve: lambda do |result, _representer|
+          { 'data': { },
+            'status': :not_found }
+        end
+      },
       stripe_errors: {
         rule: ->(result) { result.failure? && !result['stripe.errors'].nil? },
         resolve: lambda do |result, _representer|

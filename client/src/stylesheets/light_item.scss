@@ -1,6 +1,23 @@
 @import '~stylesheets/variables';
-
-
+.table-item {
+  .btn-round {
+    margin: 10px;
+    width: 100%;
+    max-width: 140px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: $main-text-color;
+    cursor: pointer;
+    border-radius: 9999px;
+    border: 1px solid $secondary-text-color;
+    background: #fff;
+    &:hover {
+      background: $button-background-hover;
+    }
+  }
+}
 
 .ft-item {
   padding: 0 30px;
@@ -24,7 +41,6 @@
     height: 300px;
     border-radius: 50%;
   }
-
   .title {
     color: $secondary-header-color;
     text-transform: uppercase;
@@ -65,30 +81,30 @@
         }
       }
     }
-    .widget {
-      padding: 0 0;
+  }
+  .widget {
+    padding: 0 0;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-around;
+    a.ft-action {
       display: flex;
-      flex: 1;
-      flex-direction: column;
-      justify-content: space-around;
-      a {
+      .btn-round {
+        margin: 10px;
+        width: 100%;
+        max-width: 140px;
+        flex: 1;
         display: flex;
-        .btn-round {
-          margin: 10px;
-          width: 100%;
-          max-width: 140px;
-          flex: 1;
-          display: flex;
-          justify-content: center;
-          text-align: center;
-          color: $main-text-color;
-          cursor: pointer;
-          border-radius: 9999px;
-          border: 1px solid $secondary-text-color;
-          background: #fff;
-          &:hover {
-            background: $button-background-hover;
-          }
+        justify-content: center;
+        text-align: center;
+        color: $main-text-color;
+        cursor: pointer;
+        border-radius: 9999px;
+        border: 1px solid $secondary-text-color;
+        background: #fff;
+        &:hover {
+          background: $button-background-hover;
         }
       }
     }

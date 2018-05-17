@@ -57,10 +57,14 @@ module V1
 
       def orders!(options, params:, **)
         models = options['models']
-        if !params[:order].blank? &&
-           %w[id type_request status created_at nb_bids report_type]
-           .include?(params[:order])
-          models = models.order params[:order].to_sym
+        if !params[:order].blank?
+          order = params[:order_asc] == 'true' ? :asc : :desc
+          if %w[id type_request status created_at]
+            .include?(params[:order])
+            models = models.order({ params[:order] => order})
+          elsif params[:order] == 'bids'
+            models = models.order("count(request_bids.id) #{order}", )
+          end
         end
         options['models'] = models
         true

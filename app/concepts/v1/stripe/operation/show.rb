@@ -7,14 +7,15 @@ module V1
 
       def find_account!(options,  params:, current_user:, **)
         options['model.class'] = ::Stripe::Account
+        model = nil
         if !current_user.stripe_ft.nil?
           account = ::Stripe::Account.retrieve(current_user.stripe_ft.stripe_id)
           if !account.nil?
             account['preferred_id'] = current_user.stripe_ft.preferred_account
-            options['model'] = account
+            options['model'] = model = account
           end
         end
-        !options['model'].nil?
+        true
       end
 
     end
