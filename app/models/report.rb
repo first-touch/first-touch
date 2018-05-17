@@ -7,7 +7,8 @@ class Report < ApplicationRecord
   belongs_to :league, optional: true, class_name: 'Competition'
 
   has_many :attachments
-
+  has_one :request_bid
+  has_one :request, through: :request_bid
   has_many :orders
 
   # validates :price, numericality: {

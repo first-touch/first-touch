@@ -5,7 +5,7 @@
         <div class="img-container">
           <img class="img-fluid avatar" :src="src" />
         </div>
-        <div class="info col-md-8" v-if="request.type_request == 'position'">
+        <div class="info col-md-8" v-if="position">
           <h2 class="title">
             <span class="list" v-for="position in request.meta_data.playing_position" :key="position.id">{{position}}</span>
           </h2>
@@ -130,9 +130,13 @@
         <router-link v-if="own" :to="{ name: 'clubRequest', params: { id: request.id }}">
           <button class="btn-round">Edit</button>
         </router-link>
-        <router-link v-if="own" :to="{ name: 'clubRequestBids', params: { id: request.id }}">
+        <router-link v-if="own && !position" :to="{ name: 'clubRequestBids', params: { id: request.id }}">
           <button class="btn-round">View Bids</button>
         </router-link>
+        <router-link v-if="own && position" :to="{ name: 'clubReportProposed', params: { request: request }}">
+          <button class="btn-round">View Proposed Reports</button>
+        </router-link>
+
         <a v-if="request.status == 'publish' && own" @click="update(request.id, 'private')">
           <button class="btn-round">Unpublish</button>
         </a>
@@ -142,11 +146,11 @@
         <a v-if="!own" @click="viewSummary(request)">
           <button class="btn-round">View Details</button>
         </a>
-        <a v-if="!own && request.type_request != 'position' && addBid" @click="addBid(request)">
+        <a v-if="!own && !position && addBid" @click="addBid(request)">
           <button class="btn-round" v-if="bidStatus == 'U'">Update Bid</button>
           <button class="btn-round" v-if="bidStatus == 'N'">Bid</button>
         </a>
-        <a v-if="!own && !haveBid && request.type_request == 'position' && addBid" @click="addBid(request)">
+        <a v-if="!own && !haveBid && position && addBid" @click="addBid(request)">
           <button class="btn-round">+ To job list</button>
         </a>
         <a v-if="bidStatus == 'C' && createReport" @click="createReport(request)">
@@ -164,11 +168,10 @@
 </template>
 
 <style lang="scss" scoped>
- @import '~stylesheets/light_item';
-
+  @import '~stylesheets/light_item';
 </style>
 <script>
-import countrydata from 'country-data';
+  import countrydata from 'country-data';
 
 export default {
   name: 'RequestItem',
@@ -213,6 +216,12 @@ export default {
     canUpdate() {
       if (this.request.bid_status) if (this.request.bid_status != 'pending') return true;
       return false;
+},
+      position() {
+        if (this.request.type_request == 'position')
+          return true;
+        return false;
+      },
     },
     haveBid() {
       return this.request.bid_status;
