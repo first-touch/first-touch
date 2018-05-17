@@ -29,6 +29,7 @@ import MyPurchasedReportsPage from 'app/containers/MyPurchasedReportsPage';
 import JobRequestPage from 'app/containers/JobRequestPage';
 import RequestPage from 'app/containers/RequestPage';
 import RequestBidsPage from 'app/containers/RequestBidsPage';
+import PaymentDetailPage from 'app/containers/PaymentDetailPage';
 
 import JobsBankPage from 'app/containers/JobsBankPage';
 
@@ -143,6 +144,11 @@ export const router = new VueRouter({
           path: '/scouting/jobs/bank',
           component: JobsBankPage,
           name: 'scoutJobsBank'
+        },
+        {
+          path: '/scouting/payment',
+          component: PaymentDetailPage,
+          name: 'scoutPaymentDetailPage'
         },
         {
           path: '/messages',

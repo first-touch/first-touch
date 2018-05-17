@@ -39,3 +39,4 @@ public/paperclip
 
 # Ignore encrypted secrets key file.
 config/secrets.yml.key
+/client/src/app/constants/StripeConstant.js

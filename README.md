@@ -83,6 +83,9 @@ development:
     FT_AWS_REGION: us-west-1
     FT_AWS_PRODUCTION_BUCKET_NAME: first-touch-web
     FT_AWS_S3_BUCKET_NAME: first-touch-web
+	stripe:
+	    secret_key: sk_test_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        publishable_key: pk_test_XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
   test:
     secret_key_base: e2f7a35543171706eb3e019da3b15f00d21cc291326dc8049b4cf6629be8ffe46e2103cead1eea2f4e6f58e707c33e4e7a86300af36b6a76db641efb7640030f
@@ -92,10 +95,18 @@ development:
     FT_AWS_REGION: us-west-1
     FT_AWS_PRODUCTION_BUCKET_NAME: first-touch-web
     FT_AWS_S3_BUCKET_NAME: first-touch-web
+	stripe:
+        secret_key: sk_test_XXXXXXXXXXXXXXXXXXXX
+        publishable_key: pk_test_XXXXXXXXXXXXXXXXXX
 ```
 
 5. Run the local server
 `$ rails server`
+
+6. Setup Stripe public key
+	Create a client/src/app/constants/StripeConstant.js file
+	
+	export const StripePublicKey = 'pk_test_XXXXXXXXXXXXXXXXXXXXXX';
 
 6. Run browsersync to serve the client side assets
 ```

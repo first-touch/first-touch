@@ -4,6 +4,9 @@ module V1
       step Model(::Report, :new)
       step :authorized!
       failure :unauthenticated, fail_fast: true
+      step :stripe
+      failure :stripe_account_not_found!, fail_fast: true
+      step :setup_model!
       step :is_a_bid?
       failure :bid_not_found!, fail_fast: true
       step :setup_model!
@@ -30,6 +33,7 @@ module V1
       def authorized!(current_user:, **)
         current_user.scout?
       end
+
 
       def is_a_bid?(options, model:,params:, current_user:, **)
         if !params[:job_id].blank?

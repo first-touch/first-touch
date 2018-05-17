@@ -63,6 +63,12 @@ Rails.application.routes.draw do
       resources :orders
       resources :requests
       resources :bids
+      resources :stripe, only: %i[index create]
+      delete 'stripe', controller: :stripe, action: :destroy
+      put 'stripe', controller: :stripe, action: :update
+
+      get 'stripe/required', controller: :stripe, action: :required
+
       get 'requests/bids/:request_id', controller: :bids, action: :requestbids
       post 'requests/bids/:request_id', controller: :bids, action: :acceptbid
 

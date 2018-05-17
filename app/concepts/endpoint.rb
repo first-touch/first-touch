@@ -42,6 +42,13 @@ module FirstTouch
             'status': :unprocessable_entity }
         end
       },
+      stripe_errors: {
+        rule: ->(result) { result.failure? && !result['stripe.errors'].nil? },
+        resolve: lambda do |result, _representer|
+          { 'data': { errors: result['stripe.errors'] },
+            'status': :unprocessable_entity }
+        end
+      },
       model_not_found: {
         rule: ->(result) { result.failure? && result['result.model.not_found']},
         resolve: lambda do |result, _representer|

@@ -26,11 +26,10 @@ module FirstTouch
       options['result.policy.failure'] = :unauthorized
     end
 
-
-    def process_payment_failure!(options, **)
-      model_name = options['stripe.errors']
-      error_message = I18n.t('payments.failure', errors: model_errors)
+    def stripe_failure!(options, **)
+      error_message = options['stripe.errors']
       options['result.model.errors'] = [error_message]
     end
+
   end
 end

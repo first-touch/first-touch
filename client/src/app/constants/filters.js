@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import moment from 'moment';
+import countrydata from 'country-data';
 
 Vue.filter('moment', str => {
   var date = moment(str);
@@ -27,6 +28,14 @@ Vue.filter('reportId', (str, type) => {
     str = 'TR' + str;
   }
   return str;
+});
+Vue.filter('country', str => {
+  var array = countrydata.countries;
+  var r = str;
+  if (array[str]) {
+    r = array[str].name;
+  }
+  return r;
 });
 
 Vue.filter('requestId', (str, type) => {
