@@ -1,0 +1,55 @@
+@import '~stylesheets/variables';
+.ft-search-widget {
+  color: $main-text-color;
+  .v-select{
+    border: 1px solid $secondary-text-color;
+    border-radius: 10px;
+    padding: 10px 5px;
+    .clearfix{
+      border:0;
+    }
+    .dropdown-toggle {
+      max-height: 35px;
+      border: 0px;
+    }
+    .selected-tag{
+      color:$secondary-text-color;
+    }
+    .clear {
+      display: none;
+    }
+  }
+  .form-control {
+    padding: 0;
+  }
+  .list-title {
+    color: $main-text-color;
+    font-size: 0.95em;
+    text-transform: uppercase;
+  }
+  .list-count {
+    color: $main-header-color;
+    font-size: 4em;
+    text-align: center;
+  }
+  .filter {
+    margin: 5px;
+    max-width: 23%;
+    input,
+    select {
+      height: 100%;
+      padding: 10px;
+    }
+    .icon-inner {
+      margin-top: 5px;
+      display: inline-block;
+      cursor: pointer;
+      &:hover {
+        color: $secondary-header-color;
+      }
+    }
+    .datepicker {
+      float: left;
+    }
+  }
+}
