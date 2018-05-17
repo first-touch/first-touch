@@ -5,7 +5,7 @@
       <div class="ft-page">
         <div v-if="request">
           <h4 class="header">Request</h4>
-          <timeline-item >
+          <timeline-item>
             <request :key="request.id" :request="request" :viewSummary="viewSummary" class="onlyone"></request>
             <b-modal id="metaModal" size="lg" ref="metaModal">
               <div>
@@ -22,16 +22,17 @@
             <status :status="status" />
             <ul class="error" v-if="report.errors">
               <li v-for="(error, key) in report.errors.errors" v-bind:key="error.id">
-                {{ key }}: <span class="error-field" v-for="reason in error" :key="reason.id">{{ reason }}</span>
+                {{ key }}:
+                <span class="error-field" v-for="reason in error" :key="reason.id">{{ reason }}</span>
               </li>
             </ul>
-            <basicform class="report-type-form" v-if="!showForm" :prepateReport="prepateReport" />
+            <basicform class="report-type-form" v-if="!showForm" :prepareReport="prepareReport" />
             <div v-if="showForm">
               <keep-alive>
-                <playerreportform v-if="report_type == 'player' && status == '' " :userinfo="userinfo" :submitReport="customCreateReport"
-                  :request="request" :cancelAction="cancel" />
-                <clubreportform v-if="report_type == 'team' && status == '' " :submitReport="customCreateReport" :cancelAction="cancel" :request="request"
-                />
+                <playerreportform v-if="report_type == 'player' && status == '' " :submitReport="customCreateReport" :playerEditable="player_id == ''"
+                   :request="request" :cancelAction="cancel" />
+                <teamreportform v-if="report_type == 'team' && status == '' " :submitReport="customCreateReport" :team_id="team_id" :cancelAction="cancel"
+                  :request="request" />
               </keep-alive>
             </div>
           </div>
@@ -55,7 +56,8 @@
     }
   }
 }
-.onlyone{
+
+.onlyone {
   border-top: 0 !important;
 }
 </style>
@@ -87,7 +89,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { ASYNC_SUCCESS, ASYNC_LOADING } from 'app/constants/AsyncStatus';
 import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import PlayerReportForm from 'app/components/EditReport/PlayerReportForm.vue';
-import ClubReportForm from 'app/components/EditReport/ClubReportForm.vue';
+import TeamReportForm from 'app/components/EditReport/TeamReportForm.vue';
 import Status from './components/Status';
 import BasicForm from './components/BasicForm';
 import TimelineItem from 'app/components/TimelineItem';
@@ -102,7 +104,7 @@ export default {
   components: {
     sidebar: NotificationSidebar,
     playerreportform: PlayerReportForm,
-    clubreportform: ClubReportForm,
+    teamreportform: TeamReportForm,
     status: Status,
     basicform: BasicForm,
     'timeline-item': TimelineItem,
@@ -112,10 +114,7 @@ export default {
     positionrequestpopup: PositionRequestPopup
   },
   computed: {
-    ...mapGetters(['report', 'searchResult', 'profile', 'filesUpload']),
-    userinfo() {
-      return this.profile.status === ASYNC_SUCCESS ? this.profile.value.personal_profile : {};
-    }
+    ...mapGetters(['report', 'searchResult', 'filesUpload']),
   },
   watch: {
     report() {
@@ -162,27 +161,25 @@ export default {
   },
   mounted() {
     if (this.request) {
+    var ids = {
+        player: this.request.player_id,
+        team:  this.request.team_id,
+        job: this.request.id,
+        league: this.request.league_id
+      }
       if (this.request.type_request == 'team')
-        this.prepateReport('team', -1, this.request.meta_data.team_id, this.request.id);
+        this.prepareReport('team', ids);
       else if (this.request.type_request == 'player')
-        this.prepateReport(
-          'player',
-          this.request.meta_data.player_id,
-          this.request.meta_data.team_id,
-          this.request.id
-        );
+        this.prepareReport('player', ids);
       else if (this.request.type_request == 'position')
-        this.prepateReport(
-          'player',
-          this.request.meta_data.player_id,
-          this.request.meta_data.team_id,
-          this.request.id
-        );
+        this.prepareReport('player', ids);
     }
   },
   methods: {
-    ...mapActions(['createReport', 'fetchUserInfo', 'uploadFiles', 'getSearchResults']),
-    cancel() {},
+    ...mapActions(['createReport', 'uploadFiles', 'getSearchResults']),
+    cancel() {
+      this.showForm = false;
+    },
     startUpload() {
       var formData = new FormData();
       var fileList = this.files;
@@ -194,26 +191,21 @@ export default {
       formData.append('report_id', this.report.value.id);
       this.uploadFiles(formData);
     },
-    prepateReport(type, player_id, team_id, job_id) {
+    prepareReport(type, ids, search) {
       this.report_type = type;
-      this.player_id = player_id;
-      this.team_id = team_id;
-      this.job_id = job_id;
+      this.job_id = ids.job;
+      this.player_id = ids.player;
+      this.team_id = ids.team;
+      this.search = search;
       this.showForm = true;
-      if (type == 'player' && this.player_id > 0) {
-        this.fetchUserInfo({
-          id: this.player_id
-        });
-      }
     },
-    customCreateReport(reportdata, filelist,status) {
-      this.report.errors = null;
+    customCreateReport(reportdata, filelist) {
       this.files = filelist;
       reportdata.type_report = this.report_type;
-      if (status) reportdata.status = status;
       reportdata.player_id = this.player_id;
       reportdata.team_id = this.team_id;
       reportdata.job_id = this.job_id;
+      reportdata.meta_data.search = this.search;
       this.createReport(reportdata);
     },
     closeAction(request) {
@@ -229,7 +221,9 @@ export default {
       report_type: '',
       job_id: '',
       team_id: '',
+      league_id: '',
       player_id: '',
+      search: {},
       showForm: false
     };
   }

@@ -11,13 +11,29 @@ module V1
           )
         }
         property :player, getter: lambda { |represented:, **|
-          if represented.meta_data['player_id'].to_i > 0
-            personal_profile = ::PersonalProfile.find_by user_id: represented.meta_data['player_id']
+          if represented.player
             ::V1::PersonalProfile::Representer::Simplified.new(
-              personal_profile
+              represented.player.personal_profile
             )
           end
         }
+
+        property :team, getter: lambda { |represented:, **|
+          if represented.team
+            ::V1::Team::Representer::Simplified.new(
+            represented.team
+            )
+          end
+        }
+
+        property :league, getter: lambda { |represented:, **|
+          if represented.league
+            ::V1::Competition::Representer::Simplified.new(
+            represented.league
+            )
+          end
+        }
+
         property :meta_data
         property :price
         property :type_request

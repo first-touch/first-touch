@@ -10,15 +10,17 @@
               {{ error }}
             </li>
           </ul>
-          <div class="row">
-            <div class="col-sm-4 form-group">
+          <div class="row" v-if="!edit">
+            <div class="col-sm-6 form-group" >
               <label class="col-md-12">League Name</label>
-              <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="league" v-on:update:val="meta_data.league_id = $event"
-              /> </div>
-            <div class="col-sm-4 form-group">
+              <inputsearch  class="col-md-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
+               v-on:update:val="setLeague($event)" v-on:update:search="meta_data.search.league = $event" ref="team_search" minChar=3 label="name" />
+            </div>
+            <div class="col-sm-6 form-group">
               <label class="col-md-12 required">Team Name</label>
-              <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" v-on:update:val="meta_data.team_id = $event"
-                :required="true" /> </div>
+              <inputsearch :edit="team_search" :readonly="league_id == ''" class="col-md-12" :taggable="true" :onkeyup="getSearchResultsRole" ref="team_search"
+               v-on:update:search="meta_data.search.team = $event"  :searchResult="searchResult" type="team" v-on:update:obj="setTeam($event)" :required="true" minChar=3 label="team_name" />
+            </div>
           </div>
 
           <div class="row">
@@ -28,7 +30,8 @@
             </div>
             <div class="col-md-6 form-group">
               <label class="col-md-12">Training Report Required</label>
-              <vselect v-model="training_report_select" @input="meta_data.training_report = training_report_select.value" :options="options.required" :searchable="false" />
+              <vselect v-model="training_report_select" @input="meta_data.training_report = training_report_select.value" :options="options.required"
+                :searchable="false" />
             </div>
           </div>
           <div class="row col-md-12 form-group">
@@ -46,8 +49,8 @@
 
           </div>
           <div class="form-group buttons-inner">
-            <button v-if="!edit" id="submit" class="btn btn-primary ft-button" @click="handleSubmit"> CREATE</button>
-            <button v-if="edit" id="submit" class="btn btn-primary ft-button" @click="handleSubmit"> UPDATE</button>
+            <button v-if="!edit" id="submit" class="btn btn-primary ft-button" :disabled="!canValidate" @click="handleSubmit"> CREATE</button>
+            <button v-if="edit" id="submit" class="btn btn-primary ft-button" :disabled="!canValidate" @click="handleSubmit"> UPDATE</button>
             <button id="cancel" name="cancel" class="btn btn-default ft-button" @click="cancelAction">CANCEL</button>
           </div>
         </div>
@@ -84,15 +87,16 @@ export default {
       disabled: {
         to: new Date()
       },
+      team_id: '',
+      league_id: '',
+      team_search: '',
       training_report_select: {
         label: 'No',
         value: 'no'
       },
       meta_data: {
-        team_id: '',
-        league_id: '',
-        player_id: '',
-        training_report: 'no'
+        training_report: 'no',
+        search: {league: '', team: '' }
       },
       options: {
         required: [
@@ -115,22 +119,61 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['searchResult'])
+    ...mapGetters(['searchResult']),
+        canValidate(){
+      if (this.team_id == '') return false;
+      if (this.deadline == '') return false;
+      return true;
+    }
   },
   created() {
     if (this.edit) {
       this.meta_data = this.edit.meta_data;
       this.deadline = this.edit.deadline;
       this.price = this.edit.price;
+      const index = this.$options.filters.searchInObj(
+          this.options.required,
+          option => option.value === this.edit.meta_data.training_report
+        );
+      if (index > 0)
+      this.training_report_select = this.options.required[index];
     }
   },
   methods: {
-    ...mapActions(['getSearchResults']),
-    getSearchResultsRole(role, term) {
-      this.getSearchResults({
-        searchTerm: term,
-        role: role
-      });
+    ...mapActions(['getSearchResultsTeams', 'getSearchResultsCompetition', 'flushSearchResults']),
+    getSearchResultsRole(role, searchTerm) {
+      this.flushSearchResults();
+      switch (role) {
+        case 'team':
+          this.getSearchResultsTeams({
+            searchTerm,
+            league: this.league_id
+          });
+          break;
+        case 'competition':
+          this.getSearchResultsCompetition({
+            searchTerm
+          });
+          break;
+      }
+    },
+    setLeague(league_id) {
+      if (this.league_id != league_id) {
+        this.league_id = league_id;
+        this.team_id = '';
+        if (this.$refs.team_search) this.$refs.team_search.clear();
+        if (this.league_id > 0) this.meta_data.search.league = '';
+      }
+    },
+    setTeam(team) {
+      this.team_id = ''
+      if (team != null) {
+        this.team_id = team.id;
+        if (team.id == -1) {
+        } else {
+          this.meta_data.search.team = '';
+        }
+      }
     },
     showCalendar: function(index) {
       this.$refs.datepicker.showCalendar();
@@ -139,6 +182,7 @@ export default {
       this.submit({
         meta_data: this.meta_data,
         deadline: this.deadline,
+        team_id: this.team_id,
         price: this.price,
         type_request: 'team',
         status: 'publish'

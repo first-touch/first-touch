@@ -39,7 +39,7 @@
             </ul>
             <playerreportform v-if="searchReport.value && searchReport.value.report.type_report == 'player' " :submitReport="customUpdateReport"
               class="report" :report="searchReport.value.report" :cancelAction="cancel" />
-            <clubreportform v-if="searchReport.value && searchReport.value.report.type_report == 'team' " :submitReport="customUpdateReport"
+            <teamreportform v-if="searchReport.value && searchReport.value.report.type_report == 'team' " :submitReport="customUpdateReport"
               class="report" :report="searchReport.value.report" :cancelAction="cancel" />
           </div>
         </timeline-item>
@@ -196,7 +196,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { ASYNC_SUCCESS, ASYNC_LOADING } from 'app/constants/AsyncStatus';
 import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import PlayerReportForm from 'app/components/EditReport/PlayerReportForm.vue';
-import ClubReportForm from 'app/components/EditReport/ClubReportForm.vue';
+import TeamReportForm from 'app/components/EditReport/TeamReportForm.vue';
 import 'vue-awesome/icons/edit';
 import 'vue-awesome/icons/eye';
 import 'vue-awesome/icons/eye-slash';
@@ -210,7 +210,7 @@ export default {
   components: {
     sidebar: NotificationSidebar,
     playerreportform: PlayerReportForm,
-    clubreportform: ClubReportForm,
+    teamreportform: TeamReportForm,
     icon: Icon,
     'action-item': ActionsItem,
     'timeline-item': TimelineItem

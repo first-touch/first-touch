@@ -39,6 +39,8 @@ Rails.application.routes.draw do
       resources :clubs, only: %i[index show]
 
       resources :posts, only: %i[update destroy]
+      resources :teams, only: %i[index]
+      resources :competitions, only: %i[index]
 
       # Note: Named route for users search because later on
       # the search will probably be more broad.
@@ -57,8 +59,9 @@ Rails.application.routes.draw do
       resources :orders
       resources :requests
       resources :bids
-      get 'requests/bids/:request_id', controller: :bids, action: :request_bids
-      post 'requests/bids/:request_id', controller: :bids, action: :accept_bid
+      get 'requests/bids/:request_id', controller: :bids, action: :requestbids
+      post 'requests/bids/:request_id', controller: :bids, action: :acceptbid
+
     end
   end
 end

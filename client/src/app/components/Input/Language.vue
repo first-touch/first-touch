@@ -1,5 +1,5 @@
 <template>
-  <vselect v-model="model" multiple :onChange="update" :options="languages" class="ft-input" />
+  <vselect :disabled="readonly" v-model="model" multiple :onChange="update" :options="languages" class="ft-input" />
 </template>
 
 
@@ -13,45 +13,30 @@ import vSelect from 'vue-select';
 
 export default {
   name: 'Language',
-  props: ['value'],
+  props: ['value','readonly'],
   components: {
     vselect: vSelect
   },
   data() {
     return {
-      model: this.value
+      model: ''
     };
   },
   mounted() {
-    this.model = [];
+    var model = [];
+    if (this.value.constructor == Array)
       for (var val in this.value) {
-      const index = this.$options.filters.searchInObj(this.languages, option => option.value === this.value[val]);
-      this.model.push(this.languages[index]);
-    }
+        const index = this.$options.filters.searchInObj(
+          this.languages,
+          option => option.value === this.value[val]
+        );
+        if (index >= 0) model.push(this.languages[index]);
+      }
+      this.model = model;
   },
   methods: {
     update(val) {
       if (val) this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
-    },
-    removeValue(value) {
-      var index = this.model.indexOf(value);
-      if (index > -1) {
-        this.model.splice(index, 1);
-      }
-    },
-    indexWhere(array, conditionFn) {
-      const item = array.find(conditionFn);
-      return array.indexOf(item);
-    },
-    vueSelect2Array(selected) {
-      if (selected.constructor === Array) {
-        var arr = [];
-        for (var obj in selected) {
-          arr.push(selected[obj].value);
-        }
-        return arr;
-      } else if (selected.value) return selected.value;
-      return '';
     }
   },
   computed: {

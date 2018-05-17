@@ -151,8 +151,8 @@
           </div>
 
           <div class="form-group buttons-inner">
-            <button v-if="!edit" id="submit" class="btn btn-primary ft-button" @click="handleSubmit"> CREATE</button>
-            <button v-if="edit" id="submit" class="btn btn-primary ft-button" @click="handleSubmit"> UPDATE</button>
+            <button v-if="!edit" id="submit" class="btn btn-primary ft-button" :disabled="!canValidate"  @click="handleSubmit"> CREATE</button>
+            <button v-if="edit" id="submit" class="btn btn-primary ft-button"  :disabled="!canValidate" @click="handleSubmit"> UPDATE</button>
             <button id="cancel" name="cancel" class="btn btn-default ft-button" @click="cancelAction">CANCEL</button>
           </div>
 
@@ -239,6 +239,11 @@ export default {
       this.meta_data = this.edit.meta_data;
       this.deadline = this.edit.deadline;
       this.price = this.edit.price;
+    }
+  },computed: {
+    canValidate(){
+      if (this.deadline == '') return false;
+      return true;
     }
   },
   methods: {
