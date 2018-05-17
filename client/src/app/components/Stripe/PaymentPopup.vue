@@ -22,7 +22,7 @@
         </div>
         <div class="buttons-inner">
           <button class="ft-button" v-if="!emptyCard" v-on:click="newCard = !newCard">
-            <span v-if="!newCard">Add a new card</span>
+            <span v-if="!newCard">Add a new card {{emptyCard}} </span>
             <span v-if="newCard">Use existing card</span>
           </button>
           <button class="ft-button-success" v-on:click="purchase">Purchase</button>
@@ -134,13 +134,15 @@
         cardToken: null,
         newCard: false,
         saveCard: true,
-        emptyCard: false
+        emptyCard: false,
+        start: false
       };
     },
     watch: {
       stripePayment() {
         if (this.stripePayment.status == ASYNC_SUCCESS) {
-          this.paymentAction(this.token, this.saveCard);
+          this.paymentAction(this.token, this.saveCard, false);
+          this.start = true;
         }
       },
       stripeClubCards() {
@@ -149,6 +151,10 @@
             this.emptyCard = true
             this.newCard = true
           }
+        if (this.stripeClubCards.status == ASYNC_FAIL) {
+          this.emptyCard = true
+          this.newCard = true
+        }
       }
     },
     computed: {
@@ -166,9 +172,9 @@
         );
       },
       success() {
-        return this.result.status === ASYNC_SUCCESS && this.stripePayment.status === ASYNC_SUCCESS;
+        return this.result.status === ASYNC_SUCCESS && this.start;
       },
-      errors(){
+      errors() {
         return this.result.status === ASYNC_FAIL || this.stripePayment.status === ASYNC_FAIL;
       },
       stripe() {
@@ -201,7 +207,8 @@
       purchase: function () {
         if (this.newCard) this.StripeCardToken(this.card);
         else {
-          this.paymentAction(this.cardToken);
+          this.paymentAction(this.cardToken, false, true);
+          this.start = true;
         }
       }
     }

@@ -154,11 +154,12 @@ export default {
       search() {
         this.getReports(this.url);
       },
-      paymentAction(token, save) {
+      paymentAction(token, save, usesaved) {
         this.newOrder({
           token: token,
           report_id: this.reportSelected.id,
-          save: save
+          save: save,
+          usesaved
         });
       },
     }

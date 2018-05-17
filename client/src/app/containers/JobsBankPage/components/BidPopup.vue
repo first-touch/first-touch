@@ -1,8 +1,7 @@
 <template>
   <div class="bid col-md-6">
     <span class="field row">
-      <span class="col-md-12">Bid price in {{ request.price.currency }}</span>
-      <input class="col-sm-12 form-control" type="number" v-model="price.value" />
+      <currencyinput :value="price" :currency="request.price.currency"/>
     </span>
     <span class="footer-modal buttons-inner">
       <button class="btn-primary ft-button" v-if="!this.request.bid_status" @click="newBid(request,price)">Send Bid</button>
@@ -12,20 +11,19 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 </style>
 
 <script>
-  import {
-    ASYNC_SUCCESS,
-    ASYNC_LOADING,
-    ASYNC_FAIL
-  } from 'app/constants/AsyncStatus';
+  import CurrencyInput from 'app/components/Input/CurrencyInput';
 
   export default {
     name: 'PaymentPopup',
     props: ['request', 'newBid'],
+    components: {
+      currencyinput: CurrencyInput
+    },
     data() {
       return {
         price: {
