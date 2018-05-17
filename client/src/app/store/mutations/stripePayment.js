@@ -30,5 +30,13 @@ export default {
       state.stripePayment,
       { status: ASYNC_FAIL, errors: errors }
     );
+  },
+  [ActionTypes.FLUSH_STRIPE_CARD_TOKEN] (state) {
+    state.stripePayment = Object.assign(
+      {},
+      state.stripePayment,
+      { status: ASYNC_NONE }
+    );
   }
+
 };

@@ -48,7 +48,7 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
-@import '~stylesheets/search'; // @import '~stylesheets/item';
+@import '~stylesheets/search';
 .ft-bids-result {
   display: flex;
   flex-wrap: wrap;

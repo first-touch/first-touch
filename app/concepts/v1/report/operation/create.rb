@@ -1,9 +1,11 @@
 module V1
   module Report
-    class Create < Trailblazer::Operation
+    class Create < FirstTouch::Operation
       step Model(::Report, :new)
       step :authorized!
       failure :unauthenticated, fail_fast: true
+      step :stripe
+      failure :stripe_account_not_found!, fail_fast: true
       step :setup_model!
       step :is_a_bid?
       failure :bid_not_found!, fail_fast: true
@@ -23,11 +25,16 @@ module V1
         current_user.scout?
       end
 
+      def stripe(model:, current_user:, **)
+        true
+      end
+
       def is_a_bid?(options, model:,params:, current_user:, **)
         if !params[:job_id].blank?
           bid = ::RequestBid.find_by request_id: params[:job_id], user_id: current_user.id, status: ['accepted','joblist']
           options['bid'] = bid
           !bid.blank?
+          model.request_id = bid.request_id
         else
           true
         end
@@ -51,7 +58,7 @@ module V1
               'user' => model.user,
               'report_id' => model.id
             }
-            result = ::V1::Order::SendMoney.(order_params, user_id: options['bid'].user_id )
+            result = ::V1::Order::SendMoney.(order_params, user_id: options['bid'].user_id, current_user: current_user )
             return result.success?
           end
         end

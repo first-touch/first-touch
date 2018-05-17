@@ -26,6 +26,8 @@ import MyPurchasedReportsPage from 'app/containers/MyPurchasedReportsPage';
 import JobRequestPage from 'app/containers/JobRequestPage';
 import RequestPage from 'app/containers/RequestPage';
 import RequestBidsPage from 'app/containers/RequestBidsPage';
+import PaymentDetailPage from 'app/containers/PaymentDetailPage';
+import ClubPaymentDetails from 'app/containers/ClubPaymentDetailsPage';
 
 import JobsBankPage from 'app/containers/JobsBankPage';
 
@@ -139,6 +141,11 @@ const router = new VueRouter({
           name: 'scoutJobsBank'
         },
         {
+          path: '/scouting/payment',
+          component: PaymentDetailPage,
+          name: 'scoutPaymentDetailPage'
+        },
+        {
           path: '/messages',
           component: Messages,
           children: [
@@ -173,6 +180,12 @@ const router = new VueRouter({
           name: 'clubReportMarketplace'
         },
         {
+          path: '/club/scouting/report/proposed',
+          component: MarketPlacePage,
+          name: 'clubReportProposed',
+          props: true
+        },
+        {
           path: '/club/scouting/report/list',
           component: MyPurchasedReportsPage,
           name: 'clubReportList'
@@ -196,6 +209,11 @@ const router = new VueRouter({
           path: '/club/scouting/request/:id/bids',
           component: RequestBidsPage,
           name: 'clubRequestBids'
+        },
+        {
+          path: '/club/scouting/payments',
+          component: ClubPaymentDetails,
+          name: 'ClubPaymentDetails'
         }
       ]
     },
