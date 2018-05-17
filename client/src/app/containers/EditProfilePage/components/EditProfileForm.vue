@@ -49,6 +49,7 @@
           <option disabled value="">Preferred Foot</option>
           <option value="R">Right</option>
           <option value="L">Left</option>
+          <option value="B">Both</option>
         </select>
       </div>
     </fieldset>
@@ -108,6 +109,7 @@ export default {
       const {
         first_name,
         last_name,
+        middle_name,
         bMonth,
         bDay,
         bYear,
@@ -121,6 +123,7 @@ export default {
       const birthday = new Date(Date.UTC(this.bYear, bMonth, bDay));
       this.updateUserInfo({
         first_name,
+        middle_name,
         last_name,
         birthday,
         nationality_country_code,

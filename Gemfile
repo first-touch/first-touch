@@ -21,6 +21,12 @@ gem 'sidekiq'
 gem 'simple_command'
 gem 'trailblazer-rails', '~> 1.0'
 gem 'paper_trail'
+# tags
+gem 'acts-as-taggable-on', '~> 5.0'
+
+# pubsub
+gem 'redis'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 

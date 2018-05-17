@@ -7,9 +7,10 @@ export const getUserInfo = (store, { token }) => {
     headers: { Authorization: token }
   }).then(res => {
     if (res.status === 200) {
-      res.json().then(r => {
-        store.commit(types.USER_SUCCESS, r.user);
-      });
+      res.json()
+        .then((r) => {
+          store.commit(types.USER_SUCCESS, r);
+        });
     } else if (res.status === 401) {
       store.commit(types.TOKEN_CLEAR);
     } else {
@@ -26,8 +27,8 @@ export const updateUserInfo = (store, userInfo) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      personal_profile_attributes: userInfo, // eslint-disable-line camelcase
-      id: store.state.user.value.id
+      id: store.state.user.value.id,
+      personal_profile: userInfo // eslint-disable-line camelcase
     })
   }).then(res => {
     if (res.status === 200) {

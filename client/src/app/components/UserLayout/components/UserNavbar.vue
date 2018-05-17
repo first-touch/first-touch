@@ -63,6 +63,33 @@
         <div class="nav-item">
           <a href="/settings">Settings</a>
         </div>
+      </li>
+      <li class="nav-item" :class="{ active: page === 'calendar' }">
+        <div class="nav-item-inner">
+          <router-link to="/calendar">Calendar</router-link>
+        </div>
+      </li>
+      <li class="nav-item" v-if="{ isCoach }" :class="{ active: page === 'notes' }">
+        <div class="nav-item-inner">
+          <router-link to="/notes">Notes</router-link>
+        </div>
+      </li>
+      <li class="nav-item" :class="{ active: page === 'messages' }">
+        <div class="nav-item-inner">
+          <router-link to="/messages">Messages</router-link>
+        </div>
+      </li>
+      <li class="nav-item" :class="{ active: page === 'network' }">
+        <div class="nav-item-inner">
+          <router-link to="/network">My Network</router-link>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="sidenav-right">
+    <div class="nav-list">
+      <div class="nav-item">
+        <a href="/about">About</a>
       </div>
     </div>
   </div>
@@ -215,17 +242,28 @@ export default {
   computed: {
     ...mapGetters(['token', 'user']),
     name() {
-      return this.user.status === ASYNC_SUCCESS
-        ? `${this.user.value.personal_profile.first_name} ${
-            this.user.value.personal_profile.last_name
-          }`
-        : '';
+      if(this.user.status === ASYNC_SUCCESS) {
+        return `${this.user.value.personal_profile.first_name} ${this.user.value
+            .personal_profile.last_name}`;
+      } else {
+        return '';
+      }
     },
     roles() {
       return this.user.status === ASYNC_SUCCESS ? this.user.value.roles.map(o => o.name) : null;
     },
     scout() {
       return this.user.status === ASYNC_SUCCESS ? this.roles.indexOf('scout') >= 0 : false;
+    }
+    role() {
+      if(this.user.status === ASYNC_SUCCESS) {
+        return this.user.value.role_name;
+      } else {
+        return '';
+      }
+    },
+    isCoach() {
+      return (this.user.status === ASYNC_SUCCESS && this.user.value.role_name === 'coach');
     }
   },
   methods: {

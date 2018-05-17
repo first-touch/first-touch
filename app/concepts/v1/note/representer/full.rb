@@ -8,8 +8,12 @@ module V1
         property :user_id
         property :name
         property :content
-        property :image, extend: V1::Image::Representer::Full
-        collection :labels
+        property :image_url
+        property :tags, exec_context: :decorator
+
+        def tags
+          represented.tags.pluck(:name)
+        end
       end
     end
   end

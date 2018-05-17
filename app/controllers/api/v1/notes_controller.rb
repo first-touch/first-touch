@@ -2,9 +2,16 @@ module Api
   module V1
     class NotesController < Api::V1::BaseController
       before_action :find_note, only: :delete
+      skip_before_action :authenticate_request, only: :field_types
 
       def index
         result = ::V1::Note::Index.(params, current_user: current_user)
+        response = FirstTouch::Endpoint.(result, ::V1::Note::Representer::Index)
+        render json: response[:data], status: response[:status]
+      end
+
+      def index_by_tag
+        result = ::V1::Note::IndexByTag.(params, current_user: current_user)
         response = FirstTouch::Endpoint.(result, ::V1::Note::Representer::Index)
         render json: response[:data], status: response[:status]
       end
@@ -29,16 +36,23 @@ module Api
         end
       end
 
+      def field_types
+        render json: Note.field_types
+      end
+
       def show
         result = ::V1::Note::Show.(params, current_user: current_user)
-        response = FirstTouch::Endpoint.(result, ::V1::Note::Representer::Full)
+        response = FirstTouch::Endpoint.(result, ::V1::Note::Representer::FullWithElements)
         render json: response[:data], status: response[:status]
       end
 
-      def labels
-        result = ::V1::Note::Labels.(params, current_user: current_user)
-        response = FirstTouch::Endpoint.(result, ::V1::Note::Representer::Labels)
-        render json: response[:data], status: response[:status]
+      def tags
+        result = FirstTouch::Endpoint.(
+          ::V1::Note::Tags,
+          args: [params, current_user: current_user],
+          representer: ::V1::Note::Representer::Tags
+        )
+        render json: result[:data], status: result[:status]
       end
 
       private
