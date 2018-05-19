@@ -10,16 +10,22 @@
               {{ error }}
             </li>
           </ul>
+          <div class="row created_at" v-if="edit">
+            <label class="col-lg-3">Request created on</label>
+            <p class="col-lg-9">{{edit.created_at | moment}}</p>
+          </div>
           <div class="row" v-if="!edit">
-            <div class="col-sm-6 form-group" >
+            <div class="col-sm-6 form-group">
               <label class="col-md-12">League Name</label>
-              <inputsearch  class="col-md-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
-               v-on:update:val="setLeague($event)" v-on:update:search="meta_data.search.league = $event" ref="team_search" minChar=3 label="name" />
+              <inputsearch class="col-md-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
+                v-on:update:val="setLeague($event)" v-on:update:search="meta_data.search.league = $event" ref="team_search"
+                minChar=3 label="name" />
             </div>
             <div class="col-sm-6 form-group">
               <label class="col-md-12 required">Team Name</label>
-              <inputsearch :edit="team_search" :readonly="league_id == ''" class="col-md-12" :taggable="true" :onkeyup="getSearchResultsRole" ref="team_search"
-               v-on:update:search="meta_data.search.team = $event"  :searchResult="searchResult" type="team" v-on:update:obj="setTeam($event)" :required="true" minChar=3 label="team_name" />
+              <inputsearch :edit="team_search" :readonly="league_id == ''" class="col-md-12" :taggable="true" :onkeyup="getSearchResultsRole"
+                ref="team_search" v-on:update:search="meta_data.search.team = $event" :searchResult="searchResult" type="team"
+                v-on:update:obj="setTeam($event)" :required="true" minChar=3 label="team_name" />
             </div>
           </div>
 
@@ -48,10 +54,10 @@
 
 
           </div>
-          <div class="form-group buttons-inner">
-            <button v-if="!edit" id="submit" class="btn btn-primary ft-button" :disabled="!canValidate" @click="handleSubmit"> CREATE</button>
-            <button v-if="edit" id="submit" class="btn btn-primary ft-button" :disabled="!canValidate" @click="handleSubmit"> UPDATE</button>
-            <button id="cancel" name="cancel" class="btn btn-default ft-button" @click="cancelAction">CANCEL</button>
+          <div class="form-group buttons-inner row">
+            <button v-if="!edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit"> CREATE</button>
+            <button v-if="edit" id="submit" class="ft-button ft-button-success"  :disabled="!canValidate" @click="handleSubmit"> UPDATE</button>
+            <button id="cancel" name="cancel" class="ft-button" @click="cancelAction">CANCEL</button>
           </div>
         </div>
       </form>
@@ -60,134 +66,138 @@
 </template>
 
 <style lang="scss">
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 </style>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import inputSearch from 'app/components/Input/InputSearch.vue';
-import vSelect from 'vue-select';
-import CurrencyInput from 'app/components/Input/CurrencyInput';
-import TimelineItem from 'app/components/TimelineItem';
-import FtDatepicker from 'app/components/Input/FtDatepicker';
+  import {
+    mapGetters,
+    mapActions
+  } from 'vuex';
+  import inputSearch from 'app/components/Input/InputSearch.vue';
+  import vSelect from 'vue-select';
+  import CurrencyInput from 'app/components/Input/CurrencyInput';
+  import TimelineItem from 'app/components/TimelineItem';
+  import FtDatepicker from 'app/components/Input/FtDatepicker';
 
-export default {
-  name: 'PlayerJobRequest',
-  props: ['submit', 'errors', 'edit', 'cancelAction'],
-  components: {
-    inputsearch: inputSearch,
-    vselect: vSelect,
-    currencyinput: CurrencyInput,
-    'timeline-item': TimelineItem,
-    ftdatepicker: FtDatepicker
-  },
-  data() {
-    return {
-      disabled: {
-        to: new Date()
-      },
-      team_id: '',
-      league_id: '',
-      team_search: '',
-      training_report_select: {
-        label: 'No',
-        value: 'no'
-      },
-      meta_data: {
-        training_report: 'no',
-        search: {league: '', team: '' }
-      },
-      options: {
-        required: [
-          {
-            label: 'No',
-            value: 'no'
-          },
-          {
-            label: 'Yes',
-            value: 'yes'
+  export default {
+    name: 'PlayerJobRequest',
+    props: ['submit', 'errors', 'edit', 'cancelAction'],
+    components: {
+      inputsearch: inputSearch,
+      vselect: vSelect,
+      currencyinput: CurrencyInput,
+      'timeline-item': TimelineItem,
+      ftdatepicker: FtDatepicker
+    },
+    data() {
+      return {
+        disabled: {
+          to: new Date()
+        },
+        team_id: '',
+        league_id: '',
+        team_search: '',
+        training_report_select: {
+          label: 'No',
+          value: 'no'
+        },
+        meta_data: {
+          training_report: 'no',
+          search: {
+            league: '',
+            team: ''
           }
-        ]
-      },
-      deadline: '',
-      price: {
-        value: 0,
-        currency: 'USD',
-        max: 0
+        },
+        options: {
+          required: [{
+              label: 'No',
+              value: 'no'
+            },
+            {
+              label: 'Yes',
+              value: 'yes'
+            }
+          ]
+        },
+        deadline: '',
+        price: {
+          value: 0,
+          currency: 'USD',
+          max: 0
+        }
+      };
+    },
+    computed: {
+      ...mapGetters(['searchResult']),
+      canValidate() {
+        if (this.team_id == '') return false;
+        if (this.deadline == '') return false;
+        return true;
       }
-    };
-  },
-  computed: {
-    ...mapGetters(['searchResult']),
-        canValidate(){
-      if (this.team_id == '') return false;
-      if (this.deadline == '') return false;
-      return true;
-    }
-  },
-  created() {
-    if (this.edit) {
-      this.meta_data = this.edit.meta_data;
-      this.deadline = this.edit.deadline;
-      this.price = this.edit.price;
-      const index = this.$options.filters.searchInObj(
+    },
+    created() {
+      if (this.edit) {
+        this.meta_data = this.edit.meta_data;
+        this.deadline = this.edit.deadline;
+        this.price = this.edit.price;
+        const index = this.$options.filters.searchInObj(
           this.options.required,
           option => option.value === this.edit.meta_data.training_report
         );
-      if (index > 0)
-      this.training_report_select = this.options.required[index];
-    }
-  },
-  methods: {
-    ...mapActions(['getSearchResultsTeams', 'getSearchResultsCompetition', 'flushSearchResults']),
-    getSearchResultsRole(role, searchTerm) {
-      this.flushSearchResults();
-      switch (role) {
-        case 'team':
-          this.getSearchResultsTeams({
-            searchTerm,
-            league: this.league_id
-          });
-          break;
-        case 'competition':
-          this.getSearchResultsCompetition({
-            searchTerm
-          });
-          break;
+        if (index > 0)
+          this.training_report_select = this.options.required[index];
       }
     },
-    setLeague(league_id) {
-      if (this.league_id != league_id) {
-        this.league_id = league_id;
-        this.team_id = '';
-        if (this.$refs.team_search) this.$refs.team_search.clear();
-        if (this.league_id > 0) this.meta_data.search.league = '';
-      }
-    },
-    setTeam(team) {
-      this.team_id = ''
-      if (team != null) {
-        this.team_id = team.id;
-        if (team.id == -1) {
-        } else {
-          this.meta_data.search.team = '';
+    methods: {
+      ...mapActions(['getSearchResultsTeams', 'getSearchResultsCompetition', 'flushSearchResults']),
+      getSearchResultsRole(role, searchTerm) {
+        this.flushSearchResults();
+        switch (role) {
+          case 'team':
+            this.getSearchResultsTeams({
+              searchTerm,
+              league: this.league_id
+            });
+            break;
+          case 'competition':
+            this.getSearchResultsCompetition({
+              searchTerm
+            });
+            break;
         }
+      },
+      setLeague(league_id) {
+        if (this.league_id != league_id) {
+          this.league_id = league_id;
+          this.team_id = '';
+          if (this.$refs.team_search) this.$refs.team_search.clear();
+          if (this.league_id > 0) this.meta_data.search.league = '';
+        }
+      },
+      setTeam(team) {
+        this.team_id = ''
+        if (team != null) {
+          this.team_id = team.id;
+          if (team.id == -1) {} else {
+            this.meta_data.search.team = '';
+          }
+        }
+      },
+      showCalendar: function (index) {
+        this.$refs.datepicker.showCalendar();
+      },
+      handleSubmit() {
+        this.submit({
+          meta_data: this.meta_data,
+          deadline: this.deadline,
+          team_id: this.team_id,
+          price: this.price,
+          type_request: 'team',
+          status: 'publish'
+        });
       }
-    },
-    showCalendar: function(index) {
-      this.$refs.datepicker.showCalendar();
-    },
-    handleSubmit() {
-      this.submit({
-        meta_data: this.meta_data,
-        deadline: this.deadline,
-        team_id: this.team_id,
-        price: this.price,
-        type_request: 'team',
-        status: 'publish'
-      });
     }
-  }
-};
+  };
 </script>

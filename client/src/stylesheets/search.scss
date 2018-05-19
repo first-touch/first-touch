@@ -1,20 +1,26 @@
 @import '~stylesheets/variables';
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-family: 'Ubuntu', sans-serif;
+  color: $secondary-text-color;
+}
 
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+::-moz-placeholder {
+  /* Firefox 19+ */
   font-family: 'Ubuntu', sans-serif;
-  color:  $secondary-text-color;
+  color: $secondary-text-color;
 }
-::-moz-placeholder { /* Firefox 19+ */
+
+:-ms-input-placeholder {
+  /* IE 10+ */
   font-family: 'Ubuntu', sans-serif;
-  color:  $secondary-text-color;
+  color: $secondary-text-color;
 }
-:-ms-input-placeholder { /* IE 10+ */
+
+:-moz-placeholder {
+  /* Firefox 18- */
   font-family: 'Ubuntu', sans-serif;
-  color:  $secondary-text-color;
-}
-:-moz-placeholder { /* Firefox 18- */
-  font-family: 'Ubuntu', sans-serif;
-  color:  $secondary-text-color;
+  color: $secondary-text-color;
 }
 
 .ft-search-widget {
@@ -69,6 +75,39 @@
     }
     .datepicker {
       float: left;
+    }
+  }
+}
+
+.table-search {
+  th {
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 1rem;
+    border: none;
+    text-align: center;
+  }
+  tbody {
+    td {
+      text-align: center;
+      border: 0;
+    }
+    .buttons-inner {
+      float: none;
+    }
+
+  }
+  .shortable {
+    width: 20%;
+    cursor: pointer;
+    span {
+      float: right;
+    }
+    &:hover {
+      color: $main-header-color;
+    }
+    p {
+      display: inline;
     }
   }
 }

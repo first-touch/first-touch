@@ -27,7 +27,7 @@
           </form>
         </div>
       </div>
-      <table class="table">
+      <table class="table table-search">
         <thead>
           <tr>
             <th scope="col" class="shortable" @click="setOrder('id')">
@@ -62,7 +62,9 @@
           </tr>
         </thead>
         <tbody>
-          <request v-for="request in listRequest" :key="request.id" :request="request" :update="updateStatus" own="true" mode="table"></request>
+          <request v-for="request in listRequest" :key="request.id" :request="request" :update="updateStatus" own="true" mode="table"
+           :fields="['id','type','created_at','bids','action']"
+          ></request>
         </tbody>
       </table>
     </timeline-item>
@@ -87,7 +89,7 @@
   @import '~stylesheets/variables';
 
 
-  .table {
+  .table-search {
     th {
       text-transform: uppercase;
       font-weight: normal;

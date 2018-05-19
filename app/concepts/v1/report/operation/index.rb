@@ -30,7 +30,7 @@ module V1
         if !request.nil?
           models = models.where('reports.request_id = ?',request.id)
         else
-          models = models.where('reports.status = ? OR orders.status = ?','publish','completed')
+          models = models.where('reports.status = ? OR orders.status IN (?)','publish',['completed','pending_report'])
         end
         models = models.select('reports.*, orders.status AS orders_status')
       end
@@ -52,12 +52,12 @@ module V1
         ' AND orders.report_id = reports.id'
         models = models.joins(joins)
         models = models.select('reports.*, orders.status AS orders_status')
-        models = models.group('reports.id', 'orders.status')
+        # models = models.group('reports.id', 'orders.status')
         models
       end
 
       def purchased!(models, current_user)
-        models = models.where('orders.status' => 'completed',
+        models = models.where('orders.status' => ['completed','pending_report'],
                               'orders.customer_id' => current_user.id.to_s)
         models = models.select(
           'reports.*, orders.status AS orders_status,'\
@@ -70,7 +70,7 @@ module V1
         models = options['models'].joins(:user)
         models = add_where(models, 'reports.id = ', params[:id])
         models = add_where(models, 'reports.type_report = ', params[:type_report])
-        models = add_where(models, 'reports.headline iLIKE ', "%#{params[:headline]}%")
+        models = add_where(models, 'reports.headline iLIKE ', "%#{params[:headline]}%") unless params[:headline].blank?
         models = add_where(models, 'users.search_string iLIKE ', "%#{params[:scout_name]}%")
         models = filters_date(models, params)
         models = filters_price(models, params)
@@ -112,14 +112,22 @@ module V1
 
       def orders!(options, params:, **)
         models = options['models']
-        if !params[:order].blank? &&
-           %w[id price created_at updated_at headline report_type]
-           .include?(params[:order])
-          models = models.order params[:order].to_sym
+        if !params[:order].blank?
+          order = params[:order_asc] == 'true' ? :asc : :desc
+          if %w[id created_at updated_at headline report_type]
+            .include?(params[:order])
+            models = models.order({ params[:order] => order})
+          elsif params[:order] == 'scout_name'
+            models = models.includes(:user)
+            models = models.order("users.search_string #{order}", )
+          elsif params[:order] == 'price'
+            models = models.order("reports.price->>'value' #{order}", )
+          end
         end
         options['models'] = models
         true
       end
+
     end
   end
 end

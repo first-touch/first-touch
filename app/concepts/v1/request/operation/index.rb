@@ -32,15 +32,20 @@ module V1
         joins = "LEFT OUTER JOIN request_bids ON request_bids.request_id = requests.id AND request_bids.status = 'pending'"
         models = models.joins(joins)
         models = models.select('requests.*, COUNT(request_bids.id) as request_bids_count')
-        models = models.group('requests.id')
+        # models = models.group('requests.id')
       end
 
       def filters!(options, params:, **)
         models = options['models']
-        models = add_where(models, 'requests.id', params[:id])
-        models = add_where(models, 'requests.type_request', params[:type_request])
-        models = add_where(models, 'requests.status', params[:status])
-        models = add_where(models, 'request_bids.status', params[:bids_status].split(',')) if params[:bids_status]
+        models = add_where(models, 'requests.id =', params[:id])
+        models = add_where(models, 'requests.type_request =', params[:type_request])
+        models = add_where(models, 'requests.status =', params[:status])
+        if !params[:club].blank?
+          # TODO: Refactor When club token is ready
+          models = models.joins(:user)
+          models = add_where(models, 'users.search_string iLIKE ', "%#{params[:club]}%")
+        end
+        models = add_where(models, 'request_bids.status =', params[:bids_status].split(',')) if params[:bids_status]
         models = models.having("count(request_bids.id) >= #{params[:min_bids]} ") unless params[:min_bids].blank?
 
         date = params[:created_date].to_date unless params[:created_date].blank?
@@ -49,9 +54,9 @@ module V1
         true
       end
 
+
       def add_where(models, column, value)
-        obj = {column.to_sym => value}
-        models = models.where(obj) unless value.blank?
+        models = models.where("#{column} ?", value) unless value.blank?
         models
       end
 
@@ -59,9 +64,13 @@ module V1
         models = options['models']
         if !params[:order].blank?
           order = params[:order_asc] == 'true' ? :asc : :desc
-          if %w[id type_request status created_at]
+          if %w[id type_request status created_at deadline]
             .include?(params[:order])
             models = models.order({ params[:order] => order})
+          elsif params[:order] == 'club'
+            # TODO: Refactor When club token is ready
+            models = models.includes(:user)
+            models = models.order("users.search_string #{order}", )
           elsif params[:order] == 'bids'
             models = models.order("count(request_bids.id) #{order}", )
           end

@@ -6,10 +6,9 @@
         <input type="text" class="col-md-12 form-control" v-model="headline">
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row" v-if="priceEdit">
       <div class="col-sm-12">
-        <label class="col-md-12 label-price" v-if="request">Price In Marketplace</label>
-        <label class="col-md-12 label-price" v-if="!request">Price</label>
+        <label class="col-md-12 label-price">Price</label>
         <div class="price-input">
           <currencyinput :value="price" />
           <p v-if="price.value == 0" class="info">The report will be free</p>
@@ -44,7 +43,8 @@
               </div>
               <div class="col-sm-6">
                 <label class="col-sm-12 col-form-label">Preferred Foot</label>
-                <preferredfoot :value="meta_data.player_info.preferred_foot" v-on:update:val="meta_data.player_info.preferred_foot = $event" />
+                <preferredfoot :value="meta_data.player_info.preferred_foot" v-on:update:val="meta_data.player_info.preferred_foot = $event"
+                />
               </div>
             </div>
             <div class="row">
@@ -180,236 +180,250 @@
     </div>
     <addattachments :attachments="report ? report.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
       v-on:update:files="files = $event" />
-    <div class="form-group buttons-inner">
-      <button v-if="!report && !request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('publish')">Publish</button>
-      <button v-if="report" id="submit" class="btn btn-primary ft-button" @click="handleSubmit">Update</button>
-      <button v-if="!report && request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('publish')">Send Report & Publish in MarketPlace</button>
-      <button v-if="!report && request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('private')">Send Report</button>
+    <div class="form-group buttons-inner row">
+      <button v-if="!report && !request" id="submit" class="btn btn-primary ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
+      <button v-if="report" id="submit" class="btn btn-primary ft-button ft-button-success" @click="handleSubmit">Update</button>
+      <button v-if="!report && request" id="submit" class="btn btn-primary ft-button ft-button-success" @click="handleSubmit('private')">Send Report</button>
       <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default ft-button">Cancel</button>
     </div>
   </form>
 </template>
 
 <style lang="scss">
-@import '~stylesheets/form';
+  @import '~stylesheets/form';
 </style>
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+  @import '~stylesheets/variables';
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.75s;
-  max-height: 500px;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0.1;
-  max-height: 0px;
-}
-
-.report-form {
-  .radio-group {
-    label {
-      width: 10%;
-    }
-  }
-  .transfer-value {
-    padding: 0 30px;
-    div {
-      overflow: hidden;
-      height: 100%;
-    }
-  }
-  h5 {
-    &.menu {
-      cursor: pointer;
-    }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: all 0.75s;
+    max-height: 500px;
   }
 
-  .sub-menu-arrow {
-    &::before {
-      margin-top: 3px;
-      border-color: rgba(60, 60, 60, 0.5);
-      border-style: solid;
-      border-width: 3px 3px 0 0;
-      content: '';
-      height: 10px;
-      vertical-align: top;
-      transform: rotate(45deg);
-      box-sizing: inherit;
-      display: inline-block;
-      transition: all 0.15s cubic-bezier(1, -0.115, 0.975, 0.855);
-      transition-timing-function: cubic-bezier(1, -0.115, 0.975, 0.855);
-      width: 10px;
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0.1;
+    max-height: 0px;
+  }
+
+  .report-form {
+    .radio-group {
+      label {
+        width: 10%;
+      }
     }
-    &.active::before {
-      transform: rotate(133deg);
+    .transfer-value {
+      padding: 0 30px;
+      div {
+        overflow: hidden;
+        height: 100%;
+      }
+    }
+    h5 {
+      &.menu {
+        cursor: pointer;
+      }
+    }
+
+    .sub-menu-arrow {
+      &::before {
+        margin-top: 3px;
+        border-color: rgba(60, 60, 60, 0.5);
+        border-style: solid;
+        border-width: 3px 3px 0 0;
+        content: '';
+        height: 10px;
+        vertical-align: top;
+        transform: rotate(45deg);
+        box-sizing: inherit;
+        display: inline-block;
+        transition: all 0.15s cubic-bezier(1, -0.115, 0.975, 0.855);
+        transition-timing-function: cubic-bezier(1, -0.115, 0.975, 0.855);
+        width: 10px;
+      }
+      &.active::before {
+        transform: rotate(133deg);
+      }
+    }
+    h5 {
+      color: $main-text-color;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .form-inner {
+      margin-left: 20px;
+      .form-group {
+        padding: 10px;
+      }
+    }
+    .report-name {
+      label {
+        margin-right: 20px;
+      }
+    }
+    .label-price {
+      margin-top: 8px;
     }
   }
-  h5 {
-    color: $main-text-color;
-    font-size: 15px;
-    font-weight: 700;
-  }
-  .form-inner {
-    margin-left: 20px;
-    .form-group {
-      padding: 10px;
-    }
-  }
-  .report-name {
-    label {
-      margin-right: 20px;
-    }
-  }
-  .label-price {
-    margin-top: 8px;
-  }
-}
 </style>
 
 <script>
-import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
-import PlayerPosition from 'app/components/Input/PlayerPosition';
-import Nationality from 'app/components/Input/Nationality';
-import Language from 'app/components/Input/Language';
-import PreferredFoot from 'app/components/Input/PreferredFoot';
-import FtCheckbox from 'app/components/Input/FtCheckbox';
-import AddAttachments from 'app/components/Input/AddAttachments';
-import 'vue-awesome/icons/trash';
-import Icon from 'vue-awesome/components/Icon';
-import CurrencyInput from 'app/components/Input/CurrencyInput';
+  import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
+  import PlayerPosition from 'app/components/Input/PlayerPosition';
+  import Nationality from 'app/components/Input/Nationality';
+  import Language from 'app/components/Input/Language';
+  import PreferredFoot from 'app/components/Input/PreferredFoot';
+  import FtCheckbox from 'app/components/Input/FtCheckbox';
+  import AddAttachments from 'app/components/Input/AddAttachments';
+  import 'vue-awesome/icons/trash';
+  import Icon from 'vue-awesome/components/Icon';
+  import CurrencyInput from 'app/components/Input/CurrencyInput';
 
-export default {
-  name: 'PlayerReportForm',
-  components: {
-    matchanalyzed: MatchAnalyzed,
-    playerposition: PlayerPosition,
-    countryselect: Nationality,
-    language: Language,
-    preferredfoot: PreferredFoot,
-    ftcheckbox: FtCheckbox,
-    addattachments: AddAttachments,
-    icon: Icon,
-    currencyinput: CurrencyInput
-  },
-  props: ['playerEditable', 'submitReport', 'report', 'cancelAction', 'request'],
-  data() {
-    return {
-      playersummary: true,
-      transfersummary: true,
-      meta_data: {
-        player_info: {
-          nationality_country_code: '',
-          languages: [],
-          playing_position: [],
-          age: null,
-          preferred_foot: ''
-        },
-        transfer_sum: {
-          loan_interested: 'No',
-          transfer_interested: 'No',
-          free_agent: 'No',
-          wage: {
-            value: null,
-            currency: 'USD'
+  export default {
+    name: 'PlayerReportForm',
+    components: {
+      matchanalyzed: MatchAnalyzed,
+      playerposition: PlayerPosition,
+      countryselect: Nationality,
+      language: Language,
+      preferredfoot: PreferredFoot,
+      ftcheckbox: FtCheckbox,
+      addattachments: AddAttachments,
+      icon: Icon,
+      currencyinput: CurrencyInput
+    },
+    props: ['playerId', 'submitReport', 'report', 'cancelAction', 'request'],
+    data() {
+      return {
+        playersummary: true,
+        transfersummary: true,
+        meta_data: {
+          player_info: {
+            nationality_country_code: '',
+            languages: [],
+            playing_position: [],
+            age: null,
+            preferred_foot: ''
           },
-          loan_availability: {
-            value: null,
-            currency: 'USD'
+          transfer_sum: {
+            loan_interested: 'No',
+            transfer_interested: 'No',
+            free_agent: 'No',
+            wage: {
+              value: null,
+              currency: 'USD'
+            },
+            loan_availability: {
+              value: null,
+              currency: 'USD'
+            },
+            transfer_budget: {
+              value: null,
+              currency: 'USD'
+            },
+            transfer_availability: {
+              value: null,
+              currency: 'USD'
+            }
           },
-          transfer_budget: {
-            value: null,
-            currency: 'USD'
-          },
-          transfer_availability: {
-            value: null,
-            currency: 'USD'
-          }
-        },
-        analyzed_matches: [
-          {
+          analyzed_matches: [{
             date: '',
             opponent: '',
             venue: '',
             comment: '',
             training: 'No'
-          }
-        ]
-      },
-      price: {
-        value: 0,
-        currency: 'USD'
-      },
-      headline: '',
-      edit_mode: !!this.report,
-      files: [],
-      remove_attachment: {}
-    };
-  },
-  computed: {
-    agePlaceHolder() {
-      if (this.request && this.request.type_request == 'position')
-        return `Between ${this.request.meta_data.age_min} and ${this.request.meta_data.age_max}`;
-      return 'Age';
+          }]
+        },
+        price: {
+          value: 0,
+          currency: 'USD'
+        },
+        headline: '',
+        edit_mode: !!this.report,
+        files: [],
+        remove_attachment: {}
+      };
     },
-    weightPlaceHolder() {
-      if (this.request && this.request.type_request == 'position')
-        return `Between ${this.request.meta_data.min_weight} and ${
+    computed: {
+      priceEdit() {
+        if (this.request) {
+          if (this.request.type_request == 'position')
+            return true;
+          return false;
+        }
+        return true;
+      },
+      playerEditable(){
+        if (this.playerId != null && this.playerId > 0)
+          return false;
+        if (this.report.player)
+          return false;
+        return true;
+      },
+      position() {
+        if (this.request && this.request.type_request == 'position')
+          return true;
+        return false;
+      },
+      agePlaceHolder() {
+        if (this.position)
+          return `Between ${this.request.meta_data.age_min} and ${this.request.meta_data.age_max}`;
+        return 'Age';
+      },
+      weightPlaceHolder() {
+        if (this.position)
+          return `Between ${this.request.meta_data.min_weight} and ${
           this.request.meta_data.max_weight
         }`;
-      return 'Weight';
-    },
-    heightPlaceHolder() {
-      if (this.request && this.request.type_request == 'position')
-        return `Between ${this.request.meta_data.min_heigth} and ${
+        return 'Weight';
+      },
+      heightPlaceHolder() {
+        if (this.position)
+          return `Between ${this.request.meta_data.min_heigth} and ${
           this.request.meta_data.max_heigth
         }`;
-      return 'Height';
-    }
-  },
-  beforeMount() {
-    if (this.report) {
-      this.meta_data = this.report.meta_data;
-      this.price = this.report.price;
-      this.headline = this.report.headline;
-      if (!this.report.player) {
-        this.playerEditable = false;
+        return 'Height';
+      }
+    },
+    beforeMount() {
+      if (this.report) {
+        this.meta_data = this.report.meta_data;
+        this.price = this.report.price;
+        this.headline = this.report.headline;
+      }
+      if (this.request) {
+        this.price = this.request.price;
+        if (this.position)
+          this.price.value = parseInt(this.request.bid_price.value);
+        this.headline = 'Report on ';
+        this.headline += this.request.meta_data.player_name ? this.request.meta_data.player_name : '';
+        if (!this.request.player) {
+          this.meta_data.player_info.languages = this.request.meta_data.languages;
+          this.meta_data.player_info.preferred_foot = this.request.meta_data.preferred_foot;
+          this.meta_data.player_info.residence_country_code = this.request.meta_data.residence_country_code;
+          this.meta_data.player_info.nationality_country_code = this.request.meta_data.nationality_country_code;
+          this.meta_data.player_info.playing_position = this.request.meta_data.playing_position;
+        }
+        this.$forceUpdate();
+      }
+    },
+    methods: {
+      handleSubmit(status) {
+        var report = {
+          headline: this.headline,
+          price: this.price,
+          meta_data: this.meta_data,
+          remove_attachment: this.remove_attachment,
+          status
+        };
+        this.submitReport(report, this.files, status);
+        $('html, body').animate({
+            scrollTop: 0
+          },
+          100
+        );
       }
     }
-    if (this.request) {
-      this.price = this.request.price;
-      this.price.value = parseInt(this.request.bid_price.value);
-      this.headline = 'Report on ';
-      this.headline += this.request.meta_data.player_name ? this.request.meta_data.player_name : '';
-      if (!this.request.player) {
-        this.meta_data.player_info.languages = this.request.meta_data.languages;
-        this.meta_data.player_info.preferred_foot = this.request.meta_data.preferred_foot;
-        this.meta_data.player_info.residence_country_code = this.request.meta_data.residence_country_code;
-        this.meta_data.player_info.nationality_country_code = this.request.meta_data.nationality_country_code;
-        this.meta_data.player_info.playing_position = this.request.meta_data.playing_position;
-      }
-      this.$forceUpdate();
-    }
-  },
-  methods: {
-    handleSubmit(status) {
-      var report = {
-        headline: this.headline,
-        price: this.price,
-        meta_data: this.meta_data,
-        remove_attachment: this.remove_attachment,
-        status
-      };
-      this.submitReport(report, this.files, status);
-      $('html, body').animate(
-        {
-          scrollTop: 0
-        },
-        100
-      );
-    }
-  }
-};
+  };
 </script>

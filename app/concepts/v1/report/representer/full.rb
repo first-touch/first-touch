@@ -10,6 +10,14 @@ module V1
             represented.user.personal_profile
           )
         }
+        property :request, getter: lambda { |represented:, **|
+          if represented.request
+            ::V1::Request::Representer::Full.new(
+              represented.request
+            )
+          end
+        }
+        property :created_at
         property :headline
         property :meta_data
         property :player, getter: lambda { |represented:, **|

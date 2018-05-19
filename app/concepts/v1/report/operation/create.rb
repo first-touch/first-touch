@@ -1,12 +1,11 @@
 module V1
   module Report
     class Create < FirstTouch::Operation
-      step Model(::Report, :new)
+      step :model!
       step :authorized!
       failure :unauthenticated, fail_fast: true
       step :stripe
       failure :stripe_account_not_found!, fail_fast: true
-      step :setup_model!
       step :is_a_bid?
       failure :bid_not_found!, fail_fast: true
       step :setup_model!
@@ -17,6 +16,16 @@ module V1
       step Trailblazer::Operation::Contract::Persist()
       step :send_money
       step :persist_bid
+
+      def model!(options, params:,current_user:, **)
+        model = nil
+        if !params[:job_id].blank?
+          model = ::Report.find_by user_id: current_user.id, status: ['pending'], request_id: params[:job_id]
+        else
+          model = ::Report.new
+        end
+        options["model"] = model
+      end
 
       def setup_model!(options, model:, current_user:, **)
         if options['bid']
@@ -43,7 +52,7 @@ module V1
           bid = ::RequestBid.find_by request_id: params[:job_id], user_id: current_user.id, status: ['accepted','joblist']
           options['bid'] = bid
           !bid.blank?
-          model.request_id = bid.request_id
+          model = ::Report.find_by user_id: current_user.id, status: ['pending'], request_id: params[:job_id]
         else
           true
         end

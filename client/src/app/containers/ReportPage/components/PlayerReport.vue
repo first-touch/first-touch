@@ -18,7 +18,7 @@
             <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
             <div class="info">
               <h4 class="name" v-if="report.player">{{report.player.first_name}} {{report.player.last_name}}</h4>
-              <h4 class="name" v-if="!report.player">{{report.meta_data.search.player}} </h4>
+              <h4 class="name" v-if="!report.player && report.meta_data.search">{{report.meta_data.search.player}} </h4>
               <p class="role">Football Player</p>
               <p class="team" v-if="!report.team_info && report.team">{{report.team.team_name}}
                 <span class="list" v-for="comp in report.team.competitions.competitions" :key="comp.id"> {{comp.name}}</span>
@@ -33,7 +33,7 @@
                 <span v-if="report.team_info">
                   <span class="list" v-for="team in report.team_info.teams" :key="team.id">{{team.team_name}}</span>
                 </span>
-                <span v-if="!report.team_info">
+                <span v-if="!report.team_info && report.meta_data.search">
                   {{report.meta_data.search.team}}
                 </span>
               </p>
@@ -44,7 +44,7 @@
                     <span class="list" v-for="comp in team.competitions.competitions" :key="comp.id"> {{comp.name}}</span>
                   </span>
                 </span>
-                <span v-if="!report.team_info">
+                <span v-if="!report.team_info && report.meta_data.search">
                   <span v-if="report.league">
                     {{report.league.name}}
                   </span>
@@ -346,8 +346,12 @@
     },
     computed: {
       playerInfo() {
-        if (this.report.player) return this.report.player;
-        if (this.report.meta_data.player_info) return this.report.meta_data.player_info;
+        if (this.report) {
+
+          if (this.report.player) return this.report.player;
+          if (this.report.meta_data.player_info) return this.report.meta_data.player_info;
+        }
+        return null;
       }
     },
     methods: {

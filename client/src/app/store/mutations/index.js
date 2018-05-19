@@ -4,7 +4,7 @@ import userReducer, { user, newUser } from './user';
 import networkReducer, { network } from './network';
 import inboxReducer, { inbox } from './inbox';
 import messagesReducer, { messages } from './messages';
-import profileReducer, { profile } from './profile';
+import profileReducer, { profile, teamProfile } from './profile';
 import searchResultReducer, { searchResult } from './searchResult';
 import noteReducer, { note } from './note';
 import reportReducer, { report, searchReport, filesUpload } from './report';
@@ -25,6 +25,7 @@ export const initialState = {
   inbox,
   messages,
   profile,
+  teamProfile,
   searchResult,
   report,
   searchReport,

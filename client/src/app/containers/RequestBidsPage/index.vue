@@ -15,9 +15,28 @@
           <bids :bids="bids.value" :currency="request.value.price.currency" :getBids="customGetBids" :acceptAction="acceptAction" />
         </timeline-item>
         <b-modal id="metaModal" :size="paymentSuccess? 'md' : 'lg'" ref="metaModal" :class="paymentSuccess? 'successModal' : 'formModal' ">
-          <paymentpopup :paymentAction="paymentAction" :stripeClubCards="stripeClubCards"
-          :closeAction="hideModal" :result="bid" :StripeCardToken="StripeCardToken" :stripePayment="stripePayment"
-            :stripeJs="stripeJs" />
+          <paymentpopup :paymentAction="paymentAction" :stripeClubCards="stripeClubCards" :closeAction="hideModal" :result="bid" :StripeCardToken="StripeCardToken"
+            :stripePayment="stripePayment" :stripeJs="stripeJs">
+            <div slot="header" v-if="requestValue">
+              <div class="row">
+                <label class="col-md-3">Scout's name:</label>
+                <p class="col-md-8"> {{requestValue.user.first_name}} {{requestValue.user.last_name}} </p>
+              </div>
+              <div class="row" v-if="selected">
+                <label class="col-md-3">Price:</label>
+                <p class="col-md-8"> {{selected.price.value}} {{requestValue.price.currency}} </p>
+              </div>
+            </div>
+            <div class="col-md-12" v-if="published">
+              <label class="col-sm-12 ftcheckbox-inner col-form-label" :class="unpublish? 'active' : ''">
+                <span class="not" v-if="unpublish">Unpublish the request and do not receive beed anymore</span>
+                <span class="title" v-if="!unpublish">Keep receiving bids</span>
+                <ftcheckbox class="ftcheckbox" :value="unpublish" v-on:update:val="unpublish = $event" :trueValue="true" :falseValue="false"
+                />
+              </label>
+            </div>
+
+          </paymentpopup>
         </b-modal>
       </div>
     </div>
@@ -47,6 +66,7 @@
   import Bids from './components/Bids';
   import Actions from './components/Actions';
   import PaymentPopup from 'app/components/Stripe/PaymentPopup';
+  import FtCheckbox from 'app/components/Input/FtCheckbox';
 
   export default {
     name: 'RequestBidsList',
@@ -60,11 +80,14 @@
       playerrequest: PlayerRequest,
       bids: Bids,
       actions: Actions,
-      paymentpopup: PaymentPopup
+      paymentpopup: PaymentPopup,
+      ftcheckbox: FtCheckbox
+
     },
     data() {
       return {
-        selected: null
+        selected: null,
+        unpublish: false
       };
     },
     mounted() {
@@ -72,23 +95,40 @@
       this.customGetBids('');
     },
     computed: {
-      ...mapGetters(['request', 'bids', 'bid', 'stripePayment', 'stripeJs','stripeClubCards']),
+      ...mapGetters(['request', 'bids', 'bid', 'stripePayment', 'stripeJs', 'stripeClubCards']),
       paymentSuccess() {
         if (this.bid.status == ASYNC_SUCCESS) {
           if (this.bid.value.status == 'accepted') return true;
         }
         return false;
+      },
+      requestValue() {
+        if (this.request.status == ASYNC_SUCCESS)
+          return (this.request.value)
+        return null;
+      },
+      published() {
+        if (this.requestValue)
+          return this.requestValue.status == 'publish'
+        return null;
       }
     },
     watch: {
       bid() {
         if (this.bid.status == ASYNC_SUCCESS) {
           this.customGetBids();
+          if (this.unpublish) {
+            this.unpublish = false;
+            this.getRequest(this.$route.params.id);
+          }
+
         }
       }
     },
     methods: {
-      ...mapActions(['getRequest', 'getBids', 'updateRequest', 'acceptBid', 'clearBid', 'StripeCardToken','getClubsCards']),
+      ...mapActions(['getRequest', 'getBids', 'updateRequest', 'acceptBid', 'clearBid', 'StripeCardToken',
+        'getClubsCards'
+      ]),
       customGetBids(params) {
         this.getBids({
           id: this.$route.params.id,
@@ -106,7 +146,8 @@
           token,
           bid_id: this.selected.id,
           save,
-          usesaved
+          usesaved,
+          unpublish: this.unpublish
         };
         var obj = {
           id: this.$route.params.id,

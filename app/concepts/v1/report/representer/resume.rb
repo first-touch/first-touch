@@ -31,6 +31,12 @@ module V1
           end
         }
 
+        property :attachments, getter: lambda { |represented:, **|
+          if represented.attachments
+            ::V1::Attachment::Representer::Index.new(represented.attachments)
+          end
+        }
+
         property :team_info, getter: lambda { |represented:, **|
           if represented.player and represented.type_report == 'player'
             ::V1::Team::Representer::Index.new(
@@ -65,6 +71,11 @@ module V1
             represented.orders_price
           rescue StandardError
             'N/A'
+          end
+        }
+        property :search, getter:  lambda { |represented:, **|
+          if represented.meta_data and represented.request_id.nil?
+            represented.meta_data['search'] if represented.meta_data['search']
           end
         }
         property :meta_data, getter: lambda { |represented:, **|

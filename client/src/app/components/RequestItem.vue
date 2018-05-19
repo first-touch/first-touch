@@ -128,7 +128,7 @@
           </div>
         </div>
         <div class="widget col-md-2">
-          <router-link v-if="own" :to="{ name: 'clubRequest', params: { id: request.id }}" class="ft-action" >
+          <router-link v-if="own" :to="{ name: 'clubRequest', params: { id: request.id }}" class="ft-action">
             <button class="btn-round">Edit</button>
           </router-link>
           <router-link v-if="own && !position" :to="{ name: 'clubRequestBids', params: { id: request.id }}" class="ft-action">
@@ -170,15 +170,18 @@
       </div>
     </div>
     <tr v-if="mode == 'table'" class="request-tr table-item">
-      <td>{{request.id | requestId(request.type_request) }}</td>
-      <td class="capitalize">{{ request.type_request }} job request</td>
-      <td> {{ request.created_at | moment }} </td>
-      <td> {{request.request_bids_count}}</td>
-      <td class="table-action widget col-lg-12">
+      <td v-if="fields.indexOf('id') >=0">{{request.id | requestId(request.type_request) }}</td>
+      <td class="capitalize" v-if="fields.indexOf('type') >=0">{{ request.type_request }} job request</td>
+      <td v-if="fields.indexOf('created_at') >=0"> {{ request.created_at | moment }} </td>
+      <td v-if="fields.indexOf('club') >=0"> {{ request.user.first_name }} {{ request.user.last_name }} </td>
+      <td v-if="fields.indexOf('deadline') >=0"> {{ request.deadline | moment }} </td>
+
+      <td v-if="fields.indexOf('bids') >=0"> {{request.request_bids_count}}</td>
+      <td v-if="fields.indexOf('action') >=0" class="table-action widget col-lg-12">
         <router-link v-if="own && !position" :to="{ name: 'clubRequestBids', params: { id: request.id }}" class="ft-action col-lg-10">
           <button class="btn-round">View Bids</button>
         </router-link>
-        <router-link v-if="own && position" :to="{ name: 'clubReportProposed', params: { request: request }}" class="ft-action col-lg-10">
+        <router-link v-if="own && position" :to="{ name: 'clubReportProposed', params: { requestId: request.id }}" class="ft-action col-lg-10">
           <button class="btn-round">View Proposed Reports</button>
         </router-link>
         <a v-if="!own && !position && addBid" @click="addBid(request)" class="ft-action col-lg-10">
@@ -228,95 +231,6 @@
 <style lang="scss" scoped>
   @import '~stylesheets/light_item';
   @import '~stylesheets/variables';
-  .more {
-    float: right;
-    display: inline-block;
-    border-radius: 50%;
-    box-shadow: 0px 0px 1px 1px #4185BC;
-    padding: 0;
-    width: 22px;
-    .action {
-      display: none;
-      position: absolute;
-      bottom: 25px;
-      left: -13px;
-      width: 200px;
-      z-index: 10;
-      background-color: white;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-      .content {
-        border-bottom: 10px solid $main-header-color;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        padding: 10px;
-      }
-      .down-arrow {
-        position:absolute;
-        width: 0;
-        height: 0;
-        left:10px;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 15px solid $main-header-color;
-      }
-
-      &:first {
-        display: block;
-      }
-      a {
-        text-align: left;
-        display: block !important;
-        padding: 10px;
-        cursor: pointer;
-        text-transform: uppercase;
-        color: $main-text-color;
-        &:hover {
-          color: $secondary-header-color;
-        }
-        &:not(:last-child) {
-          border-bottom: 2px solid $secondary-text-color;
-        }
-      }
-    }
-    &:hover {
-      .action {
-        display: block;
-      }
-    }
-  }
-
-  .item-container {
-    display: contents;
-  }
-
-  .request-tr {
-    color: $secondary-text-color;
-    border: none !important;
-    td {
-      border: none;
-      text-align: center;
-    }
-  }
-
-  .capitalize:first-letter {
-    text-transform: capitalize;
-  }
-
-  .table-action {
-    text-align: right;
-    display: inline-block !important;
-    a {
-      display: inline-block !important;
-
-      button {
-        margin: 0;
-        padding: 0;
-        float: right;
-      }
-    }
-
-  }
 </style>
 <script>
   import countrydata from 'country-data';
@@ -325,7 +239,9 @@
 
   export default {
     name: 'RequestItem',
-    props: ['request', 'update', 'own', 'viewSummary', 'addBid', 'createReport', 'viewReport', 'cancelReport', 'mode'],
+    props: ['request', 'update', 'own', 'viewSummary', 'addBid', 'createReport', 'viewReport', 'cancelReport', 'mode',
+      'fields'
+    ],
     components: {
       icon: Icon,
     },

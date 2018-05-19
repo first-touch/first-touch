@@ -33,23 +33,26 @@
   }
   .buttons-inner {
     display: flex;
-    .ft-button {
-      width: 150px;
+    button{
+      margin: 10px;
+      padding: 10px 30px;
+      display: flex;
+      justify-content: center;
+      text-align: center;
       color: $main-text-color;
-      border: 1px solid $main-text-color;
-      background-color: $button-background;
-      border-radius: 10px;
       cursor: pointer;
+      border-radius: 9999px;
+      border: 1px solid $secondary-text-color;
+      background: #fff;
       &:hover {
         background-color: $button-background-hover;
       }
     }
+
     .ft-button-success {
       color: white;
-      min-height: 20px;
-      border: 0;
+      border: 1px solid $secondary-text-color;
       background-color: $main-header-color;
-      cursor: pointer;
       &:hover {
         background-color: $secondary-header-color;
       }
@@ -58,11 +61,11 @@
       border: 0;
       color: white;
       background-color: #ff2a2a;
-       &:hover {
+      &:hover {
         background-color: #ff0000;
       }
     }
-    .ft-button-right{
+    .ft-button-right {
       margin-left: auto;
     }
   }

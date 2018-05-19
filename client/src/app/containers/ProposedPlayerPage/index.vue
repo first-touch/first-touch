@@ -3,7 +3,8 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
-        <h4 class="header">Report Marketplace</h4>
+        <request :request="request" :updateStatus="updateStatus"></request>
+        <h4 class="header" v-if="request">Proposed report</h4>
         <timeline-item>
           <div class="ft-search-widget widget-reports col col-md-12">
             <div class="row">
@@ -24,12 +25,57 @@
                 :stripeClubCards="stripeClubCards" :stripePayment="stripePayment" :stripeJs="stripeJs">
                 <div class="row" slot="header">
                   <label class="col-md-3">Price:</label>
-                  <p class="col-md-8">{{reportSelected.price.value}} {{reportSelected.price.currency}}</p>
+                  <p class="col-md-8">{{reportSelected.price.value}} {{requestValue.price.currency}}</p>
                 </div>
               </paymentpopup>
             </b-modal>
-            <report v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :buyAction="BuyAction" :summaryAction="summaryAction"
-            />
+            <table class="table table-search">
+              <thead>
+                <tr>
+                  <th scope="col" class="shortable" @click="setOrder('id')">
+                    <p>Report ID</p>
+                    <span v-if="params.order == 'id'">
+                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                    </span>
+                  </th>
+                  <th scope="col" class="shortable" @click="setOrder('scout_name')">
+                    <p>SCOUT'S Name</p>
+                    <span v-if="params.order == 'scout_name'">
+                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                    </span>
+                  </th>
+                  <th scope="col" class="shortable" @click="setOrder('created_at')">
+                    <p>Submitted On</p>
+                    <span v-if="params.order == 'created_at'">
+                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                    </span>
+                  </th>
+                  <th scope="col" class="shortable" @click="setOrder('headline')">
+                    <p>Report name</p>
+                    <span v-if="params.order == 'headline'">
+                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                    </span>
+                  </th>
+                  <th scope="col" class="shortable" @click="setOrder('price')">
+                    <p>Report price (in {{currency}})</p>
+                    <span v-if="params.order == 'price'">
+                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                    </span>
+                  </th>
+                  <th scope="col" class="shortable">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <report v-for="report in listReport" :report="report" :key="report.id" mode="table" :viewAction="viewAction" :buyAction="BuyAction"
+                :fields="['id','scout','submitted','headline','price','action']"
+                  :summaryAction="summaryAction" />
+              </tbody>
+            </table>
           </div>
         </timeline-item>
       </div>
@@ -43,6 +89,13 @@
 </style>
 
 <style lang="scss" scoped>
+  @import '~stylesheets/variables';
+
+  th.shortable {
+    font-size: 13px;
+    padding: 0;
+    width: 16.6%;
+  }
 </style>
 
 <script>
@@ -62,86 +115,46 @@
   import PaymentPopup from 'app/components/Stripe/PaymentPopup';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import Filters from './components/Filters';
-  import 'vue-awesome/icons/edit';
-  import 'vue-awesome/icons/eye';
-  import 'vue-awesome/icons/eye-slash';
+  import RequestItem from './components/RequestItem'
+  import 'vue-awesome/icons/arrow-alt-circle-up';
+  import 'vue-awesome/icons/arrow-alt-circle-down';
   import Icon from 'vue-awesome/components/Icon';
   import {
     ASYNC_NONE
   } from 'app/constants/AsyncStatus';
   export default {
-    name: 'ReportsList',
+    name: 'ProposedPlayer',
     components: {
       sidebar: NotificationSidebar,
       'timeline-item': TimelineItem,
       report: ReportItem,
       vselect: vSelect,
+      icon: Icon,
       playerreportpopup: PlayerReportPopup,
       teamreportpopup: TeamReportPopup,
       paymentpopup: PaymentPopup,
       ftdatepicker: FtDatepicker,
       filters: Filters,
-      icon: Icon,
+      request: RequestItem
     },
+    props: ['requestId'],
     data() {
       return {
         payment: false,
         reportSelected: null,
-        sort_select: {
-          label: 'Sort by',
-          value: ''
-        },
-        type_select: {
-          label: 'Report Type',
-          value: ''
-        },
         params: {
-          id: '',
-          headline: '',
-          report_type: '',
-          created_date_from: '',
-          created_date_to: '',
-          created_date: '',
-          sort: ''
+          order: '',
+          order_asc: true,
         },
-        options: {
-          report_type: [{
-              label: 'Report Type',
-              value: ''
-            },
-            {
-              label: 'Player',
-              value: 'player'
-            },
-            {
-              label: 'Team',
-              value: 'team'
-            }
-          ],
-          order: [{
-              label: 'Sort by',
-              value: ''
-            },
-            {
-              label: 'Updated date',
-              value: 'updated_at'
-            },
-            {
-              label: 'Type',
-              value: 'Type'
-            },
-            {
-              label: 'Price',
-              value: 'price'
-            }
-          ]
-        }
       };
     },
     computed: {
-      ...mapGetters(['searchReport', 'order', 'stripePayment', 'stripeJs', 'stripeClubCards']),
-      proposed() {
-        return this.$route.name == 'clubReportProposed'
+      ...mapGetters(['searchReport', 'order', 'stripePayment', 'stripeJs', 'stripeClubCards', 'request']),
+      currency() {
+        if (this.requestValue) {
+          return this.requestValue.price.currency;
+        }
+        return null;
       },
       listReport() {
         if (this.searchReport.status === ASYNC_SUCCESS) {
@@ -149,26 +162,30 @@
         }
         return [];
       },
+      requestValue() {
+        if (this.request.value) {
+          return this.request.value;
+        }
+        return null;
+      },
       url() {
         var params = this.params;
-        if (params.created_date_from) {
-          params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
-        }
-        if (params.created_date_to) {
-          params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
-        }
-        params.sort = this.sort_select.value;
-        params.report_type = this.type_select.value;
         var url = Object.keys(params)
           .map(function (k) {
             return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
           })
           .join('&');
-
-        return url;
+        return url + '&' + this.$refs.filter.url;
       }
     },
     mounted() {
+      if (!this.requestId && this.$route.name == 'clubReportProposed') {
+        this.$router.push({
+          name: 'clubReportMarketplace',
+        });
+      } else if (this.requestId) {
+        this.getRequest(this.requestId);
+      }
       this.search();
     },
     watch: {
@@ -178,9 +195,6 @@
           this.listReport[index] = this.report.value;
           this.$forceUpdate();
         }
-      },
-      proposed() {
-        this.search();
       },
       order() {
         if (this.order.status === ASYNC_SUCCESS) {
@@ -194,7 +208,7 @@
       },
     },
     methods: {
-      ...mapActions(['getReports', 'newOrder', 'StripeCardToken', 'getClubsCards']),
+      ...mapActions(['getReports', 'newOrder', 'StripeCardToken', 'getClubsCards', 'updateRequest', 'getRequest']),
       viewAction(report) {
         this.$router.push({
           name: 'clubReport',
@@ -220,7 +234,7 @@
         this.$refs.metaModal.show();
       },
       search() {
-        this.getReports(this.$refs.filter.url);
+        this.getReports(this.url);
       },
       paymentAction(token, save, usesaved) {
         this.newOrder({
@@ -228,6 +242,22 @@
           report_id: this.reportSelected.id,
           save: save,
           usesaved
+        });
+      },
+      setOrder(order) {
+        if (this.params.order == order)
+          this.params.order_asc = !this.params.order_asc;
+        else
+          this.params.order_asc = true;
+        this.params.order = order;
+        this.search();
+      },
+      updateStatus(status) {
+        this.updateRequest({
+          id: this.requestValue.id,
+          request: {
+            status
+          }
         });
       }
     }

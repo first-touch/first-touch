@@ -1,14 +1,9 @@
 <template>
-  <div>
-    <div class="error" v-if="errors">
-      Errors:
-      <ul>
-        <li>{{result.errors.errors}}</li>
-      </ul>
-    </div>
-    <div class="contentPayment ft-form" :class="loading ? 'loading' : ''">
+  <div class="payment-widget ft-form" :class="loading ? 'loading' : ''">
+    <div class="contentPayment" >
       <loading class="loader" />
       <div class="payment" v-if="!success">
+        <slot name="header"></slot>
         <vselect v-model="cardSelect" v-if="!newCard" @input="cardToken = cardSelect.value" :options="cards" :searchable="false"
         />
         <div :class="!newCard? 'hide' : ''">
@@ -20,26 +15,35 @@
           </label>
           <div ref="card"></div>
         </div>
-        <div class="buttons-inner">
-          <button class="ft-button" v-if="!emptyCard" v-on:click="newCard = !newCard">
+        <div class="img-container col-sm-4">
+          <img class="img-fluid" src="/images/stripe/secure-stripe-payment-logo.png" alt="Stripe secure" />
+        </div>
+        <div class="error" v-if="errors">
+          <ul>
+            <li>{{result.errors.errors}}</li>
+          </ul>
+        </div>
+        <slot />
+
+        <div class="buttons-inner col-sm-8">
+          <button class="ft-button ft-button-right" v-if="!emptyCard" v-on:click="newCard = !newCard">
             <span v-if="!newCard">Add a new card </span>
             <span v-if="newCard">Use existing card</span>
           </button>
           <button class="ft-button-success" v-on:click="purchase">Purchase</button>
+          <button class="ft-button" @click="closeAction()" :class="success?'ft-button-success':''">Close</button>
         </div>
+
       </div>
       <div v-if="success">
         <p>Success !</p>
-        <div class="col-md-12 buttons-inner">
-          <button class="ft-button-success ft-button-right" @click="closeAction()">Close</button>
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss">
-  .contentPayment {
+  .payment-widget {
     .selected-tag {
       color: red;
     }
@@ -63,8 +67,8 @@
     margin-top: 20px;
   }
 
-  .contentPayment {
-    padding: 50px 10px 20px 10px;
+  .payment-widget {
+    padding: 0 10px 20px 10px;
     .loader {
       display: none;
       margin-left: 40%;

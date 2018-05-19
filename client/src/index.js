@@ -31,7 +31,7 @@ import RequestPage from 'app/containers/RequestPage';
 import RequestBidsPage from 'app/containers/RequestBidsPage';
 import PaymentDetailPage from 'app/containers/PaymentDetailPage';
 import ClubPaymentDetails from 'app/containers/ClubPaymentDetailsPage';
-
+import ProposedPlayer from 'app/containers/ProposedPlayerPage';
 import JobsBankPage from 'app/containers/JobsBankPage';
 
 import store from 'app/store';
@@ -187,7 +187,7 @@ export const router = new VueRouter({
         },
         {
           path: '/club/scouting/report/proposed',
-          component: MarketPlacePage,
+          component: ProposedPlayer,
           name: 'clubReportProposed',
           props: true
         },
@@ -199,7 +199,8 @@ export const router = new VueRouter({
         {
           path: '/club/scouting/request',
           component: JobRequestPage,
-          name: 'clubRequestList'
+          name: 'clubRequestList',
+          props: true
         },
         {
           path: '/club/scouting/report/:id',

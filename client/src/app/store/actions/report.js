@@ -10,7 +10,7 @@ export const createReport = (store, report) => {
     },
     body: JSON.stringify(report)
   }).then(res => {
-    if (res.status === 201) {
+    if (res.status >= 200 && res.status < 400) {
       res.json().then(r => store.commit(ActionTypes.UPLOADING_REPORT_SUCCESS, r));
     } else if (res.status === 401) {
       store.commit(ActionTypes.TOKEN_CLEAR);

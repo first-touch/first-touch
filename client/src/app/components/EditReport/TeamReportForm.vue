@@ -73,7 +73,6 @@
       <div class="form-group buttons-inner">
         <button v-if="!report && !request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('publish')">Publish</button>
         <button v-if="report" id="submit" class="btn btn-primary ft-button" @click="handleSubmit">Update</button>
-        <button v-if="!report && request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('publish')">Send Report & Publish in MarketPlace</button>
         <button v-if="!report && request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('private')">Send Report</button>
         <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default ft-button">Cancel</button>
       </div>

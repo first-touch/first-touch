@@ -33,6 +33,9 @@
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
 
+input{
+  padding:10px !important;
+}
 .autonumeric {
   height: 100%;
   min-height: 30px;

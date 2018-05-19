@@ -5,6 +5,7 @@ module V1
         include Representable::JSON
 
         property :team_name
+        property :id
 
         property :competitions, getter: lambda { |represented:, **|
             ::V1::Competition::Representer::Index.new(

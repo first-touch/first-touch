@@ -10,16 +10,46 @@ module V1
       step :payment
       failure :stripe_failure!, fail_fast: true
       step :order
-      failure :model_not_found!, fail_fast: true
+      failure :model_not_found!
       step :persist_stripe_transaction!
       step :finalize
+      step :unpublish
+      step :init_report!
       failure :refund
+      failure :delete_report!
       step Trailblazer::Operation::Contract::Build(
         constant: ::V1::RequestBid::Contract::Update
       )
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
       private
+
+      def init_report!(options, model:, params:, current_user:, **)
+        request = model.request
+        type_report = model.request.type_request == 'team' ? 'team' : 'player'
+        report_params = {
+          'user' => model.user,
+          'type_report' => type_report,
+          'request_id' => request.id,
+          'price' => model.price,
+          'status' => 'pending'
+        }
+        result = ::V1::Report::Pending.(report_params, current_user: current_user)
+        if result.success?
+          report = result['model']
+          order = model.order
+          order.report = report
+          order.save!
+          model.report_id = report.id
+        end
+        result.success?
+      end
+
+      def delete_report!(options, model:, params:, current_user:, **)
+        request = model.request
+        report = ::Report.find_by user: model.user, request: request
+        report.delete()
+      end
 
       def find_model!(options,  params:, current_user:, **)
         requestId = params[:request_id]
@@ -137,8 +167,17 @@ module V1
         model.status = 'accepted'
       end
 
+      def unpublish(options,  params:, model:, current_user:, **)
+        if params[:unpublish]
+          request = model.request
+          request.status = 'private'
+          request.save
+        end
+        true
+      end
+
       def refund(options,  params:, model:, current_user:, **)
-        PaymentUtil.refund(options['stripe_charge_id'])
+        PaymentUtil.refund_charge(options['stripe_charge_id'])
       end
 
     end
