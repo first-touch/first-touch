@@ -13,7 +13,6 @@ module V1
           user_list = user_list.where(
             'search_string ILIKE ?', "%#{query_params}%"
           )
-          puts user_list.to_json
           if FirstTouch::REGISTERABLE_ROLE_NAMES.include? params[:role]
             user_list = user_list.with_role params[:role]
           end

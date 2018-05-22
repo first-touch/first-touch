@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-8 buttons-inner">
           <button class="ft-button" @click="closeAction(report)">Close</button>
-          <button class="ft-button-success" v-if="!report.is_free" @click="buyAction(report)">Buy Report</button>
+          <button class="ft-button-success"  v-if="!report.orders_status && !report.is_free" @click="buyAction(report)">Buy Report</button>
         </div>
       </div>
     </div>

@@ -44,6 +44,35 @@
         </div>
       </div>
     </div>
+    <div class="profile-item-container" v-if="!player && search">
+      <div class="top row">
+        <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
+        <div class="info col-lg-4">
+          <h4 class="name">{{ search.player }}</h4>
+          <p class="role">Football Player</p>
+          <div v-if="clubInfo">
+            <p class="detail">
+              <span class="detail-title">Team Name:</span>
+              {{clubInfo.team_name}}
+            </p>
+            <p class="detail" v-if="clubInfo.competitions">
+              <span class="detail-title">League:</span>
+              <span class="list" v-for="cp in clubInfo.competitions.competitions" :key="cp.id">{{cp.name}} </span>
+            </p>
+          </div>
+          <div v-if="!clubInfo">
+            <p class="detail">
+              <span class="detail-title">Team Name:</span>
+              {{search.team}}
+            </p>
+            <p class="detail">
+              <span class="detail-title">League:</span>
+              <span class="list">{{search.team}} </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </timeline-item>
 </template>
 
@@ -146,7 +175,7 @@
 
   export default {
     name: 'PlayerResume',
-    props: ['player'],
+    props: ['player', 'search', 'clubInfo'],
     components: {
       'timeline-item': TimelineItem,
     },

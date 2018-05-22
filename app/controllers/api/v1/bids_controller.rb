@@ -16,7 +16,7 @@ module Api
 
       def destroy
         result = ::V1::RequestBid::Cancel.(params,current_user: current_user)
-        response = FirstTouch::Endpoint.(result,::V1::RequestBid::Representer::Full)
+        response = FirstTouch::Endpoint.(result, ::V1::Order::Representer::Empty)
         render json: response[:data], status: response[:status]
       end
 

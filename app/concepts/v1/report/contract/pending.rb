@@ -7,8 +7,8 @@ module V1
         property :request_id
         property :status
         property :price
-
-        validates :user, :type_report, :request_id, :status, :price,  presence: true
+        property :completion_status
+        validates :user, :type_report, :request_id, :completion_status, :status, :price,  presence: true
       end
     end
   end

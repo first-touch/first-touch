@@ -7,7 +7,7 @@
           <input type="text" class="col-md-12 form-control" v-model="headline">
         </div>
       </div>
-      <div class="form-group row">
+      <div class="form-group row" v-if="!request">
         <div class="col-sm-12">
           <label class="col-md-12 label-price">Price</label>
           <div class="price-input">
@@ -70,10 +70,10 @@
       </div>
       <addattachments :attachments="report ? report.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
         v-on:update:files="files = $event" />
-      <div class="form-group buttons-inner">
-        <button v-if="!report && !request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('publish')">Publish</button>
-        <button v-if="report" id="submit" class="btn btn-primary ft-button" @click="handleSubmit">Update</button>
-        <button v-if="!report && request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('private')">Send Report</button>
+      <div class="form-group buttons-inner row">
+        <button v-if="!report && !request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
+        <button v-if="report" id="submit" class="ft-button ft-button-success" @click="handleSubmit">Update</button>
+        <button v-if="!report && request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('private')">Send Report</button>
         <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default ft-button">Cancel</button>
       </div>
     </form>

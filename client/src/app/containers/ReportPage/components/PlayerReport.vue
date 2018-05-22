@@ -120,9 +120,8 @@
             </div>
             <div class="row values" v-if="report.meta_data.transfer_sum.transfer_interested !== 'No'">
               <div class="col-md-6">
-                <label class="col-sm-8 summary-title">Availability for transfer</label>
-                <span class="col-sm-4 summary-field"> {{report.meta_data.transfer_sum.transfer_availability.value }} {{report.meta_data.transfer_sum.transfer_availability.currency
-                  | currency }}</span>
+                <label class="col-lg-7 summary-title">Availability for transfer</label>
+                <span class="col-lg-5 summary-field"> {{report.meta_data.transfer_sum.transfer_availability | moment }}</span>
               </div>
               <div class="col-md-6">
                 <label class="col-sm-6 summary-title">Transfer Budget</label>
@@ -136,14 +135,13 @@
                 <icon v-if="report.meta_data.transfer_sum.loan_interested === 'No'" name="times"></icon>Interested in Loan</label>
             </div>
             <div class="row values" v-if="report.meta_data.transfer_sum.loan_interested !== 'No'">
-              <div class="col-md-6" v-if="report.meta_data.transfer_sum.loan_availability.value">
-                <label class="col-sm-6 summary-title">Availability for Loan</label>
-                <span class="col-sm-4 summary-field"> {{report.meta_data.transfer_sum.loan_availability.value}} {{report.meta_data.transfer_sum.loan_availability.currency
-                  | currency}}</span>
+              <div class="col-md-6" v-if="report.meta_data.transfer_sum.loan_availability">
+                <label class="col-sm-7 summary-title">Availability for Loan</label>
+                <span class="col-sm-5 summary-field"> {{report.meta_data.transfer_sum.loan_availability | moment}} </span>
               </div>
               <div class="col-md-6" v-if="report.meta_data.transfer_sum.contract_end">
-                <label class="col-sm-4 summary-title">End of Contract</label>
-                <span class="col-sm-4 summary-field"> {{report.meta_data.transfer_sum.contract_end}} </span>
+                <label class="col-sm-6 summary-title">End of Contract</label>
+                <span class="col-sm-6 summary-field"> {{report.meta_data.transfer_sum.contract_end | moment}} </span>
               </div>
             </div>
           </div>

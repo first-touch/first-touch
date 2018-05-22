@@ -11,12 +11,12 @@
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Select a League</label>
       <inputsearch class="col-sm-6" :onkeyup="getSearchResultsRole" :required="team_id == -1" :searchResult="searchResult" type="competition"
-        v-on:update:val="setLeague($event)" ref="league_search" :taggable="true" minChar=3 label="name"  v-on:update:search="search.league = $event"/>
+        v-on:update:val="setLeague($event)" ref="league_search" :taggable="true" label="name"  v-on:update:search="search.league = $event"/>
     </div>
     <div class="form-group row">
       <label class="col-sm-3 col-form-label" :class="type == 'team' ? 'required' : ''">Select a Team</label>
       <inputsearch class="col-sm-6" v-if="league_id != ''" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team"
-        ref="team_search" :taggable="true" v-on:update:obj="setTeam($event)" minChar=3 label="team_name" v-on:update:search="search.team = $event" />
+        ref="team_search" :taggable="true" v-on:update:obj="setTeam($event)" label="team_name" v-on:update:search="search.team = $event" />
     </div>
     <div class="form-group row" v-if="type == 'player'">
       <label class="col-sm-3 col-form-label" :class="type == 'player' ? 'required' : ''">Select a Player</label>

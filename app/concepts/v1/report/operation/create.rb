@@ -20,7 +20,15 @@ module V1
       def model!(options, params:,current_user:, **)
         model = nil
         if !params[:job_id].blank?
-          model = ::Report.find_by user_id: current_user.id, status: ['pending'], request_id: params[:job_id]
+          request = ::Request.find(params[:job_id])
+          options["position"] = request.type_request == 'position'
+
+          if !options["position"]
+            model = ::Report.find_by user_id: current_user.id, completion_status: ['pending'], request_id: params[:job_id]
+          else
+            model = ::Report.new
+            model.request_id = request.id
+          end
         else
           model = ::Report.new
         end
@@ -29,13 +37,14 @@ module V1
 
       def setup_model!(options, model:, current_user:, **)
         if options['bid']
-          request = options['bid'].request
-          if request.type_request != 'position'
+          if !options["position"]
+            request = model.request
             model.team = request.team
             model.player = request.player
             model.league = request.league
           end
         end
+        model.completion_status = 'complete'
         model.user = current_user
       end
 
@@ -48,14 +57,13 @@ module V1
       end
 
       def is_a_bid?(options, model:,params:, current_user:, **)
+        success = true
         if !params[:job_id].blank?
           bid = ::RequestBid.find_by request_id: params[:job_id], user_id: current_user.id, status: ['accepted','joblist']
           options['bid'] = bid
-          !bid.blank?
-          model = ::Report.find_by user_id: current_user.id, status: ['pending'], request_id: params[:job_id]
-        else
-          true
+          success = !bid.blank?
         end
+        success
       end
 
       def persist_bid(options, model:, params:, current_user:, **)

@@ -9,7 +9,7 @@ module V1
         property :price
         property :type_report
         property :status
-
+        property :completion_status
         property :created_at
         property :updated_at
         property :user, getter: lambda { |represented:, **|

@@ -46,7 +46,7 @@ module FirstTouch
         rule: ->(result) { result.success? && result['model'].nil? },
         resolve: lambda do |result, _representer|
           { 'data': { },
-            'status': :not_found }
+            'status': :ok }
         end
       },
       stripe_errors: {

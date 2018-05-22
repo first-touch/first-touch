@@ -1,11 +1,13 @@
 <template>
-  <div class="bid col-md-6">
+  <div class="bid col-md-12">
     <span class="field row">
       <currencyinput :value="price" :currency="request.price.currency"/>
     </span>
-    <span class="footer-modal buttons-inner">
-      <button class="btn-primary ft-button" v-if="!this.request.bid_status" @click="newBid(request,price)">Send Bid</button>
-      <button class="btn-primary ft-button" v-if="this.request.bid_status" @click="newBid(request,price)">Update Bid</button>
+    <span class="footer-modal buttons-inner clo-md-12">
+      <button class="ft-button ft-button-success ft-button-right" v-if="!this.request.bid_status" @click="newBid(request,price)">Send Bid</button>
+      <button class="ft-button ft-button-success ft-button-right" v-if="this.request.bid_status" @click="newBid(request,price)">Update Bid</button>
+      <button class="ft-button" @click="close(request)">Close</button>
+
     </span>
   </div>
 </template>
@@ -20,7 +22,7 @@
 
   export default {
     name: 'PaymentPopup',
-    props: ['request', 'newBid'],
+    props: ['request', 'newBid','close'],
     components: {
       currencyinput: CurrencyInput
     },

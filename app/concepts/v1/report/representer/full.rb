@@ -10,6 +10,7 @@ module V1
             represented.user.personal_profile
           )
         }
+        property :completion_status
         property :request, getter: lambda { |represented:, **|
           if represented.request
             ::V1::Request::Representer::Full.new(

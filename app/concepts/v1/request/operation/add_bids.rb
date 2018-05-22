@@ -15,7 +15,7 @@ module V1
 
       def model!(options, params:, current_user:, **)
         options['model.class'] = ::RequestBid
-        model = current_user.request_bids.find_by(request_id: params[:id])
+        model = current_user.request_bids.where(request_id: params[:id]).where.not(status: 'canceled').first
         if model.blank?
           model = ::RequestBid.new
         end

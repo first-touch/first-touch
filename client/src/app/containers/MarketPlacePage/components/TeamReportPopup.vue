@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-8 buttons-inner">
           <button class="ft-button" @click="closeAction(report)">Close</button>
-          <button class="ft-button-success" @click="buyAction(report)">Buy Report</button>
+          <button class="ft-button-success" v-if="!report.orders_status && !report.is_free" @click="buyAction(report)">Buy Report</button>
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@
                 <span v-if="report.league">
                   {{report.league.name}}
                 </span>
-                <span v-if="!report.league">
+                <span v-if="!report.league && report.meta_data.search">
                   {{report.meta_data.search.league}}
                 </span>
               </span>

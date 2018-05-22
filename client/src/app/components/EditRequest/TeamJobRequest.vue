@@ -19,13 +19,13 @@
               <label class="col-md-12">League Name</label>
               <inputsearch class="col-md-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
                 v-on:update:val="setLeague($event)" v-on:update:search="meta_data.search.league = $event" ref="team_search"
-                minChar=3 label="name" />
+                 label="name" />
             </div>
             <div class="col-sm-6 form-group">
               <label class="col-md-12 required">Team Name</label>
               <inputsearch :edit="team_search" :readonly="league_id == ''" class="col-md-12" :taggable="true" :onkeyup="getSearchResultsRole"
                 ref="team_search" v-on:update:search="meta_data.search.team = $event" :searchResult="searchResult" type="team"
-                v-on:update:obj="setTeam($event)" :required="true" minChar=3 label="team_name" />
+                v-on:update:obj="setTeam($event)" :required="true" label="team_name" />
             </div>
           </div>
 

@@ -41,8 +41,8 @@
         <h4 class="header">Report</h4>
         <div v-if="report != null" class="report-container">
           <div class="content">
-            <playerreport v-if="report.type_report == 'player'" :report="report" :downloadFile="downloadFile" class="report" />
-            <teamreport v-if="report.type_report == 'team'" :report="report" :downloadFile="downloadFile" class="report" />
+            <playerreport v-if="report.type_report == 'player'" :report="report" :request="request" :downloadFile="downloadFile" class="report" />
+            <teamreport v-if="report.type_report == 'team'" :report="report" :request="request"  :downloadFile="downloadFile" class="report" />
           </div>
         </div>
       </div>

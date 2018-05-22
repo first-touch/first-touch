@@ -16,11 +16,11 @@
             </b-modal>
           </timeline-item>
         </div>
-        <div v-if="playerInfo || clubInfo ">
-          <h4 class="header"  v-if="playerInfo" >Player</h4>
-          <h4 class="header" v-if="clubInfo" >Team</h4>
-          <playerresume v-if="playerInfo" :player="playerInfo"></playerresume>
-          <clubresume v-if="clubInfo" :clubInfo="clubInfo"></clubresume>
+        <div v-if="!position">
+          <h4 class="header" v-if="report_type == 'player'">Player</h4>
+          <h4 class="header" v-if="report_type == 'team'">Team</h4>
+          <playerresume v-if="report_type == 'player'" :player="playerInfo" :clubInfo="clubInfo" :search="search"></playerresume>
+          <clubresume v-if="report_type == 'team'" :clubInfo="clubInfo" :search="search"></clubresume>
         </div>
         <h4 class="header">Report</h4>
         <timeline-item>
@@ -132,9 +132,16 @@
     computed: {
       ...mapGetters(['report', 'searchResult', 'filesUpload', 'profile', 'teamProfile']),
       playerInfo() {
+        if (this.request)
+          return this.request.player;
         if (this.player_id > 0 && this.profile.status == ASYNC_SUCCESS)
           return this.profile.value.personal_profile;
         return null;
+      },
+      position() {
+        if (this.request)
+          return this.request.type_request == 'position';
+        return false
       },
       clubInfo() {
         if (!this.playerInfo && this.team_id > 0 && this.teamProfile.status == ASYNC_SUCCESS)
@@ -204,6 +211,7 @@
     methods: {
       ...mapActions(['createReport', 'uploadFiles', 'getSearchResults', 'fetchUserInfo', 'fetchTeamInfo']),
       cancel() {
+        this.report_type = null;
         this.showForm = false;
       },
       startUpload() {

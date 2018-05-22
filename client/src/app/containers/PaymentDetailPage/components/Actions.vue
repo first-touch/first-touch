@@ -4,13 +4,18 @@
       <span>
         <icon name='edit' scale="1.5"></icon>
       </span>
-      <a  >Add New Payment Method</a>
+      <a>Add New Payment Method</a>
+    </button>
+    <button class="timeline-widget-button button-right" @click="PersonalInformation">
+      <span>
+        <icon name='edit' scale="1.5"></icon>
+      </span>
+      <a>Edit account</a>
     </button>
   </action-item>
 </template>
 
 <style lang="scss" scoped>
-
 </style>
 
 <script>
@@ -20,7 +25,7 @@
 
   export default {
     name: 'Actions',
-    props: ['AddPayment'],
+    props: ['AddPayment','PersonalInformation'],
     components: {
       'action-item': ActionsItem,
       icon: Icon

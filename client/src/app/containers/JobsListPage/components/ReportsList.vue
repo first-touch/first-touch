@@ -10,13 +10,18 @@
           </div>
           <form @submit.prevent="search" class="col-md-10">
             <div class="row">
-              <fieldset class="col-md-3 filter">
-                <vselect v-model="vselect_type" @input="search" :options="options.report_type" :searchable="false" />
+              <fieldset class="col-md-3">
+                <input class="col-lg-12 form-control" v-model="params.id" type="number" placeholder="Report id" @keyup="search()" />
               </fieldset>
-              <ftdatepicker class="col-md-3 filter form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
-              />
-              <fieldset class="col-md-3 filter form-control">
-                <input class="col-sm-12 form-control" placeholder="Search tags" type="text" v-model="params.headline" />
+              <fieldset class="col-md-3">
+                <input class="col-lg-12 form-control" v-model="params.headline" type="text" placeholder="Headline" @keyup="search()" />
+              </fieldset>
+              <fieldset class="col-md-12 calendar-filter">
+                <ftdatepicker class="col-md-5 col form-control" :model="params.created_date_from" :clearable="false" placeholder="Created from"
+                  v-on:update:val="params.created_date_from = $event; search()" />
+                <p class="col-md-1 col">-</p>
+                <ftdatepicker class="col-md-5 col form-control" :model="params.created_date_to" :clearable="false" placeholder="Created to"
+                  v-on:update:val="params.created_date_to = $event; search()" />
               </fieldset>
             </div>
           </form>
@@ -31,16 +36,16 @@
                   <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                 </span>
               </th>
-              <th scope="col" class="shortable" @click="setOrder('created_at')">
-                <p>Created On</p>
-                <span v-if="params.order == 'created_at'">
+              <th scope="col" class="shortable" @click="setOrder('headline')">
+                <p>Report name</p>
+                <span v-if="params.order == 'headline'">
                   <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                   <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                 </span>
               </th>
-              <th scope="col" class="shortable" @click="setOrder('headline')">
-                <p>Report name</p>
-                <span v-if="params.order == 'headline'">
+              <th scope="col" class="shortable" @click="setOrder('created_at')">
+                <p>Created On</p>
+                <span v-if="params.order == 'created_at'">
                   <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                   <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                 </span>
@@ -113,13 +118,13 @@
           label: 'Report Type',
           value: ''
         },
+        timer: null,
         params: {
           id: '',
           headline: '',
           report_type: '',
           created_date_from: '',
           created_date_to: '',
-          created_date: '',
           order: '',
           order_asc: true,
         },
@@ -150,12 +155,8 @@
       },
       url() {
         var params = this.params;
-        if (params.created_date_from) {
-          params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
-        }
-        if (params.created_date_to) {
-          params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
-        }
+        params.created_date_from = this.$options.filters.railsdate(params.created_date_from)
+        params.created_date_to = this.$options.filters.railsdate(params.created_date_to)
         params.report_type = this.vselect_type.value;
         var url = Object.keys(params)
           .map(function (k) {
@@ -208,7 +209,11 @@
         });
       },
       search() {
-        this.getReports(this.url);
+        var self = this
+        clearTimeout(this.timer);
+        this.timer = setTimeout(function () {
+          self.getReports(self.url);
+        }, 500);
       }
     }
   };

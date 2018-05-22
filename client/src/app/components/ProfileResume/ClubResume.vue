@@ -17,6 +17,23 @@
         </div>
       </div>
     </div>
+    <div class="profile-item-container" v-if="!clubInfo">
+      <div class="top row">
+        <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
+        <div class="info col-lg-4">
+          <p class="detail">
+            <span class="detail-title">Team Name:</span>
+            {{search.team}}
+          </p>
+          <p class="detail">
+            <span class="detail-title">League:</span>
+            <span class="list" >{{search.team}} </span>
+          </p>
+        </div>
+        <div class="info info-second col-lg-4">
+        </div>
+      </div>
+    </div>
   </timeline-item>
 </template>
 
@@ -119,7 +136,7 @@
 
   export default {
     name: 'PlayerResume',
-    props: ['clubInfo'],
+    props: ['clubInfo','search'],
     components: {
       'timeline-item': TimelineItem,
     },

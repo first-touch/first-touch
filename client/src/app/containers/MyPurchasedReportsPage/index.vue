@@ -3,7 +3,7 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
-        <h4 class="header">My independent reports</h4>
+        <h4 class="header">My reports</h4>
         <timeline-item>
           <div class="widget-reports ft-search-widget col col-md-12">
             <div class="row">
@@ -37,9 +37,9 @@
                       <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                     </span>
                   </th>
-                  <th scope="col" class="shortable" @click="setOrder('status')">
+                  <th scope="col" class="shortable" @click="setOrder('completion_status')">
                     <p>Status</p>
-                    <span v-if="params.order == 'status'">
+                    <span v-if="params.order == 'completion_status'">
                       <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                       <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                     </span>
@@ -48,7 +48,7 @@
                 </tr>
               </thead>
               <tbody>
-                <report v-for="report in listReport" :report="report" :key="report.id" mode="table" :viewAction="viewAction" :fields="['id','scout','priceCurrency','status','action']"
+                <report v-for="report in listReport" :report="report" :key="report.id" mode="table" :viewAction="viewAction" :fields="['id','scout','priceCurrency','completion_status','action']"
                 />
               </tbody>
             </table>

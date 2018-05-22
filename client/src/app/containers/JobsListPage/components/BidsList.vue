@@ -9,17 +9,22 @@
             <h1 class="list-count">{{listRequest.length}}</h1>
           </div>
           <form @submit.prevent="search" class="col-md-10 row">
-            <fieldset class="col-lg-4 filter">
+            <fieldset class="col-lg-4">
               <input type="number" class="col-lg-12 form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()" />
             </fieldset>
-            <fieldset class="col-lg-4 filter">
+            <fieldset class="col-lg-4">
               <input type="text" class="col-lg-12 form-control" v-model="params.club" placeholder="Requested by" @keyup="search()" />
             </fieldset>
-            <fieldset class="col-md-4 filter">
+            <fieldset class="col-md-3">
               <vselect v-model="vselect_type" :options="options.type_request" :searchable="false" clearable="false" />
             </fieldset>
-            <ftdatepicker class="col-md-5 filter form-control" :value="params.created_date" :clearable="false" v-on:update:val="params.created_date = $event; search()"
-            />
+            <fieldset class="col-md-12 calendar-filter">
+              <ftdatepicker class="col-md-5 col form-control" :model="params.deadline_from" :clearable="false" placeholder="Deadline from"
+                v-on:update:val="params.deadline_from = $event; search()" />
+              <p class="col-md-1 col">-</p>
+              <ftdatepicker class="col-md-5 col form-control" :model="params.deadline_to" :clearable="false" placeholder="Deadline to"
+                v-on:update:val="params.deadline_to = $event; search()" />
+            </fieldset>
           </form>
         </div>
       </div>
@@ -49,16 +54,16 @@
                 <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
               </span>
             </th>
-            <th scope="col" class="shortable" @click="setOrder('type_request')">
-              <p>Job Request Type </p>
-              <span v-if="params.order == 'type_request'">
+            <th scope="col" class="shortable" @click="setOrder('club')">
+              <p>Requested by </p>
+              <span v-if="params.order == 'club'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                 <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
               </span>
             </th>
-            <th scope="col" class="shortable" @click="setOrder('club')">
-              <p>Requested by </p>
-              <span v-if="params.order == 'club'">
+            <th scope="col" class="shortable" @click="setOrder('type_request')">
+              <p>Job Request Type </p>
+              <span v-if="params.order == 'type_request'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                 <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
               </span>
@@ -124,9 +129,17 @@
       font-size: 4em;
       text-align: center;
     }
-    .filter {
+
+    fieldset {
+      padding: 0;
       margin: 5px;
-      max-width: 23%;
+      input {
+        height: 100%;
+        padding: 10px !important;
+      }
+      .v-select {
+        padding: 0;
+      }
       input,
       select {
         height: 100%;
@@ -186,6 +199,7 @@
         selected: null,
         cancel: false,
         wantbid: false,
+        timer: null,
         params: {
           id: '',
           created_date: '',
@@ -193,6 +207,7 @@
           order: '',
           order_asc: true,
           type_request: '',
+          bids_status: 'accepted,joblist'
         },
         vselect_type: {
           label: 'Request Type',
@@ -233,6 +248,8 @@
       },
       url() {
         var params = this.params;
+        params.deadline_from = this.$options.filters.railsdate(params.deadline_from)
+        params.deadline_to = this.$options.filters.railsdate(params.deadline_to)
         return Object.keys(params)
           .map(function (k) {
             return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
@@ -256,7 +273,11 @@
     methods: {
       ...mapActions(['getRequests', 'createBid', 'clearBid', 'updateBid', 'cancelBid']),
       search() {
-        this.getRequests(this.url);
+        var self = this
+        clearTimeout(this.timer);
+        this.timer = setTimeout(function () {
+          self.getRequests(self.url);
+        }, 500);
       },
       cancelReportPopup(request) {
         this.wantbid = false;

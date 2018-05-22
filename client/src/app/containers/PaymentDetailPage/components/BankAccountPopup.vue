@@ -85,8 +85,8 @@
             <label class="col-md-12 required">Institution number</label>
             <input type="number" class="col-md-12 form-control" required v-model="bankInfo.institution_number">
           </div>
-          <div class="col-md-8 buttons-inner">
-            <button class="ft-button">Submit</button>
+          <div class="col-md-12 buttons-inner">
+            <button class="ft-button ft-button-success ft-button-right">Add</button>
           </div>
         </div>
       </form>
@@ -264,7 +264,7 @@ export default {
     },
     prepare() {
       if (!this.loading) {
-        if (!this.info) this.PersonalInformationAction();
+        if (!this.info || !this.info.legal_entity) this.PersonalInformationAction();
         else {
           if (!this.stripeRequired.value) {
             this.getCountryInfo(this.info.country);

@@ -17,13 +17,13 @@
           <div class="col-sm-4 form-group">
             <label class="col-md-12">League Name</label>
             <inputsearch :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition" v-on:update:val="setLeague($event)"
-              ref="league_search" :taggable="true" minChar=3 label="name" v-on:update:search="meta_data.search.league = $event"
+              ref="league_search" :taggable="true" label="name" v-on:update:search="meta_data.search.league = $event"
             />
           </div>
           <div class="col-sm-4 form-group">
             <label class="col-md-12">Team Name</label>
             <inputsearch :readonly="league_id == ''" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" ref="team_search"
-              :taggable="true" v-on:update:obj="setTeam($event)" minChar=3 label="team_name" v-on:update:search="meta_data.search.team = $event"
+              :taggable="true" v-on:update:obj="setTeam($event)"  label="team_name" v-on:update:search="meta_data.search.team = $event"
             />
           </div>
           <div class="col-sm-4 form-group">

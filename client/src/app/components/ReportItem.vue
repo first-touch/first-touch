@@ -83,79 +83,89 @@
           </div>
         </div>
         <div class="widget buttons-inner">
-          <a v-if="own && report.status == 'publish'" @click="UpdateReport('private',report.id)">
-            <button class="btn-round">Unpublish</button>
-          </a>
-          <a v-if="own && report.status == 'private'" @click="UpdateReport('publish',report.id)">
-            <button class="btn-round">Publish</button>
-          </a>
-          <a v-if="report.orders_status == null && !report.is_free &&  typeof buyAction === 'function'">
-            <button class="btn-round" @click="buyAction(report)">Buy report</button>
-          </a>
-          <a v-if="typeof summaryAction === 'function'">
-            <button class="btn-round" @click="summaryAction(report)">View Summary</button>
-          </a>
-          <a v-if="report.orders_status == 'completed'">
-            <button class="btn-round" @click="refundAction(report)">Refund</button>
-          </a>
-          <a v-if="own || report.orders_status == 'completed' || report.is_free">
-            <button class="btn-round" @click="viewAction(report)">View report</button>
-          </a>
+          <button class="btn-round" v-if="own && report.status == 'publish'" @click="UpdateReport('private',report.id)">Unpublish</button>
+          <button v-if="own && report.status == 'private'" class="ft-action" @click="UpdateReport('publish',report.id)">Publish</button>
+          <button v-if="report.orders_status == null && !report.is_free &&  typeof buyAction === 'function'" class="ft-button ft-button-success "
+            @click="buyAction(report)">Buy report</button>
+          <button v-if="typeof summaryAction === 'function'" class="btn-round" @click="summaryAction(report)">View Summary</button>
+          <button v-if="report.orders_status == 'completed'" class="btn-round" @click="refundAction(report)">Refund</button>
+          <button v-if="own || report.orders_status == 'completed' || report.is_free" class="btn-round" @click="viewAction(report)">View report</button>
           <p v-if="report.orders_status == 'pending'">Payment in pending</p>
 
         </div>
       </div>
     </div>
-    <tr v-if="mode == 'table'" class="report-tr table-item">
-      <td v-if="fields.indexOf('id') >=0">{{report.id | reportId(report.type_report) }}</td>
-      <td class="capitalize" v-if="fields.indexOf('scout') >=0">
-        <router-link :to="{ name: 'userProfilePage', params: { id: report.user.id }}" target="_blank">{{report.user.first_name}} {{report.user.last_name}}</router-link>
-      </td>
-      <td v-if="fields.indexOf('submitted') >=0"> {{ report.created_at | moment }} </td>
-      <td v-if="fields.indexOf('headline') >=0"> {{report.headline}}</td>
-      <td v-if="fields.indexOf('price') >=0">
-        <span v-if="report.is_free" class="yes">Free</span>
-        <span v-if="!report.is_free"> {{report.price.value}} </span>
-      </td>
-      <td v-if="fields.indexOf('priceCurrency') >=0">
-        <span v-if="report.is_free" class="yes">Free</span>
-        <span v-if="!report.is_free"> {{report.price.value}} {{report.price.currency | currency}}</span>
-      </td>
-      <td v-if="fields.indexOf('status') >=0" class="capitalize">
-        {{report.status}}
-      </td>
-      <td class="table-action widget col-lg-12" v-if="fields.indexOf('action') >=0">
-        <a v-if="!own && typeof buyAction === 'function' && (report.orders_status != 'completed' && !report.is_free)" class="ft-action col-lg-8">
-          <button class="btn-round" @click="buyAction(report)">Buy</button>
-        </a>
-        <a v-if="own || report.orders_status == 'completed' || report.is_free" class="ft-action col-lg-8">
-          <button class="btn-round" @click="viewAction(report)">View report</button>
-        </a>
-        <a v-if="report.status == 'pending'" class="ft-action col-lg-8">
-          <button class="btn-round" @click="viewAction(report)">Refund</button>
-        </a>
-        <p v-if="report.orders_status == 'pending'" class="ft-action col-lg-10">Payment in pending</p>
-
-        <div class="more col-lg-2">
-          <icon name="ellipsis-v"></icon>
-          <div class="action">
-            <div class="content">
-              <a v-if="typeof summaryAction === 'function'" @click="summaryAction(report)">
-                View Summary
+    <tr v-if="report.type_report && mode == 'table'" class="report-tr table-item">
+      <td v-for="field in fields" :key="field.id">
+        <span v-if="field == 'id'" class="contents">
+          {{report.id | reportId(report.type_report) }}
+        </span>
+        <span v-if="field == 'scout'" class="contents">
+          <p class="capitalize">
+            <router-link :to="{ name: 'userProfilePage', params: { id: report.user.id }}" target="_blank">{{report.user.first_name}} {{report.user.last_name}}</router-link>
+          </p>
+        </span>
+        <span v-if="field == 'submitted'" class="contents">
+          {{ report.created_at | moment }}
+        </span>
+        <span v-if="field == 'headline'" class="contents">
+          {{report.headline}}
+        </span>
+        <span v-if="field == 'price'" class="contents">
+          <span v-if="report.is_free" class="yes">Free</span>
+          <span v-if="!report.is_free"> {{report.price.value}} </span>
+        </span>
+        <span v-if="field == 'priceCurrency'" class="contents">
+          <span>{{report.price.value}} {{report.price.currency}} </span>
+        </span>
+        <span v-if="field == 'status'" class="contents">
+          <p class="capitalize">
+            {{report.status}}
+          </p>
+        </span>
+        <span v-if="field == 'completion_status'" class="contents">
+          <p class="capitalize">
+            {{report.completion_status}}
+          </p>
+        </span>
+        <span v-if="field == 'action'" class="contents">
+          <div class="table-action row">
+            <div class="col col-md-8 first-action">
+              <a v-if="canAction(!own && typeof buyAction === 'function' && (report.orders_status != 'completed' && !report.is_free),'buy', true)"
+                class="ft-action col-lg-8">
+                <button class="btn-round" @click="buyAction(report)">Buy</button>
               </a>
-              <a v-if="own && report.status == 'publish'" @click="UpdateReport('private',report.id)">
-                Unpublish
+              <a v-if="canAction(own || report.orders_status == 'completed' || report.is_free,'view_report',true)" class="ft-action col-lg-8">
+                <button class="btn-round" @click="viewAction(report)">View report</button>
               </a>
-              <a v-if="own && report.status == 'private'" @click="UpdateReport('publish',report.id)">
-                Publish
+              <a v-if="canAction(report.orders_status == 'completed' || (report.completion_status == 'pending' && !own ), 'refund', true)"
+                class="ft-action col-lg-8">
+                <button class="btn-round" @click="viewAction(report)">Refund</button>
               </a>
-              <a v-if="report.orders_status == 'completed'">
-                Refund
-              </a>
+              <p v-if="canAction(report.orders_status == 'pending', 'in_pending', true)" class="ft-action col-lg-10">Payment in pending</p>
             </div>
-            <span class="down-arrow"></span>
+            <div class="more col-lg-1" v-if="listAction">
+              <icon name="ellipsis-v"></icon>
+              <div class="action">
+                <div class="content">
+                  <a v-if="canAction(typeof summaryAction === 'function', 'view_summary', false)" @click="summaryAction(report)">
+                    View Summary
+                  </a>
+                  <a v-if="canAction(own && report.status == 'publish', 'unpublish', false)" @click="UpdateReport('private',report.id)">
+                    Unpublish
+                  </a>
+                  <a v-if="canAction(own && report.status == 'private', 'publish', false)" @click="UpdateReport('publish',report.id)">
+                    Publish
+                  </a>
+                  <a v-if="canAction(report.orders_status == 'completed' || (report.completion_status == 'pending' && !own ), 'refund', false)">
+                    Refund
+                  </a>
+                </div>
+                <span class="down-arrow"></span>
+              </div>
+            </div>
           </div>
-        </div>
+        </span>
       </td>
     </tr>
   </div>
@@ -163,31 +173,6 @@
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
   @import '~stylesheets/light_item';
-  .buttons-inner {
-    a {
-      button {
-        padding: 5px;
-        width: 150px
-      }
-    }
-  }
-
-  svg {
-    margin: 2px;
-  }
-
-  button {
-    width: 100%;
-  }
-
-  td {
-    // font-size: 12px;
-    color: $secondary-text-color;
-  }
-
-  .item-container {
-    display: contents;
-  }
 </style>
 <script>
   import countrydata from 'country-data';
@@ -210,13 +195,37 @@
     components: {
       icon: Icon,
     },
+    data() {
+      return {
+        firstAction: '',
+        listAction: true,
+        afterMountedAction: false
+      }
+    },
+    mounted() {
+      this.listAction = this.afterMountedAction;
+    },
     methods: {
       getLanguage(key) {
         return countrydata.languages[key] ? countrydata.languages[key].name : key;
       },
       getNationality(key) {
         return countrydata.countries[key] ? countrydata.countries[key].name : key;
-      }
+      },
+      canAction(condition, actionName, first) {
+        if (condition == true) {
+          if (first) {
+            if (this.firstAction != '' && this.firstAction != actionName)
+              return false;
+            this.firstAction = actionName;
+            return true;
+          } else if (!first && this.firstAction != actionName) {
+            this.afterMountedAction = true;
+            return true;
+          }
+        }
+        return false;
+      },
     }
   };
 </script>

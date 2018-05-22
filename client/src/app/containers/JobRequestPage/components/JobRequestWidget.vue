@@ -24,6 +24,10 @@
               <input type="number" class="col-sm-12 form-control" v-model="params.min_bids" placeholder="Minimum bids" @keyup="search"
               />
             </fieldset>
+            <fieldset class="col-md-4 filter">
+              <input type="number" class="col-sm-12 form-control" v-model="params.max_bids" placeholder="Maximum bids" @keyup="search"
+              />
+            </fieldset>
           </form>
         </div>
       </div>
@@ -63,8 +67,7 @@
         </thead>
         <tbody>
           <request v-for="request in listRequest" :key="request.id" :request="request" :update="updateStatus" own="true" mode="table"
-           :fields="['id','type','created_at','bids','action']"
-          ></request>
+            :fields="['id','type','created_at','bids','action']"></request>
         </tbody>
       </table>
     </timeline-item>

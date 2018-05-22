@@ -32,7 +32,8 @@ module V1
           'type_report' => type_report,
           'request_id' => request.id,
           'price' => model.price,
-          'status' => 'pending'
+          'status' => 'private',
+          'completion_status' => 'pending'
         }
         result = ::V1::Report::Pending.(report_params, current_user: current_user)
         if result.success?
@@ -48,7 +49,9 @@ module V1
       def delete_report!(options, model:, params:, current_user:, **)
         request = model.request
         report = ::Report.find_by user: model.user, request: request
-        report.delete()
+        if !report.nil?
+          report.delete
+        end
       end
 
       def find_model!(options,  params:, current_user:, **)
@@ -168,7 +171,7 @@ module V1
       end
 
       def unpublish(options,  params:, model:, current_user:, **)
-        if params[:unpublish]
+        if params[:keep] == false
           request = model.request
           request.status = 'private'
           request.save

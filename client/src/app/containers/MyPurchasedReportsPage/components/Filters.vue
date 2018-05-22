@@ -101,7 +101,7 @@
     computed: {
       url() {
         var params = this.params;
-        params.status = this.status_select.value;
+        params.completion_status = this.status_select.value;
         params.min_price = this.price.value;
         if (this.price.max > 0)
           params.max_price = this.price.max;

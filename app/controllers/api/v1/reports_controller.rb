@@ -17,7 +17,6 @@ module Api
 
       def create
         result = ::V1::Report::Create.(params, current_user: current_user)
-        puts result.to_yaml
         response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
         render json: response[:data], status: response[:status]
       end

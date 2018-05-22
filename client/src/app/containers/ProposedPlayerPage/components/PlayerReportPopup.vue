@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-8 buttons-inner">
           <button class="ft-button" @click="closeAction(report)">Close</button>
-          <button class="ft-button-success" v-if="!report.is_free" @click="buyAction(report)">Buy Report</button>
+          <button class="ft-button-success"  v-if="!report.orders_status && !report.is_free" @click="buyAction(report)">Buy Report</button>
         </div>
       </div>
     </div>
@@ -27,13 +27,6 @@
             <p class="summary-field row" v-if="report.price">
               <span class="summary-field-title col-md-4">Price:</span>
               <span class="col-md-8">{{report.price.value}} {{report.price.currency | currency}}</span>
-            </p>
-            <p class="field row">
-              <span class="summary-field-title col-md-4">Player name:</span>
-              <span class="col-md-8" v-if="report.player">{{report.player.first_name}} {{report.player.last_name}}
-              </span>
-              <span class="col-md-6" v-if="!report.player">{{report.search.player}}
-              </span>
             </p>
             <p class="summary-field row" v-if="playerInfo.age">
               <span class="summary-field-title col-md-4">Age:</span>
@@ -73,7 +66,9 @@
             </p>
             <p class="summary-field row" v-if="report.attachments">
               <span class="summary-field-title col-md-4">Attachments</span>
-              <span class="col-md-8"><span class="list" v-for="a in report.attachments.attachments" >{{a.filename}}</span></span>
+              <span class="col-md-8">
+                <span class="list" v-for="a in report.attachments.attachments" :key="a.id">{{a.filename}}</span>
+              </span>
             </p>
           </div>
         </div>
@@ -104,12 +99,15 @@
   import countrydata from 'country-data';
 
   export default {
-    name: 'ReportItem',
+    name: 'PlayerReportPopupProposed',
     props: ['report', 'buyAction', 'closeAction'],
     computed: {
       playerInfo() {
-        if (this.report.player) return this.report.player;
-        if (this.report.meta_data.player_info) return this.report.meta_data.player_info;
+        if (this.report) {
+          if (this.report.player) return this.report.player;
+          if (this.report.meta_data.player_info) return this.report.meta_data.player_info;
+        }
+        return {}
       }
     },
     methods: {

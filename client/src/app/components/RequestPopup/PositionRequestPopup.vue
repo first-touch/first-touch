@@ -88,7 +88,7 @@
             </span>
             <span class="field row">
               <span class="col-md-4" v-if="request.meta_data.expiring_contract == 'yes'">Expiring Contract</span>
-              <span class="col-md-6">{{ request.meta_data.expiring_contract_min | moment}} to {{ request.meta_data.expiring_contract_max | moment}}</span>
+              <span class="col-md-6" v-if="request.meta_data.expiring_contract_min || request.meta_data.expiring_contract_max ">{{ request.meta_data.expiring_contract_min | moment}} to {{ request.meta_data.expiring_contract_max | moment}}</span>
             </span>
             <span class="field row">
               <span class="col-md-4">Player Value: </span>

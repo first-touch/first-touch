@@ -51,7 +51,7 @@
             </td>
             <td>{{bid.price.value}}</td>
             <td class="buttons-inner">
-              <button class="btn-round" @click="acceptAction(bid)">Accept Bid</button>
+              <button class="ft-button-success" @click="acceptAction(bid)">Accept Bid</button>
             </td>
           </tr>
         </tbody>

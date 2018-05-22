@@ -1,5 +1,8 @@
 @import '~stylesheets/variables';
 .table-item {
+  td {
+    padding: 10px 0;
+  }
   .btn-round {
     margin: 10px;
     width: 100%;
@@ -18,10 +21,43 @@
   .yes {
     color: $timeline-widget-button-background;
   }
+  .table-action {
+    width: 100%;
+    padding: 0;
+    text-align: right;
+    display: inline-block !important;
+    .col {
+      &.first-action {
+        float: left;
+        padding: 0;
+        button {
+          margin: 0;
+        }
+      }
+    }
+    div:only-child {
+      max-width: 100%;
+    }
+    a.ft-action {
+      display: inline-block !important;
+      padding: 0;
+      width: 100%;
+      button {
+        padding: 10px;
+      }
+    }
+  }
+  .capitalize:first-letter {
+    text-transform: capitalize;
+  }
+  .contents {
+    display: contents;
+  }
 }
 
 .more {
-  margin: 20px 0 0 15px;
+  min-width: 18px;
+  margin: 6% 0 0 0px;
   display: flex;
   padding: 6px;
   float: right;
@@ -93,19 +129,6 @@
 
 .capitalize:first-letter {
   text-transform: capitalize;
-}
-
-.table-action {
-  padding: 0;
-  text-align: right;
-  display: inline-block !important;
-  a.ft-action {
-    display: inline-block !important;
-    padding: 0;
-    button {
-      padding: 10px;
-    }
-  }
 }
 
 .ft-item {
@@ -187,11 +210,6 @@
       .btn-round {
         margin: 10px;
         width: 100%;
-        max-width: 140px;
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        text-align: center;
         color: $main-text-color;
         cursor: pointer;
         border-radius: 9999px;

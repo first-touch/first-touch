@@ -25,6 +25,43 @@
 
 .ft-search-widget {
   color: $main-text-color;
+  fieldset {
+    padding: 0;
+    margin: 5px;
+    input {
+      height: 100%;
+      padding: 10px !important;
+    }
+    .v-select {
+      padding: 0;
+    }
+    &.calendar-filter {
+      margin: 10px 0 0 5px;
+      padding: 2px;
+      .col {
+        display: inline-block;
+      }
+      p {
+        text-align: center;
+      }
+    }
+    input,
+    select {
+      height: 100%;
+      padding: 10px;
+    }
+    .icon-inner {
+      margin-top: 5px;
+      display: inline-block;
+      cursor: pointer;
+      &:hover {
+        color: $secondary-header-color;
+      }
+    }
+    .datepicker {
+      float: left;
+    }
+  }
   .v-select {
     border: 1px solid $secondary-text-color;
     border-radius: 10px;
@@ -95,7 +132,6 @@
     .buttons-inner {
       float: none;
     }
-
   }
   .shortable {
     width: 20%;

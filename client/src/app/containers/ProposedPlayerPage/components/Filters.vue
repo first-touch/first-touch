@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="search" class="col-md-10">
     <div class="row">
-      <fieldset class="col-md-3 filter" v-if="!request">
+      <fieldset class="col-md-3 filter">
         <input type="number" v-model="params.id" class="form-control col-md-12" placeholder="Report id">
       </fieldset>
       <fieldset class="col-md-3 filter form-control">
@@ -68,7 +68,7 @@
           created_date_to: '',
           created_date: '',
           sort: '',
-          scout_name: ''
+          scout_name: '',
         },
         options: {
           report_type: [{
@@ -132,8 +132,6 @@
         }
         if (this.request)
           params.request_id = this.request.id;
-        else if (params.request_id)
-          delete(params.request_id)
         var url = Object.keys(params)
           .map(function (k) {
             return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);

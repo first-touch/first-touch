@@ -15,7 +15,7 @@
           <bids :bids="bids.value" :currency="request.value.price.currency" :getBids="customGetBids" :acceptAction="acceptAction" />
         </timeline-item>
         <b-modal id="metaModal" :size="paymentSuccess? 'md' : 'lg'" ref="metaModal" :class="paymentSuccess? 'successModal' : 'formModal' ">
-          <paymentpopup :paymentAction="paymentAction" :stripeClubCards="stripeClubCards" :closeAction="hideModal" :result="bid" :StripeCardToken="StripeCardToken"
+          <paymentpopup :paymentAction="paymentAction" v-if="selected" :stripeClubCards="stripeClubCards" :closeAction="hideModal" :result="bid" :StripeCardToken="StripeCardToken"
             :stripePayment="stripePayment" :stripeJs="stripeJs">
             <div slot="header" v-if="requestValue">
               <div class="row">
@@ -28,10 +28,10 @@
               </div>
             </div>
             <div class="col-md-12" v-if="published">
-              <label class="col-sm-12 ftcheckbox-inner col-form-label" :class="unpublish? 'active' : ''">
-                <span class="not" v-if="unpublish">Unpublish the request and do not receive beed anymore</span>
-                <span class="title" v-if="!unpublish">Keep receiving bids</span>
-                <ftcheckbox class="ftcheckbox" :value="unpublish" v-on:update:val="unpublish = $event" :trueValue="true" :falseValue="false"
+              <label class="col-sm-12 ftcheckbox-inner col-form-label" :class="keep? 'active' : ''">
+                <span class="title"  v-if="keep">Keep receiving bids</span>
+                <span class="not" v-if="!keep">Unpublish the request and do not receive beed anymore</span>
+                <ftcheckbox class="ftcheckbox" :value="keep" v-on:update:val="keep = $event" :trueValue="true" :falseValue="false"
                 />
               </label>
             </div>
@@ -87,7 +87,7 @@
     data() {
       return {
         selected: null,
-        unpublish: false
+        keep: true
       };
     },
     mounted() {
@@ -117,8 +117,8 @@
       bid() {
         if (this.bid.status == ASYNC_SUCCESS) {
           this.customGetBids();
-          if (this.unpublish) {
-            this.unpublish = false;
+          if (this.keep == false) {
+            this.keep = true;
             this.getRequest(this.$route.params.id);
           }
 
@@ -147,7 +147,7 @@
           bid_id: this.selected.id,
           save,
           usesaved,
-          unpublish: this.unpublish
+          keep: this.keep
         };
         var obj = {
           id: this.$route.params.id,

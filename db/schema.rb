@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180515091513) do
+ActiveRecord::Schema.define(version: 20180522020909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -250,6 +250,7 @@ ActiveRecord::Schema.define(version: 20180515091513) do
     t.json "meta_data"
     t.integer "league_id"
     t.bigint "request_id"
+    t.text "completion_status"
     t.index ["request_id"], name: "index_reports_on_request_id"
     t.index ["team_id"], name: "index_reports_on_team_id"
     t.index ["user_id"], name: "index_reports_on_user_id"

@@ -12,6 +12,7 @@
         <div class="price-input">
           <currencyinput :value="price" />
           <p v-if="price.value == 0" class="info">The report will be free</p>
+          <p v-if="request" class="info">Price between {{request.price.value}} and {{request.price.max}} {{request.price.currency}} </p>
         </div>
       </div>
     </div>
@@ -91,7 +92,8 @@
                 <div class="transfer-value col-sm-12 row" v-if="meta_data.transfer_sum.transfer_interested === 'yes'">
                   <div class="col-sm-6">
                     <label class="col-sm-12 col-form-label">Availability for transfer</label>
-                    <currencyinput :value="meta_data.transfer_sum.transfer_availability" />
+                    <ftdatepicker class="col-md-12 form-control" :value="meta_data.transfer_sum.transfer_availability" v-on:update:val="meta_data.transfer_sum.transfer_availability = $event"
+                       />
                   </div>
                   <div class="col-sm-6">
                     <label class="col-sm-12 col-form-label">Transfer Budget</label>
@@ -113,11 +115,15 @@
                 <div class="transfer-value col-sm-12 row" v-if="meta_data.transfer_sum.loan_interested === 'yes'">
                   <div class="col-sm-6">
                     <label class="col-sm-12 col-form-label">Availability for Loan</label>
-                    <currencyinput :value="meta_data.transfer_sum.loan_availability" />
+                    <ftdatepicker class="col-md-12 form-control" :value="meta_data.transfer_sum.loan_availability"
+                    v-on:update:val="meta_data.transfer_sum.loan_availability = $event"
+                       />
                   </div>
                   <div class="col-sm-6">
                     <label class="col-sm-12 col-form-label">End of Contract</label>
-                    <input type="number" v-model="meta_data.transfer_sum.contract_end" class="col-sm-12 form-control">
+                  <ftdatepicker class="col-md-12 form-control" :value="meta_data.transfer_sum.contract_end"
+                    v-on:update:val="meta_data.transfer_sum.contract_end = $event"
+                       />
                   </div>
                 </div>
               </transition>
@@ -181,9 +187,9 @@
     <addattachments :attachments="report ? report.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
       v-on:update:files="files = $event" />
     <div class="form-group buttons-inner row">
-      <button v-if="!report && !request" id="submit" class="btn btn-primary ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
-      <button v-if="report" id="submit" class="btn btn-primary ft-button ft-button-success" @click="handleSubmit">Update</button>
-      <button v-if="!report && request" id="submit" class="btn btn-primary ft-button ft-button-success" @click="handleSubmit('private')">Send Report</button>
+      <button v-if="!report && !request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
+      <button v-if="report" id="submit" class="ft-button ft-button-success" @click="handleSubmit">Update</button>
+      <button v-if="!report && request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('private')">Send Report</button>
       <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default ft-button">Cancel</button>
     </div>
   </form>
@@ -216,7 +222,6 @@
     .transfer-value {
       padding: 0 30px;
       div {
-        overflow: hidden;
         height: 100%;
       }
     }
@@ -279,6 +284,7 @@
   import 'vue-awesome/icons/trash';
   import Icon from 'vue-awesome/components/Icon';
   import CurrencyInput from 'app/components/Input/CurrencyInput';
+  import FtDatepicker from 'app/components/Input/FtDatepicker';
 
   export default {
     name: 'PlayerReportForm',
@@ -291,7 +297,8 @@
       ftcheckbox: FtCheckbox,
       addattachments: AddAttachments,
       icon: Icon,
-      currencyinput: CurrencyInput
+      currencyinput: CurrencyInput,
+      ftdatepicker: FtDatepicker
     },
     props: ['playerId', 'submitReport', 'report', 'cancelAction', 'request'],
     data() {
@@ -314,18 +321,12 @@
               value: null,
               currency: 'USD'
             },
-            loan_availability: {
-              value: null,
-              currency: 'USD'
-            },
+            loan_availability: '',
             transfer_budget: {
               value: null,
               currency: 'USD'
             },
-            transfer_availability: {
-              value: null,
-              currency: 'USD'
-            }
+            transfer_availability: ''
           },
           analyzed_matches: [{
             date: '',
@@ -354,11 +355,14 @@
         }
         return true;
       },
-      playerEditable(){
+      playerEditable() {
         if (this.playerId != null && this.playerId > 0)
           return false;
-        if (this.report.player)
+        if (this.report && this.report.player)
           return false;
+        if (this.request && this.request.type_request != 'position')
+          return false;
+
         return true;
       },
       position() {
@@ -393,8 +397,10 @@
         this.headline = this.report.headline;
       }
       if (this.request) {
-        this.price = this.request.price;
-        if (this.position)
+        this.price.value = this.request.price.value;
+        this.price.currency = this.request.price.currency;
+
+        if (!this.position)
           this.price.value = parseInt(this.request.bid_price.value);
         this.headline = 'Report on ';
         this.headline += this.request.meta_data.player_name ? this.request.meta_data.player_name : '';

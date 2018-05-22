@@ -3,44 +3,43 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page ">
-
-        <div v-if="playerInfo || clubInfo ">
-          <h4 class="header" v-if="playerInfo">Player</h4>
-          <h4 class="header" v-if="clubInfo">Team</h4>
-          <playerresume v-if="playerInfo" :player="playerInfo"></playerresume>
-          <clubresume v-if="clubInfo" :clubInfo="clubInfo"></clubresume>
+        <div v-if="playerInfo || clubInfo || search">
+          <h4 class="header" v-if="player">Player</h4>
+          <h4 class="header" v-if="team">Team</h4>
+          <playerresume v-if="player" :player="playerInfo" :clubInfo="clubInfo" :search="search"></playerresume>
+          <clubresume v-if="team" :clubInfo="clubInfo" :search="search"></clubresume>
         </div>
         <h4 class="header">Edit Report</h4>
-        <action-item v-if="searchReport.value.report">
+        <action-item v-if="reportValue">
           <button class="timeline-widget-button">
             <span>
               <icon name='eye' scale="1.5"></icon>
             </span>
-            <router-link :to="{ name: 'scoutReportView', params: { id: searchReport.value.report.id }}">View</router-link>
+            <router-link :to="{ name: 'scoutReportView', params: { id: reportValue.id }}">View</router-link>
           </button>
           <button class="timeline-widget-button">
             <span>
               <icon name='edit' scale="1.5"></icon>
             </span>
-            <router-link :to="{ name: 'scoutReportEdit', params: { id: searchReport.value.report.id }}" class="active">Edit</router-link>
+            <router-link :to="{ name: 'scoutReportEdit', params: { id: reportValue.id }}" class="active">Edit</router-link>
           </button>
-          <button class="timeline-widget-button button-right" v-if="searchReport.value.report.status == 'publish'" @click="updateStatus('private')">
+          <button class="timeline-widget-button button-right" v-if="reportValue.status == 'publish'" @click="updateStatus('private')">
             <span class="unpublish">
               <icon name="eye-slash" scale="1.5"></icon>
             </span>
             <a>Unpublish Report</a>
           </button>
-          <button class="timeline-widget-button button-right" v-if="searchReport.value.report.status == 'private'" @click="updateStatus('publish')">
+          <button class="timeline-widget-button button-right" v-if="reportValue.status == 'private'" @click="updateStatus('publish')">
             <span class="publish">
               <icon name="eye" scale="1.5"></icon>
             </span>
             <a>Publish Report</a>
           </button>
         </action-item>
-        <timeline-item class="report-container" v-if="searchReport.value.report">
-          <div class="row created_at" v-if="searchReport.value.report">
+        <timeline-item class="report-container" v-if="reportValue">
+          <div class="row created_at" v-if="reportValue">
             <label class="col-lg-2">Created On</label>
-            <p class="col-lg-10">{{searchReport.value.report.created_at | moment}}</p>
+            <p class="col-lg-10">{{reportValue.created_at | moment}}</p>
           </div>
           <div class="form-container">
             <ul class="error" v-if="report.errors">
@@ -48,10 +47,10 @@
                 {{ error }}
               </li>
             </ul>
-            <playerreportform v-if="searchReport.value && searchReport.value.report.type_report == 'player' " :submitReport="customUpdateReport"
-              class="report" :report="searchReport.value.report" :cancelAction="cancel" />
-            <teamreportform v-if="searchReport.value && searchReport.value.report.type_report == 'team' " :submitReport="customUpdateReport"
-              class="report" :report="searchReport.value.report" :cancelAction="cancel" />
+            <playerreportform v-if="player" :submitReport="customUpdateReport" class="report" :report="reportValue" :cancelAction="cancel"
+            />
+            <teamreportform v-if="team" :submitReport="customUpdateReport" class="report" :report="reportValue" :cancelAction="cancel"
+            />
           </div>
         </timeline-item>
       </div>
@@ -243,20 +242,44 @@
       ...mapGetters(['report', 'searchReport', 'filesUpload']),
       playerInfo() {
         if (this.searchReport.status == ASYNC_SUCCESS)
-          return this.searchReport.value.report.player;
+          return this.reportValue.player;
         return null;
       },
       clubInfo() {
         if (!this.playerInfo && this.searchReport.status == ASYNC_SUCCESS)
-          return this.searchReport.value.report.team;
+          return this.reportValue.team;
         return null;
-      }
+      },
+      reportValue() {
+        if (this.searchReport.status === ASYNC_SUCCESS) {
+          return this.searchReport.value.report;
+        }
+        return null
+      },
+      player() {
+        if (this.reportValue && this.reportValue.type_report == 'player') {
+          return true;
+        }
+        return false
+      },
+      team() {
+        if (this.reportValue && this.reportValue.type_report == 'team') {
+          return true;
+        }
+        return false
+      },
+      search() {
+        if (this.reportValue) {
+          return this.reportValue.meta_data.search;
+        }
+        return null;
+      },
     },
     watch: {
       report() {
         this.status = '';
         if (this.report.status === ASYNC_SUCCESS) {
-          this.searchReport.value.report = this.report.value;
+          this.reportValue = this.report.value;
           if (this.files) {
             if (this.files.length > 0) {
               this.startUpload();
@@ -305,7 +328,7 @@
         };
         this.updateReport({
           report,
-          id: this.searchReport.value.report.id
+          id: this.reportValue.id
         });
       },
       startUpload() {

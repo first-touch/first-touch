@@ -11,7 +11,7 @@ module V1
 
       def find_model!(options, params:, current_user:, **)
         if current_user.is_a?(::User) && current_user.scout?
-          options['models'] = current_user.reports
+          options['models'] = current_user.reports.where.not(status: ['pending','deleted'])
         elsif current_user.is_a?(::Club) || true
           # Todo: remove or true once club are ready
           options['models'] = club(params, current_user: current_user)
@@ -26,12 +26,6 @@ module V1
         joins = "LEFT JOIN orders ON orders.customer_id = #{current_user.id}"\
         ' AND orders.report_id = reports.id'
         models = models.joins(joins)
-        request = current_user.requests.find(params[:request_id]) if params[:request_id]
-        if !request.nil?
-          models = models.where('reports.request_id = ?',request.id)
-        else
-          models = models.where('reports.status = ? OR orders.status IN (?)','publish',['completed','pending_report'])
-        end
         models = models.select('reports.*, orders.status AS orders_status')
       end
 
@@ -40,6 +34,8 @@ module V1
           # Todo: remove or true once club are ready
           models = if params[:purchased] == 'true'
                      purchased!(options['models'], current_user)
+                   elsif !params[:request_id].blank?
+                     proposed!(options['models'], current_user, params)
                    else
                      order_status!(options['models'], current_user)
             end
@@ -47,9 +43,17 @@ module V1
         end
       end
 
+      def proposed!(models, current_user, params)
+        request = current_user.requests.find(params[:request_id]) if params[:request_id]
+        if !request.nil?
+          models = models.where('reports.request_id = ?',request.id)
+        end
+        models
+      end
       def order_status!(models, current_user)
         joins = "LEFT JOIN orders ON orders.customer_id = #{current_user.id}"\
         ' AND orders.report_id = reports.id'
+        models = models.where('reports.status = ? OR orders.status = ?','publish','completed')
         models = models.joins(joins)
         models = models.select('reports.*, orders.status AS orders_status')
         # models = models.group('reports.id', 'orders.status')
@@ -70,6 +74,7 @@ module V1
         models = options['models'].joins(:user)
         models = add_where(models, 'reports.id = ', params[:id])
         models = add_where(models, 'reports.type_report = ', params[:type_report])
+        models = add_where(models, 'reports.completion_status = ', params[:completion_status])
         models = add_where(models, 'reports.headline iLIKE ', "%#{params[:headline]}%") unless params[:headline].blank?
         models = add_where(models, 'users.search_string iLIKE ', "%#{params[:scout_name]}%")
         models = filters_date(models, params)
@@ -105,7 +110,7 @@ module V1
               models.where(created_at: date_from..DateTime.now)
             end
         elsif date_to
-          models = models.where('created_at < ?', date_to)
+          models = models.where('reports.created_at < ?', date_to)
         end
         models
       end
@@ -114,7 +119,7 @@ module V1
         models = options['models']
         if !params[:order].blank?
           order = params[:order_asc] == 'true' ? :asc : :desc
-          if %w[id created_at updated_at headline report_type]
+          if %w[id created_at updated_at headline report_type completion_status]
             .include?(params[:order])
             models = models.order({ params[:order] => order})
           elsif params[:order] == 'scout_name'

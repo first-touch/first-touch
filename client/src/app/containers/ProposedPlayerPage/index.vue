@@ -12,12 +12,10 @@
                 <h6 class="list-title">Reports Count</h6>
                 <h1 class="list-count">{{listReport.length}}</h1>
               </div>
-              <filters ref="filter" v-on:update:search="search();"></filters>
+              <filters ref="filter" v-on:update:search="search();" :request="requestValue"></filters>
             </div>
             <b-modal id="metaModal" size="lg" ref="metaModal">
               <playerreportpopup v-if="reportSelected && reportSelected.type_report == 'player'" :report="reportSelected" :buyAction="BuyAction"
-                :closeAction="hideModal" />
-              <teamreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :buyAction="BuyAction"
                 :closeAction="hideModal" />
             </b-modal>
             <b-modal class="ft-modal" size="lg" ref="paymentModal">
@@ -111,7 +109,6 @@
   import vSelect from 'vue-select';
   import NotificationSidebar from 'app/components/NotificationSidebar.vue';
   import PlayerReportPopup from './components/PlayerReportPopup';
-  import TeamReportPopup from './components/TeamReportPopup';
   import PaymentPopup from 'app/components/Stripe/PaymentPopup';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import Filters from './components/Filters';
@@ -131,7 +128,6 @@
       vselect: vSelect,
       icon: Icon,
       playerreportpopup: PlayerReportPopup,
-      teamreportpopup: TeamReportPopup,
       paymentpopup: PaymentPopup,
       ftdatepicker: FtDatepicker,
       filters: Filters,

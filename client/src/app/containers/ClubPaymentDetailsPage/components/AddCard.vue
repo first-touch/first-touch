@@ -12,6 +12,7 @@
         <cardinput ref="cardInput" :stripeJs="stripeJs" />
         <div class="buttons-inner">
           <button class="ft-button ft-button-success" v-on:click="getStripeToken">AddCard</button>
+          <button class="ft-button ft-button-right" @click="closeAction()">Close</button>
         </div>
       </div>
       <div v-if="success">

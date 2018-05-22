@@ -5,7 +5,7 @@ module FirstTouch
   REGISTERABLE_REQUEST_TYPES = %w[player team position].freeze
   REGISTERABLE_REQUEST_STATUS = %w[draft publish private deleted].freeze
 
-  REGISTERABLE_ORDER_STATUS = %w[completed pending_report refused refounded].freeze
+  REGISTERABLE_ORDER_STATUS = %w[completed pending_report refused refounded canceled].freeze
   REDIS_NOTES_SUBSCRIBE_CHANNEL = "yustynn-channel".freeze
   REDIS_NOTES_PUBLISH_CHANNEL = "yustynn-channel-channel".freeze
 end
