@@ -1,18 +1,19 @@
 <template>
   <form @submit.prevent="search" class="col-lg-10">
     <div class="row">
-      <fieldset class="col-lg-3 filter" v-if="!request">
+      <fieldset class="col-lg-3 col-md-8" v-if="!request">
         <vselect v-model="type_select" @input="search" :options="options.report_type" :searchable="false" />
       </fieldset>
-      <fieldset class="col-lg-3 filter form-control">
+      <fieldset class="col-lg-3 col-md-8 form-control">
         <input class="col-lg-12 form-control" placeholder="Scout's Name" type="text" v-model="params.scout_name" />
       </fieldset>
-      <fieldset class="col-lg-3 filter">
+      <fieldset class="col-lg-3 col-md-8">
         <vselect v-model="sort_select" @input="search" :options="options.order" :searchable="false" />
       </fieldset>
-
-      <ftdatepicker class="col-lg-3 filter form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
+      <fieldset class="col-lg-5 col-md-8 calendar-filter">
+      <ftdatepicker class="col-lg-12 form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()" placeholder="Created date"
       />
+      </fieldset>
       <div class="col-lg-12 price-filter row">
         <label class="col-lg-1">Price</label>
         <currencyinput class="col-lg-11" :value="price" max="true" :currency="currency" />

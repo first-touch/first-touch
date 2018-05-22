@@ -1,6 +1,6 @@
 <template>
   <div>
-    <datepicker :disabled="disabled" ref="datepicker" class="ftdatepicker col-lg-9" :input-class="[model != '' ? 'selected': '', 'input-date'].join(' ')" :required="true"
+    <datepicker :disabled="disabled" ref="datepicker" class="ftdatepicker col-lg-9 col-md-6 col-sm-6" :input-class="[model != '' ? 'selected': '', 'input-date'].join(' ')" :required="true"
       v-model="model" @closed="update" format="dd,MMM yyyy" :placeholder="placeholder"></datepicker>
     <span v-if="model != ''" @click="model = ''; update()" class="icon-inner">
       <icon name='times'></icon>
@@ -17,7 +17,7 @@
   .ftdatepicker {
     background: white;
     display: inline-block;
-    padding:0;
+    padding: 2px;
     input.input-date {
       color: $main-text-color;
       cursor: pointer;

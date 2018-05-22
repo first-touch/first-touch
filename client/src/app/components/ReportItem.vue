@@ -7,7 +7,7 @@
             <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
             <router-link v-if="!own" :to="{ name: 'userProfilePage', params: { id: report.user.id }}" target="_blank">{{report.user.first_name}} {{report.user.last_name}}</router-link>
           </div>
-          <div class="info col-lg-8">
+          <div class="info col-lg-8 col-md-10">
             <h2 class="title" :title="report.headline">{{report.headline}}</h2>
             <p class="extra" v-if="report.type_report =='team'">
               <span class="field row">
@@ -82,7 +82,7 @@
             </p>
           </div>
         </div>
-        <div class="widget buttons-inner">
+        <div class="widget buttons-inner col-lg-2 col-md-5 col-sm-4">
           <button class="btn-round" v-if="own && report.status == 'publish'" @click="UpdateReport('private',report.id)">Unpublish</button>
           <button v-if="own && report.status == 'private'" class="ft-action" @click="UpdateReport('publish',report.id)">Publish</button>
           <button v-if="report.orders_status == null && !report.is_free &&  typeof buyAction === 'function'" class="ft-button ft-button-success "
