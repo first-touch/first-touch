@@ -5,9 +5,9 @@
       <div class="ft-page">
         <h4 class="header">My reports</h4>
         <timeline-item>
-          <div class="widget-reports ft-search-widget col col-md-12">
+          <div class="widget-reports ft-search-widget col col-lg-12">
             <div class="row">
-              <div class="col-md-2">
+              <div class="col-lg-2">
                 <h6 class="list-title">Reports Count</h6>
                 <h1 class="list-count">{{listReport.length}}</h1>
               </div>

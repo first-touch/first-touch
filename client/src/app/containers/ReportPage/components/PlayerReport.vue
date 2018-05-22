@@ -1,16 +1,16 @@
 <template>
-  <div class="report col-md-12">
+  <div class="report col-lg-12">
     <div v-if="report.id">
       <timeline-item>
-        <h5 class="col-md-9">{{report.headline}}</h5>
-        <div class="header row col-md-12">
-          <div class="row col col-sm-6">
-            <p class="col-sm-3">UPDATED </p>
-            <p class="col-md-5"> {{report.created_at | moment}}</p>
+        <h5 class="col-lg-9">{{report.headline}}</h5>
+        <div class="header row col-lg-12">
+          <div class="row col col-lg-6">
+            <p class="col-lg-3">UPDATED </p>
+            <p class="col-lg-5"> {{report.created_at | moment}}</p>
           </div>
-          <div class="row col col-sm-6">
-            <p class="col-sm-5">Price: </p>
-            <p class="col-md-7">{{report.price.value}} {{report.price.currency | currency}}</p>
+          <div class="row col col-lg-6">
+            <p class="col-lg-5">Price: </p>
+            <p class="col-lg-7">{{report.price.value}} {{report.price.currency | currency}}</p>
           </div>
         </div>
         <div class="content">
@@ -109,39 +109,39 @@
           </h5>
           <div class="contract-summary">
             <div class="row" v-if="report.meta_data.transfer_sum.wage.value">
-              <label class="col-sm-4 summary-title">Wage </label>
-              <span class="col-sm-4 summary-field"> {{report.meta_data.transfer_sum.wage.value}} {{report.meta_data.transfer_sum.wage.currency | currency}} </span>
+              <label class="col-lg-4 summary-title">Wage </label>
+              <span class="col-lg-4 summary-field"> {{report.meta_data.transfer_sum.wage.value}} {{report.meta_data.transfer_sum.wage.currency | currency}} </span>
             </div>
             <div class="row">
-              <span class="col col-md-12 transfer-title summary-title">
+              <span class="col col-lg-12 transfer-title summary-title">
                 <icon v-if="report.meta_data.transfer_sum.transfer_interested !== 'No'" name="check"></icon>
                 <icon v-if="report.meta_data.transfer_sum.transfer_interested === 'No'" name="times"></icon>
                 Interested in Transfer</span>
             </div>
             <div class="row values" v-if="report.meta_data.transfer_sum.transfer_interested !== 'No'">
-              <div class="col-md-6">
+              <div class="col-lg-6">
                 <label class="col-lg-7 summary-title">Availability for transfer</label>
                 <span class="col-lg-5 summary-field"> {{report.meta_data.transfer_sum.transfer_availability | moment }}</span>
               </div>
-              <div class="col-md-6">
-                <label class="col-sm-6 summary-title">Transfer Budget</label>
-                <span class="col-sm-6 summary-field"> {{report.meta_data.transfer_sum.transfer_budget.value}} {{report.meta_data.transfer_sum.transfer_budget.currency
+              <div class="col-lg-6">
+                <label class="col-lg-6 summary-title">Transfer Budget</label>
+                <span class="col-lg-6 summary-field"> {{report.meta_data.transfer_sum.transfer_budget.value}} {{report.meta_data.transfer_sum.transfer_budget.currency
                   | currency}}</span>
               </div>
             </div>
             <div class="row">
-              <label class="col-sm-4 transfer-title summary-title">
+              <label class="col-lg-4 transfer-title summary-title">
                 <icon v-if="report.meta_data.transfer_sum.loan_interested !== 'No'" name="check"></icon>
                 <icon v-if="report.meta_data.transfer_sum.loan_interested === 'No'" name="times"></icon>Interested in Loan</label>
             </div>
             <div class="row values" v-if="report.meta_data.transfer_sum.loan_interested !== 'No'">
-              <div class="col-md-6" v-if="report.meta_data.transfer_sum.loan_availability">
-                <label class="col-sm-7 summary-title">Availability for Loan</label>
-                <span class="col-sm-5 summary-field"> {{report.meta_data.transfer_sum.loan_availability | moment}} </span>
+              <div class="col-lg-6" v-if="report.meta_data.transfer_sum.loan_availability">
+                <label class="col-lg-7 summary-title">Availability for Loan</label>
+                <span class="col-lg-5 summary-field"> {{report.meta_data.transfer_sum.loan_availability | moment}} </span>
               </div>
-              <div class="col-md-6" v-if="report.meta_data.transfer_sum.contract_end">
-                <label class="col-sm-6 summary-title">End of Contract</label>
-                <span class="col-sm-6 summary-field"> {{report.meta_data.transfer_sum.contract_end | moment}} </span>
+              <div class="col-lg-6" v-if="report.meta_data.transfer_sum.contract_end">
+                <label class="col-lg-6 summary-title">End of Contract</label>
+                <span class="col-lg-6 summary-field"> {{report.meta_data.transfer_sum.contract_end | moment}} </span>
               </div>
             </div>
           </div>
@@ -153,44 +153,44 @@
             Details
           </h5>
           <div>
-            <label class="row col-sm-12 summary-title">Analyzed Matches</label>
+            <label class="row col-lg-12 summary-title">Analyzed Matches</label>
             <matchanalyzed :analyzed_matches="report.meta_data.analyzed_matches" type="player" mode="read" />
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Current Ability Overview</label>
-            <p class="row col-sm-12">{{report.meta_data.overview}} </p>
+            <label class="row col-lg-12 summary-title">Current Ability Overview</label>
+            <p class="row col-lg-12">{{report.meta_data.overview}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Physical Attribute(s)</label>
-            <p class="row col-sm-12"> {{report.meta_data.physical_attributes}} </p>
+            <label class="row col-lg-12 summary-title">Physical Attribute(s)</label>
+            <p class="row col-lg-12"> {{report.meta_data.physical_attributes}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Mental Attribute(s)</label>
-            <p class="row col-sm-12"> {{report.meta_data.mental_attributes}} </p>
+            <label class="row col-lg-12 summary-title">Mental Attribute(s)</label>
+            <p class="row col-lg-12"> {{report.meta_data.mental_attributes}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Technical Attribute(s)</label>
-            <p class="row col-sm-12"> {{report.meta_data.technical_attributes}} </p>
+            <label class="row col-lg-12 summary-title">Technical Attribute(s)</label>
+            <p class="row col-lg-12"> {{report.meta_data.technical_attributes}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Personality</label>
-            <p class="row col-sm-12"> {{report.meta_data.personality}}</p>
+            <label class="row col-lg-12 summary-title">Personality</label>
+            <p class="row col-lg-12"> {{report.meta_data.personality}}</p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Potential</label>
-            <p class="row col-sm-12"> {{report.meta_data.potential}} </p>
+            <label class="row col-lg-12 summary-title">Potential</label>
+            <p class="row col-lg-12"> {{report.meta_data.potential}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Other Observations & Viewpoints To Note</label>
-            <p class="row col-sm-12"> {{report.meta_data.observations}} </p>
+            <label class="row col-lg-12 summary-title">Other Observations & Viewpoints To Note</label>
+            <p class="row col-lg-12"> {{report.meta_data.observations}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Conclusion</label>
-            <p class="row col-sm-12"> {{report.meta_data.conclusion}} </p>
+            <label class="row col-lg-12 summary-title">Conclusion</label>
+            <p class="row col-lg-12"> {{report.meta_data.conclusion}} </p>
           </div>
           <div>
-            <label class="row col-sm-12 summary-title">Attachments</label>
-            <div class="row col-sm-12 buttons-inner">
+            <label class="row col-lg-12 summary-title">Attachments</label>
+            <div class="row col-lg-12 buttons-inner">
               <button v-for="attachment in report.attachments.attachments" :key="attachment.id" class="btn-info btn-attachments ft-button"
                 @click="downloadFile(attachment.id, attachment.filename)"> {{attachment.filename}}</button>
 

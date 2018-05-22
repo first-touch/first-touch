@@ -4,28 +4,28 @@
     <div class="empty" v-if="!info || !info.external_accounts || info.external_accounts.length == 0">
       Please add a bank account first.
     </div>
-    <div class="row col-md-12 ft-banks-result" v-if="info && info.external_accounts">
-      <div v-for="bankAccount in info.external_accounts" :key="bankAccount.key" class="col-md-5 ft-bank">
+    <div class="row col-lg-12 ft-banks-result" v-if="info && info.external_accounts">
+      <div v-for="bankAccount in info.external_accounts" :key="bankAccount.key" class="col-lg-5 ft-bank">
         <div class="content-wrapper">
-          <div class="content col-md-12">
+          <div class="content col-lg-12">
             <div class="row">
-              <p class="col-md-6">Holder name</p>
-              <p class="col-md-6">{{bankAccount.account_holder_name}}</p>
+              <p class="col-lg-6">Holder name</p>
+              <p class="col-lg-6">{{bankAccount.account_holder_name}}</p>
             </div>
             <div class="row">
-              <p class="col-md-6">Country</p>
-              <p class="col-md-6">{{bankAccount.country | country}}</p>
+              <p class="col-lg-6">Country</p>
+              <p class="col-lg-6">{{bankAccount.country | country}}</p>
             </div>
             <div class="row">
-              <p class="col-md-6">Bank name</p>
-              <p class="col-md-6">{{bankAccount.bank_name}}</p>
+              <p class="col-lg-6">Bank name</p>
+              <p class="col-lg-6">{{bankAccount.bank_name}}</p>
             </div>
             <div class="row">
-              <p class="col-md-6">Last 4</p>
-              <p class="col-md-6">{{bankAccount.last4}}</p>
+              <p class="col-lg-6">Last 4</p>
+              <p class="col-lg-6">{{bankAccount.last4}}</p>
             </div>
           </div>
-          <div class="buttons-inner col-md-12" v-if="info.external_accounts.length > 1">
+          <div class="buttons-inner col-lg-12" v-if="info.external_accounts.length > 1">
             <button class="ft-button ft-button-success" v-if="preferred != bankAccount.id " @click="preferredBank(bankAccount)">Make this preferred</button>
             <button class="ft-button ft-button-success" disabled v-if="preferred == bankAccount.id " @click="preferredBank(bankAccount)">Preferred</button>
             <button class="ft-button" v-if="idNotDelete != bankAccount.id" @click="deleteBank(bankAccount)">Delete</button>

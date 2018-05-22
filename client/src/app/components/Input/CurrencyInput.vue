@@ -1,7 +1,7 @@
 <template>
   <div class="autonumeric input-group ft-input" v-on:blur="blur()">
     <div class="input-group-addon currency">{{currency?currency:model.currency | currency}}</div>
-    <autonumeric @blur.native="blurMin()" :disabled="lock" class="form-control" :class="max ?'col-md-5':''" v-model="model.value"
+    <autonumeric @blur.native="blurMin()" :disabled="lock" class="form-control" :class="max ?'col-lg-5':''" v-model="model.value"
       :options="{
          digitGroupSeparator: '.',
          decimalCharacter: ',',
@@ -11,7 +11,7 @@
      }"></autonumeric>
     <slot />
     <span v-if="max" class="separator">—</span>
-    <autonumeric @blur.native="blurMax()" :disabled="lock" class="form-control col-md-5" v-if="max" v-model="model.max" :options="{
+    <autonumeric @blur.native="blurMax()" :disabled="lock" class="form-control col-lg-5" v-if="max" v-model="model.max" :options="{
          digitGroupSeparator: '.',
          decimalCharacter: ',',
          decimalCharacterAlternative: '.',

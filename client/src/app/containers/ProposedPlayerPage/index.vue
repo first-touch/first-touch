@@ -6,9 +6,9 @@
         <request :request="request" :updateStatus="updateStatus"></request>
         <h4 class="header" v-if="request">Proposed report</h4>
         <timeline-item>
-          <div class="ft-search-widget widget-reports col col-md-12">
+          <div class="ft-search-widget widget-reports col col-lg-12">
             <div class="row">
-              <div class="col-md-2">
+              <div class="col-lg-2">
                 <h6 class="list-title">Reports Count</h6>
                 <h1 class="list-count">{{listReport.length}}</h1>
               </div>
@@ -22,8 +22,8 @@
               <paymentpopup v-if="payment" :paymentAction="paymentAction" :closeAction="hideModal" :result="order" :StripeCardToken="StripeCardToken"
                 :stripeClubCards="stripeClubCards" :stripePayment="stripePayment" :stripeJs="stripeJs">
                 <div class="row" slot="header">
-                  <label class="col-md-3">Price:</label>
-                  <p class="col-md-8">{{reportSelected.price.value}} {{requestValue.price.currency}}</p>
+                  <label class="col-lg-3">Price:</label>
+                  <p class="col-lg-8">{{reportSelected.price.value}} {{requestValue.price.currency}}</p>
                 </div>
               </paymentpopup>
             </b-modal>

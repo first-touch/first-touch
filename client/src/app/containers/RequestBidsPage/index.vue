@@ -19,16 +19,16 @@
             :stripePayment="stripePayment" :stripeJs="stripeJs">
             <div slot="header" v-if="requestValue">
               <div class="row">
-                <label class="col-md-3">Scout's name:</label>
-                <p class="col-md-8"> {{requestValue.user.first_name}} {{requestValue.user.last_name}} </p>
+                <label class="col-lg-3">Scout's name:</label>
+                <p class="col-lg-8"> {{requestValue.user.first_name}} {{requestValue.user.last_name}} </p>
               </div>
               <div class="row" v-if="selected">
-                <label class="col-md-3">Price:</label>
-                <p class="col-md-8"> {{selected.price.value}} {{requestValue.price.currency}} </p>
+                <label class="col-lg-3">Price:</label>
+                <p class="col-lg-8"> {{selected.price.value}} {{requestValue.price.currency}} </p>
               </div>
             </div>
-            <div class="col-md-12" v-if="published">
-              <label class="col-sm-12 ftcheckbox-inner col-form-label" :class="keep? 'active' : ''">
+            <div class="col-lg-12" v-if="published">
+              <label class="col-lg-12 ftcheckbox-inner col-form-label" :class="keep? 'active' : ''">
                 <span class="title"  v-if="keep">Keep receiving bids</span>
                 <span class="not" v-if="!keep">Unpublish the request and do not receive beed anymore</span>
                 <ftcheckbox class="ftcheckbox" :value="keep" v-on:update:val="keep = $event" :trueValue="true" :falseValue="false"

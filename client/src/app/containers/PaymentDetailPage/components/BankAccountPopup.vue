@@ -1,7 +1,7 @@
 <template>
   <div class="addPaymentPopup" :class="[loading == true ? 'loading' : '', complete == true ? 'success' : '']">
-    <div class="row col-md-12 header">
-      <div class="col-md-8 buttons-inner buttons-left">
+    <div class="row col-lg-12 header">
+      <div class="col-lg-8 buttons-inner buttons-left">
         <button class="ft-button ft-button-right" @click="closeAction()">Close
           <span v-if="complete">✓</span>
         </button>
@@ -17,75 +17,75 @@
     </div>
     <div class="content">
       <form class="ft-form" v-on:submit.prevent="createBank(); start = true;" v-if="info != null">
-        <div class="row col-md-12" v-if="errors">
+        <div class="row col-lg-12" v-if="errors">
           <ul v-if="errors.error" class="error">
             <li>{{errors.error.message}}</li>
           </ul>
         </div>
-        <div class="row col-md-12">
-          <label class="col-md-4 required">Select Country</label>
-          <countryselect :filter="availableCountry" class="col-md-8" v-on:update:val="bankInfo.country = $event; getRequired();" v-on:update:obj="bankNeed = $event ? $event.bank_column_needed : null"
+        <div class="row col-lg-12">
+          <label class="col-lg-4 required">Select Country</label>
+          <countryselect :filter="availableCountry" class="col-lg-8" v-on:update:val="bankInfo.country = $event; getRequired();" v-on:update:obj="bankNeed = $event ? $event.bank_column_needed : null"
             :value="this.bankInfo.country" />
         </div>
-        <div class="row col-md-12" v-if="bankNeed">
-          <div class="row col-md-6">
-            <label class="col-md-12 required">Account holder name</label>
-            <input type="text" class="col-md-12 form-control" required v-model="bankInfo.account_holder_name" placeholder="Mike eagels">
+        <div class="row col-lg-12" v-if="bankNeed">
+          <div class="row col-lg-6">
+            <label class="col-lg-12 required">Account holder name</label>
+            <input type="text" class="col-lg-12 form-control" required v-model="bankInfo.account_holder_name" placeholder="Mike eagels">
           </div>
-          <div class="row col-md-6">
-            <label class="col-md-12 required">Account holder type</label>
+          <div class="row col-lg-6">
+            <label class="col-lg-12 required">Account holder type</label>
             <vselect v-model="typeSelect" required @input="bankInfo.account_holder_type = typeSelect ? typeSelect.value : ''" :options="optionsType"
-              class="ft-input col-md-12" placeholder="Please select a type" />
+              class="ft-input col-lg-12" placeholder="Please select a type" />
           </div>
-          <div class="row col-md-6 " v-if="bankNeed.indexOf('routing_number') >= 0">
-            <label class="col-md-12 required">Routing number</label>
-            <input type="text" class="col-md-12 form-control" required v-model="bankInfo.routing_number">
+          <div class="row col-lg-6 " v-if="bankNeed.indexOf('routing_number') >= 0">
+            <label class="col-lg-12 required">Routing number</label>
+            <input type="text" class="col-lg-12 form-control" required v-model="bankInfo.routing_number">
           </div>
-          <div class="row col-md-6" v-if="bankNeed.indexOf('bsb') >= 0">
-            <label class="col-md-12 required">BSB</label>
-            <input type="text" class="col-md-12 form-control" required v-model="bankInfo.bsb">
+          <div class="row col-lg-6" v-if="bankNeed.indexOf('bsb') >= 0">
+            <label class="col-lg-12 required">BSB</label>
+            <input type="text" class="col-lg-12 form-control" required v-model="bankInfo.bsb">
           </div>
-          <div class="row col-md-6" v-if="bankNeed.indexOf('clearing_code') >= 0">
-            <label class="col-md-12 required">Clearing code</label>
-            <input type="number" class="col-md-12 form-control" required v-model="bankInfo.clearing_code">
+          <div class="row col-lg-6" v-if="bankNeed.indexOf('clearing_code') >= 0">
+            <label class="col-lg-12 required">Clearing code</label>
+            <input type="number" class="col-lg-12 form-control" required v-model="bankInfo.clearing_code">
           </div>
-          <div class="row col-md-6" v-if="bankNeed.indexOf('bank_code') >= 0">
-            <label class="col-md-12 required">Bank code</label>
-            <input type="text" class="col-md-12 form-control" required v-model="bankInfo.bank_code">
+          <div class="row col-lg-6" v-if="bankNeed.indexOf('bank_code') >= 0">
+            <label class="col-lg-12 required">Bank code</label>
+            <input type="text" class="col-lg-12 form-control" required v-model="bankInfo.bank_code">
           </div>
-          <div class="row col-md-6 " v-if="bankNeed.indexOf('branch_code') >= 0">
-            <label class="col-md-12 required">Branch code</label>
-            <input type="text" class="col-md-12 form-control" required v-model="bankInfo.branch_code">
+          <div class="row col-lg-6 " v-if="bankNeed.indexOf('branch_code') >= 0">
+            <label class="col-lg-12 required">Branch code</label>
+            <input type="text" class="col-lg-12 form-control" required v-model="bankInfo.branch_code">
           </div>
-          <div class="row col-md-6 " v-if="bankNeed.indexOf('bank_name') >= 0">
-            <label class="col-md-12 required">Bank name</label>
-            <input type="text" class="col-md-12 form-control" required v-model="bankInfo.bank_name">
+          <div class="row col-lg-6 " v-if="bankNeed.indexOf('bank_name') >= 0">
+            <label class="col-lg-12 required">Bank name</label>
+            <input type="text" class="col-lg-12 form-control" required v-model="bankInfo.bank_name">
           </div>
-          <div class="row col-md-6 " v-if="bankNeed.indexOf('branch_name') >= 0">
-            <label class="col-md-12 required">Branch name</label>
-            <input type="text" class="col-md-12 form-control" required v-model="bankInfo.branch_name">
+          <div class="row col-lg-6 " v-if="bankNeed.indexOf('branch_name') >= 0">
+            <label class="col-lg-12 required">Branch name</label>
+            <input type="text" class="col-lg-12 form-control" required v-model="bankInfo.branch_name">
           </div>
-          <div class="row col-md-6 " v-if="bankNeed.indexOf('account_number') >= 0">
-            <label class="col-md-12 required">Account number</label>
-            <input type="text" class="col-md-12 form-control" required v-model="bankInfo.account_number">
+          <div class="row col-lg-6 " v-if="bankNeed.indexOf('account_number') >= 0">
+            <label class="col-lg-12 required">Account number</label>
+            <input type="text" class="col-lg-12 form-control" required v-model="bankInfo.account_number">
           </div>
-          <div class="row col-md-6" v-if="bankNeed.indexOf('sort_code') >= 0">
-            <label class="col-md-12 required">Sort code</label>
-            <input type="text" class="col-md-12 form-control" required v-model="bankInfo.sort_code">
+          <div class="row col-lg-6" v-if="bankNeed.indexOf('sort_code') >= 0">
+            <label class="col-lg-12 required">Sort code</label>
+            <input type="text" class="col-lg-12 form-control" required v-model="bankInfo.sort_code">
           </div>
-          <div class="row col-md-6" v-if="bankNeed.indexOf('iban') >= 0">
-            <label class="col-md-12 required">Iban</label>
-            <input type="text" class="col-md-12 form-control" v-model="bankInfo.iban" required placeholder="CNXX XXXX XXXX XXXX">
+          <div class="row col-lg-6" v-if="bankNeed.indexOf('iban') >= 0">
+            <label class="col-lg-12 required">Iban</label>
+            <input type="text" class="col-lg-12 form-control" v-model="bankInfo.iban" required placeholder="CNXX XXXX XXXX XXXX">
           </div>
-          <div class="row col-md-6" v-if="bankNeed.indexOf('transit_number') >= 0">
-            <label class="col-md-12 required">Transit number</label>
-            <input type="number" class="col-md-12 form-control" required v-model="bankInfo.transit_number">
+          <div class="row col-lg-6" v-if="bankNeed.indexOf('transit_number') >= 0">
+            <label class="col-lg-12 required">Transit number</label>
+            <input type="number" class="col-lg-12 form-control" required v-model="bankInfo.transit_number">
           </div>
-          <div class="row col-md-6" v-if="bankNeed.indexOf('institution_number') >= 0">
-            <label class="col-md-12 required">Institution number</label>
-            <input type="number" class="col-md-12 form-control" required v-model="bankInfo.institution_number">
+          <div class="row col-lg-6" v-if="bankNeed.indexOf('institution_number') >= 0">
+            <label class="col-lg-12 required">Institution number</label>
+            <input type="number" class="col-lg-12 form-control" required v-model="bankInfo.institution_number">
           </div>
-          <div class="col-md-12 buttons-inner">
+          <div class="col-lg-12 buttons-inner">
             <button class="ft-button ft-button-success ft-button-right">Add</button>
           </div>
         </div>

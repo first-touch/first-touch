@@ -1,16 +1,16 @@
 <template>
-  <div class="report col-md-12">
+  <div class="report col-lg-12">
     <div v-if="report.id">
       <timeline-item>
-        <h5 class="col-md-12">{{report.headline}}</h5>
-        <div class="header row col-md-12">
-          <div class="row col col-sm-6">
-            <p class="col-sm-4">UPDATED </p>
-            <p class="col-md-5"> {{report.meta_data.created_at | moment}}</p>
+        <h5 class="col-lg-12">{{report.headline}}</h5>
+        <div class="header row col-lg-12">
+          <div class="row col col-lg-6">
+            <p class="col-lg-4">UPDATED </p>
+            <p class="col-lg-5"> {{report.meta_data.created_at | moment}}</p>
           </div>
-          <div class="row col col-sm-6">
-            <p class="col-sm-5">Price: </p>
-            <p class="col-md-7">{{report.price.value}} {{report.price.currency | currency}}</p>
+          <div class="row col col-lg-6">
+            <p class="col-lg-5">Price: </p>
+            <p class="col-lg-7">{{report.price.value}} {{report.price.currency | currency}}</p>
           </div>
         </div>
         <div class="content" v-if="report">
@@ -54,44 +54,44 @@
             Details
           </h5>
           <div>
-            <label class="row col-sm-12 summary-title">Analyzed Matches</label>
+            <label class="row col-lg-12 summary-title">Analyzed Matches</label>
             <matchanalyzed :analyzed_matches="report.meta_data.analyzed_matches" type="team" mode="read" />
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Formations(s) Used & playing Style</label>
-            <p class="row col-sm-12">{{report.meta_data.formation}} </p>
+            <label class="row col-lg-12 summary-title">Formations(s) Used & playing Style</label>
+            <p class="row col-lg-12">{{report.meta_data.formation}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Attacking Organisation & Transition After winnig possession</label>
-            <p class="row col-sm-12">{{report.meta_data.attacking_organisation}} </p>
+            <label class="row col-lg-12 summary-title">Attacking Organisation & Transition After winnig possession</label>
+            <p class="row col-lg-12">{{report.meta_data.attacking_organisation}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Defensive Organisation & Transition After losing possession</label>
-            <p class="row col-sm-12"> {{report.meta_data.defensive_organisation}} </p>
+            <label class="row col-lg-12 summary-title">Defensive Organisation & Transition After losing possession</label>
+            <p class="row col-lg-12"> {{report.meta_data.defensive_organisation}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Set Plays - For</label>
-            <p class="row col-sm-12"> {{report.meta_data.setplays_for}} </p>
+            <label class="row col-lg-12 summary-title">Set Plays - For</label>
+            <p class="row col-lg-12"> {{report.meta_data.setplays_for}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Set Plays - Against</label>
-            <p class="row col-sm-12"> {{report.meta_data.setplays_against}}</p>
+            <label class="row col-lg-12 summary-title">Set Plays - Against</label>
+            <p class="row col-lg-12"> {{report.meta_data.setplays_against}}</p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Main Threats</label>
-            <p class="row col-sm-12"> {{report.meta_data.main_threats}} </p>
+            <label class="row col-lg-12 summary-title">Main Threats</label>
+            <p class="row col-lg-12"> {{report.meta_data.main_threats}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Other Observations & Viewpoints To Note</label>
-            <p class="row col-sm-12"> {{report.meta_data.observations}} </p>
+            <label class="row col-lg-12 summary-title">Other Observations & Viewpoints To Note</label>
+            <p class="row col-lg-12"> {{report.meta_data.observations}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Conclusion</label>
-            <p class="row col-sm-12"> {{report.meta_data.conclusion}} </p>
+            <label class="row col-lg-12 summary-title">Conclusion</label>
+            <p class="row col-lg-12"> {{report.meta_data.conclusion}} </p>
           </div>
           <div>
-            <label class="row col-sm-12 summary-title">Attachments</label>
-            <div class="row col-sm-12">
+            <label class="row col-lg-12 summary-title">Attachments</label>
+            <div class="row col-lg-12">
               <button v-for="attachment in report.attachments.attachments" :key="attachment.id" class="btn-info btn-attachments" @click="downloadFile(attachment.id, attachment.filename)">
                 {{attachment.filename}}</button>
 

@@ -17,7 +17,7 @@
       </div>
       <div v-if="success">
         <p>Success !</p>
-        <div class="col-md-12 buttons-inner">
+        <div class="col-lg-12 buttons-inner">
           <button class="ft-button-success ft-button-right" @click="closeAction()">Close</button>
         </div>
       </div>

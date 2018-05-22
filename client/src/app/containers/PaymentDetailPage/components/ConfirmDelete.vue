@@ -18,26 +18,26 @@
     <div class="content">
       <div v-if="none">
         <div class="row">
-          <p class="col-md-6">Holder name</p>
-          <p class="col-md-6">{{bankAccount.account_holder_name}}</p>
+          <p class="col-lg-6">Holder name</p>
+          <p class="col-lg-6">{{bankAccount.account_holder_name}}</p>
         </div>
         <div class="row">
-          <p class="col-md-6">Country</p>
-          <p class="col-md-6">{{bankAccount.country}}</p>
+          <p class="col-lg-6">Country</p>
+          <p class="col-lg-6">{{bankAccount.country}}</p>
         </div>
         <div class="row">
-          <p class="col-md-6">Bank name</p>
-          <p class="col-md-6">{{bankAccount.bank_name}}</p>
+          <p class="col-lg-6">Bank name</p>
+          <p class="col-lg-6">{{bankAccount.bank_name}}</p>
         </div>
         <div class="row">
-          <p class="col-md-6">Last 4</p>
-          <p class="col-md-6">{{bankAccount.last4}}</p>
+          <p class="col-lg-6">Last 4</p>
+          <p class="col-lg-6">{{bankAccount.last4}}</p>
         </div>
         <div>
           <p>Are you sure you want to delete this bank account ?</p>
         </div>
       </div>
-      <div class="col-md-12 buttons-inner">
+      <div class="col-lg-12 buttons-inner">
         <button class="ft-button ft-button-danger" v-if="none" @click="startDelete()">Delete
         </button>
         <button class="ft-button ft-button-right" @click="closeAction()">Close

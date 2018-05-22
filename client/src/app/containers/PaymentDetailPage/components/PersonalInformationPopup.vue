@@ -1,7 +1,7 @@
 <template>
   <div class="addPaymentPopup" :class="[loading == true ? 'loading' : '', success == true ? 'success' : '']">
-    <div class="row col-md-12 header">
-      <div class="col-md-8 buttons-inner">
+    <div class="row col-lg-12 header">
+      <div class="col-lg-8 buttons-inner">
         <button class="ft-button ft-button-right" @click="closeAction()">Close
           <span v-if="success">✓</span>
         </button>
@@ -16,7 +16,7 @@
     </div>
     <loading class="loader" />
     <form class="ft-form" v-on:submit.prevent="prepareSubmit">
-      <div class="row col-md-12" v-if="errors">
+      <div class="row col-lg-12" v-if="errors">
         <ul v-if="errors.error" class="error stripeErrors">
           <li>{{errors.error.message}}</li>
         </ul>
@@ -25,123 +25,123 @@
         </ul>
       </div>
       <input type="hidden" name="token" id="token">
-      <div class="row col-md-12">
-        <label class="col-md-4 required">Select Country</label>
-        <countryselect class="col-md-8" :disabled="lock" v-on:update:val="country = $event; getRequired()" :value="this.country"
+      <div class="row col-lg-12">
+        <label class="col-lg-4 required">Select Country</label>
+        <countryselect class="col-lg-8" :disabled="lock" v-on:update:val="country = $event; getRequired()" :value="this.country"
         />
       </div>
-      <div class="row col-md-12">
-        <label class="col-md-4 required">Select Entity Type</label>
-        <div class="col-md-8">
+      <div class="row col-lg-12">
+        <label class="col-lg-4 required">Select Entity Type</label>
+        <div class="col-lg-8">
           <vselect v-model="type_select" :disabled="lock" @input="legal_entity.type = type_select ? type_select.value : ''" :options="options_type"
             class="ft-input" placeholder="Please select a type" />
         </div>
       </div>
       <div class="legal-entity" v-if="required">
 
-        <div class="row row-form col-md-12">
-          <div class="col-md-6" v-if="required.indexOf('legal_entity.first_name') >= 0">
-            <label class="col-md-12 required">First Name</label>
-            <input class="form-control col-md-12" required name="first_name" v-model="legal_entity.first_name">
+        <div class="row row-form col-lg-12">
+          <div class="col-lg-6" v-if="required.indexOf('legal_entity.first_name') >= 0">
+            <label class="col-lg-12 required">First Name</label>
+            <input class="form-control col-lg-12" required name="first_name" v-model="legal_entity.first_name">
           </div>
-          <div class="col-md-6" v-if="required.indexOf('legal_entity.last_name') >= 0">
-            <label class="col-md-12 required">Last Name</label>
-            <input class="form-control col-md-12" required name="last_name" v-model="legal_entity.last_name">
+          <div class="col-lg-6" v-if="required.indexOf('legal_entity.last_name') >= 0">
+            <label class="col-lg-12 required">Last Name</label>
+            <input class="form-control col-lg-12" required name="last_name" v-model="legal_entity.last_name">
           </div>
-          <div class="col-md-6" v-if="required.indexOf('legal_entity.business_name') >= 0">
-            <label class="col-md-12 required">Business Name</label>
-            <input class="form-control col-md-12" required name="business_name" v-model="legal_entity.business_name">
+          <div class="col-lg-6" v-if="required.indexOf('legal_entity.business_name') >= 0">
+            <label class="col-lg-12 required">Business Name</label>
+            <input class="form-control col-lg-12" required name="business_name" v-model="legal_entity.business_name">
           </div>
         </div>
-        <div class="row row-form col-md-12" v-if="required.indexOf('legal_entity.additional_owners') >= 0">
-          <label class="col-md-12 required">Company Owners</label>
-          <div class="row col-md-12" v-for="(owner, index) in owners" :key="owner.id">
-            <div class="col-md-5">
-              <label class="col-md-12 required">First Name</label>
-              <input type="text" class="form-input col-md-12" v-model="owner.first_name">
+        <div class="row row-form col-lg-12" v-if="required.indexOf('legal_entity.additional_owners') >= 0">
+          <label class="col-lg-12 required">Company Owners</label>
+          <div class="row col-lg-12" v-for="(owner, index) in owners" :key="owner.id">
+            <div class="col-lg-5">
+              <label class="col-lg-12 required">First Name</label>
+              <input type="text" class="form-input col-lg-12" v-model="owner.first_name">
             </div>
-            <div class="col-md-5">
-              <label class="col-md-12 required">Last Name</label>
-              <input type="text" class="form-input col-md-12" v-model="owner.last_name">
+            <div class="col-lg-5">
+              <label class="col-lg-12 required">Last Name</label>
+              <input type="text" class="form-input col-lg-12" v-model="owner.last_name">
             </div>
-            <div class="remove col-md-2" v-if="owners.length > 1" @click="removeOwners(index)">
+            <div class="remove col-lg-2" v-if="owners.length > 1" @click="removeOwners(index)">
               <icon name='trash'></icon>
             </div>
           </div>
           <button class="button row add-match" @click="addOwners">Add Owners</button>
         </div>
-        <div class="row row-form col-md-12">
-          <div class="col-md-6" v-if="required.indexOf('legal_entity.dob.year') >= 0">
-            <label class="col-md-12 required">Date of birth</label>
-            <ftdatepicker class="form-control col-md-12 ftdatepicker" required :disabled="dpconf.disabled" v-on:update:val="dob = $event"
+        <div class="row row-form col-lg-12">
+          <div class="col-lg-6" v-if="required.indexOf('legal_entity.dob.year') >= 0">
+            <label class="col-lg-12 required">Date of birth</label>
+            <ftdatepicker class="form-control col-lg-12 ftdatepicker" required :disabled="dpconf.disabled" v-on:update:val="dob = $event"
               :value="dpconf.disabled.from" />
           </div>
-          <div class="col-md-6" v-if="required.indexOf('legal_entity.personal_id_number') >= 0">
-            <label class="col-md-12 required">Personal Id Number</label>
-            <input class="form-control col-md-12" name="personal_id_number" required v-model="legal_entity.personal_id_number">
+          <div class="col-lg-6" v-if="required.indexOf('legal_entity.personal_id_number') >= 0">
+            <label class="col-lg-12 required">Personal Id Number</label>
+            <input class="form-control col-lg-12" name="personal_id_number" required v-model="legal_entity.personal_id_number">
           </div>
-          <div class="col-md-6" v-if="required.indexOf('legal_entity.business_tax_id') >= 0">
-            <label class="col-md-12 required">Business tax id</label>
-            <input class="form-control col-md-12" name="personal_id_number" required v-model="legal_entity.business_tax_id">
+          <div class="col-lg-6" v-if="required.indexOf('legal_entity.business_tax_id') >= 0">
+            <label class="col-lg-12 required">Business tax id</label>
+            <input class="form-control col-lg-12" name="personal_id_number" required v-model="legal_entity.business_tax_id">
           </div>
-          <div class="col-md-6" v-if="required.indexOf('legal_entity.ssn_last_4') >= 0">
-            <label class="col-md-12 required">SSN last 4</label>
-            <input class="form-control col-md-12" name="ssn_last_4" type="number" required max="9999" v-model="legal_entity.ssn_last_4">
+          <div class="col-lg-6" v-if="required.indexOf('legal_entity.ssn_last_4') >= 0">
+            <label class="col-lg-12 required">SSN last 4</label>
+            <input class="form-control col-lg-12" name="ssn_last_4" type="number" required max="9999" v-model="legal_entity.ssn_last_4">
           </div>
         </div>
 
-        <div class="row row-form col-md-12" v-if="required.indexOf('legal_entity.address.city') >= 0">
-          <label class="col-md-12 required">Address</label>
-          <div class="row col-md-12">
-            <div class="col-md-6" v-if="required.indexOf('legal_entity.address.state') >= 0">
-              <label class="col-md-12 required">State</label>
-              <input class="col-md-12 form-control" name="line1" required v-model="legal_entity.address.state">
+        <div class="row row-form col-lg-12" v-if="required.indexOf('legal_entity.address.city') >= 0">
+          <label class="col-lg-12 required">Address</label>
+          <div class="row col-lg-12">
+            <div class="col-lg-6" v-if="required.indexOf('legal_entity.address.state') >= 0">
+              <label class="col-lg-12 required">State</label>
+              <input class="col-lg-12 form-control" name="line1" required v-model="legal_entity.address.state">
             </div>
-            <div class="col-md-6">
-              <label class="col-md-12 required">City</label>
-              <input class="col-md-12 form-control" name="line1" required v-model="legal_entity.address.city">
-            </div>
-          </div>
-          <div class="row col-md-12">
-            <div class="col-md-6" v-if="required.indexOf('legal_entity.address.line1') >= 0">
-              <label class="col-md-12 required">Address Line</label>
-              <input class="col-md-12 form-control" name="line1" required v-model="legal_entity.address.line1">
-            </div>
-            <div class="col-md-6" v-if="required.indexOf('legal_entity.address.postal_code') >= 0">
-              <label class="col-md-12 required">Postal Code</label>
-              <input class="col-md-12 form-control" name="line1" required v-model="legal_entity.address.postal_code">
+            <div class="col-lg-6">
+              <label class="col-lg-12 required">City</label>
+              <input class="col-lg-12 form-control" name="line1" required v-model="legal_entity.address.city">
             </div>
           </div>
-        </div>
-        <div class="row row-form col-md-12" v-if="required.indexOf('legal_entity.personal_address.city') >= 0">
-          <label class="col-md-12 required">Personnal Address</label>
-          <div class="row col-md-12">
-            <div class="col-md-6" v-if="required.indexOf('legal_entity.personal_address.state') >= 0">
-              <label class="col-md-12 required">State</label>
-              <input class="col-md-12 form-control" name="line1" required v-model="legal_entity.personal_address.state">
+          <div class="row col-lg-12">
+            <div class="col-lg-6" v-if="required.indexOf('legal_entity.address.line1') >= 0">
+              <label class="col-lg-12 required">Address Line</label>
+              <input class="col-lg-12 form-control" name="line1" required v-model="legal_entity.address.line1">
             </div>
-            <div class="col-md-6">
-              <label class="col-md-12 required">City</label>
-              <input class="col-md-12 form-control" name="line1" required v-model="legal_entity.personal_address.city">
-            </div>
-          </div>
-          <div class="row col-md-12">
-            <div class="col-md-6" v-if="required.indexOf('legal_entity.personal_address.line1') >= 0">
-              <label class="col-md-12 required">Address Line</label>
-              <input class="col-md-12 form-control" name="line1" required v-model="legal_entity.personal_address.line1">
-            </div>
-            <div class="col-md-6" v-if="required.indexOf('legal_entity.personal_address.postal_code') >= 0">
-              <label class="col-md-12 required">Postal Code</label>
-              <input class="col-md-12 form-control" name="line1" required v-model="legal_entity.personal_address.postal_code">
+            <div class="col-lg-6" v-if="required.indexOf('legal_entity.address.postal_code') >= 0">
+              <label class="col-lg-12 required">Postal Code</label>
+              <input class="col-lg-12 form-control" name="line1" required v-model="legal_entity.address.postal_code">
             </div>
           </div>
         </div>
-        <div class="row col-md-12">
+        <div class="row row-form col-lg-12" v-if="required.indexOf('legal_entity.personal_address.city') >= 0">
+          <label class="col-lg-12 required">Personnal Address</label>
+          <div class="row col-lg-12">
+            <div class="col-lg-6" v-if="required.indexOf('legal_entity.personal_address.state') >= 0">
+              <label class="col-lg-12 required">State</label>
+              <input class="col-lg-12 form-control" name="line1" required v-model="legal_entity.personal_address.state">
+            </div>
+            <div class="col-lg-6">
+              <label class="col-lg-12 required">City</label>
+              <input class="col-lg-12 form-control" name="line1" required v-model="legal_entity.personal_address.city">
+            </div>
+          </div>
+          <div class="row col-lg-12">
+            <div class="col-lg-6" v-if="required.indexOf('legal_entity.personal_address.line1') >= 0">
+              <label class="col-lg-12 required">Address Line</label>
+              <input class="col-lg-12 form-control" name="line1" required v-model="legal_entity.personal_address.line1">
+            </div>
+            <div class="col-lg-6" v-if="required.indexOf('legal_entity.personal_address.postal_code') >= 0">
+              <label class="col-lg-12 required">Postal Code</label>
+              <input class="col-lg-12 form-control" name="line1" required v-model="legal_entity.personal_address.postal_code">
+            </div>
+          </div>
+        </div>
+        <div class="row col-lg-12">
 
           <p>By submitting, you agree to the
             <a href="https://stripe.com/connect-account/legal">Stripe Connected Account Agreement</a>.</p>
         </div>
-        <div class="col-md-12 buttons-inner">
+        <div class="col-lg-12 buttons-inner">
           <button class="ft-button ft-button-success ft-button-right">Submit</button>
         </div>
       </div>

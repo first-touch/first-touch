@@ -1,5 +1,5 @@
 <template>
-  <div class="bid col-md-12">
+  <div class="bid col-lg-12">
     <span class="field row">
       <currencyinput :value="price" :currency="request.price.currency"/>
     </span>

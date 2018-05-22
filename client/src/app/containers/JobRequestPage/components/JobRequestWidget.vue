@@ -2,30 +2,30 @@
   <div class="widget-request ft-search-widget">
     <h4 class="header">My Jobs Request</h4>
     <timeline-item>
-      <div class="widget-content col col-md-12">
+      <div class="widget-content col col-lg-12">
         <div class="row align-items-start">
-          <div class="col-md-2">
+          <div class="col-lg-2">
             <h6 class="list-title">Request Count</h6>
             <h1 class="list-count">{{listRequest.length}}</h1>
           </div>
-          <form @submit.prevent="search" class="col-md-10 row">
+          <form @submit.prevent="search" class="col-lg-10 row">
             <fieldset class="col-lg-4 filter">
               <input type="number" class="col-lg-12  form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()" />
             </fieldset>
-            <fieldset class="col-md-55 filter">
+            <fieldset class="col-lg-55 filter">
               <vselect v-model="vselect_type" :options="options.type_request" :searchable="false" clearable="false" />
             </fieldset>
-            <fieldset class="col-md-5 filter">
+            <fieldset class="col-lg-5 filter">
               <vselect v-model="vselect_status" :options="options.status" :searchable="false" />
             </fieldset>
-            <ftdatepicker class="col-md-5 filter form-control" :value="params.created_date" :clearable="false" placeholder="Created date"
+            <ftdatepicker class="col-lg-5 filter form-control" :value="params.created_date" :clearable="false" placeholder="Created date"
               v-on:update:val="params.created_date = $event; search()" />
-            <fieldset class="col-md-4 filter">
-              <input type="number" class="col-sm-12 form-control" v-model="params.min_bids" placeholder="Minimum bids" @keyup="search"
+            <fieldset class="col-lg-4 filter">
+              <input type="number" class="col-lg-12 form-control" v-model="params.min_bids" placeholder="Minimum bids" @keyup="search"
               />
             </fieldset>
-            <fieldset class="col-md-4 filter">
-              <input type="number" class="col-sm-12 form-control" v-model="params.max_bids" placeholder="Maximum bids" @keyup="search"
+            <fieldset class="col-lg-4 filter">
+              <input type="number" class="col-lg-12 form-control" v-model="params.max_bids" placeholder="Maximum bids" @keyup="search"
               />
             </fieldset>
           </form>

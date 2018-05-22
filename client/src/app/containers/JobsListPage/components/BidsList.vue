@@ -2,27 +2,27 @@
   <div class="widget-request ft-search-widget">
     <h4 class="header">My Jobs List</h4>
     <timeline-item>
-      <div class="widget-content col col-md-12">
+      <div class="widget-content col col-lg-12">
         <div class="row align-items-start">
-          <div class="col-md-2">
+          <div class="col-lg-2">
             <h6 class="list-title">Request Count</h6>
             <h1 class="list-count">{{listRequest.length}}</h1>
           </div>
-          <form @submit.prevent="search" class="col-md-10 row">
+          <form @submit.prevent="search" class="col-lg-10 row">
             <fieldset class="col-lg-4">
               <input type="number" class="col-lg-12 form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()" />
             </fieldset>
             <fieldset class="col-lg-4">
               <input type="text" class="col-lg-12 form-control" v-model="params.club" placeholder="Requested by" @keyup="search()" />
             </fieldset>
-            <fieldset class="col-md-3">
+            <fieldset class="col-lg-3">
               <vselect v-model="vselect_type" :options="options.type_request" :searchable="false" clearable="false" />
             </fieldset>
-            <fieldset class="col-md-12 calendar-filter">
-              <ftdatepicker class="col-md-5 col form-control" :model="params.deadline_from" :clearable="false" placeholder="Deadline from"
+            <fieldset class="col-lg-12 calendar-filter">
+              <ftdatepicker class="col-lg-5 col form-control" :model="params.deadline_from" :clearable="false" placeholder="Deadline from"
                 v-on:update:val="params.deadline_from = $event; search()" />
-              <p class="col-md-1 col">-</p>
-              <ftdatepicker class="col-md-5 col form-control" :model="params.deadline_to" :clearable="false" placeholder="Deadline to"
+              <p class="col-lg-1 col">-</p>
+              <ftdatepicker class="col-lg-5 col form-control" :model="params.deadline_to" :clearable="false" placeholder="Deadline to"
                 v-on:update:val="params.deadline_to = $event; search()" />
             </fieldset>
           </form>

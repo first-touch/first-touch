@@ -1,16 +1,16 @@
 <template>
-  <div class="ft-search-widget widget-reports col col-md-12">
+  <div class="ft-search-widget widget-reports col col-lg-12">
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-lg-2">
         <h6 class="list-title">Bids</h6>
         <h1 class="list-count">{{bids ? bids.bid.length: '0'}}</h1>
       </div>
-      <form @submit.prevent="search" class="col-md-10">
+      <form @submit.prevent="search" class="col-lg-10">
         <div class="row">
-          <fieldset class="col-md-6">
+          <fieldset class="col-lg-6">
             <currencyinput :value="price" max="true" :currency="currency" />
           </fieldset>
-          <ftdatepicker class="col-md-3 form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
+          <ftdatepicker class="col-lg-3 form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
           placeholder="Bid date"
           />
         </div>

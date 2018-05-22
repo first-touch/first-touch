@@ -1,12 +1,12 @@
 <template>
   <div class="wrapper">
-    <div class="header-wrapper col-md-12">
-      <div class="header col-md-12 row">
-        <div class="col-md-4">
+    <div class="header-wrapper col-lg-12">
+      <div class="header col-lg-12 row">
+        <div class="col-lg-4">
           <h5 class="title">Team Report</h5>
           <p class="id">{{report.id | reportId(report.type_report) }}</p>
         </div>
-        <div class="col-md-8 buttons-inner">
+        <div class="col-lg-8 buttons-inner">
           <button class="ft-button" @click="closeAction(report)">Close</button>
           <button class="ft-button-success" v-if="!report.orders_status && !report.is_free" @click="buyAction(report)">Buy Report</button>
         </div>
@@ -16,36 +16,36 @@
       CREATED {{report.created_at | moment}}
     </p>
     <div class="content-wrapper">
-      <div class="content col-md-12">
+      <div class="content col-lg-12">
         <div class="img-container">
           <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
         </div>
-        <div class="info col-md-8">
+        <div class="info col-lg-8">
           <h2 class="title" :title="report.headline">{{report.headline}}</h2>
           <div class="extra">
             <p class="summary-field row" v-if="report.price">
-              <span class="summary-field-title col-md-4">Price:</span>
-              <span class="col-md-8">{{report.price.value}} {{report.price.currency | currency}}</span>
+              <span class="summary-field-title col-lg-4">Price:</span>
+              <span class="col-lg-8">{{report.price.value}} {{report.price.currency | currency}}</span>
             </p>
             <p class="summary-field row">
-              <span class="summary-field-title col-md-4">Team Name:</span>
-              <span class="col-md-8" v-if="report.team">{{report.team.team_name}}</span>
-              <span class="col-md-8" v-if="!report.team">{{report.search.team}}</span>
+              <span class="summary-field-title col-lg-4">Team Name:</span>
+              <span class="col-lg-8" v-if="report.team">{{report.team.team_name}}</span>
+              <span class="col-lg-8" v-if="!report.team">{{report.search.team}}</span>
             </p>
             <p class="summary-field row">
-              <span class="summary-field-title col-md-4">Formation Used</span>
-              <span class="col-md-8">{{report.meta_data.formation}}</span>
+              <span class="summary-field-title col-lg-4">Formation Used</span>
+              <span class="col-lg-8">{{report.meta_data.formation}}</span>
             </p>
             <p class="summary-field row">
-              <span class="summary-field-title col-md-4">Main threats</span>
-              <span class="col-md-8">{{report.meta_data.main_threats}}</span>
+              <span class="summary-field-title col-lg-4">Main threats</span>
+              <span class="col-lg-8">{{report.meta_data.main_threats}}</span>
             </p>
             <p class="summary-field row">
-              <span class="summary-field-title col-md-4">League:</span>
-              <span class="col-md-8" v-if="report.team">
+              <span class="summary-field-title col-lg-4">League:</span>
+              <span class="col-lg-8" v-if="report.team">
                 <span class="list" v-for="cp in report.team.competitions.competitions" :key="cp.id">{{cp.name}} </span>
               </span>
-              <span class="col-md-8" v-if="!report.team">
+              <span class="col-lg-8" v-if="!report.team">
                 <span v-if="report.league">
                   {{report.league.name}}
                 </span>

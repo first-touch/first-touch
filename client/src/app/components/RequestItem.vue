@@ -2,58 +2,58 @@
   <div class="item-container">
     <div class="ft-item" v-if="!mode || mode == 'widget'">
       <div class="header-wrapper">
-        <div class="header col-md-10">
+        <div class="header col-lg-10">
           <div class="img-container">
             <img class="img-fluid avatar" :src="src" />
             <span v-if="!own">{{request.user.first_name}} {{request.user.last_name}} </span>
           </div>
-          <div class="info col-md-8" v-if="position">
+          <div class="info col-lg-8" v-if="position">
             <h2 class="title">
               <span class="list" v-for="position in request.meta_data.playing_position" :key="position.id">{{position}}</span>
             </h2>
             <p class="extra">
               <span class="field row">
-                <span class="col-md-4">Request Id:</span>
-                <span class="col-md-6"> {{request.id | requestId(request.type_request) }}
+                <span class="col-lg-4">Request Id:</span>
+                <span class="col-lg-6"> {{request.id | requestId(request.type_request) }}
                 </span>
               </span>
               <span class="field row">
-                <span class="col-md-4">Job request type</span>
-                <span class="col-md-6 capitalize"> {{request.type_request}} job request
+                <span class="col-lg-4">Job request type</span>
+                <span class="col-lg-6 capitalize"> {{request.type_request}} job request
                 </span>
               </span>
               <span class="field row">
-                <span class="col-md-4">Position:</span>
-                <span class="col-md-6">
+                <span class="col-lg-4">Position:</span>
+                <span class="col-lg-6">
                   <span class="list" v-for="position in request.meta_data.playing_position" :key="position.id">{{position}}</span>
                 </span>
               </span>
               <span class="field row">
-                <span class="col-md-4">Based in: </span>
-                <span class="col-md-6">{{getNationality(request.meta_data.residence_country_code)}}
+                <span class="col-lg-4">Based in: </span>
+                <span class="col-lg-6">{{getNationality(request.meta_data.residence_country_code)}}
                 </span>
               </span>
 
               <span class="field row">
-                <span class="col-md-4">Deadline </span>
-                <span class="col-md-6">{{request.deadline | moment}}
+                <span class="col-lg-4">Deadline </span>
+                <span class="col-lg-6">{{request.deadline | moment}}
                 </span>
               </span>
               <span class="field yes row" v-if="request.meta_data.loan == 'yes'">
-                <span class="col-md-12">Interested In Loan</span>
+                <span class="col-lg-12">Interested In Loan</span>
               </span>
               <span class="field yes row" v-if="request.meta_data.transfer == 'yes'">
-                <span class="col-md-12">Interested In Transfer</span>
+                <span class="col-lg-12">Interested In Transfer</span>
               </span>
               <span class="field row" v-if="request.meta_data.expiring_contract == 'yes'">
-                <span class="col-md-4">Expiring Contract: </span>
-                <span class="col-md-6">
+                <span class="col-lg-4">Expiring Contract: </span>
+                <span class="col-lg-6">
                   {{request.meta_data.expiring_contract_min | moment}} to {{request.meta_data.expiring_contract_max | moment}}
                 </span>
               </span>
             </p>
           </div>
-          <div class="info col-md-8" v-if="request.type_request == 'player'">
+          <div class="info col-lg-8" v-if="request.type_request == 'player'">
             <h2 class="title">
               <span class="target" v-if="request.player">{{request.player.first_name}} {{request.player.last_name}} </span>
               <span class="target" v-if="!request.player">{{request.meta_data.search.player}}</span>
@@ -61,85 +61,85 @@
             <span class="pending" v-if="!own && request.bid_status && request.bid_status =='pending'">Bid pending</span>
             <p class="extra">
               <span class="field row">
-                <span class="col-md-4">Request Id:</span>
-                <span class="col-md-6"> {{request.id | requestId(request.type_request) }}
+                <span class="col-lg-4">Request Id:</span>
+                <span class="col-lg-6"> {{request.id | requestId(request.type_request) }}
                 </span>
               </span>
               <span class="field row">
-                <span class="col-md-4">Job request type</span>
-                <span class="col-md-6 capitalize"> {{request.type_request}} job request
+                <span class="col-lg-4">Job request type</span>
+                <span class="col-lg-6 capitalize"> {{request.type_request}} job request
                 </span>
               </span>
               <span class="field row" v-if="haveBid">
-                <span class="col-md-4">Bid Price:</span>
-                <span class="col-md-6"> {{request.bid_price.value}} {{request.bid_price.currency | currency}}
+                <span class="col-lg-4">Bid Price:</span>
+                <span class="col-lg-6"> {{request.bid_price.value}} {{request.bid_price.currency | currency}}
                 </span>
               </span>
               <span class="field row">
-                <span class="col-md-4">Position:</span>
-                <span class="col-md-6" v-if="request.player">
+                <span class="col-lg-4">Position:</span>
+                <span class="col-lg-6" v-if="request.player">
                   <span class="list" v-for="position in request.player.playing_position" :key="position.id">{{position}}</span>
                 </span>
-                <span class="col-md-6" v-if="!request.player">
+                <span class="col-lg-6" v-if="!request.player">
                   <span class="list" v-for="position in request.meta_data.playing_position" :key="position.id">{{position}}</span>
                 </span>
               </span>
               <span class="field row">
-                <span class="col-md-4">Based in: </span>
-                <span class="col-md-6" v-if="request.player">{{getNationality(request.player.residence_country_code)}} </span>
-                <span class="col-md-6" v-if="!request.player">{{getNationality(request.meta_data.residence_country_code)}}
+                <span class="col-lg-4">Based in: </span>
+                <span class="col-lg-6" v-if="request.player">{{getNationality(request.player.residence_country_code)}} </span>
+                <span class="col-lg-6" v-if="!request.player">{{getNationality(request.meta_data.residence_country_code)}}
                 </span>
               </span>
               <span class="field row">
-                <span class="col-md-4">Deadline </span>
-                <span class="col-md-6">{{request.deadline | moment}}
+                <span class="col-lg-4">Deadline </span>
+                <span class="col-lg-6">{{request.deadline | moment}}
                 </span>
               </span>
             </p>
           </div>
-          <div class="info col-md-8" v-if="request.type_request == 'team'">
+          <div class="info col-lg-8" v-if="request.type_request == 'team'">
             <h2 class="title" v-if="request.team">{{request.team.team_name}}</h2>
             <h2 class="title" v-if="!request.team"> {{request.meta_data.search.team}} </h2>
             <span class="pending" v-if="!own && request.bid_status && request.bid_status.status =='pending'">Bid pending</span>
             <p class="extra">
               <span class="field row">
-                <span class="col-md-4">Request Id:</span>
-                <span class="col-md-6"> {{request.id | requestId(request.type_request) }}
+                <span class="col-lg-4">Request Id:</span>
+                <span class="col-lg-6"> {{request.id | requestId(request.type_request) }}
                 </span>
               </span>
               <span class="field row">
-                <span class="col-md-4">Job request type</span>
-                <span class="col-md-6 capitalize"> {{request.type_request}} job request
+                <span class="col-lg-4">Job request type</span>
+                <span class="col-lg-6 capitalize"> {{request.type_request}} job request
                 </span>
               </span>
               <span class="field row" v-if="haveBid && request.bid_price.value">
-                <span class="col-md-4">Bid Price:</span>
-                <span class="col-md-6"> {{request.bid_price.value}} {{request.price.currency | currency}}
+                <span class="col-lg-4">Bid Price:</span>
+                <span class="col-lg-6"> {{request.bid_price.value}} {{request.price.currency | currency}}
                 </span>
               </span>
               <span class="field row">
-                <span class="col-md-4">League:</span>
-                <span class="col-md-6" v-if="!request.team">
+                <span class="col-lg-4">League:</span>
+                <span class="col-lg-6" v-if="!request.team">
                   {{request.meta_data.search.league}}
                 </span>
-                <span class="col-md-6" v-if="request.team">
+                <span class="col-lg-6" v-if="request.team">
                   <span class="list" v-for="cp in request.team.competitions.competitions" :key="cp.id">{{cp.name}} </span>
                 </span>
               </span>
               <span class="field row">
-                <span class="col-md-4">Created</span>
-                <span class="col-md-6">{{request.created_at | moment}}
+                <span class="col-lg-4">Created</span>
+                <span class="col-lg-6">{{request.created_at | moment}}
                 </span>
               </span>
               <span class="field row">
-                <span class="col-md-4">Deadline </span>
-                <span class="col-md-6">{{request.deadline | moment}}
+                <span class="col-lg-4">Deadline </span>
+                <span class="col-lg-6">{{request.deadline | moment}}
                 </span>
               </span>
             </p>
           </div>
         </div>
-        <div class="widget col-md-2">
+        <div class="widget col-lg-2">
           <router-link v-if="own" :to="{ name: 'clubRequest', params: { id: request.id }}" class="ft-action">
             <button class="btn-round">Edit</button>
           </router-link>
@@ -224,7 +224,7 @@
         </span>
         <span v-if="field == 'action'" class="contents">
           <div class="table-action row">
-            <div class="col col-md-8 first-action">
+            <div class="col col-lg-8 first-action">
               <router-link v-if="canAction(own && !position, 'view_bids', true)" :to="{ name: 'clubRequestBids', params: { id: request.id }}"
                 class="ft-action">
                 <button class="btn-round">View Bids</button>

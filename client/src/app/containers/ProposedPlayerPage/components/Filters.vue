@@ -1,17 +1,17 @@
 <template>
-  <form @submit.prevent="search" class="col-md-10">
+  <form @submit.prevent="search" class="col-lg-10">
     <div class="row">
-      <fieldset class="col-md-3 filter">
-        <input type="number" v-model="params.id" class="form-control col-md-12" placeholder="Report id">
+      <fieldset class="col-lg-3 filter">
+        <input type="number" v-model="params.id" class="form-control col-lg-12" placeholder="Report id">
       </fieldset>
-      <fieldset class="col-md-3 filter form-control">
-        <input class="col-sm-12 form-control" placeholder="Scout's Name" type="text" v-model="params.scout_name" />
+      <fieldset class="col-lg-3 filter form-control">
+        <input class="col-lg-12 form-control" placeholder="Scout's Name" type="text" v-model="params.scout_name" />
       </fieldset>
-      <ftdatepicker class="col-md-3 filter form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()" placeholder="Submitted on"
+      <ftdatepicker class="col-lg-3 filter form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()" placeholder="Submitted on"
       />
-      <div class="col-md-12 price-filter row">
-        <label class="col-md-1">Price</label>
-        <currencyinput class="col-md-11" :value="price" max="true" :currency="currency" />
+      <div class="col-lg-12 price-filter row">
+        <label class="col-lg-1">Price</label>
+        <currencyinput class="col-lg-11" :value="price" max="true" :currency="currency" />
       </div>
     </div>
   </form>

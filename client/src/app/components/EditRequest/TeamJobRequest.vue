@@ -15,41 +15,41 @@
             <p class="col-lg-9">{{edit.created_at | moment}}</p>
           </div>
           <div class="row" v-if="!edit">
-            <div class="col-sm-6 form-group">
-              <label class="col-md-12">League Name</label>
-              <inputsearch class="col-md-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
+            <div class="col-lg-6 form-group">
+              <label class="col-lg-12">League Name</label>
+              <inputsearch class="col-lg-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
                 v-on:update:val="setLeague($event)" v-on:update:search="meta_data.search.league = $event" ref="team_search"
                  label="name" />
             </div>
-            <div class="col-sm-6 form-group">
-              <label class="col-md-12 required">Team Name</label>
-              <inputsearch :edit="team_search" :readonly="league_id == ''" class="col-md-12" :taggable="true" :onkeyup="getSearchResultsRole"
+            <div class="col-lg-6 form-group">
+              <label class="col-lg-12 required">Team Name</label>
+              <inputsearch :edit="team_search" :readonly="league_id == ''" class="col-lg-12" :taggable="true" :onkeyup="getSearchResultsRole"
                 ref="team_search" v-on:update:search="meta_data.search.team = $event" :searchResult="searchResult" type="team"
                 v-on:update:obj="setTeam($event)" :required="true" label="team_name" />
             </div>
           </div>
 
           <div class="row">
-            <div class="col-sm-6 form-group">
-              <label class="col-md-12">Minimum number of Matches observed</label>
-              <input type="number" class="col-md-12 form-control" v-model="meta_data.min_matches">
+            <div class="col-lg-6 form-group">
+              <label class="col-lg-12">Minimum number of Matches observed</label>
+              <input type="number" class="col-lg-12 form-control" v-model="meta_data.min_matches">
             </div>
-            <div class="col-md-6 form-group">
-              <label class="col-md-12">Training Report Required</label>
+            <div class="col-lg-6 form-group">
+              <label class="col-lg-12">Training Report Required</label>
               <vselect v-model="training_report_select" @input="meta_data.training_report = training_report_select.value" :options="options.required"
                 :searchable="false" />
             </div>
           </div>
-          <div class="row col-md-12 form-group">
-            <label class="col-md-12">Additional Comments</label>
-            <textarea class="col-md-12 form-control" v-model="meta_data.comments" />
+          <div class="row col-lg-12 form-group">
+            <label class="col-lg-12">Additional Comments</label>
+            <textarea class="col-lg-12 form-control" v-model="meta_data.comments" />
           </div>
-          <div class="row col-md-12 form-group">
-            <label class="col-md-12 required">Deadline</label>
-            <ftdatepicker class="col-md-6 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" />
+          <div class="row col-lg-12 form-group">
+            <label class="col-lg-12 required">Deadline</label>
+            <ftdatepicker class="col-lg-6 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" />
           </div>
-          <div class="row col-md-12 form-group">
-            <label class="col-md-12">Price Range</label>
+          <div class="row col-lg-12 form-group">
+            <label class="col-lg-12">Price Range</label>
             <currencyinput :value="price" max="true" />
 
 
