@@ -11,11 +11,11 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+
+<style lang="scss">
 @import '~stylesheets/variables';
-.widget {
-  margin-bottom: 20px;
-}
+@import '~stylesheets/modal';
+@import '~stylesheets/search';
 </style>
 
 <script>

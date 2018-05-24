@@ -29,31 +29,6 @@
     </timeline-item>
   </div>
 </template>
-<style lang="scss">
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
-@import '~stylesheets/search';
-
-.widget-reports {
-  .datepicker {
-    padding: 0;
-    input.input-date {
-      cursor: pointer;
-      min-height: 2em;
-      border: 0px;
-    }
-  }
-  .dropdown-toggle {
-    max-height: 35px;
-    border: 0px;
-  }
-}
-</style>
-
-<style lang="scss" scoped>
-@import '~stylesheets/variables';
-</style>
-
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
