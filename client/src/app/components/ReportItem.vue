@@ -93,30 +93,30 @@
   </div>
 </template>
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
-@import '~stylesheets/light_item';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/light_item';
 </style>
 <script>
-import countrydata from 'country-data';
+  import countrydata from 'country-data';
 
-export default {
-  name: 'ReportItem',
-  props: [
-    'report',
-    'UpdateReport',
-    'viewAction',
-    'summaryAction',
-    'BuyAction',
-    'refundAction',
-    'own'
-  ],
-  methods: {
-    getLanguage(key) {
-      return countrydata.languages[key] ? countrydata.languages[key].name : key;
-    },
-    getNationality(key) {
-      return countrydata.countries[key] ? countrydata.countries[key].name : key;
+  export default {
+    name: 'ReportItem',
+    props: [
+      'report',
+      'UpdateReport',
+      'viewAction',
+      'summaryAction',
+      'BuyAction',
+      'refundAction',
+      'own'
+    ],
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : key;
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : key;
+      }
     }
-  }
-};
+  };
 </script>

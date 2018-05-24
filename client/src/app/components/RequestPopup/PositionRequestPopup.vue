@@ -6,7 +6,7 @@
           <h5 class="title">Position Request</h5>
           <p class="id">{{request.id | requestId(request.type_request) }}</p>
         </div>
-        <div class="col-md-8 buttons-inner" v-if="typeof closeAction !== 'undefined'" >
+        <div class="col-md-8 buttons-inner" v-if="!closeAction">
           <button class="ft-button" @click="closeAction(request)">Close</button>
         </div>
       </div>
@@ -18,7 +18,7 @@
           <p>
             <span>DEADLINE {{request.deadline | moment}}</span>
           </p>
-          <p class="price" v-if="request.price">{{request.price.value}}  to {{request.price.max}} {{request.price.currency | currency}}</p>
+          <p class="price" v-if="request.price">{{request.price.value}} to {{request.price.max}} {{request.price.currency | currency}}</p>
         </div>
         <div class="info col-md-8" v-if="request.type_request == 'position'">
           <h2 class="title">
@@ -118,26 +118,26 @@
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 </style>
 
 <style lang="scss" scoped>
-@import '~stylesheets/item';
+  @import '~stylesheets/item';
 </style>
 <script>
-import countrydata from 'country-data';
+  import countrydata from 'country-data';
 
-export default {
-  name: 'RequestItem',
-  props: ['request', 'closeAction'],
-  methods: {
-    getLanguage(key) {
-      return countrydata.languages[key] ? countrydata.languages[key].name : '';
-    },
-    getNationality(key) {
-      return countrydata.countries[key] ? countrydata.countries[key].name : '';
+  export default {
+    name: 'RequestItem',
+    props: ['request', 'closeAction'],
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : '';
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : '';
+      }
     }
-  }
-};
+  };
 </script>

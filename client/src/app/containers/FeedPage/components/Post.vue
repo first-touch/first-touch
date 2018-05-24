@@ -17,46 +17,46 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+  @import '~stylesheets/variables';
 
-.header {
-  display: flex;
-  margin-bottom: 20px;
-  .avatar {
-    border-radius: 50%;
-    max-height: 100px;
-    width: 100px;
-  }
-  .info {
-    margin-left: 30px;
+  .header {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    .name {
-      color: $secondary-header-color;
+    margin-bottom: 20px;
+    .avatar {
+      border-radius: 50%;
+      max-height: 100px;
+      width: 100px;
+    }
+    .info {
+      margin-left: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .name {
+        color: $secondary-header-color;
+      }
     }
   }
-}
 
-.body {
-  *:not(:last-child) {
-    margin-bottom: 20px;
+  .body {
+    *:not(:last-child) {
+      margin-bottom: 20px;
+    }
+    .content {
+      color: $secondary-text-color;
+      margin-bottom: 0;
+    }
   }
-  .content {
-    color: $secondary-text-color;
-    margin-bottom: 0;
-  }
-}
 </style>
 
 <script>
-import TimelineItem from 'app/components/TimelineItem';
+  import TimelineItem from 'app/components/TimelineItem';
 
-export default {
-  name: 'Post',
-  props: ['info'],
-  components: {
-    'timeline-item': TimelineItem,
-  },
-};
+  export default {
+    name: 'Post',
+    props: ['info'],
+    components: {
+      'timeline-item': TimelineItem,
+    },
+  };
 </script>

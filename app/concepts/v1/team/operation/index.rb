@@ -13,9 +13,6 @@ module V1
           team_list = team_list.where(
             'team_name ILIKE ?', "%#{query_params}%"
           )
-          if FirstTouch::REGISTERABLE_ROLE_NAMES.include? params[:role]
-            team_list = team_list.with_role params[:role]
-          end
           options['models'] = team_list
         end
       end

@@ -6,7 +6,7 @@
           <h5 class="title">Team Request</h5>
           <p class="id">{{request.id | requestId(request.type_request) }}</p>
         </div>
-        <div class="col-md-8 buttons-inner" v-if="typeof closeAction !== 'undefined'">
+        <div class="col-md-8 buttons-inner" v-if="!closeAction">
           <button class="ft-button" @click="closeAction(request)">Close</button>
         </div>
       </div>
@@ -23,7 +23,7 @@
         <div class="info col-md-8">
           <h2 class="title">
             <span class="target" v-if="request.team">
-             {{request.team.team_name}}
+              {{request.team.team_name}}
             </span>
             <span class="target" v-if="!request.team"> {{request.meta_data.search.team}}</span>
           </h2>
@@ -33,13 +33,13 @@
               <span class="col-md-6">{{ request.meta_data.min_matches}}
               </span>
             </span>
-                        <span class="field row">
+            <span class="field row">
               <span class="col-md-4">League:</span>
               <span class="col-md-6" v-if="!request.team">
                 {{request.meta_data.search.league}}
               </span>
               <span class="col-md-6" v-if="request.team">
-                <span class="list" v-for="cp in request.team.competitions.competitions" :key="cp.id" >{{cp.name}} </span>
+                <span class="list" v-for="cp in request.team.competitions.competitions" :key="cp.id">{{cp.name}} </span>
               </span>
             </span>
             <span class="field row">
@@ -57,31 +57,31 @@
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 </style>
 
 <style lang="scss" scoped>
-@import '~stylesheets/item';
+  @import '~stylesheets/item';
 </style>
 <script>
-import countrydata from 'country-data';
+  import countrydata from 'country-data';
 
-export default {
-  name: 'RequestItem',
-  props: ['request', 'closeAction'],
-  data() {
-    return {
-      price: this.request.price.value
-    };
-  },
-  methods: {
-    getLanguage(key) {
-      return countrydata.languages[key] ? countrydata.languages[key].name : '';
+  export default {
+    name: 'RequestItem',
+    props: ['request', 'closeAction'],
+    data() {
+      return {
+        price: this.request.price.value
+      };
     },
-    getNationality(key) {
-      return countrydata.countries[key] ? countrydata.countries[key].name : '';
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : '';
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : '';
+      }
     }
-  }
-};
+  };
 </script>

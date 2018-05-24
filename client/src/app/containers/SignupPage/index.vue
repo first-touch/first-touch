@@ -71,22 +71,16 @@
                 <option disabled value="" selected>Country</option>
                 <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
               </select>
-              <autocomplete class="col-md-8" input-class="form-control"
-                placeholder="Search For Clubs"
-                v-model="item"
-                :get-label="getLabel"
-                :items="clubs"
-                :component-item="template"
-                @update-items="updateItems"
-                :min-len="1"
-                :auto-select-one-item="false"
-                :input-attrs="{disabled: countries.length === 0 || club_country_code === ''}"
-                />
+              <autocomplete class="col-md-8" input-class="form-control" placeholder="Search For Clubs" v-model="item" :get-label="getLabel"
+                :items="clubs" :component-item="template" @update-items="updateItems" :min-len="1" :auto-select-one-item="false"
+                :input-attrs="{disabled: countries.length === 0 || club_country_code === ''}" />
             </div>
           </fieldset>
           <fieldset class="form-group col-md-12">
             <input type="checkbox" id="tc" name="termsandconditions" v-model="tccheck" />
-            <label for="tc">By checking this box, you agree to our <router-link to="/terms_conditions">Terms&amp;Conditions</router-link> </label>
+            <label for="tc">By checking this box, you agree to our
+              <router-link to="/terms_conditions">Terms&amp;Conditions</router-link>
+            </label>
           </fieldset>
           <button class="bar-button center" type="submit">Sign Up</button>
           <fieldset class="col-md-12">
@@ -101,182 +95,192 @@
 </template>
 
 <style lang="scss" scoped>
-.container-fluid {
-  background: url('/images/landing-page/team-logo.jpg') no-repeat center center
-    fixed;
-  background-size: cover;
-  min-height: calc(100vh - 78px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 50px 0;
-}
-
-.form {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .row {
-    margin: 0 1px;
+  .container-fluid {
+    background: url('/images/landing-page/team-logo.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: calc(100vh - 78px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
   }
-}
+
+  .form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .row {
+      margin: 0 1px;
+    }
+  }
 </style>
 <style lang="scss">
-.v-autocomplete {
-  padding-right: 0;
-  .v-autocomplete-input-group {
-    .v-autocomplete-input {
-      font-size: 1.5em;
-      padding: 10px 15px;
-      box-shadow: none;
-      border: 1px solid #157977;
-      width: calc(100% - 32px);
-      outline: none;
-      background-color: #eee;
-    }
-    &.v-autocomplete-selected {
+  .v-autocomplete {
+    padding-right: 0;
+    .v-autocomplete-input-group {
       .v-autocomplete-input {
-        color: green;
-        background: #f2fff2;
-      }
-    }
-  }
-  .v-autocomplete-list {
-    position: absolute;
-    z-index: 2;
-    width: calc(100% - 15px);
-    text-align: left;
-    border: none;
-    max-height: 400px;
-    overflow-y: auto;
-    border-bottom: 1px solid #157977;
-    .v-autocomplete-list-item {
-      cursor: pointer;
-      background-color: #fff;
-      color: #000;
-      padding: 5px 10px;
-      border-bottom: 1px solid #157977;
-      border-left: 1px solid #157977;
-      border-right: 1px solid #157977;
-      &:last-child {
-        border-bottom: none;
-      }
-      &:hover {
+        font-size: 1.5em;
+        padding: 10px 15px;
+        box-shadow: none;
+        border: 1px solid #157977;
+        width: calc(100% - 32px);
+        outline: none;
         background-color: #eee;
       }
-      abbr {
-        opacity: 0.8;
-        font-size: 0.8em;
-        display: block;
-        font-family: sans-serif;
+      &.v-autocomplete-selected {
+        .v-autocomplete-input {
+          color: green;
+          background: #f2fff2;
+        }
+      }
+    }
+    .v-autocomplete-list {
+      position: absolute;
+      z-index: 2;
+      width: calc(100% - 15px);
+      text-align: left;
+      border: none;
+      max-height: 400px;
+      overflow-y: auto;
+      border-bottom: 1px solid #157977;
+      .v-autocomplete-list-item {
+        cursor: pointer;
+        background-color: #fff;
+        color: #000;
+        padding: 5px 10px;
+        border-bottom: 1px solid #157977;
+        border-left: 1px solid #157977;
+        border-right: 1px solid #157977;
+        &:last-child {
+          border-bottom: none;
+        }
+        &:hover {
+          background-color: #eee;
+        }
+        abbr {
+          opacity: 0.8;
+          font-size: 0.8em;
+          display: block;
+          font-family: sans-serif;
+        }
       }
     }
   }
-}
 </style>
 
 
 <script>
-import { mapActions } from 'vuex';
-import LandingNavbar from 'app/components/LandingNavbar';
-import AutoComplete from 'v-autocomplete';
-import ItemTemplate from './components/ItemTemplate';
+  import {
+    mapActions
+  } from 'vuex';
+  import LandingNavbar from 'app/components/LandingNavbar';
+  import AutoComplete from 'v-autocomplete';
+  import ItemTemplate from './components/ItemTemplate';
 
-export default {
-  name: 'SignupPage',
-  components: {
-    navbar: LandingNavbar,
-    autocomplete: AutoComplete,
-  },
-  data() {
-    return {
-      email: '',
-      password: '',
-      password_confirmation: '',
-      first_name: '',
-      last_name: '',
-      month: '',
-      day: '',
-      year: '',
-      role_name: '',
-      tccheck: false,
-      club_country_code: '',
-      countries: [],
-      clubs: [],
-      template: ItemTemplate,
-      item: null,
-      searchText: '',
-      error: null,
-    };
-  },
-  methods: {
-    ...mapActions(['attemptLogIn']),
-    handleSubmit() {
-      if (this.password !== this.password_confirmation) {
-        return this.$set(this, 'error', "Password Doesn't Match!");
-      } else if (this.day.length === 0 || this.month.length === 0) {
-        return this.$set(this, 'error', 'Please Enter Date of Birth!');
-      } else if (this.year < 1900 || this.year > new Date().getUTCFullYear()) {
-        return this.$set(this, 'error', 'Invalid Year of Birth!');
-      } else if (!this.role_name) {
-        return this.$set(this, 'error', 'Please choose a role!');
-      } else if (!this.tccheck) {
-        console.log(this.tccheck);
-        return this.$set(
-          this,
-          'error',
-          'Please agree to our Terms and Conditions',
-        );
-      }
-      const data = {
-        email: this.email,
-        password: this.password,
-        password_confirmation: this.password_confirmation,
-        personal_profile: {
-          first_name: this.first_name,
-          last_name: this.last_name,
-          birthday: new Date(Date.UTC(this.year, this.month, this.day)),
-          // club_id: this.item.id,
-        },
-        role_name: this.role_name,
+  export default {
+    name: 'SignupPage',
+    components: {
+      navbar: LandingNavbar,
+      autocomplete: AutoComplete,
+    },
+    data() {
+      return {
+        email: '',
+        password: '',
+        password_confirmation: '',
+        first_name: '',
+        last_name: '',
+        month: '',
+        day: '',
+        year: '',
+        role_name: '',
+        tccheck: false,
+        club_country_code: '',
+        countries: [],
+        clubs: [],
+        template: ItemTemplate,
+        item: null,
+        searchText: '',
+        error: null,
       };
-
-      fetch('/api/v1/users/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      }).then(res => {
-        if (res.status === 200) {
-          this.attemptLogIn({ email: this.email, password: this.password });
-        } else {
-          res.json().then(r => this.$set(this, 'error', r.error));
+    },
+    methods: {
+      ...mapActions(['attemptLogIn']),
+      handleSubmit() {
+        if (this.password !== this.password_confirmation) {
+          return this.$set(this, 'error', "Password Doesn't Match!");
+        } else if (this.day.length === 0 || this.month.length === 0) {
+          return this.$set(this, 'error', 'Please Enter Date of Birth!');
+        } else if (this.year < 1900 || this.year > new Date().getUTCFullYear()) {
+          return this.$set(this, 'error', 'Invalid Year of Birth!');
+        } else if (!this.role_name) {
+          return this.$set(this, 'error', 'Please choose a role!');
+        } else if (!this.tccheck) {
+          console.log(this.tccheck);
+          return this.$set(
+            this,
+            'error',
+            'Please agree to our Terms and Conditions',
+          );
         }
-      });
-    },
-    fetchCountries() {
-      fetch('/api/v1/clubs/countries')
-        .then(res => res.status === 200 && res.json())
-        .then(({ countries }) => this.$set(this, 'countries', countries));
-    },
-    updateItems(text) {
-      this.$set(this, 'searchText', text);
-      fetch(`/api/v1/clubs/search?country=${this.club_country_code}&q=${text}`)
-        .then(res => res.status === 200 && res.json())
-        .then(({ clubs }) => {
-          this.$set(this, 'clubs', clubs);
+        const data = {
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.password_confirmation,
+          personal_profile: {
+            first_name: this.first_name,
+            last_name: this.last_name,
+            birthday: new Date(Date.UTC(this.year, this.month, this.day)),
+            // club_id: this.item.id,
+          },
+          role_name: this.role_name,
+        };
+
+        fetch('/api/v1/users/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data),
+        }).then(res => {
+          if (res.status === 200) {
+            this.attemptLogIn({
+              email: this.email,
+              password: this.password
+            });
+          } else {
+            res.json().then(r => this.$set(this, 'error', r.error));
+          }
         });
+      },
+      fetchCountries() {
+        fetch('/api/v1/clubs/countries')
+          .then(res => res.status === 200 && res.json())
+          .then(({
+            countries
+          }) => this.$set(this, 'countries', countries));
+      },
+      updateItems(text) {
+        this.$set(this, 'searchText', text);
+        fetch(`/api/v1/clubs/search?country=${this.club_country_code}&q=${text}`)
+          .then(res => res.status === 200 && res.json())
+          .then(({
+            clubs
+          }) => {
+            this.$set(this, 'clubs', clubs);
+          });
+      },
+      getLabel(item) {
+        return item ? item.name : this.searchText;
+      },
+      itemSelected(item) {
+        this.$set(this, 'item', item);
+      },
     },
-    getLabel(item) {
-      return item ? item.name : this.searchText;
+    mounted() {
+      this.fetchCountries();
     },
-    itemSelected(item) {
-      this.$set(this, 'item', item);
-    },
-  },
-  mounted() {
-    this.fetchCountries();
-  },
-};
+  };
 </script>

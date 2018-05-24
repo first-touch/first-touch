@@ -1,7 +1,7 @@
 <template>
   <div>
-    <datepicker :disabled="disabled" ref="datepicker" class="ftdatepicker col-sm-9" :input-class="[model != '' ? 'selected': '', 'input-date'].join(' ')" :required="true"
-      v-model="model" @closed="update" format="dd,MMM yyyy"></datepicker>
+    <datepicker :disabled="disabled" ref="datepicker" class="ftdatepicker col-sm-9" :input-class="[model != '' ? 'selected': '', 'input-date'].join(' ')"
+      :required="true" v-model="model" @closed="update" format="dd,MMM yyyy"></datepicker>
     <span v-if="model != ''" @click="model = ''; update()" class="icon-inner">
       <icon name='times'></icon>
     </span>
@@ -11,8 +11,8 @@
     </span>
   </div>
 </template>
-<style  lang="scss">
-@import '~stylesheets/variables';
+<style lang="scss">
+  @import '~stylesheets/variables';
 
   .ftdatepicker {
     background: white;
@@ -26,11 +26,10 @@
       background: white;
     }
   }
-
 </style>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+  @import '~stylesheets/variables';
   .icon-inner {
     cursor: pointer;
     &:hover {
@@ -40,31 +39,31 @@
 </style>
 
 <script>
-import 'vue-awesome/icons/calendar-alt';
-import 'vue-awesome/icons/calendar-check';
-import 'vue-awesome/icons/times';
-import Icon from 'vue-awesome/components/Icon';
-import Datepicker from 'vuejs-datepicker';
+  import 'vue-awesome/icons/calendar-alt';
+  import 'vue-awesome/icons/calendar-check';
+  import 'vue-awesome/icons/times';
+  import Icon from 'vue-awesome/components/Icon';
+  import Datepicker from 'vuejs-datepicker';
 
-export default {
-  name: 'FtDatepicker',
-  props: ['value','disabled'],
-  data() {
-    return {
-      model: this.value
-    };
-  },
-  components: {
-    icon: Icon,
-    datepicker: Datepicker
-  },
-  methods: {
-    showCalendar: function() {
-      this.$refs.datepicker.showCalendar();
+  export default {
+    name: 'FtDatepicker',
+    props: ['value', 'disabled'],
+    data() {
+      return {
+        model: this.value
+      };
     },
-    update() {
-      this.$emit('update:val', this.model);
+    components: {
+      icon: Icon,
+      datepicker: Datepicker
+    },
+    methods: {
+      showCalendar: function () {
+        this.$refs.datepicker.showCalendar();
+      },
+      update() {
+        this.$emit('update:val', this.model);
+      }
     }
-  }
-};
+  };
 </script>

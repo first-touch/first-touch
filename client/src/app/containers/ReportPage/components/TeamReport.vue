@@ -87,7 +87,7 @@
             <label class="row col-sm-12 summary-title">Attachments</label>
             <div class="row col-sm-12">
               <button v-for="attachment in report.attachments.attachments" :key="attachment.id" class="btn-info btn-attachments" @click="downloadFile(attachment.id, attachment.filename)">
-              {{attachment.filename}}</button>
+                {{attachment.filename}}</button>
 
             </div>
           </div>
@@ -98,74 +98,34 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
-h5 {
-  color: $main-text-color;
-  font-size: 1.5em;
-}
-
-.summary-report {
-  display: flex;
-  border-left: 7px solid #a8cb5c;
-  margin-top: 20px;
-}
-
-.arrow {
-  width: 0;
-  height: 0;
-  margin-right: 20px;
-  border-top: 7px solid transparent;
-  border-bottom: 7px solid transparent;
-  border-left: 7px solid;
-  margin-top: 18px;
-  border-left-color: $main-header-color;
-}
-
-.summary-report-container {
-  background-color: $form-background;
-  border-radius: 5px;
-  width: 100%;
-  padding: 20px 10px;
-  flex: 1 0 55%;
-  .summary-title {
-    color: $secondary-text-color;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-  .summary-field {
+  @import '~stylesheets/variables';
+  h5 {
     color: $main-text-color;
-    margin-bottom: 5px;
+    font-size: 1.5em;
   }
-}
 
-.top {
-  display: flex;
-  .avatar {
-    margin-right: 10%;
-    height: 300px;
-    border-radius: 50%;
+  .summary-report {
+    display: flex;
+    border-left: 7px solid #a8cb5c;
+    margin-top: 20px;
   }
-  .info {
-    margin-top: 40px;
-    margin-left: 20px;
-    flex: 1 0 calc(100% - 320px);
-    .name {
-      color: $main-header-color;
-      text-transform: uppercase;
-    }
-    .detail {
-      color: $main-text-color;
-    }
-    .role {
-      font-size: 1.2em;
-    }
-  }
-}
 
-.bottom {
-  display: flex;
-  margin-top: 30px;
-  .summary {
+  .arrow {
+    width: 0;
+    height: 0;
+    margin-right: 20px;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 7px solid;
+    margin-top: 18px;
+    border-left-color: $main-header-color;
+  }
+
+  .summary-report-container {
+    background-color: $form-background;
+    border-radius: 5px;
+    width: 100%;
+    padding: 20px 10px;
     flex: 1 0 55%;
     .summary-title {
       color: $secondary-text-color;
@@ -177,75 +137,115 @@ h5 {
       margin-bottom: 5px;
     }
   }
-}
 
-.report {
-  padding: 0;
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 12pt;
-  .header {
-    padding: 20px;
-  }
-  .content {
-    padding: 20px 50px;
-    color: $main-text-color;
-    .fa-icon {
-      margin-right: 20px;
-      color: #a8cb5c;
+  .top {
+    display: flex;
+    .avatar {
+      margin-right: 10%;
+      height: 300px;
+      border-radius: 50%;
     }
-    .btn-attachments {
-      margin: 0;
-      padding: 4px;
-      border-radius: 4px;
-      color: white;
-      min-height: 20px;
+    .info {
+      margin-top: 40px;
+      margin-left: 20px;
+      flex: 1 0 calc(100% - 320px);
+      .name {
+        color: $main-header-color;
+        text-transform: uppercase;
+      }
+      .detail {
+        color: $main-text-color;
+      }
+      .role {
+        font-size: 1.2em;
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    margin-top: 30px;
+    .summary {
+      flex: 1 0 55%;
+      .summary-title {
+        color: $secondary-text-color;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+      .summary-field {
+        color: $main-text-color;
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  .report {
+    padding: 0;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 12pt;
+    .header {
+      padding: 20px;
+    }
+    .content {
+      padding: 20px 50px;
       color: $main-text-color;
-      border: 1px solid $main-text-color;
-      background-color: $button-background;
-      margin-right: 10px;
-      cursor: pointer;
-      &:hover {
-        background-color: $button-background-hover;
+      .fa-icon {
+        margin-right: 20px;
+        color: #a8cb5c;
       }
-    }
-    .meta {
-      margin: 20px 0;
-      p {
-        margin-left: 20px;
+      .btn-attachments {
+        margin: 0;
+        padding: 4px;
+        border-radius: 4px;
+        color: white;
+        min-height: 20px;
+        color: $main-text-color;
+        border: 1px solid $main-text-color;
+        background-color: $button-background;
+        margin-right: 10px;
+        cursor: pointer;
+        &:hover {
+          background-color: $button-background-hover;
+        }
+      }
+      .meta {
+        margin: 20px 0;
+        p {
+          margin-left: 20px;
+        }
       }
     }
   }
-}
 </style>
 
 <script>
-import 'vue-awesome/icons/user';
-import 'vue-awesome/icons/handshake';
-import 'vue-awesome/icons/check';
-import 'vue-awesome/icons/times';
-import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
-import Icon from 'vue-awesome/components/Icon';
-import countrydata from 'country-data';
-import TimelineItem from 'app/components/TimelineItem';
+  import 'vue-awesome/icons/user';
+  import 'vue-awesome/icons/handshake';
+  import 'vue-awesome/icons/check';
+  import 'vue-awesome/icons/times';
+  import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
+  import Icon from 'vue-awesome/components/Icon';
+  import countrydata from 'country-data';
+  import TimelineItem from 'app/components/TimelineItem';
 
-export default {
-  name: 'PlayerReport',
-  props: ['report', 'downloadFile'],
-  components: {
-    icon: Icon,
-    matchanalyzed: MatchAnalyzed,
-    'timeline-item': TimelineItem
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    getLanguage(key) {
-      return countrydata.languages[key] ? countrydata.languages[key].name : 'key';
+  export default {
+    name: 'PlayerReport',
+    props: ['report', 'downloadFile'],
+    components: {
+      icon: Icon,
+      matchanalyzed: MatchAnalyzed,
+      'timeline-item': TimelineItem
     },
-    getNationality(key) {
-      return countrydata.countries[key] ? countrydata.countries[key].name : 'key';
+    data() {
+      return {};
+    },
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : 'key';
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : 'key';
+      }
     }
-  }
-};
+  };
 </script>

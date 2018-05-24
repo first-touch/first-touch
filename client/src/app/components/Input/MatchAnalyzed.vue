@@ -161,7 +161,7 @@
   }
 
   .add-match {
-    margin: 10px 0 0 0 ;
+    margin: 10px 0 0 0;
     padding: 4px;
     min-height: 20px;
     font-size: 10px;

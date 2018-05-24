@@ -46,8 +46,7 @@
             </div>
             <div class="col-sm-6 form-group">
               <label class="col-md-12">Preferred Foot</label>
-              <preferredfoot class="col-md-12" :value="meta_data.preferred_foot" v-on:update:val="meta_data.preferred_foot = $event"
-              />
+              <preferredfoot class="col-md-12" :value="meta_data.preferred_foot" v-on:update:val="meta_data.preferred_foot = $event" />
             </div>
           </div>
           <div class="row">
@@ -151,8 +150,8 @@
           </div>
 
           <div class="form-group buttons-inner">
-            <button v-if="!edit" id="submit" class="btn btn-primary ft-button" :disabled="!canValidate"  @click="handleSubmit"> CREATE</button>
-            <button v-if="edit" id="submit" class="btn btn-primary ft-button"  :disabled="!canValidate" @click="handleSubmit"> UPDATE</button>
+            <button v-if="!edit" id="submit" class="btn btn-primary ft-button" :disabled="!canValidate" @click="handleSubmit"> CREATE</button>
+            <button v-if="edit" id="submit" class="btn btn-primary ft-button" :disabled="!canValidate" @click="handleSubmit"> UPDATE</button>
             <button id="cancel" name="cancel" class="btn btn-default ft-button" @click="cancelAction">CANCEL</button>
           </div>
 
@@ -162,103 +161,103 @@
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
-
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 </style>
 
 <script>
-import inputSearch from 'app/components/Input/InputSearch.vue';
-import PlayerPosition from 'app/components/Input/PlayerPosition';
-import Nationality from 'app/components/Input/Nationality';
-import Language from 'app/components/Input/Language';
-import PreferredFoot from 'app/components/Input/PreferredFoot';
-import FtCheckbox from 'app/components/Input/FtCheckbox';
-import FtDatepicker from 'app/components/Input/FtDatepicker';
-import TimelineItem from 'app/components/TimelineItem';
-import CurrencyInput from 'app/components/Input/CurrencyInput';
-export default {
-  name: 'PlayerJobRequest',
-  props: ['submit', 'errors', 'edit', 'cancelAction'],
-  components: {
-    inputsearch: inputSearch,
-    playerposition: PlayerPosition,
-    countryselect: Nationality,
-    language: Language,
-    preferredfoot: PreferredFoot,
-    ftdatepicker: FtDatepicker,
-    ftcheckbox: FtCheckbox,
-    'timeline-item': TimelineItem,
-    currencyinput: CurrencyInput
-  },
-  data() {
-    return {
-      disabled: {
-        to: new Date()
-      },
-      meta_data: {
-        playing_position: [],
-        languages: [],
-        expiring_contract: false,
-        transfer: false,
-        loan: false,
-        expiring_contract: 'No',
-        expiring_contract_max: '',
-        expiring_contract_min: '',
-        transfer_range: {
-          value: 0,
-          currency: 'USD',
-          max: 0
+  import inputSearch from 'app/components/Input/InputSearch.vue';
+  import PlayerPosition from 'app/components/Input/PlayerPosition';
+  import Nationality from 'app/components/Input/Nationality';
+  import Language from 'app/components/Input/Language';
+  import PreferredFoot from 'app/components/Input/PreferredFoot';
+  import FtCheckbox from 'app/components/Input/FtCheckbox';
+  import FtDatepicker from 'app/components/Input/FtDatepicker';
+  import TimelineItem from 'app/components/TimelineItem';
+  import CurrencyInput from 'app/components/Input/CurrencyInput';
+  export default {
+    name: 'PlayerJobRequest',
+    props: ['submit', 'errors', 'edit', 'cancelAction'],
+    components: {
+      inputsearch: inputSearch,
+      playerposition: PlayerPosition,
+      countryselect: Nationality,
+      language: Language,
+      preferredfoot: PreferredFoot,
+      ftdatepicker: FtDatepicker,
+      ftcheckbox: FtCheckbox,
+      'timeline-item': TimelineItem,
+      currencyinput: CurrencyInput
+    },
+    data() {
+      return {
+        disabled: {
+          to: new Date()
         },
-        loan_range: {
-          value: 0,
-          currency: 'USD',
-          max: 0
+        meta_data: {
+          playing_position: [],
+          languages: [],
+          expiring_contract: false,
+          transfer: false,
+          loan: false,
+          expiring_contract: 'No',
+          expiring_contract_max: '',
+          expiring_contract_min: '',
+          transfer_range: {
+            value: 0,
+            currency: 'USD',
+            max: 0
+          },
+          loan_range: {
+            value: 0,
+            currency: 'USD',
+            max: 0
+          },
+          wage_budget: {
+            value: 0,
+            currency: 'USD',
+            max: 0
+          },
+          value: {
+            value: 0,
+            currency: 'USD',
+            max: 0
+          }
         },
-        wage_budget: {
-          value: 0,
-          currency: 'USD',
-          max: 0
-        },
-        value: {
+        deadline: '',
+        price: {
           value: 0,
           currency: 'USD',
           max: 0
         }
-      },
-      deadline: '',
-      price: {
-        value: 0,
-        currency: 'USD',
-        max: 0
-      }
-    };
-  },
-  created() {
-    if (this.edit) {
-      this.meta_data = this.edit.meta_data;
-      this.deadline = this.edit.deadline;
-      this.price = this.edit.price;
-    }
-  },computed: {
-    canValidate(){
-      if (this.deadline == '') return false;
-      return true;
-    }
-  },
-  methods: {
-    showCalendar: function(index) {
-      this.$refs[index].showCalendar();
+      };
     },
-    handleSubmit() {
-      this.submit({
-        meta_data: this.meta_data,
-        deadline: this.deadline,
-        price: this.price,
-        type_request: 'position',
-        status: 'publish'
-      });
+    created() {
+      if (this.edit) {
+        this.meta_data = this.edit.meta_data;
+        this.deadline = this.edit.deadline;
+        this.price = this.edit.price;
+      }
+    },
+    computed: {
+      canValidate() {
+        if (this.deadline == '') return false;
+        return true;
+      }
+    },
+    methods: {
+      showCalendar: function (index) {
+        this.$refs[index].showCalendar();
+      },
+      handleSubmit() {
+        this.submit({
+          meta_data: this.meta_data,
+          deadline: this.deadline,
+          price: this.price,
+          type_request: 'position',
+          status: 'publish'
+        });
+      }
     }
-  }
-};
+  };
 </script>

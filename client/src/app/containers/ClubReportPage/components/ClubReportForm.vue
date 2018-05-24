@@ -9,7 +9,8 @@
       <fieldset class="form-group col-md-12">
         <label>HeadLine</label>
         <div class="row">
-          <input type="text" v-model="headline" class="form-control col-md-12" placeholder="ibrouf Kambra the new star of tomorrow" />
+          <input type="text" v-model="headline" class="form-control col-md-12" placeholder="ibrouf Kambra the new star of tomorrow"
+          />
         </div>
       </fieldset>
       <fieldset class="form-group col-md-12">
@@ -156,7 +157,7 @@
           scrollTop: 0
         }, 100);
       },
-      addRowMatches: function() {
+      addRowMatches: function () {
         this.report_data.analyzed_matches.push({
           date: '',
           opponent: '',
@@ -164,7 +165,7 @@
           result: ''
         })
       },
-      removeRowMatches: function(index) {
+      removeRowMatches: function (index) {
         this.report_data.analyzed_matches.length > 1 ? this.report_data.analyzed_matches.splice(index, 1) : ''
       }
     }

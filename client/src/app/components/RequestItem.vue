@@ -69,8 +69,8 @@
             </span>
             <span class="field row">
               <span class="col-md-4">Position:</span>
-              <span class="col-md-6"  v-if="request.player">
-              <span class="list" v-for="position in request.player.playing_position" :key="position.id">{{position}}</span>
+              <span class="col-md-6" v-if="request.player">
+                <span class="list" v-for="position in request.player.playing_position" :key="position.id">{{position}}</span>
               </span>
               <span class="col-md-6" v-if="!request.player">
                 <span class="list" v-for="position in request.meta_data.playing_position" :key="position.id">{{position}}</span>
@@ -78,7 +78,7 @@
             </span>
             <span class="field row">
               <span class="col-md-4">Based in: </span>
-              <span class="col-md-6" v-if="request.player">{{getNationality(request.player.residence_country_code)}}       </span>
+              <span class="col-md-6" v-if="request.player">{{getNationality(request.player.residence_country_code)}} </span>
               <span class="col-md-6" v-if="!request.player">{{getNationality(request.meta_data.residence_country_code)}}
               </span>
             </span>
@@ -90,8 +90,8 @@
           </p>
         </div>
         <div class="info col-md-8" v-if="request.type_request == 'team'">
-          <h2 class="title" v-if="request.team" >{{request.team.team_name}}</h2>
-          <h2 class="title" v-if="!request.team" > {{request.meta_data.search.team}} </h2>
+          <h2 class="title" v-if="request.team">{{request.team.team_name}}</h2>
+          <h2 class="title" v-if="!request.team"> {{request.meta_data.search.team}} </h2>
           <span class="pending" v-if="!own && request.request_bids && request.request_bids.status =='pending'">Bid pending</span>
           <p class="extra">
             <span class="field row">
@@ -110,7 +110,7 @@
                 {{request.meta_data.search.league}}
               </span>
               <span class="col-md-6" v-if="request.team">
-                <span class="list" v-for="cp in request.team.competitions.competitions" :key="cp.id" >{{cp.name}} </span>
+                <span class="list" v-for="cp in request.team.competitions.competitions" :key="cp.id">{{cp.name}} </span>
               </span>
             </span>
             <span class="field row">
@@ -161,70 +161,70 @@
 </template>
 
 <style lang="scss" scoped>
- @import '~stylesheets/light_item';
-
+  @import '~stylesheets/light_item';
 </style>
 <script>
-import countrydata from 'country-data';
+  import countrydata from 'country-data';
 
-export default {
-  name: 'RequestItem',
-  props: ['request', 'update', 'own', 'viewSummary', 'addBid', 'createReport','viewReport'],
-  methods: {
-    getLanguage(key) {
-      return countrydata.languages[key] ? countrydata.languages[key].name : key;
-    },
-    getNationality(key) {
-      return countrydata.countries[key] ? countrydata.countries[key].name : key;
-    }
-  },
-  computed: {
-    src: function() {
-      var src = '';
-      switch (this.request.type_request) {
-        case 'player':
-          src = '/images/landing-page/ft-icons-player.png';
-          break;
-        case 'team':
-          src = '/images/landing-page/ft-icons-club.png';
-          break;
-        case 'position':
-          src = '/images/landing-page/ft-icons-player.png';
-          break;
+  export default {
+    name: 'RequestItem',
+    props: ['request', 'update', 'own', 'viewSummary', 'addBid', 'createReport', 'viewReport'],
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : key;
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : key;
       }
-      return src;
     },
-    bidStatus() {
-      if (this.own) return false;
-      if (this.request.request_bids) {
-        if (
-          this.request.request_bids.status == 'accepted' ||
-          this.request.request_bids.status == 'joblist'
-        )
-          return 'C';
-        if (this.request.request_bids.status == 'completed') return 'R';
-        if (this.request.request_bids.status == 'pending') return 'U';
-      }
-      return 'N';
-    },
-    canUpdate() {
-      if (this.request.request_bids) if (this.request.request_bids.status != 'pending') return true;
-      return false;
-    },
-    haveBid() {
-      return this.request.request_bids;
-    },
-    isAccepted() {
-      if (this.request.request_bids) {
-        if (
-          this.request.request_bids.status == 'accepted' ||
-          this.request.request_bids.status == 'joblist'
-        )
-          return true;
+    computed: {
+      src: function () {
+        var src = '';
+        switch (this.request.type_request) {
+          case 'player':
+            src = '/images/landing-page/ft-icons-player.png';
+            break;
+          case 'team':
+            src = '/images/landing-page/ft-icons-club.png';
+            break;
+          case 'position':
+            src = '/images/landing-page/ft-icons-player.png';
+            break;
+        }
+        return src;
+      },
+      bidStatus() {
+        if (this.own) return false;
+        if (this.request.request_bids) {
+          if (
+            this.request.request_bids.status == 'accepted' ||
+            this.request.request_bids.status == 'joblist'
+          )
+            return 'C';
+          if (this.request.request_bids.status == 'completed') return 'R';
+          if (this.request.request_bids.status == 'pending') return 'U';
+        }
+        return 'N';
+      },
+      canUpdate() {
+        if (this.request.request_bids)
+          if (this.request.request_bids.status != 'pending') return true;
+        return false;
+      },
+      haveBid() {
+        return this.request.request_bids;
+      },
+      isAccepted() {
+        if (this.request.request_bids) {
+          if (
+            this.request.request_bids.status == 'accepted' ||
+            this.request.request_bids.status == 'joblist'
+          )
+            return true;
+          return false;
+        }
         return false;
       }
-      return false;
     }
-  }
-};
+  };
 </script>
