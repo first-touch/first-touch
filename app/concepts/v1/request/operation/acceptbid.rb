@@ -1,6 +1,8 @@
 module V1
   module Request
     class AcceptBid < FirstTouch::Operation
+      step :validate_user_is_club
+      failure :unauthenticated!, fail_fast: true
       step :find_model!
       failure :model_not_found!, fail_fast: true
       step :payment
@@ -14,6 +16,14 @@ module V1
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
       private
+
+
+      def validate_user_is_club(current_user:, **)
+        # TODO: refactor once club are ready
+        return true
+        ### /TODO
+        return false unless current_user.managed_clubs.include?(club_from_token)
+      end
 
       def find_model!(options,  params:, current_user:, **)
         requestId = params[:request_id]
