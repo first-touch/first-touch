@@ -28,15 +28,16 @@ module V1
       def find_model!(options,  params:, current_user:, **)
         requestId = params[:request_id]
         bidId = params[:bid_id]
-        if current_user.is_a?(::Club) || true
-          request = current_user.requests.find(requestId)
-          model = request.request_bids.find_by(id: bidId, status: 'pending')
-          if model
-            params['currency'] = request.price['currency']
-          end
-          options['model'] = model
-          options['model.class'] = ::RequestBid
+        # TODO: refactor once club are ready
+        club = current_user
+        ### /TODO
+        request = club.requests.find(requestId)
+        model = request.request_bids.find_by(id: bidId, status: 'pending')
+        if model
+          params['currency'] = request.price['currency']
         end
+        options['model'] = model
+        options['model.class'] = ::RequestBid
         options['model']
       end
 
