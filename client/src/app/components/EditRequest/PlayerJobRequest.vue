@@ -96,7 +96,6 @@
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/variables';
 @import '~stylesheets/form';
 </style>
 
