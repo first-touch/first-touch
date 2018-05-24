@@ -25,74 +25,74 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+  @import '~stylesheets/variables';
 
-.row {
-  color: $main-text-color;
-  .attachments-div {
-    ul {
-      li {
-        display: list-item;
-        list-style: disc;
-      }
-    }
-  }
-  .update-attachments {
+  .row {
     color: $main-text-color;
-    .file {
-      cursor: pointer;
-      &.removed {
+    .attachments-div {
+      ul {
+        li {
+          display: list-item;
+          list-style: disc;
+        }
+      }
+    }
+    .update-attachments {
+      color: $main-text-color;
+      .file {
+        cursor: pointer;
+        &.removed {
+          p {
+            text-decoration: line-through;
+            color: red;
+          }
+          .fa-icon {
+            color: green;
+          }
+        }
+        &.remove {
+          .fa-icon {
+            color: red;
+          }
+        }
         p {
-          text-decoration: line-through;
-          color: red;
+          display: inline-block;
         }
-        .fa-icon {
-          color: green;
-        }
-      }
-      &.remove {
-        .fa-icon {
-          color: red;
-        }
-      }
-      p {
-        display: inline-block;
       }
     }
   }
-}
 </style>
 
 <script>
-import 'vue-awesome/icons/trash';
-import Icon from 'vue-awesome/components/Icon';
-export default {
-  name: 'files',
-  props: ['attachments'],
-  components: {
-    icon: Icon
-  },
-  data() {
-    return {
-      remove_attachment: {},
-      files: []
-    };
-  },
-  methods: {
-    update() {
-      this.files = this.$refs.myFiles.files;
-      this.$emit('update:remove', this.remove_attachment);
-      this.$emit('update:files', this.files);
+  import 'vue-awesome/icons/trash';
+  import Icon from 'vue-awesome/components/Icon';
+  export default {
+    name: 'files',
+    props: ['attachments'],
+    components: {
+      icon: Icon
     },
-    removeAttachment(id) {
-      var obj = this.remove_attachment;
-      if (this.remove_attachment[id] === true) delete obj[id];
-      else {
-        obj[id] = true;
+    data() {
+      return {
+        remove_attachment: {},
+        files: []
+      };
+    },
+    methods: {
+      update() {
+        this.files = this.$refs.myFiles.files;
+        this.$emit('update:remove', this.remove_attachment);
+        this.$emit('update:files', this.files);
+      },
+      removeAttachment(id) {
+        var obj = this.remove_attachment;
+        if (this.remove_attachment[id] === true) delete obj[id];
+        else {
+          obj[id] = true;
+        }
+        this.remove_attachment = Object.assign({}, obj);
+        this.update();
       }
-      this.remove_attachment = Object.assign({}, obj);
-      this.update();
     }
-  }
-};
+  };
 </script>

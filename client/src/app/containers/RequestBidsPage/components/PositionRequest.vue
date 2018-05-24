@@ -115,26 +115,26 @@
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 </style>
 
 <style lang="scss" scoped>
-@import '~stylesheets/item';
+  @import '~stylesheets/item';
 </style>
 <script>
-import countrydata from 'country-data';
+  import countrydata from 'country-data';
 
-export default {
-  name: 'RequestItem',
-  props: ['request'],
-  methods: {
-    getLanguage(key) {
-      return countrydata.languages[key] ? countrydata.languages[key].name : '';
-    },
-    getNationality(key) {
-      return countrydata.countries[key] ? countrydata.countries[key].name : '';
+  export default {
+    name: 'RequestItem',
+    props: ['request'],
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : '';
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : '';
+      }
     }
-  }
-};
+  };
 </script>

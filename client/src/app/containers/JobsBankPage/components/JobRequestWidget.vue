@@ -131,7 +131,7 @@
     components: {
       datepicker: Datepicker,
       'timeline-item': TimelineItem,
-      bidpopup:BidPopup,
+      bidpopup: BidPopup,
       request: RequestItem,
       vselect: vSelect,
       ftdatepicker: FtDatepicker,
@@ -240,7 +240,7 @@
         this.params.status = this.vselect_status.value;
         this.search();
       },
-      bid(){
+      bid() {
         if (this.bid)
           this.$refs.metaModal.show();
       }

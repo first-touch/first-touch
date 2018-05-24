@@ -1,20 +1,23 @@
 <template>
   <div class="ft-input">
     <div class="col-md-12 inner">
-      <input name="team" autocomplete="off" class="search form-control" v-model="search" type="text" v-on:keyup="onkeyup(type,search)" :required="required"
-        @blur="blur" />
+      <input name="team" autocomplete="off" :readonly="readonly" class="search form-control" :class="readonly ? 'readonly':''"
+        v-model="search" type="text" v-on:keyup="startSearch" :required="required == true" @blur="blur" @click="focus()" />
       <div class="search-results">
         <div v-for="(value, index) in results" :key="index" @mousedown="setvalue(index)">
           <img src="https://unsplash.it/50/50" class="rounded-circle img-fluid">
           <p> {{value}}</p>
         </div>
-        <div v-if="taggable && allowtag" @mousedown="newentry()">
+        <div v-if="minChar && search.length < minChar">
+          <p>Pleast type at least {{minChar}} chars </p>
+        </div>
+        <div v-if="taggable && allowtag && (!minChar || search.length >= minChar) " @mousedown="newentry()">
           <img src="https://unsplash.it/50/50" class="rounded-circle img-fluid">
           <p> {{search}} (Non existing)</p>
         </div>
-        <div v-if="!taggable && results.length == 0" >
-          <p v-if="search != ''"> No result found </p>
-          <p v-if="search == ''"> Type to search </p>
+        <div v-if="!taggable && results.length == 0">
+          <p v-if="search != '' && (!minChar || search.length >= minChar)  "> No result found </p>
+          <p v-if="search == '' && !minChar"> Type to search </p>
         </div>
       </div>
     </div>
@@ -30,7 +33,7 @@
 
   .search {
     -webkit-appearance: menulist;
-    &:focus~.search-results {
+    &:not(.readonly):focus~.search-results {
       position: absolute;
       background: white;
       width: 100%;
@@ -69,17 +72,20 @@
   } from 'vuex';
   export default {
     name: 'InputSearch',
-    props: ['onkeyup', 'searchResult', 'type', 'taggable', 'edit','required'],
+    props: ['onkeyup', 'searchResult', 'type', 'taggable', 'edit', 'required', 'minChar', 'label', 'readonly'],
     data() {
       return {
         search: '',
         id: '',
-        value: ''
+        value: '',
+        selected: null
       };
     },
     computed: {
       results: function () {
-        return this.searchResult.value.map(r => r.display_name);
+        if (this.searchResult.value && this.searchResult.value.constructor === Array)
+          return this.searchResult.value.map(r => r[this.label]);
+        return [];
       },
       allowtag: function () {
         return this.search != '';
@@ -94,25 +100,45 @@
     methods: {
       ...mapActions(['flushSearchResults']),
       setvalue(index) {
-        var info = this.searchResult.value[index];
+        var info = (this.selected = this.searchResult.value[index]);
         this.id = info.id;
-        this.value = info.display_name;
-        this.search = info.display_name;
+        this.value = info[this.label];
+        this.search = info[this.label];
       },
       newentry() {
         this.id = -1;
         this.value = this.search;
       },
+      clear() {
+        this.search = '';
+        this.id = '';
+        this.value = '';
+        this.selected = null;
+      },
+      focus() {
+        this.startSearch();
+      },
       blur() {
         this.flushSearchResults();
         if (this.search === '') {
-          this.id = '';
-          this.value = '';
+          this.clear();
         }
-
-        this.$emit('update:val', this.id);
-        this.$emit('update:search', this.value);
         this.search = this.value;
+        this.$emit('update:val', this.id);
+
+        if (this.taggable && this.id == -1) {
+          this.$emit('update:search', this.value);
+          this.$emit('update:obj', {
+            id: -1,
+            name: this.search
+          });
+        } else {
+          this.$emit('update:obj', this.selected);
+        }
+      },
+      startSearch() {
+        if (this.search != '' && (!this.minChar || this.search.length >= this.minChar))
+          this.onkeyup(this.type, this.search);
       }
     }
   };

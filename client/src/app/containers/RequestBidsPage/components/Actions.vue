@@ -28,32 +28,32 @@
 </template>
 
 <style lang="scss" scoped>
-.timeline-widget-button {
-  cursor: pointer;
-  overflow: hidden;
-  &:hover {
+  .timeline-widget-button {
+    cursor: pointer;
+    overflow: hidden;
+    &:hover {
+      img {
+        // position: absolute;
+        filter: invert(40%);
+      }
+    }
     img {
-      // position: absolute;
-      filter: invert(40%);
+      width: 3.5em;
     }
   }
-  img {
-    width: 3.5em;
-  }
-}
 </style>
 
 <script>
-import ActionsItem from 'app/components/ActionsItem';
-import Icon from 'vue-awesome/components/Icon';
-import 'vue-awesome/icons/edit';
+  import ActionsItem from 'app/components/ActionsItem';
+  import Icon from 'vue-awesome/components/Icon';
+  import 'vue-awesome/icons/edit';
 
-export default {
-  name: 'Actions',
-  props:['id','status','updateStatus'],
-  components: {
-    'action-item': ActionsItem,
-    icon: Icon
-  },
-};
+  export default {
+    name: 'Actions',
+    props: ['id', 'status', 'updateStatus'],
+    components: {
+      'action-item': ActionsItem,
+      icon: Icon
+    },
+  };
 </script>

@@ -19,10 +19,31 @@ module V1
             )
           end
         }
+        property :team_info, getter: lambda { |represented:, **|
+          if represented.player
+            ::V1::Team::Representer::Index.new(
+            represented.player.teams
+            )
+          end
+        }
+        property :league, getter: lambda { |represented:, **|
+          if represented.league
+            ::V1::Competition::Representer::Simplified.new(
+            represented.league
+            )
+          end
+        }
+        property :team, getter: lambda { |represented:, **|
+          'N/A'
+          if represented.team
+            ::V1::Team::Representer::Simplified.new(
+              represented.team
+              )
+          end
+        }
         property :price
         property :type_report
         property :status
-
         property :attachments, getter: lambda { |represented:, **|
           if represented.attachments
             ::V1::Attachment::Representer::Index.new(represented.attachments)

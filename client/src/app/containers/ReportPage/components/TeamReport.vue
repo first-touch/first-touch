@@ -5,7 +5,7 @@
         <h5 class="col-md-12">{{report.headline}}</h5>
         <div class="header row col-md-12">
           <div class="row col col-sm-6">
-            <p class="col-sm-2">UPDATED </p>
+            <p class="col-sm-4">UPDATED </p>
             <p class="col-md-5"> {{report.meta_data.created_at | moment}}</p>
           </div>
           <div class="row col col-sm-6">
@@ -17,17 +17,26 @@
           <div class="top">
             <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
             <div class="info">
-              <h4 class="name">Real Madrid FC, Spain</h4>
+              <h4 class="name" v-if="report.team">{{report.team.team_name}}</h4>
+              <h4 class="name" v-if="!report.team">{{report.meta_data.search.team}}</h4>
             </div>
           </div>
           <hr />
           <div class="bottom">
             <div class="summary">
               <h5 class="summary-title">Summary</h5>
-              <p class="summary-field">Real Madrid Fc</p>
-              <p class="summary-field">
+              <p class="summary-field" v-if="report.team && report.team.competitions">
                 <span class="summary-field-title">League:</span>
-                Liga
+                <span class="list" v-for="cp in report.team.competitions.competitions" :key="cp.id">{{cp.name}} </span>
+              </p>
+              <p class="summary-field" v-if="!report.team">
+                <span class="summary-field-title">League:</span>
+                <span v-if="report.league">
+                  {{report.league.name}}
+                </span>
+                <span v-if="!report.league">
+                  {{report.meta_data.search.league}}
+                </span>
               </p>
             </div>
           </div>
@@ -77,8 +86,8 @@
           <div>
             <label class="row col-sm-12 summary-title">Attachments</label>
             <div class="row col-sm-12">
-              <button v-for="attachment in report.attachments.attachments" :key="attachment.id" class="btn-info btn-attachments"
-                @click="downloadFile(attachment.id, attachment.filename)"> {{attachment.filename}}</button>
+              <button v-for="attachment in report.attachments.attachments" :key="attachment.id" class="btn-info btn-attachments" @click="downloadFile(attachment.id, attachment.filename)">
+                {{attachment.filename}}</button>
 
             </div>
           </div>
@@ -225,7 +234,7 @@
     components: {
       icon: Icon,
       matchanalyzed: MatchAnalyzed,
-      'timeline-item': TimelineItem,
+      'timeline-item': TimelineItem
     },
     data() {
       return {};

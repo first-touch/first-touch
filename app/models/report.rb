@@ -2,6 +2,9 @@ class Report < ApplicationRecord
   belongs_to :user
   belongs_to :club, optional: true
   belongs_to :player, class_name: 'User'
+  belongs_to :team, optional: true
+  belongs_to :league, optional: true, class_name: 'Competition'
+
   has_many :attachments
 
   has_many :orders

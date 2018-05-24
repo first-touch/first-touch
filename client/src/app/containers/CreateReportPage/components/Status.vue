@@ -1,5 +1,5 @@
 <template>
-  <div class="Loading" >
+  <div class="Loading">
     <p v-if="status == 'reportUploading' ">
       Creating Report
     </p>
@@ -16,16 +16,16 @@
 </template>
 
 <style lang="scss" scoped>
-.Loading {
-  color: black;
-  text-align: center;
-  font-size: 20px;
-}
+  .Loading {
+    color: black;
+    text-align: center;
+    font-size: 20px;
+  }
 </style>
 
 <script>
-export default {
-  name: 'CreateReportPage',
-  props: ['status']
-};
+  export default {
+    name: 'CreateReportPage',
+    props: ['status']
+  };
 </script>

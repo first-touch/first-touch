@@ -24,170 +24,174 @@
             </div>
           </form>
         </div>
-        <report v-for="report in listReport" :report="report" :key="report.id" :UpdateReport="customUpdateReport" :own="true" :viewAction="viewAction"/>
+        <report v-for="report in listReport" :report="report" :key="report.id" :UpdateReport="customUpdateReport" :own="true" :viewAction="viewAction"
+        />
       </div>
     </timeline-item>
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
-@import '~stylesheets/search';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
+  @import '~stylesheets/search';
 
-.widget-reports {
-  .datepicker {
-    padding: 0;
-    input.input-date {
-      cursor: pointer;
-      min-height: 2em;
+  .widget-reports {
+    .datepicker {
+      padding: 0;
+      input.input-date {
+        cursor: pointer;
+        min-height: 2em;
+        border: 0px;
+      }
+    }
+    .dropdown-toggle {
+      max-height: 35px;
       border: 0px;
     }
   }
-  .dropdown-toggle {
-    max-height: 35px;
-    border: 0px;
-  }
-}
 </style>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+  @import '~stylesheets/variables';
 </style>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import TimelineItem from 'app/components/TimelineItem';
-import ReportItem from 'app/components/ReportItem';
-import vSelect from 'vue-select';
-import FtDatepicker from 'app/components/Input/FtDatepicker';
+  import {
+    mapGetters,
+    mapActions
+  } from 'vuex';
+  import {
+    ASYNC_SUCCESS
+  } from 'app/constants/AsyncStatus';
+  import TimelineItem from 'app/components/TimelineItem';
+  import ReportItem from 'app/components/ReportItem';
+  import vSelect from 'vue-select';
+  import FtDatepicker from 'app/components/Input/FtDatepicker';
 
-export default {
-  name: 'ReportsList',
-  components: {
-    ftdatepicker: FtDatepicker,
-    'timeline-item': TimelineItem,
-    report: ReportItem,
-    vselect: vSelect
-  },
-  data() {
-    return {
-      vselect_sort: {
-        label: 'Sort by',
-        value: ''
-      },
-      vselect_type: {
-        label: 'Report Type',
-        value: ''
-      },
-      params: {
-        id: '',
-        headline: '',
-        report_type: '',
-        created_date_from: '',
-        created_date_to: '',
-        created_date: '',
-        sort: ''
-      },
-      options: {
-        report_type: [
-          {
-            label: 'Report Type',
-            value: ''
-          },
-          {
-            label: 'Player',
-            value: 'player'
-          },
-          {
-            label: 'Team',
-            value: 'team'
-          }
-        ],
-        order: [
-          {
-            label: 'Sort by',
-            value: ''
-          },
-          {
-            label: 'Updated date',
-            value: 'updated_at'
-          },
-          {
-            label: 'Type',
-            value: 'Type'
-          },
-          {
-            label: 'Price',
-            value: 'price'
-          }
-        ]
-      }
-    };
-  },
-  computed: {
-    ...mapGetters(['searchReport', 'report']),
-    listReport() {
-      if (this.searchReport.status === ASYNC_SUCCESS) {
-        return this.searchReport.value.report;
-      }
-      return [];
+  export default {
+    name: 'ReportsList',
+    components: {
+      ftdatepicker: FtDatepicker,
+      'timeline-item': TimelineItem,
+      report: ReportItem,
+      vselect: vSelect
     },
-    url() {
-      var params = this.params;
-      if (params.created_date_from) {
-        params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
-      }
-      if (params.created_date_to) {
-        params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
-      }
-      params.sort = this.vselect_sort.value;
-      params.report_type = this.vselect_type.value;
-      var url = Object.keys(params)
-        .map(function(k) {
-          return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-        })
-        .join('&');
-      return url;
-    }
-  },
-  mounted() {
-    this.search();
-  },
-  watch: {
-    report() {
-      if (this.report.status === ASYNC_SUCCESS) {
-        var index = this.listReport.findIndex(x => x.id === this.report.value.id);
-        this.listReport[index] = this.report.value;
-        this.$forceUpdate();
-      }
-    }
-  },
-  methods: {
-    ...mapActions(['getReports', 'updateReport']),
-    showCalendar: function(index) {
-      this.$refs.datepicker.showCalendar();
-    },
-    viewAction(report) {
-      this.$router.push({
-        name: 'scoutReportView',
+    data() {
+      return {
+        vselect_sort: {
+          label: 'Sort by',
+          value: ''
+        },
+        vselect_type: {
+          label: 'Report Type',
+          value: ''
+        },
         params: {
-          id: report.id
+          id: '',
+          headline: '',
+          report_type: '',
+          created_date_from: '',
+          created_date_to: '',
+          created_date: '',
+          sort: ''
+        },
+        options: {
+          report_type: [{
+              label: 'Report Type',
+              value: ''
+            },
+            {
+              label: 'Player',
+              value: 'player'
+            },
+            {
+              label: 'Team',
+              value: 'team'
+            }
+          ],
+          order: [{
+              label: 'Sort by',
+              value: ''
+            },
+            {
+              label: 'Updated date',
+              value: 'updated_at'
+            },
+            {
+              label: 'Type',
+              value: 'Type'
+            },
+            {
+              label: 'Price',
+              value: 'price'
+            }
+          ]
         }
-      });
-    },
-    customUpdateReport(status, id) {
-      var report = {
-        status: status
       };
-      this.updateReport({
-        report,
-        id
-      });
     },
-    search() {
-      this.getReports(this.url);
+    computed: {
+      ...mapGetters(['searchReport', 'report']),
+      listReport() {
+        if (this.searchReport.status === ASYNC_SUCCESS) {
+          return this.searchReport.value.report;
+        }
+        return [];
+      },
+      url() {
+        var params = this.params;
+        if (params.created_date_from) {
+          params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
+        }
+        if (params.created_date_to) {
+          params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
+        }
+        params.sort = this.vselect_sort.value;
+        params.report_type = this.vselect_type.value;
+        var url = Object.keys(params)
+          .map(function (k) {
+            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+          })
+          .join('&');
+        return url;
+      }
+    },
+    mounted() {
+      this.search();
+    },
+    watch: {
+      report() {
+        if (this.report.status === ASYNC_SUCCESS) {
+          var index = this.listReport.findIndex(x => x.id === this.report.value.id);
+          this.listReport[index] = this.report.value;
+          this.$forceUpdate();
+        }
+      }
+    },
+    methods: {
+      ...mapActions(['getReports', 'updateReport']),
+      showCalendar: function (index) {
+        this.$refs.datepicker.showCalendar();
+      },
+      viewAction(report) {
+        this.$router.push({
+          name: 'scoutReportView',
+          params: {
+            id: report.id
+          }
+        });
+      },
+      customUpdateReport(status, id) {
+        var report = {
+          status: status
+        };
+        this.updateReport({
+          report,
+          id
+        });
+      },
+      search() {
+        this.getReports(this.url);
+      }
     }
-  }
-};
+  };
 </script>

@@ -59,78 +59,78 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
-.form-group {
-  label {
-    color: $main-text-color;
+  @import '~stylesheets/variables';
+  .form-group {
+    label {
+      color: $main-text-color;
+    }
+    .bar-button {
+      color: $main-text-color;
+      border: 1px solid $main-text-color;
+    }
   }
-  .bar-button {
-    color: $main-text-color;
-    border: 1px solid $main-text-color;
-  }
-}
 </style>
 
 <script>
-export default {
-  name: 'EditProfileForm',
-  props: [
-    'firstName',
-    'middleName',
-    'lastName',
-    'month',
-    'day',
-    'year',
-    'countryCode',
-    'placeOfBirth',
-    'pWeight',
-    'pHeight',
-    'preferredFoot',
-    'updateUserInfo',
-  ],
-  data() {
-    return {
-      first_name: this.firstName || '',
-      middle_name: this.middleName || '',
-      last_name: this.lastName || '',
-      bMonth: this.month || '',
-      bDay: this.day || '',
-      bYear: this.year || '',
-      country_code: this.countryCode || '',
-      place_of_birth: this.placeOfBirth || '',
-      weight: this.pWeight || '',
-      height: this.pHeight || '',
-      preferred_foot: this.preferredFoot || '',
-    };
-  },
-  methods: {
-    handleSubmit() {
-      const {
-        first_name,
-        last_name,
-        bMonth,
-        bDay,
-        bYear,
-        place_of_birth,
-        weight,
-        height,
-        preferred_foot,
-      } = this;
-      const nationality_country_code = this.country_code;
-      const residence_country_code = this.country_code;
-      const birthday = new Date(Date.UTC(this.bYear, bMonth, bDay));
-      this.updateUserInfo({
-        first_name,
-        last_name,
-        birthday,
-        nationality_country_code,
-        residence_country_code,
-        place_of_birth,
-        weight,
-        height,
-        preferred_foot,
-      });
+  export default {
+    name: 'EditProfileForm',
+    props: [
+      'firstName',
+      'middleName',
+      'lastName',
+      'month',
+      'day',
+      'year',
+      'countryCode',
+      'placeOfBirth',
+      'pWeight',
+      'pHeight',
+      'preferredFoot',
+      'updateUserInfo',
+    ],
+    data() {
+      return {
+        first_name: this.firstName || '',
+        middle_name: this.middleName || '',
+        last_name: this.lastName || '',
+        bMonth: this.month || '',
+        bDay: this.day || '',
+        bYear: this.year || '',
+        country_code: this.countryCode || '',
+        place_of_birth: this.placeOfBirth || '',
+        weight: this.pWeight || '',
+        height: this.pHeight || '',
+        preferred_foot: this.preferredFoot || '',
+      };
     },
-  },
-};
+    methods: {
+      handleSubmit() {
+        const {
+          first_name,
+          last_name,
+          bMonth,
+          bDay,
+          bYear,
+          place_of_birth,
+          weight,
+          height,
+          preferred_foot,
+        } = this;
+        const nationality_country_code = this.country_code;
+        const residence_country_code = this.country_code;
+        const birthday = new Date(Date.UTC(this.bYear, bMonth, bDay));
+        this.updateUserInfo({
+          first_name,
+          last_name,
+          birthday,
+          nationality_country_code,
+          residence_country_code,
+          place_of_birth,
+          weight,
+          height,
+          preferred_foot,
+        });
+      },
+    },
+  };
 </script>

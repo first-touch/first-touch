@@ -12,8 +12,8 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 </style>
 
 <script>

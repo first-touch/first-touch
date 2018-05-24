@@ -14,86 +14,85 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+  @import '~stylesheets/variables';
 
-.network-item {
-  margin-top: 20px;
-  background-color: #fff;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  padding: 20px;
-  flex: 0 0 48%;
-  height: 150px;
-  .network-item-img {
-    max-height: 100%;
-    border-radius: 50%;
-  }
-  .network-item-info {
-    margin-left: 20px;
-    .name,
-    .club,
-    .role {
-      font-weight: 300;
-      margin-bottom: 2px;
-    }
-    .name {
-      color: $main-header-color;
-      text-transform: uppercase;
-    }
-    .club,
-    .role {
-      color: $main-text-color;
-    }
-  }
-  .network-item-option-trigger {
-    height: 20px;
-    width: 20px;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: url('https://d30y9cdsu7xlg0.cloudfront.net/png/61783-200.png')
-      no-repeat center center;
-    background-size: cover;
-    border: none;
-  }
-  .network-item-options {
+  .network-item {
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 4px;
     display: flex;
-    position: absolute;
-    flex-direction: column;
-    top: 140px;
-    left: calc(100% - 30px);
-    z-index: 4;
-    &:hover {
+    align-items: center;
+    position: relative;
+    padding: 20px;
+    flex: 0 0 48%;
+    height: 150px;
+    .network-item-img {
+      max-height: 100%;
+      border-radius: 50%;
+    }
+    .network-item-info {
+      margin-left: 20px;
+      .name,
+      .club,
+      .role {
+        font-weight: 300;
+        margin-bottom: 2px;
+      }
+      .name {
+        color: $main-header-color;
+        text-transform: uppercase;
+      }
+      .club,
+      .role {
+        color: $main-text-color;
+      }
+    }
+    .network-item-option-trigger {
+      height: 20px;
+      width: 20px;
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: url('https://d30y9cdsu7xlg0.cloudfront.net/png/61783-200.png') no-repeat center center;
+      background-size: cover;
+      border: none;
+    }
+    .network-item-options {
       display: flex;
-    }
-    button {
-      background: #fff;
-      border: 1px solid #000;
-      border-top: none;
-      height: 30px;
-    }
-    button:first-child {
-      border-top: 1px solid #000;
+      position: absolute;
+      flex-direction: column;
+      top: 140px;
+      left: calc(100% - 30px);
+      z-index: 4;
+      &:hover {
+        display: flex;
+      }
+      button {
+        background: #fff;
+        border: 1px solid #000;
+        border-top: none;
+        height: 30px;
+      }
+      button:first-child {
+        border-top: 1px solid #000;
+      }
     }
   }
-}
 </style>
 
 <script>
-export default {
-  name: 'NetworkItem',
-  props: ['info', 'unfollow'],
-  data() {
-    return {
-      unfollowOpen: false,
-    };
-  },
-  methods: {
-    toggleUnfollow() {
-      this.$set(this, 'unfollowOpen', !this.unfollowOpen);
+  export default {
+    name: 'NetworkItem',
+    props: ['info', 'unfollow'],
+    data() {
+      return {
+        unfollowOpen: false,
+      };
     },
-  },
-};
+    methods: {
+      toggleUnfollow() {
+        this.$set(this, 'unfollowOpen', !this.unfollowOpen);
+      },
+    },
+  };
 </script>

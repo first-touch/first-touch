@@ -81,78 +81,73 @@
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/form';
+  @import '~stylesheets/form';
 </style>
 
 
 <script>
-import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
-import CurrencyInput from 'app/components/Input/CurrencyInput';
-import AddAttachments from 'app/components/Input/AddAttachments';
+  import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
+  import CurrencyInput from 'app/components/Input/CurrencyInput';
+  import AddAttachments from 'app/components/Input/AddAttachments';
 
-export default {
-  name: 'ClubReportForm',
-  props: ['submitReport', 'reportStatus', 'report', 'cancelAction', 'request'],
-  components: {
-    matchanalyzed: MatchAnalyzed,
-    currencyinput: CurrencyInput,
-    addattachments: AddAttachments
-  },
-  data() {
-    return {
-      files: [],
-      meta_data: {
-        analyzed_matches: [
-          {
+  export default {
+    name: 'TeamReportForm',
+    props: ['submitReport', 'report', 'cancelAction', 'request'],
+    components: {
+      matchanalyzed: MatchAnalyzed,
+      currencyinput: CurrencyInput,
+      addattachments: AddAttachments
+    },
+    data() {
+      return {
+        files: [],
+        meta_data: {
+          analyzed_matches: [{
             date: '',
             opponent: '',
             venue: '',
             result: ''
-          }
-        ]
+          }]
+        },
+        price: {
+          value: 0,
+          currency: 'USD'
+        },
+        headline: '',
+        remove_attachment: {}
+      };
+    },
+    methods: {
+      removeAttachment(id) {
+        if (this.remove_attachment[id] === true) this.remove_attachment[id] = false;
+        else {
+          var obj = {};
+          obj[id] = true;
+          this.remove_attachment = Object.assign({}, this.remove_attachment, obj);
+        }
       },
-      price: {
-        value: 0,
-        currency: 'USD'
-      },
-      headline: '',
-      remove_attachment: {}
-    };
-  },
-  methods: {
-    removeAttachment(id) {
-      if (this.remove_attachment[id] === true) this.remove_attachment[id] = false;
-      else {
-        var obj = {};
-        obj[id] = true;
-        this.remove_attachment = Object.assign({}, this.remove_attachment, obj);
+      handleSubmit(status) {
+        var report = {
+          headline: this.headline,
+          price: this.price,
+          meta_data: this.meta_data,
+          remove_attachment: this.remove_attachment,
+          status
+        };
+        this.submitReport(report, this.files, status);
+        $('html, body').animate({
+            scrollTop: 0
+          },
+          100
+        );
       }
     },
-    previewFiles() {
-      this.files = this.$refs.myFiles.files;
-    },
-    handleSubmit(status) {
-      var report = {
-        headline: this.headline,
-        price: this.price,
-        meta_data: this.meta_data,
-        remove_attachment: this.remove_attachment
-      };
-      this.submitReport(report, this.files,status);
-      $('html, body').animate(
-        {
-          scrollTop: 0
-        },
-        100
-      );
+    mounted() {
+      if (this.report) {
+        this.meta_data = this.report.meta_data;
+        this.price = this.report.price;
+        this.headline = this.report.headline;
+      }
     }
-  },
-  mounted() {
-    if (this.report) {
-      this.meta_data = this.report.meta_data;
-      this.price = this.report.price;
-      this.headline = this.report.headline;
-    }
-  }
-};
+  };
 </script>

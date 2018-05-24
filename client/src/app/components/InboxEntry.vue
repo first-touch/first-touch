@@ -14,47 +14,47 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables.scss';
-.inbox-entry {
-  padding: 5px 10px;
-  border-top: 1px solid #fff;
-  font-weight: 300;
-  display: flex;
-  width: 100%;
-  align-items: center;
-  color: #fff;
-  text-decoration: none;
-  &:hover {
-    cursor: pointer;
-  }
-  &.active {
-    border-left: 7px solid $main-header-color;
-    background-color: #000;
-  }
-  .profile-pic {
-    max-height: 50px;
-    border-radius: 50%;
-  }
-  .content {
-    padding: 10px;
-    white-space: nowrap;
-    width: 80%;
-    .name {
-      font-size: 1em;
+  @import '~stylesheets/variables.scss';
+  .inbox-entry {
+    padding: 5px 10px;
+    border-top: 1px solid #fff;
+    font-weight: 300;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    &:hover {
+      cursor: pointer;
     }
-    .short-message {
-      font-size: 0.8em;
-      text-overflow: ellipsis;
+    &.active {
+      border-left: 7px solid $main-header-color;
+      background-color: #000;
+    }
+    .profile-pic {
+      max-height: 50px;
+      border-radius: 50%;
+    }
+    .content {
+      padding: 10px;
       white-space: nowrap;
-      overflow: hidden;
+      width: 80%;
+      .name {
+        font-size: 1em;
+      }
+      .short-message {
+        font-size: 0.8em;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
     }
   }
-}
 </style>
 
 <script>
-export default {
-  name: 'InboxEntry',
-  props: ['chat', 'active', 'id'],
-};
+  export default {
+    name: 'InboxEntry',
+    props: ['chat', 'active', 'id'],
+  };
 </script>

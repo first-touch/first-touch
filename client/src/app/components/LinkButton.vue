@@ -5,13 +5,13 @@
 </template>
 
 <script>
-export default {
-  name: 'v-linkbutton',
-  props: {
-    url: {
-      type: String,
-      default: '#'
+  export default {
+    name: 'v-linkbutton',
+    props: {
+      url: {
+        type: String,
+        default: '#'
+      }
     }
   }
-}
 </script>

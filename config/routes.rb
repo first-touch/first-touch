@@ -39,6 +39,8 @@ Rails.application.routes.draw do
       resources :clubs, only: %i[index show]
 
       resources :posts, only: %i[update destroy]
+      resources :teams, only: %i[index]
+      resources :competitions, only: %i[index]
 
       # Note: Named route for users search because later on
       # the search will probably be more broad.
