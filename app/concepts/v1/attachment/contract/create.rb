@@ -5,6 +5,7 @@ module V1
         property :url
         property :filename
         property :report
+        property :request_bid
       end
     end
   end

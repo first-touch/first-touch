@@ -8,7 +8,7 @@ import profileReducer, { profile, teamProfile } from './profile';
 import searchResultReducer, { searchResult } from './searchResult';
 import noteReducer, { note } from './note';
 import reportReducer, { report, searchReport, filesUpload } from './report';
-import orderReducer, { order } from './order';
+import orderReducer, { order, refund } from './order';
 import requestReducer, { request, searchRequest } from './request';
 import bidReducer, { bid, bids } from './bid';
 import stripeReducer, { stripe, stripeFtouch, stripeRequiredFields, stripeDelete, stripeJs } from './stripe';
@@ -41,7 +41,8 @@ export const initialState = {
   stripeDelete,
   stripePayment,
   stripeJs,
-  stripeClubCards
+  stripeClubCards,
+  refund
 };
 
 export default Object.assign({},

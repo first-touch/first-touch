@@ -71,9 +71,9 @@
               <span class="summary-field-title col-lg-4">Based in:</span>
               <span class="col-lg-8">{{getNationality(playerInfo.residence_country_code)}} </span>
             </p>
-            <p class="summary-field row" v-if="report.attachments">
+            <p class="summary-field row" v-if="report.attachments && report.attachments.attachments.length > 0">
               <span class="summary-field-title col-lg-4">Attachments</span>
-              <span class="col-lg-8"><span class="list" v-for="a in report.attachments.attachments" >{{a.filename}}</span></span>
+              <span class="col-lg-8"><span class="list" v-for="a in report.attachments.attachments" :key="a.id" >{{a.filename}}</span></span>
             </p>
           </div>
         </div>

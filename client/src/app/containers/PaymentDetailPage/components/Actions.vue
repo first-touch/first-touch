@@ -1,16 +1,17 @@
 <template>
   <action-item>
-    <button class="timeline-widget-button" @click="AddPayment">
+    <button v-if="hasStripe" class="timeline-widget-button" @click="AddPayment">
       <span>
         <icon name='edit' scale="1.5"></icon>
       </span>
       <a>Add New Payment Method</a>
     </button>
-    <button class="timeline-widget-button button-right" @click="PersonalInformation">
+    <button class="timeline-widget-button" :class="hasStripe? 'button-right' : ''" @click="PersonalInformation">
       <span>
         <icon name='edit' scale="1.5"></icon>
       </span>
-      <a>Edit account</a>
+      <a v-if="hasStripe">Edit account</a>
+      <a v-if="!hasStripe">Create account</a>
     </button>
   </action-item>
 </template>
@@ -25,7 +26,7 @@
 
   export default {
     name: 'Actions',
-    props: ['AddPayment','PersonalInformation'],
+    props: ['AddPayment', 'PersonalInformation', 'hasStripe'],
     components: {
       'action-item': ActionsItem,
       icon: Icon

@@ -22,8 +22,8 @@
               <ftdatepicker class="col col-lg-5 form-control" :value="params.deadline_from" :clearable="false" placeholder="Deadline from"
                 v-on:update:val="params.deadline_from = $event; search()" />
               <p class="col col-lg-1">-</p>
-              <ftdatepicker class="col col-lg-5 form-control" :value="params.deadline_to" :clearable="false" placeholder="Deadline to" v-on:update:val="params.deadline_to = $event; search()"
-              />
+              <ftdatepicker class="col col-lg-5 form-control" :value="params.deadline_to" :clearable="false" placeholder="Deadline to"
+                v-on:update:val="params.deadline_to = $event; search()" />
             </fieldset>
 
           </form>
@@ -38,13 +38,14 @@
           <positionrequestpopup v-if="selected && selected.type_request == 'position' " :request="selected" :closeAction="closeAction"
             :bid="wantbid" :newBid="newBid" />
         </div>
-        <div v-if="bid && !bidPosition" class="divSuccess">
-          <h5 class="success">Bid has been Submitted</h5>
-          <button class="btn btn-dark" @click="closeAction()">✓ Close</button>
-        </div>
-        <div v-if="bid && bidPosition" class="divSuccess">
-          <h5 class="success">Added to job !</h5>
-          <button class="btn btn-dark" @click="closeAction()">✓ Close</button>
+        <div v-if="bid" class="divSuccess row">
+          <div class="col-lg-12">
+            <h3 class="success" v-if="bidPosition">Added to job !</h3>
+            <h3 class="success" v-if="!bidPosition">Bid submitted !</h3>
+          </div>
+          <div class="col-lg-12 buttons-inner">
+            <button class="ft-button-right ft-button-success" @click="closeAction()">✓ Close</button>
+          </div>
         </div>
       </b-modal>
       <b-modal id="metaModal" size="md" ref="bidModal" :class="bid? 'successModal' : 'formModal' ">
@@ -66,7 +67,7 @@
   }
 
   .widget-request {
-    .input-date{
+    .input-date {
       padding: 20px;
     }
     .datepicker {
@@ -106,8 +107,8 @@
         height: 100%;
         padding: 10px !important;
       }
-      .v-select{
-        padding:0;
+      .v-select {
+        padding: 0;
       }
     }
   }
@@ -276,7 +277,7 @@
         this.clearBid();
         this.search();
       },
-      closeBid(){
+      closeBid() {
         this.$refs.bidModal.hide();
       },
       viewSummary(request) {

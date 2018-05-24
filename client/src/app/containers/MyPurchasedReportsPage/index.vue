@@ -10,6 +10,24 @@
               <div class="col-lg-2">
                 <h6 class="list-title">Reports Count</h6>
                 <h1 class="list-count">{{listReport.length}}</h1>
+                <div class="row little-count">
+                  <span class="col-lg-6">
+                    <span class="col-lg-12">
+                      Pending
+                    </span>
+                    <span class="col-lg-12 list-little-count">
+                      {{pending}}
+                    </span>
+                  </span>
+                  <span class="col-lg-6">
+                    <span class="col-lg-12">
+                      Completed
+                    </span>
+                    <span class="col-lg-12 list-little-count">
+                      {{complete}}
+                    </span>
+                  </span>
+                </div>
               </div>
               <filters ref="filter" v-on:update:search="search();"></filters>
             </div>
@@ -48,11 +66,33 @@
                 </tr>
               </thead>
               <tbody>
-                <report v-for="report in listReport" :report="report" :key="report.id" mode="table" :viewAction="viewAction" :fields="['id','scout','priceCurrency','completion_status','action']"
-                />
+                <report v-for="report in listReport" :report="report" :key="report.id" mode="table" :viewAction="viewAction" :refundAction="refundAction"
+                  :fields="['id','scout','priceCurrency','completion_status','action']" />
               </tbody>
             </table>
           </div>
+          <b-modal class="ft-modal" size="md" ref="refundModal">
+            <div class="content" v-if="refundSuccess">
+              <h5>Refund requested !</h5>
+              <div class="buttons-inner">
+                <button class="ft-button" @click="hideModal">Close</button>
+              </div>
+            </div>
+            <div class="content" v-if="refundErrors">
+              <ul class="error">
+                <li v-for="e in refundErrors" :key="e.id">{{e}}</li>
+              </ul>
+              <div class="buttons-inner">
+                <button class="ft-button" @click="hideModal">Close</button>
+              </div>
+            </div>
+            <div class="content" v-if="refundLoading">
+              <h5>Refund requested In progress Please wait..</h5>
+              <div class="buttons-inner">
+                <button class="ft-button" @click="hideModal">Close</button>
+              </div>
+            </div>
+          </b-modal>
         </timeline-item>
       </div>
     </div>
@@ -62,47 +102,11 @@
   @import '~stylesheets/variables';
   @import '~stylesheets/form';
   @import '~stylesheets/search';
+  @import '~stylesheets/modal';
 </style>
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
-
-  .widget-reports {
-    color: $main-text-color;
-    .form-control {
-      padding: 0;
-    }
-    .list-title {
-      color: $main-text-color;
-      font-size: 0.95em;
-      text-transform: uppercase;
-    }
-    .list-count {
-      color: $main-header-color;
-      font-size: 4em;
-      text-align: center;
-    }
-    .filter {
-      margin: 5px;
-      max-width: 23%;
-      input,
-      select {
-        height: 100%;
-        padding: 10px;
-      }
-      .icon-inner {
-        margin-top: 5px;
-        display: inline-block;
-        cursor: pointer;
-        &:hover {
-          color: $secondary-header-color;
-        }
-      }
-      .datepicker {
-        float: left;
-      }
-    }
-  }
 </style>
 
 <script>
@@ -111,7 +115,9 @@
     mapActions
   } from 'vuex';
   import {
-    ASYNC_SUCCESS
+    ASYNC_SUCCESS,
+    ASYNC_FAIL,
+    ASYNC_LOADING
   } from 'app/constants/AsyncStatus';
   import TimelineItem from 'app/components/TimelineItem';
   import ReportItem from 'app/components/ReportItem';
@@ -144,12 +150,40 @@
       };
     },
     computed: {
-      ...mapGetters(['searchReport', 'order']),
+      ...mapGetters(['searchReport', 'order', 'refund']),
       listReport() {
         if (this.searchReport.status === ASYNC_SUCCESS) {
           return this.searchReport.value.report;
         }
         return [];
+      },
+      refundSuccess() {
+        if (this.refund.status === ASYNC_SUCCESS) {
+          return true;
+        }
+        return false;
+      },
+      refundErrors() {
+        if (this.refund.status === ASYNC_FAIL) {
+          return this.refund.errors;
+        }
+        return null;
+      },
+      refundLoading() {
+        if (this.refund.status === ASYNC_LOADING) {
+          return true;
+        }
+        return null;
+      },
+      pending() {
+        if (this.searchReport.status === ASYNC_SUCCESS) {
+          return this.searchReport.value.count.pending;
+        }
+      },
+      complete() {
+        if (this.searchReport.status === ASYNC_SUCCESS) {
+          return this.searchReport.value.count.complete;
+        }
       },
       url() {
         var params = this.params;
@@ -174,7 +208,7 @@
       }
     },
     methods: {
-      ...mapActions(['getReports', 'newOrder']),
+      ...mapActions(['getReports', 'newOrder', 'refundOrder']),
       viewAction(report) {
         this.$router.push({
           name: 'clubReport',
@@ -191,11 +225,13 @@
         this.params.order = order;
         this.search();
       },
-      refundAction(report) {
-        console.log('Soon #Refund');
+      refundAction(id) {
+        this.refundOrder(id);
+        this.$refs.refundModal.show();
+
       },
       hideModal() {
-        this.$refs.metaModal.hide();
+        this.$refs.refundModal.hide();
       },
       search() {
         this.getReports(this.url);

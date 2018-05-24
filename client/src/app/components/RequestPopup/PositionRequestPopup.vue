@@ -31,22 +31,22 @@
             <span v-if="!request.player">
               <span class="field row">
                 <span class="col-lg-4">Age Range: </span>
-                <span class="col-lg-6">{{ request.meta_data.age_min}} to {{ request.meta_data.age_max}} years
+                <span class="col-lg-6" v-if="request.meta_data.age_min || request.meta_data.age_max">{{ request.meta_data.age_min}} to {{ request.meta_data.age_max}} years
                 </span>
               </span>
               <span class="field row">
                 <span class="col-lg-4">Height Range: </span>
-                <span class="col-lg-6">{{ request.meta_data.min_heigth}} to {{ request.meta_data.max_heigth}} cm
+                <span class="col-lg-6" v-if="request.meta_data.min_heigth || request.meta_data.max_heigth">{{ request.meta_data.min_heigth}} to {{ request.meta_data.max_heigth}} cm
                 </span>
               </span>
               <span class="field row">
                 <span class="col-lg-4">Weight Range: </span>
-                <span class="col-lg-6">{{ request.meta_data.min_weight}} to {{ request.meta_data.max_weight}} kg
+                <span class="col-lg-6"  v-if="request.meta_data.min_weight || request.meta_data.max_weight">{{ request.meta_data.min_weight}} to {{ request.meta_data.max_weight}} kg
                 </span>
               </span>
               <span class="field row">
                 <span class="col-lg-4">Position(s):</span>
-                <span class="col-lg-6">
+                <span class="col-lg-6" >
                   <span class="list" v-for="position in request.meta_data.playing_position" :key="position.id">{{position}}</span>
                 </span>
               </span>

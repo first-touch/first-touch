@@ -5,7 +5,6 @@
         <div class="header col-lg-10">
           <div class="img-container">
             <img class="img-fluid avatar" :src="src" />
-            <span v-if="!own">{{request.user.first_name}} {{request.user.last_name}} </span>
           </div>
           <div class="info col-lg-8" v-if="position">
             <h2 class="title">
@@ -17,9 +16,20 @@
                 <span class="col-lg-6"> {{request.id | requestId(request.type_request) }}
                 </span>
               </span>
+              <span class="field row" v-if="!own">
+                <span class="col-lg-4">Requested by:</span>
+                <span class="col-lg-6"> {{request.user.first_name}} {{request.user.last_name}}
+                </span>
+              </span>
+
               <span class="field row">
                 <span class="col-lg-4">Job request type</span>
                 <span class="col-lg-6 capitalize"> {{request.type_request}} job request
+                </span>
+              </span>
+              <span class="field row">
+                <span class="col-lg-4">Price range</span>
+                <span class="col-lg-6 capitalize"> {{request.price.value}} to {{request.price.max}} {{request.price.currency | currency}}
                 </span>
               </span>
               <span class="field row">
@@ -65,9 +75,19 @@
                 <span class="col-lg-6"> {{request.id | requestId(request.type_request) }}
                 </span>
               </span>
+              <span class="field row" v-if="!own">
+                <span class="col-lg-4">Requested by:</span>
+                <span class="col-lg-6"> {{request.user.first_name}} {{request.user.last_name}}
+                </span>
+              </span>
               <span class="field row">
                 <span class="col-lg-4">Job request type</span>
                 <span class="col-lg-6 capitalize"> {{request.type_request}} job request
+                </span>
+              </span>
+              <span class="field row">
+                <span class="col-lg-4">Price range</span>
+                <span class="col-lg-6 capitalize"> {{request.price.value}} to {{request.price.max}} {{request.price.currency | currency}}
                 </span>
               </span>
               <span class="field row" v-if="haveBid">
@@ -97,6 +117,7 @@
               </span>
             </p>
           </div>
+
           <div class="info col-lg-8" v-if="request.type_request == 'team'">
             <h2 class="title" v-if="request.team">{{request.team.team_name}}</h2>
             <h2 class="title" v-if="!request.team"> {{request.meta_data.search.team}} </h2>
@@ -107,9 +128,19 @@
                 <span class="col-lg-6"> {{request.id | requestId(request.type_request) }}
                 </span>
               </span>
+              <span class="field row" v-if="!own">
+                <span class="col-lg-4">Requested by:</span>
+                <span class="col-lg-6"> {{request.user.first_name}} {{request.user.last_name}}
+                </span>
+              </span>
               <span class="field row">
                 <span class="col-lg-4">Job request type</span>
                 <span class="col-lg-6 capitalize"> {{request.type_request}} job request
+                </span>
+              </span>
+              <span class="field row">
+                <span class="col-lg-4">Price range</span>
+                <span class="col-lg-6 capitalize"> {{request.price.value}} to {{request.price.max}} {{request.price.currency | currency}}
                 </span>
               </span>
               <span class="field row" v-if="haveBid && request.bid_price.value">
@@ -308,6 +339,7 @@
   .capitalize:first-letter {
     text-transform: capitalize;
   }
+
   .table-action {
     .col {
       &.first-action {

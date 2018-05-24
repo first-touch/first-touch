@@ -25,6 +25,7 @@
       // min-height: 700px;
     }
   }
+
   .modal-md {
     max-width: 800px; // min-height: 500px;
     .modal-content {
@@ -33,7 +34,7 @@
   }
   .buttons-inner {
     display: flex;
-    button{
+    button {
       margin: 10px;
       padding: 10px 30px;
       display: flex;
@@ -48,7 +49,6 @@
         background-color: $button-background-hover;
       }
     }
-
     .ft-button-success {
       color: white;
       border: 1px solid $secondary-text-color;
@@ -67,6 +67,16 @@
     }
     .ft-button-right {
       margin-left: auto;
+    }
+  }
+  .error {
+    li {
+      color: red;
+      display: list-item;
+      list-style: disc;
+      &:first-letter {
+        text-transform: capitalize;
+      }
     }
   }
   .bid {

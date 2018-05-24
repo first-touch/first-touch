@@ -16,7 +16,7 @@
             </b-modal>
           </timeline-item>
         </div>
-        <div v-if="!position">
+        <div v-if="playerInfo || clubInfo || search">
           <h4 class="header" v-if="report_type == 'player'">Player</h4>
           <h4 class="header" v-if="report_type == 'team'">Team</h4>
           <playerresume v-if="report_type == 'player'" :player="playerInfo" :clubInfo="clubInfo" :search="search"></playerresume>

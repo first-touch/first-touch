@@ -14,6 +14,7 @@ module V1
       step :cancel!
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
+      step :notify!
       step :position!
 
       private
@@ -70,12 +71,25 @@ module V1
         true
       end
 
+      def notify!(model:, **)
+        if model.request.type_request != 'position'
+          begin
+            ::SystemMailer.notify('cancelation', model, model.request.user.id)
+          rescue => e
+            stripe_logger = ::Logger.new("#{Rails.root}/log/mailer.log")
+            stripe_logger.error("ReportCanceled An error occured when sending email to club #{e.to_s}")
+          end
+        end
+        true
+      end
+
       def position!(options, model:, **)
         if model.request.type_request == 'position'
           model.destroy
         end
         true
       end
+
 
     end
   end

@@ -80,7 +80,7 @@ export const getReport = (store, id) => {
 
 export const uploadFiles = (store, files) => {
   store.commit(ActionTypes.REPORT_FILES_UPLOAD_LOADING);
-  fetch('/api/v1/reports/uploadfiles', {
+  fetch('/api/v1/uploadfiles', {
     method: 'POST',
     headers: {
       Authorization: store.state.token.value

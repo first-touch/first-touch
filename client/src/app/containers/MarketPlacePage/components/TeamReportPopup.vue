@@ -49,9 +49,15 @@
                 <span v-if="report.league">
                   {{report.league.name}}
                 </span>
-                <span v-if="!report.league && report.meta_data.search">
-                  {{report.meta_data.search.league}}
+                <span v-if="!report.league && report.search">
+                  {{report.search.league}}
                 </span>
+              </span>
+            </p>
+            <p class="summary-field row" v-if="report.attachments && report.attachments.attachments.length > 0">
+              <span class="summary-field-title col-lg-4">Attachments</span>
+              <span class="col-lg-8">
+                <span class="list" v-for="a in report.attachments.attachments" :key="a.id">{{a.filename}}</span>
               </span>
             </p>
           </div>

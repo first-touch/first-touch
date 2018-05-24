@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180522020909) do
+ActiveRecord::Schema.define(version: 20180524020748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,9 @@ ActiveRecord::Schema.define(version: 20180522020909) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "report_id"
+    t.bigint "request_bid_id"
     t.index ["report_id"], name: "index_attachments_on_report_id"
+    t.index ["request_bid_id"], name: "index_attachments_on_request_bid_id"
   end
 
   create_table "awards", force: :cascade do |t|
@@ -194,6 +196,8 @@ ActiveRecord::Schema.define(version: 20180522020909) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "request_bid_id"
+    t.text "refund_status"
+    t.datetime "completed_date"
     t.index ["report_id"], name: "index_orders_on_report_id"
     t.index ["request_bid_id"], name: "index_orders_on_request_bid_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -405,6 +409,7 @@ ActiveRecord::Schema.define(version: 20180522020909) do
 
   add_foreign_key "app_notifications", "users"
   add_foreign_key "attachments", "reports"
+  add_foreign_key "attachments", "request_bids"
   add_foreign_key "awards", "clubs"
   add_foreign_key "awards", "users"
   add_foreign_key "career_entries", "clubs"

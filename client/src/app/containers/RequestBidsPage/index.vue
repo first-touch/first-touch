@@ -12,7 +12,7 @@
           <positionrequest v-if="request.value.type_request == 'position'" :request="request.value" />
         </timeline-item>
         <timeline-item v-if="request.value">
-          <bids :bids="bids.value" :currency="request.value.price.currency" :getBids="customGetBids" :acceptAction="acceptAction" />
+          <bids :bids="bids.value" :request="requestValue" :getBids="customGetBids" :acceptAction="acceptAction" />
         </timeline-item>
         <b-modal id="metaModal" :size="paymentSuccess? 'md' : 'lg'" ref="metaModal" :class="paymentSuccess? 'successModal' : 'formModal' ">
           <paymentpopup :paymentAction="paymentAction" v-if="selected" :stripeClubCards="stripeClubCards" :closeAction="hideModal" :result="bid" :StripeCardToken="StripeCardToken"
@@ -92,7 +92,6 @@
     },
     mounted() {
       this.getRequest(this.$route.params.id);
-      this.customGetBids('');
     },
     computed: {
       ...mapGetters(['request', 'bids', 'bid', 'stripePayment', 'stripeJs', 'stripeClubCards']),

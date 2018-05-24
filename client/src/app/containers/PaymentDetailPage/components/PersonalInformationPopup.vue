@@ -143,9 +143,9 @@
         </div>
         <div class="col-lg-12 buttons-inner">
           <button class="ft-button ft-button-success ft-button-right">Submit</button>
+          <p class="ft-button" @click="deleteAccount">Delete account</p>
         </div>
       </div>
-
     </form>
   </div>
 </template>
@@ -230,7 +230,7 @@
 
   export default {
     name: 'PersonalInformationPopup',
-    props: ['submit', 'stripeRequired', 'stripe', 'closeAction', 'stripeFtouch', 'getCountryInfo'],
+    props: ['submit', 'stripeRequired', 'stripe', 'closeAction', 'stripeFtouch', 'getCountryInfo','deleteAccount'],
     components: {
       ftdatepicker: FtDatepicker,
       countryselect: CountrySelect,

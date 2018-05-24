@@ -25,7 +25,7 @@ module V1
       def filters!(options, params:, **)
         models = options['models']
         models = models.where("(price->>'value')::int >= ?", params[:price_min]) unless params[:price_min].blank?
-        models = models.where("(price->>'value')::int >= ?", params[:price_max]) unless params[:price_max].blank?
+        models = models.where("(price->>'value')::int <= ?", params[:price_max]) unless params[:price_max].blank?
         date = params[:created_date].to_date unless params[:created_date].blank?
         models = models.where created_at: date.all_day if date
         options['models'] = models

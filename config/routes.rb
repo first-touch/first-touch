@@ -56,8 +56,9 @@ Rails.application.routes.draw do
       get 'direct_upload/signed_url', to: 'direct_upload#signed_url'
       resources :events, only: %i[index create show]
       post 'connect', controller: :connection, action: :create
+      post 'reports/refund/:report_id', controller: :orders, action: :refund
       resources :reports
-      post 'reports/uploadfiles', controller: :reports, action: :upload_files
+      post 'uploadfiles', controller: :files, action: :upload_files
       get 'reports/attachments/download/:attachment_id', controller: :reports, action: :download
       get 'reports/list/purchased', controller: :reports, action: :purchased
       resources :orders

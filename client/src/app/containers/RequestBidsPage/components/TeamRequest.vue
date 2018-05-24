@@ -15,7 +15,6 @@
           <p>
             <span>DEADLINE {{request.deadline | moment}}</span>
           </p>
-          <p class="price" v-if="request.price">{{request.price.value}} to {{request.price.max}} {{request.price.currency | currency}}</p>
         </div>
         <div class="info col-lg-8">
           <h2 class="title">
@@ -34,6 +33,11 @@
             <span class="field row">
               <span class="col-lg-4">Min Match Observed: </span>
               <span class="col-lg-6">{{ request.meta_data.min_matches}}
+              </span>
+            </span>
+            <span class="field row">
+              <span class="col-lg-4">Price range: </span>
+              <span class="col-lg-6">{{request.price.value}} to {{request.price.max}} {{request.price.currency | currency}}
               </span>
             </span>
             <span class="field row">
@@ -75,9 +79,11 @@
         return countrydata.countries[key] ? countrydata.countries[key].name : '';
       }
     },
-    computed:{
-      clubProfile(){
-        return this.$router.matcher.match({name: 'teamProfilePage'}).matched.length > 0
+    computed: {
+      clubProfile() {
+        return this.$router.matcher.match({
+          name: 'teamProfilePage'
+        }).matched.length > 0
       }
     }
   };

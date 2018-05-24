@@ -22,8 +22,8 @@
               </span>
               <span class="field row">
                 <span class="col-lg-4">Team Name:</span>
-                <p class="col-lg-6" v-if="report.team">{{report.team.team_name}}</p>
-                <p class="col-lg-6" v-if="!report.team && report.search">{{report.search.team}}</p>
+                <span class="col-lg-6" v-if="report.team">{{report.team.team_name}}</span>
+                <span class="col-lg-6" v-if="!report.team && report.search">{{report.search.team}}</span>
               </span>
               <span class="field row">
                 <span class="col-lg-4">Price:</span>
@@ -56,11 +56,6 @@
                 <span class="col-lg-6" v-if="report.search">{{report.search.player}}
                 </span>
               </span>
-              <span class="field row">
-                <span class="col-lg-4">Based in: </span>
-                <span class="col-lg-6">{{getNationality(report.meta_data.player_info.residence_country_code)}}
-                </span>
-              </span>
               <span class="field row" v-if="report.meta_data.player_info.playing_position.length">
                 <span class="col-lg-4">Position in: </span>
                 <span class="col-lg-8">
@@ -88,7 +83,7 @@
           <button v-if="report.orders_status == null && !report.is_free &&  typeof buyAction === 'function'" class="ft-button ft-button-success "
             @click="buyAction(report)">Buy report</button>
           <button v-if="typeof summaryAction === 'function'" class="btn-round" @click="summaryAction(report)">View Summary</button>
-          <button v-if="report.orders_status == 'completed'" class="btn-round" @click="refundAction(report)">Refund</button>
+          <button v-if="report.orders_status == 'completed' && refundAction" class="btn-round" @click="refundAction(report.id)">Refund</button>
           <button v-if="own || report.orders_status == 'completed' || report.is_free" class="btn-round" @click="viewAction(report)">View report</button>
           <p v-if="report.orders_status == 'pending'">Payment in pending</p>
 
@@ -138,9 +133,10 @@
               <a v-if="canAction(own || report.orders_status == 'completed' || report.is_free,'view_report',true)" class="ft-action col-lg-8">
                 <button class="btn-round" @click="viewAction(report)">View report</button>
               </a>
-              <a v-if="canAction(report.orders_status == 'completed' || (report.completion_status == 'pending' && !own ), 'refund', true)"
+              <a v-if="canAction(report.orders_status == 'completed' || (report.completion_status == 'pending' && !own ) && refundAction, 'refund', true)"
                 class="ft-action col-lg-8">
-                <button class="btn-round" @click="viewAction(report)">Refund</button>
+                <button class="btn-round" @click="refundAsked ? null : refundAction(report.id )"
+                  :title="refundAsked ? 'You refund enquiry has already been sent' : ''">Refund</button>
               </a>
               <p v-if="canAction(report.orders_status == 'pending', 'in_pending', true)" class="ft-action col-lg-10">Payment in pending</p>
             </div>
@@ -157,7 +153,8 @@
                   <a v-if="canAction(own && report.status == 'private', 'publish', false)" @click="UpdateReport('publish',report.id)">
                     Publish
                   </a>
-                  <a v-if="canAction(report.orders_status == 'completed' || (report.completion_status == 'pending' && !own ), 'refund', false)">
+                  <a v-if="canAction(canRefund(), 'refund', false)" @click="refundAsked ? null : refundAction(report.id )"
+                  :title="refundAsked ? 'You refund enquiry has already been sent' : ''">
                     Refund
                   </a>
                 </div>
@@ -195,6 +192,11 @@
     components: {
       icon: Icon,
     },
+    computed: {
+      refundAsked() {
+        return this.report.orders_refund_status == 'asked';
+      }
+    },
     data() {
       return {
         firstAction: '',
@@ -206,6 +208,20 @@
       this.listAction = this.afterMountedAction;
     },
     methods: {
+      canRefund() {
+        if (this.report.orders_status == 'completed' || (this.report.completion_status == 'pending' && !this.own) &&
+          typeof this.refundAction != 'undefined') {
+          if (this.report.orders_completed_date) {
+            var week = new Date(this.report.orders_completed_date);
+            week.setDate(week.getDate() + 7);
+            var today = new Date()
+            if (week < today)
+              return false
+            return true;
+          }
+        }
+        return true;
+      },
       getLanguage(key) {
         return countrydata.languages[key] ? countrydata.languages[key].name : key;
       },

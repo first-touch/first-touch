@@ -17,6 +17,9 @@ module V1
             represented.user.personal_profile
           )
         }
+        property :test, getter: lambda { |represented:, **|
+          represented['test']
+        }
         property :is_free, getter: lambda { |represented:, **|
           if represented.price
              represented.price['value'] == 0
@@ -66,6 +69,21 @@ module V1
             'N/A'
           end
         }
+        property :orders_completed_date, getter: lambda { |represented:, **|
+          begin
+            represented.orders_completed_date
+          rescue StandardError
+            'N/A'
+          end
+        }
+        property :orders_refund_status, getter: lambda { |represented:, **|
+          begin
+            represented.orders_refund_status
+          rescue StandardError
+            'N/A'
+          end
+        }
+
         property :orders_price, getter: lambda { |represented:, **|
           begin
             represented.orders_price

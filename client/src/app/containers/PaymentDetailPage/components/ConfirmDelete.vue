@@ -3,8 +3,8 @@
     <loading class="loader" v-if="loading" />
     <div class="diverrors" v-if="errors">
       <ul class="errors">
-        <li v-for="error in errors" :key="error.id">
-          {{error}}
+        <li >
+          {{errors}}
         </li>
       </ul>
     </div>
@@ -16,7 +16,7 @@
       </ul>
     </div>
     <div class="content">
-      <div v-if="none">
+      <div v-if="none && bankAccount.account_holder_name">
         <div class="row">
           <p class="col-lg-6">Holder name</p>
           <p class="col-lg-6">{{bankAccount.account_holder_name}}</p>
@@ -33,10 +33,12 @@
           <p class="col-lg-6">Last 4</p>
           <p class="col-lg-6">{{bankAccount.last4}}</p>
         </div>
-        <div>
-          <p>Are you sure you want to delete this bank account ?</p>
-        </div>
       </div>
+       <div v-if="none">
+          <p v-if="!isDeleteAccount">Are you sure you want to delete this bank account ?</p>
+          <p v-if="isDeleteAccount">Are you sure you want to delete your account ?</p>
+          <p v-if="isDeleteAccount">Please not that all your Report will be unpublished and bids pending canceled</p>
+        </div>
       <div class="col-lg-12 buttons-inner">
         <button class="ft-button ft-button-danger" v-if="none" @click="startDelete()">Delete
         </button>
@@ -74,7 +76,7 @@
 
   export default {
     name: 'confirmDelete',
-    props: ['bankAccount', 'deleteAction', 'closeAction', 'stripeFtouch'],
+    props: ['bankAccount', 'deleteAction', 'closeAction', 'stripeFtouch','isDeleteAccount'],
     components: {
       loading: Loading
     },

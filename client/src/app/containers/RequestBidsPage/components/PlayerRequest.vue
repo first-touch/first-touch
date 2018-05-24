@@ -15,7 +15,6 @@
           <p>
             <span>DEADLINE {{request.deadline | moment}}</span>
           </p>
-          <p class="price" v-if="request.price">{{request.price.value}} {{request.price.currency | currency}}</p>
         </div>
         <div class="info col-lg-8">
           <h2 class="title">
@@ -29,6 +28,11 @@
               <span class="field row">
                 <span class="col-lg-4">Age: </span>
                 <span class="col-lg-6">{{ request.meta_data.age}}
+                </span>
+              </span>
+              <span class="field row">
+                <span class="col-lg-4">Price range: </span>
+                <span class="col-lg-6">{{request.price.value}} to {{request.price.max}} {{request.price.currency | currency}}
                 </span>
               </span>
               <span class="field row">
@@ -79,31 +83,31 @@
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 </style>
 
 <style lang="scss" scoped>
-@import '~stylesheets/item';
+  @import '~stylesheets/item';
 </style>
 <script>
-import countrydata from 'country-data';
+  import countrydata from 'country-data';
 
-export default {
-  name: 'RequestItem',
-  props: ['request'],
-  data() {
-    return {
-      price: this.request.price.value
-    };
-  },
-  methods: {
-    getLanguage(key) {
-      return countrydata.languages[key] ? countrydata.languages[key].name : '';
+  export default {
+    name: 'RequestItem',
+    props: ['request'],
+    data() {
+      return {
+        price: this.request.price.value
+      };
     },
-    getNationality(key) {
-      return countrydata.countries[key] ? countrydata.countries[key].name : '';
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : '';
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : '';
+      }
     }
-  }
-};
+  };
 </script>

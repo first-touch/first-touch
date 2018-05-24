@@ -115,6 +115,7 @@ module V1
 
       def complete_order!(model: ,  **)
         model.status = "completed"
+        model.completed_date = Time.now
         true
       end
 

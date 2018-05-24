@@ -30,6 +30,9 @@
             <button class="ft-button ft-button-success" disabled v-if="preferred == bankAccount.id " @click="preferredBank(bankAccount)">Preferred</button>
             <button class="ft-button" v-if="idNotDelete != bankAccount.id" @click="deleteBank(bankAccount)">Delete</button>
           </div>
+          <div class="buttons-inner col-lg-12" v-if="info.external_accounts.length == 1">
+            <button class="ft-button"  @click="deleteAccount(bankAccount)">Delete My Stripe account</button>
+          </div>
         </div>
       </div>
     </div>
@@ -122,7 +125,7 @@
 
   export default {
     name: 'BankAccountList',
-    props: ['stripe', 'deleteBank', 'preferredBank'],
+    props: ['stripe', 'deleteBank', 'preferredBank', 'deleteAccount'],
     components: {
       loading: Loading
     },

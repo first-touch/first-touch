@@ -25,6 +25,18 @@
 
 .ft-search-widget {
   color: $main-text-color;
+  .little-count {
+    padding: 0;
+    span{
+      display: block;
+      padding: 0;
+      text-align: center;
+    }
+    .list-little-count {
+      color: $main-header-color;
+      font-size: 1.5em;
+    }
+  }
   fieldset {
     padding: 0;
     margin: 5px;

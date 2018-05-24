@@ -8,9 +8,9 @@
       <form @submit.prevent="search" class="col-lg-10">
         <div class="row">
           <fieldset class="col-lg-6">
-            <currencyinput :value="price" max="true" :currency="currency" />
+            <currencyinput :value="price" max="true" :currency="price.currency" />
           </fieldset>
-          <ftdatepicker class="col-lg-3 form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
+          <ftdatepicker class="col-lg-3 form-control" :value="params.created_date" v-on:update:val="params.created_date = $event"
           placeholder="Bid date"
           />
         </div>
@@ -33,7 +33,7 @@
               </span>
             </th>
             <th scope="col" class="shortable" @click="setOrder('price')">
-              <p>Bid Price (in {{currency}})</p>
+              <p>Bid Price (in {{price.currency}})</p>
               <span v-if="params.order == 'price'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                 <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
@@ -84,7 +84,7 @@
 
   export default {
     name: 'Bids',
-    props: ['bids', 'currency', 'getBids', 'acceptAction'],
+    props: ['bids', 'getBids', 'acceptAction','request'],
     components: {
       currencyinput: CurrencyInput,
       ftdatepicker: FtDatepicker,
@@ -106,6 +106,14 @@
         }
       };
     },
+    mounted(){
+      if (this.request){
+        this.price.value = this.request.price.value
+        this.price.currency = this.request.price.currency
+        this.price.max = this.request.price.max
+      }
+      this.search();
+    },
     computed: {
       url() {
         var params = this.params;
@@ -116,6 +124,11 @@
             return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
           })
           .join('&');
+      }
+    },
+    watch:{
+      url(){
+        this.search();
       }
     },
     methods: {

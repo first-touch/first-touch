@@ -35,7 +35,8 @@
           <positionrequestpopup v-if="selected.type_request == 'position' " :request="selected" :closeAction="closeAction" />
         </div>
         <div v-if="cancel && selected">
-          <cancelrequestpopup :request="selected" :closeAction="closeAction" :cancelReport="cancelReport" :bid="bid" />
+          <cancelrequestpopup :request="selected" :closeAction="closeAction" :cancelReport="cancelReport"   :filesUpload="filesUpload" :uploadFiles="uploadFiles"
+          :bid="bid" />
         </div>
       </b-modal>
 
@@ -239,7 +240,7 @@
       this.search();
     },
     computed: {
-      ...mapGetters(['searchRequest', 'bid']),
+      ...mapGetters(['searchRequest', 'bid','filesUpload']),
       listRequest() {
         if (this.searchRequest.status === ASYNC_SUCCESS) {
           return this.searchRequest.value.request;
@@ -271,7 +272,7 @@
       }
     },
     methods: {
-      ...mapActions(['getRequests', 'createBid', 'clearBid', 'updateBid', 'cancelBid']),
+      ...mapActions(['getRequests', 'createBid', 'clearBid', 'updateBid', 'cancelBid','uploadFiles']),
       search() {
         var self = this
         clearTimeout(this.timer);

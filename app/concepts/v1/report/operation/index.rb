@@ -26,48 +26,54 @@ module V1
         joins = "LEFT JOIN orders ON orders.customer_id = #{current_user.id}"\
         ' AND orders.report_id = reports.id'
         models = models.joins(joins)
-        models = models.select('reports.*, orders.status AS orders_status')
+        models = models.select('reports.*, orders.status AS orders_status, orders.completed_date AS orders_completed_date, orders.refund_status AS orders_refund_status')
+
       end
 
       def join_orders!(options, params:, current_user:, **)
-        if current_user.is_a?(::Club) || true
+        if current_user.is_a?(::User) && current_user.scout?
+          true
+        elsif current_user.is_a?(::Club) || true
           # Todo: remove or true once club are ready
-          models = if params[:purchased] == 'true'
-                     purchased!(options['models'], current_user)
-                   elsif !params[:request_id].blank?
-                     proposed!(options['models'], current_user, params)
-                   else
-                     order_status!(options['models'], current_user)
-            end
-          options['models'] = models
+          if params[:purchased] == 'true'
+            purchased!(options, current_user)
+          elsif !params[:request_id].blank?
+            proposed!(options, current_user, params)
+          else
+            order_status!(options, current_user)
+          end
         end
       end
 
-      def proposed!(models, current_user, params)
+      def proposed!(options, current_user, params)
+        models = options['models']
         request = current_user.requests.find(params[:request_id]) if params[:request_id]
         if !request.nil?
           models = models.where('reports.request_id = ?',request.id)
         end
-        models
+        options['models'] = models
       end
-      def order_status!(models, current_user)
+      def order_status!(options, current_user)
+        models = options['models']
+
         joins = "LEFT JOIN orders ON orders.customer_id = #{current_user.id}"\
         ' AND orders.report_id = reports.id'
         models = models.where('reports.status = ? OR orders.status = ?','publish','completed')
         models = models.joins(joins)
         models = models.select('reports.*, orders.status AS orders_status')
         # models = models.group('reports.id', 'orders.status')
-        models
+        options['models'] = models
       end
 
-      def purchased!(models, current_user)
+      def purchased!(options, current_user)
+        models = options['models']
         models = models.where('orders.status' => ['completed','pending_report'],
                               'orders.customer_id' => current_user.id.to_s)
         models = models.select(
           'reports.*, orders.status AS orders_status,'\
-          ' orders.price AS orders_price'
+          ' orders.price AS orders_price',
         )
-        models
+        options['models'] = models
       end
 
       def filters!(options, params:, **)

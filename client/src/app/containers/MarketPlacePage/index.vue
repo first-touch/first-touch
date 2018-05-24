@@ -87,55 +87,6 @@
       return {
         payment: false,
         reportSelected: null,
-        sort_select: {
-          label: 'Sort by',
-          value: ''
-        },
-        type_select: {
-          label: 'Report Type',
-          value: ''
-        },
-        params: {
-          id: '',
-          headline: '',
-          report_type: '',
-          created_date_from: '',
-          created_date_to: '',
-          created_date: '',
-          sort: ''
-        },
-        options: {
-          report_type: [{
-              label: 'Report Type',
-              value: ''
-            },
-            {
-              label: 'Player',
-              value: 'player'
-            },
-            {
-              label: 'Team',
-              value: 'team'
-            }
-          ],
-          order: [{
-              label: 'Sort by',
-              value: ''
-            },
-            {
-              label: 'Updated date',
-              value: 'updated_at'
-            },
-            {
-              label: 'Type',
-              value: 'Type'
-            },
-            {
-              label: 'Price',
-              value: 'price'
-            }
-          ]
-        }
       };
     },
     computed: {
@@ -149,24 +100,6 @@
         }
         return [];
       },
-      url() {
-        var params = this.params;
-        if (params.created_date_from) {
-          params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
-        }
-        if (params.created_date_to) {
-          params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
-        }
-        params.sort = this.sort_select.value;
-        params.report_type = this.type_select.value;
-        var url = Object.keys(params)
-          .map(function (k) {
-            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-          })
-          .join('&');
-
-        return url;
-      }
     },
     mounted() {
       this.search();

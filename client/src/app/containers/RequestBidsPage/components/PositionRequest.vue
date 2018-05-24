@@ -25,6 +25,11 @@
             <span class="target" v-if="!request.player">{{request.meta_data.player_name}}</span>
           </h2>
           <p class="extra">
+            <span class="field row">
+              <span class="col-lg-4">Price range: </span>
+              <span class="col-lg-6">{{request.price.value}} to {{request.price.max}} {{request.price.currency | currency}}
+              </span>
+            </span>
             <span v-if="!request.player">
               <span class="field row">
                 <span class="col-lg-4">Age Range: </span>
@@ -115,26 +120,26 @@
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 </style>
 
 <style lang="scss" scoped>
-@import '~stylesheets/item';
+  @import '~stylesheets/item';
 </style>
 <script>
-import countrydata from 'country-data';
+  import countrydata from 'country-data';
 
-export default {
-  name: 'RequestItem',
-  props: ['request'],
-  methods: {
-    getLanguage(key) {
-      return countrydata.languages[key] ? countrydata.languages[key].name : '';
-    },
-    getNationality(key) {
-      return countrydata.countries[key] ? countrydata.countries[key].name : '';
+  export default {
+    name: 'RequestItem',
+    props: ['request'],
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : '';
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : '';
+      }
     }
-  }
-};
+  };
 </script>

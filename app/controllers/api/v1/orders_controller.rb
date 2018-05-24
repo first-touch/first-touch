@@ -9,6 +9,13 @@ module Api
           response = FirstTouch::Endpoint.(result, ::V1::Order::Representer::Empty)
           render json: response[:data], status: response[:status]
       end
+
+      def refund
+        result = ::V1::Order::Refund.(params, current_user: current_user)
+        response = FirstTouch::Endpoint.(result, ::V1::Order::Representer::Empty)
+        render json: response[:data], status: response[:status]
+      end
+
     end
   end
 end

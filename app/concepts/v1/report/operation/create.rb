@@ -31,6 +31,7 @@ module V1
           end
         else
           model = ::Report.new
+          model.status = 'publish'
         end
         options["model"] = model
       end

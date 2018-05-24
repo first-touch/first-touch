@@ -35,7 +35,8 @@
                 <positionrequestpopup v-if="selected.type_request == 'position' " :request="selected" :closeAction="closeAction" />
               </div>
               <div v-if="cancel && selected">
-                <cancelrequestpopup :request="selected" :closeAction="closeAction" :cancelReport="cancelReport" :bid="bid" />
+                <cancelrequestpopup :request="selected" :closeAction="closeAction" :cancelReport="cancelReport"
+                :bid="bid" :filesUpload="filesUpload" :uploadFiles="uploadFiles"/>
               </div>
             </b-modal>
 
@@ -75,9 +76,17 @@
                       <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                     </span>
                   </th>
+
                   <th scope="col" class="shortable" @click="setOrder('bid_status')">
                     <p>Bid Status</p>
                     <span v-if="params.order == 'bid_status'">
+                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                    </span>
+                  </th>
+                  <th scope="col" class="shortable" @click="setOrder('deadline')">
+                    <p>Deadline</p>
+                    <span v-if="params.order == 'deadline'">
                       <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                       <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                     </span>
@@ -87,7 +96,7 @@
               </thead>
               <tbody>
                 <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :createReport="createReport"
-                  mode="table" :cancelReport="cancelReportPopup" :fields="['id','club','type','bid_price','bid_status','action']"
+                  mode="table" :cancelReport="cancelReportPopup" :fields="['id','club','type','bid_price','bid_status','deadline','action']"
                 />
               </tbody>
             </table>
@@ -263,7 +272,7 @@
       this.search();
     },
     computed: {
-      ...mapGetters(['searchRequest', 'bid']),
+      ...mapGetters(['searchRequest', 'bid','filesUpload']),
       listRequest() {
         if (this.searchRequest.status === ASYNC_SUCCESS) {
           return this.searchRequest.value.request;
@@ -295,7 +304,7 @@
       }
     },
     methods: {
-      ...mapActions(['getRequests', 'createBid', 'clearBid', 'updateBid', 'cancelBid']),
+      ...mapActions(['getrequestquests', 'crequestateBid', 'clearBid', 'updateBid', 'cancelBid','uploadFiles']),
       search() {
         this.getRequests(this.url);
       },
