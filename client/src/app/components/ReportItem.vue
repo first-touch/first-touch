@@ -96,7 +96,6 @@
   </div>
 </template>
 <style lang="scss" scoped>
-  @import '~stylesheets/variables';
   @import '~stylesheets/light_item';
 </style>
 <script>
