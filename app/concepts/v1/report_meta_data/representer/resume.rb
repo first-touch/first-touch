@@ -13,7 +13,6 @@ module V1
         property :main_threats, getter:  lambda { |represented:, **|
           represented['main_threats'] if represented['main_threats']
         }
-
       end
     end
   end

@@ -21,13 +21,11 @@ module V1
           represented['test']
         }
         property :is_free, getter: lambda { |represented:, **|
-          if represented.price
-             represented.price['value'] == 0
-          end
+          represented.price['value'] == 0 if represented.price
         }
 
         property :player, getter: lambda { |represented:, **|
-          if represented.player and represented.type_report == 'player'
+          if represented.player && (represented.type_report == 'player')
             ::V1::PersonalProfile::Representer::Simplified.new(
               represented.player.personal_profile
             )
@@ -41,16 +39,16 @@ module V1
         }
 
         property :team_info, getter: lambda { |represented:, **|
-          if represented.player and represented.type_report == 'player'
+          if represented.player && (represented.type_report == 'player')
             ::V1::Team::Representer::Index.new(
-            represented.player.teams
+              represented.player.teams
             )
           end
         }
         property :league, getter: lambda { |represented:, **|
           if represented.league
             ::V1::Competition::Representer::Simplified.new(
-            represented.league
+              represented.league
             )
           end
         }
@@ -59,7 +57,7 @@ module V1
           if represented.team
             ::V1::Team::Representer::Simplified.new(
               represented.team
-              )
+            )
           end
         }
         property :orders_status, getter: lambda { |represented:, **|
@@ -92,14 +90,14 @@ module V1
           end
         }
         property :search, getter:  lambda { |represented:, **|
-          if represented.meta_data and represented.request_id.nil?
+          if represented.meta_data && represented.request_id.nil?
             represented.meta_data['search'] if represented.meta_data['search']
           end
         }
         property :meta_data, getter: lambda { |represented:, **|
           if represented.meta_data
             ::V1::ReportMetaData::Representer::Resume.new(
-            represented.meta_data
+              represented.meta_data
             )
           end
         }

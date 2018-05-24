@@ -31,20 +31,20 @@ module V1
 
       def setup_model!(options, model:, current_user:, **)
         model.customer_id = current_user.id
-        model.report =  options['model'].report
+        model.report = options['model'].report
         model.price = model.report.price['value']
         model.user = model.report.user
       end
 
-      def dest_has_stripe!(options, params:, model:,   **)
+      def dest_has_stripe!(options, params:, model:, **)
         stripe_ft = model.user.stripe_ft
-        if stripe_ft.nil? or stripe_ft.stripe_id.nil?
+        if stripe_ft.nil? || stripe_ft.stripe_id.nil?
           options['stripe.errors'] = ['scout_stripe_not_found']
         end
-        (stripe_ft.nil?) ? false: stripe_ft.stripe_id
+        stripe_ft.nil? ? false : stripe_ft.stripe_id
       end
 
-      def made_payment!(options, params:, model:, current_user:,  **)
+      def made_payment!(options, params:, model:, current_user:, **)
         card_token = params[:token]
         report = options['model'].report
         user = report.user
@@ -55,22 +55,22 @@ module V1
           success = true
         elsif !card_token.nil?
           currency = report.price['currency']
-          if !amount.nil? and !currency.nil?
+          if !amount.nil? && !currency.nil?
             charge_params = {
               amount: amount,
               currency: currency,
               card_token: card_token,
-              account: user.stripe_ft.stripe_id,
+              account: user.stripe_ft.stripe_id
             }
-            if params[:save] == true or params[:usesaved] == true
+            if (params[:save] == true) || (params[:usesaved] == true)
               charge_params[:customer] = current_user.stripe_ft.stripe_id
             end
             begin
               charge = PaymentUtil.stripe_charge(charge_params, current_user: current_user)
-            rescue => e
+            rescue StandardError => e
               options['stripe.errors'] = e
             end
-            if !charge.nil?
+            unless charge.nil?
               options['stripe_charge_id'] = charge.id
               success = true
             end
@@ -79,17 +79,17 @@ module V1
         success
       end
 
-      def save_card!(options, params:, model:, current_user:,  **)
+      def save_card!(options, params:, model:, current_user:, **)
         save = params[:save]
         success = true
         if save
           if current_user.stripe_ft.nil?
             begin
-              customer = ::Stripe::Customer.create({
+              customer = ::Stripe::Customer.create(
                 source: params['token'],
-                email: current_user.email,
-              })
-            rescue => e
+                email: current_user.email
+              )
+            rescue StandardError => e
               options['stripe.errors'] = e
             end
             params['token'] = customer.default_source
@@ -102,9 +102,9 @@ module V1
           else
             stripe_ft = current_user.stripe_ft
             begin
-            customer = ::Stripe::Customer.retrieve(stripe_ft.stripe_id)
-            source = customer.sources.create(source: params['token'])
-            rescue => e
+              customer = ::Stripe::Customer.retrieve(stripe_ft.stripe_id)
+              source = customer.sources.create(source: params['token'])
+            rescue StandardError => e
               options['stripe.errors'] = e
             end
             params['token'] = source
@@ -113,8 +113,8 @@ module V1
         success
       end
 
-      def complete_order!(model: ,  **)
-        model.status = "completed"
+      def complete_order!(model:, **)
+        model.status = 'completed'
         model.completed_date = Time.now
         true
       end
@@ -123,7 +123,7 @@ module V1
         current_user.is_a?(::Club) || true
       end
 
-      def persist_stripe_transaction!(options, params:, model:,   **)
+      def persist_stripe_transaction!(options, params:, model:, **)
         stripe_logger = ::Logger.new("#{Rails.root}/log/stripe_payout.log")
         transaction_params = {
           stripe_id: options['stripe_charge_id'],
@@ -140,7 +140,6 @@ module V1
         end
         true
       end
-
     end
   end
 end

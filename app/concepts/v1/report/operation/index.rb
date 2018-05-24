@@ -11,9 +11,9 @@ module V1
 
       def find_model!(options, params:, current_user:, **)
         if current_user.is_a?(::User) && current_user.scout?
-          options['models'] = current_user.reports.where.not(status: ['pending','deleted'])
+          options['models'] = current_user.reports.where.not(status: %w[pending deleted])
         elsif current_user.is_a?(::Club) || true
-          # Todo: remove or true once club are ready
+          # TODO: remove or true once club are ready
           options['models'] = club(params, current_user: current_user)
 
         end
@@ -21,20 +21,19 @@ module V1
         options['model.class'] = ::Report
       end
 
-      def club(params, current_user:)
+      def club(_params, current_user:)
         models = ::Report.all
         joins = "LEFT JOIN orders ON orders.customer_id = #{current_user.id}"\
         ' AND orders.report_id = reports.id'
         models = models.joins(joins)
         models = models.select('reports.*, orders.status AS orders_status, orders.completed_date AS orders_completed_date, orders.refund_status AS orders_refund_status')
-
       end
 
       def join_orders!(options, params:, current_user:, **)
         if current_user.is_a?(::User) && current_user.scout?
           true
         elsif current_user.is_a?(::Club) || true
-          # Todo: remove or true once club are ready
+          # TODO: remove or true once club are ready
           if params[:purchased] == 'true'
             purchased!(options, current_user)
           elsif !params[:request_id].blank?
@@ -48,17 +47,18 @@ module V1
       def proposed!(options, current_user, params)
         models = options['models']
         request = current_user.requests.find(params[:request_id]) if params[:request_id]
-        if !request.nil?
-          models = models.where('reports.request_id = ?',request.id)
+        unless request.nil?
+          models = models.where('reports.request_id = ?', request.id)
         end
         options['models'] = models
       end
+
       def order_status!(options, current_user)
         models = options['models']
 
         joins = "LEFT JOIN orders ON orders.customer_id = #{current_user.id}"\
         ' AND orders.report_id = reports.id'
-        models = models.where('reports.status = ? OR orders.status = ?','publish','completed')
+        models = models.where('reports.status = ? OR orders.status = ?', 'publish', 'completed')
         models = models.joins(joins)
         models = models.select('reports.*, orders.status AS orders_status')
         # models = models.group('reports.id', 'orders.status')
@@ -67,11 +67,11 @@ module V1
 
       def purchased!(options, current_user)
         models = options['models']
-        models = models.where('orders.status' => ['completed','pending_report'],
+        models = models.where('orders.status' => %w[completed pending_report],
                               'orders.customer_id' => current_user.id.to_s)
         models = models.select(
           'reports.*, orders.status AS orders_status,'\
-          ' orders.price AS orders_price',
+          ' orders.price AS orders_price'
         )
         options['models'] = models
       end
@@ -123,22 +123,21 @@ module V1
 
       def orders!(options, params:, **)
         models = options['models']
-        if !params[:order].blank?
+        unless params[:order].blank?
           order = params[:order_asc] == 'true' ? :asc : :desc
           if %w[id created_at updated_at headline report_type completion_status]
-            .include?(params[:order])
-            models = models.order({ params[:order] => order})
+             .include?(params[:order])
+            models = models.order(params[:order] => order)
           elsif params[:order] == 'scout_name'
             models = models.includes(:user)
-            models = models.order("users.search_string #{order}", )
+            models = models.order("users.search_string #{order}")
           elsif params[:order] == 'price'
-            models = models.order("reports.price->>'value' #{order}", )
+            models = models.order("reports.price->>'value' #{order}")
           end
         end
         options['models'] = models
         true
       end
-
     end
   end
 end

@@ -50,8 +50,8 @@ Rails.application.routes.draw do
       get 'messages/:chat_with_id', controller: :messages, action: :show
       get 'notes/tags', controller: :notes, action: :tags
       resources :notes do
-        get "tag/:tag", on: :collection, action: :index_by_tag
-        get "field_types", on: :collection, action: :field_types
+        get 'tag/:tag', on: :collection, action: :index_by_tag
+        get 'field_types', on: :collection, action: :field_types
       end
       get 'direct_upload/signed_url', to: 'direct_upload#signed_url'
       resources :events, only: %i[index create show]
@@ -72,8 +72,7 @@ Rails.application.routes.draw do
 
       get 'requests/bids/:request_id', controller: :bids, action: :requestbids
       post 'requests/bids/:request_id', controller: :bids, action: :acceptbid
-      resource :club_stripe, :path => "club/stripe"
-
+      resource :club_stripe, path: 'club/stripe'
     end
   end
 end

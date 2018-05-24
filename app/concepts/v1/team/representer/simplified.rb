@@ -8,9 +8,9 @@ module V1
         property :id
 
         property :competitions, getter: lambda { |represented:, **|
-            ::V1::Competition::Representer::Index.new(
+          ::V1::Competition::Representer::Index.new(
             represented.competitions
-            )
+          )
         }
       end
     end

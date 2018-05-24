@@ -3,7 +3,6 @@ module V1
     module Representer
       class Empty < Representable::Decorator
         include Representable::JSON
-
       end
     end
   end

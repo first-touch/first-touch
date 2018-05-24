@@ -6,8 +6,8 @@ module V1
       step :setup_report!
       step :setup_bid!
 
-      # Todo: will be remove once s3 upload is set
-      def setup_report!(options, params:, current_user:, **)
+      # TODO: will be remove once s3 upload is set
+      def setup_report!(_options, params:, current_user:, **)
         if params[:report_id]
           report = current_user.reports.find(params[:report_id])
           params['files'].each do |key|
@@ -18,7 +18,8 @@ module V1
         end
         true
       end
-      def setup_bid!(options, params:, current_user:, **)
+
+      def setup_bid!(_options, params:, current_user:, **)
         if params[:job_id]
           bid = current_user.request_bids.find_by(request_id: params[:job_id], status: 'canceled')
           params['files'].each do |key|

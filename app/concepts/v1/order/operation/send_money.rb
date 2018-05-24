@@ -21,7 +21,7 @@ module V1
         model = options['model']
         model.status = 'completed'
         model.completed_date = Time.now
-        model.report = ::Report.find(params["report_id"])
+        model.report = ::Report.find(params['report_id'])
         options['model'] = model
         model.report
       end

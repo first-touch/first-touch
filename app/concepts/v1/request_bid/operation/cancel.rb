@@ -18,9 +18,10 @@ module V1
       step :position!
 
       private
+
       def find_model!(options, params:, current_user:, **)
         options['model.class'] = ::RequestBid
-        options['model'] = model = current_user.request_bids.find_by(request_id: params[:id], status: ['accepted', 'joblist'])
+        options['model'] = model = current_user.request_bids.find_by(request_id: params[:id], status: %w[accepted joblist])
         options['result.model'] = result = Result.new(!model.nil?, {})
         result.success?
       end
@@ -30,9 +31,7 @@ module V1
         if model.request.type_request != 'position'
           report = model.order.report
           options['report'] = report
-          if report.nil?
-            success = true
-          end
+          success = true if report.nil?
         end
         success
       end
@@ -51,7 +50,7 @@ module V1
             }
             result = ::V1::StripeTransaction::Create.(transaction_params)
           else
-            options['stripe.errors'] =  I18n.t 'stripe.charge_not_found'
+            options['stripe.errors'] = I18n.t 'stripe.charge_not_found'
             result = false
           end
         end
@@ -75,22 +74,18 @@ module V1
         if model.request.type_request != 'position'
           begin
             ::SystemMailer.notify('cancelation', model, model.request.user.id)
-          rescue => e
+          rescue StandardError => e
             stripe_logger = ::Logger.new("#{Rails.root}/log/mailer.log")
-            stripe_logger.error("ReportCanceled An error occured when sending email to club #{e.to_s}")
+            stripe_logger.error("ReportCanceled An error occured when sending email to club #{e}")
           end
         end
         true
       end
 
-      def position!(options, model:, **)
-        if model.request.type_request == 'position'
-          model.destroy
-        end
+      def position!(_options, model:, **)
+        model.destroy if model.request.type_request == 'position'
         true
       end
-
-
     end
   end
 end

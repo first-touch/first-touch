@@ -11,19 +11,19 @@ module V1
       step :setup_model!
       step Trailblazer::Operation::Contract::Build(
         constant: Report::Contract::Create
-        )
+      )
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
       step :send_money
       step :persist_bid
 
-      def model!(options, params:,current_user:, **)
+      def model!(options, params:, current_user:, **)
         model = nil
         if !params[:job_id].blank?
           request = ::Request.find(params[:job_id])
-          options["position"] = request.type_request == 'position'
+          options['position'] = request.type_request == 'position'
 
-          if !options["position"]
+          if !options['position']
             model = ::Report.find_by user_id: current_user.id, completion_status: ['pending'], request_id: params[:job_id]
           else
             model = ::Report.new
@@ -33,12 +33,12 @@ module V1
           model = ::Report.new
           model.status = 'publish'
         end
-        options["model"] = model
+        options['model'] = model
       end
 
       def setup_model!(options, model:, current_user:, **)
         if options['bid']
-          if !options["position"]
+          unless options['position']
             request = model.request
             model.team = request.team
             model.player = request.player
@@ -57,10 +57,10 @@ module V1
         true
       end
 
-      def is_a_bid?(options, model:,params:, current_user:, **)
+      def is_a_bid?(options, model:, params:, current_user:, **)
         success = true
-        if !params[:job_id].blank?
-          bid = ::RequestBid.find_by request_id: params[:job_id], user_id: current_user.id, status: ['accepted','joblist']
+        unless params[:job_id].blank?
+          bid = ::RequestBid.find_by request_id: params[:job_id], user_id: current_user.id, status: %w[accepted joblist]
           options['bid'] = bid
           success = !bid.blank?
         end
@@ -69,7 +69,7 @@ module V1
 
       def persist_bid(options, model:, params:, current_user:, **)
         if options['bid']
-          bid =  options['bid']
+          bid = options['bid']
           bid.status = 'completed'
           bid.report_id = model.id
           bid.save
@@ -85,13 +85,12 @@ module V1
               'user' => model.user,
               'report_id' => model.id
             }
-            result = ::V1::Order::SendMoney.(order_params, user_id: options['bid'].user_id, current_user: current_user )
+            result = ::V1::Order::SendMoney.(order_params, user_id: options['bid'].user_id, current_user: current_user)
             return result.success?
           end
         end
         true
       end
-
     end
   end
 end

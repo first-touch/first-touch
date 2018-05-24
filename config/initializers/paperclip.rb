@@ -1,12 +1,11 @@
-config = YAML.load(
+config = YAML.safe_load(
   ERB.new(
     File.read(
       Rails.root.join('config', 'paperclip.yml')
     )
-  ).result)[Rails.env]
+  ).result
+)[Rails.env]
 
-if config
-  config.each do |k,v|
-    Paperclip::Attachment.default_options[k.to_sym] = v
-  end
+config&.each do |k, v|
+  Paperclip::Attachment.default_options[k.to_sym] = v
 end

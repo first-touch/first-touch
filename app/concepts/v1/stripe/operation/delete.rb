@@ -10,19 +10,20 @@ module V1
       step :delete_stripe_account!
       failure :stripe_failure!, fail_fast: true
       step :unpublish_all!
+
       private
 
-      def find!(options,  params:, current_user:, **)
+      def find!(options, params:, current_user:, **)
         options['model.class'] = ::Stripe::Account
         id = params[:id]
-        if !current_user.stripe_ft.nil?
+        unless current_user.stripe_ft.nil?
           account = ::Stripe::Account.retrieve(current_user.stripe_ft.stripe_id)
-          if !account.nil?
+          unless account.nil?
             if params[:type] == 'bank_account'
               begin
                 account.external_accounts.retrieve(id)
                 options['model'] = account
-              rescue => e
+              rescue StandardError => e
                 options['stripe.errors'] = e
               end
             else
@@ -33,16 +34,16 @@ module V1
         !options['model'].nil?
       end
 
-      def delete!(options,  params:, current_user:, **)
+      def delete!(options, params:, current_user:, **)
         id = params[:id]
         type = params[:type]
         account = options['model']
         if type == 'bank_account'
           bank_account = account.external_accounts.retrieve(id)
-          if !bank_account.nil?
+          unless bank_account.nil?
             begin
-              bank_account.delete()
-            rescue => e
+              bank_account.delete
+            rescue StandardError => e
               options['stripe.errors'] = e
             end
           end
@@ -51,60 +52,55 @@ module V1
         options['stripe.errors'].nil?
       end
 
-
-      def bid_accepted!(options,  params:, current_user:, **)
+      def bid_accepted!(options, params:, current_user:, **)
         type = params[:type]
-        success = true;
+        success = true
         if type == 'whole_account'
           success = current_user.request_bids.where(status: 'accepted').blank?
-          if !success
+          unless success
             options['stripe.errors'] = I18n.t 'stripe.delete_bid_accepted'
           end
         end
         success
       end
 
-      def balance_empty!(options,  params:, current_user:, **)
+      def balance_empty!(options, params:, current_user:, **)
         type = params[:type]
         account = options['model']
         if type == 'whole_account'
           balance = ::Stripe::Balance.retrieve(stripe_account: account.id)
           balance_empty = true
-          if !balance.nil?
+          unless balance.nil?
             balance.available.each do |b|
-              if b[:amount] != 0
-                balance_empty = false
-              end
+              balance_empty = false if b[:amount] != 0
             end
             balance.pending.each do |b|
-              if b[:amount] != 0
-                balance_empty = false
-              end
+              balance_empty = false if b[:amount] != 0
             end
           end
-          if !balance_empty
+          unless balance_empty
             options['stripe.errors'] = I18n.t 'stripe.balance_not_empty'
           end
         end
         options['stripe.errors'].nil?
       end
 
-      def delete_stripe_account!(options,  params:, current_user:, **)
+      def delete_stripe_account!(options, params:, current_user:, **)
         account = options['model']
         type = params[:type]
         if type == 'whole_account'
-            begin
-              account.delete
-              current_user.stripe_ft.delete()
-              options['model'] = nil
-            rescue => e
-              options['stripe.errors'] = e
-            end
+          begin
+            account.delete
+            current_user.stripe_ft.delete
+            options['model'] = nil
+          rescue StandardError => e
+            options['stripe.errors'] = e
+          end
         end
         options['stripe.errors'].nil?
       end
 
-      def unpublish_all!(options,  params:, current_user:, **)
+      def unpublish_all!(options, params:, current_user:, **)
         if options['model'].nil?
           current_user.reports.where(status: 'publish').update_all status: 'private'
           current_user.request_bids.where(status: 'pending').delete_all
@@ -112,21 +108,18 @@ module V1
         true
       end
 
-      def update_preferred_account!(options,  params:, current_user:, **)
+      def update_preferred_account!(options, params:, current_user:, **)
         id = params[:id]
         account = options['model']
         stripe_ft = current_user.stripe_ft
         if id == stripe_ft.preferred_account
-          if account.external_accounts.data.length > 0
-            stripe_ft.preferred_account = account.external_accounts.data[0].id
-          else
-            stripe_ft.preferred_account = nil
-          end
+          stripe_ft.preferred_account = unless account.external_accounts.data.empty?
+                                          account.external_accounts.data[0].id
+                                        end
           stripe_ft.save!
         end
         true
       end
-
     end
   end
 end

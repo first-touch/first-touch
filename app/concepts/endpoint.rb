@@ -44,20 +44,20 @@ module FirstTouch
       },
       empty: {
         rule: ->(result) { result.success? && result['model'].nil? },
-        resolve: lambda do |result, _representer|
-          { 'data': { },
+        resolve: lambda do |_result, _representer|
+          { 'data': {},
             'status': :ok }
         end
       },
       stripe_errors: {
         rule: ->(result) { result.failure? && !result['stripe.errors'].nil? },
         resolve: lambda do |result, _representer|
-          { 'data': { errors: result['stripe.errors'], old_result: (!result['model'].nil?)? _representer.new(result['model']): nil },
+          { 'data': { errors: result['stripe.errors'], old_result: !result['model'].nil? ? _representer.new(result['model']) : nil },
             'status': :unprocessable_entity }
         end
       },
       model_not_found: {
-        rule: ->(result) { result.failure? && result['result.model.not_found']},
+        rule: ->(result) { result.failure? && result['result.model.not_found'] },
         resolve: lambda do |result, _representer|
           { 'data': { errors: result['result.model.errors'] },
             'status': :not_found }
@@ -65,7 +65,7 @@ module FirstTouch
       },
       invalid: {
         rule: ->(result) { result.failure? },
-        resolve: ->(_result, _representer) { { 'data':  { errors: _result['contract.default'].errors }, 'status': :unprocessable_entity } }
+        resolve: ->(_result, _representer) { { 'data': { errors: _result['contract.default'].errors }, 'status': :unprocessable_entity } }
       },
       fallback: {
         rule: ->(_result) { true },

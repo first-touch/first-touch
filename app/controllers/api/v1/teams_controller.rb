@@ -1,7 +1,6 @@
 module Api
   module V1
     class TeamsController < Api::V1::BaseController
-
       def index
         result = ::V1::Team::Index.(params, current_user: current_user)
         render json: result['models'], status: :ok
@@ -12,7 +11,6 @@ module Api
         response = FirstTouch::Endpoint.(result, ::V1::Team::Representer::Simplified)
         render json: response[:data], status: response[:status]
       end
-
     end
   end
 end
