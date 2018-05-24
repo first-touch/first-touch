@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="ft-item">
     <div class="header-wrapper">
       <div class="header col-md-10">
         <div class="img-container">
@@ -7,25 +7,86 @@
         </div>
         <div class="info col-md-8">
           <h2 class="title" :title="report.headline">{{report.headline}}</h2>
-          <p class="extra">
-            <span class="target" v-if="report.type_report =='player'">{{report.player.first_name}} {{report.player.last_name}} </span>
-            <span class="target" v-if="report.type_report =='team'"> Club Name</span>
-            <span class="target">{{report.price.value}} {{report.price.currency | currency}}</span>
-            <span class="target">{{report.updated_at | moment}}</span>
+          <p class="extra" v-if="report.type_report =='team'">
+            <span class="field row">
+              <span class="col-md-4">Report Id:</span>
+              <span class="col-md-6"> {{report.id | reportId(report.type_report) }}
+              </span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Club Name:</span>
+              <span class="col-md-6">Club Name
+              </span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Price:</span>
+              <span class="col-md-6"> {{report.price.value}} {{report.price.currency | currency}}
+              </span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Last Update on:</span>
+              <span class="col-md-6">{{report.updated_at | moment}}
+              </span>
+            </span>
+          </p>
+          <p class="extra" v-if="report.type_report =='player'">
+            <span class="field row">
+              <span class="col-md-4">Report Id:</span>
+              <span class="col-md-6"> {{report.id | reportId(report.type_report) }}
+              </span>
+            </span>
+            <span class="field row" v-if="report.player">
+              <span class="col-md-4">Player name:</span>
+              <span class="col-md-6" v-if="report.player">{{report.player.first_name}} {{report.player.last_name}}
+              </span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Based in: </span>
+              <span class="col-md-6">{{getNationality(report.meta_data.userinfo.residence_country_code)}}
+              </span>
+            </span>
+            <span class="field row" v-if="report.meta_data.userinfo.playing_position.length">
+              <span class="col-md-4">Position in: </span>
+              <span class="list col-md-8" v-for="position in report.meta_data.userinfo.playing_position" :key="position.id">{{position}}</span>
+            </span>
+            <span class="field yes row" v-if="report.meta_data.transfer_sum.loan_interested == 'yes'">
+              <span class="col-md-12">Interested In Loan</span>
+            </span>
+            <span class="field yes row" v-if="report.meta_data.transfer_sum.transfer_interested  == 'yes'">
+              <span class="col-md-12">Interested In Transfer</span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Price:</span>
+              <span class="col-md-6"> {{report.price.value}} {{report.price.currency | currency}}
+              </span>
+            </span>
+            <span class="field row">
+              <span class="col-md-4">Last Update on:</span>
+              <span class="col-md-6">{{report.updated_at | moment}}
+              </span>
+            </span>
           </p>
         </div>
       </div>
       <div class="widget">
+        <a v-if="own && report.status == 'publish'" @click="UpdateReport('private',report.id)">
+          <button class="btn-round">Unpublish</button>
+        </a>
+        <a v-if="own && report.status == 'private'" @click="UpdateReport('publish',report.id)">
+          <button class="btn-round">Publish</button>
+        </a>
+
+
         <a v-if="report.orders_status == null && typeof BuyAction === 'function'">
           <button class="btn-round" @click="BuyAction(report)">Buy report</button>
         </a>
         <a v-if="typeof summaryAction === 'function'">
-            <button class="btn-round"  @click="summaryAction(report)">View Summary</button>
+          <button class="btn-round" @click="summaryAction(report)">View Summary</button>
         </a>
         <a v-if="report.orders_status == 'completed'">
           <button class="btn-round" @click="refundAction(report)">Refund</button>
         </a>
-        <a v-if="report.orders_status == 'completed'">
+        <a v-if="own || report.orders_status == 'completed'">
           <button class="btn-round" @click="viewAction(report)">View report</button>
         </a>
         <p v-if="report.orders_status == 'pending'">Payment in pending</p>
@@ -35,75 +96,29 @@
   </div>
 </template>
 <style lang="scss" scoped>
-  @import '~stylesheets/variables';
-
-  .wrapper {
-    padding: 0 30px;
-    border-top: 1px solid $secondary-text-color;
-    &:last-child {
-      border-bottom: 1px solid $secondary-text-color;
-    }
-
-    .avatar {
-      height: 300px;
-      border-radius: 50%;
-    }
-
-    .title {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .header-wrapper {
-      display: flex;
-      justify-content: space-between;
-      .header {
-        display: flex;
-        .img-container {
-          height: 120px;
-          max-width: 120px;
-          margin-right: 30px;
-          .img-fluid {
-            max-height: 100%;
-          }
-        }
-        .info {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          .extra {
-            text-transform: none;
-            .target {
-              display: block;
-            }
-            .author {
-              color: #000;
-            }
-          }
-        }
-      }
-      .widget {
-        padding: 20px 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        .btn-round {
-          cursor: pointer;
-          border-radius: 9999px;
-          border: 1px solid $secondary-text-color;
-          background: #fff;
-          width: 100px;
-          &:hover {
-            background: $button-background-hover;
-          }
-        }
-      }
-    }
-  }
+  @import '~stylesheets/light_item';
 </style>
 <script>
+  import countrydata from 'country-data';
+
   export default {
     name: 'ReportItem',
-    props: ['report', 'UpdateReport', 'viewAction', 'summaryAction', 'BuyAction','refundAction']
+    props: [
+      'report',
+      'UpdateReport',
+      'viewAction',
+      'summaryAction',
+      'BuyAction',
+      'refundAction',
+      'own'
+    ],
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : key;
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : key;
+      }
+    }
   };
 </script>
