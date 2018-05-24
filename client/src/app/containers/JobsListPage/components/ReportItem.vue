@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="widget">
-        <router-link :to="`/report/view/${report.id}`">
+        <router-link :to="{ name: 'scoutReportView', params: { id: report.id }}">
           <button class="btn-round">View</button>
         </router-link>
         <a v-if="report.status == 'publish'" @click="UpdateReport('private',report.id)">

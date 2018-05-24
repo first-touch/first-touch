@@ -4,32 +4,35 @@
     <div class="container-fluid">
       <div class="ft-page">
         <actions class="widget"/>
+          <bidslist class="widget" />
           <reportlist class="widget" />
       </div>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
+
+<style lang="scss">
 @import '~stylesheets/variables';
-.widget{
-  margin-bottom: 20px;
-}
+@import '~stylesheets/modal';
+@import '~stylesheets/search';
 </style>
 
 <script>
 import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import ReportList from './components/ReportsList';
+import BidsList from './components/BidsList';
 import Actions from './components/Actions';
 
 export default {
   name: 'JobList',
   components: {
     sidebar: NotificationSidebar,
+    actions: Actions,
     reportlist: ReportList,
-    actions:Actions
+    bidslist: BidsList
   },
-  data () {
+  data() {
     return {
       reportSelected: null
     };
