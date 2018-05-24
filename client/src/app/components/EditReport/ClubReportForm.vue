@@ -78,8 +78,7 @@
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/form';
-
+  @import '~stylesheets/form';
 </style>
 
 

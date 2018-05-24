@@ -29,15 +29,15 @@
     </div>
     <div class="form-group row" v-if="type == 'player'">
       <label class="col-sm-3 col-form-label">Select a Player</label>
-      <inputsearch class="col-sm-6" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="player" v-on:update:val="player_id = $event"
-      />
+      <inputsearch class="col-sm-6" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="player"
+        v-on:update:val="player_id = $event" />
     </div>
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Select a Team</label>
       <inputsearch class="col-sm-6" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" v-on:update:val="team_id = $event"
       />
     </div>
-    <div class="form-group row" >
+    <div class="form-group row">
       <label class="col-sm-3 col-form-label">Select a League</label>
       <inputsearch class="col-sm-6" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="league" v-on:update:val="league = $event"
       />

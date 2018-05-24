@@ -9,8 +9,8 @@
          minimumValue: '0'
      }"></autonumeric>
     <slot />
-      <span v-if="max" class="separator">—</span>
-      <autonumeric class="form-control col-md-5" v-if="max" v-model="model.max"  :options="{
+    <span v-if="max" class="separator">—</span>
+    <autonumeric class="form-control col-md-5" v-if="max" v-model="model.max" :options="{
          digitGroupSeparator: '.',
          decimalCharacter: ',',
          decimalCharacterAlternative: '.',
@@ -29,65 +29,64 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+  @import '~stylesheets/variables';
 
-.autonumeric {
-  height: 100%;
-  min-height: 30px;
+  .autonumeric {
+    height: 100%;
+    min-height: 30px;
 
     .separator {
       float: left;
     }
-    .second {
-    }
+    .second {}
 
-  .form-control {
-    z-index: unset;
-  }
-  .input-group-addon {
-    padding: 0;
-  }
-  .currency {
-    padding: 5px 10px;
-  }
-  .col {
-    float: left;
-    height: 100%;
-    input {
-      height: 100%;
-      z-index: 0;
+    .form-control {
+      z-index: unset;
     }
-    color: $main-text-color;
+    .input-group-addon {
+      padding: 0;
+    }
+    .currency {
+      padding: 5px 10px;
+    }
+    .col {
+      float: left;
+      height: 100%;
+      input {
+        height: 100%;
+        z-index: 0;
+      }
+      color: $main-text-color;
+    }
+    select {
+      background: #eceeef;
+      padding-right: 0;
+      width: 100%;
+    }
   }
-  select {
-    background: #eceeef;
-    padding-right: 0;
-    width: 100%;
-  }
-}
 </style>
 
 <script>
-import VueAutonumeric from 'vue-autonumeric/src/components/VueAutonumeric.vue';
+  import VueAutonumeric from 'vue-autonumeric/src/components/VueAutonumeric.vue';
 
-export default {
-  name: 'CurrencyInput',
-  components: {
-    autonumeric: VueAutonumeric
-  },
-  props: ['value', 'max'],
-  data() {
-    return {
-      model: this.value
-    };
-  },
-  watch: {
-    model: {
-      handler: function(val, oldVal) {
-        this.$emit('update');
-      },
-      deep: true
+  export default {
+    name: 'CurrencyInput',
+    components: {
+      autonumeric: VueAutonumeric
+    },
+    props: ['value', 'max'],
+    data() {
+      return {
+        model: this.value
+      };
+    },
+    watch: {
+      model: {
+        handler: function (val, oldVal) {
+          this.$emit('update');
+        },
+        deep: true
+      }
     }
-  }
-};
+  };
 </script>

@@ -43,10 +43,10 @@
           </div>
           <ul class="sub-nav">
             <li class="sub-nav-item" :class="{ active: page === 'scouting/report/create' || !page }">
-              <router-link  :to="{ name: 'scoutReportCreate'}" >Create Report</router-link>
+              <router-link :to="{ name: 'scoutReportCreate'}">Create Report</router-link>
             </li>
             <li class="sub-nav-item" :class="{ active: page === 'scouting/jobs/list' || !page }">
-              <router-link :to="{ name: 'scoutJobsList'}" >Jobs List</router-link>
+              <router-link :to="{ name: 'scoutJobsList'}">Jobs List</router-link>
             </li>
           </ul>
         </li>
@@ -142,7 +142,7 @@
           padding: 10px 0 10px 20px;
           border-top: 1px solid $main-text-color;
           color: $main-text-color;
-          &.submenu{
+          &.submenu {
             cursor: pointer;
           }
           a {

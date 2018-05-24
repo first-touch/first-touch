@@ -177,150 +177,151 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 
-h5 {
-  color: $main-text-color;
-  font-size: 1.5em;
-}
-.top {
-  display: flex;
-  .avatar {
-    height: 300px;
-    border-radius: 50%;
-  }
-  .info {
-    margin-top: 40px;
-    margin-left: 20px;
-    flex: 1 0 calc(100% - 320px);
-    .name {
-      color: $main-header-color;
-      text-transform: uppercase;
-    }
-    .role,
-    .club,
-    .detail {
-      color: $main-text-color;
-    }
-    .role {
-      font-size: 1.2em;
-    }
-    .detail-title {
-      color: $secondary-text-color;
-    }
-  }
-}
-
-.bottom {
-  display: flex;
-  margin-top: 30px;
-  .summary {
-    flex: 1 0 55%;
-    .summary-title {
-      color: $secondary-text-color;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-    .summary-field {
-      color: $main-text-color;
-      margin-bottom: 5px;
-    }
-  }
-  .position {
-    flex: 1 0 45%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    .position-title {
-      color: $secondary-text-color;
-      font-size: 1.2em;
-      margin-bottom: 0;
-    }
-    .position-content {
-      color: $main-text-color;
-      font-size: 1.2em;
-    }
-  }
-}
-
-.report {
-  padding: 0;
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 12pt;
-  .header {
-    padding: 20px;
-  }
-  .content {
-    padding: 20px 50px;
+  h5 {
     color: $main-text-color;
-    .fa-icon {
-      margin-right: 20px;
-      color: #a8cb5c;
+    font-size: 1.5em;
+  }
+
+  .top {
+    display: flex;
+    .avatar {
+      height: 300px;
+      border-radius: 50%;
     }
-    .player-summary,
-    .contract-summary {
-      padding: 20px;
-      .transfer-title {
-        color: $main-text-color;
-        padding: 0;
-        margin: 0;
+    .info {
+      margin-top: 40px;
+      margin-left: 20px;
+      flex: 1 0 calc(100% - 320px);
+      .name {
+        color: $main-header-color;
+        text-transform: uppercase;
       }
-      .values {
-        padding: 10px 40px;
-        .summary-title {
+      .role,
+      .club,
+      .detail {
+        color: $main-text-color;
+      }
+      .role {
+        font-size: 1.2em;
+      }
+      .detail-title {
+        color: $secondary-text-color;
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    margin-top: 30px;
+    .summary {
+      flex: 1 0 55%;
+      .summary-title {
+        color: $secondary-text-color;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+      .summary-field {
+        color: $main-text-color;
+        margin-bottom: 5px;
+      }
+    }
+    .position {
+      flex: 1 0 45%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .position-title {
+        color: $secondary-text-color;
+        font-size: 1.2em;
+        margin-bottom: 0;
+      }
+      .position-content {
+        color: $main-text-color;
+        font-size: 1.2em;
+      }
+    }
+  }
+
+  .report {
+    padding: 0;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 12pt;
+    .header {
+      padding: 20px;
+    }
+    .content {
+      padding: 20px 50px;
+      color: $main-text-color;
+      .fa-icon {
+        margin-right: 20px;
+        color: #a8cb5c;
+      }
+      .player-summary,
+      .contract-summary {
+        padding: 20px;
+        .transfer-title {
           color: $main-text-color;
-        }
-        .summary-field {
           padding: 0;
           margin: 0;
         }
+        .values {
+          padding: 10px 40px;
+          .summary-title {
+            color: $main-text-color;
+          }
+          .summary-field {
+            padding: 0;
+            margin: 0;
+          }
+        }
       }
-    }
-    .list {
-      text-transform: capitalize;
-      &:not(:last-child):after {
-        content: ', ';
+      .list {
+        text-transform: capitalize;
+        &:not(:last-child):after {
+          content: ', ';
+        }
       }
-    }
-    .meta {
-      margin: 20px 0;
-      p {
-        margin-left: 20px;
+      .meta {
+        margin: 20px 0;
+        p {
+          margin-left: 20px;
+        }
       }
     }
   }
-}
 </style>
 
 <script>
-import 'vue-awesome/icons/user';
-import 'vue-awesome/icons/handshake';
-import 'vue-awesome/icons/check';
-import 'vue-awesome/icons/times';
-import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
+  import 'vue-awesome/icons/user';
+  import 'vue-awesome/icons/handshake';
+  import 'vue-awesome/icons/check';
+  import 'vue-awesome/icons/times';
+  import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
 
-import Icon from 'vue-awesome/components/Icon';
-import countrydata from 'country-data';
-import TimelineItem from 'app/components/TimelineItem';
-export default {
-  name: 'PlayerReport',
-  props: ['report', 'downloadFile'],
-  components: {
-    icon: Icon,
-    matchanalyzed: MatchAnalyzed,
-    'timeline-item': TimelineItem
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    getLanguage(key) {
-      return countrydata.languages[key] ? countrydata.languages[key].name : 'key';
+  import Icon from 'vue-awesome/components/Icon';
+  import countrydata from 'country-data';
+  import TimelineItem from 'app/components/TimelineItem';
+  export default {
+    name: 'PlayerReport',
+    props: ['report', 'downloadFile'],
+    components: {
+      icon: Icon,
+      matchanalyzed: MatchAnalyzed,
+      'timeline-item': TimelineItem
     },
-    getNationality(key) {
-      return countrydata.countries[key] ? countrydata.countries[key].name : 'key';
+    data() {
+      return {};
+    },
+    methods: {
+      getLanguage(key) {
+        return countrydata.languages[key] ? countrydata.languages[key].name : 'key';
+      },
+      getNationality(key) {
+        return countrydata.countries[key] ? countrydata.countries[key].name : 'key';
+      }
     }
-  }
-};
+  };
 </script>

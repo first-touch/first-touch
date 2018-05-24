@@ -1,8 +1,8 @@
 <template>
   <div class="ft-input">
     <div class="col-md-12 inner">
-      <input name="team" autocomplete="off" class="search form-control" v-model="search" type="text" v-on:keyup="onkeyup(type,search)" :required="required"
-        @blur="blur" />
+      <input name="team" autocomplete="off" class="search form-control" v-model="search" type="text" v-on:keyup="onkeyup(type,search)"
+        :required="required" @blur="blur" />
       <div class="search-results">
         <div v-for="(value, index) in results" :key="index" @mousedown="setvalue(index)">
           <img src="https://unsplash.it/50/50" class="rounded-circle img-fluid">
@@ -12,7 +12,7 @@
           <img src="https://unsplash.it/50/50" class="rounded-circle img-fluid">
           <p> {{search}} (Non existing)</p>
         </div>
-        <div v-if="!taggable && results.length == 0" >
+        <div v-if="!taggable && results.length == 0">
           <p v-if="search != ''"> No result found </p>
           <p v-if="search == ''"> Type to search </p>
         </div>
@@ -69,7 +69,7 @@
   } from 'vuex';
   export default {
     name: 'InputSearch',
-    props: ['onkeyup', 'searchResult', 'type', 'taggable', 'edit','required'],
+    props: ['onkeyup', 'searchResult', 'type', 'taggable', 'edit', 'required'],
     data() {
       return {
         search: '',

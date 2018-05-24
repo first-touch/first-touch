@@ -17,8 +17,8 @@
               /> </div>
             <div class="col-sm-4 form-group">
               <label class="col-md-12 required">Team Name</label>
-              <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" v-on:update:val="report_data.team_id = $event" :required="true"
-              /> </div>
+              <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" v-on:update:val="report_data.team_id = $event"
+                :required="true" /> </div>
           </div>
 
           <div class="row">
@@ -57,61 +57,60 @@
 </template>
 
 <style lang="scss">
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
-
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 </style>
 
 <style lang="scss">
-//   @import '~stylesheets/variables';
-//   .team-request {
-//     .ft-input {
-//       padding: 0;
-//     }
-//     .datepicker {
-//       background: white;
-//       display: inline-block;
-//       input.input-date {
-//         color: $main-text-color;
-//         cursor: pointer;
-//         width: 100%;
-//         border: 0px;
-//         height: 2.3em;
-//         background: white;
-//       }
-//     }
-//   }
-// </style>
-// <style lang="scss" scoped>
-//   @import '~stylesheets/variables';
-//   @import '~stylesheets/form';
-
-//   form {
-//     background: $form-background;
-//     color: $main-text-color;
-//     padding: 40px 40px 80px 40px;
-
-//     .btn {
-//       cursor: pointer;
-//     }
-//     .error {
-//       li {
-//         color: red;
-//         display: list-item;
-//         list-style: disc;
-//         &:first-letter {
-//           text-transform: capitalize;
-//         }
-//       }
-//     }
-//     .buttons {
-//       float: right;
-//     }
-//     .form-group {
-//       padding: 0;
-//     }
-//   }
+  //   @import '~stylesheets/variables';
+  //   .team-request {
+  //     .ft-input {
+  //       padding: 0;
+  //     }
+  //     .datepicker {
+  //       background: white;
+  //       display: inline-block;
+  //       input.input-date {
+  //         color: $main-text-color;
+  //         cursor: pointer;
+  //         width: 100%;
+  //         border: 0px;
+  //         height: 2.3em;
+  //         background: white;
+  //       }
+  //     }
+  //   }
+  //
+</style>
 //
+<style lang="scss" scoped>
+  //   @import '~stylesheets/variables';
+  //   @import '~stylesheets/form';
+  //   form {
+  //     background: $form-background;
+  //     color: $main-text-color;
+  //     padding: 40px 40px 80px 40px;
+  //     .btn {
+  //       cursor: pointer;
+  //     }
+  //     .error {
+  //       li {
+  //         color: red;
+  //         display: list-item;
+  //         list-style: disc;
+  //         &:first-letter {
+  //           text-transform: capitalize;
+  //         }
+  //       }
+  //     }
+  //     .buttons {
+  //       float: right;
+  //     }
+  //     .form-group {
+  //       padding: 0;
+  //     }
+  //   }
+  //
 </style>
 
 
@@ -139,9 +138,9 @@
     },
     data() {
       return {
-        disabled:{
-        to: new Date()
-      },
+        disabled: {
+          to: new Date()
+        },
         report_data: {
           team_id: '',
           league_id: '',

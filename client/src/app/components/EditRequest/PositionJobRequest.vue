@@ -162,100 +162,99 @@
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
-
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 </style>
 
 <script>
-import inputSearch from 'app/components/Input/InputSearch.vue';
-import PlayerPosition from 'app/components/Input/PlayerPosition';
-import Nationality from 'app/components/Input/Nationality';
-import Language from 'app/components/Input/Language';
-import PreferredFoot from 'app/components/Input/PreferredFoot';
-import FtCheckbox from 'app/components/Input/FtCheckbox';
-import FtDatepicker from 'app/components/Input/FtDatepicker';
-import TimelineItem from 'app/components/TimelineItem';
-import CurrencyInput from 'app/components/Input/CurrencyInput';
-export default {
-  name: 'PlayerJobRequest',
-  props: ['submit', 'errors', 'edit', 'cancelAction'],
-  components: {
-    inputsearch: inputSearch,
-    playerposition: PlayerPosition,
-    countryselect: Nationality,
-    language: Language,
-    preferredfoot: PreferredFoot,
-    ftdatepicker: FtDatepicker,
-    ftcheckbox: FtCheckbox,
-    'timeline-item': TimelineItem,
-    currencyinput: CurrencyInput
-  },
-  data() {
-    return {
-      disabled: {
-        to: new Date()
-      },
-      report_data: {
-        playing_position: [],
-        languages: [],
-        expiring_contract: false,
-        transfer: false,
-        loan: false,
-        expiring_contract: 'No',
-        expiring_contract_max: '',
-        expiring_contract_min: '',
-        transfer_range: {
-          value: 0,
-          currency: 'USD',
-          max: 0
+  import inputSearch from 'app/components/Input/InputSearch.vue';
+  import PlayerPosition from 'app/components/Input/PlayerPosition';
+  import Nationality from 'app/components/Input/Nationality';
+  import Language from 'app/components/Input/Language';
+  import PreferredFoot from 'app/components/Input/PreferredFoot';
+  import FtCheckbox from 'app/components/Input/FtCheckbox';
+  import FtDatepicker from 'app/components/Input/FtDatepicker';
+  import TimelineItem from 'app/components/TimelineItem';
+  import CurrencyInput from 'app/components/Input/CurrencyInput';
+  export default {
+    name: 'PlayerJobRequest',
+    props: ['submit', 'errors', 'edit', 'cancelAction'],
+    components: {
+      inputsearch: inputSearch,
+      playerposition: PlayerPosition,
+      countryselect: Nationality,
+      language: Language,
+      preferredfoot: PreferredFoot,
+      ftdatepicker: FtDatepicker,
+      ftcheckbox: FtCheckbox,
+      'timeline-item': TimelineItem,
+      currencyinput: CurrencyInput
+    },
+    data() {
+      return {
+        disabled: {
+          to: new Date()
         },
-        loan_range: {
-          value: 0,
-          currency: 'USD',
-          max: 0
+        report_data: {
+          playing_position: [],
+          languages: [],
+          expiring_contract: false,
+          transfer: false,
+          loan: false,
+          expiring_contract: 'No',
+          expiring_contract_max: '',
+          expiring_contract_min: '',
+          transfer_range: {
+            value: 0,
+            currency: 'USD',
+            max: 0
+          },
+          loan_range: {
+            value: 0,
+            currency: 'USD',
+            max: 0
+          },
+          wage_budget: {
+            value: 0,
+            currency: 'USD',
+            max: 0
+          },
+          value: {
+            value: 0,
+            currency: 'USD',
+            max: 0
+          }
         },
-        wage_budget: {
-          value: 0,
-          currency: 'USD',
-          max: 0
-        },
-        value: {
+        deadline: '',
+        price: {
           value: 0,
           currency: 'USD',
           max: 0
         }
-      },
-      deadline: '',
-      price: {
-        value: 0,
-        currency: 'USD',
-        max: 0
-      }
-    };
-  },
-  created() {
-    if (this.edit) {
-      this.report_data = this.edit.report_data;
-      this.deadline = this.edit.deadline;
-      this.min_price = this.edit.min_price;
-      this.max_price = this.edit.max_price;
-    }
-  },
-  methods: {
-    showCalendar: function(index) {
-      this.$refs[index].showCalendar();
+      };
     },
-    handleSubmit() {
-      this.submit({
-        report_data: this.report_data,
-        deadline: this.deadline,
-        min_price: this.min_price,
-        max_price: this.max_price,
-        type_request: 'position',
-        status: 'publish'
-      });
+    created() {
+      if (this.edit) {
+        this.report_data = this.edit.report_data;
+        this.deadline = this.edit.deadline;
+        this.min_price = this.edit.min_price;
+        this.max_price = this.edit.max_price;
+      }
+    },
+    methods: {
+      showCalendar: function (index) {
+        this.$refs[index].showCalendar();
+      },
+      handleSubmit() {
+        this.submit({
+          report_data: this.report_data,
+          deadline: this.deadline,
+          min_price: this.min_price,
+          max_price: this.max_price,
+          type_request: 'position',
+          status: 'publish'
+        });
+      }
     }
-  }
-};
+  };
 </script>

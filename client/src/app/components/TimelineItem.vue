@@ -8,27 +8,27 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+  @import '~stylesheets/variables';
 
-.timeline-post {
-  display: flex;
-  border-left: 7px solid $main-header-color;
-  margin-top: 20px;
-  .arrow {
+  .timeline-post {
+    display: flex;
+    border-left: 7px solid $main-header-color;
     margin-top: 20px;
-    border-left-color: $main-header-color;
+    .arrow {
+      margin-top: 20px;
+      border-left-color: $main-header-color;
+    }
+    .item-container {
+      background: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      width: 100%;
+    }
   }
-  .item-container {
-    background: #fff;
-    border-radius: 5px;
-    padding: 20px;
-    width: 100%;
-  }
-}
 </style>
 
 <script>
-export default {
-  name: 'TimelineItem',
-};
+  export default {
+    name: 'TimelineItem',
+  };
 </script>

@@ -13,7 +13,7 @@
           <router-link to="/users/sign_in" class="nav-link">Sign In</router-link>
         </b-nav-item>
         <form class="form-inline">
-          <router-link  to="/users/sign_up" class="btn btn-outline-secondary">SIGN UP</router-link>
+          <router-link to="/users/sign_up" class="btn btn-outline-secondary">SIGN UP</router-link>
         </form>
       </b-nav>
     </b-collapse>
@@ -21,20 +21,20 @@
 </template>
 
 <style lang="scss">
-.form-inline {
-  margin-top: 0;
-}
+  .form-inline {
+    margin-top: 0;
+  }
 </style>
 
 
 <script>
-export default {
-  name: 'LandingNavbar',
-  props: {
-    sticky: {
-      type: Boolean,
-      default: false,
+  export default {
+    name: 'LandingNavbar',
+    props: {
+      sticky: {
+        type: Boolean,
+        default: false,
+      },
     },
-  },
-};
+  };
 </script>

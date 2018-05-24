@@ -27,7 +27,8 @@
                 </div>
               </form>
             </div>
-            <report v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :refundAction="refundAction"/>
+            <report v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :refundAction="refundAction"
+            />
           </div>
         </timeline-item>
       </div>
@@ -35,244 +36,247 @@
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 
-.widget-reports {
-  .datepicker {
-    padding: 0;
-    input.input-date {
-      cursor: pointer;
-      min-height: 2em;
+  .widget-reports {
+    .datepicker {
+      padding: 0;
+      input.input-date {
+        cursor: pointer;
+        min-height: 2em;
+        border: 0px;
+      }
+    }
+    .dropdown-toggle {
+      max-height: 35px;
       border: 0px;
     }
   }
-  .dropdown-toggle {
-    max-height: 35px;
-    border: 0px;
-  }
-}
 
-#metaModal {
-  color: black;
-  header {
-    display: none;
-  }
-
-  .modal-dialog {
-    border: 10px solid $main-text-color;
-    border-radius: 10px;
-    max-width: 1200px;
-    min-height: 500px;
-  }
-  .modal-content {
-    padding: 0;
-    margin: 0;
-    min-height: 700px;
-    border: 0px;
-    border-radius: 0;
-  }
-  .reportHeadline {
-    margin-bottom: 40px;
-    p.col {
-      margin: 0;
+  #metaModal {
+    color: black;
+    header {
+      display: none;
     }
-  }
-  .infos .row {
-    margin-top: 10px;
-    .col {
+
+    .modal-dialog {
+      border: 10px solid $main-text-color;
+      border-radius: 10px;
+      max-width: 1200px;
+      min-height: 500px;
+    }
+    .modal-content {
+      padding: 0;
       margin: 0;
-      .list {
-        text-transform: capitalize;
+      min-height: 700px;
+      border: 0px;
+      border-radius: 0;
+    }
+    .reportHeadline {
+      margin-bottom: 40px;
+      p.col {
+        margin: 0;
       }
     }
-  }
-  .footer-modal {
-    margin-top: 40px;
-    float: right;
-    button {
-      padding: 5px 30px;
-      border-radius: 15px;
-      font-size: 0.9em;
+    .infos .row {
+      margin-top: 10px;
+      .col {
+        margin: 0;
+        .list {
+          text-transform: capitalize;
+        }
+      }
+    }
+    .footer-modal {
+      margin-top: 40px;
+      float: right;
+      button {
+        padding: 5px 30px;
+        border-radius: 15px;
+        font-size: 0.9em;
+      }
+    }
+    footer {
+      display: none;
     }
   }
-  footer {
-    display: none;
-  }
-}
 </style>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+  @import '~stylesheets/variables';
 
-.widget-reports {
-  color: $main-text-color;
-  .form-control {
-    padding: 0;
-  }
-  .list-title {
+  .widget-reports {
     color: $main-text-color;
-    font-size: 0.95em;
-    text-transform: uppercase;
-  }
-  .list-count {
-    color: $main-header-color;
-    font-size: 4em;
-    text-align: center;
-  }
-  .filter {
-    margin: 5px;
-    max-width: 23%;
-    input,
-    select {
-      height: 100%;
-      padding: 10px;
+    .form-control {
+      padding: 0;
     }
-    .icon-inner {
-      margin-top: 5px;
-      display: inline-block;
-      cursor: pointer;
-      &:hover {
-        color: $secondary-header-color;
+    .list-title {
+      color: $main-text-color;
+      font-size: 0.95em;
+      text-transform: uppercase;
+    }
+    .list-count {
+      color: $main-header-color;
+      font-size: 4em;
+      text-align: center;
+    }
+    .filter {
+      margin: 5px;
+      max-width: 23%;
+      input,
+      select {
+        height: 100%;
+        padding: 10px;
+      }
+      .icon-inner {
+        margin-top: 5px;
+        display: inline-block;
+        cursor: pointer;
+        &:hover {
+          color: $secondary-header-color;
+        }
+      }
+      .datepicker {
+        float: left;
       }
     }
-    .datepicker {
-      float: left;
-    }
   }
-}
 </style>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import TimelineItem from 'app/components/TimelineItem';
-import ReportItem from 'app/components/ReportItem';
-import vSelect from 'vue-select';
-import NotificationSidebar from 'app/components/NotificationSidebar.vue';
-import FtDatepicker from 'app/components/Input/FtDatepicker';
+  import {
+    mapGetters,
+    mapActions
+  } from 'vuex';
+  import {
+    ASYNC_SUCCESS
+  } from 'app/constants/AsyncStatus';
+  import TimelineItem from 'app/components/TimelineItem';
+  import ReportItem from 'app/components/ReportItem';
+  import vSelect from 'vue-select';
+  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+  import FtDatepicker from 'app/components/Input/FtDatepicker';
 
-export default {
-  name: 'ReportsList',
-  components: {
-    sidebar: NotificationSidebar,
-    'timeline-item': TimelineItem,
-    report: ReportItem,
-    vselect: vSelect,
-    ftdatepicker: FtDatepicker
-  },
-  data() {
-    return {
-      payment: false,
-      reportSelected: null,
-      sort_select: {
-        label: 'Sort by',
-        value: ''
+  export default {
+    name: 'ReportsList',
+    components: {
+      sidebar: NotificationSidebar,
+      'timeline-item': TimelineItem,
+      report: ReportItem,
+      vselect: vSelect,
+      ftdatepicker: FtDatepicker
+    },
+    data() {
+      return {
+        payment: false,
+        reportSelected: null,
+        sort_select: {
+          label: 'Sort by',
+          value: ''
+        },
+        type_select: {
+          label: 'Report Type',
+          value: ''
+        },
+        params: {
+          id: '',
+          headline: '',
+          report_type: '',
+          created_date_from: '',
+          created_date_to: '',
+          created_date: '',
+          sort: '',
+          purchased: true
+        },
+        options: {
+          report_type: [{
+              label: 'Report Type',
+              value: ''
+            },
+            {
+              label: 'Player',
+              value: 'player'
+            },
+            {
+              label: 'Team',
+              value: 'team'
+            }
+          ],
+          order: [{
+              label: 'Sort by',
+              value: ''
+            },
+            {
+              label: 'Updated date',
+              value: 'updated_at'
+            },
+            {
+              label: 'Type',
+              value: 'Type'
+            },
+            {
+              label: 'Price',
+              value: 'price'
+            }
+          ]
+        }
+      };
+    },
+    computed: {
+      ...mapGetters(['searchReport', 'order']),
+      listReport() {
+        if (this.searchReport.status === ASYNC_SUCCESS) {
+          return this.searchReport.value.report;
+        }
+        return [];
       },
-      type_select: {
-        label: 'Report Type',
-        value: ''
+      url() {
+        var params = this.params;
+        if (params.created_date_from) {
+          params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
+        }
+        if (params.created_date_to) {
+          params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
+        }
+        params.sort = this.sort_select.value;
+        params.report_type = this.type_select.value;
+        var url = Object.keys(params)
+          .map(function (k) {
+            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+          })
+          .join('&');
+        return url;
+      }
+    },
+    mounted() {
+      this.search();
+    },
+    watch: {
+      report() {
+        if (this.report.status === ASYNC_SUCCESS) {
+          var index = this.listReport.findIndex(x => x.id === this.report.value.id);
+          this.listReport[index] = this.report.value;
+          this.$forceUpdate();
+        }
+      }
+    },
+    methods: {
+      ...mapActions(['getReports', 'newOrder']),
+      viewAction(report) {
+        this.$router.push({
+          path: '/club/report/' + report.id
+        });
       },
-      params: {
-        id: '',
-        headline: '',
-        report_type: '',
-        created_date_from: '',
-        created_date_to: '',
-        created_date: '',
-        sort: '',
-        purchased: true
+      refundAction(report) {
+        console.log("Soon #Refund")
       },
-      options: {
-        report_type: [
-          {
-            label: 'Report Type',
-            value: ''
-          },
-          {
-            label: 'Player',
-            value: 'player'
-          },
-          {
-            label: 'Team',
-            value: 'team'
-          }
-        ],
-        order: [
-          {
-            label: 'Sort by',
-            value: ''
-          },
-          {
-            label: 'Updated date',
-            value: 'updated_at'
-          },
-          {
-            label: 'Type',
-            value: 'Type'
-          },
-          {
-            label: 'Price',
-            value: 'price'
-          }
-        ]
-      }
-    };
-  },
-  computed: {
-    ...mapGetters(['searchReport', 'order']),
-    listReport() {
-      if (this.searchReport.status === ASYNC_SUCCESS) {
-        return this.searchReport.value.report;
-      }
-      return [];
-    },
-    url() {
-      var params = this.params;
-      if (params.created_date_from) {
-        params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
-      }
-      if (params.created_date_to) {
-        params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
-      }
-      params.sort = this.sort_select.value;
-      params.report_type = this.type_select.value;
-      var url = Object.keys(params)
-        .map(function(k) {
-          return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-        })
-        .join('&');
-      return url;
-    }
-  },
-  mounted() {
-    this.search();
-  },
-  watch: {
-    report() {
-      if (this.report.status === ASYNC_SUCCESS) {
-        var index = this.listReport.findIndex(x => x.id === this.report.value.id);
-        this.listReport[index] = this.report.value;
-        this.$forceUpdate();
+      hideModal() {
+        this.$refs.metaModal.hide();
+      },
+      search() {
+        this.getReports(this.url);
       }
     }
-  },
-  methods: {
-    ...mapActions(['getReports', 'newOrder']),
-    viewAction(report) {
-      this.$router.push({
-        path: '/club/report/' + report.id
-      });
-    },
-    refundAction(report){
-      console.log("Soon #Refund")
-    },
-    hideModal() {
-      this.$refs.metaModal.hide();
-    },
-    search() {
-      this.getReports(this.url);
-    }
-  }
-};
+  };
 </script>

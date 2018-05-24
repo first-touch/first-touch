@@ -176,7 +176,8 @@
         <textarea class="col-md-12 form-control" v-model="report_data.conclusion" />
       </div>
     </div>
-    <addattachments :attachments="report ? report.report_data.attachments.attachments : null"  v-on:update:remove="remove_attachment = $event" v-on:update:files="files = $event"/>
+    <addattachments :attachments="report ? report.report_data.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
+      v-on:update:files="files = $event" />
     <div class="form-group buttons-inner">
       <button v-if="!report" id="submit" class="btn btn-primary ft-button" @click="handleSubmit">Publish</button>
       <button v-if="report" id="submit" class="btn btn-primary ft-button" @click="handleSubmit">Update</button>
@@ -186,204 +187,200 @@
 </template>
 
 <style lang="scss">
-@import '~stylesheets/form';
-
+  @import '~stylesheets/form';
 </style>
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+  @import '~stylesheets/variables';
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.75s;
-  max-height: 500px;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0.1;
-  max-height: 0px;
-}
-
-.report-form {
-  .radio-group {
-    label {
-      width: 10%;
-    }
-  }
-  .transfer-value {
-    padding: 0 30px;
-    div {
-      overflow: hidden;
-      height: 100%;
-    }
-  }
-  h5 {
-    &.menu {
-      cursor: pointer;
-    }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: all 0.75s;
+    max-height: 500px;
   }
 
-  .sub-menu-arrow {
-    &::before {
-      margin-top: 3px;
-      border-color: rgba(60, 60, 60, 0.5);
-      border-style: solid;
-      border-width: 3px 3px 0 0;
-      content: '';
-      height: 10px;
-      vertical-align: top;
-      transform: rotate(45deg);
-      box-sizing: inherit;
-      display: inline-block;
-      transition: all 0.15s cubic-bezier(1, -0.115, 0.975, 0.855);
-      transition-timing-function: cubic-bezier(1, -0.115, 0.975, 0.855);
-      width: 10px;
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0.1;
+    max-height: 0px;
+  }
+
+  .report-form {
+    .radio-group {
+      label {
+        width: 10%;
+      }
     }
-    &.active::before {
-      transform: rotate(133deg);
+    .transfer-value {
+      padding: 0 30px;
+      div {
+        overflow: hidden;
+        height: 100%;
+      }
+    }
+    h5 {
+      &.menu {
+        cursor: pointer;
+      }
+    }
+
+    .sub-menu-arrow {
+      &::before {
+        margin-top: 3px;
+        border-color: rgba(60, 60, 60, 0.5);
+        border-style: solid;
+        border-width: 3px 3px 0 0;
+        content: '';
+        height: 10px;
+        vertical-align: top;
+        transform: rotate(45deg);
+        box-sizing: inherit;
+        display: inline-block;
+        transition: all 0.15s cubic-bezier(1, -0.115, 0.975, 0.855);
+        transition-timing-function: cubic-bezier(1, -0.115, 0.975, 0.855);
+        width: 10px;
+      }
+      &.active::before {
+        transform: rotate(133deg);
+      }
+    }
+    h5 {
+      color: $main-text-color;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .form-inner {
+      margin-left: 20px;
+      .form-group {
+        padding: 10px;
+      }
+    }
+    .report-name {
+      label {
+        margin-right: 20px;
+      }
+    }
+    .label-price {
+      margin-top: 8px;
     }
   }
-  h5 {
-    color: $main-text-color;
-    font-size: 15px;
-    font-weight: 700;
-  }
-  .form-inner {
-    margin-left: 20px;
-    .form-group {
-      padding: 10px;
-    }
-  }
-  .report-name {
-    label {
-      margin-right: 20px;
-    }
-  }
-  .label-price {
-    margin-top: 8px;
-  }
-}
 </style>
 
 <script>
-import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
-import PlayerPosition from 'app/components/Input/PlayerPosition';
-import Nationality from 'app/components/Input/Nationality';
-import Language from 'app/components/Input/Language';
-import PreferredFoot from 'app/components/Input/PreferredFoot';
-import FtCheckbox from 'app/components/Input/FtCheckbox';
-import AddAttachments from 'app/components/Input/AddAttachments';
-import 'vue-awesome/icons/trash';
-import Icon from 'vue-awesome/components/Icon';
-import CurrencyInput from 'app/components/Input/CurrencyInput';
+  import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
+  import PlayerPosition from 'app/components/Input/PlayerPosition';
+  import Nationality from 'app/components/Input/Nationality';
+  import Language from 'app/components/Input/Language';
+  import PreferredFoot from 'app/components/Input/PreferredFoot';
+  import FtCheckbox from 'app/components/Input/FtCheckbox';
+  import AddAttachments from 'app/components/Input/AddAttachments';
+  import 'vue-awesome/icons/trash';
+  import Icon from 'vue-awesome/components/Icon';
+  import CurrencyInput from 'app/components/Input/CurrencyInput';
 
-export default {
-  name: 'PlayerReportForm',
-  components: {
-    matchanalyzed: MatchAnalyzed,
-    playerposition: PlayerPosition,
-    countryselect: Nationality,
-    language: Language,
-    preferredfoot: PreferredFoot,
-    ftcheckbox: FtCheckbox,
-    addattachments: AddAttachments,
-    icon: Icon,
-    currencyinput: CurrencyInput
-  },
-  props: ['userinfo', 'submitReport', 'reportStatus', 'report', 'cancelAction'],
-  data() {
-    return {
-      playersummary: true,
-      transfersummary: true,
-      report_data: {
-        userinfo: {
-          nationality_country_code: '',
-          languages: [],
-          playing_position: [],
-          age: null,
-          preferred_foot: ''
-        },
-        transfer_sum: {
-          loan_interested: 'No',
-          transfer_interested: 'No',
-          free_agent: 'No',
-          wage: {
-            value: null,
-            currency: 'USD'
+  export default {
+    name: 'PlayerReportForm',
+    components: {
+      matchanalyzed: MatchAnalyzed,
+      playerposition: PlayerPosition,
+      countryselect: Nationality,
+      language: Language,
+      preferredfoot: PreferredFoot,
+      ftcheckbox: FtCheckbox,
+      addattachments: AddAttachments,
+      icon: Icon,
+      currencyinput: CurrencyInput
+    },
+    props: ['userinfo', 'submitReport', 'reportStatus', 'report', 'cancelAction'],
+    data() {
+      return {
+        playersummary: true,
+        transfersummary: true,
+        report_data: {
+          userinfo: {
+            nationality_country_code: '',
+            languages: [],
+            playing_position: [],
+            age: null,
+            preferred_foot: ''
           },
-          loan_availability: {
-            value: null,
-            currency: 'USD'
+          transfer_sum: {
+            loan_interested: 'No',
+            transfer_interested: 'No',
+            free_agent: 'No',
+            wage: {
+              value: null,
+              currency: 'USD'
+            },
+            loan_availability: {
+              value: null,
+              currency: 'USD'
+            },
+            transfer_budget: {
+              value: null,
+              currency: 'USD'
+            },
+            transfer_availability: {
+              value: null,
+              currency: 'USD'
+            }
           },
-          transfer_budget: {
-            value: null,
-            currency: 'USD'
-          },
-          transfer_availability: {
-            value: null,
-            currency: 'USD'
-          }
-        },
-        analyzed_matches: [
-          {
+          analyzed_matches: [{
             date: '',
             opponent: '',
             venue: '',
             comment: '',
             training: 'No'
+          }]
+        },
+        price: {
+          value: 0,
+          currency: 'USD'
+        },
+        headline: '',
+        edit_mode: !!this.report,
+        files: [],
+        remove_attachment: {}
+      };
+    },
+    watch: {
+      userinfo() {
+        if (this.userinfo.birthday && !this.report) {
+          var birthday = new Date(this.userinfo.birthday);
+          var ageDifMs = Date.now() - birthday.getTime();
+          var ageDate = new Date(ageDifMs); // miliseconds from epoch
+          this.report_data.userinfo.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+          this.report_data.userinfo.weight = this.userinfo.weight;
+          this.report_data.userinfo.height = this.userinfo.height;
+          this.report_data.userinfo.preferred_foot = this.userinfo.preferred_foot;
+          this.report_data.userinfo.playing_position = [];
+          if (this.userinfo.playing_position) {
+            this.report_data.userinfo.playing_position = JSON.parse(this.userinfo.playing_position);
           }
-        ]
-      },
-      price: {
-        value: 0,
-        currency: 'USD'
-      },
-      headline: '',
-      edit_mode: !!this.report,
-      files: [],
-      remove_attachment: {}
-    };
-  },
-  watch: {
-    userinfo() {
-      if (this.userinfo.birthday && !this.report) {
-        var birthday = new Date(this.userinfo.birthday);
-        var ageDifMs = Date.now() - birthday.getTime();
-        var ageDate = new Date(ageDifMs); // miliseconds from epoch
-        this.report_data.userinfo.age = Math.abs(ageDate.getUTCFullYear() - 1970);
-        this.report_data.userinfo.weight = this.userinfo.weight;
-        this.report_data.userinfo.height = this.userinfo.height;
-        this.report_data.userinfo.preferred_foot = this.userinfo.preferred_foot;
-        this.report_data.userinfo.playing_position = [];
-        if (this.userinfo.playing_position) {
-          this.report_data.userinfo.playing_position = JSON.parse(this.userinfo.playing_position);
         }
       }
+    },
+    beforeMount() {
+      if (this.report) {
+        this.report_data = this.report.report_data.meta_data;
+        this.price = this.report.price;
+        this.headline = this.report.headline;
+      }
+    },
+    methods: {
+      handleSubmit() {
+        var report = {
+          headline: this.headline,
+          price: this.price,
+          report_data: this.report_data,
+          remove_attachment: this.remove_attachment
+        };
+        this.submitReport(report, this.files);
+        $('html, body').animate({
+            scrollTop: 0
+          },
+          100
+        );
+      }
     }
-  },
-  beforeMount() {
-    if (this.report) {
-      this.report_data = this.report.report_data.meta_data;
-      this.price = this.report.price;
-      this.headline = this.report.headline;
-    }
-  },
-  methods: {
-    handleSubmit() {
-      var report = {
-        headline: this.headline,
-        price: this.price,
-        report_data: this.report_data,
-        remove_attachment: this.remove_attachment
-      };
-      this.submitReport(report, this.files);
-      $('html, body').animate(
-        {
-          scrollTop: 0
-        },
-        100
-      );
-    }
-  }
-};
+  };
 </script>

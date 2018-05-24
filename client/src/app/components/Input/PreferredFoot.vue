@@ -1,5 +1,5 @@
 <template>
-  <vselect v-model="model" :on-change="update" :options="options" class="ft-input"/>
+  <vselect v-model="model" :on-change="update" :options="options" class="ft-input" />
 </template>
 
 <script>
@@ -12,8 +12,8 @@
       vselect: vSelect
     },
     mounted: function () {
-        const index = this.$options.filters.searchInObj(this.options, option => option.value === this.value)
-        this.model = this.options[index];
+      const index = this.$options.filters.searchInObj(this.options, option => option.value === this.value)
+      this.model = this.options[index];
     },
     data() {
       return {

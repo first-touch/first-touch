@@ -21,8 +21,8 @@
             /> </div>
           <div class="col-sm-4 form-group">
             <label class="col-md-12 required">Player Name</label>
-            <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :edit="player" :searchResult="searchResult" type="player" :required="true" v-on:update:val="report_data.player_id = $event"
-            />
+            <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :edit="player" :searchResult="searchResult" type="player"
+              :required="true" v-on:update:val="report_data.player_id = $event" />
           </div>
         </div>
         <div class="player-summary row">
@@ -55,7 +55,8 @@
         <div class="row">
           <div class="col-sm-6 form-group">
             <label class="col-md-12">Preferred Foot</label>
-            <preferredfoot class="col-md-12" :value="report_data.preferred_foot" v-on:update:val="report_data.preferred_foot = $event" />
+            <preferredfoot class="col-md-12" :value="report_data.preferred_foot" v-on:update:val="report_data.preferred_foot = $event"
+            />
           </div>
         </div>
 
@@ -81,7 +82,7 @@
         </div>
         <div class="row col-md-12 form-group">
           <label class="col-md-12">Price Range</label>
-            <currencyinput :value="price" max="true" />
+          <currencyinput :value="price" max="true" />
         </div>
         <div class="form-group buttons-inner">
           <button v-if="!edit" id="submit" class="btn btn-primary ft-button" @click="handleSubmit">CREATE</button>
@@ -94,118 +95,119 @@
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/variables';
-@import '~stylesheets/form';
-
+  @import '~stylesheets/variables';
+  @import '~stylesheets/form';
 </style>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import inputSearch from 'app/components/Input/InputSearch.vue';
-import PlayerPosition from 'app/components/Input/PlayerPosition';
-import Nationality from 'app/components/Input/Nationality';
-import Language from 'app/components/Input/Language';
-import PreferredFoot from 'app/components/Input/PreferredFoot';
-import TimelineItem from 'app/components/TimelineItem';
-import vSelect from 'vue-select';
-import CurrencyInput from 'app/components/Input/CurrencyInput';
-import FtDatepicker from 'app/components/Input/FtDatepicker';
+  import {
+    mapGetters,
+    mapActions
+  } from 'vuex';
+  import inputSearch from 'app/components/Input/InputSearch.vue';
+  import PlayerPosition from 'app/components/Input/PlayerPosition';
+  import Nationality from 'app/components/Input/Nationality';
+  import Language from 'app/components/Input/Language';
+  import PreferredFoot from 'app/components/Input/PreferredFoot';
+  import TimelineItem from 'app/components/TimelineItem';
+  import vSelect from 'vue-select';
+  import CurrencyInput from 'app/components/Input/CurrencyInput';
+  import FtDatepicker from 'app/components/Input/FtDatepicker';
 
-export default {
-  name: 'PlayerJobRequest',
-  props: ['submit', 'errors', 'edit', 'cancelAction'],
-  components: {
-    inputsearch: inputSearch,
-    playerposition: PlayerPosition,
-    countryselect: Nationality,
-    language: Language,
-    preferredfoot: PreferredFoot,
-    'timeline-item': TimelineItem,
-    vselect: vSelect,
-    currencyinput: CurrencyInput,
-    ftdatepicker: FtDatepicker
-  },
-  data() {
-    return {
-      player: {},
-      disabled: {
-        to: new Date()
-      },
-      report_data: {
-        team_id: '',
-        league_id: '',
-        player_id: '',
-        training_report: {
-          label: 'No',
-          value: 'no'
+  export default {
+    name: 'PlayerJobRequest',
+    props: ['submit', 'errors', 'edit', 'cancelAction'],
+    components: {
+      inputsearch: inputSearch,
+      playerposition: PlayerPosition,
+      countryselect: Nationality,
+      language: Language,
+      preferredfoot: PreferredFoot,
+      'timeline-item': TimelineItem,
+      vselect: vSelect,
+      currencyinput: CurrencyInput,
+      ftdatepicker: FtDatepicker
+    },
+    data() {
+      return {
+        player: {},
+        disabled: {
+          to: new Date()
         },
-        languages: [],
-        playing_position: []
-      },
-      price: {
-        value: 0,
-        currency: 'USD',
-        max: 0
-      },
-      options: {
-        required: [
-          {
+        report_data: {
+          team_id: '',
+          league_id: '',
+          player_id: '',
+          training_report: {
             label: 'No',
             value: 'no'
           },
-          {
-            label: 'Yes',
-            value: 'yes'
-          }
-        ]
+          languages: [],
+          playing_position: []
+        },
+        price: {
+          value: 0,
+          currency: 'USD',
+          max: 0
+        },
+        options: {
+          required: [{
+              label: 'No',
+              value: 'no'
+            },
+            {
+              label: 'Yes',
+              value: 'yes'
+            }
+          ]
+        },
+        deadline: ''
+      };
+    },
+    computed: {
+      ...mapGetters(['searchResult'])
+    },
+    created() {
+      if (this.edit) {
+        this.report_data = this.edit.report_data;
+        this.deadline = this.edit.deadline;
+        this.min_price = this.edit.min_price;
+        this.max_price = this.edit.max_price;
+        if (this.player) {
+          this.player.id = this.edit.player.id;
+          this.player.search = this.edit.player.first_name + ' ' + this.edit.player.last_name;
+        }
+      }
+    },
+    watch: {
+      'price.max': function (newVal, oldVal) {
+        this.price.value = this.price.value > this.price.max ? this.price.max : this.price.value;
+      }
+    },
+    methods: {
+      ...mapActions(['getSearchResults']),
+      updatePrice() {
+        this.price.max = this.price.value > this.price.max ? this.price.value : this.price.max;
       },
-      deadline: ''
-    };
-  },
-  computed: {
-    ...mapGetters(['searchResult'])
-  },
-  created() {
-    if (this.edit) {
-      this.report_data = this.edit.report_data;
-      this.deadline = this.edit.deadline;
-      this.min_price = this.edit.min_price;
-      this.max_price = this.edit.max_price;
-      if (this.player) {
-        this.player.id = this.edit.player.id;
-        this.player.search = this.edit.player.first_name + ' ' + this.edit.player.last_name;
+      getSearchResultsRole(role, term) {
+        this.getSearchResults({
+          searchTerm: term,
+          role: role
+        });
+      },
+      showCalendar: function (index) {
+        this.$refs.datepicker.showCalendar();
+      },
+      handleSubmit() {
+        this.submit({
+          report_data: this.report_data,
+          deadline: this.deadline,
+          min_price: this.min_price,
+          max_price: this.max_price,
+          type_request: 'player',
+          status: 'publish'
+        });
       }
     }
-  },
-  watch: {
-    'price.max': function(newVal, oldVal) {
-      this.price.value = this.price.value > this.price.max ? this.price.max : this.price.value;
-    }
-  },
-  methods: {
-    ...mapActions(['getSearchResults']),
-    updatePrice() {
-      this.price.max = this.price.value > this.price.max ? this.price.value : this.price.max;
-    },
-    getSearchResultsRole(role, term) {
-      this.getSearchResults({
-        searchTerm: term,
-        role: role
-      });
-    },
-    showCalendar: function(index) {
-      this.$refs.datepicker.showCalendar();
-    },
-    handleSubmit() {
-      this.submit({
-        report_data: this.report_data,
-        deadline: this.deadline,
-        min_price: this.min_price,
-        max_price: this.max_price,
-        type_request: 'player',
-        status: 'publish'
-      });
-    }
-  }
-};
+  };
 </script>
