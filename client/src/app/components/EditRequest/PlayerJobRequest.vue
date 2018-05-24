@@ -13,66 +13,68 @@
         <div class="row">
           <div class="col-sm-4 form-group">
             <label class="col-md-12">League Name</label>
-            <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="league" v-on:update:val="report_data.league_id = $event"
+            <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="league" v-on:update:val="meta_data.league_id = $event"
             /> </div>
           <div class="col-sm-4 form-group">
             <label class="col-md-12">Team Name</label>
-            <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" v-on:update:val="report_data.team_id = $event"
+            <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" v-on:update:val="meta_data.team_id = $event"
             /> </div>
           <div class="col-sm-4 form-group">
             <label class="col-md-12 required">Player Name</label>
-            <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :edit="player" :searchResult="searchResult" type="player" :required="true" v-on:update:val="report_data.player_id = $event"
+            <inputsearch class="col-md-12" :onkeyup="getSearchResultsRole" :edit="player" :searchResult="searchResult" type="player"
+              taggable="true" :required="true" v-on:update:val="meta_data.player_id = $event" v-on:update:search="meta_data.player_name = $event"
             />
           </div>
         </div>
         <div class="player-summary row">
           <div class="col-sm-4 form-group">
             <label class="col-md-12 col-form-label">Age</label>
-            <input type="number" class="col-md-12 form-control" v-model="report_data.age">
+            <input type="number" class="col-md-12 form-control" v-model="meta_data.age">
           </div>
           <div class="col-sm-4 form-group">
             <label class="col-md-12 col-form-label">Nationality</label>
-            <countryselect class="col-md-12" :value="report_data.nationality_country_code" v-on:update:val="report_data.nationality_country_code = $event"
+            <countryselect class="col-md-12" :value="meta_data.nationality_country_code" v-on:update:val="meta_data.nationality_country_code = $event"
             />
           </div>
           <div class="col-sm-4 form-group">
             <label class="col-md-12 col-form-label">Based In</label>
-            <countryselect class="col-md-12" :value="report_data.residence_country_code" v-on:update:val="report_data.residence_country_code = $event"
+            <countryselect class="col-md-12" :value="meta_data.residence_country_code" v-on:update:val="meta_data.residence_country_code = $event"
             />
           </div>
         </div>
         <div class="row">
           <div class="col-sm-7 form-group">
             <label class="col-md-12">Language(s)</label>
-            <language class="col-md-12" :value="report_data.languages" v-on:update:val="report_data.languages = $event" />
+            <language class="col-md-12" :value="meta_data.languages" v-on:update:val="meta_data.languages = $event" />
           </div>
           <div class="col-sm-5 form-group">
             <label class="col-md-12">Position(s)</label>
-            <playerposition class="col-md-12" :value="report_data.playing_position" v-on:update:val="report_data.playing_position = $event"
+            <playerposition class="col-md-12" :value="meta_data.playing_position" v-on:update:val="meta_data.playing_position = $event"
             />
           </div>
         </div>
         <div class="row">
           <div class="col-sm-6 form-group">
             <label class="col-md-12">Preferred Foot</label>
-            <preferredfoot class="col-md-12" :value="report_data.preferred_foot" v-on:update:val="report_data.preferred_foot = $event" />
+            <preferredfoot class="col-md-12" :value="meta_data.preferred_foot" v-on:update:val="meta_data.preferred_foot = $event" />
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-6 form-group">
             <label class="col-md-12">Minimum number of Matches observed</label>
-            <input type="number" class="col-md-12 form-control" v-model="report_data.min_matches">
+            <input type="number" class="col-md-12 form-control" v-model="meta_data.min_matches">
           </div>
           <div class="col-md-6 form-group">
             <label class="col-md-12">Training Report Required</label>
-            <vselect v-model="report_data.training_report" :options="options.required" :searchable="false" />
+            <vselect v-model="training_report_select" @input="meta_data.training_report = training_report_select.value" :options="options.required"
+              :searchable="false" />
           </div>
         </div>
 
         <div class="row col-md-12 form-group">
           <label class="col-md-12">Additional Comments</label>
-          <textarea class="col-md-12 form-control" v-model="report_data.comments" />
+          <textarea class="col-md-12 form-control" v-model="meta_data.comments" />
         </div>
 
         <div class="row col-md-12 form-group">
@@ -81,7 +83,7 @@
         </div>
         <div class="row col-md-12 form-group">
           <label class="col-md-12">Price Range</label>
-            <currencyinput :value="price" max="true" />
+          <currencyinput :value="price" max="true" />
         </div>
         <div class="form-group buttons-inner">
           <button v-if="!edit" id="submit" class="btn btn-primary ft-button" @click="handleSubmit">CREATE</button>
@@ -94,9 +96,7 @@
   </div>
 </template>
 <style lang="scss">
-@import '~stylesheets/variables';
 @import '~stylesheets/form';
-
 </style>
 
 <script>
@@ -131,14 +131,15 @@ export default {
       disabled: {
         to: new Date()
       },
-      report_data: {
+      training_report_select: {
+        label: 'No',
+        value: 'no'
+      },
+      meta_data: {
         team_id: '',
         league_id: '',
         player_id: '',
-        training_report: {
-          label: 'No',
-          value: 'no'
-        },
+        training_report: 'no',
         languages: [],
         playing_position: []
       },
@@ -167,10 +168,9 @@ export default {
   },
   created() {
     if (this.edit) {
-      this.report_data = this.edit.report_data;
+      this.meta_data = this.edit.meta_data;
       this.deadline = this.edit.deadline;
-      this.min_price = this.edit.min_price;
-      this.max_price = this.edit.max_price;
+      this.price = this.edit.price;
       if (this.player) {
         this.player.id = this.edit.player.id;
         this.player.search = this.edit.player.first_name + ' ' + this.edit.player.last_name;
@@ -198,10 +198,9 @@ export default {
     },
     handleSubmit() {
       this.submit({
-        report_data: this.report_data,
+        meta_data: this.meta_data,
         deadline: this.deadline,
-        min_price: this.min_price,
-        max_price: this.max_price,
+        price: this.price,
         type_request: 'player',
         status: 'publish'
       });
