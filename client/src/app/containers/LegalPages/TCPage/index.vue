@@ -6,7 +6,7 @@
     </div>
     <div class="container">
       <section class="row">
-        <div class="col-md-7 introduction">
+        <div class="col-lg-7 introduction">
           <p><em>Effective on March 17, 2018</em></p>
           <p>
             We are happy you have decided to sign up to FirstTouch and we truly hope our services and apps
@@ -16,7 +16,7 @@
           </p>
           <p><strong>Please note you are entering into a legally binding agreement</strong></p>
         </div>
-        <div class="col-md-5">
+        <div class="col-lg-5">
           <div class="table-of-content">
             <h2 class="toc-title">Table of Contents:</h2>
             <ol class="toc-list">

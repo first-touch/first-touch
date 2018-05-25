@@ -2,14 +2,14 @@
   <div>
     <form @submit.prevent id="report-form ft-form">
       <div class="form-group row report-name">
-        <div class="col-sm-12">
-          <label class="col-md-12 col-form-label">Report Name</label>
-          <input type="text" class="col-md-12 form-control" v-model="headline">
+        <div class="col-lg-12">
+          <label class="col-lg-12 col-form-label">Report Name</label>
+          <input type="text" class="col-lg-12 form-control" v-model="headline">
         </div>
       </div>
-      <div class="form-group row">
-        <div class="col-sm-12">
-          <label class="col-md-12 label-price">Price</label>
+      <div class="form-group row" v-if="!request">
+        <div class="col-lg-12">
+          <label class="col-lg-12 label-price">Price</label>
           <div class="price-input">
             <currencyinput :value="price" />
             <p v-if="price.value == 0" class="info">The report will be free</p>
@@ -17,64 +17,63 @@
         </div>
       </div>
       <div class="form-group">
-        <label class=" col-md-12">Analysis of Trainings/Matches</label>
+        <label class=" col-lg-12">Analysis of Trainings/Matches</label>
         <matchanalyzed :analyzed_matches="meta_data.analyzed_matches" type="team" />
       </div>
-      <div class="form-group col-md-12">
+      <div class="form-group col-lg-12">
         <label>Formation(s) Used & Playing Style</label>
         <div class="row">
-          <textarea v-model="meta_data.formation" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.formation" class="col col-lg-12 form-control" />
         </div>
       </div>
-      <div class="form-group col-md-12">
+      <div class="form-group col-lg-12">
         <label>Attacking organisation & Transition After Winning Possession</label>
         <div class="row">
-          <textarea v-model="meta_data.attacking_organisation" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.attacking_organisation" class="col col-lg-12 form-control" />
         </div>
       </div>
-      <div class="form-group col-md-12">
+      <div class="form-group col-lg-12">
         <label>Defensive Organisation & Transition After Losing Possession</label>
         <div class="row">
-          <textarea v-model="meta_data.defensive_organisation" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.defensive_organisation" class="col col-lg-12 form-control" />
         </div>
       </div>
-      <div class="form-group col-md-12">
+      <div class="form-group col-lg-12">
         <label>Set plays - For</label>
         <div class="row">
-          <textarea v-model="meta_data.setplays_for" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.setplays_for" class="col col-lg-12 form-control" />
         </div>
       </div>
-      <div class="form-group col-md-12">
+      <div class="form-group col-lg-12">
         <label>Set plays - Against</label>
         <div class="row">
-          <textarea v-model="meta_data.setplays_against" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.setplays_against" class="col col-lg-12 form-control" />
         </div>
       </div>
-      <div class="form-group col-md-12">
+      <div class="form-group col-lg-12">
         <label>Main threats</label>
         <div class="row">
-          <textarea v-model="meta_data.main_threats" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.main_threats" class="col col-lg-12 form-control" />
         </div>
       </div>
-      <div class="form-group col-md-12">
+      <div class="form-group col-lg-12">
         <label>Other Observations & Viewpoints to Note</label>
         <div class="row">
-          <textarea v-model="meta_data.observations" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.observations" class="col col-lg-12 form-control" />
         </div>
       </div>
-      <div class="form-group col-md-12">
+      <div class="form-group col-lg-12">
         <label>Conclusions</label>
         <div class="row">
-          <textarea v-model="meta_data.conclusions" class="col col-md-12 form-control" />
+          <textarea v-model="meta_data.conclusions" class="col col-lg-12 form-control" />
         </div>
       </div>
       <addattachments :attachments="report ? report.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
         v-on:update:files="files = $event" />
-      <div class="form-group buttons-inner">
-        <button v-if="!report && !request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('publish')">Publish</button>
-        <button v-if="report" id="submit" class="btn btn-primary ft-button" @click="handleSubmit">Update</button>
-        <button v-if="!report && request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('publish')">Send Report & Publish in MarketPlace</button>
-        <button v-if="!report && request" id="submit" class="btn btn-primary ft-button" @click="handleSubmit('private')">Send Report</button>
+      <div class="form-group buttons-inner row">
+        <button v-if="!report && !request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
+        <button v-if="report" id="submit" class="ft-button ft-button-success" @click="handleSubmit">Update</button>
+        <button v-if="!report && request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('private')">Send Report</button>
         <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default ft-button">Cancel</button>
       </div>
     </form>

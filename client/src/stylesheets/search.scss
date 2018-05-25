@@ -1,19 +1,93 @@
 @import '~stylesheets/variables';
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-family: 'Ubuntu', sans-serif;
+  color: $secondary-text-color;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  font-family: 'Ubuntu', sans-serif;
+  color: $secondary-text-color;
+}
+
+:-ms-input-placeholder {
+  /* IE 10+ */
+  font-family: 'Ubuntu', sans-serif;
+  color: $secondary-text-color;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  font-family: 'Ubuntu', sans-serif;
+  color: $secondary-text-color;
+}
+
 .ft-search-widget {
   color: $main-text-color;
-  .v-select{
+  .little-count {
+    padding: 0;
+    span{
+      display: block;
+      padding: 0;
+      text-align: center;
+    }
+    .list-little-count {
+      color: $main-header-color;
+      font-size: 1.5em;
+    }
+  }
+  fieldset {
+    padding: 0;
+    margin: 5px;
+    input {
+      height: 100%;
+      padding: 10px !important;
+    }
+    .v-select {
+      padding: 0;
+    }
+    &.calendar-filter {
+      margin: 10px 0 0 5px;
+      padding: 2px;
+      .col {
+        display: inline-block;
+      }
+      p {
+        text-align: center;
+      }
+    }
+    input,
+    select {
+      height: 100%;
+      padding: 10px;
+    }
+    .icon-inner {
+      margin-top: 5px;
+      display: inline-block;
+      cursor: pointer;
+      &:hover {
+        color: $secondary-header-color;
+      }
+    }
+    .datepicker {
+      float: left;
+    }
+  }
+  .v-select {
     border: 1px solid $secondary-text-color;
     border-radius: 10px;
     padding: 10px 5px;
-    .clearfix{
-      border:0;
+    .clearfix {
+      border: 0;
     }
     .dropdown-toggle {
       max-height: 35px;
       border: 0px;
     }
-    .selected-tag{
-      color:$secondary-text-color;
+    .selected-tag {
+      color: $secondary-text-color;
+      font-family: 'Ubuntu', sans-serif;
     }
     .clear {
       display: none;
@@ -50,6 +124,38 @@
     }
     .datepicker {
       float: left;
+    }
+  }
+}
+
+.table-search {
+  th {
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 1rem;
+    border: none;
+    text-align: center;
+  }
+  tbody {
+    td {
+      text-align: center;
+      border: 0;
+    }
+    .buttons-inner {
+      float: none;
+    }
+  }
+  .shortable {
+    width: 20%;
+    cursor: pointer;
+    span {
+      float: right;
+    }
+    &:hover {
+      color: $main-header-color;
+    }
+    p {
+      display: inline;
     }
   }
 }

@@ -1,7 +1,6 @@
 module Api
   module V1
     class StripeController < Api::V1::BaseController
-
       def index
         result = ::V1::Stripe::Show.(params, current_user: current_user)
         response = FirstTouch::Endpoint.(result, ::V1::Stripe::Representer::Full)

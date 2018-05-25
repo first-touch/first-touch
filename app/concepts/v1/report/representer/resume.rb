@@ -9,7 +9,7 @@ module V1
         property :price
         property :type_report
         property :status
-
+        property :completion_status
         property :created_at
         property :updated_at
         property :user, getter: lambda { |represented:, **|
@@ -17,31 +17,38 @@ module V1
             represented.user.personal_profile
           )
         }
+        property :test, getter: lambda { |represented:, **|
+          represented['test']
+        }
         property :is_free, getter: lambda { |represented:, **|
-          if represented.price
-             represented.price['value'] == 0
-          end
+          represented.price['value'] == 0 if represented.price
         }
 
         property :player, getter: lambda { |represented:, **|
-          if represented.player and represented.type_report == 'player'
+          if represented.player && (represented.type_report == 'player')
             ::V1::PersonalProfile::Representer::Simplified.new(
               represented.player.personal_profile
             )
           end
         }
 
+        property :attachments, getter: lambda { |represented:, **|
+          if represented.attachments
+            ::V1::Attachment::Representer::Index.new(represented.attachments)
+          end
+        }
+
         property :team_info, getter: lambda { |represented:, **|
-          if represented.player and represented.type_report == 'player'
+          if represented.player && (represented.type_report == 'player')
             ::V1::Team::Representer::Index.new(
-            represented.player.teams
+              represented.player.teams
             )
           end
         }
         property :league, getter: lambda { |represented:, **|
           if represented.league
             ::V1::Competition::Representer::Simplified.new(
-            represented.league
+              represented.league
             )
           end
         }
@@ -50,7 +57,7 @@ module V1
           if represented.team
             ::V1::Team::Representer::Simplified.new(
               represented.team
-              )
+            )
           end
         }
         property :orders_status, getter: lambda { |represented:, **|
@@ -60,6 +67,21 @@ module V1
             'N/A'
           end
         }
+        property :orders_completed_date, getter: lambda { |represented:, **|
+          begin
+            represented.orders_completed_date
+          rescue StandardError
+            'N/A'
+          end
+        }
+        property :orders_refund_status, getter: lambda { |represented:, **|
+          begin
+            represented.orders_refund_status
+          rescue StandardError
+            'N/A'
+          end
+        }
+
         property :orders_price, getter: lambda { |represented:, **|
           begin
             represented.orders_price
@@ -67,10 +89,15 @@ module V1
             'N/A'
           end
         }
+        property :search, getter:  lambda { |represented:, **|
+          if represented.meta_data && represented.request_id.nil?
+            represented.meta_data['search'] if represented.meta_data['search']
+          end
+        }
         property :meta_data, getter: lambda { |represented:, **|
           if represented.meta_data
             ::V1::ReportMetaData::Representer::Resume.new(
-            represented.meta_data
+              represented.meta_data
             )
           end
         }

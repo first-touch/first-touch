@@ -6,13 +6,14 @@ module V1
       failure :stripe_failure!, fail_fast: true
       step :persist_stripe_id!
       step :set_preferred_acount!
+
       private
 
-      def setup_model!(options,  params:, current_user:, **)
+      def setup_model!(options, params:, current_user:, **)
         options['model'] = {}
       end
 
-      def create!(options,  params:, current_user:, **)
+      def create!(options, params:, current_user:, **)
         token = params['token']
         country = params['country']
         type = params['type']
@@ -25,10 +26,10 @@ module V1
         else
           options['stripe.errors'] = 'token_not_found'
         end
-        options['stripe_id'] or options['update']
+        options['stripe_id'] || options['update']
       end
 
-      def create_update_bank_account(options,  current_user, token, country)
+      def create_update_bank_account(options, current_user, token, _country)
         if !current_user.stripe_ft.nil?
           stripe_ft = current_user.stripe_ft
           begin
@@ -41,7 +42,7 @@ module V1
               stripe_ft.save!
             end
             options['update'] = true
-          rescue => e
+          rescue StandardError => e
             options['stripe.errors'] = e
           end
         else
@@ -49,19 +50,19 @@ module V1
         end
       end
 
-      def create_update_stripe_account(options,  current_user, token, country)
-        if current_user.stripe_ft.nil? and country
+      def create_update_stripe_account(options, current_user, token, country)
+        if current_user.stripe_ft.nil? && country
           begin
-            account = ::Stripe::Account.create({
-            :country => country,
-            :type => "custom",
-            :account_token => token
-            })
+            account = ::Stripe::Account.create(
+              country: country,
+              type: 'custom',
+              account_token: token
+            )
             account.transfer_schedule.interval = 'manual'
             account.save
-          options['stripe_id'] = account.id
-          options['model'] = account
-          rescue => e
+            options['stripe_id'] = account.id
+            options['model'] = account
+          rescue StandardError => e
             options['stripe.errors'] = e
           end
         else
@@ -71,19 +72,19 @@ module V1
             account.save
             options['model'] = account
             options['update'] = true
-          rescue => e
+          rescue StandardError => e
             options['stripe.errors'] = e
           end
         end
       end
 
-      def persist_stripe_id!(options,  params:, current_user:, **)
+      def persist_stripe_id!(options, params:, current_user:, **)
         success = false
         if !options['stripe_id'].nil?
           stripe_ft = ::StripeFt.new(
             stripe_id: options['stripe_id'],
             user: current_user
-            )
+          )
           current_user.stripe_ft = stripe_ft
           current_user.save!
           success = true
@@ -93,18 +94,16 @@ module V1
         success
       end
 
-      def set_preferred_acount!(options,  params:, current_user:, **)
+      def set_preferred_acount!(options, params:, current_user:, **)
         account = options['model']
         stripe_ft = current_user.stripe_ft
         pf = stripe_ft.preferred_account
         found = false
         account.external_accounts.data.each do |item|
-          if pf == item.id
-            found = true
-          end
+          found = true if pf == item.id
         end
-        if !found
-          if account.external_accounts.data.length > 0
+        unless found
+          unless account.external_accounts.data.empty?
             stripe_ft.preferred_account = account.external_accounts.data[0].id
             stripe_ft.save!
           end
@@ -113,7 +112,6 @@ module V1
         account['preferred_id'] = stripe_ft.preferred_account
         true
       end
-
     end
   end
 end

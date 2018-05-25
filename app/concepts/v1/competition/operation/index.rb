@@ -7,7 +7,7 @@ module V1
         competition_list = ::Competition.all.limit(5)
         query_params = params[:q]
         options['models'] = nil
-        if query_params and query_params.length >= 3
+        if query_params
           competition_list = competition_list.where(
             'name ILIKE ?', "%#{query_params}%"
           )

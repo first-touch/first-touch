@@ -4,11 +4,11 @@ import userReducer, { user, newUser } from './user';
 import networkReducer, { network } from './network';
 import inboxReducer, { inbox } from './inbox';
 import messagesReducer, { messages } from './messages';
-import profileReducer, { profile } from './profile';
+import profileReducer, { profile, teamProfile } from './profile';
 import searchResultReducer, { searchResult } from './searchResult';
 import noteReducer, { note } from './note';
 import reportReducer, { report, searchReport, filesUpload } from './report';
-import orderReducer, { order } from './order';
+import orderReducer, { order, refund } from './order';
 import requestReducer, { request, searchRequest } from './request';
 import bidReducer, { bid, bids } from './bid';
 import stripeReducer, { stripe, stripeFtouch, stripeRequiredFields, stripeDelete, stripeJs } from './stripe';
@@ -25,6 +25,7 @@ export const initialState = {
   inbox,
   messages,
   profile,
+  teamProfile,
   searchResult,
   report,
   searchReport,
@@ -40,7 +41,8 @@ export const initialState = {
   stripeDelete,
   stripePayment,
   stripeJs,
-  stripeClubCards
+  stripeClubCards,
+  refund
 };
 
 export default Object.assign({},
@@ -52,7 +54,7 @@ export default Object.assign({},
   messagesReducer,
   profileReducer,
   searchResultReducer,
-  noteReducer
+  noteReducer,
   searchResultReducer,
   reportReducer,
   reportReducer,

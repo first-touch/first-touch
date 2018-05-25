@@ -12,7 +12,7 @@ module V1
               represented.sources.data.each do |card|
                 obj.push(::V1::ClubStripe::Representer::ResumeBank.new(card))
               end
-            obj
+              obj
             rescue StandardError
               'N/A'
             end
@@ -28,7 +28,6 @@ module V1
         property :last4
         property :id
         property :brand
-
       end
     end
   end

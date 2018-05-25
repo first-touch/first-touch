@@ -1,11 +1,11 @@
 <template>
   <div class="wrapper">
     <div class="header-wrapper">
-      <div class="header col-md-10">
+      <div class="header col-lg-10">
         <div class="img-container">
           <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
         </div>
-        <div class="info col-md-8">
+        <div class="info col-lg-8">
           <h2 class="title" :title="report.headline">{{report.headline}}</h2>
           <p class="extra">
             <span class="target" v-if="report.type_report =='player'">{{report.player.first_name}} {{report.player.last_name}} </span>

@@ -17,12 +17,12 @@ class Report < ApplicationRecord
   #   less_than_or_equal_to: 999_999
   # }
 
-  validates :type_report, inclusion: {
-    in: FirstTouch::REGISTERABLE_REPORT_TYPES
-  }
-  validates :status, inclusion: {
-    in: FirstTouch::REGISTERABLE_REPORT_STATUS
-  }
+  # validates :type_report, inclusion: {
+  #   in: FirstTouch::REGISTERABLE_REPORT_TYPES
+  # }
+  # validates :status, inclusion: {
+  #   in: FirstTouch::REGISTERABLE_REPORT_STATUS
+  # }
 
-  validates_presence_of :headline, :type_report, :price
+  # validates_presence_of :headline, :type_report, :price
 end

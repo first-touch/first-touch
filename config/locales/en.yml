@@ -26,3 +26,7 @@ en:
   not_club_owner: 'The user does not own any club'
   user:
     invalid_role: 'Please choose a valid role'
+  stripe:
+    charge_not_found: 'This report can not be canceled, please contact an administrator'
+    balance_not_empty: 'Your balance is not empty, please wait few days and try again'
+    delete_bid_accepted: 'Please cancel your bid before'

@@ -1,7 +1,7 @@
 <template>
   <div class="actions-post">
     <div class="arrow"></div>
-    <div class="item-container col-md-12">
+    <div class="item-container col-lg-12">
       <slot></slot>
     </div>
   </div>

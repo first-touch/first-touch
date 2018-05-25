@@ -16,7 +16,7 @@ module V1
       end
 
       def authorized!(current_user:, **)
-         # Todo: CLUB not current_user
+        # TODO: CLUB not current_user
         current_user.is_a?(::Club) || true
       end
     end

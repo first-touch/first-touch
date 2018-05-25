@@ -1,6 +1,6 @@
 <template>
   <div class="analyzed_matches ft-input">
-    <div class="row header col-md-12" :class="type">
+    <div class="row header col-lg-12" :class="type">
       <div class="remove" v-if="!readonly">
       </div>
       <div class="col">
@@ -22,14 +22,14 @@
         Comment
       </div>
     </div>
-    <div class="content col-md-12" :class="[type, readonly? 'readonly': '']">
-      <div class="row col-md-12" v-for="(match, index) in analyzed_matches" v-bind:key="match.id">
+    <div class="content col-lg-12" :class="[type, readonly? 'readonly': '']">
+      <div class="row col-lg-12" v-for="(match, index) in analyzed_matches" v-bind:key="match.id">
         <div class="remove" v-if="!readonly && analyzed_matches.length > 1" @click="removeRowMatches(index)">
           <icon name='trash'></icon>
         </div>
         <div class="col form-control" :class="match.date != '' ? 'date-selected': ''">
-          <span v-if="!readonly" class="col-md-12">
-            <datepicker ref="datepicker" input-class="input-date" v-model="match.date" class="datepicker col-md-9" format="dd,MMM yyyy"></datepicker>
+          <span v-if="!readonly" class="col-lg-12">
+            <datepicker ref="datepicker" input-class="input-date" v-model="match.date" class="datepicker col-lg-9" format="dd,MMM yyyy"></datepicker>
             <span @click="match.date = ''" class="icon-inner">
               <icon name='times' v-if="match.date != ''"></icon>
             </span>
@@ -128,7 +128,7 @@
       }
     }
     .col,
-    .col-md-12 {
+    .col-lg-12 {
       margin: 0;
       padding: 0;
       margin: 2px;

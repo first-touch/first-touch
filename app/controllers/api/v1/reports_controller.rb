@@ -1,4 +1,4 @@
-require './lib/file_upload_util'
+
 
 module Api
   module V1
@@ -17,22 +17,8 @@ module Api
 
       def create
         result = ::V1::Report::Create.(params, current_user: current_user)
-        puts result.to_yaml
         response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
         render json: response[:data], status: response[:status]
-      end
-
-      # TODO: to be changed once s3 is set
-      def upload_files
-        if params[:report_id]
-          report = @current_user.reports.find(params[:report_id])
-          params['files'].each do |key|
-            name = params['files'][key].original_filename
-            path = FileUploadUtil.save_file(params['files'][key], report.id.to_s)
-            ::V1::Attachment::Create.({ url: path, filename: name, report: report }, current_user: current_user)
-          end
-          render json: nil, status: :ok
-        end
       end
 
       # TODO: to be changed once s3 is set

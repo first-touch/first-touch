@@ -11,7 +11,7 @@ module V1
         property :player_id
         property :meta_data
 
-        validates :headline, :user, :price, :type_report, :meta_data,  presence: true
+        validates :headline, :user, :price, :type_report, :meta_data, presence: true
       end
     end
   end

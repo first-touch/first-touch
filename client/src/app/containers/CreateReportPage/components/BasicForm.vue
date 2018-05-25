@@ -1,29 +1,29 @@
 <template>
   <form class="report-type-form ft-form" @submit.prevent>
     <div class="form-group row">
-      <label class="col-sm-3 col-form-label required">Select report type</label>
-      <select v-model="type" class="form-control col-sm-6 " >
+      <label class="col-lg-3 col-form-label required">Select report type</label>
+      <select v-model="type" class="form-control col-lg-6 " >
         <option disabled value="" selected>Report type</option>
         <option value="player">Player</option>
         <option value="team">Team</option>
       </select>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3 col-form-label">Select a League</label>
-      <inputsearch class="col-sm-6" :onkeyup="getSearchResultsRole" :required="team_id == -1" :searchResult="searchResult" type="competition"
-        v-on:update:val="setLeague($event)" ref="league_search" :taggable="true" minChar=3 label="name"  v-on:update:search="search.league = $event"/>
+      <label class="col-lg-3 col-form-label">Select a League</label>
+      <inputsearch class="col-lg-6" :onkeyup="getSearchResultsRole" :required="team_id == -1" :searchResult="searchResult" type="competition"
+        v-on:update:val="setLeague($event)" ref="league_search" :taggable="true" label="name"  v-on:update:search="search.league = $event"/>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3 col-form-label" :class="type == 'team' ? 'required' : ''">Select a Team</label>
-      <inputsearch class="col-sm-6" v-if="league_id != ''" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team"
-        ref="team_search" :taggable="true" v-on:update:obj="setTeam($event)" minChar=3 label="team_name" v-on:update:search="search.team = $event" />
+      <label class="col-lg-3 col-form-label" :class="type == 'team' ? 'required' : ''">Select a Team</label>
+      <inputsearch class="col-lg-6" v-if="league_id != ''" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team"
+        ref="team_search" :taggable="true" v-on:update:obj="setTeam($event)" label="team_name" v-on:update:search="search.team = $event" />
     </div>
     <div class="form-group row" v-if="type == 'player'">
-      <label class="col-sm-3 col-form-label" :class="type == 'player' ? 'required' : ''">Select a Player</label>
-      <inputsearch class="col-sm-6" v-if="team_id != ''" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult"
+      <label class="col-lg-3 col-form-label" :class="type == 'player' ? 'required' : ''">Select a Player</label>
+      <inputsearch class="col-lg-6" v-if="team_id != ''" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult"
         type="player" label="display_name" v-on:update:val="player_id = $event" v-on:update:search="search.player = $event" />
     </div>
-    <div class="buttons-inner col-md-12 row">
+    <div class="buttons-inner col-lg-12 row">
       <button class="bar-button ft-button">Cancel</button>
       <button v-if="type == 'player'" class="ft-button" :disabled="player_id == ''" @click="startReport">Create Report for a player</button>
       <button v-if="type == 'team'" class=" ft-button" :disabled="team_id == ''" @click="startReport">Create Report for a team</button>

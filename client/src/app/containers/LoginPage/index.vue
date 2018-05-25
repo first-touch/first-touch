@@ -7,11 +7,11 @@
       </div>
       <div class="col col-lg-5">
         <form @submit.prevent="handleSubmit">
-          <fieldset class="form-group col-md-8">
+          <fieldset class="form-group col-lg-8">
             <label>Email</label>
             <input type="email" v-model="email" class="form-control"  placeholder="Enter email..."/>
           </fieldset>
-          <fieldset class="form-group col-md-8">
+          <fieldset class="form-group col-lg-8">
             <label>Password</label>
             <input type="password" v-model="password" class="form-control" placeholder="Enter password..."/>
           </fieldset>
@@ -19,7 +19,7 @@
             class="bar-button center" type="button" disabled>Logging In...</button>
           <button v-else
             class="bar-button center" type="submit">Login</button>
-          <fieldset class="col-md-8">
+          <fieldset class="col-lg-8">
             <div v-if="error" class="alert alert-danger">
               <em>{{ error }}</em>
             </div>

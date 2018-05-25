@@ -1,22 +1,31 @@
 <template>
   <div class="widget-request ft-search-widget">
-    <h4 class="header">My Jobs Request</h4>
+    <h4 class="header">Jobs Bank</h4>
     <timeline-item>
-      <div class="widget-content col col-md-12">
+      <div class="widget-content col col-lg-12">
         <div class="row align-items-start">
-          <div class="col-md-2">
+          <div class="col-lg-2">
             <h6 class="list-title">Request Count</h6>
             <h1 class="list-count">{{listRequest.length}}</h1>
           </div>
-          <form @submit.prevent="search" class="col-md-10 row">
-            <fieldset class="col-md-4 filter">
+          <form @submit.prevent="search" class="col-lg-10 row">
+            <fieldset class="col-lg-4">
+              <input type="number" class="col-lg-12 form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()" />
+            </fieldset>
+            <fieldset class="col-lg-4">
+              <input type="text" class="col-lg-12 form-control" v-model="params.club" placeholder="Requested by" @keyup="search()" />
+            </fieldset>
+            <fieldset class="col-lg-3">
               <vselect v-model="vselect_type" :options="options.type_request" :searchable="false" clearable="false" />
             </fieldset>
-            <ftdatepicker class="col-md-5 filter form-control" :value="params.created_date" :clearable="false" v-on:update:val="params.created_date = $event; search()"
-            />
-            <fieldset class="col-md-3 filter">
-              <vselect v-model="vselect_sort" @input="search" :options="options.order" :searchable="false" />
+            <fieldset class="col-lg-12 calendar-filter">
+              <ftdatepicker class="col col-lg-5 form-control" :value="params.deadline_from" :clearable="false" placeholder="Deadline from"
+                v-on:update:val="params.deadline_from = $event; search()" />
+              <p class="col col-lg-1">-</p>
+              <ftdatepicker class="col col-lg-5 form-control" :value="params.deadline_to" :clearable="false" placeholder="Deadline to"
+                v-on:update:val="params.deadline_to = $event; search()" />
             </fieldset>
+
           </form>
         </div>
       </div>
@@ -29,17 +38,18 @@
           <positionrequestpopup v-if="selected && selected.type_request == 'position' " :request="selected" :closeAction="closeAction"
             :bid="wantbid" :newBid="newBid" />
         </div>
-        <div v-if="bid && !bidPosition" class="divSuccess">
-          <h5 class="success">Bid has been Submitted</h5>
-          <button class="btn btn-dark" @click="closeAction()">✓ Close</button>
-        </div>
-        <div v-if="bid && bidPosition" class="divSuccess">
-          <h5 class="success">Added to job !</h5>
-          <button class="btn btn-dark" @click="closeAction()">✓ Close</button>
+        <div v-if="bid" class="divSuccess row">
+          <div class="col-lg-12">
+            <h3 class="success" v-if="bidPosition">Added to job !</h3>
+            <h3 class="success" v-if="!bidPosition">Bid submitted !</h3>
+          </div>
+          <div class="col-lg-12 buttons-inner">
+            <button class="ft-button-right ft-button-success" @click="closeAction()">✓ Close</button>
+          </div>
         </div>
       </b-modal>
       <b-modal id="metaModal" size="md" ref="bidModal" :class="bid? 'successModal' : 'formModal' ">
-        <bidpopup v-if="selected" :request="selected" :newBid="newBid" />
+        <bidpopup v-if="selected" :request="selected" :newBid="newBid" :close="closeBid" />
       </b-modal>
       <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :addBid="addBid"
         :viewReport="viewReport" :createReport="createReport" />
@@ -57,6 +67,9 @@
   }
 
   .widget-request {
+    .input-date {
+      padding: 20px;
+    }
     .datepicker {
       padding: 0;
       input.input-date {
@@ -89,24 +102,13 @@
       font-size: 4em;
       text-align: center;
     }
-    .filter {
-      margin: 5px;
-      max-width: 23%;
-      input,
-      select {
+    fieldset {
+      input {
         height: 100%;
-        padding: 10px;
+        padding: 10px !important;
       }
-      .icon-inner {
-        margin-top: 5px;
-        display: inline-block;
-        cursor: pointer;
-        &:hover {
-          color: $secondary-header-color;
-        }
-      }
-      .datepicker {
-        float: left;
+      .v-select {
+        padding: 0;
       }
     }
   }
@@ -131,7 +133,7 @@
     components: {
       datepicker: Datepicker,
       'timeline-item': TimelineItem,
-      bidpopup:BidPopup,
+      bidpopup: BidPopup,
       request: RequestItem,
       vselect: vSelect,
       ftdatepicker: FtDatepicker,
@@ -149,7 +151,9 @@
           created_date: '',
           order: '',
           status: '',
-          type_request: ''
+          type_request: '',
+          deadline_from: '',
+          deadline_to: ''
         },
         vselect_type: {
           label: 'Request Type',
@@ -224,6 +228,8 @@
     computed: {
       url() {
         var params = this.params;
+        params.deadline_from = this.$options.filters.railsdate(params.deadline_from)
+        params.deadline_to = this.$options.filters.railsdate(params.deadline_to)
         return Object.keys(params)
           .map(function (k) {
             return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
@@ -240,7 +246,7 @@
         this.params.status = this.vselect_status.value;
         this.search();
       },
-      bid(){
+      bid() {
         if (this.bid)
           this.$refs.metaModal.show();
       }
@@ -270,6 +276,9 @@
         this.bidPosition = false;
         this.clearBid();
         this.search();
+      },
+      closeBid() {
+        this.$refs.bidModal.hide();
       },
       viewSummary(request) {
         this.wantbid = false;

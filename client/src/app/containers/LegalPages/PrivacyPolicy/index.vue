@@ -6,7 +6,7 @@
     </div>
     <div class="container">
       <section class="row">
-        <div class="col-md-5 introduction">
+        <div class="col-lg-5 introduction">
           <p><em>Effective on March 25, 2018</em></p>
           <p>
             When you use FirstTouch services, you trust us with your information. This Privacy Policy is meant to help you understand
@@ -15,7 +15,7 @@
             - to always feel informed and empowered with respect to your privacy on FirstTouch.
           </p>
         </div>
-        <div class="col-md-7">
+        <div class="col-lg-7">
           <div class="table-of-content">
             <h2 class="toc-title">Table of Contents:</h2>
             <ol class="toc-list">
@@ -594,4 +594,3 @@ export default {
   },
 };
 </script>
-

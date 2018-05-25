@@ -1,6 +1,6 @@
 <template>
   <div class="ft-input">
-    <div class="col-md-12 inner">
+    <div class="col-lg-12 inner">
       <input name="team" autocomplete="off" :readonly="readonly" class="search form-control" :class="readonly ? 'readonly':''" v-model="search"
       type="text" v-on:keyup="startSearch" :required="required == true"
         @blur="blur" @click="focus()" />

@@ -10,6 +10,15 @@ module V1
             represented.user.personal_profile
           )
         }
+        property :completion_status
+        property :request, getter: lambda { |represented:, **|
+          if represented.request
+            ::V1::Request::Representer::Full.new(
+              represented.request
+            )
+          end
+        }
+        property :created_at
         property :headline
         property :meta_data
         property :player, getter: lambda { |represented:, **|
@@ -22,14 +31,14 @@ module V1
         property :team_info, getter: lambda { |represented:, **|
           if represented.player
             ::V1::Team::Representer::Index.new(
-            represented.player.teams
+              represented.player.teams
             )
           end
         }
         property :league, getter: lambda { |represented:, **|
           if represented.league
             ::V1::Competition::Representer::Simplified.new(
-            represented.league
+              represented.league
             )
           end
         }
@@ -38,7 +47,7 @@ module V1
           if represented.team
             ::V1::Team::Representer::Simplified.new(
               represented.team
-              )
+            )
           end
         }
         property :price

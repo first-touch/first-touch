@@ -6,27 +6,27 @@
       <widget/>
       <timeline-item>
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-lg-2">
             <h6 class="notelist-title">Note Count</h6>
             <h1 class="notelist-count">4</h1>
           </div>
-          <div class="col-md-10">
+          <div class="col-lg-10">
             <div class="row">
-              <div class="col-md-4">
-                <select class="form-control col-md-12">
+              <div class="col-lg-4">
+                <select class="form-control col-lg-12">
                   <option disabled value="all" selected>All</option>
                   <option>Something</option>
                 </select>
               </div>
-              <div class="col-md-4">
-                <select class="form-control col-md-12">
+              <div class="col-lg-4">
+                <select class="form-control col-lg-12">
                   <option disabled value="all" selected>Date</option>
                   <option>Something</option>
                 </select>
               </div>
-              <div class="col-md-4">
+              <div class="col-lg-4">
                 <form>
-                  <input type="text" class="form-control col-md-12" placeholder="Search tags"/>
+                  <input type="text" class="form-control col-lg-12" placeholder="Search tags"/>
                 </form>
               </div>
             </div>
@@ -66,5 +66,3 @@ export default {
   },
 };
 </script>
-
-
