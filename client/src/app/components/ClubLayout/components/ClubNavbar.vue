@@ -97,6 +97,8 @@
   @import '~stylesheets/variables.scss';
   @import '~stylesheets/common_style';
   .sidenav-left {
+    overflow-y: auto;
+
     .brand {
       margin: 0 0 15px 0;
     }
@@ -142,7 +144,6 @@
       margin: 15px 0 15px -20px;
       display: flex;
       flex-direction: column;
-      overflow-y: scroll;
       &::-webkit-scrollbar {
         display: none;
       }

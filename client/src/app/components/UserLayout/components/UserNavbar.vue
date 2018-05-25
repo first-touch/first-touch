@@ -101,6 +101,7 @@
   @import '~stylesheets/variables';
   @import '~stylesheets/common_style';
   .sidenav-left {
+    overflow-y: auto;
     .brand {
       margin: 0 0 15px 0;
     }
