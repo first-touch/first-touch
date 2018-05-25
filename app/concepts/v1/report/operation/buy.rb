@@ -38,8 +38,8 @@ module V1
 
       def dest_has_stripe!(options, params:, model:, **)
         stripe_ft = model.user.stripe_ft
-        if stripe_ft.nil? || stripe_ft.stripe_id.nil?
-          options['stripe.errors'] = ['scout_stripe_not_found']
+        if stripe_ft.nil? || stripe_ft.preferred_account.nil?
+          options['stripe.errors'] = I18n.t 'stripe.scout_stripe_not_found'
         end
         stripe_ft.nil? ? false : stripe_ft.stripe_id
       end
