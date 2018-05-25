@@ -70,6 +70,7 @@
       height: 2.5em;
       .selected-tag {
         color: $main-text-color;
+            padding: 5px 10px;
       }
       .clearfix {
         height: 2.5em;
@@ -100,11 +101,19 @@
     .col {
       color: $main-text-color;
       font-weight: bold;
+      text-align: center;
     }
     .remove {
       width: 2%;
       max-width: 20px;
     }
+  }
+
+  .form-control {
+    input, .vdp-datepicker {
+      border-radius: 100%;
+    }
+
   }
 
   .content {
@@ -161,7 +170,7 @@
   }
 
   .add-match {
-    margin: 10px 0 0 0 ;
+    margin: 10px 0 0 0;
     padding: 4px;
     min-height: 20px;
     font-size: 10px;

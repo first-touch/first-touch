@@ -35,7 +35,7 @@
           <div class="row col-lg-6">
             <label class="col-lg-12 required">Account holder type</label>
             <vselect v-model="typeSelect" required @input="bankInfo.account_holder_type = typeSelect ? typeSelect.value : ''" :options="optionsType"
-              class="ft-input col-lg-12" placeholder="Please select a type" />
+              class="ft-input col-lg-12 form-control" placeholder="Please select a type" />
           </div>
           <div class="row col-lg-6 " v-if="bankNeed.indexOf('routing_number') >= 0">
             <label class="col-lg-12 required">Routing number</label>
@@ -47,7 +47,7 @@
           </div>
           <div class="row col-lg-6" v-if="bankNeed.indexOf('clearing_code') >= 0">
             <label class="col-lg-12 required">Clearing code</label>
-            <input type="number" class="col-lg-12 form-control" required v-model="bankInfo.clearing_code">
+            <input type="number" min="0" class="col-lg-12 form-control" required v-model="bankInfo.clearing_code">
           </div>
           <div class="row col-lg-6" v-if="bankNeed.indexOf('bank_code') >= 0">
             <label class="col-lg-12 required">Bank code</label>
@@ -79,11 +79,11 @@
           </div>
           <div class="row col-lg-6" v-if="bankNeed.indexOf('transit_number') >= 0">
             <label class="col-lg-12 required">Transit number</label>
-            <input type="number" class="col-lg-12 form-control" required v-model="bankInfo.transit_number">
+            <input type="number" min="0" class="col-lg-12 form-control" required v-model="bankInfo.transit_number">
           </div>
           <div class="row col-lg-6" v-if="bankNeed.indexOf('institution_number') >= 0">
             <label class="col-lg-12 required">Institution number</label>
-            <input type="number" class="col-lg-12 form-control" required v-model="bankInfo.institution_number">
+            <input type="number" min="0" class="col-lg-12 form-control" required v-model="bankInfo.institution_number">
           </div>
           <div class="col-lg-12 buttons-inner">
             <button class="ft-button ft-button-success ft-button-right">Add</button>
@@ -94,10 +94,11 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-@import '~stylesheets/form';
-@import '~stylesheets/variables';
 
+<style lang="scss">
+@import '~stylesheets/form';
+</style>
+<style lang="scss" scoped>
 .addPaymentPopup {
   .loader {
     display: none;

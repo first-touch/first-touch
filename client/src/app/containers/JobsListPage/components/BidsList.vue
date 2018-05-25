@@ -4,25 +4,29 @@
     <timeline-item>
       <div class="widget-content col col-lg-12">
         <div class="row align-items-start">
-          <div class="col-lg-2">
-            <h6 class="list-title">Request Count</h6>
-            <h1 class="list-count">{{listRequest.length}}</h1>
+          <div class="col-lg-2 row">
+            <h6 class="list-title col-lg-12">Request Count</h6>
+            <h1 class="list-count col-lg-12">{{listRequest.length}}</h1>
+            <fieldset class="col-lg-12 col-md-12 buttons-inner" v-if="nbFilters">
+              <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
+            </fieldset>
           </div>
           <form @submit.prevent="search" class="col-lg-10 row">
             <fieldset class="col-lg-3">
-              <input type="number" class="col-lg-12 form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()" />
+              <input type="number" min="0" class="col-lg-12 form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()"
+              />
             </fieldset>
-            <fieldset class="col-lg-3 col-md-6">
+            <fieldset class="col-lg-3">
               <input type="text" class="col-lg-12 form-control" v-model="params.club" placeholder="Requested by" @keyup="search()" />
             </fieldset>
-            <fieldset class="col-lg-4 col-md-6">
-              <vselect v-model="vselect_type" :options="options.type_request" :searchable="false" clearable="false" />
+            <fieldset class="col-lg-4">
+              <vselect v-model="vselect_type" class="form-control" :options="options.type_request" :class="params.type_request == '' ? 'empty' : '' " :searchable="false" clearable="false" />
             </fieldset>
             <fieldset class="col-lg-12 calendar-filter">
-              <ftdatepicker class="col-lg-5 col form-control" :model="params.deadline_from" :clearable="false" placeholder="Deadline from"
-                v-on:update:val="params.deadline_from = $event; search()" />
+              <ftdatepicker class="col-lg-5 col form-control" :model="params.deadline_from" ref="deadlineFrom" :value="params.deadline_from"
+                :clearable="false" placeholder="Deadline from" v-on:update:val="params.deadline_from = $event; search()" />
               <p class="col-lg-1 col">-</p>
-              <ftdatepicker class="col-lg-5 col form-control" :model="params.deadline_to" :clearable="false" placeholder="Deadline to"
+              <ftdatepicker class="col-lg-5 col form-control" :model="params.deadline_to" ref="deadlineTo" :clearable="false" placeholder="Deadline to"
                 v-on:update:val="params.deadline_to = $event; search()" />
             </fieldset>
           </form>
@@ -35,8 +39,8 @@
           <positionrequestpopup v-if="selected.type_request == 'position' " :request="selected" :closeAction="closeAction" />
         </div>
         <div v-if="cancel && selected">
-          <cancelrequestpopup :request="selected" :closeAction="closeAction" :cancelReport="cancelReport"   :filesUpload="filesUpload" :uploadFiles="uploadFiles"
-          :bid="bid" />
+          <cancelrequestpopup :request="selected" :closeAction="closeAction" :cancelReport="cancelReport" :filesUpload="filesUpload"
+            :uploadFiles="uploadFiles" :bid="bid" />
         </div>
       </b-modal>
 
@@ -93,72 +97,6 @@
   @import '~stylesheets/variables';
   @import '~stylesheets/modal';
   @import '~stylesheets/search';
-  .ft-form {
-    padding: 0 !important;
-  }
-
-  .widget-request {
-    .datepicker {
-      padding: 0;
-      input.input-date {
-        cursor: pointer;
-        min-height: 2em;
-        border: 0px;
-      }
-    }
-    .dropdown-toggle {
-      max-height: 35px;
-      border: 0px;
-    }
-  }
-</style>
-
-<style lang="scss" scoped>
-  @import '~stylesheets/variables';
-  .widget-request {
-    color: $main-text-color;
-    .form-control {
-      padding: 0;
-    }
-    .list-title {
-      color: $main-text-color;
-      font-size: 0.95em;
-      text-transform: uppercase;
-    }
-    .list-count {
-      color: $main-header-color;
-      font-size: 4em;
-      text-align: center;
-    }
-
-    fieldset {
-      padding: 0;
-      margin: 5px;
-      input {
-        height: 100%;
-        padding: 10px !important;
-      }
-      .v-select {
-        padding: 0;
-      }
-      input,
-      select {
-        height: 100%;
-        padding: 10px;
-      }
-      .icon-inner {
-        margin-top: 5px;
-        display: inline-block;
-        cursor: pointer;
-        &:hover {
-          color: $secondary-header-color;
-        }
-      }
-      .datepicker {
-        float: left;
-      }
-    }
-  }
 </style>
 <script>
   import {
@@ -203,9 +141,10 @@
         timer: null,
         params: {
           id: '',
-          created_date: '',
           club: '',
           order: '',
+          deadline_from: '',
+          deadline_to: '',
           order_asc: true,
           type_request: '',
           bids_status: 'accepted,joblist'
@@ -240,7 +179,16 @@
       this.search();
     },
     computed: {
-      ...mapGetters(['searchRequest', 'bid','filesUpload']),
+      ...mapGetters(['searchRequest', 'bid', 'filesUpload']),
+      nbFilters() {
+        var i = 0;
+        var params = this.params;
+        for (var key in params) {
+          if (['bids_status', 'order_asc', 'order'].indexOf(key) < 0)
+            i = params[key] != '' ? i + 1 : i;
+        }
+        return i;
+      },
       listRequest() {
         if (this.searchRequest.status === ASYNC_SUCCESS) {
           return this.searchRequest.value.request;
@@ -272,7 +220,25 @@
       }
     },
     methods: {
-      ...mapActions(['getRequests', 'createBid', 'clearBid', 'updateBid', 'cancelBid','uploadFiles']),
+      ...mapActions(['getRequests', 'createBid', 'clearBid', 'updateBid', 'cancelBid', 'uploadFiles']),
+      clearsFilter() {
+        this.params = {
+          id: '',
+          club: '',
+          order: '',
+          deadline_from: '',
+          deadline_to: '',
+          order_asc: true,
+          type_request: '',
+          bids_status: 'accepted,joblist'
+        };
+        this.$refs.deadlineFrom.model = null;
+        this.$refs.deadlineTo.model = null;
+        this.vselect_type = {
+          label: 'Request Type',
+          value: ''
+        };
+      },
       search() {
         var self = this
         clearTimeout(this.timer);

@@ -18,25 +18,25 @@
             <div class="col-lg-4 form-group">
               <label class="col-lg-12">Height Range (Cm)</label>
               <div class="col-lg-12 row">
-                <input type="number" class="col-lg-5 form-control" v-model="meta_data.min_heigth">
+                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.min_heigth">
                 <span class="separator col-lg-2">—</span>
-                <input type="number" class="col-lg-5 form-control" v-model="meta_data.max_heigth">
+                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.max_heigth">
               </div>
             </div>
             <div class="col-lg-4 form-group">
               <label class="col-lg-12">Weight Range (Kg)</label>
               <div class="col-lg-12 row">
-                <input type="number" class="col-lg-5 form-control" v-model="meta_data.min_weight">
+                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.min_weight">
                 <span class="separator col-lg-2">—</span>
-                <input type="number" class="col-lg-5 form-control" v-model="meta_data.max_weight">
+                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.max_weight">
               </div>
             </div>
             <div class="col-lg-4 form-group">
               <label class="col-lg-12">Age Range</label>
               <div class="col-lg-12 row">
-                <input type="number" class="col-lg-5 form-control" v-model="meta_data.age_min">
+                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.age_min">
                 <span class="separator col-lg-2">—</span>
-                <input type="number" class="col-lg-5 form-control" v-model="meta_data.age_max">
+                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.age_max">
               </div>
             </div>
           </div>
@@ -135,12 +135,12 @@
 
           <div class="row">
             <label class="col-lg-12">Desirable Attributes</label>
-            <textarea class="col-lg-12 form-control" v-model="meta_data.desirable_attributes" />
+            <textarea class="col-lg-12 form-control" v-model="meta_data.desirable_attributes" v-autosize="meta_data.desirable_attributes"  />
           </div>
 
           <div class="row">
             <label class="col-lg-12">Additional Comments</label>
-            <textarea class="col-lg-12 form-control" v-model="meta_data.comments" />
+            <textarea class="col-lg-12 form-control" v-model="meta_data.comments" v-autosize="meta_data.comments"  />
           </div>
 
           <div class="row">

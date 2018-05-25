@@ -34,15 +34,16 @@ import ClubPaymentDetails from 'app/containers/ClubPaymentDetailsPage';
 import ProposedPlayer from 'app/containers/ProposedPlayerPage';
 import JobsBankPage from 'app/containers/JobsBankPage';
 import JobBidPage from 'app/containers/JobBidPage';
-
 import store from 'app/store';
+import VueAutosize from 'vue-autosize';
 import VueRouter from 'vue-router';
 import './app/constants/filters';
 import 'stylesheets/landingpage.scss';
 import './app/constants/filters';
+
+Vue.use(VueAutosize);
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
-
 // delete once registration is allowed
 // function redirectToPrereg (to, from, next) {
 //   next({ path: '/pre_registration' });

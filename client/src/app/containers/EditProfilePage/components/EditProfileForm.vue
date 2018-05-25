@@ -30,21 +30,21 @@
           <option disabled value="">Date</option>
           <option v-for="d in 31" :value="d">{{ d }}</option>
         </select>
-        <input type="number" v-model="bYear" class="form-control col-lg-6" placeholder="Year" />
+        <input type="number" min="0"v-model="bYear" class="form-control col-lg-6" placeholder="Year" />
       </div>
     </fieldset>
     <fieldset class="form-group col-lg-12">
       <label>Country</label>
       <div class="row">
-        <input type="number" v-model="country_code" class="form-control col-lg-4" placeholder="Country Code" />
+        <input type="number" min="0"v-model="country_code" class="form-control col-lg-4" placeholder="Country Code" />
         <input type="text" v-model="place_of_birth" class="form-control col-lg-8" placeholder="Place of Birth" />
       </div>
     </fieldset>
     <fieldset class="form-group col-lg-12">
       <label>Physique</label>
       <div class="row">
-        <input type="number" v-model="weight" class="form-control col-lg-4" placeholder="Weight" />
-        <input type="number" v-model="height" class="form-control col-lg-4" placeholder="Height" />
+        <input type="number" min="0"v-model="weight" class="form-control col-lg-4" placeholder="Weight" />
+        <input type="number" min="0"v-model="height" class="form-control col-lg-4" placeholder="Height" />
         <select v-model="preferred_foot" class="form-control col-lg-4">
           <option disabled value="">Preferred Foot</option>
           <option value="R">Right</option>

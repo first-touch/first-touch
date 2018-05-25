@@ -1,20 +1,21 @@
 <template>
   <div class="ft-input">
     <div class="col-lg-12 inner">
-      <input name="team" autocomplete="off" :readonly="readonly" class="search form-control" :class="readonly ? 'readonly':''" v-model="search"
-      type="text" v-on:keyup="startSearch" :required="required == true"
-        @blur="blur" @click="focus()" />
+      <input name="team" autocomplete="off" :placeholder="placeholder" :readonly="readonly" class="search form-control" :class="readonly ? 'readonly':''"
+        v-model="search" type="text" v-on:keyup="startSearch" :required="required == true" @blur="blur" @click="focus()" />
       <div class="search-results">
-        <div v-for="(value, index) in results" :key="index" @mousedown="setvalue(index)">
+        <div v-for="(value, index) in results" :key="index" @mousedown="setvalue(index)" class="one-result">
+          <div class="arrow"></div>
           <img src="https://unsplash.it/50/50" class="rounded-circle img-fluid">
           <p> {{value}}</p>
         </div>
-        <div v-if="minChar && search.length < minChar">
-          <p>Pleast type at least {{minChar}} chars </p>
-        </div>
-        <div v-if="taggable && allowtag && (!minChar || search.length >= minChar) " @mousedown="newentry()">
+        <div v-if="taggable && allowtag && (!minChar || search.length >= minChar) " @mousedown="newentry()" class="one-result new-result">
+          <div class="arrow "></div>
           <img src="https://unsplash.it/50/50" class="rounded-circle img-fluid">
           <p> {{search}} (Non existing)</p>
+        </div>
+        <div v-if="minChar && search.length < minChar">
+          <p>Pleast type at least {{minChar}} chars </p>
         </div>
         <div v-if="!taggable && results.length == 0">
           <p v-if="search != '' && (!minChar || search.length >= minChar)  "> No result found </p>
@@ -26,119 +27,142 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+  @import '~stylesheets/variables';
 
-.inner {
-  padding: 0;
-}
-
-.search {
-  -webkit-appearance: menulist;
-  &:not(.readonly):focus ~ .search-results {
-    position: absolute;
-    background: white;
-    width: 100%;
-    z-index: 10;
-    display: block;
-    overflow: hidden;
-    overflow-y: scroll;
-    div {
-      padding: 10px 0 10px 15px;
-      overflow: hidden;
-      cursor: pointer;
-      img {
-        float: left;
-      }
-      p {
-        padding-left: 10px;
-        float: left;
-        margin-top: 10px;
-        color: black;
-      }
-      &:hover {
-        background: #e6e1e1;
-      }
-    }
+  .inner {
+    padding: 0;
   }
-}
 
-.search-results {
-  display: none;
-}
+  .search {
+    &:not(.readonly):focus~.search-results {
+      position: absolute;
+      background: white;
+      width: 100%;
+      z-index: 10;
+      display: block;
+      overflow: hidden;
+      overflow-y: scroll;
+      .one-result {
+        flex: 1 0 100%;
+        display: flex;
+        align-items: center;
+        background-color: rgba(33, 34, 35, 0.95);
+        padding: 10px 20px;
+        height: 80px;
+        color: $secondary-header-color;
+        border-left: 7px solid $secondary-header-color;
+
+        p {
+          margin-left: 1em;
+        }
+        &.new-result {
+          border-color: rgba(255,255,255,0.7);
+          .arrow {
+            color: rgba(255,255,255,0.7);
+          }
+        }
+        &:hover,
+        &:focus {
+          text-decoration: none;
+          background-color: rgba(98, 99, 100, 0.9);
+          cursor: pointer;
+        }
+        .arrow {
+          margin-left: -20px;
+        }
+        .img-fluid {
+          max-height: 100%;
+          border-radius: 50%;
+        }
+        .search-results-item-name {
+          margin-left: 20px;
+          margin-bottom: 0;
+        }
+      }
+
+    }
+
+  }
+
+  .search-results {
+    display: none;
+  }
 </style>
 
 <script>
-import { mapActions } from 'vuex';
-export default {
-  name: 'InputSearch',
-  props: ['onkeyup', 'searchResult', 'type', 'taggable', 'edit', 'required', 'minChar', 'label','readonly'],
-  data() {
-    return {
-      search: '',
-      id: '',
-      value: '',
-      selected: null
-    };
-  },
-  computed: {
-    results: function() {
-      if (this.searchResult.value && this.searchResult.value.constructor === Array)
-        return this.searchResult.value.map(r => r[this.label]);
-      return [];
+  import {
+    mapActions
+  } from 'vuex';
+  export default {
+    name: 'InputSearch',
+    props: ['onkeyup', 'searchResult', 'type', 'taggable', 'edit', 'required', 'minChar', 'label', 'readonly','placeholder'],
+    data() {
+      return {
+        search: '',
+        id: '',
+        value: '',
+        selected: null
+      };
     },
-    allowtag: function() {
-      return this.search != '';
-    }
-  },
-  created() {
-    if (this.edit) {
-      this.search = this.value = this.edit.search;
-      this.id = this.edit.id;
-    }
-  },
-  methods: {
-    ...mapActions(['flushSearchResults']),
-    setvalue(index) {
-      var info = (this.selected = this.searchResult.value[index]);
-      this.id = info.id;
-      this.value = info[this.label];
-      this.search = info[this.label];
-    },
-    newentry() {
-      this.id = -1;
-      this.value = this.search;
-    },
-    clear() {
-      this.search = '';
-      this.id = '';
-      this.value = '';
-      this.selected = null;
-    },
-    focus() {
-      this.startSearch();
-    },
-    blur() {
-      this.flushSearchResults();
-      if (this.search === '') {
-        this.clear();
+    computed: {
+      results: function () {
+        if (this.searchResult.value && this.searchResult.value.constructor === Array)
+          return this.searchResult.value.map(r => r[this.label]);
+        return [];
+      },
+      allowtag: function () {
+        return this.search != '';
       }
-      this.search = this.value;
-      this.$emit('update:val', this.id);
+    },
+    created() {
+      if (this.edit) {
+        this.search = this.value = this.edit.search;
+        this.id = this.edit.id;
+      }
+    },
+    methods: {
+      ...mapActions(['flushSearchResults']),
+      setvalue(index) {
+        var info = (this.selected = this.searchResult.value[index]);
+        this.id = info.id;
+        this.value = info[this.label];
+        this.search = info[this.label];
+      },
+      newentry() {
+        this.id = -1;
+        this.value = this.search;
+      },
+      clear() {
+        this.search = '';
+        this.id = '';
+        this.value = '';
+        this.selected = null;
+      },
+      focus() {
+        this.startSearch();
+      },
+      blur() {
+        this.flushSearchResults();
+        if (this.search === '') {
+          this.clear();
+        }
+        this.search = this.value;
+        this.$emit('update:val', this.id);
 
-      if (this.taggable && this.id == -1) {
-        this.$emit('update:search', this.value);
-        this.$emit('update:obj', {
-          id: -1,
-          name: this.search
-        });
-      } else {
-        this.$emit('update:obj', this.selected);
+        if (this.taggable && this.id == -1) {
+          this.$emit('update:search', this.value);
+          this.$emit('update:obj', {
+            id: -1,
+            name: this.search
+          });
+        } else {
+          this.$emit('update:obj', this.selected);
+        }
+      },
+      startSearch() {
+        if (this.search != '' && (!this.minChar || this.search.length >= this.minChar))
+          this.onkeyup(this.type, this.search);
       }
-    },
-    startSearch() {
-      if (this.search != '' && (!this.minChar || this.search.length >= this.minChar))
-        this.onkeyup(this.type, this.search);
     }
-  }
-};
+  };
 </script>

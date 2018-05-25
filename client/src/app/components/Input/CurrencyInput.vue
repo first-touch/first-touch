@@ -3,24 +3,24 @@
     <div class="input-group-addon currency">{{currency?currency:model.currency | currency}}</div>
     <autonumeric @blur.native="blurMin()" :disabled="lock" class="form-control" :class="max ?'col-lg-5':''" v-model="model.value"
       :options="{
-         digitGroupSeparator: '.',
-         decimalCharacter: ',',
+         digitGroupSeparator: ',',
+         decimalCharacter: '.',
          decimalCharacterAlternative: '.',
          roundingMethod: 'U',
          minimumValue: '0'
      }"></autonumeric>
     <slot />
-    <span v-if="max" class="separator">—</span>
+    <span v-if="max" class="separator col-lg-1">-</span>
     <autonumeric @blur.native="blurMax()" :disabled="lock" class="form-control col-lg-5" v-if="max" v-model="model.max" :options="{
-         digitGroupSeparator: '.',
-         decimalCharacter: ',',
+         digitGroupSeparator: ',',
+         decimalCharacter: '.',
          decimalCharacterAlternative: '.',
          roundingMethod: 'U',
          minimumValue: '0'
      }" />
     <div class="input-group-addon">
 
-      <select :disabled="lock" v-if="!currency" class="currency-selector form-control" v-model="model.currency">
+      <select :disabled="lock" v-if="!currency" class="currency-selector" v-model="model.currency">
         <option value="USD" data-placeholder="0.00">USD</option>
         <option value="EUR" data-placeholder="0.00">EUR</option>
         <option value="GBP" data-placeholder="0.00">GBP</option>
@@ -41,9 +41,13 @@
   .autonumeric {
     height: 100%;
     min-height: 30px;
-
+    .currency-selector {
+      border: 0;
+      color: $main-text-color;
+    }
     .separator {
-      float: left;
+      padding: 10px;
+      text-align: center;
     }
     .form-control {
       z-index: unset;

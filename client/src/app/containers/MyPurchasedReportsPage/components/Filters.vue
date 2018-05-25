@@ -1,17 +1,19 @@
 <template>
   <form @submit.prevent="search" class="col-lg-10">
     <div class="row">
-      <fieldset class="col-lg-3 filter" v-if="!request">
-        <input type="number" v-model="params.id" class="form-control col-lg-12" placeholder="Report id">
+      <fieldset class="col-lg-3" v-if="!request">
+        <input type="number" min="0" v-model="params.id" class="form-control col-lg-12" placeholder="Report id">
       </fieldset>
-      <fieldset class="col-lg-3 filter form-control">
+      <fieldset class="col-lg-3">
         <input class="col-lg-12 form-control" placeholder="Scout's Name" type="text" v-model="params.scout_name" />
       </fieldset>
-      <fieldset class="col-lg-3 filter" v-if="!request">
-        <vselect v-model="status_select" @input="search" :options="options.report_status" :searchable="false" />
+      <fieldset class="col-lg-3" v-if="!request">
+        <vselect v-model="status_select" @input="search"  class="form-control" :class="params.completion_status == ''? 'empty': '' " :options="options.report_status" :searchable="false" />
       </fieldset>
-      <ftdatepicker class="col-lg-3 filter form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
-        placeholder="Submitted on" />
+      <fieldset class="col-lg-5 col-md-8 calendar-filter">
+        <ftdatepicker class="col-lg-12 form-control" ref="createdDate" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
+          placeholder="Submitted on" />
+      </fieldset>
       <div class="col-lg-12 price-filter row">
         <label class="col-lg-1">Price</label>
         <currencyinput class="col-lg-11" :value="price" max="true" :currency="currency" />
@@ -69,7 +71,10 @@
           report_status: '',
           created_date: '',
           scout_name: '',
-          purchased: true
+          purchased: true,
+          max_price: 0,
+          min_price: 0,
+          completion_status: ''
 
         },
         options: {
@@ -99,6 +104,16 @@
       }
     },
     computed: {
+      nbFilters() {
+        var i = 0;
+        var params = this.params;
+        for (var key in params) {
+          if (['purchased', 'order_asc', 'order'].indexOf(key) < 0) {
+            i = params[key] != '' ? i + 1 : i;
+          }
+        }
+        return i;
+      },
       url() {
         var params = this.params;
         params.completion_status = this.status_select.value;
@@ -106,7 +121,7 @@
         if (this.price.max > 0)
           params.max_price = this.price.max;
         else {
-          delete(params.max_price)
+          params.max_price = '';
         }
         if (this.request)
           params.request_id = this.request.id;
@@ -127,6 +142,29 @@
       }
     },
     methods: {
+      clearsFilter() {
+        this.params = {
+          id: '',
+          headline: '',
+          report_type: '',
+          created_date: '',
+          sort: '',
+          scout_name: '',
+          max_price: 0,
+          min_price: 0,
+          completion_status: ''
+        };
+        this.price = {
+          value: 0,
+          max: 0,
+          currency: 'EUR'
+        };
+        this.$refs.createdDate.model = null;
+        this.status_select = {
+          label: 'Report Status',
+          value: ''
+        };
+      },
       search() {
         clearTimeout(this.timer);
         var self = this;

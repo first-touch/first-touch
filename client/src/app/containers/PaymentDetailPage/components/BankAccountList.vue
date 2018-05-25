@@ -2,7 +2,7 @@
   <div class="bankAccountList" :class="[loading == true ? 'loading' : '']">
     <loading class="loader" />
     <div class="empty" v-if="!info || !info.external_accounts || info.external_accounts.length == 0">
-      Please add a bank account first.
+      Please add a bank account to sold your report on the marketplace.
     </div>
     <div class="row col-lg-12 ft-banks-result" v-if="info && info.external_accounts">
       <div v-for="bankAccount in info.external_accounts" :key="bankAccount.key" class="col-lg-5 ft-bank">
@@ -31,7 +31,7 @@
             <button class="ft-button" v-if="idNotDelete != bankAccount.id" @click="deleteBank(bankAccount)">Delete</button>
           </div>
           <div class="buttons-inner col-lg-12" v-if="info.external_accounts.length == 1">
-            <button class="ft-button"  @click="deleteAccount(bankAccount)">Delete My Stripe account</button>
+            <button class="ft-button ft-button-danger"  @click="deleteAccount(bankAccount)">Delete My Stripe account</button>
           </div>
         </div>
       </div>

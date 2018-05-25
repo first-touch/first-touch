@@ -4,23 +4,27 @@
     <timeline-item>
       <div class="widget-reports ft-search-widget col col-lg-12">
         <div class="row">
-          <div class="col-lg-2">
-            <h6 class="list-title">Reports Count</h6>
-            <h1 class="list-count">{{listReport.length}}</h1>
+          <div class="col-lg-2 row">
+            <h6 class="list-title col-lg-12 ">Reports Count</h6>
+            <h1 class="list-count col-lg-12 ">{{listReport.length}}</h1>
+            <fieldset class="col-lg-12 col-md-2 buttons-inner" v-if="nbFilters">
+              <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
+            </fieldset>
           </div>
           <form @submit.prevent="search" class="col-lg-10">
             <div class="row">
               <fieldset class="col-lg-3">
-                <input class="col-lg-12 form-control" v-model="params.id" type="number" placeholder="Report id" @keyup="search()" />
+                <input class="col-lg-12 form-control" v-model="params.id" type="number" min="0" placeholder="Report id" @keyup="search()"
+                />
               </fieldset>
               <fieldset class="col-lg-3">
                 <input class="col-lg-12 form-control" v-model="params.headline" type="text" placeholder="Headline" @keyup="search()" />
               </fieldset>
               <fieldset class="col-lg-12 calendar-filter">
-                <ftdatepicker class="col-lg-5 col form-control" :model="params.created_date_from" :clearable="false" placeholder="Created from"
+                <ftdatepicker class="col-lg-5 col form-control" ref="createdFrom" :model="params.created_date_from" :clearable="false" placeholder="Created from"
                   v-on:update:val="params.created_date_from = $event; search()" />
                 <p class="col-lg-1 col">-</p>
-                <ftdatepicker class="col-lg-5 col form-control" :model="params.created_date_to" :clearable="false" placeholder="Created to"
+                <ftdatepicker class="col-lg-5 col form-control" ref="createdTo" :model="params.created_date_to" :clearable="false" placeholder="Created to"
                   v-on:update:val="params.created_date_to = $event; search()" />
               </fieldset>
             </div>
@@ -147,6 +151,15 @@
     },
     computed: {
       ...mapGetters(['searchReport', 'report']),
+      nbFilters() {
+        var i = 0;
+        var params = this.params;
+        for (var key in params) {
+          if (['order_asc', 'order'].indexOf(key) < 0)
+            i = params[key] != '' ? i + 1 : i;
+        }
+        return i;
+      },
       listReport() {
         if (this.searchReport.status === ASYNC_SUCCESS) {
           return this.searchReport.value.report;
@@ -180,6 +193,19 @@
     },
     methods: {
       ...mapActions(['getReports', 'updateReport']),
+      clearsFilter() {
+        this.params = {
+          id: '',
+          headline: '',
+          report_type: '',
+          created_date_from: '',
+          created_date_to: '',
+          order: '',
+          order_asc: true,
+        },
+        this.$refs.createdFrom.model = null;
+        this.$refs.createdTo.model = null;
+      },
       showCalendar: function (index) {
         this.$refs.datepicker.showCalendar();
       },

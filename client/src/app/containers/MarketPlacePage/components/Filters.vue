@@ -2,17 +2,17 @@
   <form @submit.prevent="search" class="col-lg-10">
     <div class="row">
       <fieldset class="col-lg-3 col-md-8" v-if="!request">
-        <vselect v-model="type_select" @input="search" :options="options.report_type" :searchable="false" />
+        <vselect v-model="type_select" class="form-control" :class="params.type_report == '' ? 'empty' : ''" @input="search" :options="options.report_type" :searchable="false" />
       </fieldset>
-      <fieldset class="col-lg-3 col-md-8 form-control">
+      <fieldset class="col-lg-3 col-md-8">
         <input class="col-lg-12 form-control" placeholder="Scout's Name" type="text" v-model="params.scout_name" />
       </fieldset>
       <fieldset class="col-lg-3 col-md-8">
-        <vselect v-model="sort_select" @input="search" :options="options.order" :searchable="false" />
+        <vselect v-model="sort_select" class="form-control" :class="params.sort == '' ? 'empty' : ''"  @input="search" :options="options.order" :searchable="false" />
       </fieldset>
       <fieldset class="col-lg-5 col-md-8 calendar-filter">
-      <ftdatepicker class="col-lg-12 form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()" placeholder="Created date"
-      />
+        <ftdatepicker class="col-lg-12 form-control" ref="createdDate" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
+          placeholder="Created date" />
       </fieldset>
       <div class="col-lg-12 price-filter row">
         <label class="col-lg-1">Price</label>
@@ -69,11 +69,11 @@
           id: '',
           headline: '',
           report_type: '',
-          created_date_from: '',
-          created_date_to: '',
           created_date: '',
           sort: '',
-          scout_name: ''
+          scout_name: '',
+          max_price: 0,
+          min_price: 0
         },
         options: {
           report_type: [{
@@ -119,21 +119,25 @@
       }
     },
     computed: {
+      nbFilters() {
+        var i = 0;
+        var params = this.params;
+        for (var key in params) {
+          if (['bids_status', 'order_asc', 'order'].indexOf(key) < 0) {
+            i = params[key] != '' ? i + 1 : i;
+          }
+        }
+        return i;
+      },
       url() {
         var params = this.params;
-        if (params.created_date_from) {
-          params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
-        }
-        if (params.created_date_to) {
-          params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
-        }
         params.sort = this.sort_select.value;
         params.type_report = this.type_select.value;
         params.min_price = this.price.value;
         if (this.price.max > 0)
           params.max_price = this.price.max;
         else {
-          delete(params.max_price)
+          params.max_price = '';
         }
         if (this.request)
           params.request_id = this.request.id;
@@ -154,6 +158,32 @@
       }
     },
     methods: {
+      clearsFilter() {
+        this.params = {
+          id: '',
+          headline: '',
+          report_type: '',
+          created_date: '',
+          sort: '',
+          scout_name: '',
+          max_price: 0,
+          min_price: 0
+        };
+        this.price = {
+          value: 0,
+          max: 0,
+          currency: 'EUR'
+        };
+        this.$refs.createdDate.model = null;
+        this.sort_select = {
+          label: 'Sort by',
+          value: ''
+        };
+        this.type_select = {
+          label: 'Report Type',
+          value: ''
+        };
+      },
       search() {
         clearTimeout(this.timer);
         var self = this;

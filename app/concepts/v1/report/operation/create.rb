@@ -44,6 +44,14 @@ module V1
             model.player = request.player
             model.league = request.league
           end
+        else
+          stripe_ft = current_user.stripe_ft
+          if stripe_ft.nil? or stripe_ft.preferred_account.nil?
+            model.price = {
+            :value => 0,
+            :currency => 0
+            }
+          end
         end
         model.completion_status = 'complete'
         model.user = current_user
@@ -53,8 +61,18 @@ module V1
         current_user.scout?
       end
 
-      def stripe(model:, current_user:, **)
-        true
+      def stripe(params:, current_user:, **)
+        success = true;
+        if !params[:job_id].blank?
+          stripe_ft = current_user.stripe_ft
+          if stripe_ft.nil? or stripe_ft.preferred_account.nil?
+              success = false
+          end
+        end
+        if !success
+          options['stripe.errors'] = I18n.t 'no_bank_account'
+        end
+        success
       end
 
       def is_a_bid?(options, model:, params:, current_user:, **)

@@ -29,11 +29,11 @@
               </div>
               <div class="col-lg-4">
                 <label class="col-lg-12 col-form-label">Approximate Height (cm)</label>
-                <input type="number" class="col-lg-12 form-control" v-model="meta_data.player_info.height" :placeholder="heightPlaceHolder">
+                <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.player_info.height" :placeholder="heightPlaceHolder">
               </div>
               <div class="col-lg-4">
                 <label class="col-lg-12 col-form-label">Approximate Weight (kg)</label>
-                <input type="number" class="col-lg-12 form-control" v-model="meta_data.player_info.weight" :placeholder="weightPlaceHolder">
+                <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.player_info.weight" :placeholder="weightPlaceHolder">
               </div>
             </div>
             <div class="row">
@@ -139,49 +139,49 @@
     <div class="form-group row">
       <label class="col-lg-12 col-form-label">Current Ability Overview</label>
       <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.overview" />
+        <textarea class="col-lg-12 form-control" v-model="meta_data.overview" v-autosize="meta_data.overview" />
       </div>
     </div>
     <div class="form-group row">
       <label class="col-lg-12 col-form-label">Physical Attribute(s)</label>
       <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.physical_attributes" />
+        <textarea class="col-lg-12 form-control" v-model="meta_data.physical_attributes" v-autosize="meta_data.physical_attributes"  />
       </div>
     </div>
     <div class="form-group row">
       <label class="col-lg-12 col-form-label">Mental Attribute(s)</label>
       <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.mental_attributes" />
+        <textarea class="col-lg-12 form-control" v-model="meta_data.mental_attributes"  v-autosize="meta_data.mental_attributes"  />
       </div>
     </div>
     <div class="form-group row">
       <label class="col-lg-12 col-form-label">Technical Attribute(s)</label>
       <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.technical_attributes" />
+        <textarea class="col-lg-12 form-control" v-model="meta_data.technical_attributes" v-autosize="meta_data.technical_attributes" />
       </div>
     </div>
     <div class="form-group row">
       <label class="col-lg-12 col-form-label">Personality</label>
       <div class="col-lg-12">
-        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.personality" />
+        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.personality" v-autosize="meta_data.personality" />
       </div>
     </div>
     <div class="form-group row">
       <label class="col-lg-12 col-form-label">Potential</label>
       <div class="col-lg-12">
-        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.potential" />
+        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.potential" v-autosize="meta_data.potential" />
       </div>
     </div>
     <div class="form-group row">
       <label class="col-lg-12 col-form-label">Other Observations & Viewpoints To Note</label>
       <div class="col-lg-12 ">
-        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.observations" />
+        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.observations" v-autosize="meta_data.observations" />
       </div>
     </div>
     <div class="form-group row">
       <label class="col-lg-12 col-form-label">Conclusions</label>
       <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.conclusion" />
+        <textarea class="col-lg-12 form-control" v-model="meta_data.conclusion" v-autosize="meta_data.conclusion" />
       </div>
     </div>
     <addattachments :attachments="report ? report.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
@@ -300,7 +300,7 @@
       currencyinput: CurrencyInput,
       ftdatepicker: FtDatepicker
     },
-    props: ['playerId', 'submitReport', 'report', 'cancelAction', 'request'],
+    props: ['playerId', 'submitReport', 'report', 'cancelAction', 'request','hasBankAccount'],
     data() {
       return {
         playersummary: true,
@@ -348,6 +348,8 @@
     },
     computed: {
       priceEdit() {
+        if (!this.hasBankAccount)
+          return false;
         if (this.request) {
           if (this.request.type_request == 'position')
             return true;

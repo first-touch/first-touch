@@ -7,7 +7,7 @@
         <timeline-item>
           <div class="widget-reports ft-search-widget col col-lg-12">
             <div class="row">
-              <div class="col-lg-2">
+              <div class="col-lg-2 count-div">
                 <h6 class="list-title">Reports Count</h6>
                 <h1 class="list-count">{{listReport.length}}</h1>
                 <div class="row little-count">
@@ -27,6 +27,9 @@
                       {{complete}}
                     </span>
                   </span>
+                  <fieldset class="col-lg-12 col-md-2 buttons-inner" v-if="nbFilters">
+                    <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
+                  </fieldset>
                 </div>
               </div>
               <filters ref="filter" v-on:update:search="search();"></filters>
@@ -99,14 +102,13 @@
   </div>
 </template>
 <style lang="scss">
-  @import '~stylesheets/variables';
   @import '~stylesheets/form';
   @import '~stylesheets/search';
   @import '~stylesheets/modal';
 </style>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/variables';
+
 </style>
 
 <script>
@@ -147,6 +149,7 @@
           order: '',
           order_asc: true,
         },
+        nbFilters: 0
       };
     },
     computed: {
@@ -209,6 +212,9 @@
     },
     methods: {
       ...mapActions(['getReports', 'newOrder', 'refundOrder']),
+      clearsFilter() {
+        this.$refs.filter.clearsFilter();
+      },
       viewAction(report) {
         this.$router.push({
           name: 'clubReport',
@@ -234,6 +240,7 @@
         this.$refs.refundModal.hide();
       },
       search() {
+        this.nbFilters = this.$refs.filter.nbFilters
         this.getReports(this.url);
       }
     }

@@ -32,13 +32,19 @@
                 <span class="error-field" v-for="reason in error" :key="reason.id">{{ reason }}</span>
               </li>
             </ul>
+            <div class="warm warm-link alert alert-warning" v-if="!hasBankAccount" @click="toPaymentPage">
+              <p>
+                Click here to register a bank account and get money from your report
+              </p>
+            </div>
+
             <basicform class="report-type-form" v-if="!showForm" :prepareReport="prepareReport" />
             <div v-if="showForm">
               <keep-alive>
-                <playerreportform v-if="report_type == 'player' && status == '' " :submitReport="customCreateReport" :playerId="player_id"
-                  :request="request" :cancelAction="cancel" />
-                <teamreportform v-if="report_type == 'team' && status == '' " :submitReport="customCreateReport" :team_id="team_id" :cancelAction="cancel"
-                  :request="request" />
+                <playerreportform v-if="report_type == 'player'  && status == '' " :hasBankAccount="hasBankAccount" :submitReport="customCreateReport"
+                  :playerId="player_id" :request="request" :cancelAction="cancel" />
+                <teamreportform v-if="report_type == 'team' && status == '' " :hasBankAccount="hasBankAccount" :submitReport="customCreateReport"
+                  :team_id="team_id" :cancelAction="cancel" :request="request" />
               </keep-alive>
             </div>
           </div>
@@ -70,6 +76,19 @@
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
+
+  .warm {
+    p {
+      padding: 0;
+      margin: 0;
+    }
+    &:hover{
+      cursor: pointer;
+      p{
+        text-decoration: underline;
+      }
+    }
+  }
 
   .error {
     li {
@@ -130,7 +149,7 @@
       playerresume: PlayerResume
     },
     computed: {
-      ...mapGetters(['report', 'searchResult', 'filesUpload', 'profile', 'teamProfile']),
+      ...mapGetters(['report', 'searchResult', 'filesUpload', 'profile', 'teamProfile', 'user']),
       playerInfo() {
         if (this.request)
           return this.request.player;
@@ -147,6 +166,15 @@
         if (!this.playerInfo && this.team_id > 0 && this.teamProfile.status == ASYNC_SUCCESS)
           return this.teamProfile.value;
         return null;
+      },
+      hasBankAccount() {
+        if (this.user.status === ASYNC_SUCCESS) {
+          return (this.user.value.has_bank_account)
+        }
+        if (this.user.status === ASYNC_LOADING) {
+          return true;
+        }
+        return false;
       }
     },
     watch: {
@@ -210,6 +238,11 @@
     },
     methods: {
       ...mapActions(['createReport', 'uploadFiles', 'getSearchResults', 'fetchUserInfo', 'fetchTeamInfo']),
+      toPaymentPage() {
+        this.$router.push({
+          name: 'scoutPaymentDetailPage',
+        });
+      },
       cancel() {
         this.report_type = null;
         this.showForm = false;

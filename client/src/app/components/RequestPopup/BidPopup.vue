@@ -2,7 +2,7 @@
   <div class="bid col-lg-6">
     <span class="field row">
       <span class="col-lg-12">Bid price in {{ request.price.currency }}</span>
-      <input class="col-lg-12 form-control" type="number" v-model="price" />
+      <input class="col-lg-12 form-control" type="number" min="0" v-model="price" />
     </span>
     <span class="footer-modal buttons-inner">
       <button class="btn-primary ft-button" v-if="!this.request.request_bids" @click="newBid(request,price)">Send Bid</button>

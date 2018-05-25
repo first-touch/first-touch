@@ -32,7 +32,7 @@
           <div class="row">
             <div class="col-lg-6 form-group">
               <label class="col-lg-12">Minimum number of Matches observed</label>
-              <input type="number" class="col-lg-12 form-control" v-model="meta_data.min_matches">
+              <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.min_matches">
             </div>
             <div class="col-lg-6 form-group">
               <label class="col-lg-12">Training Report Required</label>
@@ -42,7 +42,7 @@
           </div>
           <div class="row col-lg-12 form-group">
             <label class="col-lg-12">Additional Comments</label>
-            <textarea class="col-lg-12 form-control" v-model="meta_data.comments" />
+            <textarea class="col-lg-12 form-control" v-model="meta_data.comments" v-autosize="meta_data.comments" />
           </div>
           <div class="row col-lg-12 form-group">
             <label class="col-lg-12 required">Deadline</label>

@@ -35,7 +35,7 @@
           </div>
           <div class="row col-lg-12" v-if="!position">
             <label class="col-lg-12">Cancelation Reason</label>
-            <textarea class="col-lg-12" v-model="reason"></textarea>
+            <textarea class="col-lg-12" v-model="reason" v-autosize="reason"></textarea>
           </div>
           <div class="row col-lg-12" v-if="!position">
             <label class="col-lg-12">Attachments</label>

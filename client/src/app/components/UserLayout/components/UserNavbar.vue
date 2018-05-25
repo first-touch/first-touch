@@ -51,7 +51,7 @@
             <li class="sub-nav-item" :class="{ active: page === '/scouting/jobs/bank' || !page }">
               <router-link :to="{ name: 'scoutJobsBank'}">Jobs Bank</router-link>
             </li>
-            <li class="sub-nav-item" :class="{ active: page === '/scouting/payment' || !page }">
+            <li class="sub-nav-item" :class="[{active: page === '/scouting/payment' || !page },{'error':!hasBankAccount}]">
               <router-link :to="{ name: 'scoutPaymentDetailPage'}">Payment Details</router-link>
             </li>
 
@@ -155,6 +155,11 @@
             padding: 10px 0 10px 20px;
             font-weight: 300;
             text-transform: uppercase;
+            &.error {
+              a {
+                color: red;
+              }
+            }
             &:not(:last-child) {
               border-bottom: 1px solid $navbar-background-color;
             }
@@ -266,6 +271,12 @@
         } else {
           return '';
         }
+      },
+      hasBankAccount() {
+        if (this.user.status === ASYNC_SUCCESS) {
+          return (this.user.value.has_bank_account)
+        }
+        return false;
       },
       scout() {
         return this.role == 'scout';

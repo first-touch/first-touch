@@ -4,28 +4,35 @@
     <timeline-item>
       <div class="widget-content col col-lg-12">
         <div class="row align-items-start">
-          <div class="col-lg-2">
-            <h6 class="list-title">Request Count</h6>
-            <h1 class="list-count">{{listRequest.length}}</h1>
+          <div class="col-lg-2 row">
+            <h6 class="list-title col-lg-12 ">Request Count</h6>
+            <h1 class="list-count col-lg-12 ">{{listRequest.length}}</h1>
+            <fieldset class="col-lg-12 col-md-2 buttons-inner" v-if="nbFilters">
+              <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
+            </fieldset>
           </div>
           <form @submit.prevent="search" class="col-lg-10 row">
-            <fieldset class="col-lg-4 filter">
-              <input type="number" class="col-lg-12  form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()" />
-            </fieldset>
-            <fieldset class="col-lg-55 filter">
-              <vselect v-model="vselect_type" :options="options.type_request" :searchable="false" clearable="false" />
-            </fieldset>
-            <fieldset class="col-lg-5 filter">
-              <vselect v-model="vselect_status" :options="options.status" :searchable="false" />
-            </fieldset>
-            <ftdatepicker class="col-lg-5 filter form-control" :value="params.created_date" :clearable="false" placeholder="Created date"
-              v-on:update:val="params.created_date = $event; search()" />
-            <fieldset class="col-lg-4 filter">
-              <input type="number" class="col-lg-12 form-control" v-model="params.min_bids" placeholder="Minimum bids" @keyup="search"
+            <fieldset class="col-lg-3">
+              <input type="number" min="0" class="col-lg-12  form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()"
               />
             </fieldset>
-            <fieldset class="col-lg-4 filter">
-              <input type="number" class="col-lg-12 form-control" v-model="params.max_bids" placeholder="Maximum bids" @keyup="search"
+            <fieldset class="col-lg-3">
+              <vselect v-model="vselect_type"  class="form-control" :class="params.type_request == '' ? 'empty' : '' " :options="options.type_request" :searchable="false" clearable="false" />
+            </fieldset>
+            <fieldset class="col-lg-2">
+              <vselect v-model="vselect_status"  class="form-control"  :class="params.status == '' ? 'empty' : '' " :options="options.status" :searchable="false" />
+            </fieldset>
+            <fieldset class="col-lg-3 calendar-filter">
+              <ftdatepicker class="col-lg-12 form-control" ref="createdDate" :value="params.created_date" :clearable="false" placeholder="Created date"
+                v-on:update:val="params.created_date = $event; search()" />
+            </fieldset>
+
+            <fieldset class="col-lg-3">
+              <input type="number" min="0" class="col-lg-12 form-control" v-model="params.min_bids" placeholder="Minimum bids" @keyup="search"
+              />
+            </fieldset>
+            <fieldset class="col-lg-3">
+              <input type="number" min="0" class="col-lg-12 form-control" v-model="params.max_bids" placeholder="Maximum bids" @keyup="search"
               />
             </fieldset>
           </form>
@@ -78,42 +85,13 @@
 <style lang="scss">
   @import '~stylesheets/variables';
   @import '~stylesheets/search';
-  form {
-    .filter {
-      .form-control {
-        border-radius: 10px;
-        color: $secondary-text-color;
-      }
-    }
-  }
+  @import '~stylesheets/form';
+
 </style>
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
 
-
-  .table-search {
-    th {
-      text-transform: uppercase;
-      font-weight: normal;
-      font-size: 1rem;
-      border: none;
-      text-align: center;
-    }
-    .shortable {
-      width: 20%;
-      cursor: pointer;
-      span {
-        float: right;
-      }
-      &:hover {
-        color: $main-header-color;
-      }
-      p {
-        display: inline;
-      }
-    }
-  }
 </style>
 <script>
   import Datepicker from 'vuejs-datepicker';
@@ -196,6 +174,15 @@
       this.search();
     },
     computed: {
+      nbFilters() {
+        var i = 0;
+        var params = this.params;
+        for (var key in params) {
+          if (['bids_status', 'order_asc', 'order'].indexOf(key) < 0)
+            i = params[key] != '' ? i + 1 : i;
+        }
+        return i;
+      },
       url() {
         var params = this.params;
         return Object.keys(params)
@@ -216,6 +203,25 @@
       }
     },
     methods: {
+      clearsFilter() {
+        this.params = {
+            id: '',
+            created_date: '',
+            order: '',
+            order_asc: true,
+            status: '',
+            type_request: ''
+          },
+          this.$refs.createdDate.model = null;
+        this.vselect_type = {
+          label: 'Request Type',
+          value: ''
+        };
+        this.vselect_status = {
+          label: 'Status',
+          value: ''
+        };
+      },
       search() {
         var self = this
         clearTimeout(this.timer);

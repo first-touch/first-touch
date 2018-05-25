@@ -14,16 +14,16 @@
                 </div>
                 <form @submit.prevent="search" class="col-lg-10 row">
                   <fieldset class="col-lg-4 filter">
-                    <input type="number" class="col-lg-12 form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()" />
+                    <input type="number" min="0" class="col-lg-12 form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()" />
                   </fieldset>
                   <fieldset class="col-lg-4 filter">
                     <input type="text" class="col-lg-12 form-control" v-model="params.club" placeholder="Requested by" @keyup="search()" />
                   </fieldset>
                   <fieldset class="col-lg-4 filter">
-                    <vselect v-model="vselect_type" :options="options.type_request" :searchable="false" clearable="false" />
+                    <vselect v-model="vselect_type" class="form-control" :class="params.type_request == '' ? 'empty' : '' " :options="options.type_request" :searchable="false" clearable="false" />
                   </fieldset>
                   <fieldset class="col-lg-4 filter">
-                    <vselect v-model="vselect_bid_status" :options="options.bid_status" :searchable="false" clearable="false" />
+                    <vselect v-model="vselect_bid_status" class="form-control" :class="params.bids_status == 'accepted,joblist,pending' ? 'empty' : '' " :options="options.bid_status" :searchable="false" clearable="false" />
                   </fieldset>
                 </form>
               </div>

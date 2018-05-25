@@ -34,7 +34,7 @@
         <label class="col-lg-4 required">Select Entity Type</label>
         <div class="col-lg-8">
           <vselect v-model="type_select" :disabled="lock" @input="legal_entity.type = type_select ? type_select.value : ''" :options="options_type"
-            class="ft-input" placeholder="Please select a type" />
+            class="ft-input  form-control" placeholder="Please select a type" />
         </div>
       </div>
       <div class="legal-entity" v-if="required">
@@ -73,7 +73,7 @@
         <div class="row row-form col-lg-12">
           <div class="col-lg-6" v-if="required.indexOf('legal_entity.dob.year') >= 0">
             <label class="col-lg-12 required">Date of birth</label>
-            <ftdatepicker class="form-control col-lg-12 ftdatepicker" required :disabled="dpconf.disabled" v-on:update:val="dob = $event"
+            <ftdatepicker class="form-control col-lg-12" required :disabled="dpconf.disabled" v-on:update:val="dob = $event"
               :value="dpconf.disabled.from" />
           </div>
           <div class="col-lg-6" v-if="required.indexOf('legal_entity.personal_id_number') >= 0">
@@ -86,7 +86,7 @@
           </div>
           <div class="col-lg-6" v-if="required.indexOf('legal_entity.ssn_last_4') >= 0">
             <label class="col-lg-12 required">SSN last 4</label>
-            <input class="form-control col-lg-12" name="ssn_last_4" type="number" required max="9999" v-model="legal_entity.ssn_last_4">
+            <input class="form-control col-lg-12" name="ssn_last_4" type="number" min="0"required max="9999" v-model="legal_entity.ssn_last_4">
           </div>
         </div>
 
@@ -143,15 +143,16 @@
         </div>
         <div class="col-lg-12 buttons-inner">
           <button class="ft-button ft-button-success ft-button-right">Submit</button>
-          <p class="ft-button" @click="deleteAccount">Delete account</p>
+          <p class="ft-button ft-button-danger " @click="deleteAccount">Delete account</p>
         </div>
       </div>
     </form>
   </div>
 </template>
-
-<style lang="scss" scoped>
+<style lang="scss">
   @import '~stylesheets/form';
+</style>
+<style lang="scss" scoped>
   @import '~stylesheets/variables';
 
   .addPaymentPopup {
@@ -169,9 +170,6 @@
       }
       .row-form {
         margin-top: 20px;
-      }
-      .ftdatepicker {
-        padding: 0;
       }
       .buttons-inner {
         margin-top: 30px;

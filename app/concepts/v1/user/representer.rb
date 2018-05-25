@@ -9,13 +9,17 @@ module V1
                  extend: V1::PersonalProfile::Representer::Simplified
 
         property :has_stripe, getter: lambda { |represented:, **|
-          !represented.stripe_ft.nil?
+          begin
+            !represented.stripe_ft.nil?
+          rescue => e
+            false
+          end
         }
 
         property :has_bank_account, getter: lambda { |represented:, **|
-          if represented.stripe_ft
+          begin
             !represented.stripe_ft.preferred_account.nil?
-          else
+          rescue => e
             false
           end
         }

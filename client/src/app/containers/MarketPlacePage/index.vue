@@ -7,9 +7,12 @@
         <timeline-item>
           <div class="ft-search-widget widget-reports col col-lg-12">
             <div class="row">
-              <div class="col-lg-2">
-                <h6 class="list-title">Reports Count</h6>
-                <h1 class="list-count">{{listReport.length}}</h1>
+              <div class="col-lg-2 row">
+                <h6 class="list-title col-lg-12">Reports Count</h6>
+                <h1 class="list-count col-lg-12">{{listReport.length}}</h1>
+                <fieldset class="col-lg-12 col-md-2 buttons-inner" v-if="nbFilters">
+                  <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
+                </fieldset>
               </div>
               <filters ref="filter" v-on:update:search="search();"></filters>
             </div>
@@ -87,6 +90,7 @@
       return {
         payment: false,
         reportSelected: null,
+        nbFilters: 0
       };
     },
     computed: {
@@ -128,6 +132,9 @@
     },
     methods: {
       ...mapActions(['getReports', 'newOrder', 'StripeCardToken', 'getClubsCards']),
+      clearsFilter() {
+        this.$refs.filter.clearsFilter();
+      },
       viewAction(report) {
         this.$router.push({
           name: 'clubReport',
@@ -153,6 +160,7 @@
         this.$refs.metaModal.show();
       },
       search() {
+        this.nbFilters = this.$refs.filter.nbFilters
         this.getReports(this.$refs.filter.url);
       },
       paymentAction(token, save, usesaved) {

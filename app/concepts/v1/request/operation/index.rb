@@ -2,6 +2,7 @@ module V1
   module Request
     class Index < FirstTouch::Operation
       step :find_model!
+      failure :model_not_found!, fail_fast: true
       step :filters!
       step :orders!
 
@@ -9,14 +10,20 @@ module V1
 
       def find_model!(options, current_user:, **)
         if current_user.is_a?(::User) && current_user.scout?
-          models = scout(current_user: current_user)
+          stripe_ft = current_user.stripe_ft
+          if !stripe_ft.nil? and !stripe_ft.preferred_account.nil?
+            models = scout(current_user: current_user)
+          else
+            models = nil
+          end
           # models = ::Request.all.where status: 'publish'
         elsif current_user.is_a?(::Club) || true
           # TODO: or true need to be remove when club are ready
           models = club(current_user: current_user)
         end
-        options['models'] = models
+        options['result.model'] = result = Result.new(!models.nil?, {})
         options['model.class'] = ::Request
+        options['models'] = models
       end
 
       def scout(current_user:)
