@@ -8,7 +8,7 @@ module V1
 
       private
 
-      def find_model!(options, current_user:, **)
+      def find_model!(options, current_user:, current_club:, **)
         if current_user.is_a?(::User) && current_user.scout?
           stripe_ft = current_user.stripe_ft
           if !stripe_ft.nil? and !stripe_ft.preferred_account.nil?
@@ -17,7 +17,7 @@ module V1
             models = nil
           end
           # models = ::Request.all.where status: 'publish'
-        elsif current_user.is_a?(::Club) || true
+        elsif !current_club.nil? || true
           # TODO: or true need to be remove when club are ready
           models = club(current_user: current_user)
         end

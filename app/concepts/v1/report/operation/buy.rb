@@ -119,8 +119,8 @@ module V1
         true
       end
 
-      def authorized!(current_user:, **)
-        current_user.is_a?(::Club) || true
+      def authorized!(current_user:, current_club:, **)
+        !current_club.nil?  || true
       end
 
       def persist_stripe_transaction!(options, params:, model:, **)

@@ -3,76 +3,51 @@ module V1
     class Index < FirstTouch::Operation
       step :find_model!
       failure :model_not_found!, fail_fast: true
-      step :join_orders!
       step :filters!
       step :orders!
 
       private
 
-      def find_model!(options, params:, current_user:, **)
+      def find_model!(options, params:, current_user:, current_club:, **)
+        models = nil
         if current_user.is_a?(::User) && current_user.scout?
-          options['models'] = current_user.reports.where.not(status: %w[pending deleted])
-        elsif current_user.is_a?(::Club) || true
+          models = current_user.reports.not_hided
+        elsif !current_club.nil? || true
           # TODO: remove or true once club are ready
-          options['models'] = club(params, current_user: current_user)
-
+          models= club(params, options, current_user: current_user)
         end
-        options['models'].blank?
+        options['result.model'] = result = Result.new(!options['models'].nil?, {})
         options['model.class'] = ::Report
+        options['models'] = models
       end
 
-      def club(_params, current_user:)
-        models = ::Report.all
-        joins = "LEFT JOIN orders ON orders.customer_id = #{current_user.id}"\
-        ' AND orders.report_id = reports.id'
-        models = models.joins(joins)
-        models = models.select('reports.*, orders.status AS orders_status, orders.completed_date AS orders_completed_date, orders.refund_status AS orders_refund_status')
-      end
-
-      def join_orders!(options, params:, current_user:, **)
-        if current_user.is_a?(::User) && current_user.scout?
-          true
-        elsif current_user.is_a?(::Club) || true
-          # TODO: remove or true once club are ready
-          if params[:purchased] == 'true'
-            purchased!(options, current_user)
-          elsif !params[:request_id].blank?
-            proposed!(options, current_user, params)
-          else
-            order_status!(options, current_user)
-          end
+      def club(_params, options, current_user:)
+        if _params[:purchased] == 'true'
+          purchased!(options, current_user)
+        elsif !_params[:request_id].blank?
+          proposed!(options, current_user, _params)
+        else
+          order_status!(options, current_user)
         end
       end
 
       def proposed!(options, current_user, params)
-        models = options['models']
+        models = nil
         request = current_user.requests.find(params[:request_id]) if params[:request_id]
         unless request.nil?
-          models = models.where('reports.request_id = ?', request.id)
+          models = ::Report.proposed_reports request.id
         end
         options['models'] = models
       end
 
       def order_status!(options, current_user)
-        models = options['models']
-
-        joins = "LEFT JOIN orders ON orders.customer_id = #{current_user.id}"\
-        ' AND orders.report_id = reports.id'
-        models = models.where('reports.status = ? OR orders.status = ?', 'publish', 'completed')
-        models = models.joins(joins)
-        models = models.select('reports.*, orders.status AS orders_status')
-        # models = models.group('reports.id', 'orders.status')
+        models = ::Report.purchased_by_user_or_publish current_user.id
         options['models'] = models
       end
 
       def purchased!(options, current_user)
         models = options['models']
-        models = models.where('orders.status' => %w[completed pending_report],
-                              'orders.customer_id' => current_user.id.to_s)
-        models = models.select(
-          'reports.*, orders.status AS orders_status,'\
-          ' orders.price AS orders_price'
-        )
+        models = ::Report.purchased_by_user current_user.id
         options['models'] = models
       end
 

@@ -53,10 +53,10 @@ module V1
         report&.delete
       end
 
-      def find_model!(options, params:, current_user:, **)
+      def find_model!(options, params:, current_user:, current_club:, **)
         requestId = params[:request_id]
         bidId = params[:bid_id]
-        if current_user.is_a?(::Club) || true
+        if current_club.nil? || true
           request = current_user.requests.find(requestId)
           model = request.request_bids.find_by(id: bidId, status: 'pending')
           params['currency'] = request.price['currency'] if model

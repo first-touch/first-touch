@@ -17,9 +17,8 @@ module V1
             options['model'] = model = account
           end
         end
-        # options['result.model'] = result = Result.new(!model.nil?, {})
-        # !options['model'].nil?
-        true
+        options['result.model'] = result = Result.new(!model.nil?, {})
+        !options['model'].nil?
       end
     end
   end

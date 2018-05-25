@@ -11,6 +11,34 @@ class Report < ApplicationRecord
   has_one :request, through: :request_bid
   has_many :orders
 
+  scope :not_hided, -> { where.not(status: ['pending', 'deleted']) }
+
+  def self.purchased_by_user_or_publish(user_id)
+    joins = "LEFT JOIN orders ON orders.customer_id = #{user_id}"\
+    ' AND orders.report_id = reports.id'
+    where('reports.status = ? OR orders.status = ?', 'publish', 'completed')
+    .joins(joins)
+   .select('reports.*, orders.status AS orders_status')
+  end
+
+  def self.joins_orders
+
+  end
+
+  def self.proposed_reports(request_id)
+    where('reports.request_id = ?', request_id)
+  end
+
+  def self.purchased_by_user(user_id)
+    joins(orders: :user)
+      .where(orders: { status: ['completed', 'pending_report'], customer_id: user_id })
+      .select(
+        'reports.*, orders.status AS orders_status,'\
+        ' orders.price AS orders_price'
+      )
+  end
+
+  # TODO: Validation will be reworked
   # validates :price, numericality: {
   #   only_integer: true,
   #   greater_than_or_equal_to: 0,

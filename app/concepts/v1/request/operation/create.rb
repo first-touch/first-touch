@@ -15,9 +15,9 @@ module V1
         model.user = current_user
       end
 
-      def authorized!(current_user:, **)
+      def authorized!(current_club:, **)
         # TODO: CLUB not current_user
-        current_user.is_a?(::Club) || true
+        !current_club.nil? || true
       end
     end
   end

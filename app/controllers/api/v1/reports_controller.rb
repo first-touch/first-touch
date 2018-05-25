@@ -4,13 +4,13 @@ module Api
   module V1
     class ReportsController < Api::V1::BaseController
       def index
-        result = ::V1::Report::Index.(params, current_user: current_user)
+        result = ::V1::Report::Index.(params, current_user: current_user, current_club: @current_club)
         response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Index)
         render json: response[:data], status: response[:status]
       end
 
       def show
-        result = ::V1::Report::Show.(params, current_user: current_user)
+        result = ::V1::Report::Show.(params, current_user: current_user,  current_club: @current_club)
         response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
         render json: { report: response[:data], owner: current_user.scout? }, status: response[:status]
       end
@@ -23,7 +23,7 @@ module Api
 
       # TODO: to be changed once s3 is set
       def download
-        result = ::V1::Attachment::Find.(params, current_user: current_user)
+        result = ::V1::Attachment::Find.(params, current_user: current_user,  current_club: @current_club)
         attachment = result['model']
         if attachment.blank?
           render json: nil, status: :not_found
@@ -33,7 +33,7 @@ module Api
       end
 
       def update
-        result = ::V1::Report::Update.(params, current_user: current_user)
+        result = ::V1::Report::Update.(params, current_user: current_user,  current_club: @current_club)
         response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
         render json: response[:data], status: response[:status]
       end

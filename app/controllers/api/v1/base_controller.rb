@@ -15,6 +15,7 @@ module Api
       # TODO: Follow trailblazer auth logic
       def authenticate_request
         @current_user = AuthorizeApiRequest.(request.headers).result
+        @current_club = AuthorizeClubRequest.(request.headers).result[:club]
         return if @current_user
         render json: { error: 'Not Authorized' }, status: :unauthorized
       end

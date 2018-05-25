@@ -8,12 +8,12 @@ module V1
 
       private
 
-      def find_model!(options, params:, current_user:, **)
+      def find_model!(options, params:, current_user:, current_club:, **)
         requestId = params[:request_id]
         models = nil
         if current_user.is_a?(::User) && current_user.scout?
           models = ::RequestBid.find_by(request_id: requestId, user: current_user)
-        elsif current_user.is_a?(::Club) || true
+        elsif !current_club.nil? || true
           # TODO: or true need to be remove when club are ready
           models = current_user.requests.find(requestId).request_bids.where status: 'pending'
         end
