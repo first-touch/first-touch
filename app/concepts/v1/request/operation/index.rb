@@ -65,24 +65,10 @@ module V1
       end
 
       def filters_date(models, params)
-        unless params[:deadline_from].blank?
-          date_from = params[:deadline_from].to_date
-        end
-        unless params[:deadline_to].blank?
-          date_to = params[:deadline_to].to_date
-        end
-        date = params[:created_date].to_date unless params[:created_date].blank?
-        models = models.where created_at: date.all_day if date
-        if date_from
-          models =
-            if date_to
-              models.where(deadline: date_from..date_to + 1.days)
-            else
-              models = models.where('deadline > ?', date_from)
-            end
-        elsif date_to
-          models = models.where('deadline < ?', date_to + 1.days)
-        end
+        date_from = (params[:deadline_from].blank?)? nil : params[:deadline_from].to_date
+        date_to = (params[:deadline_to].blank?)? nil : params[:deadline_to].to_date
+        models = models.where('deadline > ?', date_from) if date_from
+        models = models.where('deadline < ?', date_to) if date_to
         models
       end
 

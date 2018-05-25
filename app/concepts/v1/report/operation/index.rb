@@ -75,43 +75,26 @@ module V1
       end
 
       def filters_date(models, params)
-        unless params[:created_date_from].blank?
-          date_from = params[:created_date_from].to_date
-        end
-        unless params[:created_date_to].blank?
-          date_to = params[:created_date_to].to_date
-        end
-        date = params[:created_date].to_date unless params[:created_date].blank?
-        models = models.where created_at: date.all_day if date
-        if date_from
-          models =
-            if date_to
-              models.where(created_at: date_from..date_to + 1.days)
-            else
-              models.where(created_at: date_from..DateTime.now)
-            end
-        elsif date_to
-          models = models.where('reports.created_at < ?', date_to)
-        end
+        date_from = (params[:created_date_from].blank?)? nil : params[:created_date_from].to_date
+        date_to = (params[:created_date_to].blank?)? nil : params[:created_date_to].to_date
+        models = models.where('created_at > ?', date_from) if date_from
+        models = models.where('created_at < ?', date_to) if date_to
         models
       end
 
       def orders!(options, params:, **)
         models = options['models']
-        unless params[:order].blank?
-          order = params[:order_asc] == 'true' ? :asc : :desc
-          if %w[id created_at updated_at headline report_type completion_status]
-             .include?(params[:order])
-            models = models.order(params[:order] => order)
-          elsif params[:order] == 'scout_name'
-            models = models.includes(:user)
-            models = models.order("users.search_string #{order}")
-          elsif params[:order] == 'price'
-            models = models.order("reports.price->>'value' #{order}")
-          end
+        order = params[:order_asc] == 'true' ? :asc : :desc
+        if %w[id created_at updated_at headline report_type completion_status]
+            .include?(params[:order])
+          models = models.order(params[:order] => order)
+        elsif params[:order] == 'scout_name'
+          models = models.includes(:user)
+          models = models.order("users.search_string #{order}")
+        elsif params[:order] == 'price'
+          models = models.order("reports.price->>'value' #{order}")
         end
         options['models'] = models
-        true
       end
     end
   end
