@@ -27,7 +27,7 @@ module V1
         elsif !_params[:request_id].blank?
           proposed!(options, current_user, _params)
         else
-          order_status!(options, current_user)
+          marketplace!(options, current_user)
         end
       end
 
@@ -40,7 +40,7 @@ module V1
         options['models'] = models
       end
 
-      def order_status!(options, current_user)
+      def marketplace!(options, current_user)
         models = ::Report.purchased_by_user_or_publish current_user.id
         options['models'] = models
       end
