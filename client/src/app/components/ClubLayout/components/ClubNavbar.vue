@@ -45,18 +45,18 @@
           </ul>
         </li>
         <li class="nav-item" :class="{ active: tab[2] || /\/club\/scouting/.test(page) || /\/club\/request/.test(page) }">
-          <div class="nav-item-inner" @click="onTabClick(2)">
+          <div class="nav-item-inner" @click="onTabClick(2); toMarketplace()">
             Scouting
           </div>
           <ul class="sub-nav">
-            <li class="sub-nav-item" :class="{ active: page === '/club/scouting/request' || !page }">
-              <router-link :to="{ name: 'clubRequestList'}">Jobs Request</router-link>
-            </li>
             <li class="sub-nav-item" :class="{ active: page === '/club/scouting/report/marketplace' || !page }">
-              <router-link :to="{ name: 'clubReportMarketplace'}">Report MarketPlace</router-link>
+              <router-link :to="{ name: 'clubReportMarketplace'}">MarketPlace</router-link>
+            </li>
+            <li class="sub-nav-item" :class="{ active: page === '/club/scouting/request' || !page }">
+              <router-link :to="{ name: 'clubRequestList'}">Assignments</router-link>
             </li>
             <li class="sub-nav-item" :class="{ active: page === '/club/scouting/report/list' || !page }">
-              <router-link :to="{ name: 'clubReportList'}">My Reports</router-link>
+              <router-link :to="{ name: 'clubReportList'}">Reports</router-link>
             </li>
             <li class="sub-nav-item" :class="{ active: page === '/club/scouting/payments' || !page }">
               <router-link :to="{ name: 'ClubPaymentDetails'}">Payment Details</router-link>
@@ -244,6 +244,11 @@
     methods: {
       onTabClick(idx) {
         this.tab = [...this.tab.slice(0, idx), !this.tab[idx], ...this.tab.slice(idx + 1)];
+      },
+      toMarketplace() {
+        this.$router.push({
+          name: 'clubReportMarketplace'
+        })
       }
     }
   };

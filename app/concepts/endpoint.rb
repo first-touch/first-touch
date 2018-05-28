@@ -52,7 +52,7 @@ module FirstTouch
       stripe_errors: {
         rule: ->(result) { result.failure? && !result['stripe.errors'].nil? },
         resolve: lambda do |result, _representer|
-          { 'data': { errors: result['stripe.errors'], old_result: !result['model'].nil? ? _representer.new(result['model']) : nil },
+          { 'data': { errors: result['stripe.errors'] },
             'status': :unprocessable_entity }
         end
       },
