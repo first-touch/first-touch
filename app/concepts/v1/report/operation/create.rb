@@ -1,9 +1,11 @@
 module V1
   module Report
-    class Create < Trailblazer::Operation
+    class Create < FirstTouch::Operation
       step Model(::Report, :new)
       step :authorized!
       failure :unauthenticated, fail_fast: true
+      step :stripe
+      failure :stripe_account_not_found!, fail_fast: true
       step :setup_model!
       step :is_a_bid?
       failure :bid_not_found!, fail_fast: true
@@ -21,6 +23,10 @@ module V1
 
       def authorized!(current_user:, **)
         current_user.scout?
+      end
+
+      def stripe(model:, current_user:, **)
+        true
       end
 
       def is_a_bid?(options, model:,params:, current_user:, **)

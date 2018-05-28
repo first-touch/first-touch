@@ -16,25 +16,23 @@
   }
 }
 
-#metaModal {
+#metaModal,
+.ft-modal {
   color: black;
-  .modal-lg{
-    max-width: 1200px;
-    // min-height: 500px;
+  .modal-lg {
+    max-width: 1200px; // min-height: 500px;
     .modal-content {
       // min-height: 700px;
     }
   }
-  .modal-md{
-      max-width: 800px;
-      // min-height: 500px;
+  .modal-md {
+    max-width: 800px; // min-height: 500px;
     .modal-content {
       // min-height: 200px;
     }
   }
   .buttons-inner {
     display: flex;
-    flex-direction: row-reverse;
     .ft-button {
       width: 150px;
       color: $main-text-color;
@@ -49,17 +47,29 @@
     .ft-button-success {
       color: white;
       min-height: 20px;
+      border: 0;
       background-color: $main-header-color;
       cursor: pointer;
       &:hover {
         background-color: $secondary-header-color;
       }
     }
+    .ft-button-danger {
+      border: 0;
+      color: white;
+      background-color: #ff2a2a;
+       &:hover {
+        background-color: #ff0000;
+      }
+    }
+    .ft-button-right{
+      margin-left: auto;
+    }
   }
-  .bid{
+  .bid {
     margin-top: 20px;
   }
-  header {
+  .modal-header {
     display: none;
   }
   .title {
