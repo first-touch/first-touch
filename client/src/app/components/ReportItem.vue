@@ -92,8 +92,30 @@
     </div>
     <tr v-if="report.type_report && mode == 'table'" class="report-tr table-item">
       <td v-for="field in fields" :key="field.id">
-        <span v-if="field == 'id'" class="contents">
-          {{report.id | reportId(report.type_report) }}
+        <span v-if="field == 'type2c'" class="contents">
+          {{report.type_report == 'player'? 'PL':'T' }}
+        </span>
+        <span v-if="field == 'player2c'" class="contents">
+          <router-link v-if="report.player" :to="{ name: 'userProfilePage', params: { id: report.player.id }}"> {{ playerName }}
+          </router-link>
+          <span v-if="!report.player">
+            {{ playerName }}
+          </span>
+        </span>
+        <span v-if="field == 'position'" class="contents">
+          <span class="list" v-for="pos in positions" :key="pos.id">{{pos}} </span>
+        </span>
+        <span v-if="field == 'foot'" class="contents">
+          {{playerInfo.preferred_foot | preferredFoot }}
+        </span>
+        <span v-if="field == 'height'" class="contents">
+          {{playerInfo.height }}
+        </span>
+        <span v-if="field == 'weight'" class="contents">
+          {{playerInfo.weight }}
+        </span>
+        <span v-if="field == 'nationality'" class="contents">
+          {{getNationality(playerInfo.nationality_country_code) }}
         </span>
         <span v-if="field == 'scout'" class="contents">
           <p class="capitalize">
@@ -135,8 +157,7 @@
               </a>
               <a v-if="canAction(report.orders_status == 'completed' || (report.completion_status == 'pending' && !own ) && refundAction, 'refund', true)"
                 class="ft-action col-lg-8">
-                <button class="btn-round" @click="refundAsked ? null : refundAction(report.id )"
-                  :title="refundAsked ? 'You refund enquiry has already been sent' : ''">Refund</button>
+                <button class="btn-round" @click="refundAsked ? null : refundAction(report.id )" :title="refundAsked ? 'You refund enquiry has already been sent' : ''">Refund</button>
               </a>
               <p v-if="canAction(report.orders_status == 'pending', 'in_pending', true)" class="ft-action col-lg-10">Payment in pending</p>
             </div>
@@ -153,8 +174,7 @@
                   <a v-if="canAction(own && report.status == 'private', 'publish', false)" @click="UpdateReport('publish',report.id)">
                     Publish
                   </a>
-                  <a v-if="canAction(canRefund(), 'refund', false)" @click="refundAsked ? null : refundAction(report.id )"
-                  :title="refundAsked ? 'You refund enquiry has already been sent' : ''">
+                  <a v-if="canAction(canRefund(), 'refund', false)" @click="refundAsked ? null : refundAction(report.id )" :title="refundAsked ? 'You refund enquiry has already been sent' : ''">
                     Refund
                   </a>
                 </div>
@@ -170,6 +190,9 @@
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
   @import '~stylesheets/light_item';
+  .item-container {
+    display: contents;
+  }
 </style>
 <script>
   import countrydata from 'country-data';
@@ -195,6 +218,32 @@
     computed: {
       refundAsked() {
         return this.report.orders_refund_status == 'asked';
+      },
+      playerInfo() {
+        if (this.report.type_report == 'player') {
+          if (this.report.player)
+            return this.report.player;
+          return this.report.meta_data.player_info;
+        }
+      },
+      playerName() {
+        if (this.playerInfo.first_name)
+          return (this.playerInfo.first_name[0] + '.' + this.playerInfo.last_name[0] + '.')
+        if (this.report.search) {
+          var arr = this.report.search.player.split(' ');
+          if (arr.length > 1) {
+            return this.report.search.player[0].toUpperCase() + '.' + this.report.search.player[arr.length - 1] + '.'
+          }
+          return this.report.search.player[0].toUpperCase() + '.'
+        }
+        return '';
+      },
+      positions() {
+        console.log(this.report)
+        if (this.report.player)
+          return [this.playerInfo.playing_position]
+        if (this.report.meta_data)
+          return this.playerInfo.playing_position
       }
     },
     data() {
@@ -222,6 +271,7 @@
         }
         return true;
       },
+
       getLanguage(key) {
         return countrydata.languages[key] ? countrydata.languages[key].name : key;
       },

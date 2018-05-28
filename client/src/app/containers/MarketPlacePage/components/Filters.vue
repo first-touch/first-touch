@@ -1,22 +1,22 @@
 <template>
   <form @submit.prevent="search" class="col-lg-10">
     <div class="row">
-      <fieldset class="col-lg-3 col-md-8" v-if="!request">
+      <fieldset class="col-lg-3 col-md-12" v-if="!request">
         <vselect v-model="type_select" class="form-control" :class="params.type_report == '' ? 'empty' : ''" @input="search" :options="options.report_type" :searchable="false" />
       </fieldset>
-      <fieldset class="col-lg-3 col-md-8">
+      <fieldset class="col-lg-3 col-md-12">
         <input class="col-lg-12 form-control" placeholder="Scout's Name" type="text" v-model="params.scout_name" />
       </fieldset>
-      <fieldset class="col-lg-3 col-md-8">
+      <fieldset class="col-lg-3 col-md-12">
         <vselect v-model="sort_select" class="form-control" :class="params.sort == '' ? 'empty' : ''"  @input="search" :options="options.order" :searchable="false" />
       </fieldset>
-      <fieldset class="col-lg-5 col-md-8 calendar-filter">
+      <fieldset class="col-lg-5 col-md-12 calendar-filter">
         <ftdatepicker class="col-lg-12 form-control" ref="createdDate" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
           placeholder="Created date" />
       </fieldset>
       <div class="col-lg-12 price-filter row">
-        <label class="col-lg-1">Price</label>
-        <currencyinput class="col-lg-11" :value="price" max="true" :currency="currency" />
+        <label class="col-lg-2">Price</label>
+        <currencyinput class="col-lg-10" :value="price" max="true" :currency="currency" />
       </div>
     </div>
   </form>
@@ -29,7 +29,6 @@
       margin-top: 10px;
       .autonumeric {
         height: inherit;
-        max-height: 40px;
       }
     }
   }
@@ -68,7 +67,7 @@
         params: {
           id: '',
           headline: '',
-          report_type: '',
+          report_type: 'player',
           created_date: '',
           sort: '',
           scout_name: '',

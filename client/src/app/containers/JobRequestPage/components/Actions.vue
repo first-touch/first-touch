@@ -2,15 +2,15 @@
   <action-item>
     <button class="timeline-widget-button" @click="update('player')">
       <img src="/images/landing-page/ft-icons-player.png" alt="club" />
-      New Player Request
+      New Player ASSIGNMENT
     </button>
     <button class="timeline-widget-button" @click="update('team')">
       <img src="/images/landing-page/ft-icons-club.png" alt="team" />
-      New Team Request
+      New Team ASSIGNMENT
     </button>
     <button class="timeline-widget-button" @click="update('position')">
       <img src="/images/landing-page/ft-icons-player.png" alt="club" />
-      New Position Request
+      New Position ASSIGNMENT
     </button>
   </action-item>
 </template>

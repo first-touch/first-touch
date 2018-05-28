@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h4 v-if="!edit" class="header">New Position Job</h4>
-    <h4 v-if="edit" class="header">Edit Position Job</h4>
+    <h4 v-if="!edit" class="header">Creating Position ASSIGNMENT</h4>
+    <h4 v-if="edit" class="header">Editing Position ASSIGNMENT</h4>
     <timeline-item>
       <form @submit.prevent class="position-request ft-form">
         <div class="content">
@@ -14,67 +14,61 @@
             <label class="col-lg-3">Request created on</label>
             <p class="col-lg-9">{{edit.created_at | moment}}</p>
           </div>
+          <h5 class="row">The Scouting Target</h5>
           <div class="row">
             <div class="col-lg-4 form-group">
-              <label class="col-lg-12">Height Range (Cm)</label>
-              <div class="col-lg-12 row">
-                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.min_heigth">
-                <span class="separator col-lg-2">—</span>
-                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.max_heigth">
+              <div class="col-lg-12 row range">
+                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.min_heigth" placeholder="Min height">
+                <span class="separator col-lg-1">-</span>
+                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.max_heigth" placeholder="Max height">
               </div>
             </div>
             <div class="col-lg-4 form-group">
-              <label class="col-lg-12">Weight Range (Kg)</label>
-              <div class="col-lg-12 row">
-                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.min_weight">
-                <span class="separator col-lg-2">—</span>
-                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.max_weight">
+              <div class="col-lg-12 row range">
+                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.min_weight" placeholder="Min weight">
+                <span class="separator col-lg-1">-</span>
+                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.max_weight" placeholder="Max weight">
               </div>
             </div>
             <div class="col-lg-4 form-group">
-              <label class="col-lg-12">Age Range</label>
-              <div class="col-lg-12 row">
-                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.age_min">
-                <span class="separator col-lg-2">—</span>
-                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.age_max">
+              <div class="col-lg-12 row range">
+                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.age_min" placeholder="Min age">
+                <span class="separator col-lg-1">-</span>
+                <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.age_max" placeholder="Max age">
               </div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-lg-6 form-group">
-              <label class="col-lg-12">Position(s)</label>
               <playerposition class="col-lg-12" :value="meta_data.playing_position" v-on:update:val="meta_data.playing_position = $event"
-              />
+                placeholder="Positions in" />
             </div>
             <div class="col-lg-6 form-group">
-              <label class="col-lg-12">Preferred Foot</label>
-              <preferredfoot class="col-lg-12" :value="meta_data.preferred_foot" v-on:update:val="meta_data.preferred_foot = $event" />
+              <preferredfoot class="col-lg-12" :value="meta_data.preferred_foot" v-on:update:val="meta_data.preferred_foot = $event" placeholder="Preferred foot is"
+              />
             </div>
           </div>
           <div class="row">
             <div class="col-lg-7 form-group">
-              <label class="col-lg-12">Language(s) Spoken</label>
-              <language class="col-lg-12" :value="meta_data.languages" v-on:update:val="meta_data.languages = $event" />
+              <language class="col-lg-12" :value="meta_data.languages" v-on:update:val="meta_data.languages = $event" placeholder="Speaking languages are"
+              />
             </div>
             <div class="col-lg-5 form-group">
-              <label class="col-lg-12">Nationality</label>
               <countryselect class="col-lg-12" :value="meta_data.nationality_country_code" v-on:update:val="meta_data.nationality_country_code = $event"
-              />
+                placeholder="Nationality is" />
             </div>
           </div>
           <div class="row">
             <div class="col-lg-6 form-group">
-              <label class="col-lg-12">Based In</label>
               <countryselect class="col-lg-12" :value="meta_data.residence_country_code" v-on:update:val="meta_data.residence_country_code = $event"
-              />
+                placeholder="Based in" />
             </div>
             <div class="col-lg-6 form-group">
-              <label class="col-lg-12">Passport (Eligibility)</label>
-              <input type="text" class="col-lg-12 form-control" v-model="meta_data.passport">
+              <input type="text" class="col-lg-12 form-control" v-model="meta_data.passport" placeholder="Passport">
             </div>
           </div>
-
+          <h5 class="row">Your Scouting Requirements</h5>
           <div class="row">
             <label class="col-lg-3 label">Availability</label>
             <div class="col-lg-12">
@@ -84,8 +78,8 @@
                 <ftcheckbox class="ftcheckbox" :value="meta_data.transfer" v-on:update:val="meta_data.transfer = $event" />
               </label>
               <transition name="fade">
-                <div class="transfer-value col-lg-12 row" v-if="meta_data.transfer === 'yes'">
-                  <currencyinput :value="meta_data.transfer_range" max="true" />
+                <div class="transfer-value col-lg-12" v-if="meta_data.transfer === 'yes'">
+                  <currencyinput :value="meta_data.transfer_range" max="true" placeholder="Transfer range from" placeholder1="to" />
                 </div>
               </transition>
             </div>
@@ -96,8 +90,8 @@
                 <ftcheckbox class="ftcheckbox" :value="meta_data.loan" v-on:update:val="meta_data.loan = $event" />
               </label>
               <transition name="fade">
-                <div class="transfer-value col-lg-12 row" v-if="meta_data.loan === 'yes'">
-                  <currencyinput :value="meta_data.loan_range" max="true" />
+                <div class="transfer-value col-lg-12" v-if="meta_data.loan === 'yes'">
+                  <currencyinput :value="meta_data.loan_range" max="true" placeholder="Loan range from" placeholder1="to" />
                 </div>
               </transition>
             </div>
@@ -111,9 +105,9 @@
               <transition name="fade">
                 <div class="transfer-value col-lg-12 row" v-if="meta_data.expiring_contract === 'yes'">
                   <ftdatepicker class="col-lg-4 form-control" :value="meta_data.expiring_contract_min" v-on:update:val="meta_data.expiring_contract_min = $event"
-                  />
+                    placeholder="Expiring contract from" />
                   <span class="separator">—</span>
-                  <ftdatepicker class="col-lg-4 form-control" :value="meta_data.expiring_contract_max" v-on:update:val="meta_data.expiring_contract_max = $event"
+                  <ftdatepicker class="col-lg-4 form-control" placeholder="to" :value="meta_data.expiring_contract_max" v-on:update:val="meta_data.expiring_contract_max = $event"
                   />
                 </div>
               </transition>
@@ -121,40 +115,34 @@
           </div>
 
           <div class="row">
-            <label class="col-lg-12">Player Value</label>
             <div class="col-lg-8">
-              <currencyinput :value="meta_data.value" max="true" />
+              <currencyinput :value="meta_data.value" max="true" placeholder="Player value from" placeholder1="to" />
             </div>
           </div>
           <div class="row">
-            <label class="col-lg-12">Wage Budget per year</label>
             <div class="col-lg-8">
-              <currencyinput :value="meta_data.wage_budget" />
+              <currencyinput :value="meta_data.wage_budget" placeholder="Wage Budget per year" />
             </div>
           </div>
 
           <div class="row">
-            <label class="col-lg-12">Desirable Attributes</label>
-            <textarea class="col-lg-12 form-control" v-model="meta_data.desirable_attributes" v-autosize="meta_data.desirable_attributes"  />
+            <textarea class="col-lg-12 form-control" v-model="meta_data.desirable_attributes" v-autosize="meta_data.desirable_attributes"
+              placeholder="Desirable Attributes" />
           </div>
 
           <div class="row">
-            <label class="col-lg-12">Additional Comments</label>
-            <textarea class="col-lg-12 form-control" v-model="meta_data.comments" v-autosize="meta_data.comments"  />
+            <ftdatepicker class="col-lg-6 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" placeholder="Deadline"
+            />
           </div>
-
+          <currencyinput :value="price" max="true" placeholder="Report price between" placeholder1="And" />
+          <h5 class="row">Other Details</h5>
           <div class="row">
-            <label class="col-lg-12 required">Deadline</label>
-            <ftdatepicker class="col-lg-6 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" />
+            <textarea class="col-lg-12 form-control" v-model="meta_data.comments" v-autosize="meta_data.comments" placeholder="Any additional comments"
+            />
           </div>
-          <div class="row col form-group">
-            <label class="col-lg-12">Price Range</label>
-            <currencyinput :value="price" max="true" />
-          </div>
-
           <div class="form-group buttons-inner row">
-            <button v-if="!edit" id="submit" class="ft-button ft-button-success"  :disabled="!canValidate" @click="handleSubmit"> CREATE</button>
-            <button v-if="edit" id="submit" class="ft-button ft-button-success"  :disabled="!canValidate" @click="handleSubmit"> UPDATE</button>
+            <button v-if="!edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit"> CREATE</button>
+            <button v-if="edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit"> UPDATE</button>
             <button id="cancel" name="cancel" class="ft-button" @click="cancelAction">CANCEL</button>
           </div>
 
@@ -166,6 +154,18 @@
 <style lang="scss">
   @import '~stylesheets/variables';
   @import '~stylesheets/form';
+</style>
+<style lang="scss" scoped>
+  .row {
+    padding: 10px 0;
+  }
+
+  .range {
+    margin: 0;
+    input {
+      padding-right: 0;
+    }
+  }
 </style>
 
 <script>
@@ -207,31 +207,31 @@
           expiring_contract_max: '',
           expiring_contract_min: '',
           transfer_range: {
-            value: 0,
+            value: null,
             currency: 'USD',
-            max: 0
+            max: null
           },
           loan_range: {
-            value: 0,
+            value: null,
             currency: 'USD',
-            max: 0
+            max: null
           },
           wage_budget: {
-            value: 0,
+            value: null,
             currency: 'USD',
-            max: 0
+            max: null
           },
           value: {
-            value: 0,
+            value: null,
             currency: 'USD',
-            max: 0
+            max: null
           }
         },
         deadline: '',
         price: {
-          value: 0,
+          value: null,
           currency: 'USD',
-          max: 0
+          max: null
         }
       };
     },

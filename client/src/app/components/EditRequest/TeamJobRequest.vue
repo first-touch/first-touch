@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h4 v-if="!edit" class="header">New Team Job</h4>
-    <h4 v-if="edit" class="header">Edit Team Job</h4>
+    <h4 v-if="!edit" class="header">Creating Team ASSIGNMENT</h4>
+    <h4 v-if="edit" class="header">Editing Team ASSIGNMENT</h4>
     <timeline-item>
       <form @submit.prevent class="team-request ft-form">
         <div class="content">
@@ -16,47 +16,38 @@
           </div>
           <div class="row" v-if="!edit">
             <div class="col-lg-6 form-group">
-              <label class="col-lg-12">League Name</label>
               <inputsearch class="col-lg-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
                 v-on:update:val="setLeague($event)" v-on:update:search="meta_data.search.league = $event" ref="team_search"
-                 label="name" />
+                placeholder="League is" label="name" />
             </div>
             <div class="col-lg-6 form-group">
-              <label class="col-lg-12 required">Team Name</label>
               <inputsearch :edit="team_search" :readonly="league_id == ''" class="col-lg-12" :taggable="true" :onkeyup="getSearchResultsRole"
-                ref="team_search" v-on:update:search="meta_data.search.team = $event" :searchResult="searchResult" type="team"
-                v-on:update:obj="setTeam($event)" :required="true" label="team_name" />
+                placeholder="Team is" ref="team_search" v-on:update:search="meta_data.search.team = $event" :searchResult="searchResult"
+                type="team" v-on:update:obj="setTeam($event)" :required="true" label="team_name" />
             </div>
           </div>
 
           <div class="row">
             <div class="col-lg-6 form-group">
-              <label class="col-lg-12">Minimum number of Matches observed</label>
-              <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.min_matches">
+              <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.min_matches" placeholder="Minimum of Matches observed">
             </div>
             <div class="col-lg-6 form-group">
-              <label class="col-lg-12">Training Report Required</label>
               <vselect v-model="training_report_select" @input="meta_data.training_report = training_report_select.value" :options="options.required"
                 :searchable="false" />
             </div>
           </div>
           <div class="row col-lg-12 form-group">
-            <label class="col-lg-12">Additional Comments</label>
-            <textarea class="col-lg-12 form-control" v-model="meta_data.comments" v-autosize="meta_data.comments" />
+            <textarea class="col-lg-12 form-control" v-model="meta_data.comments" v-autosize="meta_data.comments"  placeholder="Any additional comments" />
           </div>
           <div class="row col-lg-12 form-group">
-            <label class="col-lg-12 required">Deadline</label>
-            <ftdatepicker class="col-lg-6 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" />
+            <ftdatepicker class="col-lg-6 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" placeholder="Deadline" />
           </div>
-          <div class="row col-lg-12 form-group">
-            <label class="col-lg-12">Price Range</label>
-            <currencyinput :value="price" max="true" />
-
-
+          <div class="col-lg-12 form-group">
+            <currencyinput :value="price" max="true" placeholder="Bid between" placeholder1="And" />
           </div>
           <div class="form-group buttons-inner row">
             <button v-if="!edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit"> CREATE</button>
-            <button v-if="edit" id="submit" class="ft-button ft-button-success"  :disabled="!canValidate" @click="handleSubmit"> UPDATE</button>
+            <button v-if="edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit"> UPDATE</button>
             <button id="cancel" name="cancel" class="ft-button" @click="cancelAction">CANCEL</button>
           </div>
         </div>
@@ -100,7 +91,7 @@
         league_id: '',
         team_search: '',
         training_report_select: {
-          label: 'No',
+          label: 'Training Report required',
           value: 'no'
         },
         meta_data: {
@@ -123,9 +114,9 @@
         },
         deadline: '',
         price: {
-          value: 0,
+          value: null,
           currency: 'USD',
-          max: 0
+          max: null
         }
       };
     },

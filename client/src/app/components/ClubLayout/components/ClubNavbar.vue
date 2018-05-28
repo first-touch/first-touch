@@ -45,7 +45,7 @@
           </ul>
         </li>
         <li class="nav-item" :class="{ active: tab[2] || /\/club\/scouting/.test(page) || /\/club\/request/.test(page) }">
-          <div class="nav-item-inner" @click="onTabClick(2); toMarketplace()">
+          <div class="nav-item-inner nav-item-inner-link" @click="onTabClick(2); toMarketplace()">
             Scouting
           </div>
           <ul class="sub-nav">
@@ -178,6 +178,9 @@
           padding: 10px 0 10px 20px;
           border-top: 1px solid $main-text-color;
           color: $main-text-color;
+          &.nav-item-inner-link{
+            cursor: pointer;
+          }
         }
       }
       .nav-item:last-child .nav-item-inner {

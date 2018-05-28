@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h4 v-if="!edit" class="header">New Player Job</h4>
-    <h4 v-if="edit" class="header">Edit Player Job</h4>
+    <h4 v-if="!edit" class="header">Creating Player ASSIGNMENT</h4>
+    <h4 v-if="edit" class="header">Editing Player ASSIGNMENT</h4>
     <timeline-item>
       <form @submit.prevent class="player-request ft-form">
         <ul class="error" v-if="errors">
@@ -13,87 +13,79 @@
           <label class="col-lg-3">Request created on</label>
           <p class="col-lg-9">{{edit.created_at | moment}}</p>
         </div>
-        <div class="row" v-if="!edit">
-          <div class="col-lg-4 form-group">
-            <label class="col-lg-12">League Name</label>
+        <h5 class="row">The Scouting Target</h5>
+        <div class="select-player" v-if="!edit">
+          <div class="col col-lg-6 form-group">
             <inputsearch :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition" v-on:update:val="setLeague($event)"
-              ref="league_search" :taggable="true" label="name" v-on:update:search="meta_data.search.league = $event"
+              ref="league_search" :taggable="true" label="name" v-on:update:search="meta_data.search.league = $event" placeholder="League is"
             />
           </div>
-          <div class="col-lg-4 form-group">
-            <label class="col-lg-12">Team Name</label>
+          <div class="col col-lg-6 form-group">
             <inputsearch :readonly="league_id == ''" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" ref="team_search"
-              :taggable="true" v-on:update:obj="setTeam($event)"  label="team_name" v-on:update:search="meta_data.search.team = $event"
+              :taggable="true" v-on:update:obj="setTeam($event)"  label="team_name" v-on:update:search="meta_data.search.team = $event" placeholder="Team name is"
             />
           </div>
-          <div class="col-lg-4 form-group">
-            <label class="col-lg-12 required">Player Name </label>
+          <div class="col col-lg-6 form-group">
             <inputsearch :readonly="team_id == ''" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="player"
-              label="display_name" v-on:update:val="setPlayer($event)" v-on:update:search="meta_data.search.player = $event"
+              label="display_name" v-on:update:val="setPlayer($event)" v-on:update:search="meta_data.search.player = $event" placeholder="Player name is"
               :required="true" />
           </div>
         </div>
         <div class="player-summary" v-if="player_id == -1">
           <div class="row">
             <div class="col-lg-4 form-group">
-              <label class="col-lg-12 col-form-label">Age</label>
-              <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.age">
+              <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.age" placeholder="Age">
             </div>
             <div class="col-lg-4 form-group">
-              <label class="col-lg-12 col-form-label">Nationality</label>
-              <countryselect class="col-lg-12" :value="meta_data.nationality_country_code" v-on:update:val="meta_data.nationality_country_code = $event"
+              <countryselect class="col-lg-12" :value="meta_data.nationality_country_code"  placeholder="Nationality is"
+              v-on:update:val="meta_data.nationality_country_code = $event"
               />
             </div>
             <div class="col-lg-4 form-group">
-              <label class="col-lg-12 col-form-label">Based In</label>
-              <countryselect class="col-lg-12" :value="meta_data.residence_country_code" v-on:update:val="meta_data.residence_country_code = $event"
+              <countryselect class="col-lg-12" :value="meta_data.residence_country_code" placeholder="Based in"
+               v-on:update:val="meta_data.residence_country_code = $event"
               />
             </div>
           </div>
           <div class="row">
             <div class="col-lg-7 form-group">
-              <label class="col-lg-12">Language(s)</label>
-              <language class="col-lg-12" :value="meta_data.languages" v-on:update:val="meta_data.languages = $event" />
+              <language class="col-lg-12" :value="meta_data.languages" placeholder="Speaking languages are"
+               v-on:update:val="meta_data.languages = $event" />
             </div>
             <div class="col-lg-5 form-group">
-              <label class="col-lg-12">Position(s)</label>
-              <playerposition class="col-lg-12" :value="meta_data.playing_position" v-on:update:val="meta_data.playing_position = $event"
+              <playerposition class="col-lg-12" :value="meta_data.playing_position" placeholder="Positions are"
+               v-on:update:val="meta_data.playing_position = $event"
               />
             </div>
           </div>
           <div class="row">
             <div class="col-lg-6 form-group">
-              <label class="col-lg-12">Preferred Foot</label>
-              <preferredfoot class="col-lg-12" :value="meta_data.preferred_foot" v-on:update:val="meta_data.preferred_foot = $event" />
+              <preferredfoot class="col-lg-12" :value="meta_data.preferred_foot"  placeholder="Preferred foot is"
+               v-on:update:val="meta_data.preferred_foot = $event" />
             </div>
           </div>
         </div>
-
+        <h5 class="row">Your Scouting Requirements</h5>
         <div class="row">
           <div class="col-lg-6 form-group">
-            <label class="col-lg-12">Minimum number of Matches observed</label>
-            <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.min_matches">
+            <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.min_matches" placeholder="Minimum of Matches observed">
           </div>
           <div class="col-lg-6 form-group">
-            <label class="col-lg-12">Training Report Required</label>
             <vselect v-model="training_report_select" @input="meta_data.training_report = training_report_select.value" :options="options.required"
+            placeholder="Training Report required"
               :searchable="false" />
           </div>
         </div>
-
         <div class="row col-lg-12 form-group">
-          <label class="col-lg-12">Additional Comments</label>
-          <textarea class="col-lg-12 form-control" v-model="meta_data.comments"  v-autosize="meta_data.comments" />
-        </div>
-
-        <div class="row col-lg-12 form-group">
-          <label class="col-lg-12 required">Deadline</label>
-          <ftdatepicker class="col-lg-3 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" ref="deadline"
+          <ftdatepicker class="col-lg-3 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" ref="deadline" placeholder="Deadline"
           />
         </div>
+        <div class="col-lg-12 form-group">
+          <currencyinput :value="price" max="true" placeholder="Bid between" placeholder1="And"/>
+        </div>
+        <h5 class="row">Other Details</h5>
         <div class="row col-lg-12 form-group">
-          <label class="col-lg-12">Price Range</label>
-          <currencyinput :value="price" max="true" />
+          <textarea class="col-lg-12 form-control" v-model="meta_data.comments"  v-autosize="meta_data.comments" placeholder="Any additional comments" />
         </div>
         <div class="form-group buttons-inner row">
           <button v-if="!edit" id="submit" class="ft-button ft-button-success"  :disabled="!canValidate" @click="handleSubmit">CREATE</button>
@@ -108,6 +100,16 @@
 <style lang="scss">
   @import '~stylesheets/variables';
   @import '~stylesheets/form';
+</style>
+<style lang="scss" scoped>
+.select-player{
+  .col{
+    padding-left:0;
+  }
+}
+h5{
+      margin-bottom: 20px;
+}
 </style>
 
 <script>
@@ -149,7 +151,7 @@
           to: new Date()
         },
         training_report_select: {
-          label: 'No',
+          label: 'Training Report required',
           value: 'no'
         },
         options: {
@@ -174,9 +176,9 @@
           }
         },
         price: {
-          value: 0,
+          value: null,
           currency: 'USD',
-          max: 0
+          max: null
         },
         deadline: ''
       };

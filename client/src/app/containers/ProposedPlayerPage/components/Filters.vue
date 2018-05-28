@@ -1,13 +1,13 @@
 <template>
   <form @submit.prevent="search" class="col-lg-10">
     <div class="row">
-      <fieldset class="col-lg-3">
+      <fieldset class="col-lg-3 col-md-12">
         <input type="number" min="0" v-model="params.id" class="form-control col-lg-12" placeholder="Report id">
       </fieldset>
-      <fieldset class="col-lg-3">
+      <fieldset class="col-lg-3 col-md-12">
         <input class="col-lg-12 form-control" placeholder="Scout's Name" type="text" v-model="params.scout_name" />
       </fieldset>
-      <fieldset class="col-lg-3 col-md-8 calendar-filter">
+      <fieldset class="col-lg-3 col-md-12 calendar-filter">
 
         <ftdatepicker class="col-lg-12 form-control" ref="createdDate" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
           placeholder="Submitted on" />
@@ -22,16 +22,16 @@
 </template>
 
 <style lang="scss" scoped>
-  form {
-    margin-bottom: 20px;
-    .price-filter {
-      margin-top: 10px;
-      .autonumeric {
-        height: inherit;
-        max-height: 40px;
-      }
-    }
-  }
+  // form {
+  //   margin-bottom: 20px;
+  //   .price-filter {
+  //     margin-top: 10px;
+  //     .autonumeric {
+  //       height: inherit;
+  //       max-height: 40px;
+  //     }
+  //   }
+  // }
 </style>
 
 <script>

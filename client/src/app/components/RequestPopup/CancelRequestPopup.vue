@@ -43,7 +43,7 @@
           </div>
           <hr/>
           <div class="col-lg-12 buttons-inner">
-            <button class="ft-button ft-button-right" @click="cancel">Cancel Report</button>
+            <button class="ft-button ft-button-right ft-button-danger" @click="cancel">Cancel Report</button>
           </div>
         </div>
         <div v-if="success">

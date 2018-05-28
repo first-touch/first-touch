@@ -4,7 +4,7 @@ module V1
       step :setup_model!
 
       def setup_model!(options, params:, **)
-        competition_list = ::Competition.all.limit(5)
+        competition_list = ::Competition.all.limit(7)
         query_params = params[:q]
         options['models'] = nil
         if query_params

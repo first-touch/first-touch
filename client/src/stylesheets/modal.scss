@@ -25,7 +25,6 @@
       // min-height: 700px;
     }
   }
-
   .modal-md {
     max-width: 800px; // min-height: 500px;
     .modal-content {
@@ -45,6 +44,11 @@
       border-radius: 9999px;
       border: 1px solid $secondary-text-color;
       background: #fff;
+      font-family: 'Ubuntu', sans-serif;
+      font-size: 13px;
+      text-align: center;
+      line-height: 0;
+      letter-spacing: 0;
       &:hover {
         background-color: $button-background-hover;
       }
@@ -67,6 +71,16 @@
     }
     .ft-button-right {
       margin-left: auto;
+    }
+    .ft-button-secondary {
+      background-color: #a8cb5c;
+      border: solid 1px #a8cb5c;
+      font-family: 'Ubuntu', sans-serif;
+      font-size: 13px;
+      text-align: center;
+      line-height: 0;
+      letter-spacing: 0;
+      color: white;
     }
   }
   .error {

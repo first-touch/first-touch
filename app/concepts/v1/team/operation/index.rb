@@ -5,7 +5,7 @@ module V1
 
       def setup_model!(options, params:, **)
         options['models'] = []
-        team_list = ::Team.all.limit(5)
+        team_list = ::Team.all.limit(7)
         query_params = params[:q]
         if query_params
           team_list = team_list.joins(:competitions).select('teams.*, competitions.name as competition_name, competitions.id as competition_id')

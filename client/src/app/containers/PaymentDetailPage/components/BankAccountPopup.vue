@@ -86,7 +86,7 @@
             <input type="number" min="0" class="col-lg-12 form-control" required v-model="bankInfo.institution_number">
           </div>
           <div class="col-lg-12 buttons-inner">
-            <button class="ft-button ft-button-success ft-button-right">Add</button>
+            <button class="ft-button ft-button-right ft-button-secondary">Add</button>
           </div>
         </div>
       </form>

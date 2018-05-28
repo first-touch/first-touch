@@ -2,15 +2,13 @@
   <form @submit.prevent class="report-form ft-form">
     <div class="form-group row report-name">
       <div class="col-lg-12">
-        <label class="col-lg-12 col-form-label">Report Name</label>
-        <input type="text" class="col-lg-12 form-control" v-model="headline">
+        <input type="text" class="col-lg-12 form-control" v-model="headline"  placeholder="Report name">
       </div>
     </div>
-    <div class="form-group row" v-if="priceEdit">
+    <div class="form-group" v-if="priceEdit">
       <div class="col-lg-12">
-        <label class="col-lg-12 label-price">Price</label>
         <div class="price-input">
-          <currencyinput :value="price" />
+          <currencyinput :value="price" placeholder="Price"/>
           <p v-if="price.value == 0" class="info">The report will be free</p>
           <p v-if="request" class="info">Price between {{request.price.value}} and {{request.price.max}} {{request.price.currency}} </p>
         </div>
@@ -24,45 +22,37 @@
           <div class="form-group" v-if="playersummary">
             <div class="row">
               <div class="col-lg-4">
-                <label class="col-lg-12 col-form-label">Age</label>
                 <input type="number" class="col-lg-12 form-control" v-model="meta_data.player_info.age" :placeholder="agePlaceHolder">
               </div>
               <div class="col-lg-4">
-                <label class="col-lg-12 col-form-label">Approximate Height (cm)</label>
                 <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.player_info.height" :placeholder="heightPlaceHolder">
               </div>
               <div class="col-lg-4">
-                <label class="col-lg-12 col-form-label">Approximate Weight (kg)</label>
                 <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.player_info.weight" :placeholder="weightPlaceHolder">
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <label class="col-lg-12 col-form-label">Position</label>
-                <playerposition :value="meta_data.player_info.playing_position" v-on:update:val="meta_data.player_info.playing_position = $event"
+                <playerposition :value="meta_data.player_info.playing_position" v-on:update:val="meta_data.player_info.playing_position = $event"  placeholder="Positions in"
                 />
               </div>
               <div class="col-lg-6">
-                <label class="col-lg-12 col-form-label">Preferred Foot</label>
-                <preferredfoot :value="meta_data.player_info.preferred_foot" v-on:update:val="meta_data.player_info.preferred_foot = $event"
+                <preferredfoot :value="meta_data.player_info.preferred_foot" v-on:update:val="meta_data.player_info.preferred_foot = $event"  placeholder="Preferred foot is"
                 />
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <label class="col-lg-12 col-form-label">Nationality</label>
-                <countryselect :value="meta_data.player_info.nationality_country_code" v-on:update:val="meta_data.player_info.nationality_country_code = $event"
+                <countryselect :value="meta_data.player_info.nationality_country_code" v-on:update:val="meta_data.player_info.nationality_country_code = $event" placeholder="Nationality is"
                 /> </div>
               <div class="col-lg-6">
-                <label class="col-lg-12 col-form-label">Based In</label>
-                <countryselect :value="meta_data.player_info.residence_country_code" v-on:update:val="meta_data.player_info.residence_country_code = $event"
+                <countryselect :value="meta_data.player_info.residence_country_code" v-on:update:val="meta_data.player_info.residence_country_code = $event" placeholder="Based in"
                 />
               </div>
             </div>
             <div class="row">
               <div class="col-lg-12">
-                <label class="col-lg-12 col-form-label">Language(s)</label>
-                <language :value="meta_data.player_info.languages" v-on:update:val="meta_data.player_info.languages = $event" />
+                <language :value="meta_data.player_info.languages" v-on:update:val="meta_data.player_info.languages = $event" placeholder="Speaking languages are" />
               </div>
             </div>
           </div>
@@ -75,9 +65,8 @@
       <transition name="fade">
         <div class="form-group" v-if="transfersummary">
           <div class="row">
-            <label class="col-lg-1 col-form-label">Wage</label>
             <div class="col-lg-11">
-              <currencyinput :value="meta_data.transfer_sum.wage" />
+              <currencyinput :value="meta_data.transfer_sum.wage" placeholder="Wage salary" />
             </div>
           </div>
           <div class="row">
@@ -91,13 +80,12 @@
               <transition name="fade">
                 <div class="transfer-value col-lg-12 row" v-if="meta_data.transfer_sum.transfer_interested === 'yes'">
                   <div class="col-lg-6">
-                    <label class="col-lg-12 col-form-label">Availability for transfer</label>
-                    <ftdatepicker class="col-lg-12 form-control" :value="meta_data.transfer_sum.transfer_availability" v-on:update:val="meta_data.transfer_sum.transfer_availability = $event"
-                       />
+                    <ftdatepicker class="col-lg-12 form-control"  placeholder="Availability for transfer"
+                     :value="meta_data.transfer_sum.transfer_availability" v-on:update:val="meta_data.transfer_sum.transfer_availability = $event"
+                    />
                   </div>
                   <div class="col-lg-6">
-                    <label class="col-lg-12 col-form-label">Transfer Budget</label>
-                    <currencyinput :value="meta_data.transfer_sum.transfer_budget" />
+                    <currencyinput :value="meta_data.transfer_sum.transfer_budget" placeholder="Transfer budget" />
                   </div>
                 </div>
               </transition>
@@ -114,16 +102,12 @@
               <transition name="fade">
                 <div class="transfer-value col-lg-12 row" v-if="meta_data.transfer_sum.loan_interested === 'yes'">
                   <div class="col-lg-6">
-                    <label class="col-lg-12 col-form-label">Availability for Loan</label>
-                    <ftdatepicker class="col-lg-12 form-control" :value="meta_data.transfer_sum.loan_availability"
-                    v-on:update:val="meta_data.transfer_sum.loan_availability = $event"
-                       />
+                    <ftdatepicker class="col-lg-12 form-control" placeholder="Availability for Loan"  :value="meta_data.transfer_sum.loan_availability" v-on:update:val="meta_data.transfer_sum.loan_availability = $event"
+                    />
                   </div>
                   <div class="col-lg-6">
-                    <label class="col-lg-12 col-form-label">End of Contract</label>
-                  <ftdatepicker class="col-lg-12 form-control" :value="meta_data.transfer_sum.contract_end"
-                    v-on:update:val="meta_data.transfer_sum.contract_end = $event"
-                       />
+                    <ftdatepicker class="col-lg-12 form-control" placeholder="End of Contract" :value="meta_data.transfer_sum.contract_end" v-on:update:val="meta_data.transfer_sum.contract_end = $event"
+                    />
                   </div>
                 </div>
               </transition>
@@ -137,51 +121,46 @@
       <matchanalyzed :analyzed_matches="meta_data.analyzed_matches" type="player" />
     </div>
     <div class="form-group row">
-      <label class="col-lg-12 col-form-label">Current Ability Overview</label>
       <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.overview" v-autosize="meta_data.overview" />
+        <textarea class="col-lg-12 form-control" v-model="meta_data.overview" v-autosize="meta_data.overview" placeholder="Current Ability Overview"  />
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-lg-12 col-form-label">Physical Attribute(s)</label>
       <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.physical_attributes" v-autosize="meta_data.physical_attributes"  />
+        <textarea class="col-lg-12 form-control" v-model="meta_data.physical_attributes" v-autosize="meta_data.physical_attributes"  placeholder="Physical Attribute(s)"
+        />
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-lg-12 col-form-label">Mental Attribute(s)</label>
       <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.mental_attributes"  v-autosize="meta_data.mental_attributes"  />
+        <textarea class="col-lg-12 form-control" v-model="meta_data.mental_attributes" v-autosize="meta_data.mental_attributes" placeholder="Mental Attribute(s)"  />
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-lg-12 col-form-label">Technical Attribute(s)</label>
       <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.technical_attributes" v-autosize="meta_data.technical_attributes" />
+        <textarea class="col-lg-12 form-control" v-model="meta_data.technical_attributes" v-autosize="meta_data.technical_attributes" placeholder="Technical Attribute(s)"
+        />
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-lg-12 col-form-label">Personality</label>
       <div class="col-lg-12">
-        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.personality" v-autosize="meta_data.personality" />
+        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.personality" v-autosize="meta_data.personality" placeholder="Personality" />
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-lg-12 col-form-label">Potential</label>
       <div class="col-lg-12">
-        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.potential" v-autosize="meta_data.potential" />
+        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.potential" v-autosize="meta_data.potential" placeholder="Potential" />
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-lg-12 col-form-label">Other Observations & Viewpoints To Note</label>
       <div class="col-lg-12 ">
-        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.observations" v-autosize="meta_data.observations" />
+        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.observations" v-autosize="meta_data.observations" placeholder="Other Observations & Viewpoints To Note"
+        />
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-lg-12 col-form-label">Conclusions</label>
       <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.conclusion" v-autosize="meta_data.conclusion" />
+        <textarea class="col-lg-12 form-control" v-model="meta_data.conclusion" v-autosize="meta_data.conclusion"   placeholder="Conclusions"/>
       </div>
     </div>
     <addattachments :attachments="report ? report.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
@@ -206,7 +185,9 @@
     transition: all 0.75s;
     max-height: 500px;
   }
-
+  .row {
+    padding: 10px 0;
+  }
   .fade-enter,
   .fade-leave-to {
     opacity: 0.1;
@@ -300,7 +281,7 @@
       currencyinput: CurrencyInput,
       ftdatepicker: FtDatepicker
     },
-    props: ['playerId', 'submitReport', 'report', 'cancelAction', 'request','hasBankAccount'],
+    props: ['playerId', 'submitReport', 'report', 'cancelAction', 'request', 'hasBankAccount'],
     data() {
       return {
         playersummary: true,
@@ -373,22 +354,36 @@
         return false;
       },
       agePlaceHolder() {
-        if (this.position)
-          return `Between ${this.request.meta_data.age_min} and ${this.request.meta_data.age_max}`;
+        if (this.position) {
+          if (this.request.meta_data.age_min && this.request.meta_data.age_max)
+            return `Between ${this.request.meta_data.age_min} and ${this.request.meta_data.age_max}`;
+          if (this.request.meta_data.age_min)
+            return `From ${this.request.meta_data.age_min}`;
+          if (this.request.meta_data.age_max)
+            return `Less than ${this.request.meta_data.age_max}`;
+        }
         return 'Age';
       },
       weightPlaceHolder() {
-        if (this.position)
-          return `Between ${this.request.meta_data.min_weight} and ${
-          this.request.meta_data.max_weight
-        }`;
+        if (this.position) {
+          if (this.request.meta_data.min_weight && this.request.meta_data.max_weight)
+            return `Between ${this.request.meta_data.min_weight} and ${this.request.meta_data.max_weight}`;
+          if (this.request.meta_data.min_weight)
+            return `From ${this.request.meta_data.min_weight}`;
+          if (this.request.meta_data.max_weight)
+            return `Less than ${this.request.meta_data.max_weight}`;
+        }
         return 'Weight';
       },
       heightPlaceHolder() {
-        if (this.position)
-          return `Between ${this.request.meta_data.min_heigth} and ${
-          this.request.meta_data.max_heigth
-        }`;
+        if (this.position) {
+          if (this.request.meta_data.min_heigth && this.request.meta_data.max_heigth)
+            return `Between ${this.request.meta_data.min_heigth} and ${this.request.meta_data.max_heigth}`;
+          if (this.request.meta_data.min_heigth)
+            return `From ${this.request.meta_data.min_heigth}`;
+          if (this.request.meta_data.max_heigth)
+            return `Less than ${this.request.meta_data.max_heigth}`;
+        }
         return 'Height';
       }
     },

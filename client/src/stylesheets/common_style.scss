@@ -15,6 +15,12 @@ body {
     border-top: 5px solid $secondary-header-color;
   }
   .timeline-widget-button {
+    span {
+      width: 49px;
+      height: 49px;
+      background-color: #a8cb5c;
+      border: solid 1px #a8cb5c;
+    }
     svg {
       text-align: center;
       font-size: 1.5em;

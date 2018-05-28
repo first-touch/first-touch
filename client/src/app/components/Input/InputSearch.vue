@@ -1,18 +1,20 @@
 <template>
   <div class="ft-input">
     <div class="col-lg-12 inner">
-      <input name="team" autocomplete="off" :placeholder="placeholder" :readonly="readonly" class="search form-control" :class="readonly ? 'readonly':''"
-        v-model="search" type="text" v-on:keyup="startSearch" :required="required == true" @blur="blur" @click="focus()" />
+      <input name="team" ref="input" autocomplete="off" :placeholder="placeholder" :readonly="readonly" class="search form-control"
+        :class="readonly ? 'readonly':''" v-model="search" type="text" v-on:keyup="handleKey" :required="required == true"
+        @blur="blur" @click="focus()" />
       <div class="search-results">
-        <div v-for="(value, index) in results" :key="index" @mousedown="setvalue(index)" class="one-result">
+        <div v-for="(value, index) in results" :key="index" @mousedown="setvalue(index)" class="one-result" :class="{'focus' : index == resultFocus} " @mouseover="resultFocus = index">
           <div class="arrow"></div>
           <img src="https://unsplash.it/50/50" class="rounded-circle img-fluid">
           <p> {{value}}</p>
         </div>
-        <div v-if="taggable && allowtag && (!minChar || search.length >= minChar) " @mousedown="newentry()" class="one-result new-result">
+        <div v-if="taggable && allowtag && (!minChar || search.length >= minChar) " @mousedown="newentry()"  class="one-result new-result"
+          :class="{'focus' : results.length == resultFocus}"  @mouseover="resultFocus = results.length">
           <div class="arrow "></div>
           <img src="https://unsplash.it/50/50" class="rounded-circle img-fluid">
-          <p> {{search}} (Non existing)</p>
+          <p> {{search}} (Add new entry)</p>
         </div>
         <div v-if="minChar && search.length < minChar">
           <p>Pleast type at least {{minChar}} chars </p>
@@ -56,13 +58,12 @@
           margin-left: 1em;
         }
         &.new-result {
-          border-color: rgba(255,255,255,0.7);
+          border-color: rgba(255, 255, 255, 0.7);
           .arrow {
-            color: rgba(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.7);
           }
         }
-        &:hover,
-        &:focus {
+        &.focus {
           text-decoration: none;
           background-color: rgba(98, 99, 100, 0.9);
           cursor: pointer;
@@ -95,13 +96,16 @@
   } from 'vuex';
   export default {
     name: 'InputSearch',
-    props: ['onkeyup', 'searchResult', 'type', 'taggable', 'edit', 'required', 'minChar', 'label', 'readonly','placeholder'],
+    props: ['onkeyup', 'searchResult', 'type', 'taggable', 'edit', 'required', 'minChar', 'label', 'readonly',
+      'placeholder'
+    ],
     data() {
       return {
         search: '',
         id: '',
         value: '',
-        selected: null
+        selected: null,
+        resultFocus: -1
       };
     },
     computed: {
@@ -111,7 +115,13 @@
         return [];
       },
       allowtag: function () {
-        return this.search != '';
+        if (this.search == '')
+          return false;
+        for (var i in this.results){
+          if (this.results[i] == this.search)
+            return false;
+        }
+        return true;
       }
     },
     created() {
@@ -157,6 +167,23 @@
           });
         } else {
           this.$emit('update:obj', this.selected);
+        }
+      },
+      handleKey(event) {
+        if ((event.keyCode >= 48 && event.keyCode <= 57) ||
+          (event.keyCode >= 65 && event.keyCode <= 90) ||
+          event.keyCode == 8
+        ) this.startSearch();
+        if (event.keyCode == 40 && this.resultFocus < this.results.length)
+          this.resultFocus++;
+        if (event.keyCode == 38 && this.resultFocus > 0)
+          this.resultFocus--;
+        if (event.keyCode == 13 && this.resultFocus >= 0) {
+          if (this.resultFocus != this.results.length)
+            this.setvalue(this.resultFocus);
+          else
+            this.newentry();
+          this.$refs.input.blur();
         }
       },
       startSearch() {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vselect v-model="model" :disabled="disabled" :onChange="update" :options="options" class="ft-input form-control" placeholder="Please select a country"
+    <vselect v-model="model" ref="vSelect":disabled="disabled" :onChange="update" :options="options" class="ft-input form-control" placeholder="Please select a country"
     />
   </div>
 </template>
@@ -160,8 +160,10 @@ export default {
   },
   mounted() {
     this.refactorValue();
+    this.$refs.vSelect.scrollTo = function(){};
   },
   methods: {
+
     update(val) {
       if (val) {
         this.$emit('update:val', this.$options.filters.vueSelect2Val(val));

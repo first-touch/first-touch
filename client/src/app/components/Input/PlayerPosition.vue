@@ -1,12 +1,12 @@
 <template>
-  <vselect :disabled="readonly" v-model="model" :onChange="update" multiple :options="options" class="ft-input form-control" />
+  <vselect :disabled="readonly" v-model="model" :onChange="update" multiple :options="options" class="ft-input form-control" :placeholder="placeholder" />
 </template>
 <script>
 import vSelect from 'vue-select';
 
 export default {
   name: 'PlayerPosition',
-  props: ['value','readonly'],
+  props: ['value','readonly','placeholder'],
   components: {
     vselect: vSelect
   },

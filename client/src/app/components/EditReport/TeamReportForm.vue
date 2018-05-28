@@ -1,17 +1,15 @@
 <template>
   <div>
-    <form @submit.prevent id="report-form ft-form">
+    <form @submit.prevent class="report-form ft-form">
       <div class="form-group row report-name">
         <div class="col-lg-12">
-          <label class="col-lg-12 col-form-label">Report Name</label>
-          <input type="text" class="col-lg-12 form-control" v-model="headline">
+          <input type="text" class="col-lg-12 form-control" v-model="headline"  placeholder="Report name">
         </div>
       </div>
-      <div class="form-group row" v-if="!request && hasBankAccount">
+      <div class="form-group" v-if="!request && hasBankAccount">
         <div class="col-lg-12">
-          <label class="col-lg-12 label-price">Price</label>
           <div class="price-input">
-            <currencyinput :value="price" />
+            <currencyinput :value="price" placeholder="Price"/>
             <p v-if="price.value == 0" class="info">The report will be free</p>
           </div>
         </div>
@@ -21,51 +19,49 @@
         <matchanalyzed :analyzed_matches="meta_data.analyzed_matches" type="team" />
       </div>
       <div class="form-group col-lg-12">
-        <label>Formation(s) Used & Playing Style</label>
         <div class="row">
-          <textarea v-model="meta_data.formation" class="col col-lg-12 form-control" v-autosize="meta_data.formation"  />
+          <textarea v-model="meta_data.formation" class="col col-lg-12 form-control" v-autosize="meta_data.formation" placeholder="Formation(s) Used & Playing Style"  />
         </div>
       </div>
       <div class="form-group col-lg-12">
-        <label>Attacking organisation & Transition After Winning Possession</label>
         <div class="row">
-          <textarea v-model="meta_data.attacking_organisation" class="col col-lg-12 form-control" v-autosize="meta_data.attacking_organisation"  />
+          <textarea v-model="meta_data.attacking_organisation" class="col col-lg-12 form-control" v-autosize="meta_data.attacking_organisation"  placeholder="Attacking organisation & Transition After Winning Possession"  />
         </div>
       </div>
       <div class="form-group col-lg-12">
-        <label>Defensive Organisation & Transition After Losing Possession</label>
         <div class="row">
-          <textarea v-model="meta_data.defensive_organisation" class="col col-lg-12 form-control"  v-autosize="meta_data.defensive_organisation"/>
+          <textarea v-model="meta_data.defensive_organisation" class="col col-lg-12 form-control" placeholder="Defensive Organisation & Transition After Losing Possession"
+           v-autosize="meta_data.defensive_organisation"/>
         </div>
       </div>
       <div class="form-group col-lg-12">
-        <label>Set plays - For</label>
         <div class="row">
-          <textarea v-model="meta_data.setplays_for" class="col col-lg-12 form-control"  v-autosize="meta_data.setplays_for" />
+          <textarea v-model="meta_data.setplays_for" class="col col-lg-12 form-control" placeholder="Set plays - For"
+           v-autosize="meta_data.setplays_for" />
         </div>
       </div>
       <div class="form-group col-lg-12">
-        <label>Set plays - Against</label>
         <div class="row">
-          <textarea v-model="meta_data.setplays_against" class="col col-lg-12 form-control" v-autosize="meta_data.setplays_against" />
+          <textarea v-model="meta_data.setplays_against" class="col col-lg-12 form-control"  placeholder="Set plays - Against"
+           v-autosize="meta_data.setplays_against" />
         </div>
       </div>
       <div class="form-group col-lg-12">
-        <label>Main threats</label>
         <div class="row">
-          <textarea v-model="meta_data.main_threats" class="col col-lg-12 form-control" v-autosize="meta_data.main_threats"  />
+          <textarea v-model="meta_data.main_threats" class="col col-lg-12 form-control" placeholder="Main threats"
+          v-autosize="meta_data.main_threats"  />
         </div>
       </div>
       <div class="form-group col-lg-12">
-        <label>Other Observations & Viewpoints to Note</label>
         <div class="row">
-          <textarea v-model="meta_data.observations" class="col col-lg-12 form-control" v-autosize="meta_data.observations" />
+          <textarea v-model="meta_data.observations" class="col col-lg-12 form-control"  placeholder="Other Observations & Viewpoints to Note"
+          v-autosize="meta_data.observations" />
         </div>
       </div>
       <div class="form-group col-lg-12">
-        <label>Conclusions</label>
         <div class="row">
-          <textarea v-model="meta_data.conclusions" class="col col-lg-12 form-control" v-autosize="meta_data.conclusions" />
+          <textarea v-model="meta_data.conclusions" class="col col-lg-12 form-control" placeholder="Conclusions"
+           v-autosize="meta_data.conclusions" />
         </div>
       </div>
       <addattachments :attachments="report ? report.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"

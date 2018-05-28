@@ -14,8 +14,8 @@
           :closeAction="closeAction" />
       </b-modal>
       <div class="ft-page">
-        <actions class="widget" :hasStripe="hasStripe" :PersonalInformation="PersonalInformation" :AddPayment="AddPayment"  />
         <h4 class="header">Payment Details</h4>
+        <actions class="widget" :hasStripe="hasStripe" :PersonalInformation="PersonalInformation" :AddPayment="AddPayment"  />
         <timeline-item>
           <bankaccountlist :stripe="stripeFtouch" :deleteBank="deleteBank" :deleteAccount="deleteAccount" :preferredBank="preferredBank" />
         </timeline-item>

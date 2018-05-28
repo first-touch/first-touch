@@ -1,7 +1,7 @@
 <template>
-  <div class="calendar-container">
-    <datepicker :disabled="disabled" ref="datepicker" class="ftdatepicker col-lg-9 col-md-6 col-sm-6" :input-class="[model != '' ? 'selected': '', 'input-date'].join(' ')"
-      :required="true" v-model="model" @closed="update" format="dd,MMM yyyy" :placeholder="placeholder"></datepicker>
+  <div class="calendar-container" :class="{'opened' : show}">
+    <datepicker @opened="toggle" :disabled="disabled" ref="datepicker" class="ftdatepicker col-lg-10 col-md-10 col-sm-10" :input-class="[model != '' ? 'selected': '', 'input-date'].join(' ')"
+      :required="true" v-model="model" @closed="update" format="dd-MMM-yyyy" :placeholder="placeholder"></datepicker>
     <div class="icon-container">
       <span v-if="model != ''" @click="model = ''; update()" class="icon-inner">
         <icon name='times'></icon>
@@ -29,6 +29,10 @@
       border: 0px;
       padding: 0;
       background: white;
+      &.selected {
+        text-transform: uppercase;
+
+      }
     }
   }
 </style>
@@ -37,6 +41,9 @@
   @import '~stylesheets/variables';
   .calendar-container {
     display: flex;
+    &.opened {
+      box-shadow: 0 0 0 0.2rem $input-focus-color;
+    }
     .icon-container {
       float: right;
       margin-right: 10px;
@@ -62,7 +69,8 @@
     props: ['value', 'disabled', 'placeholder'],
     data() {
       return {
-        model: this.value
+        model: this.value,
+        show: false
       };
     },
     components: {
@@ -73,7 +81,11 @@
       showCalendar: function () {
         this.$refs.datepicker.showCalendar();
       },
+      toggle() {
+        this.show = true;
+      },
       update() {
+        this.show = false;
         this.$emit('update:val', this.model);
       }
     }

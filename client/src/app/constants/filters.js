@@ -5,7 +5,7 @@ import countrydata from 'country-data';
 Vue.filter('moment', str => {
   var date = moment(str);
   if (date.isValid()) {
-    return date.format('Do,\ MMM YYYY');
+    return date.format('DD-MMM-YYYY').toUpperCase();
   }
   return '';
 });

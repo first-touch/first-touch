@@ -31,8 +31,81 @@
                 </div>
               </paymentpopup>
             </b-modal>
-            <report v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :buyAction="BuyAction" :summaryAction="summaryAction"
-            />
+            <table class="table table-search">
+              <thead>
+                <tr>
+                  <th scope="col" class="shortable" @click="setOrder('report_type')">
+                    <p>Type</p>
+                    <span v-if="params.order == 'report_type'">
+                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                    </span>
+                  </th>
+                  <th scope="col" class="shortable" @click="setOrder('player')">
+                    <p>Player</p>
+                    <span v-if="params.order == 'player'">
+                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                    </span>
+                  </th>
+                  <th scope="col" class="shortable" @click="setOrder('position')">
+                    <p>Position</p>
+                    <span v-if="params.order == 'player'">
+                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                    </span>
+                  </th>
+                  <th scope="col" class="shortable" @click="setOrder('P.Foot')">
+                    <p>P. Foot</p>
+                    <span v-if="params.order == 'player'">
+                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                    </span>
+                  </th>
+                  <th scope="col" class="shortable" @click="setOrder('height')">
+                    <p>Height</p>
+                    <span v-if="params.order == 'height'">
+                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                    </span>
+                  </th>
+                  <th scope="col" class="shortable" @click="setOrder('weight')">
+                    <p>Weight</p>
+                    <span v-if="params.order == 'weight'">
+                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                    </span>
+                  </th>
+                  <th scope="col" class="shortable" @click="setOrder('nationality')">
+                    <p>Nationality</p>
+                    <span v-if="params.order == 'nationality'">
+                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                    </span>
+                  </th>
+                  <th scope="col" class="shortable" @click="setOrder('scout_name')">
+                    <p>SCOUT</p>
+                    <span v-if="params.order == 'scout_name'">
+                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                    </span>
+                  </th>
+                  <th scope="col" class="shortable" @click="setOrder('created_at')">
+                    <p>Published</p>
+                    <span v-if="params.order == 'created_at'">
+                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                    </span>
+                  </th>
+                  <th scope="col" class="shortable">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <report v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :buyAction="BuyAction" :summaryAction="summaryAction"
+                  mode="table" :fields="['type2c','player2c','position','foot','height','weight','nationality','scout','submitted','action']"
+                />
+              </tbody>
+            </table>
           </div>
         </timeline-item>
       </div>
@@ -89,6 +162,10 @@
     data() {
       return {
         payment: false,
+        params: {
+          order: '',
+          order_asc: true,
+        },
         reportSelected: null,
         nbFilters: 0
       };
@@ -104,6 +181,15 @@
         }
         return [];
       },
+      url() {
+        var params = this.params;
+        var url = Object.keys(params)
+          .map(function (k) {
+            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+          })
+          .join('&');
+        return url + '&' + this.$refs.filter.url;
+      }
     },
     mounted() {
       this.search();
@@ -161,7 +247,7 @@
       },
       search() {
         this.nbFilters = this.$refs.filter.nbFilters
-        this.getReports(this.$refs.filter.url);
+        this.getReports(this.url);
       },
       paymentAction(token, save, usesaved) {
         this.newOrder({
