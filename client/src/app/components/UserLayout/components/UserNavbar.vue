@@ -112,6 +112,7 @@
     .nav-item .nav-item-inner {
       text-transform: uppercase;
       font-weight: 300;
+      font-size: $left-menu-text-size;
       margin: 0 0 0 20px;
       padding: 10px 0 10px 7px;
       border-top: 1px solid $main-text-color;
@@ -207,15 +208,15 @@ export default {
         this.user.status === ASYNC_SUCCESS &&
         this.user.value.role_name === 'coach'
       );
-    },
+    }
   },
   methods: {
-    ...mapActions(['getUserInfo', 'logout']),
+    ...mapActions(['getUserInfo', 'logout'])
   },
   mounted() {
     if (this.token.status !== ASYNC_SUCCESS) {
       this.getUserInfo({ token: this.token.value });
     }
-  },
+  }
 };
 </script>

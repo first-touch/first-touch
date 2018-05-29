@@ -132,6 +132,7 @@
 
     .nav-item {
       margin-right: -20px;
+      font-size: $left-menu-text-size;
       .sub-nav {
         max-height: 0;
         overflow: hidden;
@@ -226,13 +227,13 @@ export default {
     return {
       tab: [
         ['channel', 'profile', 'calendar', 'messages', 'notes'].indexOf(
-          this.page,
+          this.page
         ) > -1 || !this.page,
         false,
         false,
         false,
-        false,
-      ],
+        false
+      ]
     };
   },
   methods: {
@@ -240,9 +241,9 @@ export default {
       this.tab = [
         ...this.tab.slice(0, idx),
         !this.tab[idx],
-        ...this.tab.slice(idx + 1),
+        ...this.tab.slice(idx + 1)
       ];
-    },
-  },
+    }
+  }
 };
 </script>
