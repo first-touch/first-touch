@@ -48,6 +48,9 @@
       &:focus ~ .search-results-container {
         display: flex;
       }
+      &::placeholder {
+        color: #bcbcbc;
+      }
     }
     .input-group-btn .btn {
       flex: 1 0 20%;
@@ -71,7 +74,7 @@
     position: absolute;
     flex: 1 0 auto;
     width: 100%;
-    margin-top: 40px;
+    margin-top: 34px;
     &:hover {
       display: flex;
     }
@@ -80,18 +83,19 @@
 </style>
 
 <script>
+import AutoComplete from 'v-autocomplete';
 import SearchResult from './components/SearchResult';
 
 export default {
   name: 'SearchBar',
   props: ['search', 'results'],
   components: {
-    result: SearchResult,
+    result: SearchResult
   },
   data() {
     return {
-      searchTerm: '',
+      searchTerm: ''
     };
-  },
+  }
 };
 </script>
