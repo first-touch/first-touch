@@ -7,26 +7,30 @@
     </div>
     <div class="form-group row">
       <label class="col-lg-3 col-form-label">Select a League</label>
-      <inputsearch class="col-lg-6" :onkeyup="getSearchResultsRole" placeholder="Search for a league" :required="team_id == -1"
-        :searchResult="searchResult" type="competition" v-on:update:val="setLeague($event)" ref="league_search" :taggable="true"
-        label="name" v-on:update:search="search.league = $event" />
+      <inputsearch class="col-lg-6" :onkeyup="getSearchResultsRole" placeholder="League is" :required="team_id == -1" :searchResult="searchResult"
+        type="competition" v-on:update:val="setLeague($event)" ref="league_search" :taggable="true" label="name" v-on:update:search="search.league = $event"
+      />
     </div>
     <div class="form-group row">
-      <label class="col-lg-3 col-form-label" :class="type == 'team' ? 'required' : ''">Select a Team</label>
-      <inputsearch class="col-lg-6" v-if="league_id != ''" :placeholder="'Search for a team'" :onkeyup="getSearchResultsRole" :searchResult="searchResult"
+      <label class="col-lg-3 col-form-label" :class="type == 'team' ? 'required' : ''">Select a Club</label>
+      <inputsearch class="col-lg-6" v-if="league_id != ''" placeholder="Club is" :onkeyup="getSearchResultsRole" :searchResult="searchResult"
         type="team" ref="team_search" :taggable="true" v-on:update:obj="setTeam($event)" label="team_name" v-on:update:search="search.team = $event"
       />
     </div>
     <div class="form-group row" v-if="type == 'player'">
       <label class="col-lg-3 col-form-label" :class="type == 'player' ? 'required' : ''">Select a Player</label>
-      <inputsearch class="col-lg-6" v-if="team_id != ''" :placeholder="'Search for a player'" :taggable="true" :onkeyup="getSearchResultsRole"
+      <inputsearch class="col-lg-6" v-if="team_id != ''" placeholder="Player is" :taggable="true" :onkeyup="getSearchResultsRole"
         :searchResult="searchResult" type="player" label="display_name" v-on:update:val="player_id = $event" v-on:update:search="search.player = $event"
       />
+    </div>
+    <div class="form-group row" v-if="team_id != '' && type == 'team'">
+      <label class="col-lg-3 col-form-label" >Select a Team</label>
+      <team-select class="col-lg-6" v-on:update:val="category = $event" placeholder="Team is"></team-select>
     </div>
     <div class="buttons-inner col-lg-12 row">
       <button class="bar-button ft-button">Cancel</button>
       <button v-if="type == 'player'" class="ft-button" :disabled="player_id == ''" @click="startReport">Create Report for a player</button>
-      <button v-if="type == 'team'" class=" ft-button" :disabled="team_id == ''" @click="startReport">Create Report for a team</button>
+      <button v-if="type == 'team'" class=" ft-button" :disabled="team_id == '' || category == ''" @click="startReport">Create Report for a team</button>
     </div>
   </form>
 </template>
@@ -51,7 +55,7 @@
     mapActions
   } from 'vuex';
   import vSelect from 'vue-select';
-
+  import TeamSelect from 'app/components/Input/TeamSelect';
   import inputSearch from 'app/components/Input/InputSearch.vue';
 
   export default {
@@ -59,13 +63,16 @@
     props: ['prepareReport'],
     components: {
       inputsearch: inputSearch,
-      vselect: vSelect
+      vselect: vSelect,
+      'team-select': TeamSelect
+
     },
     data() {
       return {
         player_report: false,
         team_report: false,
         job_type: 'independent',
+        category: '',
         team_id: '',
         league_id: '',
         player_id: '',
@@ -75,14 +82,11 @@
           team: ''
         },
         vselect_type: {
-          label: 'Report Type',
+          label: 'Select a report type',
           value: ''
         },
         options: {
-          type_report: [{
-              label: 'Report Type',
-              value: ''
-            },
+          type_report: [
             {
               label: 'Player',
               value: 'player'
@@ -162,6 +166,7 @@
           player: this.player_id > 0 ? this.player_id : '',
           team: this.team_id > 0 ? this.team_id : '',
           league: this.league_id > 0 ? this.league_id : '',
+          category: this.category
         }
         this.prepareReport(this.type, ids, this.search);
       }

@@ -3,15 +3,16 @@
     <div class="col-lg-12 inner">
       <input name="team" ref="input" autocomplete="off" :placeholder="placeholder" :readonly="readonly" class="search form-control"
         :class="readonly ? 'readonly':''" v-model="search" type="text" v-on:keyup="handleKey" :required="required == true"
-        @blur="blur" @click="focus()" />
+        @click="focus()"  @blur="blur"  />
       <div class="search-results">
-        <div v-for="(value, index) in results" :key="index" @mousedown="setvalue(index)" class="one-result" :class="{'focus' : index == resultFocus} " @mouseover="resultFocus = index">
+        <div v-for="(value, index) in results" :key="index" @mousedown="setvalue(index)" class="one-result" :class="{'focus' : index == resultFocus} "
+          @mouseover="resultFocus = index">
           <div class="arrow"></div>
           <img src="https://unsplash.it/50/50" class="rounded-circle img-fluid">
           <p> {{value}}</p>
         </div>
-        <div v-if="taggable && allowtag && (!minChar || search.length >= minChar) " @mousedown="newentry()"  class="one-result new-result"
-          :class="{'focus' : results.length == resultFocus}"  @mouseover="resultFocus = results.length">
+        <div v-if="taggable && allowtag && (!minChar || search.length >= minChar) " @mousedown="newentry()" class="one-result new-result"
+          :class="{'focus' : results.length == resultFocus}" @mouseover="resultFocus = results.length">
           <div class="arrow "></div>
           <img src="https://unsplash.it/50/50" class="rounded-circle img-fluid">
           <p> {{search}} (Add new entry)</p>
@@ -117,7 +118,7 @@
       allowtag: function () {
         if (this.search == '')
           return false;
-        for (var i in this.results){
+        for (var i in this.results) {
           if (this.results[i] == this.search)
             return false;
         }
@@ -148,9 +149,6 @@
         this.value = '';
         this.selected = null;
       },
-      focus() {
-        this.startSearch();
-      },
       blur() {
         this.flushSearchResults();
         if (this.search === '') {
@@ -169,6 +167,9 @@
           this.$emit('update:obj', this.selected);
         }
       },
+      focus() {
+        this.startSearch();
+      },
       handleKey(event) {
         if ((event.keyCode >= 48 && event.keyCode <= 57) ||
           (event.keyCode >= 65 && event.keyCode <= 90) ||
@@ -176,10 +177,12 @@
         ) this.startSearch();
         if (event.keyCode == 40 && this.resultFocus < this.results.length)
           this.resultFocus++;
-        if (event.keyCode == 38 && this.resultFocus > 0)
+        if (event.keyCode == 38 && this.resultFocus > -1)
           this.resultFocus--;
-        if (event.keyCode == 13 && this.resultFocus >= 0) {
-          if (this.resultFocus != this.results.length)
+        if (event.keyCode == 13) {
+          if (this.resultFocus == -1)
+            this.clear
+          else if (this.resultFocus != this.results.length)
             this.setvalue(this.resultFocus);
           else
             this.newentry();
@@ -187,8 +190,10 @@
         }
       },
       startSearch() {
-        if (this.search != '' && (!this.minChar || this.search.length >= this.minChar))
+        if (!this.minChar || this.search.length >= this.minChar) {
+          this.resultFocus = -1;
           this.onkeyup(this.type, this.search);
+        }
       }
     }
   };

@@ -68,7 +68,7 @@
         v-on:update:files="files = $event" />
       <div class="form-group buttons-inner row">
         <button v-if="!report && !request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
-        <button v-if="report" id="submit" class="ft-button ft-button-success" @click="handleSubmit">Update</button>
+        <button v-if="report" id="submit" class="ft-button ft-button-success" @click="handleSubmit(report.status)">Update</button>
         <button v-if="!report && request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('private')">Send Report</button>
         <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default ft-button">Cancel</button>
       </div>
@@ -87,7 +87,7 @@ import AddAttachments from 'app/components/Input/AddAttachments';
 
 export default {
   name: 'TeamReportForm',
-  props: ['submitReport', 'report', 'cancelAction', 'request','hasBankAccount'],
+  props: ['submitReport', 'report', 'cancelAction', 'request','hasBankAccount','category'],
   components: {
     matchanalyzed: MatchAnalyzed,
     currencyinput: CurrencyInput,
@@ -97,6 +97,7 @@ export default {
     return {
       files: [],
       meta_data: {
+        category: this.category,
         analyzed_matches: [
           {
             date: '',
@@ -131,7 +132,7 @@ export default {
         remove_attachment: this.remove_attachment,
         status
       };
-      this.submitReport(report, this.files,status);
+      this.submitReport(report, this.files);
       $('html, body').animate(
         {
           scrollTop: 0

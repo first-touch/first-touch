@@ -1,63 +1,9 @@
 @import '~stylesheets/variables';
+@import '~stylesheets/button';
+
 .form-group {
   label {
     color: $main-text-color !important;
-  }
-}
-
-
-
-.buttons-inner {
-  float: right;
-  button,
-  .ft-button {
-    margin: 10px;
-    padding: 10px 30px;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    color: $main-text-color;
-    cursor: pointer;
-    border-radius: 9999px;
-    border: 1px solid $secondary-text-color;
-    background: #fff;
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 13px;
-    text-align: center;
-    line-height: 0;
-    letter-spacing: 0;
-    &:hover {
-      background-color: $button-background-hover;
-    }
-  }
-  .ft-button-success {
-    color: white;
-    border: 1px solid $secondary-text-color;
-    background-color: $main-header-color;
-    &:hover {
-      background-color: $secondary-header-color;
-    }
-  }
-  .ft-button-danger {
-    border: 0;
-    color: white;
-    background-color: #ff2a2a;
-    &:hover {
-      background-color: #ff0000;
-    }
-  }
-  .ft-button-right {
-    margin-left: auto;
-  }
-  .ft-button-secondary {
-    background-color: #a8cb5c;
-    border: solid 1px #a8cb5c;
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 13px;
-    text-align: center;
-    line-height: 0;
-    letter-spacing: 0;
-    color: white;
   }
 }
 
@@ -79,35 +25,47 @@
     font-family: 'Ubuntu', sans-serif;
     color: $secondary-text-color;
   }
-
   ::-moz-placeholder {
     /* Firefox 19+ */
     font-family: 'Ubuntu', sans-serif;
     color: $secondary-text-color;
   }
-
   :-ms-input-placeholder {
     /* IE 10+ */
     font-family: 'Ubuntu', sans-serif;
     color: $secondary-text-color;
   }
-
   :-moz-placeholder {
     /* Firefox 18- */
     font-family: 'Ubuntu', sans-serif;
     color: $secondary-text-color;
   }
-
   .form-control {
     border-radius: 10px;
     border-color: #ced4da;
     color: $main-text-color;
+
+    &.form-control-read-only{
+      background: $form-control-read-only;
+      input{
+        background: $form-control-read-only;
+      }
+    }
     &:focus,
     &.open {
       box-shadow: 0 0 0 0.2rem $input-focus-color;
     }
     &.v-select {
       padding: 0 5px;
+      &.empty {
+        color: $secondary-text-color;
+        .clear{
+          display: none;
+        }
+        .selected-tag {
+          color: $secondary-text-color;
+        }
+      }
       &:focus {
         width: 100000px;
       }
@@ -118,6 +76,7 @@
     }
     .vdp-datepicker {
       border: 0;
+      border-radius: 999px;
       input {
         border: 0;
         padding: 0;
@@ -128,23 +87,33 @@
     .dropdown-toggle {
       border: 0;
     }
-    input {
-      padding: 0 0px;
+
+    &.multiple{
+      input{
+        display: none;
+      }
+      &.empty {
+        input{
+          display:block;
+        }
+      }
+      .selected-tag {
+      color: white;
+      background: $main-text-color;
+      .close{
+        color: white;
+        opacity: unset;
+      }
+    }
     }
     .selected-tag {
       margin-left: 0;
-      color: $main-text-color;
       margin-left: 2px;
       padding: 3px 5px;
       height: 30px;
       border-radius: 10px;
     }
-    &.empty {
-      color: $secondary-text-color;
-      .selected-tag {
-        color: $secondary-text-color;
-      }
-    }
+
   }
   .ftcheckbox-inner {
     text-align: left;
@@ -164,14 +133,6 @@
   }
   .separator {
     text-align: center;
-  }
-  .v-select {
-    .selected-tag {
-      color: $main-text-color !important;
-    }
-    .clear {
-      display: none;
-    }
   }
   .update-attachments {
     color: $main-text-color;
@@ -212,7 +173,7 @@
   }
   background: $form-background;
   color: $main-text-color;
-  padding: 40px 40px 80px 40px;
+  padding: 40px 20px 80px 20px;
   .info {
     color: green;
     font-weight: bold;
@@ -221,7 +182,7 @@
   .ft-input {
     padding: 0;
     input {
-      min-height: 40px;
+      height: 40px;
     }
   }
   .v-select:not(:focus) {
@@ -233,6 +194,14 @@
     &:after {
       content: '*';
       color: red;
+    }
+  }
+  .required-before{
+    &:before {
+      content: '*';
+      color: red;
+      position: absolute;
+      left:0;
     }
   }
 }

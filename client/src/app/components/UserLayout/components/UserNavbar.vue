@@ -307,11 +307,9 @@
       }
     },
     mounted() {
-      if (this.token.status !== ASYNC_SUCCESS) {
         this.getUserInfo({
           token: this.token.value
         });
-      }
     }
   };
 </script>

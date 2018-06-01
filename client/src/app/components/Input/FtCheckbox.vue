@@ -40,8 +40,8 @@
       width: 20px;
       height: 20px;
       position: absolute;
-      top: 0px;
-      left: 2px;
+      top: -2px;
+      left: 0px;
       cursor: pointer;
       background: linear-gradient(top, #222 0%, #45484d 100%);
       border-radius: 50px;

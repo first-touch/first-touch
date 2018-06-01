@@ -3,23 +3,18 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
-        <h4 class="header">Report Marketplace</h4>
+        <h4 class="header">Marketplace {{type}}</h4>
+        <actions class="widget" :toAssignement="toAssignement" />
         <timeline-item>
           <div class="ft-search-widget widget-reports col col-lg-12">
+            <h3>Available Reports</h3>
             <div class="row">
-              <div class="col-lg-2 row">
-                <h6 class="list-title col-lg-12">Reports Count</h6>
-                <h1 class="list-count col-lg-12">{{listReport.length}}</h1>
-                <fieldset class="col-lg-12 col-md-2 buttons-inner" v-if="nbFilters">
-                  <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
-                </fieldset>
-              </div>
-              <filters ref="filter" v-on:update:search="search();"></filters>
+              <filters ref="filter" v-on:update:search="search();" v-on:update:type="type = $event"></filters>
             </div>
             <b-modal id="metaModal" size="lg" ref="metaModal">
-              <playerreportpopup v-if="reportSelected && reportSelected.type_report == 'player'" :report="reportSelected" :buyAction="BuyAction"
+              <playerreportpopup v-if="reportSelected && reportSelected.type_report == 'player'" :report="reportSelected" :buyAction="buyAction"
                 :closeAction="hideModal" />
-              <teamreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :buyAction="BuyAction"
+              <teamreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :buyAction="buyAction"
                 :closeAction="hideModal" />
             </b-modal>
             <b-modal class="ft-modal" size="lg" ref="paymentModal">
@@ -31,81 +26,9 @@
                 </div>
               </paymentpopup>
             </b-modal>
-            <table class="table table-search">
-              <thead>
-                <tr>
-                  <th scope="col" class="shortable" @click="setOrder('report_type')">
-                    <p>Type</p>
-                    <span v-if="params.order == 'report_type'">
-                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-                    </span>
-                  </th>
-                  <th scope="col" class="shortable" @click="setOrder('player')">
-                    <p>Player</p>
-                    <span v-if="params.order == 'player'">
-                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-                    </span>
-                  </th>
-                  <th scope="col" class="shortable" @click="setOrder('position')">
-                    <p>Position</p>
-                    <span v-if="params.order == 'player'">
-                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-                    </span>
-                  </th>
-                  <th scope="col" class="shortable" @click="setOrder('P.Foot')">
-                    <p>P. Foot</p>
-                    <span v-if="params.order == 'player'">
-                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-                    </span>
-                  </th>
-                  <th scope="col" class="shortable" @click="setOrder('height')">
-                    <p>Height</p>
-                    <span v-if="params.order == 'height'">
-                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-                    </span>
-                  </th>
-                  <th scope="col" class="shortable" @click="setOrder('weight')">
-                    <p>Weight</p>
-                    <span v-if="params.order == 'weight'">
-                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-                    </span>
-                  </th>
-                  <th scope="col" class="shortable" @click="setOrder('nationality')">
-                    <p>Nationality</p>
-                    <span v-if="params.order == 'nationality'">
-                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-                    </span>
-                  </th>
-                  <th scope="col" class="shortable" @click="setOrder('scout_name')">
-                    <p>SCOUT</p>
-                    <span v-if="params.order == 'scout_name'">
-                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-                    </span>
-                  </th>
-                  <th scope="col" class="shortable" @click="setOrder('created_at')">
-                    <p>Published</p>
-                    <span v-if="params.order == 'created_at'">
-                      <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                      <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-                    </span>
-                  </th>
-                  <th scope="col" class="shortable">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <report v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :buyAction="BuyAction" :summaryAction="summaryAction"
-                  mode="table" :fields="['type2c','player2c','position','foot','height','weight','nationality','scout','submitted','action']"
-                />
-              </tbody>
-            </table>
+            <div class="table-responsive-lg">
+            <tables-custom :params="params" :setOrder="setOrder" :buyAction="buyAction" :viewAction="viewAction" :type="type" :listReport="listReport"></tables-custom>
+            </div>
           </div>
         </timeline-item>
       </div>
@@ -119,6 +42,9 @@
 </style>
 
 <style lang="scss" scoped>
+  h3 {
+    text-transform: uppercase;
+  }
 </style>
 
 <script>
@@ -138,6 +64,9 @@
   import PaymentPopup from 'app/components/Stripe/PaymentPopup';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import Filters from './components/Filters';
+  import Actions from './components/Actions';
+  import Tables from './components/Tables';
+
   import 'vue-awesome/icons/edit';
   import 'vue-awesome/icons/eye';
   import 'vue-awesome/icons/eye-slash';
@@ -158,6 +87,9 @@
       ftdatepicker: FtDatepicker,
       filters: Filters,
       icon: Icon,
+      actions: Actions,
+      'tables-custom': Tables
+
     },
     data() {
       return {
@@ -166,6 +98,7 @@
           order: '',
           order_asc: true,
         },
+        type: 'player',
         reportSelected: null,
         nbFilters: 0
       };
@@ -221,6 +154,17 @@
       clearsFilter() {
         this.$refs.filter.clearsFilter();
       },
+      toAssignement(){
+        this.$router.push({name: 'clubRequestList'})
+      },
+      setOrder(order) {
+        if (this.params.order == order)
+          this.params.order_asc = !this.params.order_asc;
+        else
+          this.params.order_asc = true;
+        this.params.order = order;
+        this.search();
+      },
       viewAction(report) {
         this.$router.push({
           name: 'clubReport',
@@ -229,7 +173,7 @@
           }
         });
       },
-      BuyAction(report) {
+      buyAction(report) {
         if (this.stripeClubCards.status == ASYNC_NONE)
           this.getClubsCards();
         this.payment = true;

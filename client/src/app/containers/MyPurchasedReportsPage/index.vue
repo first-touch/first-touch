@@ -34,7 +34,7 @@
               </div>
               <filters ref="filter" v-on:update:search="search();"></filters>
             </div>
-            <table class="table table-search">
+            <table class="table table-search table-responsive-lg">
               <thead>
                 <tr>
                   <th scope="col" class="shortable" @click="setOrder('id')">
@@ -108,7 +108,6 @@
 </style>
 
 <style lang="scss" scoped>
-
 </style>
 
 <script>
@@ -178,14 +177,19 @@
         }
         return null;
       },
+      count() {
+        if (this.searchReport.status === ASYNC_SUCCESS && this.searchReport.value)
+          return this.searchReport.value.count;
+        return null;
+      },
       pending() {
-        if (this.searchReport.status === ASYNC_SUCCESS) {
-          return this.searchReport.value.count.pending;
+        if (this.count) {
+          return this.count.pending;
         }
       },
       complete() {
-        if (this.searchReport.status === ASYNC_SUCCESS) {
-          return this.searchReport.value.count.complete;
+        if (this.count) {
+          return this.count.complete;
         }
       },
       url() {

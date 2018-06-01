@@ -25,10 +25,15 @@
       border: none;
       margin-right: 20px;
       a {
+        cursor: pointer;
         padding-left: 20px;
         color: $main-text-color;
         &.active {
           color: $secondary-header-color;
+        }
+        &:hover {
+          color: #A8CB5C;
+          text-decoration: none;
         }
       }
       span {
@@ -39,15 +44,15 @@
         border: solid 1px $timeline-widget-button-background;
         display: inline-block;
         color: $timeline-widget-button-color;
-        padding: 7px 8px;
+        padding: 7px 4px 0 0;
         width: 49px;
         height: 49px;
         .fa-icon {
-          transform: scale(1.4);
+          transform: scale(1.2);
+          cursor: pointer;
         }
       }
       &.button-right {
-        cursor: pointer;
         float: right;
         margin-left: auto;
         span.publish {

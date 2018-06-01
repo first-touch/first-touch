@@ -1,5 +1,5 @@
 <template>
-  <vselect ref="vSelect" :disabled="readonly" v-model="model" multiple :onChange="update" :options="languages" class="ft-input form-control" :placeholder="placeholder"
+  <vselect ref="vSelect" :disabled="readonly" v-model="model" multiple :onChange="update" :options="languages" class="ft-input form-control multiple" :class="{'empty' : model.length == 0}" :placeholder="placeholder"
   />
 </template>
 

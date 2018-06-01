@@ -8,7 +8,7 @@
           </div>
           <div class="info col-lg-8" v-if="position">
             <h2 class="title">
-              <span class="list" v-for="position in request.meta_data.playing_position" :key="position.id">{{position}}</span>
+              <playerposition class="col-lg-8" :value="request.meta_data.playing_position" :readonly="true" />
             </h2>
             <p class="extra">
               <span class="field row">
@@ -35,7 +35,7 @@
               <span class="field row">
                 <span class="col-lg-4">Position:</span>
                 <span class="col-lg-6">
-                  <span class="list" v-for="position in request.meta_data.playing_position" :key="position.id">{{position}}</span>
+                  <playerposition class="col-lg-8" :value="request.meta_data.playing_position" :readonly="true" />
                 </span>
               </span>
               <span class="field row">
@@ -98,10 +98,10 @@
               <span class="field row">
                 <span class="col-lg-4">Position:</span>
                 <span class="col-lg-6" v-if="request.player">
-                  <span class="list" v-for="position in request.player.playing_position" :key="position.id">{{position}}</span>
+                  <playerposition class="col-lg-8" :value="request.player.playing_position" :readonly="true" />
                 </span>
                 <span class="col-lg-6" v-if="!request.player">
-                  <span class="list" v-for="position in request.meta_data.playing_position" :key="position.id">{{position}}</span>
+                  <playerposition class="col-lg-8" :value="request.meta_data.playing_position" :readonly="true" />
                 </span>
               </span>
               <span class="field row">
@@ -170,7 +170,7 @@
             </p>
           </div>
         </div>
-        <div class="widget col-lg-2">
+        <div class="widget col-lg-2 buttons-inner">
           <router-link v-if="own" :to="{ name: 'clubRequest', params: { id: request.id }}" class="ft-action">
             <button class="btn-round">Edit</button>
           </router-link>
@@ -255,7 +255,7 @@
         </span>
         <span v-if="field == 'action'" class="contents">
           <div class="table-action row">
-            <div class="col col-lg-8 first-action">
+            <div class="col col-lg-8 first-action buttons-inner">
               <router-link v-if="canAction(own && !position, 'view_bids', true)" :to="{ name: 'clubRequestBids', params: { id: request.id }}"
                 class="ft-action">
                 <button class="btn-round">View Bids</button>
@@ -360,6 +360,7 @@
   import countrydata from 'country-data';
   import 'vue-awesome/icons/ellipsis-v';
   import Icon from 'vue-awesome/components/Icon';
+  import PlayerPosition from 'app/components/Input/PlayerPosition';
 
   export default {
     name: 'RequestItem',
@@ -368,6 +369,8 @@
     ],
     components: {
       icon: Icon,
+      playerposition: PlayerPosition,
+
     },
     data() {
       return {

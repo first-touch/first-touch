@@ -27,9 +27,8 @@
         </div>
         <slot />
 
-        <div class="buttons-inner col-lg-8">
-
-          <button class="ft-button-success  ft-button-right" v-on:click="purchase">Purchase</button>
+        <div class="buttons-inner row">
+          <button class="ft-button-success ft-button-right" v-on:click="purchase">Purchase</button>
           <button class="ft-button" v-if="!emptyCard" v-on:click="newCard = !newCard">
             <span v-if="!newCard">Add a new card </span>
             <span v-if="newCard">Use existing card</span>
@@ -46,9 +45,11 @@
 </template>
 
 <style lang="scss">
+  @import '~stylesheets/variables';
+
   .payment-widget {
     .selected-tag {
-      color: red;
+      color: $main-text-color;
     }
   }
 

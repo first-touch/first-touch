@@ -25,62 +25,12 @@
       // min-height: 700px;
     }
   }
+  @import '~stylesheets/button';
+
   .modal-md {
     max-width: 800px; // min-height: 500px;
     .modal-content {
       // min-height: 200px;
-    }
-  }
-  .buttons-inner {
-    display: flex;
-    button {
-      margin: 10px;
-      padding: 10px 30px;
-      display: flex;
-      justify-content: center;
-      text-align: center;
-      color: $main-text-color;
-      cursor: pointer;
-      border-radius: 9999px;
-      border: 1px solid $secondary-text-color;
-      background: #fff;
-      font-family: 'Ubuntu', sans-serif;
-      font-size: 13px;
-      text-align: center;
-      line-height: 0;
-      letter-spacing: 0;
-      &:hover {
-        background-color: $button-background-hover;
-      }
-    }
-    .ft-button-success {
-      color: white;
-      border: 1px solid $secondary-text-color;
-      background-color: $main-header-color;
-      &:hover {
-        background-color: $secondary-header-color;
-      }
-    }
-    .ft-button-danger {
-      border: 0;
-      color: white;
-      background-color: #ff2a2a;
-      &:hover {
-        background-color: #ff0000;
-      }
-    }
-    .ft-button-right {
-      margin-left: auto;
-    }
-    .ft-button-secondary {
-      background-color: #a8cb5c;
-      border: solid 1px #a8cb5c;
-      font-family: 'Ubuntu', sans-serif;
-      font-size: 13px;
-      text-align: center;
-      line-height: 0;
-      letter-spacing: 0;
-      color: white;
     }
   }
   .error {

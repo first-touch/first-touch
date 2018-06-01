@@ -3,7 +3,7 @@
     <span class="field row">
       <currencyinput :value="price" :currency="request.price.currency"/>
     </span>
-    <span class="footer-modal buttons-inner clo-md-12">
+    <span class="footer-modal buttons-inner col-md-12 row">
       <button class="ft-button ft-button-success ft-button-right" v-if="!this.request.bid_status" @click="newBid(request,price)">Send Bid</button>
       <button class="ft-button ft-button-success ft-button-right" v-if="this.request.bid_status" @click="newBid(request,price)">Update Bid</button>
       <button class="ft-button" @click="close(request)">Close</button>

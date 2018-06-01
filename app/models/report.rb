@@ -21,8 +21,60 @@ class Report < ApplicationRecord
    .select('reports.*, orders.status AS orders_status')
   end
 
-  def self.joins_orders
+  def player_info
+    if self.type_report == 'player'
+      if !self.player_id
+        return self.meta_data['player_info']
+      else
+        return self.player.personal_profile
+      end
+    end
+  end
 
+  def player_name
+    if self.type_report == 'player'
+      if !self.player_id
+        return self.meta_data['search']['player']
+      else
+        return self.player.search_string
+      end
+    end
+  end
+
+  def player_field(field)
+    if self.type_report == 'player'
+      r = self.player_info[field]
+      if field == 'playing_position' and self.player_id
+          return [r]
+      end
+      return  r
+    end
+    nil
+  end
+
+  def club_name
+    if self.type_report == 'team'
+      if !self.team_id
+        return self.meta_data['search']['team']
+      else
+        return self.team.team_name
+      end
+    end
+  end
+
+  def league_name
+    if self.type_report == 'team'
+      if !self.team_id
+        return [self.meta_data['search']['league']]
+      else
+        return self.team.competitions.map(&:name)
+      end
+    end
+  end
+  def category
+    if self.type_report == 'team'
+      self.meta_data['category'] ? self.meta_data['category'] : ''
+    end
   end
 
   def self.proposed_reports(request_id)

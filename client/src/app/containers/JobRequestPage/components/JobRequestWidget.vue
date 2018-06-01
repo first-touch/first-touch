@@ -1,11 +1,11 @@
 <template>
   <div class="widget-request ft-search-widget">
-    <h4 class="header">My Jobs Request</h4>
+    <h4 class="header">My ASSIGNMENTS</h4>
     <timeline-item>
       <div class="widget-content col col-lg-12">
         <div class="row align-items-start">
           <div class="col-lg-2 row">
-            <h6 class="list-title col-lg-12 ">Request Count</h6>
+            <h6 class="list-title col-lg-12 ">ASSIGNMENT COUNT</h6>
             <h1 class="list-count col-lg-12 ">{{listRequest.length}}</h1>
             <fieldset class="col-lg-12 col-md-2 buttons-inner" v-if="nbFilters">
               <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
@@ -38,16 +38,9 @@
           </form>
         </div>
       </div>
-      <table class="table table-search">
+      <table class="table table-search table-responsive-lg">
         <thead>
           <tr>
-            <th scope="col" class="shortable" @click="setOrder('id')">
-              <p>Job Request ID</p>
-              <span v-if="params.order == 'id'">
-                <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-              </span>
-            </th>
             <th scope="col" class="shortable" @click="setOrder('type_request')">
               <p>Job Type </p>
               <span v-if="params.order == 'type_request'">
@@ -74,7 +67,7 @@
         </thead>
         <tbody>
           <request v-for="request in listRequest" :key="request.id" :request="request" :update="updateStatus" own="true" mode="table"
-            :fields="['id','type','created_at','bids','action']"></request>
+            :fields="['type','created_at','bids','action']"></request>
         </tbody>
       </table>
     </timeline-item>

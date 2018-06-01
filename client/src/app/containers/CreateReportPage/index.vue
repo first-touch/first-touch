@@ -43,7 +43,7 @@
               <keep-alive>
                 <playerreportform v-if="report_type == 'player'  && status == '' " :hasBankAccount="hasBankAccount" :submitReport="customCreateReport"
                   :playerId="player_id" :request="request" :cancelAction="cancel" />
-                <teamreportform v-if="report_type == 'team' && status == '' " :hasBankAccount="hasBankAccount" :submitReport="customCreateReport"
+                <teamreportform v-if="report_type == 'team' && status == '' " :category="category" :hasBankAccount="hasBankAccount" :submitReport="customCreateReport"
                   :team_id="team_id" :cancelAction="cancel" :request="request" />
               </keep-alive>
             </div>
@@ -101,12 +101,6 @@
     }
   }
 
-  .form-container {
-    background-color: $form-background;
-    border-radius: 5px;
-    padding: 20px;
-    width: 100%;
-  }
 </style>
 
 <script>
@@ -263,6 +257,7 @@
         this.job_id = ids.job;
         this.player_id = ids.player;
         this.team_id = ids.team;
+        this.category = ids.category;
         this.search = search;
         this.showForm = true;
         if (this.player_id > 0)
@@ -299,7 +294,8 @@
         league_id: '',
         player_id: '',
         search: {},
-        showForm: false
+        showForm: false,
+        category: ''
       };
     }
   };

@@ -5,7 +5,7 @@
         <input type="text" class="col-lg-12 form-control" v-model="headline"  placeholder="Report name">
       </div>
     </div>
-    <div class="form-group" v-if="priceEdit">
+    <div class="row form-group" v-if="priceEdit">
       <div class="col-lg-12">
         <div class="price-input">
           <currencyinput :value="price" placeholder="Price"/>
@@ -19,16 +19,16 @@
         <i class="sub-menu-arrow" :class="playersummary ? 'active' : ''"></i> Player Summary </h5>
       <div class="form-group form-inner">
         <transition name="fade">
-          <div class="form-group" v-if="playersummary">
+          <div class="form-group player-summary" v-if="playersummary">
             <div class="row">
               <div class="col-lg-4">
-                <input type="number" class="col-lg-12 form-control" v-model="meta_data.player_info.age" :placeholder="agePlaceHolder">
+                <input type="number" class="col-lg-12 form-control" v-model.number="meta_data.player_info.age" :placeholder="agePlaceHolder">
               </div>
               <div class="col-lg-4">
-                <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.player_info.height" :placeholder="heightPlaceHolder">
+                <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.player_info.height" :placeholder="heightPlaceHolder">
               </div>
               <div class="col-lg-4">
-                <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.player_info.weight" :placeholder="weightPlaceHolder">
+                <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.player_info.weight" :placeholder="weightPlaceHolder">
               </div>
             </div>
             <div class="row">
@@ -117,8 +117,8 @@
       </transition>
     </div>
     <div class="form-group">
-      <label>Analysis of Trainings/Matches</label>
-      <matchanalyzed :analyzed_matches="meta_data.analyzed_matches" type="player" />
+      <label class="col-lg-12">Analysis of Trainings/Matches</label>
+      <matchanalyzed class="col-lg-12" :analyzed_matches="meta_data.analyzed_matches" type="player" />
     </div>
     <div class="form-group row">
       <div class="col-lg-12">
@@ -167,7 +167,7 @@
       v-on:update:files="files = $event" />
     <div class="form-group buttons-inner row">
       <button v-if="!report && !request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
-      <button v-if="report" id="submit" class="ft-button ft-button-success" @click="handleSubmit">Update</button>
+      <button v-if="report" id="submit" class="ft-button ft-button-success" @click="handleSubmit(report.status)">Update</button>
       <button v-if="!report && request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('private')">Send Report</button>
       <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default ft-button">Cancel</button>
     </div>
@@ -185,9 +185,6 @@
     transition: all 0.75s;
     max-height: 500px;
   }
-  .row {
-    padding: 10px 0;
-  }
   .fade-enter,
   .fade-leave-to {
     opacity: 0.1;
@@ -198,6 +195,11 @@
     .radio-group {
       label {
         width: 10%;
+      }
+    }
+    .player-summary{
+      .row{
+        margin-bottom: 20px;
       }
     }
     .transfer-value {
@@ -292,7 +294,9 @@
             languages: [],
             playing_position: [],
             age: null,
-            preferred_foot: ''
+            preferred_foot: '',
+            height: null,
+            weight: null
           },
           transfer_sum: {
             loan_interested: 'No',
@@ -355,12 +359,12 @@
       },
       agePlaceHolder() {
         if (this.position) {
-          if (this.request.meta_data.age_min && this.request.meta_data.age_max)
-            return `Between ${this.request.meta_data.age_min} and ${this.request.meta_data.age_max}`;
-          if (this.request.meta_data.age_min)
-            return `From ${this.request.meta_data.age_min}`;
-          if (this.request.meta_data.age_max)
-            return `Less than ${this.request.meta_data.age_max}`;
+          if (this.request.meta_data.min_age && this.request.meta_data.max_age)
+            return `Between ${this.request.meta_data.min_age} and ${this.request.meta_data.max_age}`;
+          if (this.request.meta_data.min_age)
+            return `From ${this.request.meta_data.min_age}`;
+          if (this.request.meta_data.max_age)
+            return `Less than ${this.request.meta_data.max_age}`;
         }
         return 'Age';
       },
@@ -377,12 +381,12 @@
       },
       heightPlaceHolder() {
         if (this.position) {
-          if (this.request.meta_data.min_heigth && this.request.meta_data.max_heigth)
-            return `Between ${this.request.meta_data.min_heigth} and ${this.request.meta_data.max_heigth}`;
-          if (this.request.meta_data.min_heigth)
-            return `From ${this.request.meta_data.min_heigth}`;
-          if (this.request.meta_data.max_heigth)
-            return `Less than ${this.request.meta_data.max_heigth}`;
+          if (this.request.meta_data.min_height && this.request.meta_data.max_height)
+            return `Between ${this.request.meta_data.min_height} and ${this.request.meta_data.max_height}`;
+          if (this.request.meta_data.min_height)
+            return `From ${this.request.meta_data.min_height}`;
+          if (this.request.meta_data.max_height)
+            return `Less than ${this.request.meta_data.max_height}`;
         }
         return 'Height';
       }
@@ -420,7 +424,7 @@
           remove_attachment: this.remove_attachment,
           status
         };
-        this.submitReport(report, this.files, status);
+        this.submitReport(report, this.files);
         $('html, body').animate({
             scrollTop: 0
           },

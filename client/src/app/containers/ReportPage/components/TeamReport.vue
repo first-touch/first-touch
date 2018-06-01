@@ -112,7 +112,7 @@
 
   .summary-report {
     display: flex;
-    border-left: 7px solid #a8cb5c;
+    border-left: 7px solid $main-header-color;
     margin-top: 20px;
   }
 
@@ -197,7 +197,7 @@
       color: $main-text-color;
       .fa-icon {
         margin-right: 20px;
-        color: #a8cb5c;
+        color: $main-header-color;
       }
       .btn-attachments {
         margin: 0;

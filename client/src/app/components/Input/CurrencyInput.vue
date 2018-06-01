@@ -1,25 +1,6 @@
 <template>
-  <div class="autonumeric input-group ft-input row" v-on:blur="blur()">
-    <div class="input-group-addon currency">{{currency?currency:model.currency | currency}}</div>
-    <autonumeric @blur.native="blurMin()" :disabled="lock" class="form-control " :class="max ?'col-lg-5 input-1':''" v-model="model.value" :placeholder="placeholder"
-      :options="{
-         digitGroupSeparator: ',',
-         decimalCharacter: '.',
-         decimalCharacterAlternative: '.',
-         roundingMethod: 'U',
-         minimumValue: '0'
-     }"></autonumeric>
-    <slot />
-    <span v-if="max" class="separator col-lg-1">-</span>
-    <autonumeric @blur.native="blurMax()" :disabled="lock" class="form-control input-2 col-lg-5" v-if="max" v-model="model.max" :placeholder="placeholder1"
-      :options="{
-         digitGroupSeparator: ',',
-         decimalCharacter: '.',
-         decimalCharacterAlternative: '.',
-         roundingMethod: 'U',
-         minimumValue: '0'
-     }" />
-    <div class="input-group-addon input-group-addon-selector">
+  <div class="autonumeric input-group ft-input" v-on:blur="blur()">
+        <div class="input-group-addon input-group-addon-selector">
 
       <select :disabled="lock" v-if="!currency" class="currency-selector" v-model="model.currency">
         <option value="USD" data-placeholder="0.00">USD</option>
@@ -29,6 +10,28 @@
       </select>
       <span class="currency" v-if="currency">{{currency}}</span>
     </div>
+    <autonumeric @blur.native="blurMin()" :disabled="lock" class="form-control " :class="max ?'col-lg-5 input-1':''" v-model="model.value"
+      :placeholder="placeholder" :options="{
+         digitGroupSeparator: ',',
+         decimalCharacter: '.',
+         decimalCharacterAlternative: '.',
+         roundingMethod: 'U',
+         minimumValue: '0'
+     }"></autonumeric>
+    <slot />
+    <span v-if="max && !noHyphen" class="separator col-lg-1 col-md-1">-</span>
+        <span v-if="max && noHyphen" class="separator col-lg-1 col-md-1"></span>
+
+    <autonumeric @blur.native="blurMax()" :disabled="lock" class="form-control input-2 col-lg-5" v-if="max" v-model="model.max"
+      :placeholder="placeholder1" :options="{
+         digitGroupSeparator: ',',
+         decimalCharacter: '.',
+         decimalCharacterAlternative: '.',
+         roundingMethod: 'U',
+         minimumValue: '0'
+     }" />
+    <div class="input-group-addon currency">{{currency?currency:model.currency | currency}}</div>
+
   </div>
 </template>
 
@@ -37,6 +40,7 @@
 
   input {
     padding: 10px !important;
+    max-height: 40px;
   }
 
   .autonumeric {
@@ -63,10 +67,12 @@
     }
     .input-group-addon {
       padding: 0;
+      max-height: 40px;
       &.input-group-addon-selector,
       .currency-selector {
-        border-bottom-right-radius: 10px;
-        border-top-right-radius: 10px;
+           border-bottom-left-radius: 10px;
+      border-top-left-radius: 10px;
+
       }
       .currency-selector {
         border: 0;
@@ -75,8 +81,8 @@
     }
     .currency {
       padding: 5px 10px;
-      border-bottom-left-radius: 10px;
-      border-top-left-radius: 10px;
+           border-bottom-right-radius: 10px;
+        border-top-right-radius: 10px;
     }
     .col {
       float: left;
@@ -106,7 +112,7 @@
     components: {
       autonumeric: VueAutonumeric
     },
-    props: ['value', 'max', 'currency', 'lock','placeholder','placeholder1'],
+    props: ['value', 'max', 'currency', 'lock', 'placeholder', 'placeholder1', 'maxValue','noHyphen'],
     data() {
       return {
         model: this.value
@@ -114,12 +120,18 @@
     },
     methods: {
       blurMin() {
+        if (this.model.value > this.maxValue) {
+          this.model.value = parseInt(this.maxValue)
+        }
         if (this.max) {
           if (this.model.value > this.model.max) this.model.max = this.model.value
           this.$emit('update');
         }
       },
       blurMax() {
+        if (this.model.max > this.maxValue) {
+          this.model.max = parseInt(this.maxValue)
+        }
         if (this.model.max < this.model.value) this.model.value = this.model.max;
         this.$emit('update');
       }
@@ -127,7 +139,7 @@
     watch: {
       model: {
         handler: function (val, oldVal) {
-          this.$emit('update');
+            this.$emit('update');
         },
         deep: true
       },

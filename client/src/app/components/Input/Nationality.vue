@@ -1,5 +1,5 @@
 <template>
-  <vselect :disabled="readonly" ref="vSelect" v-model="model" :onChange="update" :options="countries" class="ft-input form-control" :placeholder="placeholder"/>
+  <vselect :disabled="readonly" ref="vSelect" v-model="model" :onChange="update" :options="countries" class="ft-input form-control" :class="{'empty' : model == null}" :placeholder="placeholder"/>
 </template>
 
 <script>
@@ -24,7 +24,9 @@ export default {
   },
   methods: {
     update(val) {
-      if (val.value) this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
+      if (val.value) {
+        this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
+      }
     }
   },
   computed: {

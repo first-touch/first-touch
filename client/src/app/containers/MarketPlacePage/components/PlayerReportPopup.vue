@@ -81,16 +81,6 @@
     </div>
   </div>
 </template>
-<style lang="scss">
-  @import '~stylesheets/variables';
-  @import '~stylesheets/form';
-  .buttons-inner {
-    button {
-      float: right;
-      margin-right: 20px;
-    }
-  }
-</style>
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables';

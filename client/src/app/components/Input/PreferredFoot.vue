@@ -18,7 +18,6 @@
     data() {
       return {
         model: null,
-        options: ['foo', 'bar', 'baz'],
         options: [{
             label: 'Left',
             value: 'L'

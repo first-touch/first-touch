@@ -93,9 +93,7 @@
             </div>
             <div class="position" v-if="playerInfo.playing_position">
               <p class="position-title">Playing position(s):</p>
-              <p class="position-content">
-                <span v-for="position in playerInfo.playing_position" class="list" :key="position.id">{{position}}</span>
-              </p>
+              <playerposition class="col-lg-8" :value="playerInfo.playing_position" :readonly="true" />
               <img class="img-fluid position-map" src="http://www.conceptdraw.com/solution-park/resource/images/solutions/soccer/Sport-Soccer-Football-Formation-4-4-1-1.png"
               />
             </div>
@@ -284,7 +282,7 @@
       color: $main-text-color;
       .fa-icon {
         margin-right: 20px;
-        color: #a8cb5c;
+        color: $main-header-color;
       }
       .player-summary,
       .contract-summary {
@@ -327,6 +325,7 @@
   import 'vue-awesome/icons/check';
   import 'vue-awesome/icons/times';
   import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
+  import PlayerPosition from 'app/components/Input/PlayerPosition';
 
   import Icon from 'vue-awesome/components/Icon';
   import countrydata from 'country-data';
@@ -336,6 +335,7 @@
     props: ['report', 'downloadFile'],
     components: {
       icon: Icon,
+     playerposition: PlayerPosition,
       matchanalyzed: MatchAnalyzed,
       'timeline-item': TimelineItem
     },

@@ -31,12 +31,12 @@
             <span v-if="!request.player">
               <span class="field row">
                 <span class="col-lg-4">Age Range: </span>
-                <span class="col-lg-6" v-if="request.meta_data.age_min || request.meta_data.age_max">{{ request.meta_data.age_min}} to {{ request.meta_data.age_max}} years
+                <span class="col-lg-6" v-if="request.meta_data.min_age || request.meta_data.max_age">{{ request.meta_data.min_age}} to {{ request.meta_data.max_age}} years
                 </span>
               </span>
               <span class="field row">
                 <span class="col-lg-4">Height Range: </span>
-                <span class="col-lg-6" v-if="request.meta_data.min_heigth || request.meta_data.max_heigth">{{ request.meta_data.min_heigth}} to {{ request.meta_data.max_heigth}} cm
+                <span class="col-lg-6" v-if="request.meta_data.min_height || request.meta_data.max_height">{{ request.meta_data.min_height}} to {{ request.meta_data.max_height}} cm
                 </span>
               </span>
               <span class="field row">

@@ -30,7 +30,7 @@
             </div>
           </form>
         </div>
-        <table class="table table-search">
+        <table class="table table-search table-responsive-lg">
           <thead>
             <tr>
               <th scope="col" class="shortable" @click="setOrder('id')">

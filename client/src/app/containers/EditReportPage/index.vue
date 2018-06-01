@@ -113,7 +113,7 @@
 
   .report-container {
     display: flex;
-    border-left: 7px solid #a8cb5c;
+    border-left: 7px solid $main-header-color;
     margin-top: 20px;
   }
 
@@ -125,7 +125,7 @@
     border-bottom: 7px solid transparent;
     border-left: 7px solid;
     margin-top: 18px;
-    border-left-color: #a8cb5c;
+    border-left-color: $main-header-color;
   }
 
   .form-container {
@@ -279,7 +279,7 @@
       report() {
         this.status = '';
         if (this.report.status === ASYNC_SUCCESS) {
-          this.reportValue = this.report.value;
+          this.searchReport.value.report = this.report.value;
           if (this.files) {
             if (this.files.length > 0) {
               this.startUpload();
