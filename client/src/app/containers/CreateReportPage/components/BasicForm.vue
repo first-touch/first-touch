@@ -1,5 +1,6 @@
 <template>
   <form class="report-type-form ft-form" @submit.prevent>
+    <ftdropzone />
     <div class="form-group row">
       <label class="col-lg-3 col-form-label required">Select report type</label>
       <vselect v-model="vselect_type" class="col-lg-6 form-control" :options="options.type_report" :class="type == '' ? 'empty' : '' "
@@ -57,6 +58,7 @@
   import vSelect from 'vue-select';
   import TeamSelect from 'app/components/Input/TeamSelect';
   import inputSearch from 'app/components/Input/InputSearch.vue';
+  import FtDropZone from 'app/components/Input/FtDropZone.vue';
 
   export default {
     name: 'ReportBasicForm',
@@ -64,7 +66,8 @@
     components: {
       inputsearch: inputSearch,
       vselect: vSelect,
-      'team-select': TeamSelect
+      'team-select': TeamSelect,
+      ftdropzone: FtDropZone
 
     },
     data() {

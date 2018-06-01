@@ -73,6 +73,7 @@ Rails.application.routes.draw do
       get 'requests/bids/:request_id', controller: :bids, action: :requestbids
       post 'requests/bids/:request_id', controller: :bids, action: :acceptbid
       resource :club_stripes, :path => "club/stripe"
+      resources :files, only: [:show, :new]
 
     end
   end
