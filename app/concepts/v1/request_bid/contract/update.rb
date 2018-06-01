@@ -3,7 +3,6 @@ module V1
     module Contract
       class Update < Reform::Form
         property :price
-
       end
     end
   end

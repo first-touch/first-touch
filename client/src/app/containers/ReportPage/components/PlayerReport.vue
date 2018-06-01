@@ -1,16 +1,16 @@
 <template>
-  <div class="report col-md-12">
+  <div class="report col-lg-12">
     <div v-if="report.id">
       <timeline-item>
-        <h5 class="col-md-9">{{report.headline}}</h5>
-        <div class="header row col-md-12">
-          <div class="row col col-sm-6">
-            <p class="col-sm-3">UPDATED </p>
-            <p class="col-md-5"> {{report.created_at | moment}}</p>
+        <h5 class="col-lg-9">{{report.headline}}</h5>
+        <div class="header row col-lg-12">
+          <div class="row col col-lg-6">
+            <p class="col-lg-3">UPDATED </p>
+            <p class="col-lg-5"> {{report.created_at | moment}}</p>
           </div>
-          <div class="row col col-sm-6">
-            <p class="col-sm-5">Price: </p>
-            <p class="col-md-7">{{report.price.value}} {{report.price.currency | currency}}</p>
+          <div class="row col col-lg-6">
+            <p class="col-lg-5">Price: </p>
+            <p class="col-lg-7">{{report.price.value}} {{report.price.currency | currency}}</p>
           </div>
         </div>
         <div class="content">
@@ -18,7 +18,7 @@
             <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
             <div class="info">
               <h4 class="name" v-if="report.player">{{report.player.first_name}} {{report.player.last_name}}</h4>
-              <h4 class="name" v-if="!report.player">{{report.meta_data.search.player}} </h4>
+              <h4 class="name" v-if="!report.player && report.meta_data.search">{{report.meta_data.search.player}} </h4>
               <p class="role">Football Player</p>
               <p class="team" v-if="!report.team_info && report.team">{{report.team.team_name}}
                 <span class="list" v-for="comp in report.team.competitions.competitions" :key="comp.id"> {{comp.name}}</span>
@@ -33,7 +33,7 @@
                 <span v-if="report.team_info">
                   <span class="list" v-for="team in report.team_info.teams" :key="team.id">{{team.team_name}}</span>
                 </span>
-                <span v-if="!report.team_info">
+                <span v-if="!report.team_info && report.meta_data.search">
                   {{report.meta_data.search.team}}
                 </span>
               </p>
@@ -44,7 +44,7 @@
                     <span class="list" v-for="comp in team.competitions.competitions" :key="comp.id"> {{comp.name}}</span>
                   </span>
                 </span>
-                <span v-if="!report.team_info">
+                <span v-if="!report.team_info && report.meta_data.search">
                   <span v-if="report.league">
                     {{report.league.name}}
                   </span>
@@ -93,9 +93,7 @@
             </div>
             <div class="position" v-if="playerInfo.playing_position">
               <p class="position-title">Playing position(s):</p>
-              <p class="position-content">
-                <span v-for="position in playerInfo.playing_position" class="list" :key="position.id">{{position}}</span>
-              </p>
+              <playerposition class="col-lg-8" :value="playerInfo.playing_position" :readonly="true" />
               <img class="img-fluid position-map" src="http://www.conceptdraw.com/solution-park/resource/images/solutions/soccer/Sport-Soccer-Football-Formation-4-4-1-1.png"
               />
             </div>
@@ -109,41 +107,39 @@
           </h5>
           <div class="contract-summary">
             <div class="row" v-if="report.meta_data.transfer_sum.wage.value">
-              <label class="col-sm-4 summary-title">Wage </label>
-              <span class="col-sm-4 summary-field"> {{report.meta_data.transfer_sum.wage.value}} {{report.meta_data.transfer_sum.wage.currency | currency}} </span>
+              <label class="col-lg-4 summary-title">Wage </label>
+              <span class="col-lg-4 summary-field"> {{report.meta_data.transfer_sum.wage.value}} {{report.meta_data.transfer_sum.wage.currency | currency}} </span>
             </div>
             <div class="row">
-              <span class="col col-md-12 transfer-title summary-title">
+              <span class="col col-lg-12 transfer-title summary-title">
                 <icon v-if="report.meta_data.transfer_sum.transfer_interested !== 'No'" name="check"></icon>
                 <icon v-if="report.meta_data.transfer_sum.transfer_interested === 'No'" name="times"></icon>
                 Interested in Transfer</span>
             </div>
             <div class="row values" v-if="report.meta_data.transfer_sum.transfer_interested !== 'No'">
-              <div class="col-md-6">
-                <label class="col-sm-8 summary-title">Availability for transfer</label>
-                <span class="col-sm-4 summary-field"> {{report.meta_data.transfer_sum.transfer_availability.value }} {{report.meta_data.transfer_sum.transfer_availability.currency
-                  | currency }}</span>
+              <div class="col-lg-6">
+                <label class="col-lg-7 summary-title">Availability for transfer</label>
+                <span class="col-lg-5 summary-field"> {{report.meta_data.transfer_sum.transfer_availability | moment }}</span>
               </div>
-              <div class="col-md-6">
-                <label class="col-sm-6 summary-title">Transfer Budget</label>
-                <span class="col-sm-6 summary-field"> {{report.meta_data.transfer_sum.transfer_budget.value}} {{report.meta_data.transfer_sum.transfer_budget.currency
+              <div class="col-lg-6">
+                <label class="col-lg-6 summary-title">Transfer Budget</label>
+                <span class="col-lg-6 summary-field"> {{report.meta_data.transfer_sum.transfer_budget.value}} {{report.meta_data.transfer_sum.transfer_budget.currency
                   | currency}}</span>
               </div>
             </div>
             <div class="row">
-              <label class="col-sm-4 transfer-title summary-title">
+              <label class="col-lg-4 transfer-title summary-title">
                 <icon v-if="report.meta_data.transfer_sum.loan_interested !== 'No'" name="check"></icon>
                 <icon v-if="report.meta_data.transfer_sum.loan_interested === 'No'" name="times"></icon>Interested in Loan</label>
             </div>
             <div class="row values" v-if="report.meta_data.transfer_sum.loan_interested !== 'No'">
-              <div class="col-md-6" v-if="report.meta_data.transfer_sum.loan_availability.value">
-                <label class="col-sm-6 summary-title">Availability for Loan</label>
-                <span class="col-sm-4 summary-field"> {{report.meta_data.transfer_sum.loan_availability.value}} {{report.meta_data.transfer_sum.loan_availability.currency
-                  | currency}}</span>
+              <div class="col-lg-6" v-if="report.meta_data.transfer_sum.loan_availability">
+                <label class="col-lg-7 summary-title">Availability for Loan</label>
+                <span class="col-lg-5 summary-field"> {{report.meta_data.transfer_sum.loan_availability | moment}} </span>
               </div>
-              <div class="col-md-6" v-if="report.meta_data.transfer_sum.contract_end">
-                <label class="col-sm-4 summary-title">End of Contract</label>
-                <span class="col-sm-4 summary-field"> {{report.meta_data.transfer_sum.contract_end}} </span>
+              <div class="col-lg-6" v-if="report.meta_data.transfer_sum.contract_end">
+                <label class="col-lg-6 summary-title">End of Contract</label>
+                <span class="col-lg-6 summary-field"> {{report.meta_data.transfer_sum.contract_end | moment}} </span>
               </div>
             </div>
           </div>
@@ -155,44 +151,44 @@
             Details
           </h5>
           <div>
-            <label class="row col-sm-12 summary-title">Analyzed Matches</label>
+            <label class="row col-lg-12 summary-title">Analyzed Matches</label>
             <matchanalyzed :analyzed_matches="report.meta_data.analyzed_matches" type="player" mode="read" />
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Current Ability Overview</label>
-            <p class="row col-sm-12">{{report.meta_data.overview}} </p>
+            <label class="row col-lg-12 summary-title">Current Ability Overview</label>
+            <p class="row col-lg-12">{{report.meta_data.overview}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Physical Attribute(s)</label>
-            <p class="row col-sm-12"> {{report.meta_data.physical_attributes}} </p>
+            <label class="row col-lg-12 summary-title">Physical Attribute(s)</label>
+            <p class="row col-lg-12"> {{report.meta_data.physical_attributes}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Mental Attribute(s)</label>
-            <p class="row col-sm-12"> {{report.meta_data.mental_attributes}} </p>
+            <label class="row col-lg-12 summary-title">Mental Attribute(s)</label>
+            <p class="row col-lg-12"> {{report.meta_data.mental_attributes}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Technical Attribute(s)</label>
-            <p class="row col-sm-12"> {{report.meta_data.technical_attributes}} </p>
+            <label class="row col-lg-12 summary-title">Technical Attribute(s)</label>
+            <p class="row col-lg-12"> {{report.meta_data.technical_attributes}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Personality</label>
-            <p class="row col-sm-12"> {{report.meta_data.personality}}</p>
+            <label class="row col-lg-12 summary-title">Personality</label>
+            <p class="row col-lg-12"> {{report.meta_data.personality}}</p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Potential</label>
-            <p class="row col-sm-12"> {{report.meta_data.potential}} </p>
+            <label class="row col-lg-12 summary-title">Potential</label>
+            <p class="row col-lg-12"> {{report.meta_data.potential}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Other Observations & Viewpoints To Note</label>
-            <p class="row col-sm-12"> {{report.meta_data.observations}} </p>
+            <label class="row col-lg-12 summary-title">Other Observations & Viewpoints To Note</label>
+            <p class="row col-lg-12"> {{report.meta_data.observations}} </p>
           </div>
           <div class="meta">
-            <label class="row col-sm-12 summary-title">Conclusion</label>
-            <p class="row col-sm-12"> {{report.meta_data.conclusion}} </p>
+            <label class="row col-lg-12 summary-title">Conclusion</label>
+            <p class="row col-lg-12"> {{report.meta_data.conclusion}} </p>
           </div>
           <div>
-            <label class="row col-sm-12 summary-title">Attachments</label>
-            <div class="row col-sm-12 buttons-inner">
+            <label class="row col-lg-12 summary-title">Attachments</label>
+            <div class="row col-lg-12 buttons-inner">
               <button v-for="attachment in report.attachments.attachments" :key="attachment.id" class="btn-info btn-attachments ft-button"
                 @click="downloadFile(attachment.id, attachment.filename)"> {{attachment.filename}}</button>
 
@@ -286,7 +282,7 @@
       color: $main-text-color;
       .fa-icon {
         margin-right: 20px;
-        color: #a8cb5c;
+        color: $main-header-color;
       }
       .player-summary,
       .contract-summary {
@@ -329,6 +325,7 @@
   import 'vue-awesome/icons/check';
   import 'vue-awesome/icons/times';
   import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
+  import PlayerPosition from 'app/components/Input/PlayerPosition';
 
   import Icon from 'vue-awesome/components/Icon';
   import countrydata from 'country-data';
@@ -338,6 +335,7 @@
     props: ['report', 'downloadFile'],
     components: {
       icon: Icon,
+     playerposition: PlayerPosition,
       matchanalyzed: MatchAnalyzed,
       'timeline-item': TimelineItem
     },
@@ -346,8 +344,12 @@
     },
     computed: {
       playerInfo() {
-        if (this.report.player) return this.report.player;
-        if (this.report.meta_data.player_info) return this.report.meta_data.player_info;
+        if (this.report) {
+
+          if (this.report.player) return this.report.player;
+          if (this.report.meta_data.player_info) return this.report.meta_data.player_info;
+        }
+        return null;
       }
     },
     methods: {

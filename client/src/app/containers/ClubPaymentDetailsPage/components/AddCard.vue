@@ -11,12 +11,13 @@
       <div class="payment" v-if="!success">
         <cardinput ref="cardInput" :stripeJs="stripeJs" />
         <div class="buttons-inner">
-          <button class="ft-button ft-button-success" v-on:click="getStripeToken">AddCard</button>
+          <button class="ft-button ft-button-success" v-on:click="getStripeToken">Add Card</button>
+          <button class="ft-button ft-button-right" @click="closeAction()">Close</button>
         </div>
       </div>
       <div v-if="success">
         <p>Success !</p>
-        <div class="col-md-12 buttons-inner">
+        <div class="col-lg-12 buttons-inner">
           <button class="ft-button-success ft-button-right" @click="closeAction()">Close</button>
         </div>
       </div>

@@ -6,7 +6,6 @@ module V1
 
         property :name
         property :nation
-
       end
     end
   end

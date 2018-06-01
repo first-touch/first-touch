@@ -20,7 +20,8 @@ module V1
       def setup_model!(options, params:, user_id:, **)
         model = options['model']
         model.status = 'completed'
-        model.report = ::Report.find(params["report_id"])
+        model.completed_date = Time.now
+        model.report = ::Report.find(params['report_id'])
         options['model'] = model
         model.report
       end

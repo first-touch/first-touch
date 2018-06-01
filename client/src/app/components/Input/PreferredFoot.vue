@@ -1,5 +1,5 @@
 <template>
-  <vselect :disabled="readonly" v-model="model" :on-change="update" :options="options" class="ft-input"/>
+  <vselect :disabled="readonly" v-model="model" :on-change="update" :options="options" class="ft-input form-control" :placeholder="placeholder"/>
 </template>
 
 <script>
@@ -7,7 +7,7 @@
 
   export default {
     name: 'PreferredFoot',
-    props: ['value','readonly'],
+    props: ['value','readonly','placeholder'],
     components: {
       vselect: vSelect
     },
@@ -18,7 +18,6 @@
     data() {
       return {
         model: null,
-        options: ['foo', 'bar', 'baz'],
         options: [{
             label: 'Left',
             value: 'L'

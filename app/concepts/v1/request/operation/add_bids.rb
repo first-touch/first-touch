@@ -15,29 +15,26 @@ module V1
 
       def model!(options, params:, current_user:, **)
         options['model.class'] = ::RequestBid
-        model = current_user.request_bids.find_by(request_id: params[:id])
-        if model.blank?
-          model = ::RequestBid.new
-        end
+        model = current_user.request_bids.where(request_id: params[:id]).where.not(status: 'canceled').first
+        model = ::RequestBid.new if model.blank?
         options['model'] = model
       end
 
       def find_request!(options, params:, current_user:, **)
         request = ::Request.all.where(status: 'publish', id: params[:id])
-        options['model'].request = (request.blank?)? nil: request.first
+        options['model'].request = request.blank? ? nil : request.first
         options['model.class'] = ::RequestBid
         options['model'].request
       end
 
       def setup_model!(model:, current_user:, **)
         model.user = current_user
-        model.status = model.request.type_request == 'position'? 'joblist' : 'pending'
+        model.status = model.request.type_request == 'position' ? 'joblist' : 'pending'
       end
 
       def authorized!(current_user:, **)
         current_user.scout?
       end
-
     end
   end
 end

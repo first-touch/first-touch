@@ -6,9 +6,10 @@ module V1
       step :create!
       failure :stripe_failure!, fail_fast: true
       step :persist_stripe_id!
+
       private
 
-      def before_create!(options,  params:, current_user:, **)
+      def before_create!(options, params:, current_user:, **)
         token = params['token']
         result = false
         if !token.nil?
@@ -24,10 +25,10 @@ module V1
         success = true
         begin
           if current_user.stripe_ft.nil?
-            customer = ::Stripe::Customer.create({
+            customer = ::Stripe::Customer.create(
               source: params['token'],
-              email: current_user.email,
-            })
+              email: current_user.email
+            )
             options['stripe_id'] = customer.id
           else
             stripe_ft = current_user.stripe_ft
@@ -35,19 +36,18 @@ module V1
             customer.sources.create(source: params['token'])
           end
           customer = ::Stripe::Customer.retrieve(customer.id)
-          rescue => e
-            success = false
-            body = e.json_body
-            err  = body[:error]
-            options['stripe.errors'] = err[:message]
+        rescue StandardError => e
+          success = false
+          body = e.json_body
+          err  = body[:error]
+          options['stripe.errors'] = err[:message]
         end
         options['model'] = customer
         success
       end
 
-
-      def persist_stripe_id!(options,  params:, current_user:, **)
-        if !options['stripe_id'].nil?
+      def persist_stripe_id!(options, params:, current_user:, **)
+        unless options['stripe_id'].nil?
           stripe_ft = ::StripeFt.new(
             stripe_id: options['stripe_id'],
             user: current_user
@@ -58,7 +58,6 @@ module V1
         end
         true
       end
-
     end
   end
 end

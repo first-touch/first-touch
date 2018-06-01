@@ -44,7 +44,7 @@ class User < ApplicationRecord
   has_many :reports
   has_many :orders
 
-  # Todo: put this in team when they are ready
+  # TODO: put this in team when they are ready
   has_many :requests
   has_many :request_bids
   has_many :reports_buy, foreign_key: :customer_id, class_name: 'Order'

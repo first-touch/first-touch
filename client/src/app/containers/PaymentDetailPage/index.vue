@@ -4,19 +4,20 @@
     <div class="container-fluid">
       <b-modal ref="metaModal" id="metaModal" size="lg" @hide="flushEdit()">
         <personalinformationpopup v-if="personalInformation" :submit="custonNewStripe" :stripeRequired="stripeRequiredFields" :stripe="stripe"
-          :stripeFtouch="stripeFtouch" :closeAction="closeAction" :getCountryInfo="getStripeRequiredInfo" />
+          :stripeFtouch="stripeFtouch" :closeAction="closeAction" :getCountryInfo="getStripeRequiredInfo" :deleteAccount="deleteAccount"/>
         <bankaccountpopup v-if="bank" :PersonalInformationAction="PersonalInformation" :closeAction="closeAction" :stripeRequired="stripeRequiredFields"
           :stripe="stripe" :stripeFtouch="stripeFtouch" :submit="custonNewStripe" :getCountryInfo="getStripeRequiredInfo" />
       </b-modal>
       <b-modal class="ft-modal" ref="DeleteBankModal" size="md" @hide="flushDelete()">
-        <confirmdelete v-if="selectedBankAccount" :bankAccount="selectedBankAccount" :stripeFtouch="stripeFtouch" :deleteAction="deleteBankAccountAction"
+        <confirmdelete v-if="selectedBankAccount" :bankAccount="selectedBankAccount" :stripeFtouch="stripeFtouch"
+         :deleteAction="deleteBankAccountAction" :deleteAccount="deleteAccount" :isDeleteAccount="isDeleteAccount"
           :closeAction="closeAction" />
       </b-modal>
       <div class="ft-page">
-        <actions class="widget" :PersonalInformation="PersonalInformation" :AddPayment="AddPayment" />
         <h4 class="header">Payment Details</h4>
+        <actions class="widget" :hasStripe="hasStripe" :PersonalInformation="PersonalInformation" :AddPayment="AddPayment"  />
         <timeline-item>
-          <bankaccountlist :stripe="stripeFtouch" :deleteBank="deleteBank" :preferredBank="preferredBank" />
+          <bankaccountlist :stripe="stripeFtouch" :deleteBank="deleteBank" :deleteAccount="deleteAccount" :preferredBank="preferredBank" />
         </timeline-item>
       </div>
     </div>
@@ -67,7 +68,8 @@ export default {
       errors: null,
       info: null,
       country: null,
-      stripeRequired: null
+      stripeRequired: null,
+      isDeleteAccount: false
     };
   },
   watch: {
@@ -143,9 +145,13 @@ export default {
     this.getStripe();
   },
   computed: {
-    ...mapGetters(['stripe', 'stripeFtouch', 'stripeRequiredFields', 'stripeDelete']),
-    stripeAccount() {},
-    stripeAddBank() {}
+    ...mapGetters(['stripe', 'stripeFtouch', 'stripeRequiredFields', 'stripeDelete','user']),
+    hasStripe(){
+      if (this.stripeFtouch.status == ASYNC_SUCCESS){
+        return this.stripeFtouch.value.legal_entity
+      }
+      return false;
+    }
   },
   methods: {
     ...mapActions([
@@ -176,11 +182,17 @@ export default {
       });
     },
     deleteBankAccountAction() {
+      var type = !this.isDeleteAccount ?'bank_account':'whole_account';
       var obj = {
-        type: 'bank_account',
+        type: type,
         id: this.selectedBankAccount.id
       };
       this.deleteStripe(obj);
+    },
+    deleteAccount(bankInfo = null){
+      this.isDeleteAccount = true;
+      this.$refs.DeleteBankModal.show();
+      this.selectedBankAccount = bankInfo;
     },
     deleteBank(bankInfo) {
       this.selectedBankAccount = bankInfo;
@@ -198,6 +210,7 @@ export default {
       this.updateStripe(obj);
     },
     closeAction() {
+      this.selectedBankAccount = null;
       this.$refs.metaModal.hide();
       this.$refs.DeleteBankModal.hide();
     }

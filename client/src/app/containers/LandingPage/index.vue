@@ -108,7 +108,7 @@
   <div id="fourth-page">
     <div class="container">
       <div class="row row-50">
-        <div class="col-md-4">
+        <div class="col-lg-4">
           <img src="images/landing-page/ft-icons-club.png" class="img-fluid" />
           <h5>CLUBS</h5>
           <div class="content">
@@ -123,7 +123,7 @@
             </p>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-4">
           <img src="images/landing-page/ft-icons-player.png" class="img-fluid" />
           <h5>PLAYERS</h5>
           <div class="content">
@@ -138,7 +138,7 @@
             </p>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-4">
           <img src="images/landing-page/ft-icons-manager.png" class="img-fluid"  />
           <h5>MANAGERS</h5>
           <div class="content">
@@ -155,7 +155,7 @@
         </div>
       </div>
       <div class="row row-50">
-        <div class="col-md-4">
+        <div class="col-lg-4">
           <img src="images/landing-page/ft-icons-coach.png" class="img-fluid" />
           <h5>COACHES</h5>
           <div class="content">
@@ -170,7 +170,7 @@
             </p>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-4">
           <img src="images/landing-page/ft-icons-scout.png" class="img-fluid" />
           <h5>SCOUTS</h5>
           <div class="content">
@@ -185,7 +185,7 @@
             </p>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-4">
           <img src="images/landing-page/ft-icons-agent.png" class="img-fluid" />
           <h5>AGENTS</h5>
           <div class="content">

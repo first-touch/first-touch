@@ -3,41 +3,32 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
-        <div v-if="request">
-          <h4 class="header">Request</h4>
-          <timeline-item>
-            <request :key="request.id" :request="request" :viewSummary="viewSummary" class="onlyone"></request>
-            <b-modal class="ft-modal" size="lg" ref="requestModal">
-              <div>
-                <playerrequestpopup v-if="request.type_request == 'player' " :request="request" :closeAction="closeAction" />
-                <teamrequestpopup v-if="request.type_request == 'team' " :request="request" :closeAction="closeAction" />
-                <positionrequestpopup v-if="request.type_request == 'position' " :request="request" :closeAction="closeAction" />
-              </div>
-            </b-modal>
-          </timeline-item>
-        </div>
-        <h4 class="header" v-if="!request">Report Marketplace</h4>
-        <h4 class="header" v-if="request">Proposed report</h4>
+        <h4 class="header">Marketplace {{type}}</h4>
+        <actions class="widget" :toAssignement="toAssignement" />
         <timeline-item>
-          <div class="ft-search-widget widget-reports col col-md-12">
+          <div class="ft-search-widget widget-reports col col-lg-12">
+            <h3>Available Reports</h3>
             <div class="row">
-              <div class="col-md-2">
-                <h6 class="list-title">Reports Count</h6>
-                <h1 class="list-count">{{listReport.length}}</h1>
-              </div>
-              <filters :request="proposed ? request : null" ref="filter" v-on:update:search="search();"></filters>
-              </form>
+              <filters ref="filter" v-on:update:search="search();" v-on:update:type="type = $event"></filters>
             </div>
             <b-modal id="metaModal" size="lg" ref="metaModal">
-              <playerreportpopup v-if="reportSelected && reportSelected.type_report == 'player'" :report="reportSelected" :buyAction="BuyAction"
+              <playerreportpopup v-if="reportSelected && reportSelected.type_report == 'player'" :report="reportSelected" :buyAction="buyAction"
                 :closeAction="hideModal" />
-              <teamreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :buyAction="BuyAction"
+              <teamreportpopup v-if="reportSelected && reportSelected.type_report == 'team'" :report="reportSelected" :buyAction="buyAction"
                 :closeAction="hideModal" />
-              <paymentpopup v-if="payment" :paymentAction="paymentAction" :closeAction="hideModal" :result="order" :StripeCardToken="StripeCardToken"
-                :stripeClubCards="stripeClubCards" :stripePayment="stripePayment" :stripeJs="stripeJs" />
             </b-modal>
-            <report v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :buyAction="BuyAction" :summaryAction="summaryAction"
-            />
+            <b-modal class="ft-modal" size="lg" ref="paymentModal">
+              <paymentpopup v-if="payment" :paymentAction="paymentAction" :closeAction="hideModal" :result="order" :StripeCardToken="StripeCardToken"
+                :stripeClubCards="stripeClubCards" :stripePayment="stripePayment" :stripeJs="stripeJs">
+                <div class="row" slot="header">
+                  <label class="col-lg-3">Price:</label>
+                  <p class="col-lg-8">{{reportSelected.price.value}} {{reportSelected.price.currency}}</p>
+                </div>
+              </paymentpopup>
+            </b-modal>
+            <div class="table-responsive-lg">
+            <tables-custom :params="params" :setOrder="setOrder" :buyAction="buyAction" :viewAction="viewAction" :type="type" :listReport="listReport"></tables-custom>
+            </div>
           </div>
         </timeline-item>
       </div>
@@ -51,96 +42,65 @@
 </style>
 
 <style lang="scss" scoped>
+  h3 {
+    text-transform: uppercase;
+  }
 </style>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import TimelineItem from 'app/components/TimelineItem';
-import ReportItem from 'app/components/ReportItem';
-import vSelect from 'vue-select';
-import NotificationSidebar from 'app/components/NotificationSidebar.vue';
-import PlayerReportPopup from './components/PlayerReportPopup';
-import TeamReportPopup from './components/TeamReportPopup';
-import PaymentPopup from './components/PaymentPopup';
-import FtDatepicker from 'app/components/Input/FtDatepicker';
-  import RequestItem from 'app/components/RequestItem';
-  import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
-  import PositionRequestPopup from 'app/components/RequestPopup/PositionRequestPopup';
-  import TeamRequestPopup from 'app/components/RequestPopup/TeamRequestPopup';
+  import {
+    mapGetters,
+    mapActions
+  } from 'vuex';
+  import {
+    ASYNC_SUCCESS
+  } from 'app/constants/AsyncStatus';
+  import TimelineItem from 'app/components/TimelineItem';
+  import ReportItem from 'app/components/ReportItem';
+  import vSelect from 'vue-select';
+  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+  import PlayerReportPopup from './components/PlayerReportPopup';
+  import TeamReportPopup from './components/TeamReportPopup';
+  import PaymentPopup from 'app/components/Stripe/PaymentPopup';
+  import FtDatepicker from 'app/components/Input/FtDatepicker';
   import Filters from './components/Filters';
+  import Actions from './components/Actions';
+  import Tables from './components/Tables';
 
-export default {
-  name: 'ReportsList',
-  components: {
-    sidebar: NotificationSidebar,
-    'timeline-item': TimelineItem,
-    report: ReportItem,
-    vselect: vSelect,
-    playerreportpopup: PlayerReportPopup,
-    teamreportpopup: TeamReportPopup,
-    paymentpopup: PaymentPopup,
-    ftdatepicker: FtDatepicker,
-   	request: RequestItem,
-	teamrequestpopup: TeamRequestPopup,
-	playerrequestpopup: PlayerRequestPopup,
-	positionrequestpopup: PositionRequestPopup,
-	filters: Filters
-  },
+  import 'vue-awesome/icons/edit';
+  import 'vue-awesome/icons/eye';
+  import 'vue-awesome/icons/eye-slash';
+  import Icon from 'vue-awesome/components/Icon';
+  import {
+    ASYNC_NONE
+  } from 'app/constants/AsyncStatus';
+  export default {
+    name: 'ReportsList',
+    components: {
+      sidebar: NotificationSidebar,
+      'timeline-item': TimelineItem,
+      report: ReportItem,
+      vselect: vSelect,
+      playerreportpopup: PlayerReportPopup,
+      teamreportpopup: TeamReportPopup,
+      paymentpopup: PaymentPopup,
+      ftdatepicker: FtDatepicker,
+      filters: Filters,
+      icon: Icon,
+      actions: Actions,
+      'tables-custom': Tables
 
+    },
     data() {
       return {
         payment: false,
-        reportSelected: null,
-        sort_select: {
-          label: 'Sort by',
-          value: ''
-        },
-        type_select: {
-          label: 'Report Type',
-          value: ''
-        },
         params: {
-          id: '',
-          headline: '',
-          report_type: '',
-          created_date_from: '',
-          created_date_to: '',
-          created_date: '',
-          sort: ''
+          order: '',
+          order_asc: true,
         },
-        options: {
-          report_type: [{
-              label: 'Report Type',
-              value: ''
-            },
-            {
-              label: 'Player',
-              value: 'player'
-            },
-            {
-              label: 'Team',
-              value: 'team'
-            }
-          ],
-          order: [{
-              label: 'Sort by',
-              value: ''
-            },
-            {
-              label: 'Updated date',
-              value: 'updated_at'
-            },
-            {
-              label: 'Type',
-              value: 'Type'
-            },
-            {
-              label: 'Price',
-              value: 'price'
-            }
-          ]
-        }
+        type: 'player',
+        reportSelected: null,
+        nbFilters: 0
       };
     },
     computed: {
@@ -156,33 +116,15 @@ export default {
       },
       url() {
         var params = this.params;
-        if (params.created_date_from) {
-          params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
-        }
-        if (params.created_date_to) {
-          params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
-        }
-        params.sort = this.sort_select.value;
-        params.report_type = this.type_select.value;
-        if (this.proposed)
-          params.request_id = this.request.id;
-        else if (params.request_id)
-          delete(params.request_id)
         var url = Object.keys(params)
           .map(function (k) {
             return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
           })
           .join('&');
-
-        return url;
+        return url + '&' + this.$refs.filter.url;
       }
     },
     mounted() {
-      if (!this.request && this.$route.name == 'clubReportProposed') {
-        this.$router.push({
-          name: 'clubReportMarketplace',
-        });
-      }
       this.search();
     },
     watch: {
@@ -209,6 +151,20 @@ export default {
     },
     methods: {
       ...mapActions(['getReports', 'newOrder', 'StripeCardToken', 'getClubsCards']),
+      clearsFilter() {
+        this.$refs.filter.clearsFilter();
+      },
+      toAssignement(){
+        this.$router.push({name: 'clubRequestList'})
+      },
+      setOrder(order) {
+        if (this.params.order == order)
+          this.params.order_asc = !this.params.order_asc;
+        else
+          this.params.order_asc = true;
+        this.params.order = order;
+        this.search();
+      },
       viewAction(report) {
         this.$router.push({
           name: 'clubReport',
@@ -217,12 +173,13 @@ export default {
           }
         });
       },
-      BuyAction(report) {
+      buyAction(report) {
         if (this.stripeClubCards.status == ASYNC_NONE)
           this.getClubsCards();
         this.payment = true;
         this.reportSelected = report;
-        this.$refs.metaModal.show();
+        this.$refs.metaModal.hide();
+        this.$refs.paymentModal.show();
       },
       hideModal() {
         this.$refs.metaModal.hide();
@@ -233,7 +190,8 @@ export default {
         this.$refs.metaModal.show();
       },
       search() {
-        this.getReports(this.$refs.filter.url);
+        this.nbFilters = this.$refs.filter.nbFilters
+        this.getReports(this.url);
       },
       paymentAction(token, save, usesaved) {
         this.newOrder({
@@ -242,12 +200,6 @@ export default {
           save: save,
           usesaved
         });
-      },
-      closeAction(request) {
-        this.$refs.requestModal.hide();
-      },
-      viewSummary(request) {
-        this.$refs.requestModal.show();
       }
     }
   };

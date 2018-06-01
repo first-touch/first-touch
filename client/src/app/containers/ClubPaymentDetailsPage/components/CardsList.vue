@@ -4,24 +4,24 @@
     <div class="empty" v-if="!info || !info.cards || info.cards.length == 0">
       You do not have any registered card yet
     </div>
-    <div class="row col-md-12 ft-cards-result" v-if="info && info.cards">
-      <div v-for="card in info.cards" :key="card.key" class="col-md-5 ft-card">
+    <div class="row col-lg-12 ft-cards-result" v-if="info && info.cards">
+      <div v-for="card in info.cards" :key="card.key" class="col-lg-5 ft-card">
         <div class="content-wrapper">
-          <div class="content col-md-12">
+          <div class="content col-lg-12">
             <div class="row">
-              <p class="col-md-6">Payment Method</p>
-              <p class="col-md-6">{{card.brand}}</p>
+              <p class="col-lg-6">Payment Method</p>
+              <p class="col-lg-6">{{card.brand}}</p>
             </div>
             <div class="row">
-              <p class="col-md-6">Expery Date</p>
-              <p class="col-md-6">{{card.exp_month | formatNumber(2)}}/{{card.exp_year}}</p>
+              <p class="col-lg-6">Expery Date</p>
+              <p class="col-lg-6">{{card.exp_month | formatNumber(2)}}/{{card.exp_year}}</p>
             </div>
             <div class="row">
-              <p class="col-md-6">Last 4</p>
-              <p class="col-md-6">************{{card.last4}}</p>
+              <p class="col-lg-6">Last 4</p>
+              <p class="col-lg-6">************{{card.last4}}</p>
             </div>
           </div>
-          <div class="buttons-inner col-md-12" >
+          <div class="buttons-inner col-lg-12" >
             <button class="ft-button ft-button-success" v-if="preferred != card.id " @click="customUpdateCards(card.id)">Make this preferred</button>
             <button class="ft-button ft-button-success" disabled v-if="preferred == card.id ">Preferred</button>
             <button class="ft-button" @click="customDeleteCard(card.id)">Delete</button>
@@ -132,8 +132,7 @@
         return this.stripeClubCards.status == ASYNC_FAIL;
       },
       info() {
-        if (this.stripeClubCards.value && this.success) return this.stripeClubCards.value;
-        if (this.stripeClubCards.errors && this.failure) return this.stripeClubCards.errors.old_result;
+        if (this.stripeClubCards.value && !this.loading) return this.stripeClubCards.value;
         return {};
       },
       preferred() {

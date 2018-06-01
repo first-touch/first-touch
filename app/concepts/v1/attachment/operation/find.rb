@@ -3,15 +3,15 @@ module V1
     class Find < Trailblazer::Operation
       step :setup_model!
 
-      # Todo: will be remove once s3 upload is set
-      def setup_model!(options, params:, current_user:, **)
+      # TODO: will be remove once s3 upload is set
+      def setup_model!(options, params:, current_user:, current_club:, **)
         attachments = []
         if current_user.is_a?(::User) && current_user.scout?
           attachments = ::Attachment.joins(report: :user)
           attachments.where('attachments.id' => params[:attachment_id],
                             'reports.user_id' => current_user.id)
-        elsif current_user.is_a?(::Club) || true
-          # Todo: or true need to be remove when club are ready
+        elsif !current_club.nil? || true
+          # TODO: or true need to be remove when club are ready
           attachments = ::Attachment.joins(report: { orders: :user })
           attachments = attachments.where(
             'orders.customer_id' => current_user.id,

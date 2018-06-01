@@ -6,18 +6,18 @@ module V1
 
       private
 
-      def find_model!(options, params:, current_user:, **)
+      def find_model!(options, params:, current_user:, current_club:, **)
         model = nil
         if current_user.is_a?(::User) && current_user.scout?
           model = current_user.reports.find(params[:id])
-        elsif current_user.is_a?(::Club) || true
-          # Todo: or true need to be remove when club are ready
+        elsif !current_club.nil? || true
+          # TODO: or true need to be remove when club are ready
           free_report = ::Report.find_by("(price->>'value')::int = 0 and id = ?", params[:id])
           if !free_report.nil?
             model = free_report
           else
             order = current_user.reports_buy.find_by(report_id: params[:id],
-                                                    status: 'completed')
+                                                     status: 'completed')
             model = order.report unless order.blank?
           end
         end

@@ -1,5 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,300);
-
 body {
   background: $navbar-background-color;
   min-height: 100%;
@@ -15,21 +14,38 @@ body {
     width: 10%;
     border-top: 5px solid $secondary-header-color;
   }
-
+  .timeline-widget-button {
+    span {
+      padding-left: 4px;
+      width: 49px;
+      height: 49px;
+      background-color: #a8cb5c;
+      border: solid 1px #a8cb5c;
+    }
+    svg {
+      text-align: center;
+      font-size: 1.5em;
+      margin-left: 5px;
+      margin-top: 5px;
+    }
+  }
   margin: $searchbar-height 20vw 0 $navbar-width;
-  & ~ .ft-page {
+  &~.ft-page {
     margin-top: auto;
   }
   min-height: calc(100vh - 119px);
   padding: 20px;
-
   .header {
     color: $secondary-text-color;
+    a {
+      color: $secondary-text-color;
+    }
     font-weight: 300;
     padding: 5px 0;
     text-transform: uppercase;
   }
 }
+
 .arrow {
   width: 0;
   height: 0;
@@ -38,6 +54,7 @@ body {
   border-bottom: 7px solid transparent;
   border-left: 7px solid;
 }
+
 .sidenav-right {
   position: fixed;
   z-index: 3;
@@ -45,6 +62,7 @@ body {
   top: 0;
   width: 20vw;
 }
+
 .info-blk {
   padding: 10px 20px;
   margin-bottom: 40px;
@@ -126,11 +144,13 @@ body {
 a.btn.btn-bright:hover {
   cursor: pointer;
 }
+
 a.btn.btn-bright {
   color: $main-text-color;
   text-transform: uppercase;
   margin-right: 5px;
 }
+
 a.btn.btn-bright:hover,
 a.btn.btn-bright:focus {
   color: $main-text-color;

@@ -12,7 +12,7 @@ result = ::V1::User::Register.(email: 'dpayet@ftouch.io', password: '123456789',
   weight: 70,
   height: 180,
   preferred_foot: 'R',
-  playing_position: 'Striker',
+  playing_position: 'striker',
   pro_status: 'N/A',
   birthday: '1980-05-10'
 })

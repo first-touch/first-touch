@@ -21,7 +21,7 @@ module V1
         property :team, getter: lambda { |represented:, **|
           if represented.team
             ::V1::Team::Representer::Simplified.new(
-            represented.team
+              represented.team
             )
           end
         }
@@ -29,7 +29,7 @@ module V1
         property :league, getter: lambda { |represented:, **|
           if represented.league
             ::V1::Competition::Representer::Simplified.new(
-            represented.league
+              represented.league
             )
           end
         }
@@ -70,7 +70,6 @@ module V1
             'N/A'
           end
         }
-
       end
     end
   end

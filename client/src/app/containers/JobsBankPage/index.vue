@@ -3,7 +3,7 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
-        <jobrequestwidget v-if="page == 'index'" :listRequest="listRequest" :getRequests="search" :createBid="createBid" :bid="bidSuccess" :clearBid="clearBid"
+        <jobrequestwidget v-if="page == 'index'" :user="user" :listRequest="listRequest" :getRequests="search" :createBid="createBid" :bid="bidSuccess" :clearBid="clearBid"
         :updateBid="updateBid"
         />
       </div>
@@ -39,7 +39,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['searchRequest', 'request', 'bid']),
+    ...mapGetters(['searchRequest', 'request', 'bid','user']),
     bidSuccess() {
       if (this.bid.status == ASYNC_SUCCESS) {
         return true;

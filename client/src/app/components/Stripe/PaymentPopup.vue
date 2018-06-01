@@ -1,47 +1,65 @@
 <template>
-  <div>
-    <div class="error" v-if="errors">
-      Errors:
-      <ul>
-        <li>{{result.errors.errors}}</li>
-      </ul>
-    </div>
-    <div class="contentPayment ft-form" :class="loading ? 'loading' : ''">
+  <div class="payment-widget ft-form" :class="loading ? 'loading' : ''">
+    <div class="contentPayment">
       <loading class="loader" />
       <div class="payment" v-if="!success">
+        <slot name="header"></slot>
         <vselect v-model="cardSelect" v-if="!newCard" @input="cardToken = cardSelect.value" :options="cards" :searchable="false"
         />
-        <div :class="!newCard? 'hide' : ''">
-          <label class="col-sm-12 ftcheckbox-inner col-form-label" :class="saveCard? 'active' : ''">
+        <div class="card-input" :class="!newCard? 'hide' : ''">
+          <div ref="card" class="form-control"></div>
+        </div>
+        <div class="error" v-if="errors">
+          <ul>
+            <li>{{result.errors.errors}}</li>
+          </ul>
+        </div>
+        <div class="img-container col-lg-4">
+          <img class="img-fluid" src="/images/stripe/secure-stripe-payment-logo.png" alt="Stripe secure" />
+        </div>
+        <div :class="!newCard? 'hide' : ''" class="col-lg-12">
+          <label class="col-lg-12 ftcheckbox-inner col-form-label" :class="saveCard? 'active' : ''">
             <span class="title" v-if="saveCard"> Save the card for further use</span>
             <span class="not" v-if="!saveCard"> Do not save the card for further use</span>
             <ftcheckbox class="ftcheckbox" :value="saveCard" v-on:update:val="saveCard = $event" :trueValue="true" :falseValue="false"
             />
           </label>
-          <div ref="card"></div>
         </div>
-        <div class="buttons-inner">
+        <slot />
+
+        <div class="buttons-inner row">
+          <button class="ft-button-success ft-button-right" v-on:click="purchase">Purchase</button>
           <button class="ft-button" v-if="!emptyCard" v-on:click="newCard = !newCard">
             <span v-if="!newCard">Add a new card </span>
             <span v-if="newCard">Use existing card</span>
           </button>
-          <button class="ft-button-success" v-on:click="purchase">Purchase</button>
+          <button class="ft-button" @click="closeAction()" :class="success?'ft-button-success':''">Close</button>
         </div>
+
       </div>
       <div v-if="success">
         <p>Success !</p>
-        <div class="col-md-12 buttons-inner">
-          <button class="ft-button-success ft-button-right" @click="closeAction()">Close</button>
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss">
-  .contentPayment {
+  @import '~stylesheets/variables';
+
+  .payment-widget {
     .selected-tag {
-      color: red;
+      color: $main-text-color;
+    }
+  }
+
+  .card-input {
+    .form-control {
+      padding: 10px;
+      border-radius: 10px;
+    }
+    iframe {
+      height: auto;
     }
   }
 
@@ -63,8 +81,8 @@
     margin-top: 20px;
   }
 
-  .contentPayment {
-    padding: 50px 10px 20px 10px;
+  .payment-widget {
+    padding: 0 10px 20px 10px;
     .loader {
       display: none;
       margin-left: 40%;
@@ -200,7 +218,17 @@
       }
     },
     mounted: function () {
-      this.card = this.elements.create('card');
+      var style = {
+        base: {
+          lineHeight: '40px',
+          fontWeight: 300,
+          fontFamily: 'Ubuntu, sans-serif',
+          fontSize: '15px',
+        }
+      };
+      this.card = this.elements.create('card', {
+        style: style
+      });
       this.card.mount(this.$refs.card);
     },
     methods: {

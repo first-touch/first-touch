@@ -36,7 +36,6 @@ export const updateBid = (store, { requestId, id, price }) => {
   });
 };
 export const getBids = (store, { id, params }) => {
-  store.commit(ActionTypes.BIDS_REQUEST_LOADING);
   fetch(`/api/v1/requests/bids/${id}?${params}`, {
     method: 'GET',
     headers: {

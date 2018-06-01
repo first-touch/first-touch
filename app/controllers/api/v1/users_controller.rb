@@ -36,12 +36,6 @@ module Api
         render json: response[:data], status: response[:status]
       end
 
-      def update
-        result = ::V1::User::Update.(params, current_user: current_user)
-        response = FirstTouch::Endpoint.(result, ::V1::User::Representer::SelfProfile)
-        render json: response[:data], status: response[:status]
-      end
-
       def follows
         relationship = @user.active_relationships.find_by(
           followed_id: params[:followed_id]

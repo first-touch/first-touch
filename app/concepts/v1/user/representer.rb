@@ -8,6 +8,22 @@ module V1
         property :personal_profile,
                  extend: V1::PersonalProfile::Representer::Simplified
 
+        property :has_stripe, getter: lambda { |represented:, **|
+          begin
+            !represented.stripe_ft.nil?
+          rescue => e
+            false
+          end
+        }
+
+        property :has_bank_account, getter: lambda { |represented:, **|
+          begin
+            !represented.stripe_ft.preferred_account.nil?
+          rescue => e
+            false
+          end
+        }
+
         property :role_name, exec_context: :decorator
 
         def role_name

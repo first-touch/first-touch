@@ -7,33 +7,33 @@
       </div>
       <div class="col col-lg-5">
         <form class="form" @submit.prevent="handleSubmit">
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12">
             <label>Email</label>
             <input type="email" v-model="email" class="form-control" placeholder="Enter Email..." />
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12">
             <label>Password</label>
             <input type="password" v-model="password" class="form-control" placeholder="Enter Password..." />
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12">
             <label>Password Confirmation</label>
             <input type="password" v-model="password_confirmation" class="form-control" placeholder="Confirm Password..." />
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12">
             <label>Your Name</label>
             <div class="row">
-              <input type="text" v-model="first_name" class="form-control col-md-6" placeholder="First Name" />
-              <input type="text" v-model="last_name" class="form-control col-md-6" placeholder="Last Name" />
+              <input type="text" v-model="first_name" class="form-control col-lg-6" placeholder="First Name" />
+              <input type="text" v-model="last_name" class="form-control col-lg-6" placeholder="Last Name" />
             </div>
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12">
             <label>Date Of Birth</label>
             <div class="row">
-              <select v-model="day" class="form-control col-md-3">
+              <select v-model="day" class="form-control col-lg-3">
                 <option disabled value="" selected>Day</option>
                 <option v-for="d in 31" :key="d" :value="d">{{ d }}</option>
               </select>
-              <select v-model="month" class="form-control col-md-3">
+              <select v-model="month" class="form-control col-lg-3">
                 <option disabled value="" selected>Month</option>
                 <option value="1">January</option>
                 <option value="2">February</option>
@@ -48,13 +48,13 @@
                 <option value="11">November</option>
                 <option value="12">December</option>
               </select>
-              <select v-model="year" class="form-control col-md-6">
+              <select v-model="year" class="form-control col-lg-6">
                 <option disabled value="" selected>Year</option>
                 <option v-for="y in validYears" :key="y" :value="y">{{y}}</option>
               </select>
             </div>
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12">
             <label>Role In Your Club</label>
             <div class="row">
               <select v-model="role_name" class="form-control">
@@ -67,14 +67,14 @@
               </select>
             </div>
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12">
             <label>Your Club</label>
             <div class="row">
-              <select v-model="club_country_code" class="form-control col-md-4">
+              <select v-model="club_country_code" class="form-control col-lg-4">
                 <option disabled value="" selected>Country</option>
                 <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
               </select>
-              <autocomplete class="col-md-8" input-class="form-control"
+              <autocomplete class="col-lg-8" input-class="form-control"
                 placeholder="Search For Clubs"
                 v-model="item"
                 :get-label="getLabel"
@@ -87,12 +87,12 @@
                 />
             </div>
           </fieldset>
-          <fieldset class="form-group col-md-12 tc-container">
+          <fieldset class="form-group col-lg-12 tc-container">
             <input type="checkbox" id="tc" name="termsandconditions" v-model="tccheck" />
             <label for="tc">By checking this box, you agree to our <router-link to="/terms_conditions">Terms &amp; Conditions</router-link> </label>
           </fieldset>
           <button class="bar-button center" type="submit">Sign Up</button>
-          <fieldset class="col-md-12">
+          <fieldset class="col-lg-12">
             <div v-if="error" class="alert alert-danger">
               <em>{{ error }}</em>
             </div>
@@ -125,10 +125,10 @@
   .row {
     margin: 0 1px;
     justify-content: space-between;
-    .col-md-6 {
+    .col-lg-6 {
       flex-basis: calc(50% - 5px);
     }
-    .col-md-3 {
+    .col-lg-3 {
       flex-basis: calc(25% - 5px);
     }
   }
