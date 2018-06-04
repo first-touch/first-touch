@@ -124,9 +124,9 @@
     },
     methods: {
       ...mapActions(['getReport', 'getAttachment']),
-      downloadFile(id, filename) {
+      downloadFile(url, filename) {
         this.getAttachment({
-          id,
+          url,
           filename
         });
       },

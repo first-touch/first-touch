@@ -190,7 +190,7 @@
             <label class="row col-lg-12 summary-title">Attachments</label>
             <div class="row col-lg-12 buttons-inner">
               <button v-for="attachment in report.attachments.attachments" :key="attachment.id" class="btn-info btn-attachments ft-button"
-                @click="downloadFile(attachment.id, attachment.filename)"> {{attachment.filename}}</button>
+                @click="downloadFile(attachment.url, attachment.filename)"> {{attachment.filename}}</button>
 
             </div>
           </div>

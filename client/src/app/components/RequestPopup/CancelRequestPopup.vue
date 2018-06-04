@@ -37,9 +37,8 @@
             <label class="col-lg-12">Cancelation Reason</label>
             <textarea class="col-lg-12" v-model="reason" v-autosize="reason"></textarea>
           </div>
-          <div class="row col-lg-12" v-if="!position">
-            <label class="col-lg-12">Attachments</label>
-            <input type="file" multiple ref="myFiles">
+          <div class="row col-lg-12 div-attachments" v-if="!position">
+            <addattachments class="col-lg-12" :attachments="null" v-on:update:files="files = $event" />
           </div>
           <hr/>
           <div class="col-lg-12 buttons-inner">
@@ -58,27 +57,32 @@
     </div>
   </div>
 </template>
-<style lang="scss">
-  @import '~stylesheets/variables';
-</style>
 
 <style lang="scss" scoped>
   @import '~stylesheets/item';
+  .div-attachments{
+    margin-top: 20px;
+  }
 </style>
 <script>
   import countrydata from 'country-data';
+  import AddAttachments from 'app/components/Input/AddAttachments';
   import {
     ASYNC_SUCCESS,
     ASYNC_LOADING
   } from 'app/constants/AsyncStatus';
+
   export default {
     name: 'CancelRequestPopup',
     props: ['request', 'closeAction', 'cancelReport', 'bid', 'filesUpload', 'uploadFiles'],
+    components: {
+      addattachments: AddAttachments,
+    },
     data() {
       return {
         reason: '',
         start: false,
-        filesComplete: false
+        files: [],
       };
     },
     computed: {
@@ -100,44 +104,17 @@
         return this.bid.status == ASYNC_SUCCESS && this.start;
       },
       success() {
-        return this.bidSuccess && this.filesComplete
-      }
-    },
-    watch: {
-      bidSuccess() {
-        if (this.bidSuccess && !this.filesComplete) {
-          var fileList = this.$refs.myFiles.files;
-          if (fileList.length > 0) {
-            this.startUpload();
-          } else {
-            this.filesComplete = true;
-          }
-        }
-      },
-      filesUpload() {
-        if (this.filesUpload.status === ASYNC_SUCCESS) {
-          this.filesComplete = true;
-        }
+        return this.bidSuccess
       }
     },
     methods: {
       cancel() {
         this.start = true;
         this.cancelReport({
-          reason: this.reason
+          reason: this.reason,
+          files: this.files
         })
-      },
-      startUpload() {
-        var formData = new FormData();
-        var fileList = this.$refs.myFiles.files;
-        var i = 0;
-        $.each(fileList, function (index, value) {
-          formData.append('files[' + i + ']', value);
-          i++;
-        });
-        formData.append('job_id', this.request.id);
-        this.uploadFiles(formData);
-      },
+      }
     }
   };
 </script>

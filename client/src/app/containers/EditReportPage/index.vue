@@ -239,7 +239,7 @@
       playerresume: PlayerResume
     },
     computed: {
-      ...mapGetters(['report', 'searchReport', 'filesUpload']),
+      ...mapGetters(['report', 'searchReport']),
       playerInfo() {
         if (this.searchReport.status == ASYNC_SUCCESS)
           return this.reportValue.player;
@@ -280,32 +280,14 @@
         this.status = '';
         if (this.report.status === ASYNC_SUCCESS) {
           this.searchReport.value.report = this.report.value;
-          if (this.files) {
-            if (this.files.length > 0) {
-              this.startUpload();
-            } else {
-              this.$router.push({
-                name: 'scoutReportView',
-                params: {
-                  id: this.report.value.id
-                }
-              });
-            }
-          }
-        } else if (this.report.status === ASYNC_LOADING) {
-          this.status = 'reportUploading';
-        }
-      },
-      filesUpload() {
-        if (this.filesUpload.status === ASYNC_SUCCESS) {
           this.$router.push({
             name: 'scoutReportView',
             params: {
               id: this.report.value.id
             }
           });
-        } else if (this.filesUpload.status === ASYNC_LOADING) {
-          this.status = 'filesUploading';
+        } else if (this.report.status === ASYNC_LOADING) {
+          this.status = 'reportUploading';
         }
       }
     },
@@ -331,17 +313,6 @@
           id: this.reportValue.id
         });
       },
-      startUpload() {
-        var formData = new FormData();
-        var fileList = this.files;
-        var i = 0;
-        $.each(fileList, function (index, value) {
-          formData.append('files[' + i++ + ']', value);
-          i++;
-        });
-        formData.append('report_id', this.report.value.id);
-        this.uploadFiles(formData);
-      },
       customUpdateReport(report, filelist) {
         for (var f in report.remove_attachment) {
           if (report.remove_attachment[f] === false) {
@@ -349,7 +320,7 @@
           }
         }
         this.report.errors = null;
-        this.files = filelist;
+        this.report.files = filelist;
         var id = this.$route.params.id;
         this.updateReport({
           report: report,

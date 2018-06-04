@@ -27,7 +27,7 @@ export default {
     state.order = Object.assign(
       {},
       state.order,
-      { status: ASYNC_SUCCESS, errors: order }
+      { status: ASYNC_SUCCESS, value: order }
     );
   },
   [ActionTypes.ORDER_REPORT_FAILURE] (state, errors) {

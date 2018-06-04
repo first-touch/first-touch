@@ -54,6 +54,8 @@ Rails.application.routes.draw do
         get "field_types", on: :collection, action: :field_types
       end
       get 'direct_upload/signed_url', to: 'direct_upload#signed_url'
+      post 'direct_upload/signed_url', to: 'direct_upload#signed_url'
+
       resources :events, only: %i[index create show]
       post 'connect', controller: :connection, action: :create
       post 'reports/refund/:report_id', controller: :orders, action: :refund

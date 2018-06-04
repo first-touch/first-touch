@@ -14,6 +14,7 @@ module V1
       )
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
+      step :persist_files!
       step :send_money
       step :persist_bid
 
@@ -106,6 +107,13 @@ module V1
             result = ::V1::Order::SendMoney.(order_params, user_id: options['bid'].user_id, current_user: current_user)
             return result.success?
           end
+        end
+        true
+      end
+
+      def persist_files!(model:, params:, current_user:, **)
+        params[:files].each do |file|
+          result = ::V1::Attachment::Create.({ url: file[:url], filename: file[:filename], report: model }, current_user: current_user)
         end
         true
       end

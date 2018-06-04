@@ -304,7 +304,7 @@
       }
     },
     methods: {
-      ...mapActions(['getrequestquests', 'crequestateBid', 'clearBid', 'updateBid', 'cancelBid','uploadFiles']),
+      ...mapActions(['getRequests', 'crequestateBid', 'clearBid', 'updateBid', 'cancelBid','uploadFiles']),
       search() {
         this.getRequests(this.url);
       },

@@ -2,13 +2,13 @@
   <form @submit.prevent class="report-form ft-form">
     <div class="form-group row report-name">
       <div class="col-lg-12">
-        <input type="text" class="col-lg-12 form-control" v-model="headline"  placeholder="Report name">
+        <input type="text" class="col-lg-12 form-control" v-model="headline" placeholder="Report name">
       </div>
     </div>
     <div class="row form-group" v-if="priceEdit">
       <div class="col-lg-12">
         <div class="price-input">
-          <currencyinput :value="price" placeholder="Price"/>
+          <currencyinput :value="price" placeholder="Price" />
           <p v-if="price.value == 0" class="info">The report will be free</p>
           <p v-if="request" class="info">Price between {{request.price.value}} and {{request.price.max}} {{request.price.currency}} </p>
         </div>
@@ -33,26 +33,27 @@
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <playerposition :value="meta_data.player_info.playing_position" v-on:update:val="meta_data.player_info.playing_position = $event"  placeholder="Positions in"
-                />
+                <playerposition :value="meta_data.player_info.playing_position" v-on:update:val="meta_data.player_info.playing_position = $event"
+                  placeholder="Positions in" />
               </div>
               <div class="col-lg-6">
-                <preferredfoot :value="meta_data.player_info.preferred_foot" v-on:update:val="meta_data.player_info.preferred_foot = $event"  placeholder="Preferred foot is"
-                />
+                <preferredfoot :value="meta_data.player_info.preferred_foot" v-on:update:val="meta_data.player_info.preferred_foot = $event"
+                  placeholder="Preferred foot is" />
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6">
-                <countryselect :value="meta_data.player_info.nationality_country_code" v-on:update:val="meta_data.player_info.nationality_country_code = $event" placeholder="Nationality is"
-                /> </div>
+                <countryselect :value="meta_data.player_info.nationality_country_code" v-on:update:val="meta_data.player_info.nationality_country_code = $event"
+                  placeholder="Nationality is" /> </div>
               <div class="col-lg-6">
-                <countryselect :value="meta_data.player_info.residence_country_code" v-on:update:val="meta_data.player_info.residence_country_code = $event" placeholder="Based in"
-                />
+                <countryselect :value="meta_data.player_info.residence_country_code" v-on:update:val="meta_data.player_info.residence_country_code = $event"
+                  placeholder="Based in" />
               </div>
             </div>
             <div class="row">
               <div class="col-lg-12">
-                <language :value="meta_data.player_info.languages" v-on:update:val="meta_data.player_info.languages = $event" placeholder="Speaking languages are" />
+                <language :value="meta_data.player_info.languages" v-on:update:val="meta_data.player_info.languages = $event" placeholder="Speaking languages are"
+                />
               </div>
             </div>
           </div>
@@ -80,9 +81,8 @@
               <transition name="fade">
                 <div class="transfer-value col-lg-12 row" v-if="meta_data.transfer_sum.transfer_interested === 'yes'">
                   <div class="col-lg-6">
-                    <ftdatepicker class="col-lg-12 form-control"  placeholder="Availability for transfer"
-                     :value="meta_data.transfer_sum.transfer_availability" v-on:update:val="meta_data.transfer_sum.transfer_availability = $event"
-                    />
+                    <ftdatepicker class="col-lg-12 form-control" placeholder="Availability for transfer" :value="meta_data.transfer_sum.transfer_availability"
+                      v-on:update:val="meta_data.transfer_sum.transfer_availability = $event" />
                   </div>
                   <div class="col-lg-6">
                     <currencyinput :value="meta_data.transfer_sum.transfer_budget" placeholder="Transfer budget" />
@@ -102,8 +102,8 @@
               <transition name="fade">
                 <div class="transfer-value col-lg-12 row" v-if="meta_data.transfer_sum.loan_interested === 'yes'">
                   <div class="col-lg-6">
-                    <ftdatepicker class="col-lg-12 form-control" placeholder="Availability for Loan"  :value="meta_data.transfer_sum.loan_availability" v-on:update:val="meta_data.transfer_sum.loan_availability = $event"
-                    />
+                    <ftdatepicker class="col-lg-12 form-control" placeholder="Availability for Loan" :value="meta_data.transfer_sum.loan_availability"
+                      v-on:update:val="meta_data.transfer_sum.loan_availability = $event" />
                   </div>
                   <div class="col-lg-6">
                     <ftdatepicker class="col-lg-12 form-control" placeholder="End of Contract" :value="meta_data.transfer_sum.contract_end" v-on:update:val="meta_data.transfer_sum.contract_end = $event"
@@ -122,49 +122,59 @@
     </div>
     <div class="form-group row">
       <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.overview" v-autosize="meta_data.overview" placeholder="Current Ability Overview"  />
-      </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.physical_attributes" v-autosize="meta_data.physical_attributes"  placeholder="Physical Attribute(s)"
+        <textarea class="col-lg-12 form-control" v-model="meta_data.overview" v-autosize="meta_data.overview" placeholder="Current Ability Overview"
         />
       </div>
     </div>
     <div class="form-group row">
       <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.mental_attributes" v-autosize="meta_data.mental_attributes" placeholder="Mental Attribute(s)"  />
+        <textarea class="col-lg-12 form-control" v-model="meta_data.physical_attributes" v-autosize="meta_data.physical_attributes"
+          placeholder="Physical Attribute(s)" />
       </div>
     </div>
     <div class="form-group row">
       <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.technical_attributes" v-autosize="meta_data.technical_attributes" placeholder="Technical Attribute(s)"
+        <textarea class="col-lg-12 form-control" v-model="meta_data.mental_attributes" v-autosize="meta_data.mental_attributes" placeholder="Mental Attribute(s)"
         />
       </div>
     </div>
     <div class="form-group row">
       <div class="col-lg-12">
-        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.personality" v-autosize="meta_data.personality" placeholder="Personality" />
+        <textarea class="col-lg-12 form-control" v-model="meta_data.technical_attributes" v-autosize="meta_data.technical_attributes"
+          placeholder="Technical Attribute(s)" />
       </div>
     </div>
     <div class="form-group row">
       <div class="col-lg-12">
-        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.potential" v-autosize="meta_data.potential" placeholder="Potential" />
+        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.personality" v-autosize="meta_data.personality" placeholder="Personality"
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-lg-12">
+        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.potential" v-autosize="meta_data.potential" placeholder="Potential"
+        />
       </div>
     </div>
     <div class="form-group row">
       <div class="col-lg-12 ">
-        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.observations" v-autosize="meta_data.observations" placeholder="Other Observations & Viewpoints To Note"
-        />
+        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.observations" v-autosize="meta_data.observations"
+          placeholder="Other Observations & Viewpoints To Note" />
       </div>
     </div>
     <div class="form-group row">
       <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.conclusion" v-autosize="meta_data.conclusion"   placeholder="Conclusions"/>
+        <textarea class="col-lg-12 form-control" v-model="meta_data.conclusion" v-autosize="meta_data.conclusion" placeholder="Conclusions"
+        />
       </div>
     </div>
-    <addattachments :attachments="report ? report.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
-      v-on:update:files="files = $event" />
+    <div class="form-group">
+      <div class="col-lg-12">
+        <addattachments :attachments="report ? report.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
+          v-on:update:files="files = $event" />
+      </div>
+    </div>
+
     <div class="form-group buttons-inner row">
       <button v-if="!report && !request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
       <button v-if="report" id="submit" class="ft-button ft-button-success" @click="handleSubmit(report.status)">Update</button>
@@ -185,6 +195,7 @@
     transition: all 0.75s;
     max-height: 500px;
   }
+
   .fade-enter,
   .fade-leave-to {
     opacity: 0.1;
@@ -197,8 +208,8 @@
         width: 10%;
       }
     }
-    .player-summary{
-      .row{
+    .player-summary {
+      .row {
         margin-bottom: 20px;
       }
     }

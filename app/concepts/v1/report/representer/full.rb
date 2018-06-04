@@ -55,7 +55,7 @@ module V1
         property :status
         property :attachments, getter: lambda { |represented:, **|
           if represented.attachments
-            ::V1::Attachment::Representer::Index.new(represented.attachments)
+            ::V1::Attachment::Representer::IndexFull.new(represented.attachments)
           end
         }
       end

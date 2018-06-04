@@ -5,6 +5,7 @@
     "bootstrap-vue": "^1.0.2",
     "country-data": "0.0.31",
     "downloadjs": "^1.4.7",
+    "dropzone": "^5.4.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.10.0",
     "http-proxy-middleware": "^0.17.3",

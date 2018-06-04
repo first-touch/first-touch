@@ -14,6 +14,7 @@ module V1
       step :cancel!
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
+      step :persist_files!
       step :notify!
       step :position!
 
@@ -78,6 +79,13 @@ module V1
             stripe_logger = ::Logger.new("#{Rails.root}/log/mailer.log")
             stripe_logger.error("ReportCanceled An error occured when sending email to club #{e}")
           end
+        end
+        true
+      end
+
+      def persist_files!(model:, params:, current_user:, **)
+        params[:files].each do |file|
+          result = ::V1::Attachment::Create.({ url: file[:url], filename: file[:filename], request_bid: model }, current_user: current_user)
         end
         true
       end

@@ -24,7 +24,7 @@ gem 'simple_command'
 gem 'trailblazer-rails', '~> 1.0'
 # tags
 gem 'acts-as-taggable-on', '~> 5.0'
-
+gem 'aws-sigv4', '~> 1.0.1'
 # pubsub
 gem 'redis'
 

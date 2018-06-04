@@ -82,9 +82,9 @@
       padding: 0;
       margin: 0;
     }
-    &:hover{
+    &:hover {
       cursor: pointer;
-      p{
+      p {
         text-decoration: underline;
       }
     }
@@ -100,7 +100,6 @@
       }
     }
   }
-
 </style>
 
 <script>
@@ -143,7 +142,7 @@
       playerresume: PlayerResume
     },
     computed: {
-      ...mapGetters(['report', 'searchResult', 'filesUpload', 'profile', 'teamProfile', 'user']),
+      ...mapGetters(['report', 'searchResult', 'profile', 'teamProfile', 'user']),
       playerInfo() {
         if (this.request)
           return this.request.player;
@@ -175,42 +174,16 @@
       report() {
         this.status = '';
         if (this.report.status === ASYNC_SUCCESS) {
-          if (this.files.length > 0) {
-            this.startUpload();
-          } else {
-            this.$router.push({
-              name: 'scoutReportView',
-              params: {
-                id: this.report.value.id
-              }
-            });
-          }
-        } else if (this.report.status === ASYNC_LOADING) {
-          this.status = 'reportUploading';
-        } else if (this.report.status === ASYNC_LOADING) {
-          this.status = 'reportUploadingFailure';
-        }
-      },
-      filesUpload() {
-        if (this.filesUpload.status === ASYNC_SUCCESS) {
           this.$router.push({
             name: 'scoutReportView',
             params: {
               id: this.report.value.id
             }
           });
-        } else if (this.filesUpload.status === ASYNC_LOADING) {
-          this.status = 'filesUploading';
-        } else if (this.filesUpload.status === ASYNC_LOADING) {
-          this.status = 'filesUploadingFailure';
-          setTimeout(() => {
-            this.$router.push({
-              name: 'scoutReportEdit',
-              params: {
-                id: this.report.value.id
-              }
-            });
-          }, 3000);
+        } else if (this.report.status === ASYNC_LOADING) {
+          this.status = 'reportUploading';
+        } else if (this.report.status === ASYNC_LOADING) {
+          this.status = 'reportUploadingFailure';
         }
       }
     },
@@ -241,17 +214,6 @@
         this.report_type = null;
         this.showForm = false;
       },
-      startUpload() {
-        var formData = new FormData();
-        var fileList = this.files;
-        var i = 0;
-        $.each(fileList, function (index, value) {
-          formData.append('files[' + i + ']', value);
-          i++;
-        });
-        formData.append('report_id', this.report.value.id);
-        this.uploadFiles(formData);
-      },
       prepareReport(type, ids, search) {
         this.report_type = type;
         this.job_id = ids.job;
@@ -270,7 +232,7 @@
           })
       },
       customCreateReport(reportdata, filelist) {
-        this.files = filelist;
+        reportdata.files = filelist;
         reportdata.type_report = this.report_type;
         reportdata.player_id = this.player_id;
         reportdata.team_id = this.team_id;
