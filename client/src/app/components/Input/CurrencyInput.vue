@@ -22,7 +22,7 @@
     <span v-if="max && !noHyphen" class="separator col-lg-1 col-md-1">-</span>
         <span v-if="max && noHyphen" class="separator col-lg-1 col-md-1"></span>
 
-    <autonumeric @blur.native="blurMax()" :disabled="lock" class="form-control input-2 col-lg-5" v-if="max" v-model="model.max"
+    <autonumeric @blur.native="blurMax()" :disabled="lock" class="form-control input-2 col-lg-5" v-if="max" v-model="model.max" ref="max"
       :placeholder="placeholder1" :options="{
          digitGroupSeparator: ',',
          decimalCharacter: '.',

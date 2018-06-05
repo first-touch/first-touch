@@ -2,8 +2,9 @@
   <div>
     <form @submit.prevent class="report-form ft-form">
       <div class="form-group row report-name">
-        <div class="col-lg-12">
-          <input type="text" class="col-lg-12 form-control" v-model="headline" placeholder="Report name">
+        <div class="col-lg-12 required-before">
+          <input type="text" class="col-lg-12 form-control" v-model="headline" placeholder="Report name" name="name" v-validate="'required'">
+          <span class="validate-errors">{{ errors.first('name') }}</span>
         </div>
       </div>
       <div class="form-group" v-if="!request && hasBankAccount">
@@ -62,7 +63,7 @@
       </div>
       <div class="form-group col-lg-12">
         <div class="row">
-          <textarea v-model="meta_data.conclusions" class="col col-lg-12 form-control" placeholder="Conclusions" v-autosize="meta_data.conclusions"
+          <textarea v-model="meta_data.conclusion" class="col col-lg-12 form-control" placeholder="Conclusion" v-autosize="meta_data.conclusion"
           />
         </div>
       </div>
@@ -130,19 +131,28 @@
         }
       },
       handleSubmit(status) {
-        var report = {
-          headline: this.headline,
-          price: this.price,
-          meta_data: this.meta_data,
-          remove_attachment: this.remove_attachment,
-          status
-        };
-        this.submitReport(report, this.files);
-        $('html, body').animate({
-            scrollTop: 0
-          },
-          100
-        );
+        this.$validator.validateAll().then(() => {
+          if (this.errors.items.length == 0) {
+            var report = {
+              headline: this.headline,
+              price: this.price,
+              meta_data: this.meta_data,
+              remove_attachment: this.remove_attachment,
+              status
+            };
+            this.submitReport(report, this.files);
+          }
+        }).catch(() => {});
+        setTimeout(function () {
+          var error = $('.validate-errors:not(:empty):first')
+          var y = error.offset() ? error.offset().top - 200 : 0;
+          $('html, body').animate({
+              scrollTop: y
+            },
+            200
+          );
+        }, 200);
+
       }
     },
     mounted() {

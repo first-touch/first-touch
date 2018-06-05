@@ -59,7 +59,7 @@
           </thead>
           <tbody>
             <report v-for="report in listReport" :report="report" :key="report.id" :UpdateReport="customUpdateReport" :own="true" :viewAction="viewAction"
-              mode="table" :fields="['id','headline','submitted','action']" />
+              mode="table" :widgets="['id','headline','submitted','action']" />
           </tbody>
         </table>
       </div>

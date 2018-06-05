@@ -1,6 +1,5 @@
 @import '~stylesheets/variables';
 @import '~stylesheets/button';
-
 .form-group {
   label {
     color: $main-text-color !important;
@@ -40,14 +39,28 @@
     font-family: 'Ubuntu', sans-serif;
     color: $secondary-text-color;
   }
+  .validate-errors {
+    color: red;
+  }
+  .validate-errors-list{
+    list-style: disc;
+    li{
+      display: list-item;
+      &:empty{
+        display: none;
+      }
+    }
+  }
+  .hide {
+    display: none;
+  }
   .form-control {
     border-radius: 10px;
     border-color: #ced4da;
     color: $main-text-color;
-
-    &.form-control-read-only{
+    &.form-control-read-only {
       background: $form-control-read-only;
-      input{
+      input {
         background: $form-control-read-only;
       }
     }
@@ -59,7 +72,7 @@
       padding: 0 5px;
       &.empty {
         color: $secondary-text-color;
-        .clear{
+        .clear {
           display: none;
         }
         .selected-tag {
@@ -87,24 +100,23 @@
     .dropdown-toggle {
       border: 0;
     }
-
-    &.multiple{
-      input{
+    &.multiple {
+      input {
         display: none;
       }
       &.empty {
-        input{
-          display:block;
+        input {
+          display: block;
         }
       }
       .selected-tag {
-      color: white;
-      background: $main-text-color;
-      .close{
         color: white;
-        opacity: unset;
+        background: $main-text-color;
+        .close {
+          color: white;
+          opacity: unset;
+        }
       }
-    }
     }
     .selected-tag {
       margin-left: 0;
@@ -113,7 +125,6 @@
       height: 30px;
       border-radius: 10px;
     }
-
   }
   .ftcheckbox-inner {
     text-align: left;
@@ -196,12 +207,12 @@
       color: red;
     }
   }
-  .required-before{
+  .required-before {
     &:before {
       content: '*';
       color: red;
       position: absolute;
-      left:0;
+      left: 0;
     }
   }
 }

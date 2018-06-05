@@ -25,7 +25,7 @@
             <span class="target" v-if="request.team">
               {{request.team.team_name}}
             </span>
-            <span class="target" v-if="!request.team"> {{request.meta_data.search.team}}</span>
+            <span class="target" v-if="!request.team"> {{request.meta_data.search.club}}</span>
           </h2>
           <p class="extra">
             <span class="field row">

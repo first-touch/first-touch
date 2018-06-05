@@ -85,7 +85,7 @@
         </thead>
         <tbody>
           <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :createReport="createReport"
-            mode="table" :cancelReport="cancelReportPopup" :fields="['id','club','type','deadline','action']" />
+            mode="table" :cancelReport="cancelReportPopup" :widgets="['id','club','type','deadline','action']" />
         </tbody>
       </table>
     </timeline-item>

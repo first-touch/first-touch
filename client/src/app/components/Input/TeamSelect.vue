@@ -1,7 +1,6 @@
 <template>
-  <vselect :disabled="readonly" v-model="model" :on-change="update" :options="options" class="ft-input form-control"
-   :class="[ {'empty' : model == null} , {'form-control-read-only' : readonly }]" :placeholder="placeholder"
-  />
+  <vselect :disabled="readonly" v-model="model" :on-change="update" :options="options" class="ft-input form-control" :class="[ {'empty' : model == null} , {'form-control-read-only' : readonly }]"
+    :placeholder="placeholder" />
 </template>
 <script>
   import vSelect from 'vue-select';
@@ -64,10 +63,13 @@
     },
     methods: {
       update(val) {
-       if (val.value) {
-        this.model = val.value
-        this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
-      }
+        if (val && val.value) {
+          this.model = val
+          this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
+        } else {
+          this.$emit('update:val', null);
+
+        }
       }
     }
   };

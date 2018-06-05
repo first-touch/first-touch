@@ -19,14 +19,17 @@
           </div>
           <h5 class="row request-section">Headline</h5>
           <div class="row col-lg-12 required-before">
-            <textarea class="col-lg-12 form-control" v-model="meta_data.headline" v-autosize="meta_data.headline" placeholder="Give your assignment a descriptive and eye-catching headline"
-            />
+            <textarea class="col-lg-12 form-control" v-model="meta_data.headline" name="headline" v-validate="'required|min:10'" v-autosize="meta_data.headline"
+              placeholder="Give your assignment a descriptive and eye-catching headline" />
+            <span class="validate-errors">{{ errors.first('headline') }}</span>
           </div>
           <h5 class="row request-section">Playing Criteria</h5>
           <div class="row">
             <div class="col-lg-6 form-group required-before">
               <playerposition class="col-lg-12 select-positions" :value="meta_data.playing_position" v-on:update:val="meta_data.playing_position = $event"
                 placeholder="Select position(s)" />
+              <input type="text" class="hide" name="position" v-model="meta_data.playing_position" v-validate="'required'" />
+              <span class="validate-errors">{{ errors.first('position') }}</span>
             </div>
             <div class="col-lg-6 form-group">
               <preferredfoot class="col-lg-12" :value="meta_data.preferred_foot" v-on:update:val="meta_data.preferred_foot = $event" placeholder="Select preferred foot…"
@@ -44,24 +47,35 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
         </div>
         <h5 class="row request-section">Non-Playing Criteria</h5>
         <div class="col-md-12">
+          <ul class="validate-errors-list">
+            <li class="validate-errors">{{ errors.first('age') }}</li>
+            <li class="validate-errors">{{ errors.first('height') }}</li>
+            <li class="validate-errors">{{ errors.first('weight') }}</li>
+          </ul>
           <div class="row">
             <div class="col-lg-4 row form-group">
               <label class="col-md-12">Select age range</label>
-              <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.min_age" placeholder="Min age">
+              <input type="number" min="0" class="col-lg-5 form-control" v-model.number="meta_data.min_age" placeholder="Min age" v-validate="'between:16,40|min_range:' + meta_data.max_age"
+                name="age">
               <span class="separator col-lg-1">-</span>
-              <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.max_age" placeholder="Max age">
+              <input type="number" min="0" class="col-lg-5 form-control" v-model.number="meta_data.max_age" v-validate="'between:16,40|max_range:' + meta_data.min_age"
+                name="age" placeholder="Max age">
             </div>
             <div class="col-lg-4 row form-group">
               <label class="col-md-12">Select Height (cm)</label>
-              <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.min_height" placeholder="Min height">
+              <input type="number" min="0" class="col-lg-5 form-control" v-model.number="meta_data.min_height" placeholder="Min height" v-validate="'between:160,200|min_range:' + meta_data.max_height"
+                name="height">
               <span class="separator col-lg-1">-</span>
-              <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.max_height" placeholder="Max height">
+              <input type="number" min="0" class="col-lg-5 form-control" v-model.number="meta_data.max_height" placeholder="Max height" v-validate="'between:160,200|max_range:' + meta_data.min_height"
+                name="height">
             </div>
             <div class="col-lg-4 row form-group">
               <label class="col-md-12">Select Weight (kg)</label>
-              <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.min_weight" placeholder="Min weight">
+              <input type="number" min="0" class="col-lg-5 form-control" v-model.number="meta_data.min_weight" placeholder="Min weight" v-validate="'between:60,100|min_range:' + meta_data.max_weight"
+                name="weight">
               <span class="separator col-lg-1">-</span>
-              <input type="number" min="0" class="col-lg-5 form-control" v-model="meta_data.max_weight" placeholder="Max weight">
+              <input type="number" min="0" class="col-lg-5 form-control" v-model.number="meta_data.max_weight" placeholder="Max weight" v-validate="'between:60,100|max_range:' + meta_data.min_weight"
+                name="weight">
             </div>
           </div>
         </div>
@@ -89,6 +103,8 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
         <div class="row col-lg-12 form-group required-before">
           <ftdatepicker class="col-lg-12 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" placeholder="Select a deadline"
           />
+          <input type="text" class="hide" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
+          <span class="validate-errors">{{ errors.first('deadline') }}</span>
         </div>
         <div class="col-lg-12 form-group">
           <div class="row bid-range">
@@ -96,18 +112,20 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
             <span class="bid-range-icon-inner" v-b-tooltip.hover placement="topleft" title="Bid level reflects your appetite to spend on reports and is for reference only. Scouts determine their own rates, so the actual rate you pay is up to you and the Scout.">
               <icon name='question-circle'></icon>
             </span>
+            <input type="text" class="hide" name="price" v-model="price.value" v-validate="'required'" />
+            <input type="text" class="hide" name="price" v-model="price.max" v-validate="'required'" />
           </div>
+          <span class="validate-errors row">{{ errors.first('price') }}</span>
         </div>
-
         <h5 class="row section request-section">Other Details</h5>
         <div class="row">
           <textarea class="col-lg-12 form-control" v-model="meta_data.comments" v-autosize="meta_data.comments" placeholder="Add comments"
           />
         </div>
         <div class="form-group buttons-inner row">
-          <button v-if="!edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit('publish')">Publish</button>
-          <button v-if="edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit(null)">UPDATE</button>
-          <button v-if="!edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit(null)">Save & Exit</button>
+          <button v-if="!edit" id="submit" class="ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
+          <button v-if="edit" id="submit" class="ft-button ft-button-success"  @click="handleSubmit(null)">UPDATE</button>
+          <button v-if="!edit" id="submit" class="ft-button ft-button-success" @click="handleSubmit(null)">Save & Exit</button>
         </div>
 
       </form>
@@ -171,7 +189,7 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
 
   export default {
     name: 'PlayerJobRequest',
-    props: ['submit', 'errors', 'edit', 'cancelAction'],
+    props: ['submit', 'serverErrors', 'edit', 'cancelAction'],
     components: {
       inputsearch: inputSearch,
       playerposition: PlayerPosition,
@@ -205,25 +223,10 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
           max_weight: 95,
           min_age: 16,
           max_age: 40,
-          transfer_range: {
-            value: null,
-            currency: 'USD',
-            max: null
-          },
-          loan_range: {
-            value: null,
-            currency: 'USD',
-            max: null
-          },
-          wage_budget: {
-            value: null,
-            currency: 'USD',
-            max: null
-          },
           value: {
-            value: null,
+            value: 0,
             currency: 'USD',
-            max: null
+            max: 0
           }
         },
         deadline: '',
@@ -240,27 +243,36 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
         this.deadline = this.edit.deadline;
         this.price = this.edit.price;
       }
-    },
-    computed: {
-      canValidate() {
-        if (this.deadline == '') return false;
-        return true;
-      }
+      this.$validator.extend('min_range', {
+        getMessage: field =>
+          `Min ${field} should be less than max ${field}`,
+        validate: (value, max) => value < max
+      });
+      this.$validator.extend('max_range', {
+        getMessage: field =>
+          `Max ${field} should be greather than min ${field}`,
+        validate: (value, max) => value > max
+      });
     },
     methods: {
       showCalendar: function (index) {
         this.$refs[index].showCalendar();
       },
       handleSubmit(status) {
-        if (status == null) {
-          status = this.edit ? this.edit.status : 'private';
-        }
-        this.submit({
-          meta_data: this.meta_data,
-          deadline: this.deadline,
-          price: this.price,
-          type_request: 'position',
-          status
+        this.$validator.validateAll().then(() => {
+          if (this.errors.items.length == 0) {
+            if (status == null) {
+              status = this.edit ? this.edit.status : 'private';
+            }
+            this.submit({
+              meta_data: this.meta_data,
+              deadline: this.deadline,
+              price: this.price,
+              type_request: 'position',
+              status
+            });
+          }
+        }).catch(() => {
         });
       }
     }

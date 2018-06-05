@@ -127,10 +127,10 @@
     </thead>
     <tbody>
       <report v-if="type == 'player'" v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :buyActionWithPrice="buyAction"
-        mode="table" :fields="['type2c','player2c','position','foot','height','weight','nationality','scout','updated','action']"
+        mode="table" :widgets="['type2c','player2c','position','foot','height','weight','nationality','scout','updated','action']"
       />
       <report v-if="type == 'team'" v-for="report in listReport" :report="report" :key="report.id" :viewAction="viewAction" :buyActionWithPrice="buyAction"
-        mode="table" :fields="['type2c','club','category','competition','scout','updated','action']"
+        mode="table" :widgets="['type2c','club','category','competition','scout','updated','action']"
       />
     </tbody>
   </table>

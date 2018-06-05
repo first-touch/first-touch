@@ -16,28 +16,34 @@
           <label class="col-lg-3">Request created on</label>
           <p class="col-lg-9">{{edit.created_at | moment}}</p>
         </div>
-        <h5 class="row"  v-if="!edit">The Scouting Target</h5>
+        <h5 class="row" v-if="!edit">The Scouting Target</h5>
         <div class="row" v-if="!edit">
           <div class="col col-lg-12 form-group required-before">
             <inputsearch :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition" v-on:update:val="setLeague($event)"
               ref="league_search" :taggable="true" label="name" v-on:update:search="meta_data.search.league = $event" placeholder="Choose a league..."
             />
+            <input type="text" class="hide" name="league" v-model="league_id" v-validate="'required'" />
+            <span class="validate-errors">{{ errors.first('league') }}</span>
           </div>
           <div class="col col-lg-12 form-group required-before">
             <inputsearch :readonly="league_id == ''" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" ref="team_search"
-              :taggable="true" v-on:update:obj="setTeam($event)" label="team_name" v-on:update:search="meta_data.search.team = $event"
+              :taggable="true" v-on:update:obj="setTeam($event)" label="team_name" v-on:update:search="meta_data.search.club = $event"
               placeholder="Choose a team..." />
+            <input type="text" class="hide" name="team" v-model="team_id" v-validate="'required'" />
+            <span class="validate-errors">{{ errors.first('team') }}</span>
           </div>
           <div class="col col-lg-12 form-group required-before">
             <inputsearch :readonly="team_id == ''" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="player"
               label="display_name" v-on:update:val="setPlayer($event)" v-on:update:search="meta_data.search.player = $event"
               placeholder="Choose a player..." :required="true" />
+            <input type="text" class="hide" name="player" v-model="player_id" v-validate="'required'" />
+            <span class="validate-errors">{{ errors.first('player') }}</span>
           </div>
         </div>
         <div class="player-summary" v-if="player_id == -1">
           <div class="row">
             <div class="col-lg-4 form-group">
-              <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.age" placeholder="Age">
+              <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.age" placeholder="Age">
             </div>
             <div class="col-lg-4 form-group">
               <countryselect class="col-lg-12" :value="meta_data.nationality_country_code" placeholder="Nationality is" v-on:update:val="meta_data.nationality_country_code = $event"
@@ -69,7 +75,10 @@
         <div class="row">
 
           <div class="col-lg-12 form-group required-before">
-            <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.min_matches" placeholder="Select number of matches to be observed">
+            <input type="number" min="0" class="col-lg-12 form-control" v-validate="'required|max_value:9'" v-model.number="meta_data.min_matches"
+              name="min_match" placeholder="Select number of matches to be observed">
+            <span class="validate-errors">{{ errors.first('min_match') }}</span>
+
           </div>
 
           <div class="col-lg-12 form-group">
@@ -81,6 +90,8 @@
           <div class="col-lg-12 form-group required-before">
             <ftdatepicker class="col-lg-12 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" ref="deadline"
               placeholder="Select a deadline" />
+            <input type="text" class="hide" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
+            <span class="validate-errors">{{ errors.first('deadline') }}</span>
           </div>
           <div class="col-lg-12 form-group">
             <div class="row bid-range col-lg-12">
@@ -88,7 +99,10 @@
               <span class="bid-range-icon-inner" v-b-tooltip.hover placement="topleft" title="Bid level reflects your appetite to spend on reports and is for reference only. Scouts determine their own rates, so the actual rate you pay is up to you and the Scout.">
                 <icon name='question-circle'></icon>
               </span>
+              <input type="text" class="hide" name="price" v-model="price.value" v-validate="'required'" />
+              <input type="text" class="hide" name="price" v-model="price.max" v-validate="'required'" />
             </div>
+            <span class="validate-errors">{{ errors.first('price') }}</span>
           </div>
         </div>
         <h5 class="row">Other Details</h5>
@@ -97,9 +111,9 @@
           />
         </div>
         <div class="form-group buttons-inner row">
-          <button v-if="!edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit('publish')">Publish</button>
-          <button v-if="edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit(null)">UPDATE</button>
-          <button v-if="!edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit(null)">Save & Exit</button>
+          <button v-if="!edit" id="submit" class="ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
+          <button v-if="edit" id="submit" class="ft-button ft-button-success"  @click="handleSubmit(null)">UPDATE</button>
+          <button v-if="!edit" id="submit" class="ft-button ft-button-success" @click="handleSubmit(null)">Save & Exit</button>
         </div>
       </form>
     </timeline-item>
@@ -152,7 +166,7 @@
   import 'vue-awesome/icons/question-circle';
   export default {
     name: 'PlayerJobRequest',
-    props: ['submit', 'errors', 'edit', 'cancelAction'],
+    props: ['submit', 'edit', 'cancelAction'],
     components: {
       inputsearch: inputSearch,
       playerposition: PlayerPosition,
@@ -205,16 +219,19 @@
           currency: 'USD',
           max: null
         },
-        deadline: ''
+        deadline: '',
+        dictionary: {
+          en: {
+            attributes: {
+              min_match: 'number of match',
+              min_bid: 'bid range'
+            }
+          }
+        }
       };
     },
     computed: {
-      ...mapGetters(['searchResult']),
-      canValidate() {
-        if (!!this.edit && this.player_id == '') return false;
-        if (this.deadline == '') return false;
-        return true;
-      }
+      ...mapGetters(['searchResult'])
     },
     created() {
       if (this.edit) {
@@ -224,6 +241,8 @@
         if (!this.edit.player)
           this.player_id = -1;
       }
+      this.$validator.localize(this.dictionary);
+
     },
     methods: {
       ...mapActions([
@@ -268,7 +287,7 @@
         if (team != null) {
           this.team_id = team.id;
           if (team.id == -1) {} else {
-            this.meta_data.search.team = '';
+            this.meta_data.search.club = '';
           }
         }
       },
@@ -282,24 +301,31 @@
         this.$refs.datepicker.showCalendar();
       },
       handleSubmit(status) {
-        if (status == null) {
-          status = this.edit ? this.edit.status : 'private';
-        }
-        var request = {
-          meta_data: this.meta_data,
-          deadline: this.deadline,
-          price: this.price,
-          type_request: 'player',
-          status
-        }
-        if (!this.edit) {
-          request = Object.assign(request, {
-            player_id: this.player_id,
-            league_id: this.league_id,
-            team_id: this.team_id
-          })
-        }
-        this.submit(request);
+        this.$validator.validateAll().then(() => {
+          if (this.errors.items.length == 0) {
+            if (status == null) {
+              status = this.edit ? this.edit.status : 'private';
+            }
+            var request = {
+              meta_data: this.meta_data,
+              deadline: this.deadline,
+              price: this.price,
+              type_request: 'player',
+              status
+            }
+            if (!this.edit) {
+              request = Object.assign(request, {
+                player_id: this.player_id,
+                league_id: this.league_id,
+                team_id: this.team_id
+              })
+            }
+            this.submit(request);
+          }
+        }).catch(() => {
+
+        });
+
       }
     }
   };

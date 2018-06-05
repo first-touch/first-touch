@@ -33,7 +33,7 @@ export default {
     return {
       page: 'index',
       loading: false,
-      errors: null,
+      serverErrors: null,
       listRequest: [],
       params: ''
     };

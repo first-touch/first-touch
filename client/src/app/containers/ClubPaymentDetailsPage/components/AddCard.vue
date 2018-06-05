@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="error" v-if="failed">
-      Errors:
+      serverErrors:
       <ul v-if="errors">
         <li>{{errors}}</li>
       </ul>

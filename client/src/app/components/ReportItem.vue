@@ -23,7 +23,7 @@
               <span class="field row">
                 <span class="col-lg-4">Team Name:</span>
                 <span class="col-lg-6" v-if="report.team">{{report.team.team_name}}</span>
-                <span class="col-lg-6" v-if="!report.team && report.search">{{report.search.team}}</span>
+                <span class="col-lg-6" v-if="!report.team && report.search">{{report.search.club}}</span>
               </span>
               <span class="field row">
                 <span class="col-lg-4">Price:</span>
@@ -88,7 +88,7 @@
       </div>
     </div>
     <tr v-if="report.type_report && mode == 'table'" class="report-tr table-item" :class="{'purchased' : isPurchased}">
-      <td v-for="field in fields" :key="field.id">
+      <td v-for="field in widgets" :key="field.id">
         <span v-if="field == 'id'" class="contents">
           {{report.id | reportId(report.type_report) }}
         </span>
@@ -277,7 +277,7 @@
       'refundAction',
       'own',
       'mode',
-      'fields',
+      'widgets',
       'buyActionWithPrice'
     ],
     components: {
@@ -297,7 +297,7 @@
           return this.report.team.team_name;
         }
         if (this.report.search)
-          return this.report.search.team;
+          return this.report.search.club;
         return '';
       },
       titleDate() {

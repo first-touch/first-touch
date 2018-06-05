@@ -10,8 +10,21 @@ class Report < ApplicationRecord
   has_one :request_bid
   has_one :request, through: :request_bid
   has_many :orders
+  PLAYER_SCHEMA = "#{Rails.root}/app/models/schemas/report/player_data.json"
+  TEAM_SCHEMA = "#{Rails.root}/app/models/schemas/report/team_data.json"
+  validates :meta_data, presence: true, json: { schema: PLAYER_SCHEMA }, if: :is_player_report
+  validates :meta_data, presence: true, json: { schema: TEAM_SCHEMA }, if: :is_team_report
 
   scope :not_hided, -> { where.not(status: ['pending', 'deleted']) }
+
+  def is_player_report
+      self.type_report == 'player'
+  end
+
+  def is_team_report
+    self.type_report == 'team'
+  end
+
 
   def self.purchased_by_user_or_publish(user_id)
     joins = "LEFT JOIN orders ON orders.customer_id = #{user_id}"\
@@ -90,19 +103,19 @@ class Report < ApplicationRecord
       )
   end
 
-  # TODO: Validation will be reworked
-  # validates :price, numericality: {
-  #   only_integer: true,
-  #   greater_than_or_equal_to: 0,
-  #   less_than_or_equal_to: 999_999
-  # }
+  class ReportValidator < ActiveModel::Validator
+    def validate(record)
+      if !status_is_compatible record
+        record.errors.add :base, 'This record is invalid'
+      end
+    end
 
-  # validates :type_report, inclusion: {
-  #   in: FirstTouch::REGISTERABLE_REPORT_TYPES
-  # }
-  # validates :status, inclusion: {
-  #   in: FirstTouch::REGISTERABLE_REPORT_STATUS
-  # }
-
-  # validates_presence_of :headline, :type_report, :price
+    private
+      def status_is_compatible(record)
+        if !record.field_read('request_id').nil? and record.status != 'private'
+          return false
+        end
+        return true
+      end
+  end
 end

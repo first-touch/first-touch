@@ -63,11 +63,11 @@
           <div v-if="!clubInfo">
             <p class="detail">
               <span class="detail-title">Team Name:</span>
-              {{search.team}}
+              {{search.club}}
             </p>
             <p class="detail">
               <span class="detail-title">League:</span>
-              <span class="list">{{search.team}} </span>
+              <span class="list">{{search.club}} </span>
             </p>
           </div>
         </div>

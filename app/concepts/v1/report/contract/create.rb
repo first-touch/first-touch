@@ -7,12 +7,25 @@ module V1
         property :status
         property :type_report
         property :price
-        property :team_id
+        property :team_id, virtual: true
         property :player_id
         property :meta_data
+        validates :status,
+                  inclusion: {
+                    in: FirstTouch::REGISTERABLE_REPORT_STATUS,
+                    message: 'is not available for this report'
+                  }
+        validates :type_report,
+                  inclusion: {
+                    in: FirstTouch::REGISTERABLE_REPORT_TYPES,
+                    message: 'is not available for this report'
+                  }
+        validates_with ::Report::ReportValidator
 
-        validates :headline, :user, :price, :type_report, :meta_data, presence: true
+        validates :headline, :user, :status, :price, :type_report, presence: true
       end
     end
+
+
   end
 end

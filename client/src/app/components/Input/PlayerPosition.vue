@@ -40,7 +40,6 @@
         }
       if (this.$refs.vSelect)
         this.$refs.vSelect.scrollTo = function () {};
-
     },
     data() {
       return {
@@ -109,12 +108,6 @@
     methods: {
       update(val) {
         if (val) this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
-      },
-      removeValue(value) {
-        var index = this.model.indexOf(value);
-        if (index > -1) {
-          this.model.splice(index, 1);
-        }
       }
     }
   };

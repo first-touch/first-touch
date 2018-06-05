@@ -1,9 +1,9 @@
 module V1
   module Report
     class Create < FirstTouch::Operation
-      step :model!
       step :authorized!
-      failure :unauthenticated, fail_fast: true
+      failure :unauthorized, fail_fast: true
+      step :model!
       step :stripe
       failure :stripe_account_not_found!, fail_fast: true
       step :is_a_bid?
@@ -32,7 +32,6 @@ module V1
           end
         else
           model = ::Report.new
-          model.status = 'publish'
         end
         options['model'] = model
       end

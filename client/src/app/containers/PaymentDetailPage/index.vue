@@ -65,7 +65,7 @@ export default {
       loading: false,
       loadingAccount: false,
       success: false,
-      errors: null,
+      serverErrors: null,
       info: null,
       country: null,
       stripeRequired: null,
