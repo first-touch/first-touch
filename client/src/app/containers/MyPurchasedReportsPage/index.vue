@@ -70,7 +70,7 @@
               </thead>
               <tbody>
                 <report v-for="report in listReport" :report="report" :key="report.id" mode="table" :viewAction="viewAction" :refundAction="refundAction"
-                  :fields="['id','scout','priceCurrency','completion_status','action']" />
+                  :widgets="['id','scout','priceCurrency','completion_status','action']" />
               </tbody>
             </table>
           </div>

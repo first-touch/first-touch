@@ -1,0 +1,79 @@
+{
+  "type": "object",
+  "required": ["playing_position"],
+  "properties": {
+    "value": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "integer"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "max": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties" : false
+    },
+    "playing_position": {
+      "type": "array"
+    },
+    "languages": {
+      "type": "array"
+    },
+    "min_matches": {
+      "type": "integer"
+    },
+    "transfer": {
+      "type": "boolean"
+    },
+    "loan": {
+      "type": "boolean"
+    },
+    "expiring_contract": {
+      "type": "string"
+    },
+    "expiring_contract_max": {
+      "type": "date"
+    },
+    "expiring_contract_min": {
+      "type": "date"
+    },
+    "min_height": {
+      "type": "integer"
+    },
+    "max_height": {
+      "type": "integer"
+    },
+    "min_weight": {
+      "type": "integer"
+    },
+    "max_weight": {
+      "type": "integer"
+    },
+    "min_age": {
+      "type": "integer"
+    },
+    "max_age": {
+      "type": "integer"
+    },
+    "headline": {
+      "type": "string"
+    },
+    "desirable_attributes": {
+      "type": "string"
+    },
+    "eligibility": {
+      "type": "string"
+    },
+    "comments": {
+      "type": "string"
+    },
+    "preferred_foot": {
+      "type": "string"
+    }
+  },
+  "additionalProperties" : false
+}

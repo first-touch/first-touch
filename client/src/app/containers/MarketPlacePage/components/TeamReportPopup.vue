@@ -30,7 +30,7 @@
             <p class="summary-field row">
               <span class="summary-field-title col-lg-4">Team Name:</span>
               <span class="col-lg-8" v-if="report.team">{{report.team.team_name}}</span>
-              <span class="col-lg-8" v-if="!report.team">{{report.search.team}}</span>
+              <span class="col-lg-8" v-if="!report.team">{{report.search.club}}</span>
             </p>
             <p class="summary-field row">
               <span class="summary-field-title col-lg-4">Formation Used</span>

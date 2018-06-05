@@ -34,7 +34,7 @@
                   <span class="list" v-for="team in report.team_info.teams" :key="team.id">{{team.team_name}}</span>
                 </span>
                 <span v-if="!report.team_info && report.meta_data.search">
-                  {{report.meta_data.search.team}}
+                  {{report.meta_data.search.club}}
                 </span>
               </p>
               <p class="detail">

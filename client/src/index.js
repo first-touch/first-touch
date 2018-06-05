@@ -37,13 +37,15 @@ import JobBidPage from 'app/containers/JobBidPage';
 import store from 'app/store';
 import VueAutosize from 'vue-autosize';
 import VueRouter from 'vue-router';
+import VeeValidate from 'vee-validate';
 import './app/constants/filters';
 import 'stylesheets/landingpage.scss';
-import './app/constants/filters';
 
 Vue.use(VueAutosize);
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
+Vue.use(VeeValidate);
+
 // delete once registration is allowed
 // function redirectToPrereg (to, from, next) {
 //   next({ path: '/pre_registration' });

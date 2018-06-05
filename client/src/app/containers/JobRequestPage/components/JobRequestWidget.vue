@@ -67,7 +67,7 @@
         </thead>
         <tbody>
           <request v-for="request in listRequest" :key="request.id" :request="request" :update="updateStatus" own="true" mode="table"
-            :fields="['type','created_at','bids','action']"></request>
+            :widgets="['type','created_at','bids','action']"></request>
         </tbody>
       </table>
     </timeline-item>

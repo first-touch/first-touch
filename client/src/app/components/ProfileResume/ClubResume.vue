@@ -23,11 +23,11 @@
         <div class="info col-lg-4">
           <p class="detail">
             <span class="detail-title">Team Name:</span>
-            {{search.team}}
+            {{search.club}}
           </p>
           <p class="detail">
             <span class="detail-title">League:</span>
-            <span class="list" >{{search.team}} </span>
+            <span class="list" >{{search.club}} </span>
           </p>
         </div>
         <div class="info info-second col-lg-4">

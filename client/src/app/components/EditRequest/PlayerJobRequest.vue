@@ -27,7 +27,7 @@
           </div>
           <div class="col col-lg-12 form-group required-before">
             <inputsearch :readonly="league_id == ''" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" ref="team_search"
-              :taggable="true" v-on:update:obj="setTeam($event)" label="team_name" v-on:update:search="meta_data.search.team = $event"
+              :taggable="true" v-on:update:obj="setTeam($event)" label="team_name" v-on:update:search="meta_data.search.club = $event"
               placeholder="Choose a team..." />
             <input type="text" class="hide" name="team" v-model="team_id" v-validate="'required'" />
             <span class="validate-errors">{{ errors.first('team') }}</span>
@@ -43,7 +43,7 @@
         <div class="player-summary" v-if="player_id == -1">
           <div class="row">
             <div class="col-lg-4 form-group">
-              <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.age" placeholder="Age">
+              <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.age" placeholder="Age">
             </div>
             <div class="col-lg-4 form-group">
               <countryselect class="col-lg-12" :value="meta_data.nationality_country_code" placeholder="Nationality is" v-on:update:val="meta_data.nationality_country_code = $event"
@@ -75,7 +75,7 @@
         <div class="row">
 
           <div class="col-lg-12 form-group required-before">
-            <input type="number" min="0" class="col-lg-12 form-control" v-validate="'required|max_value:9'" v-model="meta_data.min_matches"
+            <input type="number" min="0" class="col-lg-12 form-control" v-validate="'required|max_value:9'" v-model.number="meta_data.min_matches"
               name="min_match" placeholder="Select number of matches to be observed">
             <span class="validate-errors">{{ errors.first('min_match') }}</span>
 
@@ -99,9 +99,10 @@
               <span class="bid-range-icon-inner" v-b-tooltip.hover placement="topleft" title="Bid level reflects your appetite to spend on reports and is for reference only. Scouts determine their own rates, so the actual rate you pay is up to you and the Scout.">
                 <icon name='question-circle'></icon>
               </span>
-              <input type="text" class="hide" name="price" v-model="price" v-validate="'required'" />
-              <span class="validate-errors">{{ errors.first('price') }}</span>
+              <input type="text" class="hide" name="price" v-model="price.value" v-validate="'required'" />
+              <input type="text" class="hide" name="price" v-model="price.max" v-validate="'required'" />
             </div>
+            <span class="validate-errors">{{ errors.first('price') }}</span>
           </div>
         </div>
         <h5 class="row">Other Details</h5>
@@ -111,8 +112,8 @@
         </div>
         <div class="form-group buttons-inner row">
           <button v-if="!edit" id="submit" class="ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
-          <button v-if="edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit(null)">UPDATE</button>
-          <button v-if="!edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit(null)">Save & Exit</button>
+          <button v-if="edit" id="submit" class="ft-button ft-button-success"  @click="handleSubmit(null)">UPDATE</button>
+          <button v-if="!edit" id="submit" class="ft-button ft-button-success" @click="handleSubmit(null)">Save & Exit</button>
         </div>
       </form>
     </timeline-item>
@@ -124,11 +125,6 @@
 </style>
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
-
-  .hide {
-    display: none;
-    ;
-  }
 
   .select-player {
     .col {
@@ -227,19 +223,15 @@
         dictionary: {
           en: {
             attributes: {
-              min_match: 'number of minimum match'
+              min_match: 'number of match',
+              min_bid: 'bid range'
             }
           }
         }
       };
     },
     computed: {
-      ...mapGetters(['searchResult']),
-      canValidate() {
-        if (!!this.edit && this.player_id == '') return false;
-        if (this.deadline == '') return false;
-        return true;
-      }
+      ...mapGetters(['searchResult'])
     },
     created() {
       if (this.edit) {
@@ -295,7 +287,7 @@
         if (team != null) {
           this.team_id = team.id;
           if (team.id == -1) {} else {
-            this.meta_data.search.team = '';
+            this.meta_data.search.club = '';
           }
         }
       },
@@ -311,25 +303,24 @@
       handleSubmit(status) {
         this.$validator.validateAll().then(() => {
           if (this.errors.items.length == 0) {
-            // if (status == null) {
-            //   status = this.edit ? this.edit.status : 'private';
-            // }
-            // var request = {
-            //   meta_data: this.meta_data,
-            //   deadline: this.deadline,
-            //   price: this.price,
-            //   type_request: 'player',
-            //   status
-            // }
-            // if (!this.edit) {
-            //   request = Object.assign(request, {
-            //     player_id: this.player_id,
-            //     league_id: this.league_id,
-            //     team_id: this.team_id
-            //   })
-            // }
-            // this.submit(request);
-            alert('ouiii')
+            if (status == null) {
+              status = this.edit ? this.edit.status : 'private';
+            }
+            var request = {
+              meta_data: this.meta_data,
+              deadline: this.deadline,
+              price: this.price,
+              type_request: 'player',
+              status
+            }
+            if (!this.edit) {
+              request = Object.assign(request, {
+                player_id: this.player_id,
+                league_id: this.league_id,
+                team_id: this.team_id
+              })
+            }
+            this.submit(request);
           }
         }).catch(() => {
 

@@ -1,0 +1,51 @@
+{
+  "type": "object",
+  "properties": {
+    "analyzed_matches": {
+      "type": "array"
+    },
+    "search": {
+      "type": "object",
+      "properties": {
+        "player": {
+          "type": "string"
+        },
+        "team": {
+          "type": "string"
+        },
+        "league": {
+          "type": "string"
+        }
+      },
+      "additionalProperties" : false
+    },
+    "category": {
+      "type": "string"
+    },
+    "formation": {
+      "type": "string"
+    },
+    "attacking_organisation": {
+      "type": "string"
+    },
+    "defensive_organisation": {
+      "type": "string"
+    },
+    "setplays_for": {
+      "type": "string"
+    },
+    "setplays_against": {
+      "type": "string"
+    },
+    "main_threats": {
+      "type": "string"
+    },
+    "observations": {
+      "type": "string"
+    },
+    "conclusion": {
+      "type": "string"
+    }
+  },
+  "additionalProperties" : false
+}

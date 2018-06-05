@@ -18,8 +18,8 @@
             <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
             <div class="info">
               <h4 class="name" v-if="report.team">{{report.team.team_name}}</h4>
-              <h4 class="name" v-if="!report.team && report.meta_data.search">{{report.meta_data.search.team}}</h4>
-              <h4 class="name" v-if="!report.team && !report.meta_data.search && request && request.meta_data.search">{{request.meta_data.search.team}}</h4>
+              <h4 class="name" v-if="!report.team && report.meta_data.search">{{report.meta_data.search.club}}</h4>
+              <h4 class="name" v-if="!report.team && !report.meta_data.search && request && request.meta_data.search">{{request.meta_data.search.club}}</h4>
 
             </div>
           </div>

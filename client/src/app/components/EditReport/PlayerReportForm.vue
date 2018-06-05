@@ -1,14 +1,17 @@
 <template>
   <form @submit.prevent class="report-form ft-form">
     <div class="form-group row report-name">
-      <div class="col-lg-12">
-        <input type="text" class="col-lg-12 form-control" v-model="headline" placeholder="Report name">
+      <div class="col-lg-12 required-before">
+        <input type="text" class="col-lg-12 form-control" v-model="headline" placeholder="Report name" name="name" v-validate="'required'">
+        <span class="validate-errors">{{ errors.first('name') }}</span>
       </div>
     </div>
     <div class="row form-group" v-if="priceEdit">
       <div class="col-lg-12">
         <div class="price-input">
           <currencyinput :value="price" placeholder="Price" />
+          <input type="text" class="hide" name="price" v-model="price.value" v-validate="'required'" maxValue="999999" />
+          <span class="validate-errors">{{ errors.first('price') }}</span>
           <p v-if="price.value == 0" class="info">The report will be free</p>
           <p v-if="request" class="info">Price between {{request.price.value}} and {{request.price.max}} {{request.price.currency}} </p>
         </div>
@@ -21,14 +24,17 @@
         <transition name="fade">
           <div class="form-group player-summary" v-if="playersummary">
             <div class="row">
-              <div class="col-lg-4">
-                <input type="number" class="col-lg-12 form-control" v-model.number="meta_data.player_info.age" :placeholder="agePlaceHolder">
+              <div class="col-lg-4 required-before">
+                <input type="number" class="col-lg-12 form-control" v-model.number="meta_data.player_info.age" :placeholder="agePlaceHolder" name="age" v-validate="'required|between:16,40'">
+                <span class="validate-errors">{{ errors.first('age') }}</span>
               </div>
-              <div class="col-lg-4">
-                <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.player_info.height" :placeholder="heightPlaceHolder">
+              <div class="col-lg-4 required-before">
+                <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.player_info.height" :placeholder="heightPlaceHolder" name="height" v-validate="'required|between:150,210'">
+                <span class="validate-errors">{{ errors.first('height') }}</span>
               </div>
-              <div class="col-lg-4">
-                <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.player_info.weight" :placeholder="weightPlaceHolder">
+              <div class="col-lg-4 required-before">
+                <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.player_info.weight" :placeholder="weightPlaceHolder" name="weight" v-validate="'required|between:50,100'">
+                <span class="validate-errors">{{ errors.first('weight') }}</span>
               </div>
             </div>
             <div class="row">
@@ -164,7 +170,7 @@
     </div>
     <div class="form-group row">
       <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.conclusion" v-autosize="meta_data.conclusion" placeholder="Conclusions"
+        <textarea class="col-lg-12 form-control" v-model="meta_data.conclusion" v-autosize="meta_data.conclusion" placeholder="Conclusion"
         />
       </div>
     </div>
@@ -314,12 +320,12 @@
             transfer_interested: 'No',
             free_agent: 'No',
             wage: {
-              value: null,
+              value: 0,
               currency: 'USD'
             },
             loan_availability: '',
             transfer_budget: {
-              value: null,
+              value: 0,
               currency: 'USD'
             },
             transfer_availability: ''
@@ -428,19 +434,28 @@
     },
     methods: {
       handleSubmit(status) {
-        var report = {
-          headline: this.headline,
-          price: this.price,
-          meta_data: this.meta_data,
-          remove_attachment: this.remove_attachment,
-          status
-        };
-        this.submitReport(report, this.files);
-        $('html, body').animate({
-            scrollTop: 0
-          },
-          100
-        );
+
+        this.$validator.validateAll().then(() => {
+          if (this.errors.items.length == 0) {
+            var report = {
+              headline: this.headline,
+              price: this.price,
+              meta_data: this.meta_data,
+              remove_attachment: this.remove_attachment,
+              status
+            };
+            this.submitReport(report, this.files);
+          }
+        }).catch(() => {
+        });
+        setTimeout(function(){  var error = $('.validate-errors:not(:empty):first')
+        var y = error.offset() ? error.offset().top - 200 : 0;
+                    $('html, body').animate({
+                scrollTop: y
+              },
+              200
+            ); }, 200);
+
       }
     }
   };

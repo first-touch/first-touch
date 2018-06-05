@@ -4,11 +4,11 @@
     <div class="container-fluid">
       <div class="ft-page">
         <div v-if="value != null" class="report-div">
-          <playerjobrequest v-if="show == 'player'" :submit="customUpdateRequest" :errors="errors" :edit="value" :cancelAction="cancel"
+          <playerjobrequest v-if="show == 'player'" :submit="customUpdateRequest" :serverErrors="serverErrors" :edit="value" :cancelAction="cancel"
           />
-          <positionjobrequest v-if="show == 'position'" :submit="customUpdateRequest" :errors="errors" :edit="value" :cancelAction="cancel"
+          <positionjobrequest v-if="show == 'position'" :submit="customUpdateRequest" :serverErrors="serverErrors" :edit="value" :cancelAction="cancel"
           />
-          <teamjobrequest v-if="show == 'team'" :submit="customUpdateRequest" :errors="errors" :edit="value" :cancelAction="cancel"
+          <teamjobrequest v-if="show == 'team'" :submit="customUpdateRequest" :serverErrors="serverErrors" :edit="value" :cancelAction="cancel"
           />
         </div>
       </div>
@@ -39,7 +39,7 @@
     },
     data() {
       return {
-        errors: '',
+        serverErrors: '',
         value: {},
         show: '',
         update: false

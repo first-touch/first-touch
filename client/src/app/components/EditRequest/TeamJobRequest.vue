@@ -19,25 +19,32 @@
           </div>
           <h5 class="row" v-if="!edit">The Scouting Target</h5>
           <div class="row" v-if="!edit">
-            <div class="col-lg-6 form-group">
+            <div class="col-lg-6 form-group required-before">
               <inputsearch class="col-lg-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
                 v-on:update:val="setLeague($event)" v-on:update:search="meta_data.search.league = $event" ref="team_search"
                 placeholder="Select a league" label="name" />
+              <input type="text" class="hide" name="league" v-model="league_id" v-validate="'required'" />
+              <span class="validate-errors">{{ errors.first('league') }}</span>
             </div>
             <div class="col-lg-6 form-group required-before">
               <inputsearch :edit="team_search" :readonly="league_id == ''" class="col-lg-12" :taggable="true" :onkeyup="getSearchResultsRole"
-                placeholder="Select a club" ref="team_search" v-on:update:search="meta_data.search.team = $event" :searchResult="searchResult"
+                placeholder="Select a club" ref="team_search" v-on:update:search="meta_data.search.club = $event" :searchResult="searchResult"
                 type="team" v-on:update:obj="setClub($event)" :required="true" label="team_name" />
+              <input type="text" class="hide" name="club" v-model="team_id" v-validate="'required'" />
+              <span class="validate-errors">{{ errors.first('club') }}</span>
             </div>
             <div class="col-lg-6 form-group required-before">
               <team-select v-on:update:val="meta_data.team = $event" :readonly="team_id == '' " placeholder="Select a team"></team-select>
+              <input type="text" class="hide" name="team" v-model="meta_data.team" v-validate="'required'" />
+              <span class="validate-errors">{{ errors.first('team') }}</span>
             </div>
           </div>
           <h5 class="row">Your Scouting Requirements</h5>
           <div class="row">
-
             <div class="col-lg-12 form-group required-before">
-              <input type="number" min="0" class="col-lg-12 form-control" v-model="meta_data.min_matches" placeholder="Select number of matches to be observed">
+              <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.min_matches" name="min_match" v-validate="'required|max_value:9'"
+                placeholder="Select number of matches to be observed">
+              <span class="validate-errors">{{ errors.first('min_match') }}</span>
             </div>
           </div>
           <div class="row">
@@ -50,6 +57,8 @@
             <div class="col-lg-12 form-group required-before">
               <ftdatepicker class="col-lg-12 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" placeholder="Select a deadline"
               />
+              <input type="text" class="hide" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
+              <span class="validate-errors">{{ errors.first('deadline') }}</span>
             </div>
           </div>
           <div class="col-lg-12 form-group">
@@ -58,7 +67,11 @@
               <span class="bid-range-icon-inner" v-b-tooltip.hover placement="topleft" title="Bid level reflects your appetite to spend on reports and is for reference only. Scouts determine their own rates, so the actual rate you pay is up to you and the Scout.">
                 <icon name='question-circle'></icon>
               </span>
+              <input type="text" class="hide" name="price" v-model="price.value" v-validate="'required'" />
+              <input type="text" class="hide" name="price" v-model="price.max" v-validate="'required'" />
             </div>
+            <span class="validate-errors row">{{ errors.first('price') }}</span>
+
           </div>
           <h5 class="row">Other Details</h5>
           <div class="row col-lg-12 form-group">
@@ -66,9 +79,9 @@
             />
           </div>
           <div class="form-group buttons-inner row">
-            <button v-if="!edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit('publish')">Publish</button>
-            <button v-if="edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit(null)">UPDATE</button>
-            <button v-if="!edit" id="submit" class="ft-button ft-button-success" :disabled="!canValidate" @click="handleSubmit(null)">Save & Exit</button>
+            <button v-if="!edit" id="submit" class="ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
+            <button v-if="edit" id="submit" class="ft-button ft-button-success"  @click="handleSubmit(null)">UPDATE</button>
+            <button v-if="!edit" id="submit" class="ft-button ft-button-success" @click="handleSubmit(null)">Save & Exit</button>
           </div>
         </div>
       </form>
@@ -114,7 +127,7 @@
   import 'vue-awesome/icons/question-circle';
   export default {
     name: 'PlayerJobRequest',
-    props: ['submit', 'errors', 'edit', 'cancelAction'],
+    props: ['submit', 'serverErrors', 'edit', 'cancelAction'],
     components: {
       inputsearch: inputSearch,
       vselect: vSelect,
@@ -138,9 +151,10 @@
         },
         meta_data: {
           training_report: 'no',
+          team: '',
           search: {
             league: '',
-            team: ''
+            club: ''
           }
         },
         options: {
@@ -159,16 +173,19 @@
           value: null,
           currency: 'USD',
           max: null
+        },
+        dictionary: {
+          en: {
+            attributes: {
+              min_match: 'number of match',
+              min_bid: 'bid range'
+            }
+          }
         }
       };
     },
     computed: {
-      ...mapGetters(['searchResult']),
-      canValidate() {
-        if (!this.edit && this.team_id == '') return false;
-        if (this.deadline == '') return false;
-        return true;
-      }
+      ...mapGetters(['searchResult'])
     },
     created() {
       if (this.edit) {
@@ -182,6 +199,8 @@
         if (index > 0)
           this.training_report_select = this.options.required[index];
       }
+      this.$validator.localize(this.dictionary);
+
     },
     methods: {
       ...mapActions(['getSearchResultsTeams', 'getSearchResultsCompetition', 'flushSearchResults']),
@@ -214,7 +233,7 @@
         if (team != null) {
           this.team_id = team.id;
           if (team.id == -1) {} else {
-            this.meta_data.search.team = '';
+            this.meta_data.search.club = '';
           }
         }
       },
@@ -222,17 +241,23 @@
         this.$refs.datepicker.showCalendar();
       },
       handleSubmit(status) {
-        if (status == null) {
-          status = this.edit ? this.edit.status : 'private';
-        }
-        this.submit({
-          meta_data: this.meta_data,
-          deadline: this.deadline,
-          team_id: this.team_id,
-          league_id: this.league_id,
-          price: this.price,
-          type_request: 'team',
-          status
+        this.$validator.validateAll().then(() => {
+          if (this.errors.items.length == 0) {
+            if (status == null) {
+              status = this.edit ? this.edit.status : 'private';
+            }
+            this.submit({
+              meta_data: this.meta_data,
+              deadline: this.deadline,
+              team_id: this.team_id,
+              league_id: this.league_id,
+              price: this.price,
+              type_request: 'team',
+              status
+            });
+          }
+        }).catch(() => {
+
         });
       }
     }

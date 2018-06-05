@@ -14,7 +14,7 @@
     <div class="form-group row">
       <label class="col-lg-3 col-form-label" :class="type == 'team' ? 'required' : ''">Select a Club</label>
       <inputsearch class="col-lg-6" v-if="league_id != ''" placeholder="Club is" :onkeyup="getSearchResultsRole" :searchResult="searchResult"
-        type="team" ref="team_search" :taggable="true" v-on:update:obj="setTeam($event)" label="team_name" v-on:update:search="search.team = $event"
+        type="team" ref="team_search" :taggable="true" v-on:update:obj="setTeam($event)" label="team_name" v-on:update:search="search.club = $event"
       />
     </div>
     <div class="form-group row" v-if="type == 'player'">
@@ -127,7 +127,7 @@
           if (team.id == -1) {} else {
             this.league_id = team.competition_id;
             this.$refs.league_search.search = team.competition_name;
-            this.search.team = ''
+            this.search.club = ''
           }
         }
       },

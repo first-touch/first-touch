@@ -114,7 +114,7 @@
         if (this.request.team) {
           return this.request.team.team_name;
         }
-        return this.request.meta_data.search.team;
+        return this.request.meta_data.search.club;
       }
     },
     data() {

@@ -120,7 +120,7 @@
 
           <div class="info col-lg-8" v-if="request.type_request == 'team'">
             <h2 class="title" v-if="request.team">{{request.team.team_name}}</h2>
-            <h2 class="title" v-if="!request.team"> {{request.meta_data.search.team}} </h2>
+            <h2 class="title" v-if="!request.team"> {{request.meta_data.search.club}} </h2>
             <span class="pending" v-if="!own && request.bid_status && request.bid_status.status =='pending'">Bid pending</span>
             <p class="extra">
               <span class="field row">
@@ -219,7 +219,7 @@
       </div>
     </div>
     <tr v-if="mode == 'table'" class="request-tr table-item">
-      <td v-for="field in fields" :key="field.id">
+      <td v-for="field in widgets" :key="field.id">
         <span v-if="field == 'id'" class="contents">
           {{request.id | requestId(request.type_request) }}
         </span>
@@ -365,7 +365,7 @@
   export default {
     name: 'RequestItem',
     props: ['request', 'update', 'own', 'viewSummary', 'addBid', 'createReport', 'viewReport', 'cancelReport', 'mode',
-      'fields'
+      'widgets'
     ],
     components: {
       icon: Icon,

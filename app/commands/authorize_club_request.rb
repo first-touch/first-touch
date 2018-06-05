@@ -15,7 +15,6 @@ class AuthorizeClubRequest < TokenBased
         password_digest: decoded_club_auth_token[:account_owner_digest]
       }
       club_id = decoded_club_auth_token[:club_id]
-
       if decoded_club_auth_token[:last_logout] != 0
         last_logout = Time.at(decoded_club_auth_token[:last_logout]).to_datetime
         min_date = last_logout - 1.second
