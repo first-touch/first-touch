@@ -12,42 +12,41 @@ module V1
         models = nil
         if current_user.is_a?(::User) && current_user.scout?
           models = current_user.reports.not_hided
-        elsif !current_club.nil? || true
-          # TODO: remove or true once club are ready
-          models= club(params, options, current_user: current_user)
+        elsif !current_club.nil?
+          models= club(params, options, current_club: current_club)
         end
         options['result.model'] = result = Result.new(!options['models'].nil?, {})
         options['model.class'] = ::Report
         options['models'] = models
       end
 
-      def club(_params, options, current_user:)
+      def club(_params, options, current_club:)
         if _params[:purchased] == 'true'
-          purchased!(options, current_user)
+          purchased!(options, current_club)
         elsif !_params[:request_id].blank?
-          proposed!(options, current_user, _params)
+          proposed!(options, current_club, _params)
         else
-          marketplace!(options, current_user)
+          marketplace!(options, current_club)
         end
       end
 
-      def proposed!(options, current_user, params)
+      def proposed!(options, current_club, params)
         models = nil
-        request = current_user.requests.find(params[:request_id]) if params[:request_id]
+        request = current_club.requests.find(params[:request_id]) if params[:request_id]
         unless request.nil?
           models = ::Report.proposed_reports request.id
         end
         options['models'] = models
       end
 
-      def marketplace!(options, current_user)
-        models = ::Report.purchased_by_user_or_publish current_user.id
+      def marketplace!(options, current_club)
+        models = ::Report.purchased_by_club_or_publish current_club.id
         options['models'] = models
       end
 
-      def purchased!(options, current_user)
+      def purchased!(options, current_club)
         models = options['models']
-        models = ::Report.purchased_by_user current_user.id
+        models = ::Report.purchased_by_club current_club.id
         options['models'] = models
       end
 

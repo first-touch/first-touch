@@ -7,12 +7,12 @@ module V1
 
       private
 
-      def find!(options, params:, current_user:, **)
+      def find!(options, params:, current_club:, **)
         options['model.class'] = ::Stripe::Account
         id = params[:id]
         type = params[:type]
-        unless current_user.stripe_ft.stripe_id.nil?
-          account = ::Stripe::Customer.retrieve(current_user.stripe_ft.stripe_id)
+        unless current_club.stripe_id.nil?
+          account = ::Stripe::Customer.retrieve(current_club.stripe_id)
           unless account.nil?
             begin
               account.sources.retrieve(id)
@@ -25,7 +25,7 @@ module V1
         !options['model'].nil?
       end
 
-      def update!(options, params:, current_user:, **)
+      def update!(options, params:, current_club:, **)
         id = params[:id]
         account = options['model']
         account.default_source = id

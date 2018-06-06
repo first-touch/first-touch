@@ -6,6 +6,7 @@ export const createRequest = (store, request) => {
     method: 'POST',
     headers: {
       Authorization: store.state.token.value,
+      ClubAuthorization: store.state.token.clubs[0] ? store.state.token.clubs[0].token : null,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(request)
@@ -25,7 +26,8 @@ export const getRequest = (store, id) => {
   fetch('/api/v1/requests/' + id, {
     method: 'GET',
     headers: {
-      Authorization: store.state.token.value
+      Authorization: store.state.token.value,
+      ClubAuthorization: store.state.token.clubs[0] ? store.state.token.clubs[0].token : null
     }
   }).then(res => {
     if (res.status >= 200 && res.status < 400) {
@@ -42,7 +44,8 @@ export const getRequests = (store, params) => {
   fetch('/api/v1/requests?' + params, {
     method: 'GET',
     headers: {
-      Authorization: store.state.token.value
+      Authorization: store.state.token.value,
+      ClubAuthorization: store.state.token.clubs[0] ? store.state.token.clubs[0].token : null
     }
   }).then(res => {
     if (res.status === 200) {
@@ -61,6 +64,7 @@ export const updateRequest = (store, { id, request }) => {
     method: 'PUT',
     headers: {
       Authorization: store.state.token.value,
+      ClubAuthorization: store.state.token.clubs[0].token,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(request)

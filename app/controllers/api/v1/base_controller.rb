@@ -16,9 +16,6 @@ module Api
       def authenticate_request
         @current_user = AuthorizeApiRequest.(request.headers).result
         @current_club = AuthorizeClubRequest.(request.headers).result[:club]
-        puts 'ssada'
-        puts  AuthorizeClubRequest.(request.headers)
-        puts 'ddd'
         return if @current_user
         render json: { error: 'Not Authorized' }, status: :unauthorized
       end

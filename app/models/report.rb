@@ -10,10 +10,10 @@ class Report < ApplicationRecord
   has_one :request_bid
   has_one :request, through: :request_bid
   has_many :orders
-  PLAYER_SCHEMA = "#{Rails.root}/app/models/schemas/report/player_data.json"
-  TEAM_SCHEMA = "#{Rails.root}/app/models/schemas/report/team_data.json"
-  validates :meta_data, presence: true, json: { schema: PLAYER_SCHEMA }, if: :is_player_report
-  validates :meta_data, presence: true, json: { schema: TEAM_SCHEMA }, if: :is_team_report
+  # PLAYER_SCHEMA = "#{Rails.root}/app/models/schemas/report/player_data.json"
+  # TEAM_SCHEMA = "#{Rails.root}/app/models/schemas/report/team_data.json"
+  # validates :meta_data, presence: true, json: { schema: PLAYER_SCHEMA }, if: :is_player_report
+  # validates :meta_data, presence: true, json: { schema: TEAM_SCHEMA }, if: :is_team_report
 
   scope :not_hided, -> { where.not(status: ['pending', 'deleted']) }
 
@@ -26,8 +26,8 @@ class Report < ApplicationRecord
   end
 
 
-  def self.purchased_by_user_or_publish(user_id)
-    joins = "LEFT JOIN orders ON orders.customer_id = #{user_id}"\
+  def self.purchased_by_club_or_publish(club_id)
+    joins = "LEFT JOIN orders ON orders.customer_id = #{club_id}"\
     ' AND orders.report_id = reports.id'
     where('reports.status = ? OR orders.status = ?', 'publish', 'completed')
     .joins(joins)
@@ -94,9 +94,9 @@ class Report < ApplicationRecord
     where('reports.request_id = ?', request_id)
   end
 
-  def self.purchased_by_user(user_id)
+  def self.purchased_by_club(club_id)
     joins(orders: :user)
-      .where(orders: { status: ['completed', 'pending_report'], customer_id: user_id })
+      .where(orders: { status: ['completed', 'pending_report'], customer_id: club_id })
       .select(
         'reports.*, orders.status AS orders_status,'\
         ' orders.price AS orders_price'
@@ -111,8 +111,8 @@ class Report < ApplicationRecord
     end
 
     private
-      def status_is_compatible(record)
-        if !record.field_read('request_id').nil? and record.status != 'private'
+    def status_is_compatible(record)
+      if !record.field_read('request_id').nil? and record.status != 'private'
           return false
         end
         return true

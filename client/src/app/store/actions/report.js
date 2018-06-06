@@ -44,7 +44,8 @@ export const getReports = (store, params) => {
   fetch('/api/v1/reports?' + params, {
     method: 'GET',
     headers: {
-      Authorization: store.state.token.value
+      Authorization: store.state.token.value,
+      ClubAuthorization: store.state.token.clubs[0] ? store.state.token.clubs[0].token : null
     }
   }).then(res => {
     if (res.status === 200) {
@@ -61,7 +62,8 @@ export const getReport = (store, id) => {
   fetch('/api/v1/reports/' + id, {
     method: 'GET',
     headers: {
-      Authorization: store.state.token.value
+      Authorization: store.state.token.value,
+      ClubAuthorization: store.state.token.clubs[0] ? store.state.token.clubs[0].token : null
     }
   })
     .then(res => {

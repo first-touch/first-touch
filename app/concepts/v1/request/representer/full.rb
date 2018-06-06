@@ -5,11 +5,7 @@ module V1
         include Representable::JSON
 
         property :id
-        property :user, getter: lambda { |represented:, **|
-          ::V1::PersonalProfile::Representer::Simplified.new(
-            represented.user.personal_profile
-          )
-        }
+        property :club
         property :player, getter: lambda { |represented:, **|
           if represented.player
             ::V1::PersonalProfile::Representer::Simplified.new(

@@ -11,13 +11,12 @@ module V1
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
 
-      def setup_model!(model:, current_user:, **)
-        model.user = current_user
+      def setup_model!(model:, current_club:, **)
+        model.club = current_club
       end
 
       def authorized!(current_club:, **)
-        # TODO: CLUB not current_user
-        !current_club.nil? || true
+        !current_club.nil?
       end
     end
   end

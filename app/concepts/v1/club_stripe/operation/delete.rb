@@ -8,11 +8,11 @@ module V1
 
       private
 
-      def find!(options, params:, current_user:, **)
+      def find!(options, params:, current_club:, **)
         options['model.class'] = ::Stripe::Customer
         id = params[:id]
-        if !id.nil? && !current_user.stripe_ft.nil?
-          account = ::Stripe::Customer.retrieve(current_user.stripe_ft.stripe_id)
+        if !id.nil? && !current_club.stripe_id.nil?
+          account = ::Stripe::Customer.retrieve(current_club.stripe_id)
           unless account.nil?
             begin
               account.sources.retrieve(id)
@@ -25,7 +25,7 @@ module V1
         !options['model'].nil?
       end
 
-      def delete!(options, params:, current_user:, **)
+      def delete!(options, params:, current_club:, **)
         id = params[:id]
         account = options['model']
         card = account.sources.retrieve(id)

@@ -18,7 +18,7 @@
               </span>
               <span class="field row" v-if="!own">
                 <span class="col-lg-4">Requested by:</span>
-                <span class="col-lg-6"> {{request.user.first_name}} {{request.user.last_name}}
+                <span class="col-lg-6"> {{request.club.name}}
                 </span>
               </span>
 
@@ -77,7 +77,7 @@
               </span>
               <span class="field row" v-if="!own">
                 <span class="col-lg-4">Requested by:</span>
-                <span class="col-lg-6"> {{request.user.first_name}} {{request.user.last_name}}
+                <span class="col-lg-6"> {{request.club.name}}
                 </span>
               </span>
               <span class="field row">
@@ -130,7 +130,7 @@
               </span>
               <span class="field row" v-if="!own">
                 <span class="col-lg-4">Requested by:</span>
-                <span class="col-lg-6"> {{request.user.first_name}} {{request.user.last_name}}
+                <span class="col-lg-6"> {{request.club.name}}
                 </span>
               </span>
               <span class="field row">
@@ -232,7 +232,7 @@
           {{ request.created_at | moment }}
         </span>
         <span v-if="field == 'club'" class="contents">
-          {{ request.user.first_name }} {{ request.user.last_name }}
+          {{ request.club.name }}
         </span>
         <span v-if="field == 'deadline'" class="contents">
           {{ request.deadline | moment }}

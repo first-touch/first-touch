@@ -16,10 +16,8 @@ module V1
           else
             models = nil
           end
-          # models = ::Request.all.where status: 'publish'
-        elsif !current_club.nil? || true
-          # TODO: or true need to be remove when club are ready
-          models = club(current_user: current_user)
+        elsif !current_club.nil?
+          models = club(current_club: current_club)
         end
         options['result.model'] = result = Result.new(!models.nil?, {})
         options['model.class'] = ::Request
@@ -34,8 +32,8 @@ module V1
         models = models.select('requests.*, request_bids.status as bid_status, request_bids.price as bid_price, request_bids.report_id as report_id')
       end
 
-      def club(current_user:)
-        models = current_user.requests.where.not(status: 'deleted')
+      def club(current_club:)
+        models = current_club.requests.where.not(status: 'deleted')
         joins = "LEFT OUTER JOIN request_bids ON request_bids.request_id = requests.id AND request_bids.status = 'pending'"
         models = models.joins(joins)
         models = models.select('requests.*, COUNT(request_bids.id) as request_bids_count')
@@ -48,9 +46,8 @@ module V1
         models = add_where(models, 'requests.type_request =', params[:type_request])
         models = add_where(models, 'requests.status =', params[:status])
         unless params[:club].blank?
-          # TODO: Refactor When club token is ready
-          models = models.joins(:user)
-          models = add_where(models, 'users.search_string iLIKE ', "%#{params[:club]}%")
+          models = models.joins(:club)
+          models = add_where(models, 'club.name iLIKE ', "%#{params[:club]}%")
         end
         models = models.where('request_bids.status IN (?)', params[:bids_status].split(',')) unless params[:bids_status].blank?
         models = models.having("count(request_bids.id) >= #{params[:min_bids]} ") unless params[:min_bids].blank?
@@ -85,9 +82,8 @@ module V1
              .include?(params[:order])
             models = models.order(params[:order] => order)
           elsif params[:order] == 'club'
-            # TODO: Refactor When club token is ready
-            models = models.joins(:user)
-            models = models.order("users.search_string #{order}")
+            models = models.joins(:club)
+            models = models.order("clubs.name #{order}")
           elsif params[:order] == 'bids'
             models = models.order("count(request_bids.id) #{order}")
           elsif params[:order] == 'bid_price'
