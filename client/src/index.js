@@ -68,11 +68,12 @@ function requireClub (to, from, next) {
     next({
       path: '/welcome'
     });
-  } else if (!store.state.token.clubs) {
+  } else if (store.state.token.clubs.length === 0) {
     next({
       path: '/'
     });
   }
+
   next();
 }
 
