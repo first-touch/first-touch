@@ -76,8 +76,8 @@
           </div>
         </div>
         <div class="widget buttons-inner col-lg-2 col-md-5 col-sm-4">
-          <button class="btn-round" v-if="own && report.status == 'publish'" @click="UpdateReport('private',report.id)">Unpublish</button>
-          <button v-if="own && report.status == 'private'" class="ft-action" @click="UpdateReport('publish',report.id)">Publish</button>
+          <button class="btn-round" v-if="own && report.status == 'publish' && !report.has_request" @click="UpdateReport('private',report.id)">Unpublish</button>
+          <button v-if="own && report.status == 'private' && !report.has_request" class="ft-action" @click="UpdateReport('publish',report.id)">Publish</button>
           <button v-if="report.orders_status == null && !report.is_free &&  buyAction" class="ft-button ft-button-success " @click="buyAction(report)">Buy report</button>
           <button v-if="summaryAction" class="btn-round" @click="summaryAction(report)">View Summary</button>
           <button v-if="report.orders_status == 'completed' && refundAction" class="btn-round" @click="refundAction(report.id)">Refund</button>
@@ -187,10 +187,10 @@
                   <a v-if="canAction(summaryAction, 'view_summary', false)" @click="summaryAction(report)">
                     View Summary
                   </a>
-                  <a v-if="canAction(own && report.status == 'publish', 'unpublish', false)" @click="UpdateReport('private',report.id)">
+                  <a v-if="canAction(own && report.status == 'publish' && !report.has_request, 'unpublish', false)" @click="UpdateReport('private',report.id)">
                     Unpublish
                   </a>
-                  <a v-if="canAction(own && report.status == 'private', 'publish', false)" @click="UpdateReport('publish',report.id)">
+                  <a v-if="canAction(own && report.status == 'private' && !report.has_request, 'publish', false)" @click="UpdateReport('publish',report.id)">
                     Publish
                   </a>
                   <a v-if="canAction(canRefund(), 'refund', false)" @click="refundAsked ? null : refundAction(report.id )" :title="refundAsked ? 'You refund enquiry has already been sent' : ''">
@@ -249,9 +249,6 @@
     .buttons-inner {
       text-align: center;
       float: none;
-      button {
-        margin: auto !important;
-      }
       .price {
         color: $main-text-color;
         padding: 0;

@@ -11,7 +11,7 @@ module V1
         property :has_stripe, getter: lambda { |represented:, **|
           begin
             !represented.stripe_ft.nil?
-          rescue => e
+          rescue StandardError => e
             false
           end
         }
@@ -19,7 +19,7 @@ module V1
         property :has_bank_account, getter: lambda { |represented:, **|
           begin
             !represented.stripe_ft.preferred_account.nil?
-          rescue => e
+          rescue StandardError => e
             false
           end
         }

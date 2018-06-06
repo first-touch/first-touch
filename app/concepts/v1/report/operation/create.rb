@@ -46,10 +46,10 @@ module V1
           end
         else
           stripe_ft = current_user.stripe_ft
-          if stripe_ft.nil? or stripe_ft.preferred_account.nil?
+          if stripe_ft.nil? || stripe_ft.preferred_account.nil?
             model.price = {
-            :value => 0,
-            :currency => 0
+              value: 0,
+              currency: 0
             }
           end
         end
@@ -62,16 +62,12 @@ module V1
       end
 
       def stripe(params:, current_user:, **)
-        success = true;
-        if !params[:job_id].blank?
+        success = true
+        unless params[:job_id].blank?
           stripe_ft = current_user.stripe_ft
-          if stripe_ft.nil? or stripe_ft.preferred_account.nil?
-              success = false
-          end
+          success = false if stripe_ft.nil? || stripe_ft.preferred_account.nil?
         end
-        if !success
-          options['stripe.errors'] = I18n.t 'no_bank_account'
-        end
+        options['stripe.errors'] = I18n.t 'no_bank_account' unless success
         success
       end
 

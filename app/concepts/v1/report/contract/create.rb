@@ -23,7 +23,5 @@ module V1
         validates :headline, :user, :status, :price, :type_report, presence: true
       end
     end
-
-
   end
 end

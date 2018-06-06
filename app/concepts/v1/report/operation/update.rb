@@ -9,12 +9,20 @@ module V1
       step Trailblazer::Operation::Contract::Validate()
       step :destroy_attachments!
       step Trailblazer::Operation::Contract::Persist()
+      step :persist_files!
 
       private
 
       def find_model!(options, params:, current_user:, **)
         options['model.class'] = ::Report
         options['model'] = current_user.reports.find_by(id: params[:id])
+      end
+
+      def persist_files!(model:, params:, current_user:, **)
+        params[:files].each do |file|
+          result = ::V1::Attachment::Create.({ url: file[:url], filename: file[:filename], report: model }, current_user: current_user)
+        end
+        true
       end
 
       def destroy_attachments!(model:, params:, **)

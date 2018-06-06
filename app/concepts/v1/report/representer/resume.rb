@@ -17,8 +17,8 @@ module V1
             represented.user.personal_profile
           )
         }
-        property :test, getter: lambda { |represented:, **|
-          represented['test']
+        property :has_request, getter: lambda { |represented:, **|
+          !represented.request_id.nil?
         }
         property :is_free, getter: lambda { |represented:, **|
           represented.price['value'] == 0 if represented.price

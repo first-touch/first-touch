@@ -15,7 +15,6 @@ module V1
           if !free_report.nil?
             model = free_report
           else
-            puts current_club.reports_buy.to_json
             order = current_club.reports_buy.find_by(report_id: params[:id],
                                                      status: 'completed')
             model = order.report unless order.blank?

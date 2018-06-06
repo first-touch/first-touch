@@ -36,13 +36,13 @@
             </span>
             <router-link :to="{ name: 'scoutReportEdit', params: { id: reportValue.id }}" class="active">Edit</router-link>
           </button>
-          <button class="timeline-widget-button button-right" v-if="reportValue.status == 'publish'" @click="updateStatus('private')">
+          <button class="timeline-widget-button button-right" v-if="!request && reportValue.status == 'publish'" @click="updateStatus('private')">
             <span class="unpublish">
               <icon name="eye-slash" scale="1.5"></icon>
             </span>
             <a>Unpublish Report</a>
           </button>
-          <button class="timeline-widget-button button-right" v-if="reportValue.status == 'private'" @click="updateStatus('publish')">
+          <button class="timeline-widget-button button-right" v-if="!request && reportValue.status == 'private'" @click="updateStatus('publish')">
             <span class="publish">
               <icon name="eye" scale="1.5"></icon>
             </span>
@@ -260,25 +260,25 @@
       positionrequestpopup: PositionRequestPopup
     },
     computed: {
-      ...mapGetters(['report', 'searchReport']),
+      ...mapGetters(['report']),
       request() {
         if (this.reportValue)
           return this.reportValue.request
         return null;
       },
       playerInfo() {
-        if (this.searchReport.status == ASYNC_SUCCESS)
+        if (this.report.status == ASYNC_SUCCESS)
           return this.reportValue.player;
         return null;
       },
       clubInfo() {
-        if (!this.playerInfo && this.searchReport.status == ASYNC_SUCCESS)
+        if (!this.playerInfo && this.report.status == ASYNC_SUCCESS)
           return this.reportValue.team;
         return null;
       },
       reportValue() {
-        if (this.searchReport.status === ASYNC_SUCCESS) {
-          return this.searchReport.value.report;
+        if (this.report.status === ASYNC_SUCCESS) {
+          return this.report.value.report;
         }
         return null
       },
@@ -304,8 +304,7 @@
     watch: {
       report() {
         this.status = '';
-        if (this.report.status === ASYNC_SUCCESS) {
-          this.searchReport.value.report = this.report.value;
+        if (this.report.status === ASYNC_SUCCESS && this.start) {
           this.$router.push({
             name: 'scoutReportView',
             params: {
@@ -340,6 +339,7 @@
         });
       },
       customUpdateReport(report, filelist) {
+        this.start = true;
         for (var f in report.remove_attachment) {
           if (report.remove_attachment[f] === false) {
             delete report.remove_attachment[f];
@@ -347,6 +347,7 @@
         }
         this.report.errors = null;
         this.report.files = filelist;
+        console.log(filelist);
         var id = this.$route.params.id;
         this.updateReport({
           report: report,
@@ -362,7 +363,8 @@
     },
     data() {
       return {
-        status: ''
+        status: '',
+        start: false
       };
     }
   };

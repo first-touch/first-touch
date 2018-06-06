@@ -3,7 +3,7 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
-        <action-item v-if="!owner && searchReport.value.report">
+        <action-item v-if="!owner && reportValue">
           <button class="timeline-widget-button">
             <span>
               <icon name='eye' scale="1.5"></icon>
@@ -25,25 +25,25 @@
           </timeline-item>
         </div>
         <h4 class="header">Report</h4>
-        <action-item v-if="owner && searchReport.value.report">
+        <action-item v-if="owner && reportValue">
           <button class="timeline-widget-button">
             <span>
               <icon name='eye' scale="1.5"></icon>
             </span>
-            <router-link :to="{ name: 'scoutReportView', params: { id: report.id }}" class="active">View</router-link>
+            <router-link :to="{ name: 'scoutReportView', params: { id: reportValue.id }}" class="active">View</router-link>
           </button>
           <button class="timeline-widget-button">
             <span>
               <icon name='edit' scale="1.5"></icon>
             </span>
-            <router-link :to="{ name: 'scoutReportEdit', params: { id: report.id }}">Edit</router-link>
+            <router-link :to="{ name: 'scoutReportEdit', params: { id: reportValue.id }}">Edit</router-link>
           </button>
         </action-item>
-        <div v-if="report != null" class="report-container">
+        <div v-if="reportValue" class="report-container">
           <div class="content">
-            <playerreport v-if="report.type_report == 'player'" :report="report" :request="request" :downloadFile="downloadFile" class="report"
+            <playerreport v-if="reportValue.type_report == 'player'" :report="reportValue" :request="request" :downloadFile="downloadFile" class="report"
             />
-            <teamreport v-if="report.type_report == 'team'" :report="report" :request="request" :downloadFile="downloadFile" class="report"
+            <teamreport v-if="reportValue.type_report == 'team'" :report="reportValue" :request="request" :downloadFile="downloadFile" class="report"
             />
           </div>
         </div>
@@ -99,21 +99,21 @@
       return {};
     },
     computed: {
-      ...mapGetters(['searchReport']),
+      ...mapGetters(['report']),
       request() {
-        if (this.report)
-          return this.report.request
+        if (this.reportValue)
+          return this.reportValue.request
         return null;
       },
-      report() {
-        if (this.searchReport.status === ASYNC_SUCCESS) {
-          return this.searchReport.value.report;
+      reportValue() {
+        if (this.report.status === ASYNC_SUCCESS) {
+          return this.report.value.report;
         }
         return null;
       },
       owner() {
-        if (this.searchReport.status === ASYNC_SUCCESS) {
-          return this.searchReport.value.owner;
+        if (this.report.status === ASYNC_SUCCESS) {
+          return this.report.value.owner;
         }
         return false;
       }

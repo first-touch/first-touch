@@ -35,7 +35,7 @@ module V1
           'price' => model.price,
           'status' => 'private',
           'completion_status' => 'pending',
-          'meta_data' => { conclusion: ''}
+          'meta_data' => { conclusion: '' }
         }
         result = ::V1::Report::Pending.(report_params, current_user: current_user)
         puts result['contract.default'].to_json
@@ -58,7 +58,7 @@ module V1
       def find_model!(options, params:, current_club:, **)
         requestId = params[:request_id]
         bidId = params[:bid_id]
-        if !current_club.nil?
+        unless current_club.nil?
           request = current_club.requests.find(requestId)
           model = request.request_bids.find_by(id: bidId, status: 'pending')
           params['currency'] = request.price['currency'] if model
@@ -75,15 +75,14 @@ module V1
           if current_club.stripe_id.nil?
             begin
               customer = ::Stripe::Customer.create(
-                source: params['token'],
-                email: current_user.email
+                source: params['token']
               )
             rescue StandardError => e
               options['stripe.errors'] = e
             end
             params['token'] = customer.default_source
-            current_user.stripe_id = customer.id
-            current_user.save!
+            current_club.stripe_id = customer.id
+            current_club.save!
           else
             begin
               customer = ::Stripe::Customer.retrieve(current_club.stripe_id)

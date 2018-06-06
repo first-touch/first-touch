@@ -11,11 +11,9 @@ module V1
       def find_model!(options, current_user:, current_club:, **)
         if current_user.is_a?(::User) && current_user.scout?
           stripe_ft = current_user.stripe_ft
-          if !stripe_ft.nil? and !stripe_ft.preferred_account.nil?
-            models = scout(current_user: current_user)
-          else
-            models = nil
-          end
+          models = if !stripe_ft.nil? && !stripe_ft.preferred_account.nil?
+                     scout(current_user: current_user)
+                   end
         elsif !current_club.nil?
           models = club(current_club: current_club)
         end
@@ -62,8 +60,8 @@ module V1
       end
 
       def filters_date(models, params)
-        date_from = (params[:deadline_from].blank?)? nil : params[:deadline_from].to_date
-        date_to = (params[:deadline_to].blank?)? nil : params[:deadline_to].to_date
+        date_from = params[:deadline_from].blank? ? nil : params[:deadline_from].to_date
+        date_to = params[:deadline_to].blank? ? nil : params[:deadline_to].to_date
         models = models.where('deadline > ?', date_from) if date_from
         models = models.where('deadline < ?', date_to) if date_to
         models

@@ -10,7 +10,7 @@ module Api
       end
 
       def show
-        result = ::V1::Report::Show.(params, current_user: current_user,  current_club: @current_club)
+        result = ::V1::Report::Show.(params, current_user: current_user, current_club: @current_club)
         response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
         render json: { report: response[:data], owner: current_user.scout? }, status: response[:status]
       end
@@ -22,7 +22,7 @@ module Api
       end
 
       def update
-        result = ::V1::Report::Update.(params, current_user: current_user,  current_club: @current_club)
+        result = ::V1::Report::Update.(params, current_user: current_user, current_club: @current_club)
         response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
         render json: response[:data], status: response[:status]
       end

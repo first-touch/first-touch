@@ -2,7 +2,6 @@ import downloadjs from 'downloadjs';
 import * as ActionTypes from '../../constants/ActionTypes';
 
 export const getAttachment = (store, { url, filename }) => {
-  console.log(url);
   fetch(url, {
     method: 'GET'
   })

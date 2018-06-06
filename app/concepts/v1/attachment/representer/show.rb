@@ -6,7 +6,6 @@ module V1
         property :id
         property :filename
         property :url
-
       end
 
       class Show < Representable::Decorator

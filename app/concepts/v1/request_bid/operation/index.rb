@@ -25,7 +25,7 @@ module V1
         models = options['models'].joins(:user)
         models = models.where("(price->>'value')::int >= ?", params[:price_min]) unless params[:price_min].blank?
         models = models.where("(price->>'value')::int <= ?", params[:price_max]) unless params[:price_max].blank?
-        models = models.where("users.search_string iLIKE ?", "%#{params[:scout_name]}%")
+        models = models.where('users.search_string iLIKE ?', "%#{params[:scout_name]}%")
 
         date = params[:created_date].to_date unless params[:created_date].blank?
         models = models.where created_at: date.all_day if date
@@ -34,15 +34,13 @@ module V1
         true
       end
 
-
       def filters_date(models, params)
-        date_from = (params[:created_date_from].blank?)? nil : params[:created_date_from].to_date
-        date_to = (params[:created_date_to].blank?)? nil : params[:created_date_to].to_date
+        date_from = params[:created_date_from].blank? ? nil : params[:created_date_from].to_date
+        date_to = params[:created_date_to].blank? ? nil : params[:created_date_to].to_date
         models = models.where('request_bids.created_at > ?', date_from) if date_from
         models = models.where('request_bids.created_at < ?', date_to) if date_to
         models
       end
-
 
       def orders!(options, params:, **)
         models = options['models']

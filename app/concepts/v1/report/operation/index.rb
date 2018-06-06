@@ -13,7 +13,7 @@ module V1
         if current_user.is_a?(::User) && current_user.scout?
           models = current_user.reports.not_hided
         elsif !current_club.nil?
-          models= club(params, options, current_club: current_club)
+          models = club(params, options, current_club: current_club)
         end
         options['result.model'] = result = Result.new(!options['models'].nil?, {})
         options['model.class'] = ::Report
@@ -33,9 +33,7 @@ module V1
       def proposed!(options, current_club, params)
         models = nil
         request = current_club.requests.find(params[:request_id]) if params[:request_id]
-        unless request.nil?
-          models = ::Report.proposed_reports request.id
-        end
+        models = ::Report.proposed_reports request.id unless request.nil?
         options['models'] = models
       end
 
@@ -74,8 +72,8 @@ module V1
       end
 
       def filters_date(models, params)
-        date_from = (params[:created_date_from].blank?)? nil : params[:created_date_from].to_date
-        date_to = (params[:created_date_to].blank?)? nil : params[:created_date_to].to_date
+        date_from = params[:created_date_from].blank? ? nil : params[:created_date_from].to_date
+        date_to = params[:created_date_to].blank? ? nil : params[:created_date_to].to_date
         models = models.where('reports.created_at > ?', date_from) if date_from
         models = models.where('reports.created_at < ?', date_to) if date_to
         models
@@ -85,20 +83,20 @@ module V1
         models = options['models']
         order = params[:order_asc] == 'true' ? :asc : :desc
         if %w[id created_at updated_at headline report_type completion_status]
-            .include?(params[:order])
+           .include?(params[:order])
           models = models.order(params[:order] => order)
         elsif %w[preferred_foot height weight nationality_country_code playing_position]
-          .include?(params[:order])
-            models = models.sort_by{|r| r.player_field(params[:order])}
-            models = models.reverse if order == :asc
+              .include?(params[:order])
+          models = models.sort_by { |r| r.player_field(params[:order]) }
+          models = models.reverse if order == :asc
         elsif params[:order] == 'club'
-            models = models.sort_by{|r| r.club_name }
+          models = models.sort_by(&:club_name)
         elsif params[:order] == 'competition'
-            models = models.sort_by{|r| r.league_name }
+          models = models.sort_by(&:league_name)
         elsif params[:order] == 'category'
-          models = models.sort_by{|r| r.category }
+          models = models.sort_by(&:category)
         elsif params[:order] == 'player'
-          models = models.sort_by{|r| r.player_name }
+          models = models.sort_by(&:player_name)
         elsif params[:order] == 'scout_name'
           models = models.includes(:user)
           models = models.order("users.search_string #{order}")

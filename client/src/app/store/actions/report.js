@@ -68,15 +68,15 @@ export const getReport = (store, id) => {
   })
     .then(res => {
       if (res.status === 200) {
-        res.json().then(r => store.commit(ActionTypes.SEARCH_REPORT_SUCCESS, r));
+        res.json().then(r => store.commit(ActionTypes.UPLOADING_REPORT_SUCCESS, r));
       } else if (res.status === 401) {
         store.commit(ActionTypes.TOKEN_CLEAR);
       } else {
-        res.json().then(r => store.commit(ActionTypes.SEARCH_REPORT_FAILURE, r));
+        res.json().then(r => store.commit(ActionTypes.UPLOADING_REPORT_FAILURE, r));
       }
     })
     .catch(function (error) {
-      store.commit(ActionTypes.SEARCH_REPORT_FAILURE, error);
+      store.commit(ActionTypes.UPLOADING_REPORT_FAILURE, error);
     });
 };
 

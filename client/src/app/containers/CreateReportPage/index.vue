@@ -231,8 +231,7 @@
             id: this.team_id
           })
       },
-      customCreateReport(reportdata, filelist) {
-        reportdata.files = filelist;
+      customCreateReport(reportdata) {
         reportdata.type_report = this.report_type;
         reportdata.player_id = this.player_id;
         reportdata.team_id = this.team_id;

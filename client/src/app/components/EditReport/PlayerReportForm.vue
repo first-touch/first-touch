@@ -439,9 +439,10 @@
               price: this.price,
               meta_data: this.meta_data,
               remove_attachment: this.remove_attachment,
-              status
+              status,
+              files: this.files
             };
-            this.submitReport(report, this.files);
+            this.submitReport(report);
           }
         }).catch(() => {
         });
