@@ -49,17 +49,17 @@ module V1
         result.success?
       end
 
-      def delete_report!(_options, model:, params:, current_user:, **)
+      def delete_report!(model:, **)
         request = model.request
         report = ::Report.find_by user: model.user, request: request
         report&.delete
       end
 
-      def find_model!(options, params:, current_user:, current_club:, **)
+      def find_model!(options, params:, current_club:, **)
         requestId = params[:request_id]
         bidId = params[:bid_id]
-        if current_club.nil? || true
-          request = current_user.requests.find(requestId)
+        if !current_club.nil?
+          request = current_club.requests.find(requestId)
           model = request.request_bids.find_by(id: bidId, status: 'pending')
           params['currency'] = request.price['currency'] if model
           options['model'] = model
@@ -68,11 +68,11 @@ module V1
         options['model']
       end
 
-      def save_card!(options, params:, model:, current_user:, **)
+      def save_card!(options, params:, model:, current_club:, **)
         save = params[:save]
         success = true
         if save
-          if current_user.stripe_ft.nil?
+          if current_club.stripe_id.nil?
             begin
               customer = ::Stripe::Customer.create(
                 source: params['token'],
@@ -82,16 +82,11 @@ module V1
               options['stripe.errors'] = e
             end
             params['token'] = customer.default_source
-            stripe_ft = ::StripeFt.new(
-              stripe_id: customer.id,
-              user: current_user
-            )
-            current_user.stripe_ft = stripe_ft
+            current_user.stripe_id = customer.id
             current_user.save!
           else
-            stripe_ft = current_user.stripe_ft
             begin
-              customer = ::Stripe::Customer.retrieve(stripe_ft.stripe_id)
+              customer = ::Stripe::Customer.retrieve(current_club.stripe_id)
               source = customer.sources.create(source: params['token'])
             rescue StandardError => e
               options['stripe.errors'] = e
@@ -102,7 +97,7 @@ module V1
         success
       end
 
-      def payment(options, params:, current_user:, **)
+      def payment(options, params:, current_club:, **)
         card_token = params[:token]
         bid = options['model']
         user = bid.user
@@ -121,10 +116,10 @@ module V1
               account: user.stripe_ft.stripe_id
             }
             if (params[:save] == true) || params[:usesaved]
-              charge_params[:customer] = current_user.stripe_ft.stripe_id
+              charge_params[:customer] = current_club.stripe_id
             end
             begin
-              charge = PaymentUtil.stripe_charge(charge_params, current_user: current_user)
+              charge = PaymentUtil.stripe_charge(charge_params, current_club: current_club)
             rescue StandardError => e
               options['stripe.errors'] = e
             end
@@ -137,9 +132,9 @@ module V1
         success
       end
 
-      def order(_options, params:, model:, current_user:, **)
+      def order(_options, params:, model:, current_club:, **)
         order_params = {
-          'customer_id' => current_user.id,
+          'customer_id' => current_club.id,
           'user' => model.user,
           'price' => model.price['value'],
           'currency' => params['currency'],
@@ -165,11 +160,11 @@ module V1
         true
       end
 
-      def finalize(_options, params:, model:, current_user:, **)
+      def finalize(model:, **)
         model.status = 'accepted'
       end
 
-      def unpublish(_options, params:, model:, current_user:, **)
+      def unpublish(params:, model:, **)
         if params[:keep] == false
           request = model.request
           request.status = 'private'
@@ -178,7 +173,7 @@ module V1
         true
       end
 
-      def refund(options, params:, model:, current_user:, **)
+      def refund(**)
         PaymentUtil.refund_charge(options['stripe_charge_id'])
       end
     end

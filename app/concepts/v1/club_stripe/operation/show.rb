@@ -6,14 +6,12 @@ module V1
 
       private
 
-      def find_account!(options, params:, current_user:, **)
+      def find_account!(options, params:, current_club:, **)
         options['model.class'] = ::Stripe::Account
         model = nil
-        unless current_user.stripe_ft.nil?
-          account = ::Stripe::Customer.retrieve(current_user.stripe_ft.stripe_id)
-          # TODO: Refactor once club_token is ready
+        unless current_club.stripe_id.nil?
+          account = ::Stripe::Customer.retrieve(current_club.stripe_id)
           unless account.nil?
-            account['preferred_id'] = current_user.stripe_ft.preferred_account
             options['model'] = model = account
           end
         end

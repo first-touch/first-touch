@@ -8,15 +8,15 @@ module V1
 
       def find_model!(options, params:, current_user:, current_club:, **)
         model = nil
-        if current_user.is_a?(::User) && current_user.scout?
+        if current_user.scout?
           model = current_user.reports.find(params[:id])
-        elsif !current_club.nil? || true
-          # TODO: or true need to be remove when club are ready
+        elsif !current_club.nil?
           free_report = ::Report.find_by("(price->>'value')::int = 0 and id = ?", params[:id])
           if !free_report.nil?
             model = free_report
           else
-            order = current_user.reports_buy.find_by(report_id: params[:id],
+            puts current_club.reports_buy.to_json
+            order = current_club.reports_buy.find_by(report_id: params[:id],
                                                      status: 'completed')
             model = order.report unless order.blank?
           end

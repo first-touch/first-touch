@@ -11,7 +11,7 @@
         </div>
         <div class="error" v-if="serverErrors">
           <ul>
-            <li>{{result.errors.errors}}</li>
+            <!-- <li>{{result.errors.errors}}</li> -->
           </ul>
         </div>
         <div class="img-container col-lg-4">

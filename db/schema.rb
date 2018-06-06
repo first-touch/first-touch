@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180524020748) do
+ActiveRecord::Schema.define(version: 20180605092730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20180524020748) do
     t.string "third_kit_color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "stripe_id"
   end
 
   create_table "competition_seasons", force: :cascade do |t|
@@ -276,7 +277,6 @@ ActiveRecord::Schema.define(version: 20180524020748) do
 
   create_table "requests", force: :cascade do |t|
     t.text "type_request"
-    t.bigint "user_id"
     t.date "deadline"
     t.text "status"
     t.json "meta_data"
@@ -286,7 +286,8 @@ ActiveRecord::Schema.define(version: 20180524020748) do
     t.integer "player_id"
     t.integer "team_id"
     t.integer "league_id"
-    t.index ["user_id"], name: "index_requests_on_user_id"
+    t.bigint "club_id"
+    t.index ["club_id"], name: "index_requests_on_club_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -427,7 +428,7 @@ ActiveRecord::Schema.define(version: 20180524020748) do
   add_foreign_key "request_bids", "reports"
   add_foreign_key "request_bids", "requests"
   add_foreign_key "request_bids", "users"
-  add_foreign_key "requests", "users"
+  add_foreign_key "requests", "clubs"
   add_foreign_key "stripe_fts", "users"
   add_foreign_key "stripe_transactions", "orders"
   add_foreign_key "team_users", "teams"
