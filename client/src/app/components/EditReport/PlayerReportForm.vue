@@ -310,10 +310,7 @@
             nationality_country_code: '',
             languages: [],
             playing_position: [],
-            age: null,
             preferred_foot: '',
-            height: null,
-            weight: null
           },
           transfer_sum: {
             loan_interested: 'No',

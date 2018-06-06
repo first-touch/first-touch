@@ -95,11 +95,11 @@
         <span v-if="field == 'type2c'" class="contents">
           {{report.type_report == 'player'? 'PL':'TM' }}
         </span>
-        <span v-if="field == 'player2c' && report.type_report == 'player'" class="contents highlight">
-          <router-link v-if="report.player" :to="{ name: 'userProfilePage', params: { id: report.player.id }}"> {{ playerName }}
+        <span v-if="field == 'player2c' && report.type_report == 'player'" class="contents highlight" :title="playerName">
+          <router-link v-if="report.player" :to="{ name: 'userProfilePage', params: { id: report.player.id }}"> {{ playerName | twoChars}}
           </router-link>
-          <span v-if="!report.player">
-            {{ playerName }}
+          <span v-if="!report.player" >
+            {{ playerName | twoChars}}
           </span>
         </span>
         <span v-if="field == 'position' && report.type_report == 'player' " class="contents positions">
@@ -328,14 +328,9 @@
       },
       playerName() {
         if (this.playerInfo.first_name)
-          return (this.playerInfo.first_name[0] + '.' + this.playerInfo.last_name[0] + '.')
+          return this.playerInfo.first_name;
         if (this.report.search) {
-          var arr = this.report.search.player.split(' ');
-          if (arr.length > 1) {
-            return arr[0][0].toUpperCase() + '.' + arr[arr.length - 1][0].toUpperCase() + '.'
-          }
-          if (arr.length == 1)
-            return arr[0][0].toUpperCase() + '.'
+          return this.report.search.player;
         }
         return '';
       },

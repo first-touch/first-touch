@@ -16,12 +16,12 @@
     </div>
     <loading class="loader" />
     <form class="ft-form" v-on:submit.prevent="prepareSubmit">
-      <div class="row col-lg-12" v-if="errors">
-        <ul v-if="errors.error" class="error stripeErrors">
-          <li>{{errors.error.message}}</li>
+      <div class="row col-lg-12" v-if="serverErrors">
+        <ul v-if="serverErrors.error" class="error stripeErrors">
+          <li>{{serverErrors.error.message}}</li>
         </ul>
-        <ul v-if="errors.errors" class="error ftouchErrors">
-          <li>{{errors.errors}}</li>
+        <ul v-if="serverErrors.errors" class="error ftouchErrors">
+          <li>{{serverErrors.errors}}</li>
         </ul>
       </div>
       <input type="hidden" name="token" id="token">
@@ -141,9 +141,9 @@
           <p>By submitting, you agree to the
             <a href="https://stripe.com/connect-account/legal">Stripe Connected Account Agreement</a>.</p>
         </div>
-        <div class="col-lg-12 buttons-inner">
+        <div class="col-lg-12 buttons-inner row">
           <button class="ft-button ft-button-success ft-button-right">Submit</button>
-          <p class="ft-button ft-button-danger " @click="deleteAccount">Delete account</p>
+          <button class="ft-button ft-button-danger " v-if="info && info.legal_entity" @click="deleteAccount">Delete account</button>
         </div>
       </div>
     </form>
@@ -262,8 +262,6 @@
         dob: new Date(),
         lock: false,
         legal_entity: {
-          // personal_id_number: '',
-          // ssn_last_4: '',
           dob: {
             day: '',
             month: '',
@@ -275,7 +273,6 @@
           address: {
             line1: '',
             city: '',
-            // state: 'N/A',
             postal_code: ''
           },
           personal_address: {
@@ -302,7 +299,7 @@
           this.stripeRequired.status == ASYNC_LOADING
         );
       },
-      errors() {
+      serverErrors() {
         if (this.stripe.status == ASYNC_FAIL) return this.stripe.errors;
         if (this.stripeFtouch.status == ASYNC_FAIL) return this.stripeFtouch.errors;
       },
@@ -369,7 +366,7 @@
         });
       },
       refactorInfo() {
-        if (this.info.legal_entity) {
+        if (this.info && this.info.legal_entity) {
           this.legal_entity.first_name = this.info.legal_entity.first_name;
           this.legal_entity.last_name = this.info.legal_entity.last_name;
           this.legal_entity.type = this.info.legal_entity.type;

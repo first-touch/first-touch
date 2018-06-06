@@ -122,3 +122,13 @@ Vue.filter('formatNumber', (str, limit) => {
   }
   return str;
 });
+
+Vue.filter('twoChars', (str) => {
+  var arr = str.split(' ');
+  if (arr.length > 1) {
+    return arr[0][0].toUpperCase() + '.' + arr[arr.length - 1][0].toUpperCase() + '.';
+  }
+  if (arr.length === 1) {
+    return arr[0][0].toUpperCase() + '.';
+  }
+});

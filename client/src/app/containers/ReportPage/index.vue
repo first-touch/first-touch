@@ -3,20 +3,6 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
-        <action-item v-if="owner && searchReport.value.report">
-          <button class="timeline-widget-button">
-            <span>
-              <icon name='eye' scale="1.5"></icon>
-            </span>
-            <router-link :to="{ name: 'scoutReportView', params: { id: report.id }}" class="active">View</router-link>
-          </button>
-          <button class="timeline-widget-button">
-            <span>
-              <icon name='edit' scale="1.5"></icon>
-            </span>
-            <router-link :to="{ name: 'scoutReportEdit', params: { id: report.id }}">Edit</router-link>
-          </button>
-        </action-item>
         <action-item v-if="!owner && searchReport.value.report">
           <button class="timeline-widget-button">
             <span>
@@ -39,10 +25,26 @@
           </timeline-item>
         </div>
         <h4 class="header">Report</h4>
+        <action-item v-if="owner && searchReport.value.report">
+          <button class="timeline-widget-button">
+            <span>
+              <icon name='eye' scale="1.5"></icon>
+            </span>
+            <router-link :to="{ name: 'scoutReportView', params: { id: report.id }}" class="active">View</router-link>
+          </button>
+          <button class="timeline-widget-button">
+            <span>
+              <icon name='edit' scale="1.5"></icon>
+            </span>
+            <router-link :to="{ name: 'scoutReportEdit', params: { id: report.id }}">Edit</router-link>
+          </button>
+        </action-item>
         <div v-if="report != null" class="report-container">
           <div class="content">
-            <playerreport v-if="report.type_report == 'player'" :report="report" :request="request" :downloadFile="downloadFile" class="report" />
-            <teamreport v-if="report.type_report == 'team'" :report="report" :request="request"  :downloadFile="downloadFile" class="report" />
+            <playerreport v-if="report.type_report == 'player'" :report="report" :request="request" :downloadFile="downloadFile" class="report"
+            />
+            <teamreport v-if="report.type_report == 'team'" :report="report" :request="request" :downloadFile="downloadFile" class="report"
+            />
           </div>
         </div>
       </div>
@@ -55,9 +57,6 @@
 </style>
 <style lang="scss" scoped>
   @import '~stylesheets/modal';
-  .header{
-    margin: 20px 0px
-  }
 </style>
 
 <script>

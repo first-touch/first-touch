@@ -9,7 +9,7 @@
         <div class="card-input" :class="!newCard? 'hide' : ''">
           <div ref="card" class="form-control"></div>
         </div>
-        <div class="error" v-if="errors">
+        <div class="error" v-if="serverErrors">
           <ul>
             <li>{{result.errors.errors}}</li>
           </ul>
@@ -192,7 +192,7 @@
       success() {
         return this.result.status === ASYNC_SUCCESS && this.start;
       },
-      errors() {
+      serverErrors() {
         return this.result.status === ASYNC_FAIL || this.stripePayment.status === ASYNC_FAIL;
       },
       stripe() {

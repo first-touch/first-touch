@@ -1,10 +1,10 @@
 <template>
   <div>
     <loading class="loader" v-if="loading" />
-    <div class="diverrors" v-if="errors">
+    <div class="diverrors" v-if="serverErrors">
       <ul class="errors">
         <li >
-          {{errors}}
+          {{serverErrors}}
         </li>
       </ul>
     </div>
@@ -39,7 +39,7 @@
           <p v-if="isDeleteAccount">Are you sure you want to delete your account ?</p>
           <p v-if="isDeleteAccount">Please not that all your Report will be unpublished and bids pending canceled</p>
         </div>
-      <div class="col-lg-12 buttons-inner">
+      <div class="col-lg-12 buttons-inner row">
         <button class="ft-button ft-button-danger" v-if="none" @click="startDelete()">Delete
         </button>
         <button class="ft-button ft-button-right" @click="closeAction()">Close
@@ -89,7 +89,7 @@
       loading() {
         return this.stripeFtouch.status == ASYNC_LOADING;
       },
-      errors() {
+      serverErrors() {
         return this.stripeFtouch.status == ASYNC_FAIL ? this.stripeFtouch.errors.errors : null;
       },
       success() {

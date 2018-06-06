@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="error" v-if="failed">
-      serverErrors:
-      <ul v-if="errors">
-        <li>{{errors}}</li>
+      Errors:
+      <ul v-if="serverErrors">
+        <li>{{serverErrors}}</li>
       </ul>
     </div>
     <div class="contentPayment" :class="loading ? 'loading' : ''">
@@ -105,7 +105,7 @@
       token() {
         return (this.stripePayment.value.token.id)
       },
-      errors() {
+      serverErrors() {
         if (this.result.status === ASYNC_FAIL)
           return this.result.errors.errors;
         return (this.stripePayment.status === ASYNC_FAIL ? this.stripePayment.errors : null);

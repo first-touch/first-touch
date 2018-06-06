@@ -8,6 +8,8 @@ module V1
         property :status
         property :price
         property :completion_status
+        property :meta_data
+
         validates :user, :type_report, :request_id, :completion_status, :status, :price, presence: true
       end
     end

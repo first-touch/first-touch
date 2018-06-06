@@ -90,7 +90,7 @@ module V1
           end
         }
         property :search, getter:  lambda { |represented:, **|
-          if represented.meta_data && represented.request_id.nil?
+          if represented.meta_data && (represented.request.nil? || represented.request.type_request != 'position')
             represented.meta_data['search'] if represented.meta_data['search']
           end
         }

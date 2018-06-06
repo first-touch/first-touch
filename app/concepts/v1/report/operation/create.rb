@@ -23,7 +23,7 @@ module V1
         if !params[:job_id].blank?
           request = ::Request.find(params[:job_id])
           options['position'] = request.type_request == 'position'
-
+          params[:meta_data]['search'] = request.meta_data['search']
           if !options['position']
             model = ::Report.find_by user_id: current_user.id, completion_status: ['pending'], request_id: params[:job_id]
           else

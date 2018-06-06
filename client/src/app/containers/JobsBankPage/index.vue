@@ -58,7 +58,7 @@ export default {
         this.page = 'index';
         this.search(this.params);
       } else if (this.request.status === ASYNC_FAIL) {
-        this.errors = this.request.errors;
+        this.serverErrors = this.request.errors;
       } else if (this.request.status === ASYNC_LOADING) {
         this.loading = true;
       }

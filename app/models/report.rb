@@ -15,7 +15,7 @@ class Report < ApplicationRecord
   validates :meta_data, presence: true, json: { schema: PLAYER_SCHEMA }, if: :is_player_report
   validates :meta_data, presence: true, json: { schema: TEAM_SCHEMA }, if: :is_team_report
 
-  scope :not_hided, -> { where.not(status: ['pending', 'deleted']) }
+  scope :not_hided, -> { where.not(status: ['pending', 'deleted'], completion_status: 'pending') }
 
   def is_player_report
       self.type_report == 'player'
@@ -47,6 +47,7 @@ class Report < ApplicationRecord
   def player_name
     if self.type_report == 'player'
       if !self.player_id
+        puts self.to_json
         return self.meta_data['search']['player']
       else
         return self.player.search_string
@@ -60,7 +61,7 @@ class Report < ApplicationRecord
       if field == 'playing_position' and self.player_id
           return [r]
       end
-      return  r
+      return  (r.nil?)? 0 : r
     end
     nil
   end

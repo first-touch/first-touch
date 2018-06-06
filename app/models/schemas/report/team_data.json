@@ -10,7 +10,7 @@
         "player": {
           "type": "string"
         },
-        "team": {
+        "club": {
           "type": "string"
         },
         "league": {
