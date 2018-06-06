@@ -60,8 +60,6 @@ Rails.application.routes.draw do
       post 'connect', controller: :connection, action: :create
       post 'reports/refund/:report_id', controller: :orders, action: :refund
       resources :reports
-      post 'uploadfiles', controller: :files, action: :upload_files
-      get 'reports/attachments/download/:attachment_id', controller: :reports, action: :download
       get 'reports/list/purchased', controller: :reports, action: :purchased
       resources :orders
       resources :requests
