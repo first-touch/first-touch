@@ -10,8 +10,7 @@ module V1
           attachments = ::Attachment.joins(report: :user)
           attachments.where('attachments.id' => params[:attachment_id],
                             'reports.user_id' => current_user.id)
-        elsif !current_club.nil? || true
-          # TODO: or true need to be remove when club are ready
+        elsif !current_club.nil?
           attachments = ::Attachment.joins(report: { orders: :user })
           attachments = attachments.where(
             'orders.customer_id' => current_user.id,

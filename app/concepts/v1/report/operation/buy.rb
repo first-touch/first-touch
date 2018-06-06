@@ -29,8 +29,8 @@ module V1
         !options['model'].report.nil?
       end
 
-      def setup_model!(options, model:, current_user:, **)
-        model.customer_id = current_user.id
+      def setup_model!(options, model:, current_club:, **)
+        model.customer_id = current_club.id
         model.report = options['model'].report
         model.price = model.report.price['value']
         model.user = model.report.user
@@ -44,7 +44,7 @@ module V1
         stripe_ft.nil? ? false : stripe_ft.stripe_id
       end
 
-      def made_payment!(options, params:, model:, current_user:, **)
+      def made_payment!(options, params:, model:, current_club:, **)
         card_token = params[:token]
         report = options['model'].report
         user = report.user
@@ -63,10 +63,10 @@ module V1
               account: user.stripe_ft.stripe_id
             }
             if (params[:save] == true) || (params[:usesaved] == true)
-              charge_params[:customer] = current_user.stripe_ft.stripe_id
+              charge_params[:customer] = current_club.stripe_id
             end
             begin
-              charge = PaymentUtil.stripe_charge(charge_params, current_user: current_user)
+              charge = PaymentUtil.stripe_charge(charge_params, current_club: current_club)
             rescue StandardError => e
               options['stripe.errors'] = e
             end
@@ -79,30 +79,24 @@ module V1
         success
       end
 
-      def save_card!(options, params:, model:, current_user:, **)
+      def save_card!(options, params:, model:, current_club:, **)
         save = params[:save]
         success = true
         if save
-          if current_user.stripe_ft.nil?
+          if current_club.stripe_id.nil?
             begin
               customer = ::Stripe::Customer.create(
-                source: params['token'],
-                email: current_user.email
+                source: params['token']
               )
             rescue StandardError => e
               options['stripe.errors'] = e
             end
             params['token'] = customer.default_source
-            stripe_ft = ::StripeFt.new(
-              stripe_id: customer.id,
-              user: current_user
-            )
-            current_user.stripe_ft = stripe_ft
-            current_user.save!
+            current_club.stripe_id = customer.id
+            current_club.save!
           else
-            stripe_ft = current_user.stripe_ft
             begin
-              customer = ::Stripe::Customer.retrieve(stripe_ft.stripe_id)
+              customer = ::Stripe::Customer.retrieve(current_club.stripe_id)
               source = customer.sources.create(source: params['token'])
             rescue StandardError => e
               options['stripe.errors'] = e
@@ -119,8 +113,8 @@ module V1
         true
       end
 
-      def authorized!(current_user:, current_club:, **)
-        !current_club.nil?  || true
+      def authorized!(current_club:, **)
+        !current_club.nil?
       end
 
       def persist_stripe_transaction!(options, params:, model:, **)

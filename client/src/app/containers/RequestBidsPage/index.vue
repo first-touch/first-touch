@@ -18,7 +18,7 @@
             <div slot="header" v-if="requestValue">
               <div class="row">
                 <label class="col-lg-3">Scout's name:</label>
-                <p class="col-lg-8"> {{requestValue.user.first_name}} {{requestValue.user.last_name}} </p>
+                <p class="col-lg-8"> {{selected.user.first_name}} {{selected.user.last_name}} </p>
               </div>
               <div class="row" v-if="selected">
                 <label class="col-lg-3">Price:</label>

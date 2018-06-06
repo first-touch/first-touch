@@ -7,6 +7,7 @@ export const getClubsCards = (store) => {
     method: 'GET',
     headers: {
       Authorization: store.state.token.value,
+      ClubAuthorization: store.state.token.clubs[0].token,
       'Content-Type': 'application/json'
     }
   }).then(res => {
@@ -24,6 +25,7 @@ export const createClubsCard = (store, data) => {
     method: 'POST',
     headers: {
       Authorization: store.state.token.value,
+      ClubAuthorization: store.state.token.clubs[0].token,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
@@ -42,6 +44,7 @@ export const deleteCard = (store, data) => {
     method: 'DELETE',
     headers: {
       Authorization: store.state.token.value,
+      ClubAuthorization: store.state.token.clubs[0].token,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
@@ -60,6 +63,7 @@ export const updateCards = (store, data) => {
     method: 'PUT',
     headers: {
       Authorization: store.state.token.value,
+      ClubAuthorization: store.state.token.clubs[0].token,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)

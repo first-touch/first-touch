@@ -6,6 +6,7 @@ export const newOrder = (store, order) => {
     method: 'POST',
     headers: {
       Authorization: store.state.token.value,
+      ClubAuthorization: store.state.token.clubs[0].token,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(order)
@@ -24,6 +25,7 @@ export const refundOrder = (store, id) => {
     method: 'POST',
     headers: {
       Authorization: store.state.token.value,
+      ClubAuthorization: store.state.token.clubs[0].token,
       'Content-Type': 'application/json'
     }
   }).then(res => {

@@ -9,7 +9,7 @@ module V1
 
       private
 
-      def before_create!(options, params:, current_user:, **)
+      def before_create!(options, params:, **)
         token = params['token']
         result = false
         if !token.nil?
@@ -20,40 +20,33 @@ module V1
         result
       end
 
-      def create!(options, params:, current_user:, **)
+      def create!(options, params:, current_club:, **)
         customer = nil
         success = true
         begin
-          if current_user.stripe_ft.nil?
+          if current_club.stripe_id.nil?
             customer = ::Stripe::Customer.create(
-              source: params['token'],
-              email: current_user.email
+              source: params['token']
             )
             options['stripe_id'] = customer.id
           else
-            stripe_ft = current_user.stripe_ft
-            customer = ::Stripe::Customer.retrieve(stripe_ft.stripe_id)
+            stripe_id = current_club.stripe_id
+            customer = ::Stripe::Customer.retrieve(stripe_id)
             customer.sources.create(source: params['token'])
           end
           customer = ::Stripe::Customer.retrieve(customer.id)
         rescue StandardError => e
           success = false
-          body = e.json_body
-          err  = body[:error]
-          options['stripe.errors'] = err[:message]
+          options['stripe.errors'] = e
         end
         options['model'] = customer
         success
       end
 
-      def persist_stripe_id!(options, params:, current_user:, **)
+      def persist_stripe_id!(options, params:, current_club:, **)
         unless options['stripe_id'].nil?
-          stripe_ft = ::StripeFt.new(
-            stripe_id: options['stripe_id'],
-            user: current_user
-          )
-          current_user.stripe_ft = stripe_ft
-          current_user.save!
+          current_club.stripe_id = options['stripe_id']
+          current_club.save!
           success = true
         end
         true

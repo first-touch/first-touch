@@ -6,8 +6,8 @@ module V1
 
       private
 
-      def find_model!(options, params:, current_user:, **)
-        model = current_user.requests.where(id: params[:id]).where.not(status: 'deleted').first
+      def find_model!(options, params:, current_club:, **)
+        model = current_club.requests.where(id: params[:id]).where.not(status: 'deleted').first
         options['model.class'] = ::Request
         options['model'] = model
       end

@@ -53,11 +53,27 @@ Vue.use(VeeValidate);
 
 function requireAuth (to, from, next) {
   store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
+  store.state.token.clubs = store.state.token.clubs || localStorage.getItem('club_token') ? JSON.parse(localStorage.getItem('club_token')) : null;
   if (!store.state.token.value) {
     next({
       path: '/welcome'
     });
   } else next();
+}
+
+function requireClub (to, from, next) {
+  store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
+  store.state.token.clubs = store.state.token.clubs || localStorage.getItem('club_token') ? JSON.parse(localStorage.getItem('club_token')) : null;
+  if (!store.state.token.value) {
+    next({
+      path: '/welcome'
+    });
+  } else if (!store.state.token.clubs) {
+    next({
+      path: '/'
+    });
+  }
+  next();
 }
 
 function checkIfLoggedIn (to, from, next) {
@@ -179,7 +195,7 @@ export const router = new VueRouter({
     {
       path: '/club',
       component: ClubLayout,
-      beforeEnter: requireAuth,
+      beforeEnter: requireClub,
       children: [
         {
           path: '',
