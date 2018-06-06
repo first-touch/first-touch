@@ -104,7 +104,7 @@ class Report < ApplicationRecord
       )
   end
 
-  class ReportValidator < ActiveModel::Validator
+  class ReportOfRequestValidator < ActiveModel::Validator
     def validate(record)
       if !status_is_compatible record
         record.errors.add :base, 'This record is invalid'
