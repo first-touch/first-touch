@@ -17,9 +17,9 @@
     </div>
     <div class="content">
       <form class="ft-form" v-on:submit.prevent="createBank(); start = true;" v-if="info != null">
-        <div class="row col-lg-12" v-if="errors">
-          <ul v-if="errors.error" class="error">
-            <li>{{errors.error.message}}</li>
+        <div class="row col-lg-12" v-if="serverErrors">
+          <ul v-if="serverErrors.error" class="error">
+            <li>{{serverErrors.error.message}}</li>
           </ul>
         </div>
         <div class="row col-lg-12">
@@ -183,7 +183,7 @@ export default {
         this.stripeRequired.status == ASYNC_LOADING
       );
     },
-    errors() {
+    serverErrors() {
       return this.stripe.status == ASYNC_FAIL ? this.stripe.errors : null;
     },
     success() {

@@ -34,9 +34,11 @@ module V1
           'request_id' => request.id,
           'price' => model.price,
           'status' => 'private',
-          'completion_status' => 'pending'
+          'completion_status' => 'pending',
+          'meta_data' => { conclusion: ''}
         }
         result = ::V1::Report::Pending.(report_params, current_user: current_user)
+        puts result['contract.default'].to_json
         if result.success?
           report = result['model']
           order = model.order

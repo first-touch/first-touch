@@ -210,7 +210,7 @@
           playing_position: [],
           search: {
             league: '',
-            team: '',
+            club: '',
             player: ''
           }
         },

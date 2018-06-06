@@ -74,7 +74,7 @@ export default {
   },
   watch: {
     stripe() {
-      this.errors = false;
+      this.serverErrors = false;
       if (this.stripe.saving)
         switch (this.stripe.status) {
           case ASYNC_SUCCESS:
@@ -89,7 +89,7 @@ export default {
             break;
           case ASYNC_FAIL:
             this.loading = false;
-            this.errors = this.stripe.errors;
+            this.serverErrors = this.stripe.errors;
             break;
         }
       else
@@ -103,12 +103,12 @@ export default {
           case ASYNC_FAIL:
             this.info = null;
             this.loadingAccount = false;
-            this.errors = this.stripe.errors;
+            this.serverErrors = this.stripe.errors;
             break;
         }
     },
     stripeFtouch() {
-      this.errors = false;
+      this.serverErrors = false;
       this.info = null;
       switch (this.stripeFtouch.status) {
         case ASYNC_SUCCESS:
@@ -121,7 +121,7 @@ export default {
           break;
         case ASYNC_FAIL:
           this.loading = false;
-          this.errors = this.stripe.errors;
+          this.serverErrors = this.stripe.errors;
           break;
       }
     },
@@ -136,7 +136,7 @@ export default {
           break;
         case ASYNC_FAILURE:
           this.loading = false;
-          this.errors = this.stripe.errors;
+          this.serverErrors = this.stripe.errors;
           break;
       }
     }

@@ -78,7 +78,7 @@
         search: {
           player: '',
           league: '',
-          team: ''
+          club: ''
         },
         vselect_type: {
           label: 'Select a report type',

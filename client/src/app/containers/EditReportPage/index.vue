@@ -3,7 +3,20 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page ">
-        <div v-if="playerInfo || clubInfo || search">
+        <div v-if="request">
+          <h4 class="header">Request</h4>
+          <timeline-item>
+            <request :key="request.id" :request="request" :viewSummary="viewSummary" class="onlyone"></request>
+            <b-modal id="metaModal" class="ft-modal" size="lg" ref="metaModal">
+              <div>
+                <playerrequestpopup v-if="request.type_request == 'player' " :request="request" :closeAction="closeAction" />
+                <teamrequestpopup v-if="request.type_request == 'team' " :request="request" :closeAction="closeAction" />
+                <positionrequestpopup v-if="request.type_request == 'position' " :request="request" :closeAction="closeAction" />
+              </div>
+            </b-modal>
+          </timeline-item>
+        </div>
+        <div v-if="!request && (playerInfo || clubInfo || search)">
           <h4 class="header" v-if="player">Player</h4>
           <h4 class="header" v-if="team">Team</h4>
           <playerresume v-if="player" :player="playerInfo" :clubInfo="clubInfo" :search="search"></playerresume>
@@ -226,6 +239,10 @@
   import ActionsItem from 'app/components/ActionsItem';
   import PlayerResume from 'app/components/ProfileResume/PlayerResume';
   import ClubResume from 'app/components/ProfileResume/ClubResume';
+  import RequestItem from 'app/components/RequestItem';
+  import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
+  import PositionRequestPopup from 'app/components/RequestPopup/PositionRequestPopup';
+  import TeamRequestPopup from 'app/components/RequestPopup/TeamRequestPopup';
   export default {
     name: 'EditReportPage',
     components: {
@@ -236,10 +253,19 @@
       'action-item': ActionsItem,
       'timeline-item': TimelineItem,
       clubresume: ClubResume,
-      playerresume: PlayerResume
+      playerresume: PlayerResume,
+      request: RequestItem,
+      teamrequestpopup: TeamRequestPopup,
+      playerrequestpopup: PlayerRequestPopup,
+      positionrequestpopup: PositionRequestPopup
     },
     computed: {
       ...mapGetters(['report', 'searchReport']),
+      request() {
+        if (this.reportValue)
+          return this.reportValue.request
+        return null;
+      },
       playerInfo() {
         if (this.searchReport.status == ASYNC_SUCCESS)
           return this.reportValue.player;
@@ -326,6 +352,12 @@
           report: report,
           id
         });
+      },
+      closeAction(request) {
+        this.$refs.metaModal.hide();
+      },
+      viewSummary(request) {
+        this.$refs.metaModal.show();
       }
     },
     data() {

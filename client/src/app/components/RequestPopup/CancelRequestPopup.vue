@@ -25,11 +25,11 @@
         <div class="info col-lg-8" v-if="!success">
           <div v-if="errors">
             <ul class="error">
-              <li v-for="error in errors.errors" :key="error.id" v-if="errors.errors.isArray">
+              <li v-for="error in serverErrors.errors" :key="error.id" v-if="serverErrors.errors.isArray">
                 {{error}}
               </li>
-              <li v-if="!errors.errors.isArray">
-                {{errors.errors}}
+              <li v-if="!serverErrors.errors.isArray">
+                {{serverErrors.errors}}
               </li>
             </ul>
           </div>
@@ -96,7 +96,7 @@
           return true;
         return false;
       },
-      errors() {
+      serverErrors() {
         if (this.bid.errors) return this.bid.errors;
         return null;
       },

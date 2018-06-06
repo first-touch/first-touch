@@ -25,8 +25,9 @@
   .hide {
     display: none;
   }
-  .validate-errors{
-    color:red;
+
+  .validate-errors {
+    color: red;
   }
 </style>
 
@@ -48,11 +49,12 @@
       }
     },
     mounted() {
-      this.price.value = this.request.price.value;
-      if (this.request.price.currency)
-        this.price.currency = this.request.price.currency;
-      if (this.request.bid_status)
-        this.price = this.request.bid_price
+      this.prepare();
+    },
+    watch: {
+      request() {
+        this.prepare();
+      }
     },
     methods: {
       submit() {
@@ -63,7 +65,15 @@
         }).catch(() => {
 
         });
-
+      },
+      prepare() {
+        if (this.request) {
+          this.price.value = this.request.price.value;
+          if (this.request.price.currency)
+            this.price.currency = this.request.price.currency;
+          if (this.request.bid_status)
+            this.price = this.request.bid_price
+        }
       }
     }
   };

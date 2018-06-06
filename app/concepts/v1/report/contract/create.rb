@@ -7,7 +7,7 @@ module V1
         property :status
         property :type_report
         property :price
-        property :team_id, virtual: true
+        property :team_id
         property :player_id
         property :meta_data
         validates :status,
@@ -21,6 +21,8 @@ module V1
                     message: 'is not available for this report'
                   }
         validates_with ::Report::ReportValidator
+
+        validate :user_id_exists
 
         validates :headline, :user, :status, :price, :type_report, presence: true
       end
