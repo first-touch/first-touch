@@ -20,10 +20,6 @@ module V1
                     in: FirstTouch::REGISTERABLE_REPORT_TYPES,
                     message: 'is not available for this report'
                   }
-        validates_with ::Report::ReportValidator
-
-        validate :user_id_exists
-
         validates :headline, :user, :status, :price, :type_report, presence: true
       end
     end

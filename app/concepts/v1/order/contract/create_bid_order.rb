@@ -14,8 +14,6 @@ module V1
                   :user,
                   :customer_id,
                   presence: true
-        # validates_uniqueness_of :customer_id, scope: %i[report customer_id]
-        # TODO: validates uniqueness of customer_id bid_id
       end
     end
   end
