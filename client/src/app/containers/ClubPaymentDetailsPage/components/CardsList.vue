@@ -2,7 +2,7 @@
   <div class="cardList" :class="[loading == true ? 'loading' : '']">
     <loading class="loader" />
     <div class="empty" v-if="!info || !info.cards || info.cards.length == 0">
-      You do not have any registered card yet
+      You have not set up any payment methods yet. Set up your payment methods so you'll be able to make purchases right away.
     </div>
     <div class="row col-lg-12 ft-cards-result" v-if="info && info.cards">
       <div v-for="card in info.cards" :key="card.key" class="col-lg-5 ft-card">

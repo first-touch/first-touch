@@ -18,49 +18,57 @@
       margin-top: 20px;
       border-left-color: $secondary-header-color;
     }
-    .timeline-widget-button {
-      color: $secondary-text-color;
-      text-transform: uppercase;
-      background-color: $navbar-background-color;
-      border: none;
-      margin-right: 20px;
-      a {
-        cursor: pointer;
-        padding-left: 20px;
-        color: $main-text-color;
-        &.active {
-          color: $secondary-header-color;
-        }
-        &:hover {
-          color: #A8CB5C;
-          text-decoration: none;
-        }
+    .item-container {
+        display: flex;
+      button.timeline-widget-button {
+        display: flex;
       }
-      span {
-        border-radius: 50%;
-        color: #fff;
-        text-align: center;
-        background: $timeline-widget-button-background;
-        border: solid 1px $timeline-widget-button-background;
-        display: inline-block;
-        color: $timeline-widget-button-color;
-        padding: 7px 4px 0 0;
-        width: 49px;
-        height: 49px;
-        .fa-icon {
-          transform: scale(1.2);
+      .timeline-widget-button {
+        color: $secondary-text-color;
+        text-transform: uppercase;
+        background-color: $navbar-background-color;
+        border: none;
+        margin-right: 20px;
+        a {
+          margin-bottom: auto;
+          margin-top: auto;
           cursor: pointer;
+          padding-left: 20px;
+          color: $main-text-color;
+          &.active {
+            color: $secondary-header-color;
+          }
+          &:hover {
+            color: #A8CB5C;
+            text-decoration: none;
+          }
         }
-      }
-      &.button-right {
-        float: right;
-        margin-left: auto;
-        span.publish {
-          background: $secondary-header-color;
-          color: white;
+        span {
+          border-radius: 50%;
+          color: #fff;
+          text-align: center;
+          background: $timeline-widget-button-background;
+          border: solid 1px $timeline-widget-button-background;
+          display: inline-block;
+          color: $timeline-widget-button-color;
+          padding: 7px 4px 0 0;
+          width: 49px;
+          height: 49px;
+          .fa-icon {
+            transform: scale(1.2);
+            cursor: pointer;
+          }
         }
-        span.unpublish {
-          background: #ff4949;
+        &.button-right {
+          float: right;
+          margin-left: auto;
+          span.publish {
+            background: $secondary-header-color;
+            color: white;
+          }
+          span.unpublish {
+            background: #ff4949;
+          }
         }
       }
     }

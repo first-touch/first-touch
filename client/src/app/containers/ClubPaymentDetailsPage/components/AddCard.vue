@@ -10,7 +10,7 @@
       <loading class="loader" />
       <div class="payment" v-if="!success">
         <cardinput ref="cardInput" :stripeJs="stripeJs" />
-        <div class="buttons-inner">
+        <div class="buttons-inner row">
           <button class="ft-button ft-button-success" v-on:click="getStripeToken">Add Card</button>
           <button class="ft-button ft-button-right" @click="closeAction()">Close</button>
         </div>

@@ -1,6 +1,13 @@
 <template>
   <div>
     <div ref="card" class="form-control"></div>
+    <div class="img-container col-lg-4">
+      <img class="img-fluid" src="/images/stripe/secure-stripe-payment-logo.png" alt="Stripe secure" />
+    </div>
+    <p>All payments are governed by the FirstTouch Terms & Conditions and Payment Policy.
+          <a href="https://stripe.com/mx/connect-account/legal">By Adding a card, you agree to the stripe agreements </a>
+    </p>
+
   </div>
 </template>
 

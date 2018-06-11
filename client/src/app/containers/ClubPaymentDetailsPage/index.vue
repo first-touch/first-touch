@@ -3,7 +3,7 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
-        <h4 class="header">Payments Details Page </h4>
+        <h4 class="header">Billing & Payments</h4>
         <actions :addPayment="addPayment">
         </actions>
         <timeline-item>
