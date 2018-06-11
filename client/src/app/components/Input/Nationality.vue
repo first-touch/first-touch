@@ -24,8 +24,12 @@ export default {
   },
   methods: {
     update(val) {
-      if (val.value) {
+      this.model = val;
+      if (val && val.value) {
         this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
+      }
+      else{
+        this.$emit('update:val', null);
       }
     }
   },

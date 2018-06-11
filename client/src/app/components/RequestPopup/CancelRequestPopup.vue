@@ -23,7 +23,7 @@
           </p>
         </div>
         <div class="info col-lg-8" v-if="!success">
-          <div v-if="errors">
+          <div v-if="serverErrors">
             <ul class="error">
               <li v-for="error in serverErrors.errors" :key="error.id" v-if="serverErrors.errors.isArray">
                 {{error}}

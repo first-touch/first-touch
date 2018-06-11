@@ -325,7 +325,7 @@
       },
       playerName() {
         if (this.playerInfo.first_name)
-          return this.playerInfo.first_name;
+          return this.playerInfo.first_name + ' ' + this.playerInfo.last_name ;
         if (this.report.search) {
           return this.report.search.player;
         }

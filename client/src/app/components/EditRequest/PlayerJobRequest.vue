@@ -93,7 +93,7 @@
             <input type="text" class="hide" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
             <span class="validate-errors">{{ errors.first('deadline') }}</span>
           </div>
-          <div class="col-lg-12 form-group">
+          <div class="col-lg-12 form-group required-before">
             <div class="row bid-range col-lg-12">
               <currencyinput :value="price" max="true" :noHyphen="true" maxValue="999999" placeholder="Desired bid range" class="col" />
               <span class="bid-range-icon-inner" v-b-tooltip.hover placement="topleft" title="Bid level reflects your appetite to spend on reports and is for reference only. Scouts determine their own rates, so the actual rate you pay is up to you and the Scout.">

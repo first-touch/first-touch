@@ -42,11 +42,11 @@
   .validate-errors {
     color: red;
   }
-  .validate-errors-list{
+  .validate-errors-list {
     list-style: disc;
-    li{
+    li {
       display: list-item;
-      &:empty{
+      &:empty {
         display: none;
       }
     }
@@ -70,6 +70,9 @@
     }
     &.v-select {
       padding: 0 5px;
+      &.disabled {
+        background: #f8f8f8;
+      }
       &.empty {
         color: $secondary-text-color;
         .clear {
@@ -101,12 +104,9 @@
       border: 0;
     }
     &.multiple {
-      input {
-        display: none;
-      }
-      &.empty {
+      &:not(.empty){
         input {
-          display: block;
+          position: absolute;
         }
       }
       .selected-tag {

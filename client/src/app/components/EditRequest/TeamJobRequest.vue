@@ -61,8 +61,8 @@
               <span class="validate-errors">{{ errors.first('deadline') }}</span>
             </div>
           </div>
-          <div class="col-lg-12 form-group">
-            <div class="row bid-range">
+          <div class="col-lg-12 form-group row required-before">
+            <div class="row col-lg-12 bid-range">
               <currencyinput :value="price" :noHyphen="true" max="true" maxValue="999999" placeholder="Desired bid range" class="col" />
               <span class="bid-range-icon-inner" v-b-tooltip.hover placement="topleft" title="Bid level reflects your appetite to spend on reports and is for reference only. Scouts determine their own rates, so the actual rate you pay is up to you and the Scout.">
                 <icon name='question-circle'></icon>
