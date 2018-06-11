@@ -7,8 +7,8 @@
       <div class="profile">
         <img class="rounded-circle img-fluid" src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Toronto_FC_Logo.svg/1095px-Toronto_FC_Logo.svg.png"
         />
-        <h4 class="profile-name">The Team FC</h4>
-        <router-link to="/profile/edit" class="profile-edit-button">Edit Profile</router-link>
+        <h4 class="profile-name">{{clubName}}</h4>
+        <router-link to="/" class="profile-edit-button">My Profile</router-link>
       </div>
       <ul class="nav-list">
         <li class="nav-item" :class="{ active: tab[0] }">
@@ -243,6 +243,14 @@
           false
         ]
       };
+    },
+    computed:{
+      ...mapGetters(['token']),
+      clubName(){
+        if (this.token.clubs && this.token.clubs.length > 0)
+          return this.token.clubs[0].name;
+        return ''
+      }
     },
     methods: {
       onTabClick(idx) {

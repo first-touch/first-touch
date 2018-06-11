@@ -10,6 +10,8 @@
         <h5 class="profile-role">Football player</h5>
         <h5 class="profile-club">real madrid</h5>
         <router-link to="/profile/edit" class="profile-edit-button">Edit Profile</router-link>
+        <router-link to="/club" v-if="club" class="profile-edit-button">My clubs</router-link>
+
       </div>
       <ul class="nav-list">
         <li class="nav-item" :class="{ active: page === 'home'  && submenu == -1 }">
@@ -272,6 +274,11 @@
         } else {
           return '';
         }
+      },
+      club(){
+        if (this.token.clubs && this.token.clubs.length > 0)
+          return true;
+        return false
       },
       hasBankAccount() {
         if (this.user.status === ASYNC_SUCCESS) {

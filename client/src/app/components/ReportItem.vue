@@ -163,7 +163,7 @@
         <span v-if="field == 'action'" class="contents">
           <div class="table-action row buttons-inner">
             <div class="col col-lg-8 first-action">
-              <a v-if="canAction(!own && buyAction && (report.orders_status != 'completed' && !report.is_free),'buy', true)" class="ft-action col-lg-8">
+              <a v-if="canAction(!own && buyAction && (report.orders_status != 'completed' && !report.is_free),'buy', true)" class="ft-action col-lg-12">
                 <button class="btn-round" @click="buyAction(report)">Purchase</button>
               </a>
               <div v-if="canAction(!own && buyActionWithPrice && (report.orders_status != 'completed' && !report.is_free),'buy', true)">
@@ -171,11 +171,11 @@
                 <span class="price col-lg-12">{{report.price.currency | currency}}{{report.price.value}}</span>
               </div>
 
-              <a v-if="canAction(own || report.orders_status == 'completed' || report.is_free,'view_report',true)  && viewAction" class="ft-action col-lg-8">
+              <a v-if="canAction(own || report.orders_status == 'completed' || report.is_free,'view_report',true)  && viewAction" class="ft-action col-lg-12">
                 <button class="ft-button-third" @click="viewAction(report)">View report</button>
               </a>
               <a v-if="canAction(report.orders_status == 'completed' || (report.completion_status == 'pending' && !own ), 'refund', true)  && refundAction"
-                class="ft-action col-lg-8">
+                class="ft-action col-lg-12">
                 <button class="btn-round" @click="refundAsked ? null : refundAction(report.id )" :title="refundAsked ? 'You refund enquiry has already been sent' : ''">Refund</button>
               </a>
               <p v-if="canAction(report.orders_status == 'pending', 'in_pending', true)" class="ft-action col-lg-10">Payment in pending</p>
