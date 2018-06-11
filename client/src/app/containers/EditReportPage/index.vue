@@ -147,10 +147,6 @@
     width: 100%;
   }
 
-  .report {
-    padding: 50px;
-  }
-
   .report-container {
     .created_at {
       color: $main-text-color;
@@ -267,12 +263,12 @@
         return null;
       },
       playerInfo() {
-        if (this.report.status == ASYNC_SUCCESS)
+        if (this.reportValue)
           return this.reportValue.player;
         return null;
       },
       clubInfo() {
-        if (!this.playerInfo && this.report.status == ASYNC_SUCCESS)
+        if (!this.playerInfo && this.reportValue)
           return this.reportValue.team;
         return null;
       },
@@ -333,10 +329,7 @@
         var report = {
           status: status
         };
-        this.updateReport({
-          report,
-          id: this.reportValue.id
-        });
+        this.customUpdateReport(report, null);
       },
       customUpdateReport(report, filelist) {
         this.start = true;
@@ -347,7 +340,6 @@
         }
         this.report.errors = null;
         this.report.files = filelist;
-        console.log(filelist);
         var id = this.$route.params.id;
         this.updateReport({
           report: report,
