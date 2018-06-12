@@ -24,7 +24,7 @@ module V1
 
         def role_is_registerable
           current_role = model.roles.first.name
-          return if FirstTouch::REGISTERABLE_ROLE_NAMES.include? current_role
+          return true if FirstTouch::REGISTERABLE_ROLE_NAMES.include? current_role
           errors.add(:roles, I18n.t('user.invalid_role'))
         end
       end
