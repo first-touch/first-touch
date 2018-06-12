@@ -21,6 +21,12 @@ module V1
           represented.author.roles.first.name
         end
       end
+
+      class Index < Representable::Decorator
+        include Representable::JSON
+
+        collection :to_a, as: :posts, decorator: Full
+      end
     end
   end
 end

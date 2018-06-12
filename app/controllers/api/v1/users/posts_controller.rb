@@ -3,8 +3,10 @@ module Api
     module Users
       class PostsController < Api::V1::BaseController
         def index
-          # Build feed
-          render json: { posts: current_user.feed }, status: :ok
+          result = ::V1::Post::PersonalFeed.(params, current_user: current_user)
+          response = FirstTouch::Endpoint.(result, ::V1::Post::Representer::Index)
+          render json: response[:data], status: response[:status]
+          # render json: { posts: current_user.feed }, status: :ok
         end
 
         def create
