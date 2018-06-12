@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "content": {
+      "type": "text"
+    },
+    "author_id": {
+      "type": "integer"
+    },
+    "author_name": {
+      "type": "text"
+    },
+    "author_status": {
+      "type": "text"
+    },
+    "created_at": {
+      "type": "datetime"
+    },
+    "updated_at": {
+      "type": "datetime"
+    },
+    "images": {
+      "type": "array"
+    }
+  },
+  "required": ["id", "content", "author_id", "author_name",
+               "author_status", "created_at", "updated_at"]
+}
