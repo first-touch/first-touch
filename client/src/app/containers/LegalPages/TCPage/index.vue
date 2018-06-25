@@ -1,7 +1,6 @@
 <template>
   <div>
     <landing-navbar sticky/>
-    <body>
     <div class="title-container">
       <h1 class="title">User Agreement</h1>
     </div>
@@ -501,7 +500,6 @@
         </p>
       </section>
     </div>
-     </body>
   </div>
 </template>
 <style lang="scss" scoped>
