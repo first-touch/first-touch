@@ -1,39 +1,65 @@
 <template>
-  <form @submit.prevent="search" class="col-md-10">
-    <div class="row">
-      <fieldset class="col-md-3 filter" v-if="!request">
-        <vselect v-model="type_select" @input="search" :options="options.report_type" :searchable="false" />
-      </fieldset>
-      <fieldset class="col-md-3 filter form-control">
-        <input class="col-sm-12 form-control" placeholder="Scout's Name" type="text" v-model="params.scout_name" />
-      </fieldset>
-      <fieldset class="col-md-3 filter">
-        <vselect v-model="sort_select" @input="search" :options="options.order" :searchable="false" />
-      </fieldset>
-
-      <ftdatepicker class="col-md-3 filter form-control" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"
-      />
-      <div class="col-md-12 price-filter row">
-        <label class="col-md-1">Price</label>
-        <currencyinput class="col-md-11" :value="price" max="true" :currency="currency" />
-      </div>
-    </div>
-  </form>
+  <div class="inline-form row ft-form col-lg-12">
+    <p>You are currently viewing reports for </p>
+    <fieldset class="inline col-lg-1">
+      <vselect v-model="type_select" class="form-control" :class="params.type_report == '' ? 'empty' : ''" @input="search" :options="options.report_type"
+        :searchable="false" />
+    </fieldset>
+    <p>From </p>
+    <fieldset class="inline col-lg-2">
+      <ftdatepicker class="col-lg-12 form-control" ref="createdDate" :value="params.created_date_from" v-on:update:val="params.created_date_from = $event; search()"
+        placeholder="Date" hideChooseIcon="true" />
+    </fieldset>
+    <p> To </p>
+    <fieldset class="inline col-lg-2">
+      <ftdatepicker class="col-lg-12 form-control" ref="createdDate" :value="params.created_date_to" v-on:update:val="params.created_date_to = $event; search()"
+        placeholder="Date" hideChooseIcon="true" />
+    </fieldset>
+  </div>
 </template>
 
-<style lang="scss" scoped>
-  form {
-    margin-bottom: 20px;
-    .price-filter {
-      margin-top: 10px;
-      .autonumeric {
-        height: inherit;
-        max-height: 40px;
+<style lang="scss">
+  @import '~stylesheets/search';
+
+  .inline-form {
+    .inline {
+      .form-control {
+        &.v-select {}
+        .ftdatepicker {
+          background: transparent;
+          height: 35px;
+          padding: 3px 8px;
+
+          input {
+            background: transparent;
+            padding: 1px .25em;
+          }
+        }
       }
     }
   }
 </style>
+<style lang="scss" scoped>
+  @import '~stylesheets/variables';
 
+  .inline-form {
+    padding: 10px 30px;
+    p {
+      color: $secondary-text-color;
+    }
+    .inline {
+      min-width: 90px;
+      margin-top: -5px;
+      height: 30px; // min-width: 150px;
+      .form-control {
+        padding: 0;
+        height: 35px;
+        border-color: #ced4da;
+      }
+    }
+
+  }
+</style>
 <script>
   import vSelect from 'vue-select';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
@@ -50,94 +76,32 @@
     data() {
       return {
         timer: null,
-        sort_select: {
-          label: 'Sort by',
-          value: ''
-        },
         type_select: {
-          label: 'Report Type',
-          value: ''
+          label: 'Players',
+          value: 'player'
         },
-        price: {
-          value: 0,
-          max: 0,
-          currency: 'EUR'
-        },
-        currency: null,
         params: {
-          id: '',
-          headline: '',
-          report_type: '',
+          report_type: 'player',
           created_date_from: '',
           created_date_to: '',
-          created_date: '',
-          sort: '',
-          scout_name: ''
         },
         options: {
           report_type: [{
-              label: 'Report Type',
-              value: ''
-            },
-            {
-              label: 'Player',
+              label: 'Players',
               value: 'player'
             },
             {
-              label: 'Team',
+              label: 'Teams',
               value: 'team'
-            }
-          ],
-          order: [{
-              label: 'Sort by',
-              value: ''
-            },
-            {
-              label: 'Updated date',
-              value: 'updated_at'
-            },
-            {
-              label: 'Type',
-              value: 'Type'
-            },
-            {
-              label: 'Price',
-              value: 'price'
             }
           ]
         }
       };
     },
-    mounted() {
-      if (this.request) {
-        this.currency = this.request.price.currency
-        this.price.value = this.request.price.value
-        this.price.max = this.request.price.max
-      } else {
-        this.currency = null;
-      }
-    },
     computed: {
       url() {
         var params = this.params;
-        if (params.created_date_from) {
-          params.created_date_from = this.$options.filters.railsdate(params.created_date_from);
-        }
-        if (params.created_date_to) {
-          params.created_date_to = this.$options.filters.railsdate(params.created_date_to);
-        }
-        params.sort = this.sort_select.value;
         params.type_report = this.type_select.value;
-        params.min_price = this.price.value;
-        if (this.price.max > 0)
-          params.max_price = this.price.max;
-        else {
-          delete(params.max_price)
-        }
-        if (this.request)
-          params.request_id = this.request.id;
-        else if (params.request_id)
-          delete(params.request_id)
         var url = Object.keys(params)
           .map(function (k) {
             return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
@@ -158,6 +122,8 @@
         var self = this;
         this.timer = setTimeout(function () {
           self.$emit('update:search');
+          self.$emit('update:type', self.type_select.value );
+
         }, 300);
       }
     }

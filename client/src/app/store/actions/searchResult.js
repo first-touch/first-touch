@@ -2,7 +2,6 @@ import * as types from '../../constants/ActionTypes';
 
 export const getSearchResults = (store, { searchTerm, role = '', team = '' }) => {
   store.commit(types.SEARCH_RESULT_LOADING);
-  if (searchTerm === '') return store.commit(types.SEARCH_RESULT_SUCCESS, []);
   fetch(`/api/v1/search?q=${searchTerm}&role=${role}&team=${team}`, {
     method: 'GET',
     headers: { Authorization: store.state.token.value }
@@ -17,7 +16,6 @@ export const getSearchResults = (store, { searchTerm, role = '', team = '' }) =>
 
 export const getSearchResultsTeams = (store, { searchTerm, league = '' }) => {
   store.commit(types.SEARCH_RESULT_LOADING);
-  if (searchTerm === '') return store.commit(types.SEARCH_RESULT_SUCCESS, []);
   fetch(`/api/v1/teams?q=${searchTerm}&league=${league}`, {
     method: 'GET',
     headers: { Authorization: store.state.token.value }
@@ -32,7 +30,6 @@ export const getSearchResultsTeams = (store, { searchTerm, league = '' }) => {
 
 export const getSearchResultsCompetition = (store, { searchTerm }) => {
   store.commit(types.SEARCH_RESULT_LOADING);
-  if (searchTerm === '') return store.commit(types.SEARCH_RESULT_SUCCESS, []);
   fetch(`/api/v1/competitions?q=${searchTerm}`, {
     method: 'GET',
     headers: { Authorization: store.state.token.value }

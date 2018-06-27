@@ -4,7 +4,7 @@ $navbar-background-color-faded: rgba(33,34,35,0.8);
 $landing-page-dark-background-color: #191A1B;
 $background-color: #343434;
 $main-header-color: #A8CB5C;
-// $secondary-header-color: #6DA87D;
+$third-header-color: #6DA87D;
 $secondary-header-color: #4BBA63;
 $main-text-color: #7f8081;
 $main-text-alpha-20: rgba(140,140,140,0.2);
@@ -47,5 +47,8 @@ $button-background:  rgba(255, 255, 255, 0.2);
 $button-background-hover:  rgba(0, 0, 0, 0.2);
 
 // timeline-widget
-$timeline-widget-button-background: #4BBA63;
+$timeline-widget-button-background: #a8cb5c;
 $timeline-widget-button-color: #ffffff;
+
+$input-focus-color: #a8cb5c;
+$form-control-read-only: #e9ecef;

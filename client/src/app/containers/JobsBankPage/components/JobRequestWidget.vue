@@ -1,21 +1,34 @@
 <template>
   <div class="widget-request ft-search-widget">
-    <h4 class="header">My Jobs Request</h4>
+    <h4 class="header">Jobs Bank</h4>
     <timeline-item>
-      <div class="widget-content col col-md-12">
+      <div class="widget-content col col-lg-12">
         <div class="row align-items-start">
-          <div class="col-md-2">
-            <h6 class="list-title">Request Count</h6>
-            <h1 class="list-count">{{listRequest.length}}</h1>
-          </div>
-          <form @submit.prevent="search" class="col-md-10 row">
-            <fieldset class="col-md-4 filter">
-              <vselect v-model="vselect_type" :options="options.type_request" :searchable="false" clearable="false" />
+          <div class="col-lg-2 row">
+            <h6 class="list-title col-lg-12">Request Count</h6>
+            <h1 class="list-count col-lg-12">{{listRequest.length}}</h1>
+            <fieldset class="col-lg-12 col-md-12 buttons-inner" v-if="nbFilters">
+              <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
             </fieldset>
-            <ftdatepicker class="col-md-5 filter form-control" :value="params.created_date" :clearable="false" v-on:update:val="params.created_date = $event; search()"
-            />
-            <fieldset class="col-md-3 filter">
-              <vselect v-model="vselect_sort" @input="search" :options="options.order" :searchable="false" />
+          </div>
+          <form @submit.prevent="search" class="col-lg-10 row">
+            <fieldset class="col-lg-4">
+              <input type="number" min="0" class="col-lg-12 form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()"
+              />
+            </fieldset>
+            <fieldset class="col-lg-4">
+              <input type="text" class="col-lg-12 form-control" v-model="params.club" placeholder="Requested by" @keyup="search()" />
+            </fieldset>
+            <fieldset class="col-lg-3">
+              <vselect v-model="vselect_type" class="form-control" :options="options.type_request" :class="params.type_request == '' ? 'empty' : '' "
+                :searchable="false" clearable="false" />
+            </fieldset>
+            <fieldset class="col-lg-12 calendar-filter">
+              <ftdatepicker class="col col-lg-5 form-control" ref="deadlineFrom" :value="params.deadline_from" :clearable="false" placeholder="Deadline from"
+                v-on:update:val="params.deadline_from = $event; search()" />
+              <p class="col col-lg-1">-</p>
+              <ftdatepicker class="col col-lg-5 form-control" ref="deadlineTo" :value="params.deadline_to" :clearable="false" placeholder="Deadline to"
+                v-on:update:val="params.deadline_to = $event; search()" />
             </fieldset>
           </form>
         </div>
@@ -29,18 +42,22 @@
           <positionrequestpopup v-if="selected && selected.type_request == 'position' " :request="selected" :closeAction="closeAction"
             :bid="wantbid" :newBid="newBid" />
         </div>
-        <div v-if="bid && !bidPosition" class="divSuccess">
-          <h5 class="success">Bid has been Submitted</h5>
-          <button class="btn btn-dark" @click="closeAction()">✓ Close</button>
-        </div>
-        <div v-if="bid && bidPosition" class="divSuccess">
-          <h5 class="success">Added to job !</h5>
-          <button class="btn btn-dark" @click="closeAction()">✓ Close</button>
+        <div v-if="bid" class="divSuccess row">
+          <div class="col-lg-12">
+            <h3 class="success" v-if="bidPosition">Added to job !</h3>
+            <h3 class="success" v-if="!bidPosition">Bid submitted !</h3>
+          </div>
+          <div class="col-lg-12 buttons-inner">
+            <button class="ft-button-right ft-button-success" @click="closeAction()">✓ Close</button>
+          </div>
         </div>
       </b-modal>
       <b-modal id="metaModal" size="md" ref="bidModal" :class="bid? 'successModal' : 'formModal' ">
-        <bidpopup v-if="selected" :request="selected" :newBid="newBid" />
+        <bidpopup v-if="selected" :request="selected" :newBid="newBid" :close="closeBid" />
       </b-modal>
+      <div v-if="!hasBankAccount" @click="toPaymentPage">
+        <p class="error">Click here to add a bank account and start to browse job request</p>
+      </div>
       <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :addBid="addBid"
         :viewReport="viewReport" :createReport="createReport" />
     </timeline-item>
@@ -52,62 +69,13 @@
   @import '~stylesheets/variables';
   @import '~stylesheets/modal';
   @import '~stylesheets/search';
-  .ft-form {
-    padding: 0 !important;
-  }
-
-  .widget-request {
-    .datepicker {
-      padding: 0;
-      input.input-date {
-        cursor: pointer;
-        min-height: 2em;
-        border: 0px;
-      }
-    }
-    .dropdown-toggle {
-      max-height: 35px;
-      border: 0px;
-    }
-  }
+  @import '~stylesheets/form';
 </style>
-
 <style lang="scss" scoped>
-  @import '~stylesheets/variables';
-  .widget-request {
-    color: $main-text-color;
-    .form-control {
-      padding: 0;
-    }
-    .list-title {
-      color: $main-text-color;
-      font-size: 0.95em;
-      text-transform: uppercase;
-    }
-    .list-count {
-      color: $main-header-color;
-      font-size: 4em;
-      text-align: center;
-    }
-    .filter {
-      margin: 5px;
-      max-width: 23%;
-      input,
-      select {
-        height: 100%;
-        padding: 10px;
-      }
-      .icon-inner {
-        margin-top: 5px;
-        display: inline-block;
-        cursor: pointer;
-        &:hover {
-          color: $secondary-header-color;
-        }
-      }
-      .datepicker {
-        float: left;
-      }
+  .error {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
     }
   }
 </style>
@@ -116,7 +84,8 @@
   import RequestItem from 'app/components/RequestItem';
   import TimelineItem from 'app/components/TimelineItem';
   import {
-    ASYNC_SUCCESS
+    ASYNC_SUCCESS,
+    ASYNC_LOADING
   } from 'app/constants/AsyncStatus';
   import vSelect from 'vue-select';
   import BidPopup from './BidPopup';
@@ -127,11 +96,11 @@
 
   export default {
     name: 'JobRequestWidget',
-    props: ['listRequest', 'getRequests', 'update', 'bid', 'createBid', 'updateBid', 'clearBid'],
+    props: ['listRequest', 'getRequests', 'update', 'bid', 'createBid', 'updateBid', 'clearBid', 'user'],
     components: {
       datepicker: Datepicker,
       'timeline-item': TimelineItem,
-      bidpopup:BidPopup,
+      bidpopup: BidPopup,
       request: RequestItem,
       vselect: vSelect,
       ftdatepicker: FtDatepicker,
@@ -148,8 +117,11 @@
           id: '',
           created_date: '',
           order: '',
+          club: '',
           status: '',
-          type_request: ''
+          type_request: '',
+          deadline_from: '',
+          deadline_to: ''
         },
         vselect_type: {
           label: 'Request Type',
@@ -222,8 +194,28 @@
       this.search();
     },
     computed: {
+      nbFilters() {
+        var i = 0;
+        var params = this.params;
+        for (var key in params) {
+          if (['bids_status', 'order_asc', 'order'].indexOf(key) < 0)
+            i = params[key] != '' ? i + 1 : i;
+        }
+        return i;
+      },
+      hasBankAccount() {
+        if (this.user.status === ASYNC_SUCCESS) {
+          return (this.user.value.has_bank_account)
+        }
+        if (this.user.status === ASYNC_LOADING) {
+          return true;
+        }
+        return false;
+      },
       url() {
         var params = this.params;
+        params.deadline_from = this.$options.filters.railsdate(params.deadline_from)
+        params.deadline_to = this.$options.filters.railsdate(params.deadline_to)
         return Object.keys(params)
           .map(function (k) {
             return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
@@ -240,7 +232,7 @@
         this.params.status = this.vselect_status.value;
         this.search();
       },
-      bid(){
+      bid() {
         if (this.bid)
           this.$refs.metaModal.show();
       }
@@ -248,6 +240,33 @@
     methods: {
       search() {
         this.getRequests(this.url);
+      },
+      toPaymentPage() {
+        this.$router.push({
+          name: 'scoutPaymentDetailPage',
+        });
+      },
+      clearsFilter() {
+        this.params = {
+          id: '',
+          created_date: '',
+          order: '',
+          status: '',
+          type_request: '',
+          deadline_from: '',
+          deadline_to: '',
+          club: ''
+        }
+        this.$refs.deadlineFrom.model = null;
+        this.$refs.deadlineTo.model = null;
+        this.vselect_type = {
+          label: 'Request Type',
+          value: ''
+        };
+        this.vselect_sort = {
+          label: 'Sort by',
+          value: ''
+        };
       },
       newBid(request, price) {
         if (request.bid_status) {
@@ -270,6 +289,9 @@
         this.bidPosition = false;
         this.clearBid();
         this.search();
+      },
+      closeBid() {
+        this.$refs.bidModal.hide();
       },
       viewSummary(request) {
         this.wantbid = false;

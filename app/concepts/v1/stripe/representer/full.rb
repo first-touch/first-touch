@@ -9,7 +9,7 @@ module V1
         property :default_currency
         property :preferred_account, getter: lambda { |represented:, **|
           begin
-           represented.preferred_id
+            represented.preferred_id
           rescue StandardError
             'N/A'
           end
@@ -21,7 +21,7 @@ module V1
               represented.external_accounts.data.each do |bank|
                 obj.push(::V1::Stripe::Representer::ResumeBank.new(bank))
               end
-            obj
+              obj
             rescue StandardError
               'N/A'
             end

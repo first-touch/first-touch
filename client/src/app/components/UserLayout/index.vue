@@ -49,23 +49,22 @@
           return 'profile';
         } else if (/\/scouting/.test(path)) {
           return path;
+        } else if (/\/profile\/\*/.test(path)) {
+          return 'profile';
+        } else if (path === '/calendar') {
+          return 'calendar';
+        } else if (/\/messages/.test(path)) {
+          return 'messages';
+        } else if (path === '/network') {
+          return 'network';
+        } else if (/\/users\/\d+\/profile/.test(path)) {
+          return 'profile';
+        } else if (/\/notes/.test(path)) {
+          return 'notes';
         }
-        return 'home';
-      } else if (/\/profile\/*/.test(path)) {
-        return 'profile';
-      } else if (path === '/calendar') {
-        return 'calendar';
-      } else if (/\/messages/.test(path)) {
-        return 'messages';
-      } else if (path === '/network') {
-        return 'network';
-      } else if (/\/users\/\d+\/profile/.test(path)) {
-        return 'profile';
-      } else if (/\/notes/.test(path)) {
-        return 'notes';
-      }
 
-      return 'home';
+        return 'home';
+      },
     },
     methods: {
       ...mapActions(['getSearchResults']),

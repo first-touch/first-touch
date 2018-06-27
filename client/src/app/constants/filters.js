@@ -5,7 +5,7 @@ import countrydata from 'country-data';
 Vue.filter('moment', str => {
   var date = moment(str);
   if (date.isValid()) {
-    return date.format('Do,\ MMM YYYY');
+    return date.format('DD-MMM-YYYY').toUpperCase();
   }
   return '';
 });
@@ -16,7 +16,16 @@ Vue.filter('age', str => {
   }
   return '';
 });
-Vue.filter('railsdate', str => moment(str).format('YYYY-MM-DD'));
+Vue.filter('railsdate', str => {
+  if (str == null) {
+    return '';
+  }
+  var date = moment(str);
+  if (date.isValid()) {
+    return date.format('YYYY-MM-DD');
+  }
+  return '';
+});
 Vue.filter('reportId', (str, type) => {
   str = str.toString();
   while (str.length < (5 || 2)) {

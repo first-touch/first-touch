@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180418035045) do
+ActiveRecord::Schema.define(version: 20180524020748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,10 @@ ActiveRecord::Schema.define(version: 20180418035045) do
     t.text "filename"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "report_id"
+    t.bigint "request_bid_id"
+    t.index ["report_id"], name: "index_attachments_on_report_id"
+    t.index ["request_bid_id"], name: "index_attachments_on_request_bid_id"
   end
 
   create_table "awards", force: :cascade do |t|
@@ -191,7 +195,11 @@ ActiveRecord::Schema.define(version: 20180418035045) do
     t.text "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "request_bid_id"
+    t.text "refund_status"
+    t.datetime "completed_date"
     t.index ["report_id"], name: "index_orders_on_report_id"
+    t.index ["request_bid_id"], name: "index_orders_on_request_bid_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -239,14 +247,16 @@ ActiveRecord::Schema.define(version: 20180418035045) do
     t.string "type_report"
     t.bigint "user_id"
     t.json "price"
-    t.bigint "club_id"
+    t.bigint "team_id"
     t.integer "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "meta_data"
-    t.bigint "attachments_id"
-    t.index ["attachments_id"], name: "index_reports_on_attachments_id"
-    t.index ["club_id"], name: "index_reports_on_club_id"
+    t.integer "league_id"
+    t.bigint "request_id"
+    t.text "completion_status"
+    t.index ["request_id"], name: "index_reports_on_request_id"
+    t.index ["team_id"], name: "index_reports_on_team_id"
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
@@ -258,6 +268,7 @@ ActiveRecord::Schema.define(version: 20180418035045) do
     t.bigint "report_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "reason"
     t.index ["report_id"], name: "index_request_bids_on_report_id"
     t.index ["request_id"], name: "index_request_bids_on_request_id"
     t.index ["user_id"], name: "index_request_bids_on_user_id"
@@ -272,6 +283,9 @@ ActiveRecord::Schema.define(version: 20180418035045) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "price"
+    t.integer "player_id"
+    t.integer "team_id"
+    t.integer "league_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
@@ -290,6 +304,27 @@ ActiveRecord::Schema.define(version: 20180418035045) do
     t.jsonb "metadata", default: "{}", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "stripe_fts", force: :cascade do |t|
+    t.text "preferred_account"
+    t.text "stripe_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_stripe_fts_on_user_id"
+  end
+
+  create_table "stripe_transactions", force: :cascade do |t|
+    t.text "stripe_id"
+    t.boolean "refounded"
+    t.date "refound_at"
+    t.bigint "order_id"
+    t.text "type_transaction"
+    t.boolean "payout"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_stripe_transactions_on_order_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -362,7 +397,19 @@ ActiveRecord::Schema.define(version: 20180418035045) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  create_table "versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+  end
+
   add_foreign_key "app_notifications", "users"
+  add_foreign_key "attachments", "reports"
+  add_foreign_key "attachments", "request_bids"
   add_foreign_key "awards", "clubs"
   add_foreign_key "awards", "users"
   add_foreign_key "career_entries", "clubs"
@@ -372,14 +419,17 @@ ActiveRecord::Schema.define(version: 20180418035045) do
   add_foreign_key "competition_seasons", "competitions"
   add_foreign_key "notes", "users"
   add_foreign_key "orders", "reports"
+  add_foreign_key "orders", "request_bids"
   add_foreign_key "orders", "users"
-  add_foreign_key "reports", "attachments", column: "attachments_id"
-  add_foreign_key "reports", "clubs"
+  add_foreign_key "reports", "clubs", column: "team_id"
+  add_foreign_key "reports", "requests"
   add_foreign_key "reports", "users"
   add_foreign_key "request_bids", "reports"
   add_foreign_key "request_bids", "requests"
   add_foreign_key "request_bids", "users"
   add_foreign_key "requests", "users"
+  add_foreign_key "stripe_fts", "users"
+  add_foreign_key "stripe_transactions", "orders"
   add_foreign_key "team_users", "teams"
   add_foreign_key "team_users", "users"
   add_foreign_key "teams_competitions", "competition_seasons"

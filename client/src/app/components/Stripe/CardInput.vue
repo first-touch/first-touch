@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div ref="card"></div>
+    <div ref="card" class="form-control"></div>
   </div>
 </template>
 

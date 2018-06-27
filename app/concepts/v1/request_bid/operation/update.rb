@@ -15,7 +15,6 @@ module V1
         options['model.class'] = ::RequestBid
         options['model'] = current_user.request_bids.find(params[:id])
       end
-
     end
   end
 end

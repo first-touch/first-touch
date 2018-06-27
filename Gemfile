@@ -13,6 +13,7 @@ gem 'pg', '< 1.0'
 gem 'puma'
 gem 'stripe'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'paper_trail'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.1'
 gem 'rolify'
@@ -21,10 +22,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'
 gem 'simple_command'
 gem 'trailblazer-rails', '~> 1.0'
-gem 'paper_trail'
 # tags
 gem 'acts-as-taggable-on', '~> 5.0'
-
+gem 'aws-sigv4', '~> 1.0.1'
 # pubsub
 gem 'redis'
 

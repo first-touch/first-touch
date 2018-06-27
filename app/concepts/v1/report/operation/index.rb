@@ -3,74 +3,60 @@ module V1
     class Index < FirstTouch::Operation
       step :find_model!
       failure :model_not_found!, fail_fast: true
-      step :join_orders!
       step :filters!
       step :orders!
 
       private
 
-      def find_model!(options, params:, current_user:, **)
+      def find_model!(options, params:, current_user:, current_club:, **)
+        models = nil
         if current_user.is_a?(::User) && current_user.scout?
-          options['models'] = current_user.reports
-        elsif current_user.is_a?(::Club) || true
-          # Todo: remove or true once club are ready
-          options['models'] = club(params, current_user: current_user)
-
+          models = current_user.reports.not_hided
+        elsif !current_club.nil? || true
+          # TODO: remove or true once club are ready
+          models= club(params, options, current_user: current_user)
         end
-        options['models'].blank?
+        options['result.model'] = result = Result.new(!options['models'].nil?, {})
         options['model.class'] = ::Report
+        options['models'] = models
       end
 
-      def club(params, current_user:)
-        models = ::Report.all
-        joins = "LEFT JOIN orders ON orders.customer_id = #{current_user.id}"\
-        ' AND orders.report_id = reports.id'
-        models = models.joins(joins)
-        request = current_user.requests.find(params[:request_id]) if params[:request_id]
-        if !request.nil?
-          models = models.where('reports.request_id = ?',request.id)
+      def club(_params, options, current_user:)
+        if _params[:purchased] == 'true'
+          purchased!(options, current_user)
+        elsif !_params[:request_id].blank?
+          proposed!(options, current_user, _params)
         else
-          models = models.where('reports.status = ? OR orders.status = ?','publish','completed')
-        end
-        models = models.select('reports.*, orders.status AS orders_status')
-      end
-
-      def join_orders!(options, params:, current_user:, **)
-        if current_user.is_a?(::Club) || true
-          # Todo: remove or true once club are ready
-          models = if params[:purchased] == 'true'
-                     purchased!(options['models'], current_user)
-                   else
-                     order_status!(options['models'], current_user)
-            end
-          options['models'] = models
+          marketplace!(options, current_user)
         end
       end
 
-      def order_status!(models, current_user)
-        joins = "LEFT JOIN orders ON orders.customer_id = #{current_user.id}"\
-        ' AND orders.report_id = reports.id'
-        models = models.joins(joins)
-        models = models.select('reports.*, orders.status AS orders_status')
-        models = models.group('reports.id', 'orders.status')
-        models
+      def proposed!(options, current_user, params)
+        models = nil
+        request = current_user.requests.find(params[:request_id]) if params[:request_id]
+        unless request.nil?
+          models = ::Report.proposed_reports request.id
+        end
+        options['models'] = models
       end
 
-      def purchased!(models, current_user)
-        models = models.where('orders.status' => 'completed',
-                              'orders.customer_id' => current_user.id.to_s)
-        models = models.select(
-          'reports.*, orders.status AS orders_status,'\
-          ' orders.price AS orders_price'
-        )
-        models
+      def marketplace!(options, current_user)
+        models = ::Report.purchased_by_user_or_publish current_user.id
+        options['models'] = models
+      end
+
+      def purchased!(options, current_user)
+        models = options['models']
+        models = ::Report.purchased_by_user current_user.id
+        options['models'] = models
       end
 
       def filters!(options, params:, **)
         models = options['models'].joins(:user)
         models = add_where(models, 'reports.id = ', params[:id])
         models = add_where(models, 'reports.type_report = ', params[:type_report])
-        models = add_where(models, 'reports.headline iLIKE ', "%#{params[:headline]}%")
+        models = add_where(models, 'reports.completion_status = ', params[:completion_status])
+        models = add_where(models, 'reports.headline iLIKE ', "%#{params[:headline]}%") unless params[:headline].blank?
         models = add_where(models, 'users.search_string iLIKE ', "%#{params[:scout_name]}%")
         models = filters_date(models, params)
         models = filters_price(models, params)
@@ -89,36 +75,41 @@ module V1
       end
 
       def filters_date(models, params)
-        unless params[:created_date_from].blank?
-          date_from = params[:created_date_from].to_date
-        end
-        unless params[:created_date_to].blank?
-          date_to = params[:created_date_to].to_date
-        end
-        date = params[:created_date].to_date unless params[:created_date].blank?
-        models = models.where created_at: date.all_day if date
-        if date_from
-          models =
-            if date_to
-              models.where(created_at: date_from..date_to + 1.days)
-            else
-              models.where(created_at: date_from..DateTime.now)
-            end
-        elsif date_to
-          models = models.where('created_at < ?', date_to)
-        end
+        date_from = (params[:created_date_from].blank?)? nil : params[:created_date_from].to_date
+        date_to = (params[:created_date_to].blank?)? nil : params[:created_date_to].to_date
+        models = models.where('reports.created_at > ?', date_from) if date_from
+        models = models.where('reports.created_at < ?', date_to) if date_to
         models
       end
 
       def orders!(options, params:, **)
         models = options['models']
-        if !params[:order].blank? &&
-           %w[id price created_at updated_at headline report_type]
-           .include?(params[:order])
-          models = models.order params[:order].to_sym
+        order = params[:order_asc] == 'true' ? :asc : :desc
+        if %w[id created_at updated_at headline report_type completion_status]
+            .include?(params[:order])
+          models = models.order(params[:order] => order)
+        elsif %w[preferred_foot height weight nationality_country_code playing_position]
+          .include?(params[:order])
+            models = models.sort_by{|r| r.player_field(params[:order])}
+            models = models.reverse if order == :asc
+        elsif params[:order] == 'club'
+            models = models.sort_by{|r| r.club_name }
+        elsif params[:order] == 'competition'
+            models = models.sort_by{|r| r.league_name }
+        elsif params[:order] == 'category'
+          models = models.sort_by{|r| r.category }
+        elsif params[:order] == 'player'
+          models = models.sort_by{|r| r.player_name }
+        elsif params[:order] == 'scout_name'
+          models = models.includes(:user)
+          models = models.order("users.search_string #{order}")
+        elsif params[:order] == 'price'
+          models = models.order("reports.price->>'value' #{order}")
+        end
+        if %w[club competition category player].include?(params[:order])
+          models = models.reverse if order == :asc
         end
         options['models'] = models
-        true
       end
     end
   end

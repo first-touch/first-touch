@@ -7,7 +7,7 @@ module V1
         constant: Report::Contract::Update
       )
       step Trailblazer::Operation::Contract::Validate()
-      step :update_attachments!
+      step :destroy_attachments!
       step Trailblazer::Operation::Contract::Persist()
 
       private
@@ -17,7 +17,7 @@ module V1
         options['model'] = current_user.reports.find_by(id: params[:id])
       end
 
-      def update_attachments!(model:, params:, **)
+      def destroy_attachments!(model:, params:, **)
         unless params['remove_attachment'].blank?
           model.attachments.where(id: params['remove_attachment'].keys).destroy_all
         end

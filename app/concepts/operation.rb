@@ -34,6 +34,5 @@ module FirstTouch
         options['stripe.errors'] = err[:message]
       end
     end
-
   end
 end

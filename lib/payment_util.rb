@@ -34,25 +34,22 @@ class PaymentUtil
       charge
     end
 
-    def refund_charge(charge_id)
+    def refund_charge(charge_id, bid_id = nil)
       stripe_logger = ::Logger.new("#{Rails.root}/log/stripe_refund.log")
-      stripe_logger.info('StripeRefund: Try to refund charge_id : #{charge_id}')
-      charge = Stripe::Charge.retrieve(charge_id)
-      if !charge.nil?
-        begin
-          refund = Stripe::Refund.create({
-            charge: charge_id,
-            amount: charge.amount,
-          })
-        rescue => e
-          stripe_logger = ::Logger.new("#{Rails.root}/log/stripe_payout.log")
-          body = e.json_body
-          stripe_logger.error("StripePayoutJob: Can not payout the scout #{body}")
-        end
-      else
-        stripe_logger.error("StripeRefund: Charge with stripe id #{charge_id} not found")
+      stripe_logger.info("StripeRefund: Try to refund charge_id : #{charge_id}")
+      refund = nil
+      begin
+        charge = Stripe::Charge.retrieve(charge_id)
+        refund = Stripe::Refund.create({
+          charge: charge_id,
+          amount: charge.amount,
+        })
+        stripe_logger.info("StripeRefund: Charge id : #{charge_id} succefuly refunded ! ")
+      rescue => e
+        body = e.json_body
+        stripe_logger.error("StripeRefund: Can not refund charge with stripe id #{charge_id} for bid id = #{bid_id} stripe_error: #{body}")
       end
-      true
+      refund
     end
   end
 end

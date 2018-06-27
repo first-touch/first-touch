@@ -1,12 +1,10 @@
 import downloadjs from 'downloadjs';
 import * as ActionTypes from '../../constants/ActionTypes';
 
-export const getAttachment = (store, { id, filename }) => {
-  fetch('/api/v1/reports/attachments/download/' + id, {
-    method: 'GET',
-    headers: {
-      Authorization: store.state.token.value
-    }
+export const getAttachment = (store, { url, filename }) => {
+  console.log(url);
+  fetch(url, {
+    method: 'GET'
   })
     .then(res => {
       if (res.status === 200) {

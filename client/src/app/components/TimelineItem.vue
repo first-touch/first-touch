@@ -13,7 +13,7 @@
 .timeline-post {
   display: flex;
   border-left: 7px solid $main-header-color;
-  margin-top: 20px;
+  margin: 20px 0;
   .arrow {
     margin-top: 20px;
     border-left-color: $main-header-color;

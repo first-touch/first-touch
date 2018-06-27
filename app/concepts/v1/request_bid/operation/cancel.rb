@@ -1,3 +1,5 @@
+require './lib/payment_util'
+
 module V1
   module RequestBid
     class Cancel < FirstTouch::Operation
@@ -6,34 +8,92 @@ module V1
       step Trailblazer::Operation::Contract::Build(
         constant: RequestBid::Contract::Cancel
       )
+      step :find_report!
       step :refund!
+      failure :stripe_failure!, fail_fast: true
       step :cancel!
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
+      step :persist_files!
+      step :notify!
+      step :position!
 
       private
+
       def find_model!(options, params:, current_user:, **)
         options['model.class'] = ::RequestBid
-        options['model'] = model = current_user.request_bids.find_by(request_id: params[:id], status: 'accepted')
+        options['model'] = model = current_user.request_bids.find_by(request_id: params[:id], status: %w[accepted joblist])
         options['result.model'] = result = Result.new(!model.nil?, {})
         result.success?
       end
 
-      def refund!(options, params:, current_user:, **)
-        model = options['model']
+      def find_report!(options, params:, model:, current_user:, **)
+        success = true
         if model.request.type_request != 'position'
-          # TODO: Refund Payment Stripe
-          true
-        else
-          true
+          report = model.order.report
+          options['report'] = report
+          success = true if report.nil?
         end
+        success
       end
 
-      def cancel!(options, params:, current_user:, **)
-        model = options['model']
-        model.status = 'canceled'
+      def refund!(options, model:, current_user:, **)
+        result = true
+        if model.request.type_request != 'position'
+          transaction = model.order.stripe_transactions.find_by(type_transaction: 'charge')
+          refund = PaymentUtil.refund_charge(transaction.stripe_id, model.id)
+          if refund
+            transaction_params = {
+              stripe_id: refund.id,
+              order: model.order,
+              type_transaction: 'refund',
+              payout: nil
+            }
+            result = ::V1::StripeTransaction::Create.(transaction_params)
+          else
+            options['stripe.errors'] = I18n.t 'stripe.charge_not_found'
+            result = false
+          end
+        end
+        result
       end
 
+      def cancel!(options, model:, **)
+        if model.request.type_request != 'position'
+          model.status = 'canceled'
+          report = options['report']
+          report.status = 'deleted'
+          report.save!
+          order = model.order
+          order.status = 'canceled'
+          order.save!
+        end
+        true
+      end
+
+      def notify!(model:, **)
+        if model.request.type_request != 'position'
+          begin
+            ::SystemMailer.notify('cancelation', model, model.request.user.id)
+          rescue StandardError => e
+            stripe_logger = ::Logger.new("#{Rails.root}/log/mailer.log")
+            stripe_logger.error("ReportCanceled An error occured when sending email to club #{e}")
+          end
+        end
+        true
+      end
+
+      def persist_files!(model:, params:, current_user:, **)
+        params[:files].each do |file|
+          result = ::V1::Attachment::Create.({ url: file[:url], filename: file[:filename], request_bid: model }, current_user: current_user)
+        end
+        true
+      end
+
+      def position!(_options, model:, **)
+        model.destroy if model.request.type_request == 'position'
+        true
+      end
     end
   end
 end

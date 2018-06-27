@@ -31,17 +31,19 @@ import RequestPage from 'app/containers/RequestPage';
 import RequestBidsPage from 'app/containers/RequestBidsPage';
 import PaymentDetailPage from 'app/containers/PaymentDetailPage';
 import ClubPaymentDetails from 'app/containers/ClubPaymentDetailsPage';
-
+import ProposedPlayer from 'app/containers/ProposedPlayerPage';
 import JobsBankPage from 'app/containers/JobsBankPage';
-
+import JobBidPage from 'app/containers/JobBidPage';
 import store from 'app/store';
+import VueAutosize from 'vue-autosize';
 import VueRouter from 'vue-router';
 import './app/constants/filters';
 import 'stylesheets/landingpage.scss';
 import './app/constants/filters';
+
+Vue.use(VueAutosize);
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
-
 // delete once registration is allowed
 // function redirectToPrereg (to, from, next) {
 //   next({ path: '/pre_registration' });
@@ -142,6 +144,11 @@ export const router = new VueRouter({
           name: 'scoutJobsList'
         },
         {
+          path: '/scouting/jobs/pending',
+          component: JobBidPage,
+          name: 'ScoutJobBidPage'
+        },
+        {
           path: '/scouting/jobs/bank',
           component: JobsBankPage,
           name: 'scoutJobsBank'
@@ -187,7 +194,7 @@ export const router = new VueRouter({
         },
         {
           path: '/club/scouting/report/proposed',
-          component: MarketPlacePage,
+          component: ProposedPlayer,
           name: 'clubReportProposed',
           props: true
         },
@@ -199,7 +206,8 @@ export const router = new VueRouter({
         {
           path: '/club/scouting/request',
           component: JobRequestPage,
-          name: 'clubRequestList'
+          name: 'clubRequestList',
+          props: true
         },
         {
           path: '/club/scouting/report/:id',

@@ -1,5 +1,5 @@
 <template>
-  <vselect :disabled="readonly" v-model="model" :onChange="update" :options="countries" class="ft-input"/>
+  <vselect :disabled="readonly" ref="vSelect" v-model="model" :onChange="update" :options="countries" class="ft-input form-control" :class="{'empty' : model == null}" :placeholder="placeholder"/>
 </template>
 
 <script>
@@ -8,7 +8,7 @@ import vSelect from 'vue-select';
 
 export default {
   name: 'Nationality',
-  props: ['value','readonly'],
+  props: ['value','readonly','placeholder'],
   components: {
     vselect: vSelect
   },
@@ -18,12 +18,15 @@ export default {
     };
   },
   mounted: function() {
+    this.$refs.vSelect.scrollTo = function(){};
     const index = this.$options.filters.searchInObj(this.countries, option => option.value === this.value);
     this.model = this.countries[index];
   },
   methods: {
     update(val) {
-      if (val.value) this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
+      if (val.value) {
+        this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
+      }
     }
   },
   computed: {
