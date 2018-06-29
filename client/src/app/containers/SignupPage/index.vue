@@ -55,7 +55,7 @@
             </div>
           </fieldset>
           <fieldset class="form-group col-md-12">
-            <label>Role In Your Club</label>
+            <label>Your Role</label>
             <div class="row">
               <select v-model="role_name" class="form-control">
                 <option disabled value="">Role</option>
@@ -75,7 +75,7 @@
                 <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
               </select>
               <autocomplete class="col-md-8" input-class="form-control"
-                placeholder="Search For Clubs"
+                placeholder="Search For Club"
                 v-model="item"
                 :get-label="getLabel"
                 :items="clubs"
