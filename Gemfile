@@ -1,9 +1,12 @@
 source 'https://rubygems.org'
 
 gem 'active_model_serializers'
+# tags
+gem 'acts-as-taggable-on', '~> 5.0'
 gem 'aws-sdk', '~> 2.3.0'
 gem 'bcrypt', '~>3.1.7'
 gem 'bundler', '>= 1.8.4'
+gem 'devise'
 gem 'dry-matcher'
 gem 'iso_country_codes'
 gem 'jwt'
@@ -14,18 +17,15 @@ gem 'puma'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.1'
+# pubsub
+gem 'redis'
 gem 'rolify'
 gem 'rubyXL'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'
 gem 'simple_command'
+gem 'simple_token_authentication'
 gem 'trailblazer-rails', '~> 1.0'
-
-# tags
-gem 'acts-as-taggable-on', '~> 5.0'
-
-# pubsub
-gem 'redis'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
