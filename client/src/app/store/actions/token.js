@@ -12,9 +12,9 @@ export const attemptLogIn = (store, { email, password }) => {
         store.commit(types.TOKEN_SUCCESS, r.auth_token);
       });
     } else {
-      res
-        .json()
-        .then(r => store.commit(types.TOKEN_FAILURE, JSON.stringify(r)));
+      res.json().then(r =>
+        store.commit(types.TOKEN_FAILURE, JSON.stringify(r))
+      );
     }
   });
 };

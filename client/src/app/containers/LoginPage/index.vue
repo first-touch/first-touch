@@ -62,7 +62,7 @@ form {
 <script>
 import { mapGetters, mapActions } from 'vuex';
 
-import { ASYNC_LOADING, ASYNC_FAILURE } from 'app/constants/AsyncStatus';
+import { ASYNC_LOADING, ASYNC_FAIL } from 'app/constants/AsyncStatus';
 import LandingNavbar from 'app/components/LandingNavbar';
 
 export default {
@@ -82,9 +82,10 @@ export default {
       return this.token.status === ASYNC_LOADING;
     },
     error() {
-      return (
-        this.token.status === ASYNC_FAILURE && 'Error! Invalid Credentials!'
-      );
+      if (this.token.status != ASYNC_FAIL) {
+        return false;
+      }
+      return JSON.parse(this.token.err)['error'][0];
     },
   },
   methods: {

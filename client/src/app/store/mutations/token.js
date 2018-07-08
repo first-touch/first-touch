@@ -3,7 +3,7 @@ import {
   ASYNC_NONE,
   ASYNC_SUCCESS,
   ASYNC_LOADING,
-  ASYNC_FAILURE
+  ASYNC_FAIL
 } from '../../constants/AsyncStatus';
 
 import { router } from '../../../index';
@@ -20,7 +20,7 @@ export default {
   },
   [ActionTypes.TOKEN_FAILURE] (state, err) {
     state.token = Object.assign({}, state.token, {
-      status: ASYNC_FAILURE,
+      status: ASYNC_FAIL,
       err
     });
   },
