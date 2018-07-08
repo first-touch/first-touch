@@ -5,6 +5,8 @@ module Api
 
       def authenticate
         res = ::V1::User::SignIn.(auth_params)
+        response = FirstTouch::Endpoint.(res, ::V1::User::Representer::Authenticated)
+        render json: response[:data], status: response[:status]
 
         # command = AuthenticateUser.(auth_params[:email], auth_params[:password])
 
