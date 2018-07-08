@@ -42,6 +42,7 @@ class User < ApplicationRecord
 
   has_many :notes
 
+  before_save :downcase_email, if: :email_changed?
   before_save :update_search_string, if: -> { email_changed? }
 
   def connection_status(user)
@@ -134,6 +135,10 @@ class User < ApplicationRecord
            .squish
     name = email_local_part if name.empty?
     name
+  end
+
+  def downcase_email
+    self.email = email.downcase
   end
 
   def update_search_string

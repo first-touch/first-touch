@@ -23,7 +23,7 @@ module V1
         validate :role_is_registerable
 
         def unique_email
-          return true unless ::User.exists?(email: email)
+          return true unless ::User.exists?(email: email.downcase)
           errors.add(:email, I18n.t('user.existing_email'))
         end
 
