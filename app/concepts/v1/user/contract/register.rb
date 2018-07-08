@@ -19,8 +19,13 @@ module V1
                   :personal_profile,
                   presence: true
 
-        validates :email, unique: true
+        validate :unique_email
         validate :role_is_registerable
+
+        def unique_email
+          return true unless ::User.exists?(email: email)
+          errors.add(:email, I18n.t('user.existing_email'))
+        end
 
         def role_is_registerable
           current_role = model.roles.first.name

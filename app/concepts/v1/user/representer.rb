@@ -5,6 +5,7 @@ module V1
         include Representable::JSON
 
         property :id
+        property :career_history
         property :personal_profile,
                  extend: V1::PersonalProfile::Representer::Simplified
 

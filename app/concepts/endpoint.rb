@@ -39,12 +39,14 @@ module FirstTouch
         rule: ->(result) { result.failure? && result['result.model']&.failure? },
         resolve: lambda do |result, _representer|
           { 'data': { errors: result['result.model.errors'] },
-          'status': :unprocessable_entity }
+            'status': :unprocessable_entity }
         end
       },
       invalid: {
         rule: ->(result) { result.failure? },
-        resolve: ->(_result, _representer) { { 'data': {}, 'status': :unprocessable_entity } }
+        resolve: lambda do |result, _representer|
+          { 'data': { errors: result.errors }, 'status': :unprocessable_entity }
+        end
       },
       fallback: {
         rule: ->(_result) { true },

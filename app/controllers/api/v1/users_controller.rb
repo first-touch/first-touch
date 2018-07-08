@@ -7,13 +7,8 @@ module Api
 
       def register
         result = ::V1::User::Register.(params)
-        if result.failure?
-          messages = result['contract.default'].errors.full_messages
-          render json: { error: messages },
-                 status: :unprocessable_entity
-        else
-          render json: result['model'], status: :ok
-        end
+        response = FirstTouch::Endpoint.(result, ::V1::User::Representer::SelfProfile)
+        render json: response[:data], status: response[:status]
       end
 
       def show
@@ -70,35 +65,6 @@ module Api
 
       def find_user
         @user = ::User.find_by id: params[:id]
-      end
-
-      def user_params
-        params.require(:user)
-              .permit(
-                personal_profile_attributes: [
-                  :id,
-                  :first_name,
-                  :middle_name,
-                  :last_name,
-                  :birthday,
-                  :achievements,
-                  :languages,
-                  :nationality_country_code,
-                  :residence_country_code,
-                  :summary,
-                  :height,
-                  :place_of_birth,
-                  :preferred_foot,
-                  :weight
-                ],
-                career_entries_attributes: [
-                  :start_date,
-                  :end_date,
-                  :club_id,
-                  :club_name,
-                  :role
-                ]
-              )
       end
     end
   end
