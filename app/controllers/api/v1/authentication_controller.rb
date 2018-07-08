@@ -4,13 +4,15 @@ module Api
       skip_before_action :authenticate_request, only: %i[authenticate validate]
 
       def authenticate
-        command = AuthenticateUser.(auth_params[:email], auth_params[:password])
+        res = ::V1::User::SignIn.(auth_params)
 
-        if command.success?
-          render json: { auth_token: command.result }
-        else
-          render json: { error: command.errors[:user_authentication] }, status: :unauthorized
-        end
+        # command = AuthenticateUser.(auth_params[:email], auth_params[:password])
+
+        # if command.success?
+        #   render json: { auth_token: command.result }
+        # else
+        #   render json: { error: command.errors[:user_authentication] }, status: :unauthorized
+        # end
       end
 
       def logout
