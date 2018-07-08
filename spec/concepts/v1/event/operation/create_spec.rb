@@ -15,7 +15,7 @@ RSpec.describe V1::Event::Create do
     )
     res['model']
   end
-  let(:opponent) { FactoryGirl.create :club }
+  let(:opponent) { FactoryBot.create :club }
   let(:operation) { V1::Event::Create.(params, current_user: current_user) }
   let(:start_date) { 6.months.from_now }
   let(:end_date) { 6.months.from_now + 1.hour }
@@ -34,7 +34,7 @@ RSpec.describe V1::Event::Create do
   end
 
   describe 'when the user is allowed to create an event' do
-    let!(:club) { FactoryGirl.create :club, account_owner: current_user }
+    let!(:club) { FactoryBot.create :club, account_owner: current_user }
 
     it 'persists the event' do
       expect(operation.success?).to eq true

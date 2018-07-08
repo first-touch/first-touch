@@ -30,7 +30,7 @@ RSpec.describe Event, type: :model do
         )
         res['model']
       end
-      let!(:club) { FactoryGirl.create :club, account_owner: current_user }
+      let!(:club) { FactoryBot.create :club, account_owner: current_user }
       let(:params_before) do
         {
           event: {
