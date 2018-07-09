@@ -1,9 +1,11 @@
 class User < ApplicationRecord
   rolify
   acts_as_tagger
+  acts_as_token_authenticatable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
+
 
   has_one :personal_profile
   accepts_nested_attributes_for :personal_profile
