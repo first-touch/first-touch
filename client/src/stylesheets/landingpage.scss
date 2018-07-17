@@ -314,7 +314,8 @@ li {
 
 #third-page {
   background: black;
-  height: 500px;
+  height: calc(100vh - 70px);
+  min-height: 500px;
 
   .header {
     margin: 30px 0 80px 0;
@@ -561,12 +562,6 @@ li {
 @media (min-width: 1200px) {
   .padded {
     padding-left: 90px;
-  }
-
-  #third-page {
-    .container-fluid {
-      height: calc(100vh - 70px);
-    }
   }
 }
 
