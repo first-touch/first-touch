@@ -2888,10 +2888,10 @@ fieldset[disabled] a.btn {
 }
 
 .btn-outline-secondary {
-  color: #ccc;
+  color: #056704;
   background-image: none;
   background-color: transparent;
-  border-color: #ccc;
+  border-color: #056704;
 }
 
 .btn-outline-secondary:hover {

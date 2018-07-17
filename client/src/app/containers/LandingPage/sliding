@@ -1,0 +1,335 @@
+  .appearMid {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity:0;
+    transition: 1s ease;
+    background-color: $background-color;
+  }
+
+  .appearMid:hover {
+    opacity:1;
+  }
+
+  .appearMid .description{
+    color: $first-touch-white;
+    font-size: 20px;
+    position: absolute;
+    margin: 50% 0 50% 35%;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="intro-message">
+                  <div class="logo">
+                    <img src="images/landing-page/ft-logo.png" alt="Ft logo">
+                  </div>
+                  <ul>
+                    <li>
+                      <a class="bar-button center" href="users/sign_up">
+                        Get Started
+                      </a>
+                    </li>
+                  </ul>
+                  <h1 class="typewriter">
+                    #RaiseYourGame
+                  </h1>
+                </div>
+
+ /images/landing-page/main.jpg
+
+ <div class="carousel-inner" role="listbox">
+          <div class="carousel-item active main">
+            <img class="d-block img-fluid menu" src="/images/landing-page/main.jpg" alt="First slide">
+              <div class="carousel-caption d-none d-md-block">
+
+              </div>
+          </div>
+
+          <div class="carousel-item player">
+            <img class="d-block img-fluid menu" src="/images/landing-page/player.jpg" alt="Second slide">
+          </div>
+          <div class="carousel-item scouts">
+            <img class="d-block img-fluid menu" src="/images/landing-page/scouts.jpg" alt="Third slide">
+          </div>
+          <div class="carousel-item clubs">
+            <img class="d-block img-fluid menu" src="/images/landing-page/clubs.jpg" alt="Fourth slide">
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // img {
+  //   height: 95vh;
+  //   width: 700vh;
+  //   object-fit: fill;
+  // }
+
+
+
+
+// .main{
+    // background: url('/images/landing-page/team-logo.jpg') no-repeat fixed center;
+    // -webkit-background-size: cover;
+    // -moz-background-size: cover;
+    // -o-background-size: cover;
+    // background-size: cover;
+    // min-height: 100vh;
+    // text-align: center;
+    // color: $first-touch-white;
+  // }
+
+  // .player{
+    // background: url('/images/landing-page/player.jpg') no-repeat center center fixed;
+    // -webkit-background-size: cover;
+    // -moz-background-size: cover;
+    // -o-background-size: cover;
+    // background-size: cover;
+    // min-height: 100vh;
+    // text-align: center;
+    // color: $first-touch-white;
+  // }
+
+  // .scouts{
+    // background: url('/images/landing-page/scouts.jpg') no-repeat center center fixed;
+    // -webkit-background-size: cover;
+    // -moz-background-size: cover;
+    // -o-background-size: cover;
+    // background-size: cover;
+    // min-height: 100vh;
+    // text-align: center;
+    // color: $first-touch-white;
+  // }
+
+  // .clubs{
+    // background: url('/images/landing-page/clubs.jpg') no-repeat center center fixed;
+    // -webkit-background-size: cover;
+    // -moz-background-size: cover;
+    // -o-background-size: cover;
+    // background-size: cover;
+    // min-height: 100vh;
+    // text-align: center;
+    // color: $first-touch-white;
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+slider
+load
+content
+principal
+
+load: animation: 2s
+
+slider:
+background-repeat: no-repeat;
+background-size: cover;
+background-position:center
+width:100
+height:100
+animation: slide 40s infinite;
+
+
+@keyframes slide{
+    0%{
+        background-image: url("image 1");
+    }
+    20%{
+        background-image: url("image 1");
+    }
+    20.01%{
+        background-image: url("image 2");
+    }
+    40.01%{
+        background-image: url("image 2");
+    }
+}
+
+
+/////
+
+
+<slider>
+    <slide>content1</slide>
+    <slide>content2</slide>
+    <slide>content3</slide>
+    <slide>content4</slide>
+</slider>
+
+slider{
+    overflow: hidden;
+    width:
+    heigth:
+    display: block:
+    position: absolute;
+}
+
+slider > *{
+    position: absolute;
+    display: block;
+    width:
+    height:
+    animation: slide 12s infinite;
+    overflow: hidden;
+}
+
+slide: nth-child(1){
+    left: 0%;
+    animation-delay: -1s;
+    background-image: url(image1);
+    background size: cover;
+    background-position: center;
+}
+
+slide: nth-child(2){
+    animation-delay: 2s;
+    background-image: url(image2);
+    background size: cover;
+    background-position: center;
+}
+
+slide: nth-child(3){
+    animation-delay: 5s;
+    background-image: url(image3);
+    background size: cover;
+    background-position: center;
+}
+
+slide: nth-child(4){
+    animation-delay: 5s;
+    background-image: url(image4);
+    background size: cover;
+    background-position: center;
+}
+
+@keyframes slide{
+    0%{
+        left: 100%;
+        width: 100%;
+    }
+    5%{
+        left: 0%;
+    }
+    25%{
+        left: 0%;
+    }
+    30%{
+        left:-100%
+        width:100%;
+    }
+    30.0001%{
+        left: -100%
+        width: 0%
+    }
+    100% {
+        left: 100%
+        width:0%;
+    }
+}
+/////
+
+    <div class="carousel-inner" role="listbox">
+
+      <div class="item active">
+        <img src="img_chania.jpg" alt="Chania" width="460" height="345">
+        <div class="carousel-caption">
+          <h3>Chania</h3>
+          <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
+        </div>
+      </div>
+
+      <div class="item">
+        <img src="img_chania2.jpg" alt="Chania" width="460" height="345">
+        <div class="carousel-caption">
+          <h3>Chania</h3>
+          <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
+        </div>
+      </div>
+
+      <div class="item">
+        <img src="img_flower.jpg" alt="Flower" width="460" height="345">
+        <div class="carousel-caption">
+          <h3>Flowers</h3>
+          <p>Beautiful flowers in Kolymbari, Crete.</p>
+        </div>
+      </div>
+
+      <div class="item">
+        <img src="img_flower2.jpg" alt="Flower" width="460" height="345">
+        <div class="carousel-caption">
+          <h3>Flowers</h3>
+          <p>Beautiful flowers in Kolymbari, Crete.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
