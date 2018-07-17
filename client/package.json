@@ -2,6 +2,7 @@
   "name": "first-touch",
   "version": "1.0.0",
   "dependencies": {
+    "aos": "^3.0.0-beta.4",
     "bootstrap-vue": "^1.0.2",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.10.0",
