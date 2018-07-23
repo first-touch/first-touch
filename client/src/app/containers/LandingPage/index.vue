@@ -108,9 +108,7 @@
     <div class=section id="trans2ndpg">
       <div class="container-fluid">
         <div class="header">
-          <a name="/about">
             Take football seriously?
-          </a>
         </div>
         <h2>
             Sign Up Now!
