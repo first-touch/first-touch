@@ -6,9 +6,9 @@
     </router-link>
     <b-collapse isNav id="ft-nav-collapse">
       <b-nav class="ml-auto navOptions">
-        <b-nav-item>
-          <a href="/about" class="nav-link">ABOUT</a>
-        </b-nav-item>
+        <li class="nav-item">
+          <a href="#trans2ndpg" class="nav-link">ABOUT</a>
+        </li>
         <form class="form-inline">
           <router-link  to="/users/sign_up" class="btn btn-outline-secondary">SIGN UP</router-link>
         </form>
@@ -33,8 +33,8 @@ export default {
   props: {
     sticky: {
       type: Boolean,
-      default: false,
-    },
-  },
+      default: false
+    }
+  }
 };
 </script>
