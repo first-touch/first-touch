@@ -367,7 +367,6 @@ li {
   .line-down{
     position: absolute;
     box-sizing: border-box;
-    left: 36em;
     height: 19em;
     border-right: 3px solid $first-touch-white;
   }
@@ -505,6 +504,7 @@ footer {
   padding-bottom: 0.5em;
   overflow: hidden;
   white-space: nowrap;
+  text-align: center;
 
   .logo {
     height: 2em;

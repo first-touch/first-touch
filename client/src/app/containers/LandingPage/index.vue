@@ -390,31 +390,31 @@
   <footer class="container-fluid">
     <div class="section">
       <div class="row no-gutters">
-        <div class="col-md-2 col-lg-1">
+        <div class="col-md-2 offset-md-1">
             <img class="logo" src="images/landing-page/ft-footer-logo.png" alt="Ft logo">
             <span class="cRight">&copy;2016 </span>
         </div>
-        <div class="col-6 col-sm-6 col-md-2 col-lg-1 offset-lg-1 offset-md-1 w-10">
+        <div class="col-md-1">
           <a class="text" href="/">
             Help
           </a>
         </div>
-        <div class="col-6 col-sm-6 col-md-2 col-lg-2">
+        <div class="col-md-1">
           <a class="text" href="/">
             User Agreement
           </a>
         </div>
-        <div class="col-6 col-sm-6 col-md-2 col-lg-2 ">
+        <div class="col-md-2">
           <a class="text" href="/">
             Community Guidelines
           </a>
         </div>
-        <div class="col-6 col-sm-6 col-md-2 col-lg-2 ">
+        <div class="col-md-1 ">
           <a class="text" href="/">
             Cookie Policy
           </a>
         </div>
-        <div class="col-6 col-sm-6 col-md-2 col-lg-2">
+        <div class="col-md-2 ">
           <span class="text">
             Follow Us
           </span>
