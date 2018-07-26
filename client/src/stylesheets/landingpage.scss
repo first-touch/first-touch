@@ -77,13 +77,13 @@ li {
   display: block;
   margin: 5px;
   color: $first-touch-white;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 300;
   text-transform: uppercase;
   text-decoration: none;
   text-align: center;
   padding: 7px 12px 6px 12px;
-  width: 300px;
+  width: 200px;
   border-radius: 5px;
   background-color: $button-background-colour;
   border: $button-border;
@@ -122,23 +122,9 @@ li {
 
 .typewriter {
   //RAISEYOURGAME
-  overflow: hidden; /* content is not revealed until the animation */
-  white-space: nowrap; /* content on a single line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: 2px;
-  width: 17ch;
-  animation: typing 3s steps(17);
+  display: none;
 }
 
-/* The typing effect */
-@keyframes typing {
-  0% {
-    width: 0ch;
-  }
-  100% {
-    width: 17ch;
-  }
-}
 
 #content {
   min-height: calc(100vh - 40px);
@@ -176,34 +162,32 @@ li {
     color: #439042;
   }
 
-
   .cursor {
     cursor: pointer;
   }
 
-
   .intro-message {
     .carousel-caption{
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 0.8em;
+      top: 0%;
+      font-size: 0.2em;
       text-align: center;
-      .logo img {
+      img {
         position: relative;
+        height: 150px;
       }
 
       .main{
         text-transform: uppercase;
         opacity: 0.6;
-        font-size: 20px;
-        margin: 15px;
+        font-size: 15px;
+        margin: 10px;
       }
 
       .typewriter {
         //RAISEYOURGAME
         padding-top: 15px;
         font-size: 25px;
-        font-weight: 300;
+        font-weight: 200;
         color: #bcbcbc;
         text-transform: uppercase;
       }
@@ -220,7 +204,7 @@ li {
     }
     .header{
       text-transform: uppercase;
-      font-size: 7em;
+      font-size: 5em;
     }
     .description{
       font-weight: lighter;
@@ -233,7 +217,7 @@ li {
       float: right;
       width: 200px;
       font-size: 20px;
-      margin-right: -5em;
+      margin-right: -3em;
     }
   }
 }
@@ -518,28 +502,170 @@ footer {
 }
 
 
-//tablets
-@media (min-width: 768px) and (max-width: 991.98px) {
-
-}
-
 //laptop screens
 @media (min-width: 1200px){
+  .bar-button {
+    margin: 5px;
+    font-size: 25px;
+    font-weight: 300;
+    padding: 7px 12px 6px 12px;
+    width: 300px;
+    border-radius: 5px;
+  }
+
   .full{
     .toggle li:hover {
       font-size: 140%;
       color: #439042;
     }
+    .intro-message {
+      .carousel-caption{
+        top: 30%;
+        transform: translateY(-30%);
+        font-size: 0.8em;
+        text-align: center;
+        img {
+          position: relative;
+          height: 250px;
+        }
+
+        .main{
+          text-transform: uppercase;
+          opacity: 0.6;
+          font-size: 20px;
+          margin: 15px;
+        }
+
+        .typewriter {
+          //RAISEYOURGAME
+          display: initial;
+          overflow: hidden; /* content is not revealed until the animation */
+          white-space: nowrap; /* content on a single line */
+          margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+          letter-spacing: 2px;
+          width: 17ch;
+          animation: typing 3s steps(17);
+        }
+        /* The typing effect */
+        @keyframes typing {
+          0% {
+            width: 0ch;
+          }
+          100% {
+            width: 17ch;
+          }
+        }
+      }
+    }
+    .contentSlides {
+      //player scouts clubs page
+      .carousel-caption{
+        top: 0;
+        left: 5em;
+        text-align: left;
+      }
+      .header{
+        text-transform: uppercase;
+        font-size: 7em;
+      }
+      .description{
+        font-weight: lighter;
+        width: 30em;
+        opacity: 0.6;
+        font-size: 2em;
+        margin-top: 0.5em;
+      }
+      .bar-button {
+        float: right;
+        width: 200px;
+        font-size: 20px;
+        margin-right: -5em;
+      }
+    }
+
   }
 }
 
 //extra large desktop screens
 @media (min-width: 1500px) {
+  .bar-button {
+    margin: 5px;
+    font-size: 25px;
+    font-weight: 300;
+    padding: 7px 12px 6px 12px;
+    width: 300px;
+    border-radius: 5px;
+  }
   .full{
     .toggle li:hover {
       font-size: 140%;
       color: #439042;
     }
+    .intro-message {
+      .carousel-caption{
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.8em;
+        text-align: center;
+        img {
+          position: relative;
+          height: 250px;
+        }
+
+        .main{
+          text-transform: uppercase;
+          opacity: 0.6;
+          font-size: 20px;
+          margin: 15px;
+        }
+
+        .typewriter {
+          //RAISEYOURGAME
+          display: initial;
+          overflow: hidden; /* content is not revealed until the animation */
+          white-space: nowrap; /* content on a single line */
+          margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+          letter-spacing: 2px;
+          width: 17ch;
+          animation: typing 3s steps(17);
+        }
+        /* The typing effect */
+        @keyframes typing {
+          0% {
+            width: 0ch;
+          }
+          100% {
+            width: 17ch;
+          }
+        }
+      }
+    }
+    .contentSlides {
+      //player scouts clubs page
+      .carousel-caption{
+        top: 0;
+        left: 5em;
+        text-align: left;
+      }
+      .header{
+        text-transform: uppercase;
+        font-size: 7em;
+      }
+      .description{
+        font-weight: lighter;
+        width: 30em;
+        opacity: 0.6;
+        font-size: 2em;
+        margin-top: 0.5em;
+      }
+      .bar-button {
+        float: right;
+        width: 200px;
+        font-size: 20px;
+        margin-right: -5em;
+      }
+    }
+
   }
   #second-page {
     .second-layer{
