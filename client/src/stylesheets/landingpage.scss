@@ -147,22 +147,15 @@ li {
 .full {
   //first page
   background-color: #000000;
-  .no-padding {
-    padding: 0;
-  }
-
   .carousel-item {
     //class of container-flud no padding removes padding makes width bigger
     max-height: 92vh;
-  }
-
-  .carousel-item .menu {
-    //increased width of menu picture
-    width: 1400px;
-  }
-
-  .menu {
-    filter: brightness(40%);
+    .menu{
+      filter: brightness(60%);
+      //increased width and height of menu picture
+      width: 100vw;
+      height: 100vh;
+    }
   }
 
   .toggle li {
@@ -183,43 +176,40 @@ li {
     color: #439042;
   }
 
-  .toggle li:hover {
-    font-size: 140%;
-    color: #439042;
-  }
 
   .cursor {
     cursor: pointer;
   }
 
+
   .intro-message {
-    //main page
-    font-size: 0.8em;
-    text-align: center;
-    position: relative;
-    padding-top: 15vh;
-    padding-bottom: 15vh;
+    .carousel-caption{
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8em;
+      text-align: center;
+      .logo img {
+        position: relative;
+      }
 
-    .logo img {
-      position: relative;
-    }
+      .main{
+        text-transform: uppercase;
+        opacity: 0.6;
+        font-size: 20px;
+        margin: 15px;
+      }
 
-    .main{
-      text-transform: uppercase;
-      opacity: 0.6;
-      font-size: 20px;
-      margin: 15px;
-    }
-
-    .typewriter {
-      //RAISEYOURGAME
-      padding-top: 15px;
-      font-size: 25px;
-      font-weight: 300;
-      color: #bcbcbc;
-      text-transform: uppercase;
+      .typewriter {
+        //RAISEYOURGAME
+        padding-top: 15px;
+        font-size: 25px;
+        font-weight: 300;
+        color: #bcbcbc;
+        text-transform: uppercase;
+      }
     }
   }
+
 
   .contentSlides {
     //player scouts clubs page
@@ -227,13 +217,11 @@ li {
       top: 0;
       left: 5em;
       text-align: left;
-
     }
     .header{
       text-transform: uppercase;
       font-size: 7em;
     }
-
     .description{
       font-weight: lighter;
       width: 30em;
@@ -241,18 +229,13 @@ li {
       font-size: 2em;
       margin-top: 0.5em;
     }
-
     .bar-button {
       float: right;
       width: 200px;
       font-size: 20px;
       margin-right: -5em;
-
-
     }
-
   }
-
 }
 
 #trans2ndpg {
@@ -275,18 +258,11 @@ li {
 #second-page {
   font-size: $main-text-size;
   background-color: #000000;
-  height: auto;
   padding: 50px 100px 100px 100px;
-
-  * {
-    box-sizing: box-content;
-  }
 
   .second-layer {
     //parallax
-    position: relative;
-    height: auto;
-    padding: 1em;
+    padding: 2em;
     box-shadow: inset 0px 0px 55px #000000;
     border: 2.5px solid #000000;
     background: url('/images/landing-page/BG-second-page.jpg') no-repeat center center fixed;
@@ -296,35 +272,24 @@ li {
     background-size: cover;
   }
 
-  .about {
-    position: relative;
-    padding: 5em;
-  }
-
   .headText{
-    width: 10em;
-    margin-left: 10em;
-    margin-top: 10em;
+    box-sizing: content-box;
+    width: 20em;
     text-align:center;
     text-transform: uppercase;
     font-size: 2em;
     font-weight: bold;
   }
 
-  .challenge{
-    margin-top: -15em;
-  }
 
   .challenge,
   .solution{
-    .description{
-      margin-left: 15em;
-      box-sizing: border-box;
-      width: 30em;
-      font-size: medium;
-      text-transform: none;
-      text-align: center;
-    }
+    box-sizing: border-box;
+    width: 35em;
+    margin-left: 3.5em;
+    font-size: medium;
+    text-transform: none;
+    text-align: center;
   }
 
   .subheadCapabilities{
@@ -346,26 +311,11 @@ li {
     }
   }
 
-  .list{
-    list-style: circle outside;
-  }
-
   .row{
-    .row1 {
-      display:flex;
-      flex-direction: row;
-      margin: 1em 2em 1em 5em;
-    }
-
-    .row2 {
-      display:flex;
-      flex-direction: row;
-      margin: 3em 2em 1em 5em;
-    }
+    margin: 1em;
   }
 
   .line-down{
-    position: absolute;
     box-sizing: border-box;
     height: 19em;
     border-right: 3px solid $first-touch-white;
@@ -373,14 +323,6 @@ li {
 
   .first-line{
     height: 10em;
-  }
-
-  .second-line{
-    top: 21em;
-  }
-
-  .third-line{
-    top: 50em;
   }
 
   /*animation*/
@@ -404,14 +346,7 @@ li {
 
 #third-page {
   background: black;
-  height: calc(93vh - 70px);
-  min-height: 500px;
-  position: relative;
   padding-bottom: 100px;
-
-  .header {
-    margin: 30px 0 30px 0;
-  }
 
   .polaroid img {
     height: 150px;
@@ -488,12 +423,6 @@ li {
   .carousel-indicators {
     bottom:-25px;
   }
-
-  @media(max-width:768px){
-    padding-bottom: 100px;
-  }
-
-
 
 }
 
@@ -572,152 +501,57 @@ footer {
   }
 }
 
-@media (max-width: 1200px) {
-  #second-page {
-    height: auto;
-    #first-half {
-      text-align: center;
-      padding: $section-padding $section-padding/2;
-      font-size: 1em;
 
-      .bar-button {
-        position: relative;
-        margin: 50px auto;
-      }
 
-      .description {
-        line-height: 22px;
-      }
-    }
-  }
-
-  #third-page {
-    min-height: 0;
-    .container-fluid {
-      min-height: 0;
-    }
-    #first-half {
-      padding: $section-padding 10%;
-      br {
-        display: none;
-      }
-    }
-    #second-half {
-      display: none;
-    }
-  }
-
-  #fourth-page {
-    .flex-container {
-      flex-direction: column;
-    }
-    .flex-col {
-      flex: 1;
-      min-height: 50vh;
-    }
-
-    .flex-col.ft-card:hover {
-      transform: none;
-    }
-
-    .flex-col.ft-card.flipped {
-      // transform: rotateY(180deg);
-    }
-
-    .ft-card {
-      transform-origin: center;
-      position: relative;
-
-      .front,
-      .back {
-        backface-visibility: hidden;
-        min-height: 50vh;
-        width: 100vw;
-      }
-
-      .front {
-        // transform: rotateY(0deg);
-      }
-
-      .back {
-        // transform: rotateY(180deg);
-      }
-    }
-  }
-}
-
-@media (min-width: 1200px) {
-  .padded {
-    padding-left: 90px;
-  }
-}
-
-@media (min-width: 992px) {
-  .navbar {
-    padding: 0 7vw;
-  }
-}
-
-@media (max-width: 768px) {
-  #fourth-page {
-    .container {
-      height: auto;
-      background-image: none;
-      .row-50 {
-        height: inherit;
-        .img-fluid {
-          max-height: none;
+//small devices portrait
+@media (max-width: 575.98px) {
+  .full{
+    .intro-message{
+      .carousel-caption{
+        top: 0;
+        .logo{
+          height: 10px;
         }
       }
     }
   }
 }
 
-// for xs mobile
-@media (max-width: 480px) {
+
+//tablets
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+}
+
+//laptop screens
+@media (min-width: 1200px){
+  .full{
+    .toggle li:hover {
+      font-size: 140%;
+      color: #439042;
+    }
+  }
+}
+
+//extra large desktop screens
+@media (min-width: 1500px) {
+  .full{
+    .toggle li:hover {
+      font-size: 140%;
+      color: #439042;
+    }
+  }
   #second-page {
-    #first-half {
-      padding: 60px 20px;
-      .title {
-        font-size: 1.2em;
+    .second-layer{
+      padding-bottom: 10em;
+      height: 115em;
+      .capabilities{
+        margin-left: 25em;
       }
-      .bar-button {
-        font-size: 0.8em;
-      }
-      .description {
-        font-size: 0.7em;
-      }
-    }
-
-    #second-half {
-      padding: 60px 20px;
-      min-height: 0;
-    }
-
-    h1 {
-      font-size: 1.2em;
-    }
-  }
-
-  #third-page #first-half {
-    padding: 60px 20px;
-  }
-
-  #fourth-page {
-    margin-top: 216px;
-  }
-
-  #fifth-page {
-    #first-half {
-      margin-bottom: 50px;
-      padding: 60px 20px;
-
-      .header {
-        font-size: 1.2em;
-      }
-
-      .bar-button {
-        font-size: 0.8em;
+      .subheadCapabilities{
+        .description {
+          width: 25em;
+        }
       }
     }
   }

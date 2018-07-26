@@ -15,20 +15,25 @@
               </ol>
 
               <div class="carousel-inner" role="listbox">
+
                 <div class="carousel-item active main">
-                  <img class="d-block img-fluid menu" src="/images/landing-page/team-logo.jpg" alt="First slide">
+                  <img class="d-block img-fluid img-responsive menu" src="/images/landing-page/team-logo.jpg" alt="First slide">
+                  <div class="intro-message">
                     <div class="carousel-caption d-none d-md-block ">
-                      <div class="intro-message">
-                        <div class="logo center">
-                          <img src="images/landing-page/ft-logo.png" alt="Ft logo">
-                        </div>
+
+                      <div class="row justify-content-center">
+                        <img class="logo" src="images/landing-page/ft-logo.png" alt="Ft logo">
+                      </div>
+                      <div class="row justify-content-center">
                         <ul class="main center">
-                            Carving out
-                            <br>
-                            individual and collective
-                            <br>
-                            success stories
+                          Carving out
+                          <br>
+                          individual and collective
+                          <br>
+                          success stories
                         </ul>
+                      </div>
+                      <div class="row justify-content-center">
                         <ul>
                           <li>
                             <a class="bar-button center" href="users/sign_up">
@@ -36,11 +41,15 @@
                             </a>
                           </li>
                         </ul>
+                      </div>
+                      <div class="row justify-content-center">
                         <h1 class="typewriter">
                           #RaiseYourGame
                         </h1>
                       </div>
+
                     </div>
+                  </div>
                 </div>
 
 
@@ -48,65 +57,87 @@
                 <div class="carousel-item player">
                   <img class="d-block img-fluid menu" src="/images/landing-page/BG-player.jpg" alt="Second slide">
                   <div class= "contentSlides">
-                  <div class="carousel-caption d-none d-md-block">
-                    <h1 class= "header">
-                      Players
-                    </h1>
-                    <h3 class="description">
-                      Build and promote your profile, raise your game and take your career as far as you can.
-                    </h3>
-                    <a class="bar-button center" href="users/sign_up">
-                      Register Now
-                    </a>
+                    <div class="carousel-caption d-none d-md-block">
+                      <div class="row">
+                        <h1 class= "header col-12">
+                          Players
+                        </h1>
+                      </div>
+                      <div class="row">
+                        <h3 class="description col-12">
+                          Build and promote your profile, raise your game and take your career as far as you can.
+                        </h3>
+                      </div>
+                      <div class="row">
+                        <div class="col-12">
+                          <a class="bar-button center" href="users/sign_up">
+                            Register Now
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
                 </div>
 
 
                 <div class="carousel-item scouts">
                   <img class="d-block img-fluid menu" src="/images/landing-page/BG-scouts.jpg" alt="Third slide">
                   <div class= "contentSlides">
-                  <div class="carousel-caption d-none d-md-block">
-                    <h1 class= "header">
-                      Scouts
-                    </h1>
-                    <h3 class="description">
-                      Build your reputation as a talent spotter or analyst and make a living from the sport you love.
-                    </h3>
-                    <a class="bar-button center" href="users/sign_up">
-                      Register Now
-                    </a>
+                    <div class="carousel-caption d-none d-md-block">
+                      <div class="row">
+                        <h1 class= "header col-12">
+                          Scouts
+                        </h1>
+                      </div>
+                      <div class="row">
+                        <h3 class="description col-12">
+                          Build your reputation as a talent spotter or analyst and make a living from the sport you love.
+                        </h3>
+                      </div>
+                      <div class="row">
+                        <div class="col-12">
+                          <a class="bar-button center" href="users/sign_up">
+                            Register Now
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
                 </div>
 
 
                 <div class="carousel-item clubs">
                   <img class="d-block img-fluid menu" src="/images/landing-page/BG-clubs2.jpg" alt="Fourth slide">
                   <div class= "contentSlides">
-                  <div class="carousel-caption d-none d-md-block">
-                    <h1 class= "header">
-                      Clubs
-                    </h1>
-                    <h3 class="description">
-                      Maximise your teams’ performance by digitising everything from training and team management to scouting and medical processes.
-                    </h3>
-                    <a class="bar-button center" href="users/sign_up">
-                      Register Now
-                    </a>
+                    <div class="carousel-caption d-none d-md-block">
+                      <div class="row">
+                        <h1 class= "header">
+                          Clubs
+                        </h1>
+                      </div>
+                      <div class="row">
+                        <h3 class="description">
+                          Maximise your teams’ performance by digitising everything from training and team management to scouting and medical processes.
+                        </h3>
+                      </div>
+                      <div class="row">
+                        <a class="bar-button center" href="users/sign_up">
+                          Register Now
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                </div>
-
                 </div>
 
               </div>
             </div>
 
+
       </div>
     </div>
 
     <div class=section id="trans2ndpg">
-      <div class="container-fluid col-12 col-sm-12 col-md-12 col-lg-12 ">
+      <div class="container-fluid col-12">
         <div class="header center">
             Take football seriously?
         </div>
@@ -118,135 +149,150 @@
       </div>
     </div>
 
-    <div class="section" id="second-page">
+    <div class="section" id="second-page"> <!-- black background -->
       <div class="container-fluid ">
 
-        <div class="second-layer row"> <!-- content within parallax -->
+        <div class="second-layer"> <!-- content within parallax -->
 
+          <div class="row justify-content-center">
           <div class="first-line line-down" data-aos="animate-first-line-down"></div>
-          <div class="second-line line-down" data-aos="animate-line-down" data-aos-delay="1000" ></div>
-          <div class="third-line line-down" data-aos="animate-line-down" data-aos-delay="750" ></div>
+          </div>
 
-
-          <div class="about">
-
-            <div class="challenge" >
-              <div class="headText" data-aos="zoom-in" data-aos-delay="500" >
+          <div class="row justify-content-center">
+              <div class="headText" data-aos="zoom-in" data-aos-delay="1000">
                 The Challenge
               </div>
-              <div class="description" data-aos="fade-in" data-aos-delay="600" >
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="challenge" data-aos="fade-in" data-aos-delay="1100">
                 Managing an increasing amount of information and tasks using outdated processes and tools,
                 limited budgets, resources and capabilities present a real challenge for today’s professionals
                 as they seek to maximise performance and remain competitive.
               </div>
             </div>
 
-            <div class="solution">
-              <div class="headText" data-aos="zoom-in" data-aos-delay="500" >
+          <div class="row justify-content-center">
+            <div class="second-line line-down" data-aos="animate-line-down" data-aos-delay="1200"></div>
+          </div>
+
+          <div class="row justify-content-center">
+              <div class="headText" data-aos="zoom-in" data-aos-delay="1300">
                 The Solution
               </div>
-              <div class="description" data-aos="fade-in" data-aos-delay="600" >
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="solution" data-aos="fade-in" data-aos-delay="1400">
                   A cloud-based platform that optimises the management of teams, players and careers by consolidating
                   and digitising sports performance and team management processes,
                   whilst capitalising on and augmenting core networks within the industry.
               </div>
             </div>
 
-            <div class="capabilities headText" data-aos="zoom-in" >
+          <div class="row justify-content-center">
+            <div class="third-line line-down" data-aos="animate-line-down" data-aos-delay="1500"></div>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="headText"  data-aos="zoom-in" data-aos-delay="1600">
               Key Capabilities
             </div>
+          </div>
 
-            <div class="container-fluid">
-              <div class="row">
-                <div class="row1">
-                  <div class="subheadCapabilities col-xs-4" data-aos="fade-up" data-aos-delay="100" data-aos-easing="ease-in-out">
+            <div class="row justify-content-center capabilities">
+
+                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-delay="1700" data-aos-easing="ease-in-out">
                     Career Management
                     <div class="description">
-                      <ul class="list">
+                      <ul>
                         <li>Consolidate information into an attractive sporting profile for many core roles </li>
                         <li>Build a professional network of agents, scouts, coaches, players and teams </li>
                         <li>with, learn from and share with peers and experts in a global community</li>
                       </ul>
                     </div>
                   </div>
-                  <div class="subheadCapabilities col-xs-4" data-aos="fade-up" data-aos-delay="500" data-aos-easing="ease-in-out">
+                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-delay="1800" data-aos-easing="ease-in-out">
                     Team Management
                     <div class="description">
-                      <ul class="list">
+                      <ul>
                         <li>Manage full team rosters with team and individual player reports </li>
                         <li>Empower players and staff to collaborate with versatile communications tools </li>
                         <li>Enable Managers to develop and share tactical strategies securely</li>
                       </ul>
                     </div>
                   </div>
-                  <div class="subheadCapabilities col-xs-4" data-aos="fade-up" data-aos-delay="1000" data-aos-easing="ease-in-out">
+                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-delay="1900" data-aos-easing="ease-in-out">
                     Performance Insights
                     <div class="description">
-                      <ul class="list">
+                      <ul>
                         <li>Capture match data and stats using intuitive and flexible reporting mechanisms </li>
                         <li>Prepare your next game by requesting opposition analyses from trusted scouts </li>
                         <li>Use match insights to prepare your coach and team for the next match</li>
                       </ul>
                     </div>
                   </div>
+
                 </div>
 
+            <div class="row justify-content-center capabilities">
 
-                <div class="row2">
-                  <div class="subheadCapabilities col-xs-4" data-aos="fade-up" data-aos-delay="500" data-aos-easing="ease-in-out">
+                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-delay="2000" data-aos-easing="ease-in-out">
                     Player Development & Fitness
                     <div class="description">
-                      <ul class="list">
+                      <ul>
                         <li>Create training exercise programs and assign them to groups or individuals</li>
                         <li>Analyse and track players’ talent development and progress</li>
                         <li>Manage medical data and rehabilitation programs on the go with simple notes</li>
                       </ul>
                     </div>
                   </div>
-                  <div class="subheadCapabilities col-xs-4" data-aos="fade-up" data-aos-delay="1100" data-aos-easing="ease-in-out">
+                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-delay="2100" data-aos-easing="ease-in-out">
                     Scouting & Recruitment
                     <div class="description">
-                      <ul class="list">
+                      <ul>
                         <li>Create and assign scouting requests, simply and intuitively </li>
                         <li>Access a global network of independent scouts to acquire scouting insights </li>
                         <li>Sell and acquire reports in an open marketplace</li>
                       </ul>
                     </div>
                   </div>
-                  <div class="subheadCapabilities col-xs-4" data-aos="fade-up" data-aos-delay="1600" data-aos-easing="ease-in-out">
+                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-delay="2200" data-aos-easing="ease-in-out">
                     Club Management
                     <div class="description">
-                      <ul class="list">
+                      <ul>
                         <li>Access, schedule and manage events on the go, from matches to social gatherings </li>
                         <li>Coordinate administrative activities such as contracts and league registrations </li>
                         <li>Search for, identify and hire the best managers, coaches and medical staff </li>
                       </ul>
                     </div>
                   </div>
-                </div>
-              </div>
+
             </div>
+
+
+
+
           </div>
 
         </div>
 
 
       </div>
-    </div>
+
 
 
     <div class="section" id="third-page">
       <div class="container-fluid">
 
         <div class="col-lg-8 offset-lg-2">
-          <div class="row justify-content-center">
             <div class="header">
               ROLES WE SERVE
             </div>
-          </div>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+
+        <div class="col-12 col-sm-12">
           <div class="row justify-content-center">
 
             <div id="toggle" class="carousel slide w-80" data-ride="carousel">
@@ -390,31 +436,31 @@
   <footer class="container-fluid">
     <div class="section">
       <div class="row no-gutters">
-        <div class="col-md-2 offset-md-1">
+        <div class="col-12 col-lg-2 offset-lg-1">
             <img class="logo" src="images/landing-page/ft-footer-logo.png" alt="Ft logo">
             <span class="cRight">&copy;2016 </span>
         </div>
-        <div class="col-md-1">
+        <div class="col-12 col-lg-1">
           <a class="text" href="/">
             Help
           </a>
         </div>
-        <div class="col-md-1">
+        <div class="col-12 col-lg-1">
           <a class="text" href="/">
             User Agreement
           </a>
         </div>
-        <div class="col-md-2">
+        <div class="col-12 col-lg-2">
           <a class="text" href="/">
             Community Guidelines
           </a>
         </div>
-        <div class="col-md-1 ">
+        <div class="col-12 col-lg-1 ">
           <a class="text" href="/">
             Cookie Policy
           </a>
         </div>
-        <div class="col-md-2 ">
+        <div class="col-12 col-lg-2 ">
           <span class="text">
             Follow Us
           </span>
@@ -437,8 +483,9 @@
     </div>
   </footer>
 
-  </div>
 
+
+  </div>
   </div>
 
 </template>
