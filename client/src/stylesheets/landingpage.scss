@@ -120,11 +120,6 @@ li {
   }
 }
 
-.typewriter {
-  //RAISEYOURGAME
-  display: none;
-}
-
 
 #content {
   min-height: calc(100vh - 40px);
@@ -138,9 +133,6 @@ li {
     max-height: 92vh;
     .menu{
       filter: brightness(60%);
-      //increased width and height of menu picture
-      width: 100vw;
-      height: 100vh;
     }
   }
 
@@ -173,7 +165,8 @@ li {
       text-align: center;
       img {
         position: relative;
-        height: 150px;
+        //logo height
+        height: 300px;
       }
 
       .main{
@@ -185,11 +178,7 @@ li {
 
       .typewriter {
         //RAISEYOURGAME
-        padding-top: 15px;
-        font-size: 25px;
-        font-weight: 200;
-        color: #bcbcbc;
-        text-transform: uppercase;
+        display: none;
       }
     }
   }
@@ -240,8 +229,6 @@ li {
 }
 
 #second-page {
-
-
     //parallax
     padding: 2em;
     box-shadow: inset 0px 0px 55px #000000;
@@ -252,8 +239,7 @@ li {
     -o-background-size: cover;
     background-size: cover;
     height: 130em;
-
-
+    border-bottom: 100px solid black;
 
   .headText{
     box-sizing: content-box;
@@ -484,8 +470,106 @@ footer {
   }
 }
 
+//landscape view of mobile portable devices
+@media (min-width: 576px){
+  .bar-button{
+    width: 150px;
+    border-radius: 5px;
+  }
 
-//laptop screens
+  .full {
+    //first page
+    background-color: #000000;
+    .carousel-item {
+      //class of container-flud no padding removes padding makes width bigger
+      max-height: 92vh;
+      .menu{
+        filter: brightness(60%);
+        //increased width and height of menu picture
+        width: 100vw;
+        height: 100vh;
+      }
+    }
+    .toggle li {
+      //menu player scouts clubs toggle
+      bottom: 50px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      opacity: 0.6;
+      text-indent: 0;
+      margin: 0 50px;
+      border: none;
+      background-color: transparent;
+      text-transform: none;
+    }
+    .active {
+      color: #439042;
+    }
+    .cursor {
+      cursor: pointer;
+    }
+    .intro-message {
+      .carousel-caption{
+        top: 0%;
+        font-size: 0.2em;
+        text-align: center;
+        img {
+          position: relative;
+          //logo height
+          height: 140px;
+        }
+        .main{
+          text-transform: uppercase;
+          opacity: 0.6;
+          font-size: 15px;
+          margin: 10px;
+        }
+        .typewriter {
+          //RAISEYOURGAME
+          display: none;
+        }
+      }
+    }
+    .contentSlides {
+      //player scouts clubs page
+      .carousel-caption{
+        top: 0;
+        left: 5em;
+        text-align: left;
+      }
+      .header{
+        text-transform: uppercase;
+        font-size: 5em;
+      }
+      .description{
+        font-weight: lighter;
+        width: 30em;
+        opacity: 0.6;
+        font-size: 2em;
+        margin-top: 0.5em;
+      }
+      .bar-button {
+        float: right;
+        width: 200px;
+        font-size: 20px;
+        margin-right: -3em;
+      }
+    }
+  }
+
+  #second-page{
+    //parallax
+    height: 120em;
+    .challenge,
+    .solution {
+      font-size: 1em;
+    }
+  }
+
+}
+
+//laptop screens and desktop
 @media (min-width: 1200px){
   .bar-button {
     margin: 5px;
@@ -509,6 +593,7 @@ footer {
         text-align: center;
         img {
           position: relative;
+          //logo height
           height: 250px;
         }
 
@@ -566,6 +651,7 @@ footer {
       }
     }
   }
+
   #second-page {
     font-size: $main-text-size;
     background: #000000;
@@ -584,90 +670,76 @@ footer {
       -o-background-size: cover;
       background-size: cover;
     }
+    .headText{
+      box-sizing: content-box;
+      width: 20em;
+      text-align:center;
+      text-transform: uppercase;
+      font-size: 2em;
+      font-weight: bold;
+    }
+    .challenge,
+    .solution{
+      box-sizing: border-box;
+      width: 35em;
+      margin-left: 3.5em;
+      font-size: medium;
+      text-transform: none;
+      text-align: center;
+    }
+    .subheadCapabilities{
+      font-variant: small-caps;
+      text-align: left;
+      font-weight: 550;
+      font-size: 1.2em;
+      .description{
+        box-sizing: border-box;
+        margin: 1em;
+        font-variant: normal;
+        text-align: left;
+        font-weight: lighter;
+        font-size: 0.8em;
+        li {
+          list-style: circle outside;
+          display: list-item;
+        }
+      }
+    }
+    .row{
+      margin: 1em;
+    }
+
+    .line-down{
+      box-sizing: border-box;
+      height: 19em;
+      border-right: 3px solid $first-touch-white;
+    }
+
+    .first-line{
+      height: 10em;
+    }
+
+    /*animation*/
+    [data-aos="animate-first-line-down"]{
+      height: 0em;
+      transition-property: height;
+      &.aos-animate{
+        height: 10em
+      }
+    }
+
+    [data-aos="animate-line-down"]{
+      height: 0em;
+      transition-property: height;
+      &.aos-animate{
+        height: 19em
+      }
+    }
   }
 }
 
 //extra large desktop screens
 @media (min-width: 1500px) {
-  .bar-button {
-    margin: 5px;
-    font-size: 25px;
-    font-weight: 300;
-    padding: 7px 12px 6px 12px;
-    width: 300px;
-    border-radius: 5px;
-  }
-  .full{
-    .toggle li:hover {
-      font-size: 140%;
-      color: #439042;
-    }
-    .intro-message {
-      .carousel-caption{
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 0.8em;
-        text-align: center;
-        img {
-          position: relative;
-          height: 250px;
-        }
-
-        .main{
-          text-transform: uppercase;
-          opacity: 0.6;
-          font-size: 20px;
-          margin: 15px;
-        }
-
-        .typewriter {
-          //RAISEYOURGAME
-          display: initial;
-          overflow: hidden; /* content is not revealed until the animation */
-          white-space: nowrap; /* content on a single line */
-          margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-          letter-spacing: 2px;
-          width: 17ch;
-          animation: typing 3s steps(17);
-        }
-        /* The typing effect */
-        @keyframes typing {
-          0% {
-            width: 0ch;
-          }
-          100% {
-            width: 17ch;
-          }
-        }
-      }
-    }
-    .contentSlides {
-      //player scouts clubs page
-      .carousel-caption{
-        top: 0;
-        left: 5em;
-        text-align: left;
-      }
-      .header{
-        text-transform: uppercase;
-        font-size: 7em;
-      }
-      .description{
-        font-weight: lighter;
-        width: 30em;
-        opacity: 0.6;
-        font-size: 2em;
-        margin-top: 0.5em;
-      }
-      .bar-button {
-        float: right;
-        width: 200px;
-        font-size: 20px;
-        margin-right: -5em;
-      }
-    }
-
-  }
   #second-page {
     .second-layer{
       padding-bottom: 10em;
