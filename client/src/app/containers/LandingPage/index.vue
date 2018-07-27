@@ -155,17 +155,17 @@
         <div class="second-layer"> <!-- content within parallax -->
 
           <div class="row justify-content-center">
-          <div class="first-line line-down" data-aos="animate-first-line-down"></div>
+          <div class="first-line line-down" data-aos="animate-first-line-down" data-aos-offset="300" data-aos-easing="ease-in-sine"></div>
           </div>
 
           <div class="row justify-content-center">
-              <div class="headText" data-aos="zoom-in" data-aos-delay="1000">
+              <div class="headText" data-aos="fade-zoom-in" data-aos-offset="350" data-aos-easing="ease-in-sine" data-aos-delay="500">
                 The Challenge
               </div>
           </div>
 
           <div class="row justify-content-center">
-            <div class="challenge" data-aos="fade-in" data-aos-delay="1100">
+            <div class="challenge" data-aos="fade-zoom-in" data-aos-offset="400" data-aos-easing="ease-in-sine" data-aos-delay="650">
                 Managing an increasing amount of information and tasks using outdated processes and tools,
                 limited budgets, resources and capabilities present a real challenge for today’s professionals
                 as they seek to maximise performance and remain competitive.
@@ -173,17 +173,17 @@
             </div>
 
           <div class="row justify-content-center">
-            <div class="second-line line-down" data-aos="animate-line-down" data-aos-delay="1200"></div>
+            <div class="second-line line-down" data-aos="animate-line-down" data-aos-offset="450" data-aos-delay="900"></div>
           </div>
 
           <div class="row justify-content-center">
-              <div class="headText" data-aos="zoom-in" data-aos-delay="1300">
+              <div class="headText" data-aos="fade-zoom-in" data-aos-offset="500" data-aos-easing="ease-in-sine" data-aos-delay="1500">
                 The Solution
               </div>
           </div>
 
           <div class="row justify-content-center">
-            <div class="solution" data-aos="fade-in" data-aos-delay="1400">
+            <div class="solution" data-aos="fade-zoom-in" data-aos-offset="550" data-aos-easing="ease-in-sine" data-aos-delay="1650">
                   A cloud-based platform that optimises the management of teams, players and careers by consolidating
                   and digitising sports performance and team management processes,
                   whilst capitalising on and augmenting core networks within the industry.
@@ -191,18 +191,18 @@
             </div>
 
           <div class="row justify-content-center">
-            <div class="third-line line-down" data-aos="animate-line-down" data-aos-delay="1500"></div>
+            <div class="third-line line-down" data-aos="animate-line-down" data-aos-offset="600" data-aos-easing="ease-in-sine" data-aos-delay="1900"></div>
           </div>
 
           <div class="row justify-content-center">
-            <div class="headText"  data-aos="zoom-in" data-aos-delay="1600">
+            <div class="headText"  data-aos="fade-zoom-in" data-aos-offset="650" data-aos-easing="ease-in-sine" data-aos-delay="2150">
               Key Capabilities
             </div>
           </div>
 
             <div class="row justify-content-center capabilities">
 
-                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-delay="1700" data-aos-easing="ease-in-out">
+                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-offset="700" data-aos-delay="1700" data-aos-easing="ease-in-out">
                     Career Management
                     <div class="description">
                       <ul>
@@ -212,7 +212,7 @@
                       </ul>
                     </div>
                   </div>
-                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-delay="1800" data-aos-easing="ease-in-out">
+                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-offset="700" data-aos-delay="1800" data-aos-easing="ease-in-out">
                     Team Management
                     <div class="description">
                       <ul>
@@ -222,7 +222,7 @@
                       </ul>
                     </div>
                   </div>
-                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-delay="1900" data-aos-easing="ease-in-out">
+                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-offset="700" data-aos-delay="1900" data-aos-easing="ease-in-out">
                     Performance Insights
                     <div class="description">
                       <ul>
@@ -237,7 +237,7 @@
 
             <div class="row justify-content-center capabilities">
 
-                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-delay="2000" data-aos-easing="ease-in-out">
+                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-offset="750" data-aos-delay="2000" data-aos-easing="ease-in-out">
                     Player Development & Fitness
                     <div class="description">
                       <ul>
@@ -247,7 +247,7 @@
                       </ul>
                     </div>
                   </div>
-                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-delay="2100" data-aos-easing="ease-in-out">
+                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-offset="750" data-aos-delay="2100" data-aos-easing="ease-in-out">
                     Scouting & Recruitment
                     <div class="description">
                       <ul>
@@ -257,7 +257,7 @@
                       </ul>
                     </div>
                   </div>
-                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-delay="2200" data-aos-easing="ease-in-out">
+                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-offset="750" data-aos-delay="2200" data-aos-easing="ease-in-out">
                     Club Management
                     <div class="description">
                       <ul>
