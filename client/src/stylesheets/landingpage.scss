@@ -240,11 +240,8 @@ li {
 }
 
 #second-page {
-  font-size: $main-text-size;
-  background-color: #000000;
-  padding: 50px 100px 100px 100px;
 
-  .second-layer {
+
     //parallax
     padding: 2em;
     box-shadow: inset 0px 0px 55px #000000;
@@ -254,7 +251,9 @@ li {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-  }
+    height: 130em;
+
+
 
   .headText{
     box-sizing: content-box;
@@ -486,22 +485,6 @@ footer {
 }
 
 
-
-//small devices portrait
-@media (max-width: 575.98px) {
-  .full{
-    .intro-message{
-      .carousel-caption{
-        top: 0;
-        .logo{
-          height: 10px;
-        }
-      }
-    }
-  }
-}
-
-
 //laptop screens
 @media (min-width: 1200px){
   .bar-button {
@@ -582,7 +565,25 @@ footer {
         margin-right: -5em;
       }
     }
-
+  }
+  #second-page {
+    font-size: $main-text-size;
+    background: #000000;
+    padding: 50px 100px 100px 100px;
+    height: 125em;
+    .second-layer{
+      //parrallax
+      height: 115em;
+      width: auto;
+      padding: 2em;
+      box-shadow: inset 0px 0px 55px #000000;
+      border: 2.5px solid #000000;
+      background: url('/images/landing-page/BG-second-page.jpg') no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
   }
 }
 
@@ -670,7 +671,6 @@ footer {
   #second-page {
     .second-layer{
       padding-bottom: 10em;
-      height: 115em;
       .capabilities{
         margin-left: 25em;
       }

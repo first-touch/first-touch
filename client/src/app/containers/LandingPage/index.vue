@@ -22,7 +22,7 @@
                     <div class="carousel-caption d-none d-md-block ">
 
                       <div class="row justify-content-center">
-                        <img class="logo" src="images/landing-page/ft-logo.png" alt="Ft logo">
+                        <img src="images/landing-page/ft-logo.png" alt="Ft logo">
                       </div>
                       <div class="row justify-content-center">
                         <ul class="main center">
