@@ -4,7 +4,7 @@
     <div class="container">
       <div class="header">
         <div class="hero-container">
-          <img src="/images/landing-page/ft-navbar-logo.png" alt="Ft Logo" class="hero">
+          <img src="/images/landing-page/ft-navbar-logo.svg" alt="Ft Logo" class="hero">
         </div>
       </div>
       <div class="info">
@@ -12,7 +12,7 @@
         <p class="subtitle"><em>noun</em></p>
         <p class="meaning">a footballing philosophy in which every professional in the world
           of football is able to effectively manage every aspect of their role during the course of a career.</p>
-        <p class="description">
+        <p class="description" style="margin-top: 30px;">
           FirstTouch is a Total Football Management platform for Players, Coaches, Scouts, Agents and many other
           professionals tied to the game. From scouting to tactics and training. We are trying to do our part to
           democratise football by bringing resources that would only be available to the elite, to the masses;
@@ -76,13 +76,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 500px;
-    background: url('/images/landing-page/team-logo.jpg') no-repeat center
-      center;
+    min-height: 300px;
+    background: url('/images/landing-page/mountain.jpg') no-repeat center bottom;
+    background-size: cover;
+    .hero-container {
+      img {
+        height: 100px;
+      }
+    }
   }
   .info {
     background: #fff;
     padding: 20px;
+    letter-spacing: 0.8px;
     h3,
     p {
       color: #000;
@@ -93,15 +99,17 @@
     .meaning {
       padding-left: 20px;
       border-left: 4px solid rgba(10, 10, 10, 0.5);
+      color: grey;
     }
     .glance-title {
       text-transform: uppercase;
       color: #7f7f7f;
       font-size: 1.1rem;
       border-bottom: 1px solid #ccc;
-      padding-bottom: 3px;
+      padding-bottom: 7px;
       padding-left: 5px;
       margin-bottom: 10px;
+      margin-top: 30px;
     }
     .company-info {
       display: flex;
@@ -138,7 +146,7 @@ import LandingNavbar from 'app/components/LandingNavbar';
 export default {
   name: 'About',
   components: {
-    'landing-navbar': LandingNavbar,
-  },
+    'landing-navbar': LandingNavbar
+  }
 };
 </script>
