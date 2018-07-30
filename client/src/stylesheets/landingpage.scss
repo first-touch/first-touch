@@ -470,6 +470,7 @@ footer {
   }
 }
 
+
 //landscape view of mobile portable devices
 @media (min-width: 576px){
   .bar-button{
@@ -481,8 +482,6 @@ footer {
     //first page
     background-color: #000000;
     .carousel-item {
-      //class of container-flud no padding removes padding makes width bigger
-      max-height: 92vh;
       .menu{
         filter: brightness(60%);
         //increased width and height of menu picture
@@ -503,15 +502,10 @@ footer {
       background-color: transparent;
       text-transform: none;
     }
-    .active {
-      color: #439042;
-    }
-    .cursor {
-      cursor: pointer;
-    }
+
     .intro-message {
       .carousel-caption{
-        top: 0%;
+        top: 15%;
         font-size: 0.2em;
         text-align: center;
         img {
@@ -560,13 +554,68 @@ footer {
 
   #second-page{
     //parallax
-    height: 120em;
+    height: 130em;
     .challenge,
     .solution {
       font-size: 1em;
     }
   }
 
+  #third-page{
+    .carousel {
+      width: 800px;
+    }
+  }
+
+}
+
+//iPhoneX landscape and portrait
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 812px)
+and (-webkit-device-pixel-ratio : 3) {
+  #second-page {
+    height: 130em;
+  }
+}
+//iPhoneX landscape
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 812px)
+and (-webkit-device-pixel-ratio : 3)
+and (orientation : landscape) {
+  .full{
+    .intro-message {
+      .carousel-caption{
+        top: 0%;
+        font-size: 0.2em;
+        text-align: center;
+        img {
+          position: relative;
+          //logo height
+          height: 140px;
+        }
+        .main{
+          opacity: 0.6;
+          font-size: 15px;
+          margin: 10px;
+        }
+        .typewriter {
+          //RAISEYOURGAME
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+//iPad landscape and portrait
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)  {
+  #second-page {
+    height: 130em;
+  }
 }
 
 //laptop screens and desktop
