@@ -116,7 +116,7 @@
                         </h1>
                       </div>
                       <div class="row">
-                        <h3 class="description">
+                        <h3 class="description col-12">
                           Maximise your teams’ performance by digitising everything from training and team management to scouting and medical processes.
                         </h3>
                       </div>
@@ -195,7 +195,7 @@
           </div>
 
           <div class="row justify-content-center">
-            <div class="headText"  data-aos="fade-zoom-in" data-aos-offset="650" data-aos-delay="2000">
+            <div class="headText"  data-aos="fade-zoom-in" data-aos-offset="650" data-aos-delay="2600">
               Key Capabilities
             </div>
           </div>

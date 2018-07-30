@@ -637,21 +637,30 @@ and (max-device-width : 1024px)  {
     }
     .intro-message {
       .carousel-caption{
-        top: 30%;
+        top: 25%;
         transform: translateY(-30%);
         font-size: 0.8em;
         text-align: center;
         img {
           position: relative;
           //logo height
-          height: 250px;
+          height: 200px;
         }
 
-        .main{
+        .main {
           text-transform: uppercase;
           opacity: 0.6;
           font-size: 20px;
           margin: 15px;
+        }
+
+        .bar-button{
+          margin-bottom: 15px;
+        }
+
+        h1 {
+          margin-top: 20px;
+          font-size: 25px;
         }
 
         .typewriter {
@@ -786,12 +795,58 @@ and (max-device-width : 1024px)  {
       }
     }
   }
+
+  #third-page{
+    .carousel {
+      width: auto;
+    }
+  }
 }
 
 //extra large desktop screens
-@media (min-width: 1500px) {
+@media (min-device-width: 1500px) {
+  .full {
+    .intro-message {
+      .carousel-caption {
+        top: 35%;
+        img{
+          height: 275px;
+        }
+        .main {
+          font-size:25px;
+        }
+        h1 {
+          margin-top: 25px;
+          font-size:40px;
+        }
+      }
+    }
+    .contentSlides{
+      //player scouts clubs page
+      .carousel-caption{
+        top: 2%;
+        left: 5em;
+        text-align: left;
+      }
+      .header{
+        font-size: 7em;
+      }
+      .description{
+        font-size: 3em;
+      }
+      .bar-button {
+        float: right;
+        width: 300px;
+        font-size: 25px;
+        margin-right: 0;
+      }
+    }
+
+  }
   #second-page {
+    height: 140em;
     .second-layer{
+      height: 130em;
       padding-bottom: 10em;
       .capabilities{
         margin-left: 25em;
@@ -800,6 +855,20 @@ and (max-device-width : 1024px)  {
         .description {
           width: 25em;
         }
+      }
+    }
+    .headText{
+      font-size: 3em;
+    }
+    .challenge,
+    .solution {
+      font-size: large;
+    }
+
+    .subheadCapabilities {
+      font-size: 2em;
+      .description {
+        font-size: large;
       }
     }
   }
