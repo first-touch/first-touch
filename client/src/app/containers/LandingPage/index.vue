@@ -155,17 +155,17 @@
         <div class="second-layer"> <!-- content within parallax -->
 
           <div class="row justify-content-center">
-          <div class="first-line line-down" data-aos="animate-first-line-down" data-aos-offset="300" data-aos-easing="ease-in-sine"></div>
+          <div class="first-line line-down" data-aos="animate-first-line-down" data-aos-offset="300"></div>
           </div>
 
           <div class="row justify-content-center">
-              <div class="headText" data-aos="fade-zoom-in" data-aos-offset="350" data-aos-easing="ease-in-sine" data-aos-delay="500">
+              <div class="headText" data-aos="fade-zoom-in" data-aos-offset="350" data-aos-delay="500">
                 The Challenge
               </div>
           </div>
 
           <div class="row justify-content-center">
-            <div class="challenge" data-aos="fade-zoom-in" data-aos-offset="400" data-aos-easing="ease-in-sine" data-aos-delay="650">
+            <div class="challenge" data-aos="fade-zoom-in" data-aos-offset="400"  data-aos-delay="650">
                 Managing an increasing amount of information and tasks using outdated processes and tools,
                 limited budgets, resources and capabilities present a real challenge for today’s professionals
                 as they seek to maximise performance and remain competitive.
@@ -177,13 +177,13 @@
           </div>
 
           <div class="row justify-content-center">
-              <div class="headText" data-aos="fade-zoom-in" data-aos-offset="500" data-aos-easing="ease-in-sine" data-aos-delay="1500">
+              <div class="headText" data-aos="fade-zoom-in" data-aos-offset="500" data-aos-delay="1500">
                 The Solution
               </div>
           </div>
 
           <div class="row justify-content-center">
-            <div class="solution" data-aos="fade-zoom-in" data-aos-offset="550" data-aos-easing="ease-in-sine" data-aos-delay="1650">
+            <div class="solution" data-aos="fade-zoom-in" data-aos-offset="550" data-aos-delay="1650">
                   A cloud-based platform that optimises the management of teams, players and careers by consolidating
                   and digitising sports performance and team management processes,
                   whilst capitalising on and augmenting core networks within the industry.
@@ -191,11 +191,11 @@
             </div>
 
           <div class="row justify-content-center">
-            <div class="third-line line-down" data-aos="animate-line-down" data-aos-offset="600" data-aos-easing="ease-in-sine" data-aos-delay="1900"></div>
+            <div class="third-line line-down" data-aos="animate-line-down" data-aos-offset="600" data-aos-delay="1900"></div>
           </div>
 
           <div class="row justify-content-center">
-            <div class="headText"  data-aos="fade-zoom-in" data-aos-offset="650" data-aos-easing="ease-in-sine" data-aos-delay="2150">
+            <div class="headText"  data-aos="fade-zoom-in" data-aos-offset="650" data-aos-delay="2000">
               Key Capabilities
             </div>
           </div>
@@ -500,8 +500,15 @@ import LinkButton from 'app/components/LinkButton.vue';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+AOS.init();
+
 AOS.init({
-  duration: 2000,
+  disable: false, // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
+  // Settings that can be overriden on per-element basis, by `data-aos-*` attributes:
+  duration: 1500, // values from 0 to 3000, with step 50ms
+  easing: 'ease-in-sine',
+  once: true, // whether animation should happen only once - while scrolling down
+  mirror: false, // whether elements should animate out while scrolling past them
 });
 
 export default {
