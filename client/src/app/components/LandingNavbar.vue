@@ -7,13 +7,13 @@
     <b-collapse isNav id="ft-nav-collapse">
       <b-nav class="ml-auto navOptions">
         <li class="nav-item">
-          <a href="#second-page" class="nav-link">ABOUT</a>
+          <a href="/welcome#second-page" class="nav-link">ABOUT</a>
         </li>
-        <form class="form-inline">
+        <form class="form-inline nav-link">
           <router-link  to="/users/sign_up" class="btn btn-outline-secondary">SIGN UP</router-link>
         </form>
          <b-nav-item>
-          <router-link to="/users/sign_in" class="nav-link">LOG IN</router-link>
+          <router-link to="/users/sign_in">LOG IN</router-link>
         </b-nav-item>
       </b-nav>
     </b-collapse>
