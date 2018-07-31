@@ -242,45 +242,37 @@ li {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 130em;
+    height: auto;
     border-bottom: 100px solid black;
 
   .headText{
-    box-sizing: content-box;
-    width: 20em;
-    text-align:center;
-    text-transform: uppercase;
-    font-size: 2em;
-    font-weight: bold;
+    font-size: 1.6rem;
+    letter-spacing: 3px;
   }
-
 
   .challenge,
   .solution{
     box-sizing: border-box;
     width: 35em;
-    margin-left: 3.5em;
-    font-size: medium;
-    text-transform: none;
+    letter-spacing: 3px;
+    font-size: 1.3rem;
     text-align: center;
   }
 
   .subheadCapabilities{
-    font-variant: small-caps;
+    letter-spacing: 3px;
+  }
+
+  .keyDescription{
+    box-sizing: border-box;
+    margin: 1em;
     text-align: left;
-    font-weight: 550;
-    font-size: 1.2em;
-    .description{
-      box-sizing: border-box;
-      margin: 1em;
-      font-variant: normal;
-      text-align: left;
-      font-weight: lighter;
-      font-size: 0.8em;
-      li {
-        list-style: circle outside;
-        display: list-item;
-      }
+    letter-spacing: 3px;
+    font-weight: lighter;
+    font-size: 0.9rem;
+    li {
+      list-style: circle outside;
+      display: list-item;
     }
   }
 
@@ -748,10 +740,10 @@ and (orientation : portrait) {
     font-size: $main-text-size;
     background: #000000;
     padding: 50px 100px 100px 100px;
-    height: 125em;
+    height: auto;
     .second-layer{
       //parrallax
-      height: 115em;
+      height: auto;
       width: auto;
       padding: 2em;
       box-shadow: inset 0px 0px 55px #000000;
@@ -762,41 +754,24 @@ and (orientation : portrait) {
       -o-background-size: cover;
       background-size: cover;
     }
-    .headText{
-      box-sizing: content-box;
-      width: 20em;
-      text-align:center;
-      text-transform: uppercase;
-      font-size: 2em;
-      font-weight: bold;
+
+    .headtext{
+
     }
+
     .challenge,
     .solution{
-      box-sizing: border-box;
-      width: 35em;
-      margin-left: 3.5em;
-      font-size: medium;
-      text-transform: none;
-      text-align: center;
+
     }
     .subheadCapabilities{
-      font-variant: small-caps;
-      text-align: left;
-      font-weight: 550;
-      font-size: 1.2em;
-      .description{
-        box-sizing: border-box;
-        margin: 1em;
-        font-variant: normal;
-        text-align: left;
-        font-weight: lighter;
-        font-size: 0.8em;
-        li {
-          list-style: circle outside;
-          display: list-item;
-        }
+
+    }
+    .keyDescription{
+      li {
+
       }
     }
+
     .row{
       margin: 1em;
     }

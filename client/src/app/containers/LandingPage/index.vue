@@ -153,22 +153,22 @@
     </div>
 
     <div class="section" id="second-page"> <!-- black background -->
-      <div class="container-fluid ">
+      <div class="container">
 
         <div class="second-layer"> <!-- content within parallax -->
 
           <div class="row justify-content-center">
-          <div class="first-line line-down" data-aos="animate-first-line-down" data-aos-offset="300"></div>
+          <div class="first-line line-down" data-aos="animate-first-line-down" data-aos-offset="100"></div>
           </div>
 
           <div class="row justify-content-center">
-              <div class="headText" data-aos="fade-zoom-in" data-aos-offset="350" data-aos-delay="500">
+              <div class="headText" data-aos="fade-zoom-in" data-aos-offset="150" data-aos-delay="500">
                 The Challenge
               </div>
           </div>
 
           <div class="row justify-content-center">
-            <div class="challenge" data-aos="fade-zoom-in" data-aos-offset="400"  data-aos-delay="650">
+            <div class="challenge" data-aos="fade-zoom-in" data-aos-offset="200"  data-aos-delay="650">
                 Managing an increasing amount of information and tasks using outdated processes and tools,
                 limited budgets, resources and capabilities present a real challenge for today’s professionals
                 as they seek to maximise performance and remain competitive.
@@ -176,17 +176,17 @@
             </div>
 
           <div class="row justify-content-center">
-            <div class="second-line line-down" data-aos="animate-line-down" data-aos-offset="450" data-aos-delay="900"></div>
+            <div class="second-line line-down" data-aos="animate-line-down" data-aos-offset="250" data-aos-delay="900"></div>
           </div>
 
           <div class="row justify-content-center">
-              <div class="headText" data-aos="fade-zoom-in" data-aos-offset="500" data-aos-delay="1500">
+              <div class="headText" data-aos="fade-zoom-in" data-aos-offset="300" data-aos-delay="1500">
                 The Solution
               </div>
           </div>
 
           <div class="row justify-content-center">
-            <div class="solution" data-aos="fade-zoom-in" data-aos-offset="550" data-aos-delay="1650">
+            <div class="solution" data-aos="fade-zoom-in" data-aos-offset="350" data-aos-delay="1650">
                   A cloud-based platform that optimises the management of teams, players and careers by consolidating
                   and digitising sports performance and team management processes,
                   whilst capitalising on and augmenting core networks within the industry.
@@ -194,20 +194,22 @@
             </div>
 
           <div class="row justify-content-center">
-            <div class="third-line line-down" data-aos="animate-line-down" data-aos-offset="600" data-aos-delay="1900"></div>
+            <div class="third-line line-down" data-aos="animate-line-down" data-aos-offset="400" data-aos-delay="1900"></div>
           </div>
 
           <div class="row justify-content-center">
-            <div class="headText"  data-aos="fade-zoom-in" data-aos-offset="650" data-aos-delay="2600">
+            <div class="headText"  data-aos="fade-zoom-in" data-aos-offset="450" data-aos-delay="2600">
               Key Capabilities
             </div>
           </div>
 
             <div class="row justify-content-center capabilities">
 
-                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-offset="700" data-aos-delay="1700" data-aos-easing="ease-in-out">
-                    Career Management
-                    <div class="description">
+                <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-offset="500" data-aos-delay="1700" data-aos-easing="ease-in-out">
+                    <div class="subheadCapabilities">
+                      Career Management
+                    </div>
+                    <div class="keyDescription">
                       <ul>
                         <li>Consolidate information into an attractive sporting profile for many core roles </li>
                         <li>Build a professional network of agents, scouts, coaches, players and teams </li>
@@ -215,9 +217,11 @@
                       </ul>
                     </div>
                   </div>
-                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-offset="700" data-aos-delay="1800" data-aos-easing="ease-in-out">
-                    Team Management
-                    <div class="description">
+                <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-offset="550" data-aos-delay="1800" data-aos-easing="ease-in-out">
+                    <div class="subheadCapabilities">
+                      Team Management
+                    </div>
+                    <div class="keyDescription">
                       <ul>
                         <li>Manage full team rosters with team and individual player reports </li>
                         <li>Empower players and staff to collaborate with versatile communications tools </li>
@@ -225,9 +229,11 @@
                       </ul>
                     </div>
                   </div>
-                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-offset="700" data-aos-delay="1900" data-aos-easing="ease-in-out">
-                    Performance Insights
-                    <div class="description">
+                <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-offset="600" data-aos-delay="1900" data-aos-easing="ease-in-out">
+                    <div class="subheadCapabilities">
+                      Performance Insights
+                    </div>
+                    <div class="keyDescription">
                       <ul>
                         <li>Capture match data and stats using intuitive and flexible reporting mechanisms </li>
                         <li>Prepare your next game by requesting opposition analyses from trusted scouts </li>
@@ -236,13 +242,11 @@
                     </div>
                   </div>
 
-                </div>
-
-            <div class="row justify-content-center capabilities">
-
-                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-offset="750" data-aos-delay="2000" data-aos-easing="ease-in-out">
-                    Player Development & Fitness
-                    <div class="description">
+                <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-offset="650" data-aos-delay="2000" data-aos-easing="ease-in-out">
+                    <div class="subheadCapabilities">
+                      Player Development & Fitness
+                    </div>
+                    <div class="keyDescription">
                       <ul>
                         <li>Create training exercise programs and assign them to groups or individuals</li>
                         <li>Analyse and track players’ talent development and progress</li>
@@ -250,9 +254,11 @@
                       </ul>
                     </div>
                   </div>
-                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-offset="750" data-aos-delay="2100" data-aos-easing="ease-in-out">
-                    Scouting & Recruitment
-                    <div class="description">
+                <div class="subheadCapabilities col-6 col-lg-4" data-aos="fade-up" data-aos-offset="700" data-aos-delay="2100" data-aos-easing="ease-in-out">
+                    <div class="subheadCapabilities">
+                      Scouting & Recruitment
+                    </div>
+                    <div class="keyDescription">
                       <ul>
                         <li>Create and assign scouting requests, simply and intuitively </li>
                         <li>Access a global network of independent scouts to acquire scouting insights </li>
@@ -260,9 +266,11 @@
                       </ul>
                     </div>
                   </div>
-                <div class="subheadCapabilities col-md-4" data-aos="fade-up" data-aos-offset="750" data-aos-delay="2200" data-aos-easing="ease-in-out">
-                    Club Management
-                    <div class="description">
+                <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-offset="750" data-aos-delay="2200" data-aos-easing="ease-in-out">
+                    <div class="subheadCapabilities">
+                      Club Management
+                    </div>
+                    <div class="keyDescription">
                       <ul>
                         <li>Access, schedule and manage events on the go, from matches to social gatherings </li>
                         <li>Coordinate administrative activities such as contracts and league registrations </li>
