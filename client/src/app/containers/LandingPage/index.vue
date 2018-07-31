@@ -57,19 +57,19 @@
                 <div class="carousel-item player">
                   <img class="d-block img-fluid menu" src="/images/landing-page/BG-player.jpg" alt="Second slide">
                   <div class= "contentSlides">
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption">
                       <div class="row">
                         <h1 class= "header col-12">
                           Players
                         </h1>
                       </div>
                       <div class="row">
-                        <h3 class="description col-12">
-                          Build and promote your profile, raise your game and take your career as far as you can.
-                        </h3>
-                      </div>
-                      <div class="row">
-                        <div class="col-12">
+                        <div class="col-11">
+                          <h3 class="description">
+                            Build and promote your profile, raise your game and take your career as far as you can.
+                          </h3>
+                        </div>
+                        <div class="col-1">
                           <a class="bar-button center" href="users/sign_up">
                             Register Now
                           </a>
@@ -83,19 +83,19 @@
                 <div class="carousel-item scouts">
                   <img class="d-block img-fluid menu" src="/images/landing-page/BG-scouts.jpg" alt="Third slide">
                   <div class= "contentSlides">
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption">
                       <div class="row">
                         <h1 class= "header col-12">
                           Scouts
                         </h1>
                       </div>
                       <div class="row">
-                        <h3 class="description col-12">
-                          Build your reputation as a talent spotter or analyst and make a living from the sport you love.
-                        </h3>
-                      </div>
-                      <div class="row">
-                        <div class="col-12">
+                        <div class="col-11">
+                          <h3 class="description col-12">
+                            Build your reputation as a talent spotter or analyst and make a living from the sport you love.
+                          </h3>
+                        </div>
+                        <div class="col-1">
                           <a class="bar-button center" href="users/sign_up">
                             Register Now
                           </a>
@@ -109,22 +109,25 @@
                 <div class="carousel-item clubs">
                   <img class="d-block img-fluid menu" src="/images/landing-page/BG-clubs2.jpg" alt="Fourth slide">
                   <div class= "contentSlides">
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption">
                       <div class="row">
                         <h1 class= "header">
                           Clubs
                         </h1>
                       </div>
                       <div class="row">
-                        <h3 class="description col-12">
-                          Maximise your teams’ performance by digitising everything from training and team management to scouting and medical processes.
-                        </h3>
+                        <div class="col-11">
+                          <h3 class="description col-12">
+                            Maximise your teams’ performance by digitising everything from training and team management to scouting and medical processes.
+                          </h3>
+                        </div>
+                        <div class="col-1">
+                          <a class="bar-button center" href="users/sign_up">
+                            Register Now
+                          </a>
+                        </div>
                       </div>
-                      <div class="row">
-                        <a class="bar-button center" href="users/sign_up">
-                          Register Now
-                        </a>
-                      </div>
+
                     </div>
                   </div>
                 </div>
