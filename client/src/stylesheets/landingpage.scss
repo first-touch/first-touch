@@ -735,7 +735,11 @@ and (orientation : portrait) {
         width: 200px;
         font-size: 20px;
         margin-right: -5em;
-        margin-top: 3em;
+      }
+      .col-1 {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
       }
     }
   }
