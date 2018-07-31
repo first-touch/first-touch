@@ -194,11 +194,11 @@
             </div>
 
           <div class="row justify-content-center">
-            <div class="third-line line-down" data-aos="animate-line-down" data-aos-offset="400" data-aos-delay="1900"></div>
+            <div class="third-line line-down" data-aos="animate-line-down" data-aos-offset="400" data-aos-delay="1500"></div>
           </div>
 
           <div class="row justify-content-center">
-            <div class="headText"  data-aos="fade-zoom-in" data-aos-offset="450" data-aos-delay="2600">
+            <div class="headText"  data-aos="fade-zoom-in" data-aos-offset="450" data-aos-delay="2500">
               Key Capabilities
             </div>
           </div>

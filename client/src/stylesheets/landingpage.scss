@@ -132,11 +132,9 @@ li {
   //first page
   background-color: #000000;
   .carousel-item {
-    //class of container-flud no padding removes padding makes width bigger
-    max-height: 92vh;
     .menu{
       filter: brightness(60%);
-      height: 50vh;
+      min-height: 50vh;
     }
   }
 
@@ -481,7 +479,7 @@ footer {
 
   .full {
     .carousel-item{
-      height: 100vh;
+      min-height: 92vh;
     }
     //first page
     background-color: #000000;
@@ -490,7 +488,7 @@ footer {
         filter: brightness(60%);
         //increased width and height of menu picture
         width: 100vw;
-        height: 100vh;
+        min-height: 100vh;
       }
     }
     .toggle li {
