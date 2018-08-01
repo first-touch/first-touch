@@ -83,7 +83,7 @@ li {
   text-decoration: none;
   text-align: center;
   padding: 7px 12px 6px 12px;
-  width: 200px;
+  width: 300px;
   border-radius: 5px;
   background-color: $button-background-colour;
   border: $button-border;
@@ -125,13 +125,13 @@ li {
   min-height: calc(100vh - 40px);
 }
 
+//devices less than 450px
 .full {
-  .carousel-item{
-    height: 50vh;
-  }
   //first page
   background-color: #000000;
+  min-height: 100vh;
   .carousel-item {
+    height: 50vh;
     .menu{
       filter: brightness(60%);
       min-height: 50vh;
@@ -141,12 +141,9 @@ li {
   .toggle li {
     //menu player scouts clubs toggle
     bottom: 50px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
     opacity: 0.6;
     text-indent: 0;
-    margin: 0 50px;
+    margin: 0 40px;
     border: none;
     background-color: transparent;
     text-transform: none;
@@ -195,7 +192,7 @@ li {
     }
     .header{
       text-transform: uppercase;
-      font-size: 5em;
+      font-size: 6rem;
     }
     .description{
       font-weight: lighter;
@@ -206,17 +203,22 @@ li {
     }
     .bar-button {
       float: right;
-      width: 200px;
-      font-size: 20px;
+      width: 150px;
+      font-size: medium;
       margin-right: -3em;
+    }
+    .col-md-1 {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
   }
 }
 
 #trans2ndpg {
-  background-color: $navbar-background-color;
-  height: 250px;
-  padding-top: 50px;
+  background-color: #000000;
+  padding-top: 30px;
+  padding-bottom: 20px;
   .header {
     text-transform: uppercase;
     font-size: 40px;
@@ -232,7 +234,6 @@ li {
 
 #second-page {
     //parallax
-    padding: 2em;
     box-shadow: inset 0px 0px 55px #000000;
     border: 2.5px solid #000000;
     background: url('/images/landing-page/BG-second-page.jpg') no-repeat center center fixed;
@@ -359,6 +360,19 @@ li {
     width: 3em;
   }
 
+
+  .carousel-inner .carousel-item-right.active,
+  .carousel-inner .carousel-item-next {
+    transform: translateX(33.33333333%);
+  }
+  .carousel-inner .carousel-item-left.active,
+  .carousel-inner .carousel-item-prev {
+    transform: translateX(-33.33333333%);
+  }
+  .carousel-inner .carousel-item-right,
+  .carousel-inner .carousel-item-left{
+    transform: translateX(0%);
+  }
   .polTitle {
     text-align: left;
     color: black;
@@ -367,7 +381,6 @@ li {
     padding: 50px 0 0 10px;
     font-size: 1em;
   }
-
   .polaroid .description {
     position: relative;
     text-transform: lowercase;
@@ -378,7 +391,6 @@ li {
     padding-top: 0;
     width: 12em;
   }
-
   .registerPlus img {
     position: absolute;
     height: 20px;
@@ -386,7 +398,6 @@ li {
     right: 30px;
     bottom: 30px;
   }
-
   .carousel-indicators {
     bottom:-25px;
   }
@@ -401,17 +412,14 @@ footer {
   overflow: hidden;
   white-space: nowrap;
   text-align: center;
-
   .logo {
     height: 2em;
     width: auto;
   }
-
   .cRight{
     color: #666464;
     font-size: 0.95em;
   }
-
   .text {
     margin-top: 1.5em;
     text-decoration: none;
@@ -420,7 +428,6 @@ footer {
     word-spacing: 1px;
     color: #666464;
   }
-
   .social{
     height: 25px;
     width: auto;
@@ -478,75 +485,10 @@ footer {
   }
 
   .full {
-    .carousel-item{
-      min-height: 92vh;
-    }
-    //first page
-    background-color: #000000;
-    .carousel-item {
-      .menu{
-        filter: brightness(60%);
-        //increased width and height of menu picture
-        width: 100vw;
-        min-height: 100vh;
-      }
-    }
-    .toggle li {
-      //menu player scouts clubs toggle
-      bottom: 50px;
-      opacity: 0.6;
-      text-indent: 0;
-      margin: 0 50px;
-    }
 
-    .intro-message {
-      .carousel-caption{
-        top: 15%;
-        font-size: 0.2em;
-        img {
-          //logo height
-          height: 140px;
-        }
-        .main{
-          opacity: 0.6;
-          font-size: 15px;
-          margin: 10px;
-        }
-        .typewriter {
-          //RAISEYOURGAME
-          display: none;
-        }
-      }
-    }
-    .contentSlides {
-      //player scouts clubs page
-      .carousel-caption{
-        top: 0;
-        left: 5em;
-        text-align: left;
-      }
-      .header{
-        text-transform: uppercase;
-        font-size: 5em;
-      }
-      .description{
-        width: 30em;
-        opacity: 0.6;
-        font-size: 2em;
-        margin-top: 0.5em;
-      }
-      .bar-button {
-        float: right;
-        width: 200px;
-        font-size: 20px;
-        margin-right: -3em;
-      }
-    }
   }
 
   #second-page{
-    //parallax
-    height: 130em;
     .challenge,
     .solution {
       font-size: 1em;
@@ -565,9 +507,7 @@ footer {
 and (min-device-width : 375px)
 and (max-device-width : 812px)
 and (-webkit-device-pixel-ratio : 3) {
-  #second-page {
-    height: 130em;
-  }
+
 }
 //iPhoneX landscape
 @media only screen
@@ -604,9 +544,7 @@ and (orientation : landscape) {
 @media only screen
 and (min-device-width : 768px)
 and (max-device-width : 1024px)  {
-  #second-page {
-    height: 130em;
-  }
+
 }
 //iPad portrait
 @media only screen
@@ -633,17 +571,17 @@ and (orientation : portrait) {
 }
 
 //laptop screens and desktop
-@media (min-device-width: 1200px){
-  .bar-button {
-    margin: 5px;
-    font-size: 25px;
-    font-weight: 300;
-    padding: 7px 12px 6px 12px;
-    width: 300px;
-    border-radius: 5px;
-  }
+@media (min-width: 1200px) {
 
   .full{
+    .carousel-item{
+      min-height:92vh;
+      .menu{
+        //increased width and height of menu picture
+        width: 100vw;
+        min-height: 100vh;
+      }
+    }
     .toggle li:hover {
       font-size: 140%;
       color: #439042;
@@ -654,20 +592,29 @@ and (orientation : portrait) {
     .cursor {
       cursor: pointer;
     }
+    .toggle li {
+      //menu player scouts clubs toggle
+      bottom: 50px;
+      opacity: 0.6;
+      text-indent: 0;
+      margin: 0 40px;
+      border: none;
+      background-color: transparent;
+      text-transform: none;
+    }
     .intro-message {
       .carousel-caption{
-        top: 25%;
-        transform: translateY(-30%);
-        font-size: 0.8em;
+        top:7%;
+        font-size: 0.2em;
         text-align: center;
         img {
           position: relative;
           //logo height
-          height: 200px;
+          height: 175px;
         }
         .main {
           text-transform: uppercase;
-          opacity: 0.6;
+          color: #727a84;
           font-size: 20px;
           margin: 15px;
         }
@@ -675,10 +622,10 @@ and (orientation : portrait) {
           margin-bottom: 15px;
         }
         h1 {
-          margin-top: 20px;
+          margin-top: 15px;
           font-size: 25px;
           text-transform: uppercase;
-          opacity: 0.6;
+          color: #727a84;
         }
         .typewriter {
           //RAISEYOURGAME
@@ -709,17 +656,19 @@ and (orientation : portrait) {
         flex-direction: column;
         justify-content: center;
         padding-bottom: 100px;
+        padding-right: 70px;
       }
       .header{
         text-transform: uppercase;
-        font-size: 7em;
+        font-size: 6rem;
+        letter-spacing: 3px;
       }
       .description{
         font-weight: lighter;
-        width: 30em;
+        letter-spacing: 3px;
         opacity: 0.6;
-        font-size: 2em;
-        margin-top: 0.5em;
+        font-size: 2rem;
+        margin-top: 0.5rem;
       }
       .bar-button {
         width: 200px;
@@ -737,13 +686,12 @@ and (orientation : portrait) {
   #second-page {
     font-size: $main-text-size;
     background: #000000;
-    padding: 50px 100px 100px 100px;
     height: auto;
     .second-layer{
       //parrallax
       height: auto;
       width: auto;
-      padding: 2em;
+      margin: 50px 100px 100px 100px;
       box-shadow: inset 0px 0px 55px #000000;
       border: 2.5px solid #000000;
       background: url('/images/landing-page/BG-second-page.jpg') no-repeat center center fixed;
@@ -752,38 +700,17 @@ and (orientation : portrait) {
       -o-background-size: cover;
       background-size: cover;
     }
-
-    .headtext{
-
-    }
-
-    .challenge,
-    .solution{
-
-    }
-    .subheadCapabilities{
-
-    }
-    .keyDescription{
-      li {
-
-      }
-    }
-
     .row{
       margin: 1em;
     }
-
     .line-down{
       box-sizing: border-box;
       height: 19em;
       border-right: 3px solid $first-touch-white;
     }
-
     .first-line{
       height: 10em;
     }
-
     /*animation*/
     [data-aos="animate-first-line-down"]{
       height: 0em;
@@ -792,7 +719,6 @@ and (orientation : portrait) {
         height: 10em
       }
     }
-
     [data-aos="animate-line-down"]{
       height: 0em;
       transition-property: height;
@@ -801,10 +727,58 @@ and (orientation : portrait) {
       }
     }
   }
-
   #third-page{
     .carousel {
       width: auto;
+    }
+  }
+}
+
+//laptop and desktop responsive window sizes
+@media (max-width: 1200px){
+  .full {
+    .carousel-item {
+      min-height:92vh;
+      .menu {
+        min-height: 100vh;
+      }
+    }
+    .menu{
+      width: 100vw;
+      min-height: 100vh;
+    }
+    .intro-message{
+      .carousel-caption{
+        top: 0;
+      }
+    }
+    .contentSlides {
+      .header {
+        font-size: 6rem;
+      }
+      .description {
+        font-size: 2rem;
+      }
+    }
+    @media (max-width: 850px){
+      .contentSlides {
+        .header {
+          font-size: 4rem;
+        }
+        .description {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  #second-page{
+    .second-layer{
+      margin:0;
+    }
+  }
+  #third-page{
+    .carousel{
+      width: 800px;
+    }
     }
   }
 }
