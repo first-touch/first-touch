@@ -72,7 +72,8 @@
         <div class="position">
           <p class="position-title">Playing position</p>
           <p class="position-content">{{ info.personal_profile.playing_position }}</p>
-          <img class="img-fluid position-map" src="http://www.conceptdraw.com/solution-park/resource/images/solutions/soccer/Sport-Soccer-Football-Formation-4-4-1-1.png" />
+          <!-- <img class="img-fluid position-map" src="http://www.conceptdraw.com/solution-park/resource/images/solutions/soccer/Sport-Soccer-Football-Formation-4-4-1-1.png" /> -->
+          <position-map position="D"/>
         </div>
       </div>
     </div>
@@ -176,12 +177,14 @@
 
 <script>
 import TimelineItem from 'app/components/TimelineItem';
+import PositionMap from './components/PositionMap';
 
 export default {
   name: 'Profile',
   props: ['mine', 'info', 'follow', 'connect'],
   components: {
     'timeline-item': TimelineItem,
-  },
+    'position-map': PositionMap
+  }
 };
 </script>
