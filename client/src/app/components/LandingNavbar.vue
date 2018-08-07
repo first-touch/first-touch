@@ -1,14 +1,14 @@
 <template>
   <b-navbar toggleable="md" variant="" type="" :sticky="sticky" id="landing-navbar">
     <b-nav-toggle target="ft-nav-collapse" />
-    <router-link class="navbar-brand" to="/">
-      <img src="/images/landing-page/ft_logo_navbar.png" alt="Ft logo">
-    </router-link>
+      <a href="/welcome" class="navbar-brand">
+        <img src="/images/landing-page/ft_logo_navbar.png" alt="Ft logo">
+      </a>
     <b-collapse isNav id="ft-nav-collapse">
       <b-nav class="ml-auto navOptions">
-        <li class="nav-item">
-          <a href="/welcome#second-page" class="nav-link">ABOUT</a>
-        </li>
+        <b-nav-item>
+          <router-link to="/">ABOUT</router-link>
+        </b-nav-item>
         <form class="form-inline nav-link">
           <router-link  to="/users/sign_up" class="btn btn-outline-secondary">SIGN UP</router-link>
         </form>

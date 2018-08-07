@@ -566,12 +566,12 @@
         <span class="cRight">&copy;2016</span>
       </div>
       <div class="col-12 col-lg links">
-        <a class="text" href="/">
+        <a class="text" href="/terms_conditions#contact">
           Help
         </a>
       </div>
       <div class="col-12 col-lg links">
-        <a class="text" href="/">
+        <a class="text" href="/terms_conditions#introduction">
           User Agreement
         </a>
       </div>
@@ -661,10 +661,6 @@ export default {
 };
 
 $(document).ready(function () {
-  var windowSize = $(window).width();
-
-  //check width and run
-
   if( $(window).width() < 992) {
     $('.carousel').each(function(){
         $(this).carousel({
@@ -673,9 +669,6 @@ $(document).ready(function () {
     });
   }
   else {
-    //  $(window).width(function(){
-    //    $(window).resize();
-    //  });
     $('#toggle .carousel-item').each(function(){
         var next = $(this).next();
         if (!next.length) {
@@ -697,30 +690,6 @@ $(document).ready(function () {
         interval: false
       })
   }
-
-  // $(window).resize(function () {
-  //    $('#toggle .carousel-item').each(function(){
-  //       var next = $(this).next();
-  //       if (!next.length) {
-  //         next = $(this).siblings(':first');
-  //       }
-  //       next.children(':first-child').clone().appendTo($(this));
-  //       for (var i=0;i<1;i++) {
-  //         next=next.next();
-  //         if (!next.length) {
-  //           next = $(this).siblings(':first');
-  //         }
-  //         next.children(':first-child').clone().appendTo($(this));
-  //       }
-  //     });
-  //     $('#secondpgSlide').carousel({
-  //     interval: false
-  //     })
-  //     $('#toggle').carousel({
-  //       interval: false
-  //     })
-  // });
-
 
 });
 
