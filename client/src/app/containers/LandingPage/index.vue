@@ -154,9 +154,7 @@
     <div id="second-page"> <!-- black background -->
       <div class="container-fluid">
         <div class="second-layer"> <!-- content within parallax -->
-            <div class="row justify-content-center">
-              <div class="first-line line-down"></div>
-            </div>
+
             <div class="row justify-content-center">
               <div class="headText challengeHead">
                 The Challenge
@@ -169,10 +167,6 @@
                   limited budgets, resources and capabilities present a real challenge for today’s professionals
                   as they seek to maximise performance and remain competitive.
               </div>
-            </div>
-
-            <div class="row justify-content-center">
-              <div class="second-line line-down" ></div>
             </div>
 
             <div class="row justify-content-center">
@@ -190,10 +184,6 @@
             </div>
 
             <div class="row justify-content-center">
-              <div class="third-line line-down" ></div>
-            </div>
-
-            <div class="row justify-content-center">
               <div class="headText keyHead">
                 Key Capabilities
               </div>
@@ -201,7 +191,7 @@
 
             <div class="capabilities rowList"> <!-- rowList shown only when screen is large (desktop and laptop)-->
               <div class="row justify-content-center">
-                <div class="col-lg-4" >
+                <div class="col-md-4">
                   <div class="subheadCapabilities">
                     Career Management
                   </div>
@@ -213,7 +203,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-md-4">
                   <div class="subheadCapabilities">
                     Team Management
                   </div>
@@ -225,7 +215,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-md-4">
                   <div class="subheadCapabilities">
                     Performance Insights
                   </div>
@@ -237,7 +227,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-md-4">
                   <div class="subheadCapabilities">
                     Player Development & Fitness
                   </div>
@@ -249,7 +239,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-md-4">
                   <div class="subheadCapabilities">
                     Scouting & Recruitment
                   </div>
@@ -261,7 +251,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-md-4">
                   <div class="subheadCapabilities">
                     Club Management
                   </div>
@@ -290,7 +280,7 @@
               <div class="carousel-item active">
                 <img class="noBG" src="/images/landing-page/team-logo.jpg" alt="First slide">
                 <div class="carousel-caption">
-                  <div class="subheadCapabilities row">
+                  <div class="subheadCapabilities">
                     <div class="col-12">
                     Career Management
                   </div>
@@ -309,7 +299,7 @@
               <div class="carousel-item">
                 <img class="noBG" src="/images/landing-page/team-logo.jpg" alt="First slide">
                 <div class="carousel-caption">
-                  <div class="subheadCapabilities row justify-content-center">
+                  <div class="subheadCapabilities">
                     <div class="col-12">
                       Team Management
                     </div>
@@ -328,7 +318,7 @@
               <div class="carousel-item">
                 <img class="noBG" src="/images/landing-page/team-logo.jpg" alt="First slide">
                 <div class="carousel-caption">
-                  <div class="subheadCapabilities row justify-content-center">
+                  <div class="subheadCapabilities">
                     <div class="col-12">
                       Performance Insights
                     </div>
@@ -347,7 +337,7 @@
               <div class="carousel-item">
                 <img class="noBG" src="/images/landing-page/team-logo.jpg" alt="First slide">
                 <div class="carousel-caption">
-                  <div class="subheadCapabilities row justify-content-center">
+                  <div class="subheadCapabilities">
                     <div class="col-12">
                       Player Development & Fitness
                     </div>
@@ -366,7 +356,7 @@
               <div class="carousel-item">
                 <img class="noBG" src="/images/landing-page/team-logo.jpg" alt="First slide">
                 <div class="carousel-caption">
-                  <div class="subheadCapabilities row justify-content-center">
+                  <div class="subheadCapabilities">
                     <div class="col-12">
                       Scouting & Recruitment
                     </div>
@@ -385,7 +375,7 @@
               <div class="carousel-item">
                 <img class="noBG" src="/images/landing-page/team-logo.jpg" alt="First slide">
                 <div class="carousel-caption">
-                  <div class="subheadCapabilities row justify-content-center">
+                  <div class="subheadCapabilities">
                     <div class="col-12">
                       Club Management
                     </div>
@@ -671,20 +661,22 @@ export default {
 };
 
 $(document).ready(function () {
-  var windowsize = $(window).width();
-  $(window).resize(function() {
-    var windowsize = $(window).width();
-  });
-  if(window.matchMedia("(max-device-width: 992px)").matches){
-     $('.carousel').each(function(){
+  var windowSize = $(window).width();
+
+  //check width and run
+
+  if( $(window).width() < 992) {
+    $('.carousel').each(function(){
         $(this).carousel({
             interval: false
         });
     });
   }
-  else{
-    if (windowsize > 992) {
-      $('#toggle .carousel-item').each(function(){
+  else {
+    //  $(window).width(function(){
+    //    $(window).resize();
+    //  });
+    $('#toggle .carousel-item').each(function(){
         var next = $(this).next();
         if (!next.length) {
           next = $(this).siblings(':first');
@@ -698,22 +690,36 @@ $(document).ready(function () {
           next.children(':first-child').clone().appendTo($(this));
         }
       });
-    }
-    $('#secondpgSlide').carousel({
+      $('#secondpgSlide').carousel({
       interval: false
-    })
-    $('#toggle').carousel({
-      interval: false
-    })
-
-
+      })
+      $('#toggle').carousel({
+        interval: false
+      })
   }
 
-
-
-
-
-
+  // $(window).resize(function () {
+  //    $('#toggle .carousel-item').each(function(){
+  //       var next = $(this).next();
+  //       if (!next.length) {
+  //         next = $(this).siblings(':first');
+  //       }
+  //       next.children(':first-child').clone().appendTo($(this));
+  //       for (var i=0;i<1;i++) {
+  //         next=next.next();
+  //         if (!next.length) {
+  //           next = $(this).siblings(':first');
+  //         }
+  //         next.children(':first-child').clone().appendTo($(this));
+  //       }
+  //     });
+  //     $('#secondpgSlide').carousel({
+  //     interval: false
+  //     })
+  //     $('#toggle').carousel({
+  //       interval: false
+  //     })
+  // });
 
 
 });
