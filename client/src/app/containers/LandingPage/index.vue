@@ -191,7 +191,7 @@
 
             <div class="capabilities rowList"> <!-- rowList shown only when screen is large (desktop and laptop)-->
               <div class="row justify-content-center">
-                <div class="col-md-4">
+                <div class="col-md-6 col-lg-4">
                   <div class="subheadCapabilities">
                     Career Management
                   </div>
@@ -203,7 +203,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6 col-lg-4">
                   <div class="subheadCapabilities">
                     Team Management
                   </div>
@@ -215,7 +215,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6 col-lg-4">
                   <div class="subheadCapabilities">
                     Performance Insights
                   </div>
@@ -227,7 +227,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6 col-lg-4">
                   <div class="subheadCapabilities">
                     Player Development & Fitness
                   </div>
@@ -239,7 +239,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6 col-lg-4">
                   <div class="subheadCapabilities">
                     Scouting & Recruitment
                   </div>
@@ -251,7 +251,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6 col-lg-4">
                   <div class="subheadCapabilities">
                     Club Management
                   </div>
