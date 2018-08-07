@@ -33,7 +33,7 @@
                 <option disabled value="" selected>Day</option>
                 <option v-for="d in 31" :key="d" :value="d">{{ d }}</option>
               </select>
-              <select v-model="month" class="form-control col-md-3">
+              <select v-model="month" class="form-control col-md-6">
                 <option disabled value="" selected>Month</option>
                 <option value="1">January</option>
                 <option value="2">February</option>
@@ -48,7 +48,7 @@
                 <option value="11">November</option>
                 <option value="12">December</option>
               </select>
-              <select v-model="year" class="form-control col-md-6">
+              <select v-model="year" class="form-control col-md-3">
                 <option disabled value="" selected>Year</option>
                 <option v-for="y in validYears" :key="y" :value="y">{{y}}</option>
               </select>
