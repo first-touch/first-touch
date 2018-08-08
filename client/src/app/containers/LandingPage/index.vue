@@ -571,7 +571,7 @@
         </a>
       </div>
       <div class="col-12 col-lg links">
-        <a class="text" href="/terms_conditions#introduction">
+        <a class="text" href="/terms_conditions">
           User Agreement
         </a>
       </div>
@@ -581,8 +581,8 @@
         </a>
       </div>
       <div class="col-12 col-lg links">
-        <a class="text" href="/">
-          Cookie Policy
+        <a class="text" href="/privacy_policy">
+          Privacy Policy
         </a>
       </div>
       <div class="col-12 col-lg links">
