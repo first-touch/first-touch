@@ -1,16 +1,17 @@
 <template>
   <div>
     <landing-navbar sticky/>
-    <div class="row">
-      <div class="col-12">
-        <div class="title-container">
-            <h1 class="title">User Agreement</h1>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 no-padding">
+          <div class="title-container">
+              <h1 class="title">User Agreement</h1>
+          </div>
         </div>
       </div>
 
-    <div class="container-fluid">
       <div class="row">
-        <div class="col-2">
+        <div class="col-2 no-padding">
           <legal-verticaltab/>
         </div>
         <div class="col-8"> <!--contents-->
@@ -513,11 +514,11 @@
         </div>
       </div>
     </div> <!-- container fluid -->
-    </div> <!-- row -->
-
   </div>
 </template>
 <style lang="scss" scoped>
+@import '~stylesheets/variables.scss';
+@import '~stylesheets/common_style';
 @import '~stylesheets/tcpage.scss';
 </style>
 <script>
