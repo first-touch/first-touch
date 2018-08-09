@@ -1,56 +1,78 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <fieldset class="form-group col-md-12">
+    <fieldset class="form-group">
       <label>Your Name</label>
       <div class="row">
-        <input type="text" v-model="first_name" class="form-control col-md-4" placeholder="First Name" />
-        <input type="text" v-model="middle_name" class="form-control col-md-4" placeholder="Middle Name" />
-        <input type="text" v-model="last_name" class="form-control col-md-4" placeholder="Last Name" />
+        <div class="col">
+          <input type="text" v-model="first_name" class="form-control" placeholder="First Name" />
+        </div>
+        <div class="col">
+          <input type="text" v-model="middle_name" class="form-control" placeholder="Middle Name" />
+        </div>
+        <div class="col">
+          <input type="text" v-model="last_name" class="form-control" placeholder="Last Name" />
+        </div>
       </div>
     </fieldset>
-    <fieldset class="form-group col-md-12">
+    <fieldset class="form-group">
       <label>Date Of Birth</label>
       <div class="row">
-        <select v-model="bMonth" class="form-control col-md-3">
-          <option disabled value="">Month</option>
-          <option value="1">January</option>
-          <option value="2">February</option>
-          <option value="3">March</option>
-          <option value="4">April</option>
-          <option value="5">May</option>
-          <option value="6">June</option>
-          <option value="7">July</option>
-          <option value="8">August</option>
-          <option value="9">September</option>
-          <option value="10">October</option>
-          <option value="11">November</option>
-          <option value="12">December</option>
-        </select>
-        <select v-model="bDay" class="form-control col-md-3">
-          <option disabled value="">Date</option>
-          <option v-for="d in 31" :value="d">{{ d }}</option>
-        </select>
-        <input type="number" v-model="bYear" class="form-control col-md-6" placeholder="Year" />
+        <div class="col">
+          <select v-model="bMonth" class="form-control">
+            <option disabled value="">Month</option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+          </select>
+        </div>
+        <div class="col">
+          <select v-model="bDay" class="form-control">
+            <option disabled value="">Date</option>
+            <option v-for="d in 31" :value="d">{{ d }}</option>
+          </select>
+        </div>
+        <div class="col">
+          <input type="number" v-model="bYear" class="form-control" placeholder="Year" />
+        </div>
       </div>
     </fieldset>
-    <fieldset class="form-group col-md-12">
+    <fieldset class="form-group">
       <label>Country</label>
       <div class="row">
-        <input type="number" v-model="country_code" class="form-control col-md-4" placeholder="Country Code" />
-        <input type="text" v-model="place_of_birth" class="form-control col-md-8" placeholder="Place of Birth" />
+        <div class="col">
+          <input type="number" v-model="country_code" class="form-control" placeholder="Country Code" />
+        </div>
+        <div class="col">
+          <input type="text" v-model="place_of_birth" class="form-control" placeholder="Place of Birth" />
+        </div>
       </div>
     </fieldset>
-    <fieldset class="form-group col-md-12">
+    <fieldset class="form-group">
       <label>Physique</label>
       <div class="row">
-        <input type="number" v-model="weight" class="form-control col-md-4" placeholder="Weight" />
-        <input type="number" v-model="height" class="form-control col-md-4" placeholder="Height" />
-        <select v-model="preferred_foot" class="form-control col-md-4">
-          <option disabled value="">Preferred Foot</option>
-          <option value="R">Right</option>
-          <option value="L">Left</option>
-          <option value="B">Both</option>
-        </select>
+        <div class="col">
+          <input type="number" v-model="weight" class="form-control" placeholder="Weight" />
+        </div>
+        <div class="col">
+          <input type="number" v-model="height" class="form-control" placeholder="Height" />
+        </div>
+        <div class="col">
+          <select v-model="preferred_foot" class="form-control">
+            <option disabled value="">Preferred Foot</option>
+            <option value="R">Right</option>
+            <option value="L">Left</option>
+            <option value="B">Both</option>
+          </select>
+        </div>
       </div>
     </fieldset>
     <fieldset class="form-group col-md-12">
