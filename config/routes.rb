@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       resource :users, except: [:show] do
         resources :posts, only: %i[index create], controller: 'users/posts'
       end
+      resources :career_entries, only: %i[create update destroy]
 
       get 'club_token', to: 'users/club_token'
 

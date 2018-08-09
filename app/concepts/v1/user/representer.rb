@@ -10,6 +10,11 @@ module V1
                  extend: V1::PersonalProfile::Representer::Simplified
 
         property :role_name, exec_context: :decorator
+        property :current_club, exec_context: :decorator
+
+        def current_club
+          V1::Club::Representer::Show.new(represented.clubs.first)
+        end
 
         def role_name
           represented.roles.first.name
