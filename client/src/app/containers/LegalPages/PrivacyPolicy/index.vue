@@ -1,21 +1,18 @@
 <template>
   <div>
     <landing-navbar sticky />
-
-    <div class="row">
-      <div class="col-12">
-         <div class="title-container">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="title-container">
           <h1 class="title">Privacy Policy</h1>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class= "col-2">
-        <legal-verticaltab sticky/>
-      </div>
-      <div class= "col-8">
-        <div class="container">
+      <div class="row">
+        <div class= "col-2 no-padding">
+          <legal-verticaltab sticky/>
+        </div>
+        <div class= "col-8">
           <section class="row">
             <div class="col-md-12 introduction">
               <p><em>Effective on March 25, 2018</em></p>
@@ -29,199 +26,203 @@
           </section>
           <hr class="section-separator"/>
           <section class="row legal" id="1">
-            <h2 class="section-title">1. Introduction</h2>
-            <p class="section-text"><em>We are a social network and online platform for football professionals</em></p>
-            <p class="section-text">
-              FirstTouch’s mission is to drive equality and innovation in the ‘beautiful game’. We want to connect every individual involved in and
-              committed to football the world over and in so doing allow both these individuals and the organisations they belong to, become more
-              productive and successful. Our registered users (“Members”) share their professional identities, engage with their network,
-              exchange knowledge and professional insights, post and view relevant content, and find business and career opportunities.
-              Content on some of our services is also visible to unregistered viewers (“Visitors”). We believe that our services allow our
-              Members to effectively compete and achieve their full career potential. The cornerstone of our business is to focus on our
-              Members first.
-            </p>
-            <p class="section-text"><em>We protect your personal information using industry-standard safeguards.</em></p>
-            <p class="section-text"><em>We may share your information with your consent or as required by law, and we will always let you know when we make significant changes to this Privacy Policy.</em></p>
-            <p class="section-text">Maintaining your trust is our top priority, so we adhere to the following principles to protect your privacy:</p>
-            <ul class="section-text">
-              <li>
-                We protect your personal information and will only provide it to third parties: (1) with your consent; (2) where it is
-                necessary to carry out your instructions; (3) as reasonably necessary in order to provide our features and functionality
-                to you; (4) when we reasonably believe it is required by law, subpoena or other legal process; or (5) as necessary to
-                enforce our User Agreement or protect the rights, property, or safety of FirstTouch, our Members and Visitors, and the
-                public
-              </li>
-              <li>
-                We have implemented appropriate security safeguards designed to protect your information in accordance with industry
-                standards.
-              </li>
-            </ul>
-            <p class="section-text">
-              This Privacy Policy applies to FirstTouch.io and all other FirstTouch websites, apps, developer platforms and other products
-              and services (collectively the “Services”). We may modify this Privacy Policy from time to time, and if we make material
-              changes to it, we will provide notice through our Service, or by other means so that you may review the changes before you
-              continue to use our Services.
-              <strong>If you object to any changes, you may close your account. Continuing to use our
-              Services after we publish or communicate a notice about any changes to this Privacy Policy means that you are
-              consenting to the changes.</strong>
-            </p>
+            <div class="col-md-12">
+              <h2 class="section-title">1. Introduction</h2>
+              <p class="section-text"><em>We are a social network and online platform for football professionals</em></p>
+              <p class="section-text">
+                FirstTouch’s mission is to drive equality and innovation in the ‘beautiful game’. We want to connect every individual involved in and
+                committed to football the world over and in so doing allow both these individuals and the organisations they belong to, become more
+                productive and successful. Our registered users (“Members”) share their professional identities, engage with their network,
+                exchange knowledge and professional insights, post and view relevant content, and find business and career opportunities.
+                Content on some of our services is also visible to unregistered viewers (“Visitors”). We believe that our services allow our
+                Members to effectively compete and achieve their full career potential. The cornerstone of our business is to focus on our
+                Members first.
+              </p>
+              <p class="section-text"><em>We protect your personal information using industry-standard safeguards.</em></p>
+              <p class="section-text"><em>We may share your information with your consent or as required by law, and we will always let you know when we make significant changes to this Privacy Policy.</em></p>
+              <p class="section-text">Maintaining your trust is our top priority, so we adhere to the following principles to protect your privacy:</p>
+              <ul class="section-text">
+                <li>
+                  We protect your personal information and will only provide it to third parties: (1) with your consent; (2) where it is
+                  necessary to carry out your instructions; (3) as reasonably necessary in order to provide our features and functionality
+                  to you; (4) when we reasonably believe it is required by law, subpoena or other legal process; or (5) as necessary to
+                  enforce our User Agreement or protect the rights, property, or safety of FirstTouch, our Members and Visitors, and the
+                  public
+                </li>
+                <li>
+                  We have implemented appropriate security safeguards designed to protect your information in accordance with industry
+                  standards.
+                </li>
+              </ul>
+              <p class="section-text">
+                This Privacy Policy applies to FirstTouch.io and all other FirstTouch websites, apps, developer platforms and other products
+                and services (collectively the “Services”). We may modify this Privacy Policy from time to time, and if we make material
+                changes to it, we will provide notice through our Service, or by other means so that you may review the changes before you
+                continue to use our Services.
+                <strong>If you object to any changes, you may close your account. Continuing to use our
+                Services after we publish or communicate a notice about any changes to this Privacy Policy means that you are
+                consenting to the changes.</strong>
+              </p>
+            </div>
           </section>
           <hr class="section-separator">
           <section class="row legal" id="2">
-            <h2 class="section-title">2. What information we collect</h2>
-            <h3 class="subsection-title" id="2a">2.1 Data Controllers</h3>
-            <p class="section-text">
-              <em>
-                Our Privacy Policy applies to any Member or Visitor. We collect information when you use our Services to offer you a
-                personalized and relevant experience, including growing your network and enabling business opportunities.
-              </em>
-            </p>
-            <p class="section-text">
-              <strong>
-                If you have any concern about providing information to us or having such information displayed on our Services or
-                otherwise used in any manner permitted in this Privacy Policy and the User Agreement, you should not become a
-                Member, visit our websites, apps or otherwise use our Services.
-              </strong>
-              If you have already registered, you can close your account.
-            </p>
-            <p class="section-text">We collect your personal information in the following ways:</p>
-            <h3 class="subsection-title" id="2b">2.2 Registration</h3>
-            <p class="section-text"><em>When you create an account with us, we collect information (including your name, email address, and password).</em></p>
-            <p class="section-text">
-              To create an account on FirstTouch, you must provide us with at least your name, email address and/or mobile number, and
-              a password and agree to our <router-link to="/terms_conditions">User Agreement</router-link> and this Privacy Policy, which governs how we treat your information. You
-              may provide additional information during the registration flow (for example, your postal code, job title, and company) to help
-              you build your profile and to provide you more customized services (for example: language-specific profile pages, updates,
-              content, more relevant ads and career opportunities). You understand that, by creating an account, we and others will be
-              able to identify you by your FirstTouch profile. We may also ask for your credit card details if you purchase certain additional
-              services.
-            </p>
-            <h3 class="subsection-title" id="2c">2.3 Profile Information</h3>
-            <p class="section-text">
-              <em>
-                We collect information when you fill out a profile. A complete FirstTouch profile that includes professional details – like your
-                age, nationality, current club, playing position and skills – helps you get found by other people for opportunities.
-              </em>
-            </p>
-            <p class="section-text">
-              After you create an account, you may choose to provide additional information on your FirstTouch profile, such as
-              descriptions of your skills, career history, and career statistics. You can list certifications, awards, professional affiliations,
-              networking objectives, clubs or individuals that you follow, and other information including content. Subject to the settings
-              you choose, your connections may provide recommendations and endorsements of you. Providing additional information
-              enables you to derive more benefit from our Services by helping you express your football identity; find other professionals,
-              opportunities, and information; and help recruiters and business opportunities find you. It also enables us to serve you ads
-              and other relevant content on and off of our Services.
-            </p>
-            <p class="section-text"><em>We collect information and data when your club amends or updates your career history and statistics.</em></p>
-            <p class="section-text">
-              <em>
-                We will collect publicly available data pertaining to your career history and statistics (e.g. clubs played for, appearances,
-                goals, assists, etc.) from other sites and with your permission, we will integrate it with your profile to complement and
-                complete the information you provide.
-              </em>
-            </p>
-            <h3 class="subsection-title" id="2d">2.4 Address Book and Other Services That Sync with FirstTouch</h3>
-            <p class="section-text">
-              <em>
-                We collect information when you sync non-FirstTouch content – like your email address book, mobile device contacts, or
-                calendar – with your account. You can remove your address book and any other synced information whenever you like.
-              </em>
-            </p>
-            <p class="section-text">
-              You may use our address book or “contacts” importer (or other similar features) to upload your address book into our
-              Services. We store this information (including phone numbers) and use it to help you manage and leverage your contacts in
-              connection with our Services. We also use this information to enhance your experience with our Services by helping you to
-              grow your network by: identifying your contacts that are already Members of our Services; providing a template to send
-              invitations on your behalf to your contacts that are not Members; and suggesting people you may know (even if not in your
-              contacts) but are not yet connected with you on our Services (as we may infer from your shared connections or shared
-              managers, employers, educational institutions and other such factors). We may also use this information to show you and
-              other Members that you share the same uploaded contacts who may or may not be Members.
-            </p>
-            <p class="section-text">
-              Please note that when you send an invitation to connect to another individual on our Service (a “connection”) or to join our
-              Service to connect with you, that person may have access to your email address or, for SMS invitations, mobile number
-              because it may be displayed in the invitation. After sending these invitations, we may also remind your invitees of your
-              invitation on your behalf. Your FirstTouch connections will also have access to your email address.
-            </p>
-            <p class="section-text">
-              <strong>Any information that you upload or sync with our Services is covered by the User Agreement and this Privacy
-              Policy. You can remove your information at your convenience</strong> using the features we make available or in accordance
-              with Section 4. You can remove your address book and any other synced information at any time.
-            </p>
-            <h3 class="subsection-title" id="2e">2.5 Customer Service</h3>
-            <p class="section-text"><em>We collect information when you contact us for customer support.</em></p>
-            <p class="section-text">
-              When you contact our customer support services, we may have to access your messages and other contributions to our
-              Services and collect the information we need to categorize your question, respond to it, and, if applicable, investigate any
-              breach of our User Agreement or this Privacy Policy. We also use this information to track potential problems and trends and
-              customize our support responses to better serve you. We do not use this information for advertising.
-            </p>
-            <h3 class="subsection-title" id="2f">2.6 Using the FirstTouch Sites and Applications</h3>
-            <p class="section-text"><em>We collect information when you visit our Services, use our mobile applications, and interact with advertising on and off our Services.</em></p>
-            <p class="section-text">
-              We collect information when you use (whether as a Member or a Visitor) our websites, applications, our platform technology
-              or other Services. For example, we collect information when you view or click on ads on and off our Services, perform a
-              search, import your address book, join and participate in groups, participate in polls, view content, share articles on our
-              Services and apply to jobs through our Services. If you are logged in on <router-link to="/">FirstTouch.io</router-link> or another Service or one of our
-              cookies on your device identifies you, your usage information and the log data described in Section 2.9 of this policy, such
-              as your IP address, will be associated by us with your account. Even if you’re not logged into a Service, we log information
-              about devices used to access our Services, including IP address.
-            </p>
-            <h3 class="subsection-title" id="2g">2.7 Using Third-Party Services and Visiting Third-Party Sites</h3>
-            <p class="section-text">
-              <em>
-                We collect information when you use your account to sign in to other sites or services, and when you view web pages that
-                include our plugins and cookies.
-              </em>
-            </p>
-            <p class="section-text">
-              You allow us to receive information when you use your account to log in to a third-party website or application. Also, when
-              you visit a third-party site that embeds our social plugins we receive information that those pages have loaded in your web
-              browser. If you are logged in as a Member when you visit sites with our plugins, we use this information to recommend
-              tailored content to you. We will use this information to personalize the functionality we provide on third-party sites, including
-              providing you insights from your professional network and allowing you to share information with your network. Our retention
-              of this data is addressed in Section 4.2. We may provide reports containing aggregated impression information to
-              companies hosting our plugins and similar technologies to help them measure traffic to their websites, but no personal data
-            </p>
-            <p class="section-text">
-              You also allow us to receive information about your visits and interaction with the sites and services of our partners that
-              include our cookies and similar technologies, unless you opt out. If you are not a Member, we rely on the online terms
-              between you and our partners.
-            </p>
-            <h3 class="subsection-title" id="2h">2.8 Cookies</h3>
-            <p class="section-text"><em>We use cookies and similar technologies to collect information</em></p>
-            <p class="section-text">
-              We use cookies and similar technologies, including mobile application identifiers, to help us recognize you across different
-              Services, learn about your interests both on and off our Services, improve your experience, increase security, measure use
-              and effectiveness of our Services. We also use these technologies to collect and store information when you interact with
-              services we offer to our partners, such as advertising services. You can control cookies through your browser settings and
-              other tools. <strong>By visiting our Services, you consent to the placement of cookies and beacons in your browser and
-              HTML-based emails in accordance with this Privacy Policy.</strong>
-            </p>
-            <h3 class="subsection-title" id="2i">2.9 Log Files, IP Addresses, and Information About Your Computer and Mobile Device</h3>
-            <p class="section-text"><em>We collect information from the devices and networks that you use to access our Services.</em></p>
-            <p class="section-text">
-              When you visit or leave our Services (whether as a Member or Visitor) by clicking a hyperlink or when you view a third-party
-              site that includes our plugin or cookies (or similar technology), we automatically receive the URL of the site from which you
-              came or the one to which you are directed. Also, advertisers receive the URL of the page that you are on when you click an
-              ad on or through our Services. We also receive the internet protocol (“IP”) address of your computer or the proxy server that
-              you use to access the web, your computer operating system details, your type of web browser, your mobile device (including
-              your mobile device identifier provided by your mobile device operating system), your mobile operating system (if you are
-              accessing FirstTouch using a mobile device), and the name of your ISP or your mobile carrier. We may also receive location
-              data passed to us from third-party services or GPS-enabled devices that you have set up, which we use to show you local
-              information (for example, jobs postings in your location) on our mobile applications and for fraud prevention and security
-              purposes. Most mobile devices allow you to prevent real time location data being sent to us, and of course we will honor
-              your settings.
-            </p>
-            <h3 class="subsection-title" id="2j">2.10 Other</h3>
-            <p class="section-text"><em>We are constantly innovating to improve our Services, which means we may create new ways to collect information on the Services.</em></p>
-            <p class="section-text">
-              Our Services are a dynamic, innovative environment, which means we are always seeking to improve the Services we offer
-              you. We often introduce new features, some of which may result in the collection of new information. Furthermore,
-              partnerships or corporate acquisitions may result in new features, and we may potentially collect new types of information. If
-              we start collecting substantially new types of personal information and materially change how we handle your data, we will
-              modify this Privacy Policy and notify you in accordance with Section 5.2.
-            </p>
+            <div class="col-md-12">
+              <h2 class="section-title">2. What information we collect</h2>
+              <h3 class="subsection-title" id="2a">2.1 Data Controllers</h3>
+              <p class="section-text">
+                <em>
+                  Our Privacy Policy applies to any Member or Visitor. We collect information when you use our Services to offer you a
+                  personalized and relevant experience, including growing your network and enabling business opportunities.
+                </em>
+              </p>
+              <p class="section-text">
+                <strong>
+                  If you have any concern about providing information to us or having such information displayed on our Services or
+                  otherwise used in any manner permitted in this Privacy Policy and the User Agreement, you should not become a
+                  Member, visit our websites, apps or otherwise use our Services.
+                </strong>
+                If you have already registered, you can close your account.
+              </p>
+              <p class="section-text">We collect your personal information in the following ways:</p>
+              <h3 class="subsection-title" id="2b">2.2 Registration</h3>
+              <p class="section-text"><em>When you create an account with us, we collect information (including your name, email address, and password).</em></p>
+              <p class="section-text">
+                To create an account on FirstTouch, you must provide us with at least your name, email address and/or mobile number, and
+                a password and agree to our <router-link to="/terms_conditions">User Agreement</router-link> and this Privacy Policy, which governs how we treat your information. You
+                may provide additional information during the registration flow (for example, your postal code, job title, and company) to help
+                you build your profile and to provide you more customized services (for example: language-specific profile pages, updates,
+                content, more relevant ads and career opportunities). You understand that, by creating an account, we and others will be
+                able to identify you by your FirstTouch profile. We may also ask for your credit card details if you purchase certain additional
+                services.
+              </p>
+              <h3 class="subsection-title" id="2c">2.3 Profile Information</h3>
+              <p class="section-text">
+                <em>
+                  We collect information when you fill out a profile. A complete FirstTouch profile that includes professional details – like your
+                  age, nationality, current club, playing position and skills – helps you get found by other people for opportunities.
+                </em>
+              </p>
+              <p class="section-text">
+                After you create an account, you may choose to provide additional information on your FirstTouch profile, such as
+                descriptions of your skills, career history, and career statistics. You can list certifications, awards, professional affiliations,
+                networking objectives, clubs or individuals that you follow, and other information including content. Subject to the settings
+                you choose, your connections may provide recommendations and endorsements of you. Providing additional information
+                enables you to derive more benefit from our Services by helping you express your football identity; find other professionals,
+                opportunities, and information; and help recruiters and business opportunities find you. It also enables us to serve you ads
+                and other relevant content on and off of our Services.
+              </p>
+              <p class="section-text"><em>We collect information and data when your club amends or updates your career history and statistics.</em></p>
+              <p class="section-text">
+                <em>
+                  We will collect publicly available data pertaining to your career history and statistics (e.g. clubs played for, appearances,
+                  goals, assists, etc.) from other sites and with your permission, we will integrate it with your profile to complement and
+                  complete the information you provide.
+                </em>
+              </p>
+              <h3 class="subsection-title" id="2d">2.4 Address Book and Other Services That Sync with FirstTouch</h3>
+              <p class="section-text">
+                <em>
+                  We collect information when you sync non-FirstTouch content – like your email address book, mobile device contacts, or
+                  calendar – with your account. You can remove your address book and any other synced information whenever you like.
+                </em>
+              </p>
+              <p class="section-text">
+                You may use our address book or “contacts” importer (or other similar features) to upload your address book into our
+                Services. We store this information (including phone numbers) and use it to help you manage and leverage your contacts in
+                connection with our Services. We also use this information to enhance your experience with our Services by helping you to
+                grow your network by: identifying your contacts that are already Members of our Services; providing a template to send
+                invitations on your behalf to your contacts that are not Members; and suggesting people you may know (even if not in your
+                contacts) but are not yet connected with you on our Services (as we may infer from your shared connections or shared
+                managers, employers, educational institutions and other such factors). We may also use this information to show you and
+                other Members that you share the same uploaded contacts who may or may not be Members.
+              </p>
+              <p class="section-text">
+                Please note that when you send an invitation to connect to another individual on our Service (a “connection”) or to join our
+                Service to connect with you, that person may have access to your email address or, for SMS invitations, mobile number
+                because it may be displayed in the invitation. After sending these invitations, we may also remind your invitees of your
+                invitation on your behalf. Your FirstTouch connections will also have access to your email address.
+              </p>
+              <p class="section-text">
+                <strong>Any information that you upload or sync with our Services is covered by the User Agreement and this Privacy
+                Policy. You can remove your information at your convenience</strong> using the features we make available or in accordance
+                with Section 4. You can remove your address book and any other synced information at any time.
+              </p>
+              <h3 class="subsection-title" id="2e">2.5 Customer Service</h3>
+              <p class="section-text"><em>We collect information when you contact us for customer support.</em></p>
+              <p class="section-text">
+                When you contact our customer support services, we may have to access your messages and other contributions to our
+                Services and collect the information we need to categorize your question, respond to it, and, if applicable, investigate any
+                breach of our User Agreement or this Privacy Policy. We also use this information to track potential problems and trends and
+                customize our support responses to better serve you. We do not use this information for advertising.
+              </p>
+              <h3 class="subsection-title" id="2f">2.6 Using the FirstTouch Sites and Applications</h3>
+              <p class="section-text"><em>We collect information when you visit our Services, use our mobile applications, and interact with advertising on and off our Services.</em></p>
+              <p class="section-text">
+                We collect information when you use (whether as a Member or a Visitor) our websites, applications, our platform technology
+                or other Services. For example, we collect information when you view or click on ads on and off our Services, perform a
+                search, import your address book, join and participate in groups, participate in polls, view content, share articles on our
+                Services and apply to jobs through our Services. If you are logged in on <router-link to="/">FirstTouch.io</router-link> or another Service or one of our
+                cookies on your device identifies you, your usage information and the log data described in Section 2.9 of this policy, such
+                as your IP address, will be associated by us with your account. Even if you’re not logged into a Service, we log information
+                about devices used to access our Services, including IP address.
+              </p>
+              <h3 class="subsection-title" id="2g">2.7 Using Third-Party Services and Visiting Third-Party Sites</h3>
+              <p class="section-text">
+                <em>
+                  We collect information when you use your account to sign in to other sites or services, and when you view web pages that
+                  include our plugins and cookies.
+                </em>
+              </p>
+              <p class="section-text">
+                You allow us to receive information when you use your account to log in to a third-party website or application. Also, when
+                you visit a third-party site that embeds our social plugins we receive information that those pages have loaded in your web
+                browser. If you are logged in as a Member when you visit sites with our plugins, we use this information to recommend
+                tailored content to you. We will use this information to personalize the functionality we provide on third-party sites, including
+                providing you insights from your professional network and allowing you to share information with your network. Our retention
+                of this data is addressed in Section 4.2. We may provide reports containing aggregated impression information to
+                companies hosting our plugins and similar technologies to help them measure traffic to their websites, but no personal data
+              </p>
+              <p class="section-text">
+                You also allow us to receive information about your visits and interaction with the sites and services of our partners that
+                include our cookies and similar technologies, unless you opt out. If you are not a Member, we rely on the online terms
+                between you and our partners.
+              </p>
+              <h3 class="subsection-title" id="2h">2.8 Cookies</h3>
+              <p class="section-text"><em>We use cookies and similar technologies to collect information</em></p>
+              <p class="section-text">
+                We use cookies and similar technologies, including mobile application identifiers, to help us recognize you across different
+                Services, learn about your interests both on and off our Services, improve your experience, increase security, measure use
+                and effectiveness of our Services. We also use these technologies to collect and store information when you interact with
+                services we offer to our partners, such as advertising services. You can control cookies through your browser settings and
+                other tools. <strong>By visiting our Services, you consent to the placement of cookies and beacons in your browser and
+                HTML-based emails in accordance with this Privacy Policy.</strong>
+              </p>
+              <h3 class="subsection-title" id="2i">2.9 Log Files, IP Addresses, and Information About Your Computer and Mobile Device</h3>
+              <p class="section-text"><em>We collect information from the devices and networks that you use to access our Services.</em></p>
+              <p class="section-text">
+                When you visit or leave our Services (whether as a Member or Visitor) by clicking a hyperlink or when you view a third-party
+                site that includes our plugin or cookies (or similar technology), we automatically receive the URL of the site from which you
+                came or the one to which you are directed. Also, advertisers receive the URL of the page that you are on when you click an
+                ad on or through our Services. We also receive the internet protocol (“IP”) address of your computer or the proxy server that
+                you use to access the web, your computer operating system details, your type of web browser, your mobile device (including
+                your mobile device identifier provided by your mobile device operating system), your mobile operating system (if you are
+                accessing FirstTouch using a mobile device), and the name of your ISP or your mobile carrier. We may also receive location
+                data passed to us from third-party services or GPS-enabled devices that you have set up, which we use to show you local
+                information (for example, jobs postings in your location) on our mobile applications and for fraud prevention and security
+                purposes. Most mobile devices allow you to prevent real time location data being sent to us, and of course we will honor
+                your settings.
+              </p>
+              <h3 class="subsection-title" id="2j">2.10 Other</h3>
+              <p class="section-text"><em>We are constantly innovating to improve our Services, which means we may create new ways to collect information on the Services.</em></p>
+              <p class="section-text">
+                Our Services are a dynamic, innovative environment, which means we are always seeking to improve the Services we offer
+                you. We often introduce new features, some of which may result in the collection of new information. Furthermore,
+                partnerships or corporate acquisitions may result in new features, and we may potentially collect new types of information. If
+                we start collecting substantially new types of personal information and materially change how we handle your data, we will
+                modify this Privacy Policy and notify you in accordance with Section 5.2.
+              </p>
+            </div>
           </section>
           <hr class="section-separator">
           <section class="row legal" id="3">
@@ -522,85 +523,82 @@
             </p>
           </section>
         </div>
-      </div>
-      <div class= "col-2">
-        <div class="table-of-content">
-          <h2 class="toc-title">Table of Contents:</h2>
-          <ol class="toc-list">
-            <li>
-              <a href="#1">Introduction</a>
-              <ol class="toc-list-lv2">
-                <li><a href="#1a">About FirstTouch</a></li>
-                <li><a href="#1b">Industry-standard safeguards</a></li>
-                <li><a href="#1c">Sharing your information</a></li>
-                <li><a href="#1d">Policy Changes</a></li>
-              </ol>
-            </li>
-            <li>
-              <a href="#2">What information we collect</a>
-              <ol class="toc-list-lv2">
-                <li><a href="#2a">Data Controllers - when, why</a></li>
-                <li><a href="#2b">Registration</a></li>
-                <li><a href="#2c">Profile Information</a></li>
-                <li><a href="#2d">Address Book and Other Services That Sync with FirstTouch</a></li>
-                <li><a href="#2e">Customer Service</a></li>
-                <li><a href="#2f">Using the FirstTouch Sites and Applications</a></li>
-                <li><a href="#2g">Using Third-Party Services and Visiting Third-Party Sites</a></li>
-                <li><a href="#2h">Cookies</a></li>
-                <li><a href="#2i">Advertising Technologies and Web Beacons</a></li>
-                <li><a href="#2j">Log Files, IP Addresses, and Information About Your Computer and Mobile Device</a></li>
-                <li><a href="#2k">Other</a></li>
-              </ol>
-            </li>
-            <li>
-              <a href="#3">How we use your personal info</a>
-              <ol class="toc-list-lv2">
-                <li><a href="#3a">Consent to FirstTouch Processing Information About You</a></li>
-                <li><a href="#3b">FirstTouch Communications</a></li>
-                <li><a href="#3c">User Communications</a></li>
-                <li><a href="#3d">Service Development; Customized Experience</a></li>
-                <li><a href="#3e">Sharing Information with Third Parties</a></li>
-                <li><a href="#3e">Third Parties Using FirstTouch Platform Services</a></li>
-                <li><a href="#3f">Polls and Surveys</a></li>
-                <li><a href="#3g">Search</a></li>
-                <li><a href="#3h">Content</a></li>
-                <li><a href="#3i">Scouting, Marketing and Business Solutions</a></li>
-                <li><a href="#3f">Pages for Clubs, Champions, and Other Entities</a></li>
-                <li><a href="#3k">Compliance with Legal Process and Other Disclosures</a></li>
-                <li><a href="#3l">Disclosures to Others as the Result of a Change in Control or Sale of FirstTouch Group Ltd</a></li>
-                <li><a href="#3m">Service Providers</a></li>
-                <li><a href="#3n">Data Processing Outside Your Country</a></li>
-              </ol>
-            </li>
-            <li>
-              <a href="#4">Your Choices &amp; Obligations</a>
-              <ol class="toc-list-lv2">
-                <li><a href="#4a">Rights to Access, Correct, or Delete Your Information, and Closing Your Account</a></li>
-                <li><a href="#4b">Data Retention</a></li>
-              </ol>
-            </li>
-            <li>
-              <a href="#5">Important Information</a>
-              <ol class="toc-list-lv2">
-                <li><a href="#5a">Minimum Age</a></li>
-                <li><a href="#5b">TRUSTe and Safe Harbor</a></li>
-                <li><a href="#5c">Changes to this Privacy Policy</a></li>
-                <li><a href="#5d">Security</a></li>
-              </ol>
-            </li>
-            <li><a href="#6">How To Contact Us</a></li>
-          </ol>
+        <div class= "col-2">
+          <div class="table-of-content">
+            <h2 class="toc-title">Table of Contents:</h2>
+            <ol class="toc-list">
+              <li>
+                <a href="#1">Introduction</a>
+                <ol class="toc-list-lv2">
+                  <li><a href="#1a">About FirstTouch</a></li>
+                  <li><a href="#1b">Industry-standard safeguards</a></li>
+                  <li><a href="#1c">Sharing your information</a></li>
+                  <li><a href="#1d">Policy Changes</a></li>
+                </ol>
+              </li>
+              <li>
+                <a href="#2">What information we collect</a>
+                <ol class="toc-list-lv2">
+                  <li><a href="#2a">Data Controllers - when, why</a></li>
+                  <li><a href="#2b">Registration</a></li>
+                  <li><a href="#2c">Profile Information</a></li>
+                  <li><a href="#2d">Address Book and Other Services That Sync with FirstTouch</a></li>
+                  <li><a href="#2e">Customer Service</a></li>
+                  <li><a href="#2f">Using the FirstTouch Sites and Applications</a></li>
+                  <li><a href="#2g">Using Third-Party Services and Visiting Third-Party Sites</a></li>
+                  <li><a href="#2h">Cookies</a></li>
+                  <li><a href="#2i">Advertising Technologies and Web Beacons</a></li>
+                  <li><a href="#2j">Log Files, IP Addresses, and Information About Your Computer and Mobile Device</a></li>
+                  <li><a href="#2k">Other</a></li>
+                </ol>
+              </li>
+              <li>
+                <a href="#3">How we use your personal info</a>
+                <ol class="toc-list-lv2">
+                  <li><a href="#3a">Consent to FirstTouch Processing Information About You</a></li>
+                  <li><a href="#3b">FirstTouch Communications</a></li>
+                  <li><a href="#3c">User Communications</a></li>
+                  <li><a href="#3d">Service Development; Customized Experience</a></li>
+                  <li><a href="#3e">Sharing Information with Third Parties</a></li>
+                  <li><a href="#3e">Third Parties Using FirstTouch Platform Services</a></li>
+                  <li><a href="#3f">Polls and Surveys</a></li>
+                  <li><a href="#3g">Search</a></li>
+                  <li><a href="#3h">Content</a></li>
+                  <li><a href="#3i">Scouting, Marketing and Business Solutions</a></li>
+                  <li><a href="#3f">Pages for Clubs, Champions, and Other Entities</a></li>
+                  <li><a href="#3k">Compliance with Legal Process and Other Disclosures</a></li>
+                  <li><a href="#3l">Disclosures to Others as the Result of a Change in Control or Sale of FirstTouch Group Ltd</a></li>
+                  <li><a href="#3m">Service Providers</a></li>
+                  <li><a href="#3n">Data Processing Outside Your Country</a></li>
+                </ol>
+              </li>
+              <li>
+                <a href="#4">Your Choices &amp; Obligations</a>
+                <ol class="toc-list-lv2">
+                  <li><a href="#4a">Rights to Access, Correct, or Delete Your Information, and Closing Your Account</a></li>
+                  <li><a href="#4b">Data Retention</a></li>
+                </ol>
+              </li>
+              <li>
+                <a href="#5">Important Information</a>
+                <ol class="toc-list-lv2">
+                  <li><a href="#5a">Minimum Age</a></li>
+                  <li><a href="#5b">TRUSTe and Safe Harbor</a></li>
+                  <li><a href="#5c">Changes to this Privacy Policy</a></li>
+                  <li><a href="#5d">Security</a></li>
+                </ol>
+              </li>
+              <li><a href="#6">How To Contact Us</a></li>
+            </ol>
+          </div>
         </div>
       </div>
     </div>
-
-
-
-
-
   </div>
 </template>
 <style lang="scss" scoped>
+@import '~stylesheets/variables.scss';
+@import '~stylesheets/common_style';
 @import '~stylesheets/tcpage.scss';
 </style>
 <script>
