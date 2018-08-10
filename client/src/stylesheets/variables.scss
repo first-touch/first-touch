@@ -4,11 +4,18 @@ $navbar-background-color-faded: rgba(33,34,35,0.8);
 $landing-page-dark-background-color: #191A1B;
 $background-color: #343434;
 $main-header-color: #A8CB5C;
+
 $button-background-colour: #439042;
 $button-border: solid 2px #4BBA63;
 $button-box-shadow: 3px 3px 12px #000000;
-$second-layer-border:solid 2px #272727;
+$button-background-colour-on-hover: #4BBA63;
+$button-border-on-hover: 2px solid rgb(84, 207, 111);
+$button-border-on-hover-box-shadow: 3px 3px 20px #000000;
+
+$second-layer-border: 2.5px solid #000000;
 $second-layer-shadow: 0 0 10px #272727, 0 0 15px #063b04, 0 0 10px 10px #070707;
+$second-layer-box-shadow: inset 0px 0px 55px #000000;
+$footer-text-color: #666464;
 
 // $secondary-header-color: #6DA87D;
 $secondary-header-color: #4BBA63;
@@ -23,6 +30,22 @@ $first-touch-white-alpha-70: rgba(255,255,255,0.7);
 $important-size: 1.3em;
 $main-text-size: 0.98em;
 $main-subtitle-text-size: 1.2em;
+
+$first-main-text: 1.5em;
+
+$content-slides-header: 7em;
+$content-slides-description: 2rem;
+
+$second-page-header-font: 1.875rem; //h2 size
+$second-page-sub-font: 1.3rem;
+
+$third-page-polaroid-title: 1em;
+$third-page-polaroid-description: 0.9em;
+
+$page-header: 3.3em;
+$letter-spacing: 3px;
+$letter-spacing-medium: 1.5px;
+$letter-spacing-small: 1px;
 
 //dimensions
 $navbar-height: 75px;
