@@ -2,8 +2,8 @@
   <div>
     <landing-navbar sticky/>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-12 no-padding">
+      <div class="row no-padding">
+        <div class="col-12">
           <div class="title-container">
               <h1 class="title">User Agreement</h1>
           </div>
@@ -15,21 +15,21 @@
           <legal-verticaltab/>
         </div>
         <div class="col-8"> <!--contents-->
-          <div class="container">
-            <section class="row">
-              <div class="col-md-12 introduction">
-                <p><em>Effective on March 17, 2018</em></p>
-                <p>
-                  We are happy you have decided to sign up to FirstTouch and we truly hope our services and apps
-                  meet your needs! We just wanted to make sure that you are aware that when you sign up to use
-                  our products and services, you are agreeing to our terms, so please take a few minutes
-                  to read over this User Agreement.
-                </p>
-                <p><strong>Please note you are entering into a legally binding agreement</strong></p>
-              </div>
-            </section>
-            <hr class="section-separator"/>
-            <section class="row legal" id="introduction">
+          <section class="row">
+            <div class="col-12 introduction">
+              <p><em>Effective on March 17, 2018</em></p>
+              <p>
+                We are happy you have decided to sign up to FirstTouch and we truly hope our services and apps
+                meet your needs! We just wanted to make sure that you are aware that when you sign up to use
+                our products and services, you are agreeing to our terms, so please take a few minutes
+                to read over this User Agreement.
+              </p>
+              <p><strong>Please note you are entering into a legally binding agreement</strong></p>
+            </div>
+          </section>
+          <hr class="section-separator"/>
+          <section class="row legal" id="introduction">
+            <div class="col-12">
               <h2 class="section-title">1. Introduction</h2>
               <p class="section-text">
                 We are a social network and online platform for individuals and organisations who choose to
@@ -75,9 +75,11 @@
                 Registered users of our Services are "Members" and unregistered users are "Visitors". This Agreement
                 applies to both
               </p>
-            </section>
-            <hr class="section-separator"/>
-            <section class="row legal" id="obligations">
+            </div>
+          </section>
+          <hr class="section-separator"/>
+          <section class="row legal" id="obligations">
+            <div class="col-12">
               <h2 class="section-title">2. Obligations</h2>
               <h3 class="subsection-title">2.1 Service Eligibility</h3>
               <p class="section-text"><strong>Here are some promises you make to us in this Agreement:</strong></p>
@@ -189,9 +191,11 @@
                 We are not obligated to publish any information or content on our Service and can remove it in our sole discretion,
                 with or without notice
               </p>
-            </section>
-            <hr  class="section-separator" />
-            <section class="row legal" id="rights">
+            </div>
+          </section>
+          <hr  class="section-separator" />
+          <section class="row legal" id="rights">
+            <div class="col-12">
               <h2 class="section-title">3. Rights and Limits</h2>
               <h3 class="subsection-title">3.1 Your License to FirstTouch</h3>
               <p class="section-text">
@@ -309,9 +313,11 @@
                 trademarks or registered trademarks of FirstTouch. Other trademarks and logos used in connection with the
                 Services may be the trademarks of their respective owners.
               </p>
-            </section>
-            <hr  class="section-separator" />
-            <section class="row legal" id="disclaimer">
+            </div>
+          </section>
+          <hr  class="section-separator" />
+          <section class="row legal" id="disclaimer">
+            <div class="col-12">
               <h2 class="section-title">4. Disclaimer and Limit of Liability</h2>
               <h3 class="subsection-title">4.1 No Warranty</h3>
               <p class="section-text"><strong>This is our disclaimer of legal liability for the quality, safety, or reliability of our Services.</strong></p>
@@ -344,9 +350,11 @@
               <p class="section-text">
                 SOME LAWS DO NOT ALLOW THE LIMITATION OR EXCLUSION OF LIABILITY, SO THESE LIMITS MAY NOT APPLY TO YOU.
               </p>
-            </section>
-            <hr  class="section-separator" />
-            <section class="row legal" id="coc">
+            </div>
+          </section>
+          <hr  class="section-separator" />
+          <section class="row legal" id="coc">
+            <div class="col-12">
               <h1 class="section-title">5. FirstTouch Code of Conduct</h1>
               <h3 class="subsection-title">5.1 Safety</h3>
               <p class="section-text"><strong>You agree to help keep FirstTouch safe.</strong></p>
@@ -378,9 +386,11 @@
                 <li>You will not post anyone's identification documents or sensitive financial information on FirstTouch without prior approval from FirstTouch and the owner(s) of said documents and/or financial information.</li>
                 <li>You will not tag users or send email invitations to non-users without their consent</li>
               </ol>
-            </section>
-            <hr  class="section-separator" />
-            <section class="row legal" id="termination">
+            </div>
+          </section>
+          <hr  class="section-separator" />
+          <section class="row legal" id="termination">
+            <div class="col-12">
               <h2 class="section-title">6. Termination</h2>
               <p class="section-text"><strong>We can each end this Agreement anytime we want with notice to the other.</strong></p>
               <p class="section-text">
@@ -395,9 +405,11 @@
                 <li>Sections 4, 7, 8 and 9 of this Agreement</li>
                 <li>Any amounts owed by either party prior to termination remain owed after termination.</li>
               </ul>
-            </section>
-            <hr  class="section-separator" />
-            <section class="row legal" id="law">
+            </div>
+          </section>
+          <hr  class="section-separator" />
+          <section class="row legal" id="law">
+            <div class="col-12">
               <h2 class="section-title">7. Governing Law & Dispute Resolution</h2>
               <p class="section-text"><strong>This agreement is governed by and construed in accordance with the Laws of Gibraltar.</strong></p>
               <p class="section-text">
@@ -408,9 +420,11 @@
                   in any other court that has jurisdiction.
                 </strong>
               </p>
-            </section>
-            <hr  class="section-separator" />
-            <section class="row legal" id="complaints">
+            </div>
+          </section>
+          <hr  class="section-separator" />
+          <section class="row legal" id="complaints">
+            <div class="col-12">
               <h2 class="section-title">8. Complaints Regarding Content and Indemnity</h2>
               <p class="section-text">
                 We respect the intellectual property rights of others. We require that information posted by
@@ -427,9 +441,11 @@
                 offensive, inappropriate, obscene, unlawful or otherwise objectionable content or information you may
                 encounter on FirstTouch. We are not responsible for the conduct, whether online or offline, of any user of FirstTouch.
               </p>
-            </section>
-            <hr  class="section-separator" />
-            <section class="row legal" id="general">
+            </div>
+          </section>
+          <hr  class="section-separator" />
+          <section class="row legal" id="general">
+            <div class="col-12">
               <h2 class="section-title">9. General Terms</h2>
               <h3 class="subsection-title">9.1 Reading the agreement</h3>
               <p class="section-text"><strong>Here are some important details about how to read the Agreement.</strong></p>
@@ -472,9 +488,11 @@
                 <li>Community Standards: These guidelines outline our expectations regarding the content you post to FirstTouch and your activity on FirstTouch. </li>
                 <li>Complaints: Policy and process to manage complaints against Members.</li>
               </ul>
-            </section>
-            <hr  class="section-separator" />
-            <section class="row legal" id="contact">
+            </div>
+          </section>
+          <hr  class="section-separator" />
+          <section class="row legal" id="contact">
+            <div class='col-12'>
               <h2 class="section-title">10. How To Contact Us</h2>
               <p class="section-text">If you want to send us notices or service of process, please contact us:</p>
               <p class="section-text"><strong>ONLINE at: contact@firsttouch.io</strong></p>
@@ -492,8 +510,9 @@
                 <br/>
                 Country
               </p>
-            </section>
-          </div>
+            </div>
+          </section>
+
         </div>
         <div class="col-2">
           <div class="table-of-content">
