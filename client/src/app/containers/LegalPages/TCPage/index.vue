@@ -537,6 +537,8 @@
 @import '~stylesheets/variables.scss';
 @import '~stylesheets/common_style';
 @import '~stylesheets/tcpage.scss';
+// @import 'tocbot/src/scss/tocbot-core';
+// @import 'tocbot/src/scss/tocbot-default-theme';
 </style>
 <script>
 import LandingNavbar from 'app/components/LandingNavbar';

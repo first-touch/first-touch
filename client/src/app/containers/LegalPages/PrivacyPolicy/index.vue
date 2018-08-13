@@ -12,7 +12,7 @@
         <div class= "col-12 col-lg-2 no-padding">
           <legal-verticaltab sticky/>
         </div>
-        <div class="col-12 col-lg-8">
+        <div class="col-12 col-lg-8 js-toc-content">
           <div class="row">
             <div class="col-12 introduction">
               <p><em>Effective on March 25, 2018</em></p>
@@ -531,8 +531,8 @@
             </div>
           </section>
         </div>
-        <div class= "col-2 d-none d-lg-block">
-          <div class="table-of-content">
+        <div class= "col-2 d-none d-lg-block js-toc">
+          <!-- <div class="table-of-content">
             <h2 class="toc-title">Table of Contents:</h2>
             <ol class="toc-list">
               <li>
@@ -598,7 +598,7 @@
               </li>
               <li><a href="#6">How To Contact Us</a></li>
             </ol>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -608,8 +608,11 @@
 @import '~stylesheets/variables.scss';
 @import '~stylesheets/common_style';
 @import '~stylesheets/tcpage.scss';
+@import '~tocbot_dist/tocbot';
+@import '~tocbot_dist/styles';
 </style>
 <script>
+import tocbot from 'tocbot'
 import LandingNavbar from 'app/components/LandingNavbar';
 import LegalVerticalTab from 'app/containers/LegalPages/components/LegalVerticalTab';
 export default {
@@ -618,5 +621,15 @@ export default {
     'landing-navbar': LandingNavbar,
     'legal-verticaltab': LegalVerticalTab,
   },
+  mounted() {
+    tocbot.init({
+      // Where to render the table of contents.
+      tocSelector: '.js-toc',
+      // Where to grab the headings to build the table of contents.
+      contentSelector: '.js-toc-content',
+      // Which headings to grab inside of the contentSelector element.
+      headingSelector: 'h2, h3',
+    });
+  }
 };
 </script>
