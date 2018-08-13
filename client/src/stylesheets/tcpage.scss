@@ -21,13 +21,13 @@ section.legal {
 }
 
 .section-separator {
-  margin-top: 70px;
+  margin-top: 50px;
 }
 
 .title-container {
   background: url('/images/landing-page/team-logo.jpg') no-repeat center center;
   background-size: cover;
-  width: 100%;
+  width: 100vw;
   height: 150px;
   display: flex;
   justify-content: center;
@@ -53,11 +53,12 @@ section.legal {
 .table-of-content {
   top: 10%;
   position: sticky;
+  height: 630px;
   overflow: auto;
-  height: 700px;
   margin-top: 100px;
   padding: 36px 15px 42px;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
   .toc-title {
     margin: auto auto 30px 30px;
     font-size: 21px;
@@ -84,6 +85,10 @@ section.legal {
       }
     }
   }
+}
+
+section {
+  padding-top:78px;
 }
 
 .section-title,
