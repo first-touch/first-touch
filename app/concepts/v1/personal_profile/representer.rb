@@ -16,7 +16,7 @@ module V1
         property :height
         property :preferred_foot
         property :languages
-        property :playing_position
+        property :playing_positions
         property :pro_status
         property :total_caps
       end
