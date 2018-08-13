@@ -10,6 +10,6 @@ class CareerEntry < ApplicationRecord
 
   def start_date_before_end_date
     return if start_date < end_date
-    errors.add(:start_date, I18n.t('carrer.invalid_dates'))
+    errors.add(:start_date, I18n.t('career.invalid_dates'))
   end
 end
