@@ -9,11 +9,11 @@
       </div>
 
       <div class="row">
-        <div class= "col-2 no-padding">
+        <div class= "col-12 col-lg-2 no-padding">
           <legal-verticaltab sticky/>
         </div>
-        <div class= "col-8">
-          <section class="row">
+        <div class="col-12 col-lg-8">
+          <div class="row">
             <div class="col-12 introduction">
               <p><em>Effective on March 25, 2018</em></p>
               <p>
@@ -23,7 +23,7 @@
                 - to always feel informed and empowered with respect to your privacy on FirstTouch.
               </p>
             </div>
-          </section>
+          </div>
           <hr class="section-separator"/>
           <section class="row legal" id="1">
             <div class="col-12">
@@ -531,7 +531,7 @@
             </div>
           </section>
         </div>
-        <div class= "col-lg-2">
+        <div class= "col-2 d-none d-lg-block">
           <div class="table-of-content">
             <h2 class="toc-title">Table of Contents:</h2>
             <ol class="toc-list">

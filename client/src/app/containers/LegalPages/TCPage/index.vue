@@ -3,19 +3,17 @@
     <landing-navbar sticky/>
     <div class="container-fluid">
       <div class="row no-padding">
-        <div class="col-12">
-          <div class="title-container">
-              <h1 class="title">User Agreement</h1>
-          </div>
+        <div class="title-container">
+            <h1 class="title">User Agreement</h1>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-2 no-padding">
+        <div class="col-12 col-lg-2 no-padding">
           <legal-verticaltab/>
         </div>
-        <div class="col-8"> <!--contents-->
-          <section class="row">
+        <div class="col-12 col-lg-8"> <!--contents-->
+          <div class="row">
             <div class="col-12 introduction">
               <p><em>Effective on March 17, 2018</em></p>
               <p>
@@ -26,7 +24,7 @@
               </p>
               <p><strong>Please note you are entering into a legally binding agreement</strong></p>
             </div>
-          </section>
+          </div>
           <hr class="section-separator"/>
           <section class="row legal" id="introduction">
             <div class="col-12">
@@ -514,7 +512,7 @@
           </section>
 
         </div>
-        <div class="col-2">
+        <div class="col-2 d-none d-lg-block">
           <div class="table-of-content">
             <h2 class="toc-title">Table of Contents:</h2>
             <ol class="toc-list">
