@@ -9,7 +9,7 @@ module FirstTouch
         end
       },
       deleted: {
-        rule: ->(result) { result.success? && result['model.operation'] == :destroy },
+        rule: ->(result) { result.success? && result['model.action'] == :destroy },
         resolve: lambda do |result, _representer|
           { 'data': { id: result['model'].id },
             'status': :ok }
