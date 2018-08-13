@@ -1,6 +1,6 @@
 module V1
   module CareerEntry
-    class Delete < OPL::Operation
+    class Delete < FirstTouch::Operation
       step Model(::CareerEntry, :find_by)
       failure :model_not_found!, fail_fast: true
       step Policy::Guard(:owns_career_entry?, name: :owns_career_entry)

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      get 'settings/playing_positions', controller: :configurations, action: :playing_positions
       post 'authenticate', controller: :authentication, action: :authenticate
       get 'validate', controller: :authentication, action: :validate
       post 'logout', controller: :authentication, action: :logout
