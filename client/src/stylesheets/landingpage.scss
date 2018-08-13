@@ -38,13 +38,13 @@ li {
 }
 
 .navbar {
-  background-color: $navbar-background-color;
-  height: $navbar-height;
+  background-color: $navbar-background-color2;
+  height: $navbar-height2;
   line-height: $navbar-image-line-height;
 
   .navbar-brand {
     img {
-      height: $navbar-logo-height;
+      height: $navbar-logo-height2;
       bottom: 10px;
       left:0;
     }
@@ -85,7 +85,7 @@ li {
   padding: 7px 12px 6px 12px;
   width: 250px;
   border-radius: 5px;
-  background-color: $button-background-colour;
+  background-color: $button-background-colour2;
   border: $button-border;
   box-shadow: $button-box-shadow;
   text-align: center;
@@ -125,16 +125,16 @@ li {
 }
 
 .full {
-  background: $navbar-background-color;
+  background: $navbar-background-color2;
   .carousel {
     display: contents;
   }
   .toggle .active {
-    color: $button-background-colour;
+    color: $button-background-colour2;
   }
   .toggle li:hover {
     font-size: 140%;
-    color: $button-background-colour;
+    color: $button-background-colour2;
   }
   .cursor {
     cursor: pointer;
@@ -142,7 +142,7 @@ li {
   .toggle li {
     //menu player scouts clubs toggle
     bottom: 50px;
-    color: $main-text-color;
+    opacity: 0.6;
     text-indent: 0;
     margin: 0 40px;
     border: none;
@@ -314,7 +314,7 @@ li {
 }
 
 #third-page {
-  background: $navbar-background-color;
+  background: $navbar-background-color2;
   padding-top: 100px;
   padding-bottom: 100px;
   .header {
@@ -361,7 +361,7 @@ li {
   }
   .polaroid-title {
     text-align: left;
-    color: $navbar-background-color;
+    color: $navbar-background-color2;
     text-transform: lowercase;
     font-weight: bold;
     padding: 50px 0 0 10px;
@@ -371,7 +371,7 @@ li {
     position: relative;
     text-transform: lowercase;
     font-size: $third-page-polaroid-description;
-    color: $navbar-background-color;
+    color: $navbar-background-color2;
     text-align: left;
     padding-left: 10px;
     padding-top: 0;
