@@ -608,8 +608,8 @@
 @import '~stylesheets/variables.scss';
 @import '~stylesheets/common_style';
 @import '~stylesheets/tcpage.scss';
-@import '~tocbot_dist/tocbot';
-@import '~tocbot_dist/styles';
+@import '~tocbot_dist/tocbot.css';
+@import '~tocbot_dist/styles.css';
 </style>
 <script>
 import tocbot from 'tocbot'
