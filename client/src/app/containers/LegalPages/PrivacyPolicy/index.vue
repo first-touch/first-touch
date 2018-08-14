@@ -25,9 +25,9 @@
             </div>
           </div>
           <hr class="section-separator"/>
-          <section class="row legal" id="1">
+          <section class="row legal" >
             <div class="col-12">
-              <h2 class="section-title">1. Introduction</h2>
+              <h2 class="section-title" id="1">1. Introduction</h2>
               <p class="section-text"><em>We are a social network and online platform for football professionals</em></p>
               <p class="section-text">
                 FirstTouch’s mission is to drive equality and innovation in the ‘beautiful game’. We want to connect every individual involved in and
@@ -66,9 +66,9 @@
             </div>
           </section>
           <hr class="section-separator">
-          <section class="row legal" id="2">
+          <section class="row legal" >
             <div class="col-12">
-              <h2 class="section-title">2. What information we collect</h2>
+              <h2 class="section-title" id="2">2. What information we collect</h2>
               <h3 class="subsection-title" id="2a">2.1 Data Controllers</h3>
               <p class="section-text">
                 <em>
@@ -225,9 +225,9 @@
             </div>
           </section>
           <hr class="section-separator">
-          <section class="row legal" id="3">
+          <section class="row legal" >
             <div class="col-12">
-              <h2 class="section-title">3. How we use your personal information</h2>
+              <h2 class="section-title" id="3">3. How we use your personal information</h2>
               <h3 class="subsection-title" id="3a">3.1 Consent to FirstTouch Processing Information About You</h3>
               <p class="section-text"><em>You agree that information you provide on your profile can be seen by others and used by us as described in this Privacy Policy and our User Agreement.</em></p>
               <p class="section-text">
@@ -420,9 +420,9 @@
             </div>
           </section>
           <hr class="section-separator">
-          <section class="row legal" id="4">
+          <section class="row legal" >
             <div class="col-12">
-              <h2 class="section-title">4. Your Choices &amp; Obligations</h2>
+              <h2 class="section-title" id="4">4. Your Choices &amp; Obligations</h2>
               <h3 class="subsection-title" id="4a">4.1 Rights to Access, Correct, or Delete Your Information, and Closing Your Account</h3>
               <p class="section-text">
                 <em>
@@ -468,9 +468,9 @@
             </div>
           </section>
           <hr class="section-separator">
-          <section class="row legal" id="5">
+          <section class="row legal" >
             <div class="col-12">
-              <h2 class="section-title">5. Important Information</h2>
+              <h2 class="section-title" id="5">5. Important Information</h2>
               <h3 class="subsection-title" id="5a">5.1 Minimum Age</h3>
               <p class="section-text"><em>You have to meet FirstTouch’s minimum age requirements to create an account.</em></p>
               <p class="section-text">As described in Section 2.1 of the User Agreement, persons must be of Minimum Age to use FirstTouch.</p>
@@ -509,9 +509,9 @@
             </div>
           </section>
           <hr class="section-separator">
-          <section class="row legal" id="6">
+          <section class="row legal" >
             <div class="col-12">
-              <h2 class="section-title">6. How To Contact Us</h2>
+              <h2 class="section-title" id="6">6. How To Contact Us</h2>
               <p class="section-text">If you want to send us notices or service of process, please contact us:</p>
               <p class="section-text"><strong>ONLINE at: contact@firsttouch.io</strong></p>
               <p class="section-text"><strong>OR BY MAIL at:</strong></p>
