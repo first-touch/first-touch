@@ -16,7 +16,7 @@
             </b-nav-item>
             <div class="section-separator"></div>
             <b-nav-item>
-                <router-link class="nav-link vertSideItem" to="#">Help (Report a Problem)</router-link> 
+                <router-link class="nav-link vertSideItem" to="#">Help (Report a Problem)</router-link>
             </b-nav-item>
             <div class="section-separator"></div>
         </b-nav>
@@ -24,10 +24,12 @@
 </div> -->
 
 <div id="legal-verticaltab">
-    <!-- <b-btn v-b-toggle.menu-contents>Menu</b-btn> -->
+    <div class="d-block d-lg-none menu-btn">
+        <b-btn v-b-toggle.menu-contents>MENU</b-btn>
+    </div>
     <b-nav vertical>
         <b-collapse is-nav visible id="menu-contents" class="mt-2 d-lg-block">
-            <div class="contents-vertical-tab d-block" id="navbar-contents">  
+            <div class="contents-vertical-tab d-block" id="navbar-contents">
                     <b-card class="vertical-tab">
                         <div class="section-separator"></div>
                         <b-nav-item>
@@ -43,7 +45,7 @@
                         </b-nav-item>
                         <div class="section-separator"></div>
                         <b-nav-item>
-                            <router-link class="nav-link vertSideItem" to="#">Help (Report a Problem)</router-link> 
+                            <router-link class="nav-link vertSideItem" to="#">Help (Report a Problem)</router-link>
                         </b-nav-item>
                         <div class="section-separator"></div>
                     </b-card>
@@ -55,6 +57,13 @@
 </template>
 
 <style>
+    .menu-btn > .btn-secondary,
+    .menu-btn > .btn-secondary:active,
+    .menu-btn > .btn-secondary:focus,
+    .menu-btn > .btn-secondary:not([disabled]):not(.disabled).active, .btn-secondary:not([disabled]):not(.disabled):active, .show>.btn-secondary.dropdown-toggle {
+        background: #343434;
+        color: #7F8081;
+    }
     #legal-verticaltab {
         background: #343434;
         top:0;
