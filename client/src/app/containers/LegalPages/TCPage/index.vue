@@ -30,7 +30,7 @@
                   We are a social network and online platform for individuals and organisations who choose to involve themselves in football
                   in a serious and professional manner. FirstTouch is not a social media platform for football fans.
                 </p>
-                <h3 class="subsection-title" id="1a">1.1 Purpose of FirstTouch</h3>
+                <h3 class="subsection-title" id="1a">Purpose of FirstTouch</h3>
                 <p class="section-text">
                   Our aim is to drive equality and innovation in the ‘beautiful game’. We want to connect every individual involved in and
                   committed to football the world over and in so doing allow these individuals, and the organisations they
