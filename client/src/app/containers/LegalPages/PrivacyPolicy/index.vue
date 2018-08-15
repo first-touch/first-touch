@@ -611,8 +611,7 @@
         </div>
         <div class="col-2 d-none d-lg-block">
           <div class="table-of-contents">
-            <div class="js-toc">
-            </div>
+            <div class="js-toc"></div>
           </div>
         </div>
       </div>
