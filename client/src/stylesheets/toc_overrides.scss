@@ -1,5 +1,3 @@
-
-
 .table-of-contents {
   top: 10%;
   position: sticky;
@@ -10,6 +8,7 @@
   }
   .toc-list-item {
     display: list-item;
+    margin-left: 10px;
   }
   .is-active-li,
   .is-active-link {
@@ -25,15 +24,15 @@
   h2::before {
     display: block;
     content: " ";
-    height: 198px;
-    margin-top: -138px;
+    height: 118px;
+    margin-top: -52px;
     visibility: hidden;
   }
   h3::before {
     display: block;
     content: " ";
-    height: 198px;
-    margin-top: -128px;
+    height: 118px;
+    margin-top: -52px;
     visibility: hidden;
   }
 }
