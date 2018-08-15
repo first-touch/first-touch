@@ -636,7 +636,7 @@
   import LandingNavbar from 'app/components/LandingNavbar';
   import LegalVerticalTab from 'app/containers/LegalPages/components/LegalVerticalTab';
   export default {
-    name: 'PrivacyPolicy2',
+    name: 'PrivacyPolicy',
     components: {
       'landing-navbar': LandingNavbar,
       'legal-verticaltab': LegalVerticalTab,
