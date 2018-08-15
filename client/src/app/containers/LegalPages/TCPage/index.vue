@@ -184,7 +184,7 @@
                 </p>
                 <p class="section-text">Please review your
                   <a href="https://firsttouch.io">firsttouch.io</a> settings to control and limit what kind of messages you receive from us</p>
-                <h3 class="subsection-title">2.5 Messages and Sharing</h3>
+                <h3 class="subsection-title" id="2e">2.5 Messages and Sharing</h3>
                 <p class="section-text">
                   <strong>When you share information, others can see, copy and use that information</strong>
                 </p>
