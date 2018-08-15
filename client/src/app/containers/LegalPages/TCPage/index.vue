@@ -23,13 +23,14 @@
                   <strong>Please note you are entering into a legally binding agreement</strong>
                 </p>
               </div>
-              <hr class="section-separator" />
               <div class="legal-content-body">
                 <h2 class="section-title" id="1">Introduction</h2>
+                <hr class="section-separator" />
                 <p class="section-text">
                   We are a social network and online platform for individuals and organisations who choose to involve themselves in football
                   in a serious and professional manner. FirstTouch is not a social media platform for football fans.
                 </p>
+                <div class="subsection">
                 <h3 class="subsection-title" id="1a">Purpose of FirstTouch</h3>
                 <p class="section-text">
                   Our aim is to drive equality and innovation in the ‘beautiful game’. We want to connect every individual involved in and
@@ -39,6 +40,8 @@
                   of service providers by facilitating networking, communication, job-searching, hiring, sharing of ideas,
                   learning, discovery, decision-making and resource management.
                 </p>
+                </div>
+                <div class="subsection">
                 <h3 class="subsection-title" id="1b">Agreement</h3>
                 <p class="section-text">
                   <strong>When you use our Services, you are entering into a legal agreement and you agree to all of these terms.</strong>
@@ -68,9 +71,11 @@
                   Registered users of our Services are "Members" and unregistered users are "Visitors". This Agreement applies to both
                 </p>
               </div>
-              <hr class="section-separator" />
+              </div>
               <div class="legal-content-body">
                 <h2 class="section-title" id="2">Obligations</h2>
+                <hr class="section-separator" />
+                <div class="subsection">
                 <h3 class="subsection-title" id="2a">Service Eligibility</h3>
                 <p class="section-text">
                   <strong>Here are some promises you make to us in this Agreement:</strong>
@@ -94,6 +99,8 @@
                   can be found via the following link:
                   <a href="http://www.fifa.com/governance/index.html">http://www.fifa.com/governance/index.html</a>
                 </p>
+                </div>
+                <div class="subsection">
                 <h3 class="subsection-title" id="2b">Registration and Account Security</h3>
                 <p class="section-text">
                   <strong>You'll keep your password a secret</strong>
@@ -122,6 +129,8 @@
                   Note that for paid Services purchased by another party for you to use, the party paying for the Service controls such an
                   account (which is different from your personal account) and may terminate your access to it.
                 </p>
+                </div>
+                <div class="subsection">
                 <h3 class="subsection-title" id="2c">Listing and Purchasing</h3>
                 <p class="section-text">
                   <strong>Listing Conditions</strong>
@@ -167,6 +176,8 @@
                     for an item is accepted, or if you have the winning bid (or your bid is otherwise accepted).</li>
                   <li>We do not transfer legal ownership of items from the seller to the buyer.</li>
                 </ul>
+                </div>
+                <div class="subsection">
                 <h3 class="subsection-title" id="2d">Notices and Service Messages</h3>
                 <p class="section-text">
                   <strong>
@@ -184,7 +195,9 @@
                 </p>
                 <p class="section-text">Please review your
                   <a href="https://firsttouch.io">firsttouch.io</a> settings to control and limit what kind of messages you receive from us</p>
-                <h3 class="subsection-title" id="2e">2.5 Messages and Sharing</h3>
+                </div>
+                <div class="subsection">
+                <h3 class="subsection-title" id="2e">Messages and Sharing</h3>
                 <p class="section-text">
                   <strong>When you share information, others can see, copy and use that information</strong>
                 </p>
@@ -202,9 +215,11 @@
                   or without notice
                 </p>
               </div>
-              <hr class="section-separator" />
+              </div>
               <div class="legal-content-body">
                 <h2 class="section-title" id="3">Rights and Limits</h2>
+                <hr class="section-separator" />
+                <div class="subsection">
                 <h3 class="subsection-title" id="3a">Your License to FirstTouch</h3>
                 <p class="section-text">
                   <strong>
@@ -261,6 +276,8 @@
                   will be truthful. FirstTouch may be required by law to remove certain information or content in certain
                   countries.
                 </p>
+                </div>
+                <div class="subsection">
                 <h3 class="subsection-title" id="3b">Service Availability & Software in our Services</h3>
                 <p class="section-text">
                   <strong>
@@ -286,6 +303,8 @@
                   or attempt to extract the source code of that software, unless laws prohibit those restrictions or you
                   have our written permission.
                 </p>
+                </div>
+                <div class="subsection">
                 <h3 class="subsection-title" id="3c">Other Content, Sites and Apps</h3>
                 <p class="section-text">
                   <strong>When you see or use others' content and information posted on our Services, it's at your own risk.</strong>
@@ -311,6 +330,8 @@
                   not responsible for these other sites and apps -- use these at your own risk. Please see the Privacy Policy
                   for more information.
                 </p>
+                </div>
+                <div class="subsection">
                 <h3 class="subsection-title" id="3d">Limits</h3>
                 <p class="section-text">
                   <strong>We have the right to limit how you connect and interact on our Services</strong>
@@ -331,9 +352,11 @@
                   of their respective owners.
                 </p>
               </div>
-              <hr class="section-separator" />
+              </div>
               <div class="legal-content-body">
                 <h2 class="section-title" id="4">Disclaimer and Limit of Liability</h2>
+                <hr class="section-separator" />
+                <div class="subsection">
                 <h3 class="subsection-title" id="4a">No Warranty</h3>
                 <p class="section-text">
                   <strong>This is our disclaimer of legal liability for the quality, safety, or reliability of our Services.</strong>
@@ -346,6 +369,8 @@
                   BASIS. SOME LAWS DO NOT ALLOW CERTAIN DISCLAIMERS, SO SOME OR ALL OF THESE DISCLAIMERS MAY NOT APPLY TO
                   YOU.
                 </p>
+                </div>
+                <div class="subsection">
                 <h3 class="subsection-title" id="4b">Exclusion of Liability</h3>
                 <p class="section-text">
                   <strong>These are the limits of legal liability we may have to you.</strong>
@@ -369,10 +394,12 @@
                   SOME LAWS DO NOT ALLOW THE LIMITATION OR EXCLUSION OF LIABILITY, SO THESE LIMITS MAY NOT APPLY TO YOU.
                 </p>
               </div>
-              <hr class="section-separator" />
+              </div>
               <div class="legal-content-body">
                 <h2 class="section-title" id="5">FirstTouch Code of Conduct</h2>
-                <h3 class="subsection-title" id="5a">5.1 Safety</h3>
+                <hr class="section-separator" />
+                <div class="subsection">
+                <h3 class="subsection-title" id="5a">Safety</h3>
                 <p class="section-text">
                   <strong>You agree to help keep FirstTouch safe.</strong>
                 </p>
@@ -399,6 +426,8 @@
                   </li>
                   <li>You will not facilitate or encourage any violations of this Agreement or our policies.</li>
                 </ol>
+                </div>
+                <div class="subsection">
                 <h3 class="subsection-title" id="5b">Protecting Other People’s Rights</h3>
                 <p class="section-text">
                   <strong>We respect other people's rights, and expect you to do the same.</strong>
@@ -423,9 +452,10 @@
                   <li>You will not tag users or send email invitations to non-users without their consent</li>
                 </ol>
               </div>
-              <hr class="section-separator" />
+              </div>
               <div class="legal-content-body">
                 <h2 class="section-title" id="6">Termination</h2>
+                <hr class="section-separator" />
                 <p class="section-text">
                   <strong>We can each end this Agreement anytime we want with notice to the other.</strong>
                 </p>
@@ -443,9 +473,9 @@
                   <li>Any amounts owed by either party prior to termination remain owed after termination.</li>
                 </ul>
               </div>
-              <hr class="section-separator" />
               <div class="legal-content-body">
                 <h2 class="section-title" id="7">Governing Law & Dispute Resolution</h2>
+                <hr class="section-separator" />
                 <p class="section-text">
                   <strong>This agreement is governed by and construed in accordance with the Laws of Gibraltar.</strong>
                 </p>
@@ -457,9 +487,9 @@
                   </strong>
                 </p>
               </div>
-              <hr class="section-separator" />
               <div class="legal-content-body">
                 <h2 class="section-title" id="8">Complaints Regarding Content and Indemnity</h2>
+                <hr class="section-separator" />
                 <p class="section-text">
                   We respect the intellectual property rights of others. We require that information posted by Members be accurate and not
                   in violation of the intellectual property rights or other rights of third parties. We provide a policy
@@ -475,9 +505,10 @@
                   whether online or offline, of any user of FirstTouch.
                 </p>
               </div>
-              <hr class="section-separator" />
               <div class="legal-content-body">
                 <h2 class="section-title" id="9">General Terms</h2>
+                <hr class="section-separator" />
+                <div class="subsection">
                 <h3 class="subsection-title" id="9a">Reading the agreement</h3>
                 <p class="section-text">
                   <strong>Here are some important details about how to read the Agreement.</strong>
@@ -498,6 +529,8 @@
                   or a party that buys it without your consent. There are no third party beneficiaries to this Agreement.
                 </p>
                 <p class="section-text">You agree that the only way to provide us legal notice is at the addresses provided in Section 10.</p>
+                </div>
+                <div class="subsection">
                 <h3 class="subsection-title" id="9b">Disclaimer about translating agreement</h3>
                 <p class="section-text">
                   This agreement was written in English (UK). To the extent any translated version of this agreement conflicts with the English
@@ -508,6 +541,8 @@
                   on the language link. If the Agreement is not available in the language you select, we will default to
                   the English version.
                 </p>
+                </div>
+                <div class="subsection">
                 <h3 class="subsection-title" id="9c">Modifications</h3>
                 <p class="section-text">
                   <strong>We reserve the right to change the terms of this Agreement and will provide you notice if we do and we
@@ -522,6 +557,8 @@
                   <li>Your continued use of the FirstTouch Services, following notice of the changes to our terms, policies or
                     guidelines, constitutes your acceptance of our amended terms, policies or guidelines.</li>
                 </ol>
+                </div>
+                <div class="subsection">
                 <h3 class="subsection-title" id="9d">Agreement to additional policies</h3>
                 <p class="section-text">You may also want to review the following documents, which provide additional information about your use
                   of FirstTouch:</p>
@@ -533,9 +570,10 @@
                   <li>Complaints: Policy and process to manage complaints against Members.</li>
                 </ul>
               </div>
-              <hr class="section-separator" />
+              </div>
               <div class="legal-content-body">
                 <h2 class="section-title" id="10">How To Contact Us</h2>
+                <hr class="section-separator" />
                 <p class="section-text">If you want to send us notices or service of process, please contact us:</p>
                 <p class="section-text">
                   <strong>ONLINE at: contact@firsttouch.io</strong>
@@ -596,7 +634,7 @@
         // Where to grab the headings to build the table of contents.
         contentSelector: '.js-toc-content',
         // Which headings to grab inside of the contentSelector element.
-        headingSelector: 'h2, h3'
+        headingSelector: 'h2, h3',
       });
     }
   };
