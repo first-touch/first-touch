@@ -1,0 +1,39 @@
+
+
+.table-of-contents {
+  top: 10%;
+  position: sticky;
+  margin-top: 10em;
+  .toc-list {
+    color: #343434;
+    padding-left: 27px;
+  }
+  .toc-list-item {
+    display: list-item;
+  }
+  .is-active-li,
+  .is-active-link {
+    color: #A8CB5C;
+    font-weight: 400;
+  }
+  .is-collapsible {
+    list-style: lower-alpha;
+  }
+}
+
+.js-toc-content {
+  h2::before {
+    display: block;
+    content: " ";
+    height: 198px;
+    margin-top: -138px;
+    visibility: hidden;
+  }
+  h3::before {
+    display: block;
+    content: " ";
+    height: 198px;
+    margin-top: -128px;
+    visibility: hidden;
+  }
+}
