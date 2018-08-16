@@ -4,11 +4,11 @@
   margin-top: 10em;
   .toc-list {
     color: #343434;
-    padding-left: 27px;
   }
   .toc-list-item {
     display: list-item;
-    margin-left: 10px;
+    margin-left: 34px;
+    font-weight: 100;
   }
   .is-active-li,
   .is-active-link {
@@ -17,6 +17,9 @@
   }
   .is-collapsible {
     list-style: lower-alpha;
+    .toc-list-item {
+      margin-left:20px;
+    }
   }
 }
 

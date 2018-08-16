@@ -9,10 +9,6 @@
           <b-card class="vertical-tab">
             <div class="section-separator"></div>
             <b-nav-item>
-              <router-link to="/welcome" class="nav-link vertSideItem">About</router-link>
-            </b-nav-item>
-            <div class="section-separator"></div>
-            <b-nav-item>
               <router-link class="nav-link vertSideItem" to="/terms_conditions">User Agreement</router-link>
             </b-nav-item>
             <div class="section-separator"></div>
@@ -48,7 +44,7 @@
     height: 100vh;
     position: sticky;
     padding-top: 0.5em;
-    padding-right: 1em;
+    padding-right: 2em;
     padding-left: 1em;
   }
 
@@ -63,6 +59,7 @@
     margin-top: 0.5em;
     color: #7F8081;
     text-transform: uppercase;
+    font-weight: 100;
   }
 
   .contents-vertical-tab .router-link-active {
