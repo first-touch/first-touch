@@ -22,9 +22,9 @@
                   FirstTouch.
                 </p>
               </div>
-              <hr class="section-separator" />
               <div class="legal-content-body">
                 <h2 class="section-title" id="1">Introduction</h2>
+                <hr class="section-separator" />
                 <p class="section-text">
                   <em>We are a social network and online platform for football professionals</em>
                 </p>
@@ -68,9 +68,9 @@
                   </strong>
                 </p>
               </div>
-              <hr class="section-separator" />
               <div class="legal-content-body">
                 <h2 class="section-title" id="2">What information we collect</h2>
+                <hr class="section-separator" />
                 <h3 class="subsection-title" id="2a">Data Controllers</h3>
                 <p class="section-text">
                   <em>
@@ -252,9 +252,9 @@
                   how we handle your data, we will modify this Privacy Policy and notify you in accordance with Section 5.2.
                 </p>
               </div>
-              <hr class="section-separator" />
               <div class="legal-content-body">
                 <h2 class="section-title" id="3">How we use your personal information</h2>
+                <hr class="section-separator" />
                 <h3 class="subsection-title" id="3a">Consent to FirstTouch Processing Information About You</h3>
                 <p class="section-text">
                   <em>You agree that information you provide on your profile can be seen by others and used by us as described
@@ -494,9 +494,9 @@
                 </p>
                 <p class="section-text">We may transfer your information and process it outside your country of residence, wherever FirstTouch operates.</p>
               </div>
-              <hr class="section-separator" />
                 <div class="legal-content-body">
                 <h2 class="section-title" id="4">Your Choices &amp; Obligations</h2>
+                <hr class="section-separator" />
                 <h3 class="subsection-title" id="4a">Rights to Access, Correct, or Delete Your Information, and Closing Your Account</h3>
                 <p class="section-text">
                   <em>
@@ -543,9 +543,9 @@
                   aggregate data sets that cannot be traced back to individuals.
                 </p>
                 </div>
-                <hr class="section-separator" />
                  <div class="legal-content-body">
                 <h2 class="section-title" id="5">Important Information</h2>
+                <hr class="section-separator" />
                 <h3 class="subsection-title" id="5a">Minimum Age</h3>
                 <p class="section-text">
                   <em>You have to meet FirstTouch’s minimum age requirements to create an account.</em>
@@ -587,9 +587,9 @@
                   keep your account safe by using a strong password.
                 </p>
                 </div>
-                <hr class="section-separator" />
                 <div class="legal-content-body">
                 <h2 class="section-title" id="6">How To Contact Us</h2>
+                <hr class="section-separator" />
                 <p class="section-text">If you want to send us notices or service of process, please contact us:</p>
                 <p class="section-text">
                   <strong>ONLINE at: contact@firsttouch.io</strong>
