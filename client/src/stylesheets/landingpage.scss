@@ -490,17 +490,16 @@ li {
   and (max-device-width: 1600px)
   and (-webkit-min-device-pixel-ratio: 2)
   and (min-resolution: 192dpi) {
-    .full {
-      .content-slides {
-        .ft-logo img {
-          margin-top: 0;
-          margin-bottom: 0;
-          height: 300px;
-        }
+  .full {
+    .content-slides {
+      .ft-logo img {
+        margin-top: 0;
+        margin-bottom: 0;
+        height: 300px;
       }
     }
+  }
 }
-
 
 @media (max-device-width: 992px) {
   .full {
@@ -521,15 +520,47 @@ li {
     }
   }
 }
-//iphone 4 and iphone 5 landscape
+
+//iPhone 4, 5, 5S, 5C and 5SE landscape
 @media only screen
   and (min-device-width: 320px)
   and (max-device-width: 568px)
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: landscape) {
   .full{
-    .carousel-item {
-      height: 100vh;
+    .carousel-caption {
+      img {
+        height: 200px;
+      }
+    }
+  }
+}
+
+//iPhone X landscape
+@media only screen
+  and (min-device-width: 375px)
+  and (max-device-width: 812px)
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: landscape) {
+  .full{
+    .intro-message {
+      .carousel-caption {
+        img {
+          height: 140px;
+        }
+        .main,
+        h1 {
+          font-size: 1.2em;
+        }
+        .main {
+          margin: 5px;
+        }
+        .bar-button {
+          width: 250px;
+          font-size: 20px;
+          margin-bottom: 10px;
+        }
+      }
     }
   }
 }
@@ -574,17 +605,6 @@ li {
     .menu,
     .content-slides {
       display: none;
-    }
-  }
-}
-
-  //Nokia Lumia landscape
-@media screen
-and (max-device-width: 533px)
-and (orientation: landscape) {
-  .full{
-    .carousel-item {
-      height: 100vh;
     }
   }
 }
