@@ -8,7 +8,7 @@
         </div>
         <div class="col-12 col-lg-8 legal-content">
           <div class="row no-padding">
-            <div class="js-toc-content col-12">
+            <div class="js-toc-content col-12 px-lg-5">
               <h1 class="title">User Agreement</h1>
               <div class="introduction">
                 <p>

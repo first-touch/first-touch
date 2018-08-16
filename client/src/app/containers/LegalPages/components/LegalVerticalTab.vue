@@ -5,7 +5,7 @@
     </div>
     <b-nav vertical>
       <b-collapse is-nav visible id="menu-contents" class="mt-2 d-lg-block">
-        <div class="contents-vertical-tab d-block" id="navbar-contents">
+        <div class="contents-vertical-tab d-block pr-lg-4" id="navbar-contents">
           <b-card class="vertical-tab">
             <div class="section-separator"></div>
             <b-nav-item>
@@ -44,7 +44,7 @@
     height: 100vh;
     position: sticky;
     padding-top: 0.5em;
-    padding-right: 2em;
+    padding-right: 1em;
     padding-left: 1em;
   }
 
