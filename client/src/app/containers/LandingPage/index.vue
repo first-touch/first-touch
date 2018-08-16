@@ -629,19 +629,6 @@
 <script>
 import LandingNavbar from 'app/components/LandingNavbar.vue';
 import LinkButton from 'app/components/LinkButton.vue';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-
-AOS.init();
-
-AOS.init({
-  disable: false, // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
-  // Settings that can be overriden on per-element basis, by `data-aos-*` attributes:
-  duration: 1500, // values from 0 to 3000, with step 50ms
-  easing: 'ease-in-sine',
-  once: true, // whether animation should happen only once - while scrolling down
-  mirror: false, // whether elements should animate out while scrolling past them
-});
 
 export default {
   name: 'LandingPage',
