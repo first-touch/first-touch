@@ -1,16 +1,16 @@
 <template>
   <div id="content">
-  <landing-navbar sticky />
+    <landing-navbar sticky />
     <div class="full">
 
       <div id="first-p-Slide" class="carousel slide" data-ride="carousel">
 
-        <div class= "row justify-content-center">
+        <div class="row justify-content-center">
           <ol class="carousel-indicators cursor toggle">
             <li data-target="#first-p-Slide" data-slide-to="0" class="active">Main</li>
-            <li data-target="#first-p-Slide" data-slide-to="1" >Players</li>
-            <li data-target="#first-p-Slide" data-slide-to="2" >Scouts</li>
-            <li data-target="#first-p-Slide" data-slide-to="3" >Clubs</li>
+            <li data-target="#first-p-Slide" data-slide-to="1">Players</li>
+            <li data-target="#first-p-Slide" data-slide-to="2">Scouts</li>
+            <li data-target="#first-p-Slide" data-slide-to="3">Clubs</li>
           </ol>
         </div>
 
@@ -27,10 +27,8 @@
                     <div class="col-12">
                       <ul class="main center">
                         Carving out
-                        <br>
-                        individual and collective
-                        <br>
-                        success stories
+                        <br> individual and collective
+                        <br> success stories
                       </ul>
                     </div>
                   </div>
@@ -55,12 +53,12 @@
 
           <div class="carousel-item player">
             <img class="img-fluid menu" src="/images/landing-page/BG-player.jpg" alt="Second slide">
-            <div class= "content-slides">
+            <div class="content-slides">
               <div class="container-fluid">
                 <div class="carousel-caption">
                   <div class="row">
                     <div class="col-12">
-                      <h1 class= "header">
+                      <h1 class="header">
                         Players
                       </h1>
                     </div>
@@ -84,12 +82,12 @@
 
           <div class="carousel-item scouts">
             <img class="img-fluid menu" src="/images/landing-page/BG-scouts.jpg" alt="Third slide">
-            <div class= "content-slides">
+            <div class="content-slides">
               <div class="container-fluid">
                 <div class="carousel-caption">
                   <div class="row">
                     <div class="col-12">
-                      <h1 class= "header col-12">
+                      <h1 class="header col-12">
                         Scouts
                       </h1>
                     </div>
@@ -114,7 +112,7 @@
 
           <div class="carousel-item clubs">
             <img class="img-fluid menu" src="/images/landing-page/BG-clubs2.jpg" alt="Fourth slide">
-            <div class= "content-slides">
+            <div class="content-slides">
               <div class="container-fluid">
                 <div class="carousel-caption">
                   <div class="row">
@@ -124,79 +122,84 @@
                       </h1>
                     </div>
                   </div>
-                <div class="row">
-                  <div class="col-sm-12 col-md-10">
-                    <h3 class="description">
-                      Maximise your teams’ performance by digitising everything from training and team management to scouting and medical processes.
-                    </h3>
-                  </div>
-                  <div class="col-md-2">
-                    <a class="bar-button center" href="users/sign_up">
-                      Register Now
-                    </a>
+                  <div class="row">
+                    <div class="col-sm-12 col-md-10">
+                      <h3 class="description">
+                        Maximise your teams’ performance by digitising everything from training and team management to scouting and medical processes.
+                      </h3>
+                    </div>
+                    <div class="col-md-2">
+                      <a class="bar-button center" href="users/sign_up">
+                        Register Now
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
-             </div>
             </div>
           </div>
-        </div> <!--carousel inner-->
-      </div> <!--#first-p-Slide-->
-    </div><!--#full-->
+        </div>
+        <!--carousel inner-->
+      </div>
+      <!--#first-p-Slide-->
+    </div>
+    <!--#full-->
 
     <div id="transition-page">
       <div class="container-fluid col-12">
         <div class="header text-center">
-            Take football seriously?
+          Take football seriously?
         </div>
         <div class="text-center">
           <h2>
-              Sign Up Now!
+            Sign Up Now!
           </h2>
         </div>
       </div>
     </div>
 
-    <div id="second-page"> <!-- black background -->
+    <div id="second-page">
+      <!-- black background -->
       <div class="container-fluid">
-        <div class="second-layer"> <!-- content within parallax -->
+        <div class="second-layer">
+          <!-- content within parallax -->
 
-            <div class="row justify-content-center">
-              <div class="head-text challenge-head">
-                The Challenge
-              </div>
+          <div class="row justify-content-center">
+            <div class="head-text challenge-head">
+              The Challenge
             </div>
+          </div>
 
-            <div class="row justify-content-center">
-              <div class="challenge-sub">
-                  Managing an increasing amount of information and tasks using outdated processes and tools,
-                  limited budgets, resources and capabilities present a real challenge for today’s professionals
-                  as they seek to maximise performance and remain competitive.
-              </div>
+          <div class="row justify-content-center">
+            <div class="challenge-sub">
+              Managing an increasing amount of information and tasks using outdated processes and tools, limited budgets, resources and
+              capabilities present a real challenge for today’s professionals as they seek to maximise performance and remain
+              competitive.
             </div>
+          </div>
 
-            <div class="row justify-content-center">
-              <div class="head-text solution-head" >
-                The Solution
-              </div>
+          <div class="row justify-content-center">
+            <div class="head-text solution-head">
+              The Solution
             </div>
+          </div>
 
-            <div class="row justify-content-center">
-              <div class="solution-sub" >
-                    A cloud-based platform that optimises the management of teams, players and careers by consolidating
-                    and digitising sports performance and team management processes,
-                    whilst capitalising on and augmenting core networks within the industry.
-              </div>
+          <div class="row justify-content-center">
+            <div class="solution-sub">
+              A cloud-based platform that optimises the management of teams, players and careers by consolidating and digitising sports
+              performance and team management processes, whilst capitalising on and augmenting core networks within the industry.
             </div>
+          </div>
 
-            <div class="row justify-content-center">
-              <div class="head-text key-head">
-                Key Capabilities
-              </div>
+          <div class="row justify-content-center">
+            <div class="head-text key-head">
+              Key Capabilities
             </div>
+          </div>
 
-            <div class="capabilities row-list"> <!-- row-list shown only when screen is large (desktop and laptop)-->
-            <div class= "container-fluid">
+          <div class="capabilities row-list">
+            <!-- row-list shown only when screen is large (desktop and laptop)-->
+            <div class="container-fluid">
               <div class="row justify-content-center">
                 <div class="col-lg-4">
                   <div class="subhead-capabilities">
@@ -272,9 +275,9 @@
                 </div>
               </div>
             </div>
-            </div>
+          </div>
 
-<!-- carousell on second page only shown when window is less than 992px (min-width: 992)-->
+          <!-- carousell on second page only shown when window is less than 992px (min-width: 992)-->
           <div class="row justify-content-center">
             <div id="second-p-slide" class="carousel slide" data-ride="carousel">
               <ol class="carousel-indicators">
@@ -291,8 +294,8 @@
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
-                      Career Management
-                    </div>
+                        Career Management
+                      </div>
                     </div>
                     <div class="key-description row">
                       <div class="col-12">
@@ -408,272 +411,283 @@
                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
                   <span class="sr-only">Next</span>
                 </a>
-              </div> <!-- carousel-inner-->
+              </div>
+              <!-- carousel-inner-->
 
-            </div> <!-- #second-p-slide -->
+            </div>
+            <!-- #second-p-slide -->
           </div>
 
-        </div> <!--second layer-->
-      </div> <!-- container-fluid -->
-    </div> <!-- second-page -->
-
-
-
-  <div id="third-page">
-    <div class="container col-12">
-      <div class="row justify-content-center">
-        <div class="header">
-          ROLES WE SERVE
         </div>
+        <!--second layer-->
       </div>
-
-
-      <div class="col-12 col-sm-12">
-        <div class="row justify-content-center">
-
-          <div id="toggle" class="carousel slide w-80" data-ride="carousel">
-            <ol class="carousel-indicators">
-              <li data-target="#toggle" data-slide-to="0" class="active"></li>
-              <li data-target="#toggle" data-slide-to="1" ></li>
-              <li data-target="#toggle" data-slide-to="2"></li>
-              <li data-target="#toggle" data-slide-to="3"></li>
-              <li data-target="#toggle" data-slide-to="4"></li>
-              <li data-target="#toggle" data-slide-to="5"></li>
-              <li data-target="#toggle" data-slide-to="6"></li>
-            </ol>
-
-            <div class="carousel-inner" role="listbox">
-              <div class="carousel-item active">
-                <div class="polaroid">
-                  <img class="d-block img-fluid" src="/images/landing-page/role_agents.jpg" alt="First slide">
-                  <span class="polaroid-title">
-                    Agents
-                  </span>
-                  <div class="description">
-                  recruit and manage clients
-                  </div>
-                  <a class="register-plus-logo" href="users/sign_up">
-                    <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
-                  </a>
-                </div>
-              </div>
-
-              <div class="carousel-item">
-                <div class="polaroid">
-                  <img class="d-block img-fluid " src="/images/landing-page/role_manager.jpg" alt="Second slide">
-                  <span class="polaroid-title">
-                    Managers
-                  </span>
-                  <div class="description">
-                      power up your team management
-                  </div>
-                  <a class="register-plus-logo" href="users/sign_up">
-                    <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
-                  </a>
-                </div>
-              </div>
-
-              <div class="carousel-item">
-                <div class="polaroid">
-                  <img class="d-block img-fluid " src="/images/landing-page/role_coach.jpg" alt="Third slide">
-                  <span class="polaroid-title">
-                    Coaches
-                  </span>
-                  <div class="description">
-                    develop your players & your knowledge
-                  </div>
-                  <a class="register-plus-logo" href="users/sign_up">
-                    <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
-                  </a>
-                </div>
-              </div>
-
-              <div class="carousel-item">
-                <div class="polaroid">
-                  <img class="d-block img-fluid " src="/images/landing-page/role_medic.jpg" alt="Fourth slide">
-                  <span class="polaroid-title">
-                    Medical Staff
-                  </span>
-                  <div class="description">
-                    effectively manage your medical affairs
-                  </div>
-                  <a class="register-plus-logo" href="users/sign_up">
-                    <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
-                  </a>
-                </div>
-              </div>
-
-              <div class="carousel-item">
-                <div class="polaroid">
-                  <img class="d-block img-fluid " src="/images/landing-page/role_scouts.jpg" alt="Fifth slide">
-                  <span class="polaroid-title">
-                    Scouts
-                  </span>
-                  <div class="description">
-                    discover, promote and report on talent
-                  </div>
-                  <a class="register-plus-logo" href="users/sign_up">
-                    <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
-                  </a>
-                </div>
-              </div>
-
-              <div class="carousel-item">
-                <div class="polaroid">
-                  <img class="d-block img-fluid " src="/images/landing-page/role_gm.jpg" alt="Sixth slide">
-                  <span class="polaroid-title">
-                    General Managers
-                  </span>
-                  <div class="description">
-                    achieve success through digitisation
-                  </div>
-                  <a class="register-plus-logo" href="users/sign_up">
-                    <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
-                  </a>
-                </div>
-            </div>
-
-            <div class="carousel-item">
-                <div class="polaroid">
-                  <img class="d-block img-fluid" src="/images/landing-page/role_player.jpg" alt="Seventh slide">
-                  <span class="polaroid-title">
-                    Players
-                  </span>
-                  <div class="description">
-                    Promote your game and career
-                  </div>
-                  <a class="register-plus-logo" href="users/sign_up">
-                    <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
-                  </a>
-                </div>
-            </div>
-
-            </div>
-
-            <a class="carousel-control-prev arrowLeft" href="#toggle" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next arrowRight" href="#toggle" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-
-          </div>
-        </div>
-
-      </div>
-
+      <!-- container-fluid -->
     </div>
-  </div>
+    <!-- second-page -->
 
 
-  <div id="footer">
-    <div class="container">
-      <div class="row">
-      <div class="col">
-        <img class="logo" src="images/landing-page/ft-footer-logo.png" alt="Ft logo">
-        <span class="cRight">&copy;2016</span>
-      </div>
-      <div class="col-12 col-lg links">
-        <a class="text" href="/terms_conditions#contact">
-          Help
-        </a>
-      </div>
-      <div class="col-12 col-lg links">
-        <a class="text" href="/terms_conditions">
-          User Agreement
-        </a>
-      </div>
-      <div class="col-12 col-lg links">
-        <a class="text" href="/">
-          Community Guidelines
-        </a>
-      </div>
-      <div class="col-12 col-lg links">
-        <a class="text" href="/privacy_policy">
-          Privacy Policy
-        </a>
-      </div>
-      <div class="col-12 col-lg links">
-        <a class="text">
-          Follow Us
-        </a>
-      </div>
-      <div class="media links col-12 col-lg justify-content-center">
-        <a href="https://www.instagram.com/?hl=en" target="_blank" >
-          <img class="social" src="images/landing-page/social_instagram.png" alt="instagram">
-        </a>
-        <a href="https://www.facebook.com" target="_blank" >
-          <img class="social" src="images/landing-page/social_facebook.png" alt="facebook">
-        </a>
-        <a href="https://www.linkedin.com" target="_blank" >
-          <img class="social" src="images/landing-page/social_linkedIn.png" alt="linkedIn">
-        </a>
-        <a href="https://twitter.com/?lang=en" target="_blank" >
-          <img class="social" src="images/landing-page/social_twitter.png" alt="twitter">
-        </a>
+
+    <div id="third-page">
+      <div class="container col-12">
+        <div class="row justify-content-center">
+          <div class="header">
+            ROLES WE SERVE
+          </div>
         </div>
 
-      </div> <!--row-->
-    </div> <!--container-->
-  </div>
+
+        <div class="col-12 col-sm-12">
+          <div class="row justify-content-center">
+
+            <div id="toggle" class="carousel slide w-80" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="#toggle" data-slide-to="0" class="active"></li>
+                <li data-target="#toggle" data-slide-to="1"></li>
+                <li data-target="#toggle" data-slide-to="2"></li>
+                <li data-target="#toggle" data-slide-to="3"></li>
+                <li data-target="#toggle" data-slide-to="4"></li>
+                <li data-target="#toggle" data-slide-to="5"></li>
+                <li data-target="#toggle" data-slide-to="6"></li>
+              </ol>
+
+              <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active">
+                  <div class="polaroid">
+                    <img class="d-block img-fluid" src="/images/landing-page/role_player.jpg" alt="Seventh slide">
+                    <span class="polaroid-title">
+                      Players
+                    </span>
+                    <div class="description">
+                      Promote your game and career
+                    </div>
+                    <a class="register-plus-logo" href="users/sign_up">
+                      <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
+                    </a>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div class="polaroid">
+                    <img class="d-block img-fluid " src="/images/landing-page/role_scouts.jpg" alt="Fifth slide">
+                    <span class="polaroid-title">
+                      Scouts
+                    </span>
+                    <div class="description">
+                      discover, promote and report on talent
+                    </div>
+                    <a class="register-plus-logo" href="users/sign_up">
+                      <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
+                    </a>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div class="polaroid">
+                    <img class="d-block img-fluid " src="/images/landing-page/role_manager.jpg" alt="Second slide">
+                    <span class="polaroid-title">
+                      Managers
+                    </span>
+                    <div class="description">
+                      power up your team management
+                    </div>
+                    <a class="register-plus-logo" href="users/sign_up">
+                      <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
+                    </a>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div class="polaroid">
+                    <img class="d-block img-fluid" src="/images/landing-page/role_agents.jpg" alt="First slide">
+                    <span class="polaroid-title">
+                      Agents
+                    </span>
+                    <div class="description">
+                      recruit and manage clients
+                    </div>
+                    <a class="register-plus-logo" href="users/sign_up">
+                      <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
+                    </a>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div class="polaroid">
+                    <img class="d-block img-fluid " src="/images/landing-page/role_coach.jpg" alt="Third slide">
+                    <span class="polaroid-title">
+                      Coaches
+                    </span>
+                    <div class="description">
+                      develop your players & your knowledge
+                    </div>
+                    <a class="register-plus-logo" href="users/sign_up">
+                      <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
+                    </a>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div class="polaroid">
+                    <img class="d-block img-fluid " src="/images/landing-page/role_gm.jpg" alt="Sixth slide">
+                    <span class="polaroid-title">
+                      General Managers
+                    </span>
+                    <div class="description">
+                      achieve success through digitisation
+                    </div>
+                    <a class="register-plus-logo" href="users/sign_up">
+                      <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
+                    </a>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div class="polaroid">
+                    <img class="d-block img-fluid " src="/images/landing-page/role_medic.jpg" alt="Fourth slide">
+                    <span class="polaroid-title">
+                      Medical Staff
+                    </span>
+                    <div class="description">
+                      effectively manage your medical affairs
+                    </div>
+                    <a class="register-plus-logo" href="users/sign_up">
+                      <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
+                    </a>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+              </div>
+
+              <a class="carousel-control-prev arrowLeft" href="#toggle" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next arrowRight" href="#toggle" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+    <div id="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <img class="logo" src="images/landing-page/ft-footer-logo.png" alt="Ft logo">
+            <span class="cRight">&copy;2016</span>
+          </div>
+          <div class="col-12 col-lg links">
+            <a class="text" href="/terms_conditions#contact">
+              Help
+            </a>
+          </div>
+          <div class="col-12 col-lg links">
+            <a class="text" href="/terms_conditions">
+              User Agreement
+            </a>
+          </div>
+          <div class="col-12 col-lg links">
+            <a class="text" href="/">
+              Community Guidelines
+            </a>
+          </div>
+          <div class="col-12 col-lg links">
+            <a class="text" href="/privacy_policy">
+              Privacy Policy
+            </a>
+          </div>
+          <div class="col-12 col-lg links">
+            <a class="text">
+              Follow Us
+            </a>
+          </div>
+          <div class="media links col-12 col-lg justify-content-center">
+            <a href="https://www.instagram.com/?hl=en" target="_blank">
+              <img class="social" src="images/landing-page/social_instagram.png" alt="instagram">
+            </a>
+            <a href="https://www.facebook.com" target="_blank">
+              <img class="social" src="images/landing-page/social_facebook.png" alt="facebook">
+            </a>
+            <a href="https://www.linkedin.com" target="_blank">
+              <img class="social" src="images/landing-page/social_linkedIn.png" alt="linkedIn">
+            </a>
+            <a href="https://twitter.com/?lang=en" target="_blank">
+              <img class="social" src="images/landing-page/social_twitter.png" alt="twitter">
+            </a>
+          </div>
+
+        </div>
+        <!--row-->
+      </div>
+      <!--container-->
+    </div>
 
   </div>
 </template>
 
 <style lang="scss" scoped>
-
 </style>
 
 <script>
-import LandingNavbar from 'app/components/LandingNavbar.vue';
-import LinkButton from 'app/components/LinkButton.vue';
+  import LandingNavbar from 'app/components/LandingNavbar.vue';
+  import LinkButton from 'app/components/LinkButton.vue';
 
-export default {
-  name: 'LandingPage',
-  components: {
-    'landing-navbar': LandingNavbar,
-    'v-linkbutton': LinkButton,
-  },
-  mounted() {
-    this.$nextTick(() => {
+  export default {
+    name: 'LandingPage',
+    components: {
+      'landing-navbar': LandingNavbar,
+      'v-linkbutton': LinkButton,
+    },
+    mounted() {
+      this.$nextTick(() => {
 
-      $('.more').click(function() {
-        return $(this)
-          .parent()
-          .fadeOut();
-      });
-
-      $('.back').click(function() {
-        return $(this)
-          .prev()
-          .fadeIn();
-      });
-    });
-  },
-  beforeDestroy() {
-    $(window).off('scroll');
-  },
-};
-
-$(document).ready(function () {
-  if( $(window).width() < 992) {
-    $('.carousel').each(function(){
-        $(this).carousel({
-            interval: false
+        $('.more').click(function () {
+          return $(this)
+            .parent()
+            .fadeOut();
         });
-    });
-  }
-  else {
-    $('#toggle .carousel-item').each(function(){
+
+        $('.back').click(function () {
+          return $(this)
+            .prev()
+            .fadeIn();
+        });
+      });
+    },
+    beforeDestroy() {
+      $(window).off('scroll');
+    },
+  };
+
+  $(document).ready(function () {
+    if ($(window).width() < 992) {
+      $('.carousel').each(function () {
+        $(this).carousel({
+          interval: false
+        });
+      });
+    } else {
+      $('#toggle .carousel-item').each(function () {
         var next = $(this).next();
         if (!next.length) {
           next = $(this).siblings(':first');
         }
         next.children(':first-child').clone().appendTo($(this));
-        for (var i=0;i<1;i++) {
-          next=next.next();
+        for (var i = 0; i < 1; i++) {
+          next = next.next();
           if (!next.length) {
             next = $(this).siblings(':first');
           }
@@ -681,13 +695,12 @@ $(document).ready(function () {
         }
       });
       $('#second-p-slide').carousel({
-      interval: false
+        interval: false
       })
       $('#toggle').carousel({
         interval: false
       })
-  }
+    }
 
-});
-
+  });
 </script>
