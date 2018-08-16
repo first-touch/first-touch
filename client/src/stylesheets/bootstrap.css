@@ -2888,10 +2888,10 @@ fieldset[disabled] a.btn {
 }
 
 .btn-outline-secondary {
-  color: #ccc;
+  color: #056704;
   background-image: none;
   background-color: transparent;
-  border-color: #ccc;
+  border-color: #056704;
 }
 
 .btn-outline-secondary:hover {
@@ -3920,8 +3920,8 @@ tbody.collapse.show {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   padding: 0.5rem 1rem;
 }
 

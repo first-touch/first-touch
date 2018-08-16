@@ -1,20 +1,20 @@
 <template>
-  <b-navbar toggleable="md" variant="dark" type="dark" :sticky="sticky" id="landing-navbar">
+  <b-navbar toggleable="md" variant="" type="" :sticky="sticky" id="landing-navbar">
     <b-nav-toggle target="ft-nav-collapse" />
-    <router-link class="navbar-brand" to="/">
-      <img src="/images/landing-page/ft-navbar-logo.png" alt="Ft logo">
-    </router-link>
+      <a href="/welcome" class="navbar-brand">
+        <img src="/images/landing-page/ft_logo_navbar.png" alt="Ft logo">
+      </a>
     <b-collapse isNav id="ft-nav-collapse">
-      <b-nav class="ml-auto">
-        <!-- <b-nav-item>
-          <router-link to="#" class="nav-link">Change Language</router-link>
-        </b-nav-item> -->
+      <b-nav class="ml-auto navOptions">
         <b-nav-item>
-          <router-link to="/users/sign_in" class="nav-link">Sign In</router-link>
+          <router-link to="/">ABOUT</router-link>
         </b-nav-item>
-        <form class="form-inline">
+        <form class="form-inline nav-link">
           <router-link  to="/users/sign_up" class="btn btn-outline-secondary">SIGN UP</router-link>
         </form>
+         <b-nav-item>
+          <router-link to="/users/sign_in">LOG IN</router-link>
+        </b-nav-item>
       </b-nav>
     </b-collapse>
   </b-navbar>
@@ -33,8 +33,8 @@ export default {
   props: {
     sticky: {
       type: Boolean,
-      default: false,
-    },
-  },
+      default: false
+    }
+  }
 };
 </script>
