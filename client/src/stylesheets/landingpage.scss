@@ -471,6 +471,7 @@ li {
 }
 
 //devices
+//large screens
 @media (min-width: 1500px) {
   .full {
     .content-slides {
@@ -482,6 +483,25 @@ li {
     }
   }
 }
+
+//laptop with retina screens
+@media screen
+  and (min-device-width: 1200px)
+  and (max-device-width: 1600px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (min-resolution: 192dpi) {
+    .full {
+      .content-slides {
+        .ft-logo img {
+          margin-top: 0;
+          margin-bottom: 0;
+          height: 300px;
+        }
+      }
+    }
+}
+
+
 @media (max-device-width: 992px) {
   .full {
     background: black;
