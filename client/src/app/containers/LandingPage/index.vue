@@ -56,25 +56,32 @@
             <div class="content-slides">
               <div class="container-fluid">
                 <div class="carousel-caption">
-                  <div class="row">
-                    <div class="col-12">
-                      <h1 class="header">
-                        Players
-                      </h1>
+                  <div class="row justify-content-center">
+                    <div class="ft-logo">
+                      <img src="/images/landing-page/ft-logo-content-slide.png" alt="ft-logo">
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-sm-12 col-md-10">
-                      <h3 class="description">
-                        Build and promote your profile, raise your game and take your career as far as you can.
-                      </h3>
+                    <div class="row">
+                      <div class="col-12">
+                        <h1 class="header">
+                          Players
+                        </h1>
+                      </div>
                     </div>
-                    <div class="col-md-2">
-                      <a class="bar-button center" href="users/sign_up">
-                        Register Now
-                      </a>
+                    <div class="row">
+                      <div class="col-10">
+                        <h3 class="description">
+                          Build and promote your profile, raise your game and take your career as far as you can.
+                        </h3>
+                      </div>
                     </div>
-                  </div>
+                    <div class="row">
+                      <div class="col-1">
+                        <a class="bar-button center" href="users/sign_up">
+                          Register Now
+                        </a>
+                      </div>
+                    </div>
                 </div>
               </div>
             </div>
@@ -85,26 +92,32 @@
             <div class="content-slides">
               <div class="container-fluid">
                 <div class="carousel-caption">
+                  <div class="row justify-content-center">
+                    <div class="ft-logo">
+                      <img src="/images/landing-page/ft-logo-content-slide.png" alt="ft-logo">
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="col-12">
-                      <h1 class="header col-12">
+                      <h1 class="header">
                         Scouts
                       </h1>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-sm-12 col-md-10">
+                    <div class="col-10">
                       <h3 class="description">
                         Build your reputation as a talent spotter or analyst and make a living from the sport you love.
                       </h3>
                     </div>
-                    <div class="col-md-2">
+                  </div>
+                  <div class="row">
+                    <div class="col-1">
                       <a class="bar-button center" href="users/sign_up">
                         Register Now
                       </a>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -115,6 +128,11 @@
             <div class="content-slides">
               <div class="container-fluid">
                 <div class="carousel-caption">
+                  <div class="row justify-content-center">
+                    <div class="ft-logo">
+                      <img src="/images/landing-page/ft-logo-content-slide.png" alt="ft-logo">
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="col-12">
                       <h1 class="header">
@@ -123,12 +141,14 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-sm-12 col-md-10">
+                    <div class="col-10">
                       <h3 class="description">
                         Maximise your teams’ performance by digitising everything from training and team management to scouting and medical processes.
                       </h3>
                     </div>
-                    <div class="col-md-2">
+                  </div>
+                  <div class="row">
+                    <div class="col-1">
                       <a class="bar-button center" href="users/sign_up">
                         Register Now
                       </a>

@@ -133,7 +133,6 @@ li {
     color: $button-background-colour2;
   }
   .toggle li:hover {
-    font-size: 140%;
     color: $button-background-colour2;
   }
   .cursor {
@@ -205,31 +204,29 @@ li {
     }
   }
   .content-slides {
-    .carousel-caption{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    .carousel-caption {
       text-align: left;
-      top: 0;
+      top:0;
       left: 10em;
+      padding-bottom: 10em;
+    }
+    .ft-logo img{
+      height: 200px;
     }
     .header {
       text-transform: uppercase;
       font-size: $content-slides-header;
       letter-spacing: $letter-spacing;
+      padding: 0;
+      margin-left: -0.065em;
     }
     .description {
       font-weight: lighter;
       opacity: 0.6;
-      letter-spacing: $letter-spacing;
       font-size: $content-slides-description;
-      margin-top: 0.7rem;
+      margin-top: 0.7em;
+      margin-bottom: 0.7em;
     }
-  }
-  .col-md-2 {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
   }
 }
 
@@ -362,7 +359,7 @@ li {
   .polaroid-title {
     text-align: left;
     color: $navbar-background-color2;
-    text-transform: lowercase;
+    text-transform: capitalize;
     font-weight: bold;
     padding: 50px 0 0 10px;
     font-size: $third-page-polaroid-title;
@@ -474,6 +471,17 @@ li {
 }
 
 //devices
+@media (min-width: 1500px) {
+  .full {
+    .content-slides {
+      .ft-logo img{
+        margin-top: 110px;
+        margin-bottom: 30px;
+        height: 350px;
+      }
+    }
+  }
+}
 @media (max-device-width: 992px) {
   .full {
     background: black;
