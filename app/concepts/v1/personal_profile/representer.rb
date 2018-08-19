@@ -19,6 +19,7 @@ module V1
         property :playing_positions
         property :pro_status
         property :total_caps
+        property :biography
       end
     end
   end

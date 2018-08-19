@@ -16,6 +16,7 @@ module V1
         property :preferred_foot
         property :playing_positions
         property :pro_status
+        property :biography
 
         validates :first_name,
                   :last_name,
