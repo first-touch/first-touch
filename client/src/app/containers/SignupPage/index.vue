@@ -258,7 +258,7 @@ export default {
     ...mapActions(['attemptLogIn']),
     handleSubmit() {
       if (this.password !== this.password_confirmation) {
-        return this.$set(this, 'error', "Password Doesn't Match!");
+        return this.$set(this, 'error', "Passwords don't Match!");
       } else if (this.day.length === 0 || this.month.length === 0) {
         return this.$set(this, 'error', 'Please Enter Date of Birth!');
       } else if (!this.role_name) {
@@ -270,6 +270,10 @@ export default {
           'Please agree to our Terms and Conditions',
         );
       }
+      var clubId = undefined;
+      if (this.item) {
+        clubId = this.item.id;
+      }
       const data = {
         email: this.email,
         password: this.password,
@@ -278,7 +282,7 @@ export default {
           first_name: this.first_name,
           last_name: this.last_name,
           birthday: new Date(Date.UTC(this.year, this.month, this.day)),
-          club_id: this.item.id,
+          club_id: clubId
         },
         role_name: this.role_name,
       };
