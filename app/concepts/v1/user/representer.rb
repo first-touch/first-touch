@@ -13,6 +13,7 @@ module V1
         property :current_club, exec_context: :decorator
 
         def current_club
+          return nil unless represented.clubs.length.positive?
           V1::Club::Representer::Show.new(represented.clubs.first)
         end
 
