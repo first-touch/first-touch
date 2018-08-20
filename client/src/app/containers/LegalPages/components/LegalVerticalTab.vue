@@ -36,12 +36,12 @@
   .show>.btn-secondary.dropdown-toggle {
     background: #343434;
     color: #7F8081;
+    margin: 1em;
   }
 
   #legal-verticaltab {
     background: #343434;
     top: 0;
-    height: 100vh;
     position: sticky;
     .card-body {
       padding: 0.7em;
@@ -50,6 +50,7 @@
       background: #343434;
       padding-top: 9em;
       border: 0;
+      height: 100vh;
     }
     .vertSideItem {
       margin-bottom: 0.5em;
@@ -73,10 +74,10 @@
 
   @media(max-width: 992px) {
     #legal-verticaltab {
-      height: auto;
-      padding-bottom: 0.5em;
       .vertical-tab {
         padding-top: 0em;
+        padding-bottom: 0.5em;
+        height: auto;
       }
     }
   }
