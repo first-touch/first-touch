@@ -43,6 +43,7 @@
     background: #343434;
     top: 0;
     position: sticky;
+    position: -webkit-sticky;
     .card-body {
       padding: 0.7em;
     }

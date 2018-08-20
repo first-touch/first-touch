@@ -1,6 +1,7 @@
 .table-of-contents {
   top: 10%;
   position: sticky;
+  position:-webkit-sticky;
   margin-top: 10em;
   .toc-list {
     color: #343434;
