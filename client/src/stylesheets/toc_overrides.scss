@@ -1,0 +1,42 @@
+.table-of-contents {
+  top: 10%;
+  position: sticky;
+  position:-webkit-sticky;
+  margin-top: 10em;
+  .toc-list {
+    color: #343434;
+  }
+  .toc-list-item {
+    display: list-item;
+    margin-left: 34px;
+    font-weight: 100;
+  }
+  .is-active-li,
+  .is-active-link {
+    color: #A8CB5C;
+    font-weight: 400;
+  }
+  .is-collapsible {
+    list-style: lower-alpha;
+    .toc-list-item {
+      margin-left:20px;
+    }
+  }
+}
+
+.js-toc-content {
+  h2::before {
+    display: block;
+    content: " ";
+    height: 118px;
+    margin-top: -52px;
+    visibility: hidden;
+  }
+  h3::before {
+    display: block;
+    content: " ";
+    height: 118px;
+    margin-top: -52px;
+    visibility: hidden;
+  }
+}
