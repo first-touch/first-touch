@@ -36,7 +36,7 @@
   background: url('/images/landing-page/team-logo.jpg') no-repeat center center
     fixed;
   background-size: cover;
-  min-height: calc(100vh - 78px);
+  min-height: 105vh;
   display: flex;
   flex-direction: column;
   align-items: center;
