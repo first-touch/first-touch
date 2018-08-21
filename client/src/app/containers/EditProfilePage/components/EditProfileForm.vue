@@ -88,12 +88,13 @@
     color: $main-text-color;
   }
   .bar-button {
-    border: 1px solid $main-text-color;
+    border: 1px solid #4ca04b;
+    background-color: #4ca04b;
     box-shadow: none;
     &:hover,
     &:focus {
-    background-color: #4ca04b;
-    border: 1px solid #4ca04b;
+    background-color: $button-background-colour-on-hover;
+    border: 1px solid $button-background-colour-on-hover;
   }
   }
 }
