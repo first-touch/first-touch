@@ -88,7 +88,6 @@
     color: $main-text-color;
   }
   .bar-button {
-    color: $first-touch-white;
     border: 1px solid $main-text-color;
     box-shadow: none;
     &:hover,
