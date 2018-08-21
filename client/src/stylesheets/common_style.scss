@@ -136,6 +136,20 @@ a.btn.btn-bright:focus {
   color: $main-text-color;
 }
 
+.btn {
+  font-size: 0.9em;
+  padding: 5px 20px;
+  text-transform: uppercase;
+  border: 1px solid $main-text-color;
+  &.btn-bright {
+    color: $main-text-color;
+  }
+  &.btn-dark {
+    color: #fff;
+    background-color: $main-text-color;
+  }
+}
+
 .sidenav-left {
   display: flex;
   flex-direction: column;
