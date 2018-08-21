@@ -112,7 +112,7 @@
   background: url('/images/landing-page/team-logo.jpg') no-repeat center center
     fixed;
   background-size: cover;
-  min-height: calc(100vh - 78px);
+  min-height: calc(100vh - 40px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -158,6 +158,39 @@
   font-size: 0.9rem;
   color: #fff;
 }
+//most mobile devices
+@media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 1200px)
+  and (orientation: landscape) {
+  .container-fluid {
+        height: 200vh;
+  }
+}
+/*Kindle Fire
+Nexus 10
+Pixel 2 XL*/
+@media only screen
+  and (min-device-width: 800px)
+  and (max-device-width: 1280px)
+  and (-webkit-min-device-pixel-ratio: 1.5)
+  and (orientation: landscape) {
+  .container-fluid {
+    height: 220vh;
+  }
+}
+//iPhoneX
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 812px)
+and (-webkit-device-pixel-ratio : 3)
+and (orientation : landscape) {
+  .container-fluid {
+    height: 250vh;
+  }
+}
+
+
 </style>
 <style lang="scss">
 .v-autocomplete {
