@@ -68,7 +68,7 @@
             </div>
           </fieldset>
           <fieldset class="form-group col-md-12">
-            <label>Your Club</label>
+            <label>Your Club*</label>
             <div class="row">
               <select v-model="club_country_code" class="form-control col-md-4">
                 <option disabled value="" selected>Country</option>
@@ -86,6 +86,9 @@
                 :input-attrs="{disabled: countries.length === 0 || club_country_code === ''}"
                 />
             </div>
+          </fieldset>
+          <fieldset class="form-group col-md-12">
+            <label class="club-note">*To register your Club, create your individual profile first.</label>
           </fieldset>
           <fieldset class="form-group col-md-12 tc-container">
             <input type="checkbox" id="tc" name="termsandconditions" v-model="tccheck" />
