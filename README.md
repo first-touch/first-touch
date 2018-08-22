@@ -106,3 +106,10 @@ $ yarn serve
 ```
 
 7. Open the browser in `localhost:3001`
+
+8. We rely on mailcatcher to trap emails on dev enviroment. Make sure you install it and start the deamon
+```
+$ gem install mailcatcher
+$ mailcatcher
+```
+The service should be available in http://localhost:1080/
