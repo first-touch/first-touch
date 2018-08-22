@@ -296,9 +296,7 @@ export default {
         body: JSON.stringify(data),
       }).then(res => {
         if (res.status === 201) {
-          this.$set(this, 'error', 'An email has been sent to ')
-
-          // this.attemptLogIn({ email: this.email, password: this.password });
+          this.$router.push({ path: '/users/sign_in' });
         } else {
           res.json().then(r => this.$set(this, 'error', r.errors.join(", ")));
         }
