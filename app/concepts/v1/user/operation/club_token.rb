@@ -19,7 +19,6 @@ module V1
       def generate_club_token!(options, current_user:, club:, **)
         token_params = {
           account_owner_id: current_user.id,
-          account_owner_digest: current_user.password_digest,
           account_owner_last_logout: current_user.last_logout_at,
           club_id: club.id
         }

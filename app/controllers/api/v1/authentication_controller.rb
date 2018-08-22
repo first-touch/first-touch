@@ -19,25 +19,6 @@ module Api
         end
       end
 
-      def validate
-        token_expired = ValidateToken.(request.headers).result
-        if token_expired
-          current_user = AuthorizeApiRequest.(request.headers).result
-          if current_user
-            new_token = JsonWebToken.encode(
-              user_id: current_user.id,
-              digest: current_user.password_digest,
-              last_logout: current_user.last_logout_at.to_i
-            )
-            render json: { auth_token: new_token }
-          else
-            render json: { error: 'Not Authorized' }, status: :unauthorized
-          end
-        else
-          render json: true, status: :ok
-        end
-      end
-
       private
 
       def auth_params
