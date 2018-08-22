@@ -587,9 +587,10 @@ CREATE TABLE public.personal_profiles (
     height double precision,
     preferred_foot character varying,
     languages character varying[],
-    playing_position character varying,
     pro_status character varying,
-    total_caps integer
+    total_caps integer,
+    playing_positions jsonb,
+    biography text
 );
 
 
@@ -1839,6 +1840,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180407014221'),
 ('20180708081004'),
 ('20180708083954'),
-('20180708084944');
+('20180708084944'),
+('20180813134639'),
+('20180819153521');
 
 
