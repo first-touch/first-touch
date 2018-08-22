@@ -6,7 +6,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
 
-
   has_one :personal_profile
   accepts_nested_attributes_for :personal_profile
 

@@ -4,8 +4,7 @@ module V1
       class Authenticated < Representable::Decorator
         include Representable::JSON
 
-        property :email
-        property :authentication_token
+        property :auth_token
       end
     end
   end

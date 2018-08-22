@@ -7,14 +7,6 @@ module Api
         res = ::V1::User::SignIn.(auth_params)
         response = FirstTouch::Endpoint.(res, ::V1::User::Representer::Authenticated)
         render json: response[:data], status: response[:status]
-
-        # command = AuthenticateUser.(auth_params[:email], auth_params[:password])
-
-        # if command.success?
-        #   render json: { auth_token: command.result }
-        # else
-        #   render json: { error: command.errors[:user_authentication] }, status: :unauthorized
-        # end
       end
 
       def logout

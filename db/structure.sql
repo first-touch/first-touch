@@ -930,7 +930,6 @@ CREATE TABLE public.users (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     search_string text,
-    password_digest character varying,
     last_logout_at timestamp without time zone,
     unclaimed boolean,
     encrypted_password character varying DEFAULT ''::character varying NOT NULL,
@@ -1842,6 +1841,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180708083954'),
 ('20180708084944'),
 ('20180813134639'),
-('20180819153521');
+('20180819153521'),
+('20180822042653');
 
 
