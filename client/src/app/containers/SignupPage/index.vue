@@ -9,15 +9,15 @@
         <form class="form" @submit.prevent="handleSubmit">
           <fieldset class="form-group col-md-12">
             <label>Email</label>
-            <input type="email" v-model="email" class="form-control" placeholder="Enter Email..." />
+            <input type="email" v-model="email" class="form-control" autocomplete="username" placeholder="Enter Email..." />
           </fieldset>
           <fieldset class="form-group col-md-12">
             <label>Password</label>
-            <input type="password" v-model="password" class="form-control" placeholder="Enter Password..." />
+            <input type="password" v-model="password" class="form-control" autocomplete="new-password" placeholder="Enter Password..." />
           </fieldset>
           <fieldset class="form-group col-md-12">
             <label>Password Confirmation</label>
-            <input type="password" v-model="password_confirmation" class="form-control" placeholder="Confirm Password..." />
+            <input type="password" v-model="password_confirmation" class="form-control" autocomplete="new-password" placeholder="Confirm Password..." />
           </fieldset>
           <fieldset class="form-group col-md-12">
             <label>Your Name</label>
