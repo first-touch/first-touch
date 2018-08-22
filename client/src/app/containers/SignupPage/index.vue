@@ -106,59 +106,6 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-@import '~stylesheets/variables.scss';
-.container-fluid {
-  background: url('/images/landing-page/team-logo.jpg') no-repeat center center
-    fixed;
-  background-size: cover;
-  min-height: calc(100vh - 78px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 50px 0;
-}
-
-.form {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .row {
-    margin: 0 1px;
-    justify-content: space-between;
-    .col-md-6 {
-      flex-basis: calc(50% - 5px);
-    }
-    .col-md-3 {
-      flex-basis: calc(25% - 5px);
-    }
-  }
-  .tc-container {
-    #tc {
-      height: 16px;
-    }
-    label {
-      margin-bottom: 0;
-      a {
-        color: $secondary-text-color;
-      }
-      a:hover {
-        color: $main-text-color;
-      }
-    }
-  }
-}
-
-.alert.alert-danger {
-  background: transparent;
-  border: none;
-  text-align: center;
-  font-size: 0.9rem;
-  color: #fff;
-}
-</style>
 <style lang="scss">
 .v-autocomplete {
   padding-right: 0;
@@ -213,6 +160,59 @@
 }
 </style>
 
+<style lang="scss" scoped>
+@import '~stylesheets/variables.scss';
+.container-fluid {
+  background: url('/images/landing-page/team-logo.jpg') no-repeat center center
+    fixed;
+  background-size: cover;
+  min-height: calc(100vh - 78px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+}
+
+.form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .row {
+    margin: 0 1px;
+    justify-content: space-between;
+    .col-md-6 {
+      flex-basis: calc(50% - 5px);
+    }
+    .col-md-3 {
+      flex-basis: calc(25% - 5px);
+    }
+  }
+  .tc-container {
+    #tc {
+      height: 16px;
+    }
+    label {
+      margin-bottom: 0;
+      a {
+        color: $secondary-text-color;
+      }
+      a:hover {
+        color: $main-text-color;
+      }
+    }
+  }
+}
+
+.alert.alert-danger {
+  background: transparent;
+  border: none;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #fff;
+}
+</style>
 
 <script>
 import { mapActions } from 'vuex';
@@ -263,7 +263,7 @@ export default {
       if (this.password !== this.password_confirmation) {
         return this.$set(this, 'error', "Passwords don't Match!");
       } else if (this.day.length === 0 || this.month.length === 0) {
-        return this.$set(this, 'error', 'Please Enter Date of Birth!');
+        return this.$set(this, 'error', 'Please enter Date of Birth!');
       } else if (!this.role_name) {
         return this.$set(this, 'error', 'Please choose a role!');
       } else if (!this.tccheck) {
@@ -295,8 +295,10 @@ export default {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       }).then(res => {
-        if (res.status === 201 || res.status === 201) {
-          this.attemptLogIn({ email: this.email, password: this.password });
+        if (res.status === 201) {
+          this.$set(this, 'error', 'An email has been sent to ')
+
+          // this.attemptLogIn({ email: this.email, password: this.password });
         } else {
           res.json().then(r => this.$set(this, 'error', r.errors.join(", ")));
         }
