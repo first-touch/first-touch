@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
+  devise_for :users, only: [:confirmations]
   namespace :api do
     namespace :v1 do
       get 'settings/playing_positions', controller: :configurations, action: :playing_positions
