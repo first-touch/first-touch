@@ -76,8 +76,7 @@
       </div>
     </fieldset>
     <fieldset class="form-group col-md-12">
-      <router-link to="/profile" class="btn btn-bright">Save</router-link>
-      <!-- <button type="submit" class="bar-button center">Save</button> -->
+      <button type="submit" class="bar-button center">Save</button>
     </fieldset>
   </form>
 </template>
@@ -89,14 +88,15 @@
     color: $main-text-color;
   }
   .bar-button {
-    border: 1px solid #4ca04b;
-    background-color: #4ca04b;
+    border: 1px solid #7f8081;
+    background-color: $first-touch-white;
+    color: #7f8081;
     box-shadow: none;
-    &:hover,
-    &:focus {
-      background-color: $button-background-colour-on-hover;
-      border: 1px solid $button-background-colour-on-hover;
-    }
+    font-size: 0.9em;
+    width: auto;
+    padding: 5px 20px;
+    font-weight: 400;
+    border-radius: .25rem;
   }
 }
 </style>
