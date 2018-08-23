@@ -75,7 +75,6 @@ li {
 .bar-button {
   box-sizing: border-box;
   display: block;
-  margin: 5px;
   color: $first-touch-white;
   font-size: 20px;
   font-weight: 300;
@@ -140,7 +139,6 @@ li {
   }
   .toggle li {
     //menu player scouts clubs toggle
-    bottom: 50px;
     opacity: 0.6;
     text-indent: 0;
     margin: 0 40px;
@@ -157,9 +155,7 @@ li {
     }
   }
   .intro-message {
-    .carousel-caption {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       top: 0;
       img {
@@ -168,11 +164,11 @@ li {
       .main {
         text-transform: uppercase;
         color: $main-text-color;
-        font-size: $first-main-text;
+        font-size: $important-size;
         margin: 15px;
       }
       .bar-button{
-        margin-bottom: 25px;
+        margin-bottom: 15px;
         width: 300px;
         font-size: 25px;
       }
@@ -201,15 +197,16 @@ li {
           width: 17ch;
         }
       }
-    }
+
   }
   .content-slides {
-    .carousel-caption {
-      text-align: left;
-      top:0;
-      left: 10em;
-      padding-bottom: 10em;
-    }
+    text-align: left;
+    left: 10em;
+    padding-bottom: 10em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    top: 0;
     .ft-logo img{
       height: 200px;
     }
@@ -226,6 +223,9 @@ li {
       font-size: $content-slides-description;
       margin-top: 0.7em;
       margin-bottom: 0.7em;
+    }
+    .bar-button {
+      margin-top: 1.3em;
     }
   }
 }

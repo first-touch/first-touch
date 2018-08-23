@@ -15,37 +15,26 @@
         </div>
 
         <div class="carousel-inner" role="listbox">
+
           <div class="carousel-item active main">
             <img class="menu" src="/images/landing-page/team-logo.jpg" alt="First slide">
-            <div class="intro-message">
-              <div class="container-fluid">
-                <div class="carousel-caption">
-                  <div class="row justify-content-center">
-                    <img src="images/landing-page/ft-logo.png" alt="Ft logo">
-                  </div>
-                  <div class="row justify-content-center">
-                    <div class="col-12">
-                      <ul class="main center">
-                        The digital platform for
-                        <br>managing careers, performance
-                        <br>and team processes
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="row justify-content-center">
-                    <ul>
-                      <li>
-                        <a class="bar-button center" href="users/sign_up">
-                          Get Started
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="row justify-content-center">
-                    <h1 class="typewriter">
-                      #RaiseYourGame
-                    </h1>
-                  </div>
+            <div class="carousel-caption intro-message">
+              <div class="d-flex flex-column justify-content-center">
+                <div class="row justify-content-center">
+                  <img src="images/landing-page/ft-logo.png" class="img-fluid" alt="Ft logo">
+                </div>
+                <div class="row justify-content-center main">
+                  The digital platform for
+                  <br>managing careers, performance
+                  <br>and team processes
+                </div>
+                <div class="row justify-content-center">
+                  <router-link to="/users/sign_up" class="bar-button">Get-started</router-link>
+                </div>
+                <div class="row justify-content-center">
+                  <h1 class="typewriter">
+                    #RaiseYourGame
+                  </h1>
                 </div>
               </div>
             </div>
@@ -53,35 +42,31 @@
 
           <div class="carousel-item player">
             <img class="img-fluid menu" src="/images/landing-page/BG-player.jpg" alt="Second slide">
-            <div class="content-slides">
-              <div class="container-fluid">
-                <div class="carousel-caption">
-                  <div class="row justify-content-center">
-                    <div class="ft-logo">
-                      <img src="/images/landing-page/ft-logo-content-slide.png" alt="ft-logo">
-                    </div>
-                  </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <h1 class="header">
-                          Players
-                        </h1>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-10">
-                        <h3 class="description">
-                          Build and promote your profile, raise your game and take your career as far as you can.
-                        </h3>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-1">
-                        <a class="bar-button center" href="users/sign_up">
-                          Register Now
-                        </a>
-                      </div>
-                    </div>
+            <div class="carousel-caption content-slides">
+              <div class="row justify-content-center">
+                <div class="ft-logo">
+                  <img src="/images/landing-page/ft-logo-content-slide.png" alt="ft-logo">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <h1 class="header">
+                    Players
+                  </h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-10">
+                  <h3 class="description">
+                    Build and promote your profile, raise your game and take your career as far as you can.
+                  </h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-1">
+                  <router-link to="/users/sign_up" class="bar-button">
+                    Register Now
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -89,35 +74,32 @@
 
           <div class="carousel-item scouts">
             <img class="img-fluid menu" src="/images/landing-page/BG-scouts.jpg" alt="Third slide">
-            <div class="content-slides">
-              <div class="container-fluid">
-                <div class="carousel-caption">
-                  <div class="row justify-content-center">
-                    <div class="ft-logo">
-                      <img src="/images/landing-page/ft-logo-content-slide.png" alt="ft-logo">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12">
-                      <h1 class="header">
-                        Scouts
-                      </h1>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-10">
-                      <h3 class="description">
-                        Build your reputation as a talent spotter or analyst and make a living from the sport you love.
-                      </h3>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-1">
-                      <a class="bar-button center" href="users/sign_up">
-                        Register Now
-                      </a>
-                    </div>
-                  </div>
+
+            <div class="carousel-caption content-slides">
+              <div class="row justify-content-center">
+                <div class="ft-logo">
+                  <img src="/images/landing-page/ft-logo-content-slide.png" alt="ft-logo">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <h1 class="header">
+                    Scouts
+                  </h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-10">
+                  <h3 class="description">
+                    Build your reputation as a talent spotter or analyst and make a living from the sport you love.
+                  </h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-1">
+                  <router-link to="/users/sign_up" class="bar-button">
+                    Register Now
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -125,35 +107,31 @@
 
           <div class="carousel-item clubs">
             <img class="img-fluid menu" src="/images/landing-page/BG-clubs2.jpg" alt="Fourth slide">
-            <div class="content-slides">
-              <div class="container-fluid">
-                <div class="carousel-caption">
-                  <div class="row justify-content-center">
-                    <div class="ft-logo">
-                      <img src="/images/landing-page/ft-logo-content-slide.png" alt="ft-logo">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12">
-                      <h1 class="header">
-                        Clubs
-                      </h1>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-10">
-                      <h3 class="description">
-                        Maximise your teams’ performance by digitising everything from training and team management to scouting and medical processes.
-                      </h3>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-1">
-                      <a class="bar-button center" href="users/sign_up">
-                        Register Now
-                      </a>
-                    </div>
-                  </div>
+            <div class="carousel-caption content-slides">
+              <div class="row justify-content-center">
+                <div class="ft-logo">
+                  <img src="/images/landing-page/ft-logo-content-slide.png" alt="ft-logo">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <h1 class="header">
+                    Clubs
+                  </h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <h3 class="description">
+                    Maximise your teams’ performance by digitising everything from training and team management to scouting and medical processes.
+                  </h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-1">
+                  <a class="bar-button center" href="users/sign_up">
+                    Register Now
+                  </a>
                 </div>
               </div>
             </div>
@@ -172,7 +150,7 @@
         </div>
         <div class="text-center">
           <h2>
-            <router-link  to="/users/sign_up" class="sign-up">Sign Up Now!</router-link>
+            <router-link to="/users/sign_up" class="sign-up">Sign Up Now!</router-link>
           </h2>
         </div>
       </div>
