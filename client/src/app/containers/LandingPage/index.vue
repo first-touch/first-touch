@@ -26,9 +26,9 @@
                   <div class="row justify-content-center">
                     <div class="col-12">
                       <ul class="main center">
-                        Carving out
-                        <br> individual and collective
-                        <br> success stories
+                        The digital platform for
+                        <br>managing careers, performance
+                        <br>and team processes
                       </ul>
                     </div>
                   </div>
@@ -172,7 +172,7 @@
         </div>
         <div class="text-center">
           <h2>
-            Sign Up Now!
+            <router-link  to="/users/sign_up" class="sign-up">Sign Up Now!</router-link>
           </h2>
         </div>
       </div>
