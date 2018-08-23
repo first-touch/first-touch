@@ -267,6 +267,11 @@ li {
   .carousel {
     display: none;
   }
+  .row-list {
+    .col-lg-4 {
+      margin-bottom: 1.5em;
+    }
+  }
   .head-text {
     font-size: $second-page-header-font;
     letter-spacing: $letter-spacing;
