@@ -24,7 +24,7 @@
                   <img src="images/landing-page/ft-logo.png" class="img-fluid" alt="Ft logo">
                 </div>
                 <div class="row justify-content-center main">
-                  The digital platform for
+                  The football platform for
                   <br>managing careers, performance
                   <br>and team processes
                 </div>
@@ -197,79 +197,77 @@
 
           <div class="capabilities row-list">
             <!-- row-list shown only when screen is large (desktop and laptop)-->
-            <div class="container-fluid">
-              <div class="row justify-content-center">
-                <div class="col-lg-4">
-                  <div class="subhead-capabilities">
-                    Career Management
-                  </div>
-                  <div class="key-description">
-                    <ul>
-                      <li>Consolidate information into an attractive sporting profile for many core roles </li>
-                      <li>Build a professional network of agents, scouts, coaches, players and teams </li>
-                      <li>Interact with, learn from and share with peers and experts in a global community</li>
-                    </ul>
-                  </div>
+            <div class="row justify-content-center">
+              <div class="col-lg-4">
+                <div class="subhead-capabilities">
+                  Career Management
                 </div>
-                <div class="col-lg-4">
-                  <div class="subhead-capabilities">
-                    Team Management
-                  </div>
-                  <div class="key-description">
-                    <ul>
-                      <li>Manage full team rosters with team and individual player reports </li>
-                      <li>Empower players and staff to collaborate with versatile communications tools </li>
-                      <li>Enable Managers to develop and share tactical strategies securely</li>
-                    </ul>
-                  </div>
+                <div class="key-description">
+                  <ul>
+                    <li>Consolidate information into an attractive sporting profile for many core roles </li>
+                    <li>Build a professional network of agents, scouts, coaches, players and teams </li>
+                    <li>Interact with, learn from and share with peers and experts in a global community</li>
+                  </ul>
                 </div>
-                <div class="col-lg-4">
-                  <div class="subhead-capabilities">
-                    Performance Insights
-                  </div>
-                  <div class="key-description">
-                    <ul>
-                      <li>Capture match data and stats using intuitive and flexible reporting mechanisms </li>
-                      <li>Prepare your next game by requesting opposition analyses from trusted scouts </li>
-                      <li>Use match insights to prepare your coach and team for the next match</li>
-                    </ul>
-                  </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="subhead-capabilities">
+                  Team Management
                 </div>
-                <div class="col-lg-4">
-                  <div class="subhead-capabilities">
-                    Player Development & Fitness
-                  </div>
-                  <div class="key-description">
-                    <ul>
-                      <li>Create training exercise programs and assign them to groups or individuals</li>
-                      <li>Analyse and track players’ talent development and progress</li>
-                      <li>Manage medical data and rehabilitation programs on the go with simple notes</li>
-                    </ul>
-                  </div>
+                <div class="key-description">
+                  <ul>
+                    <li>Manage full team rosters with team and individual player reports </li>
+                    <li>Empower players and staff to collaborate with versatile communications tools </li>
+                    <li>Enable Managers to develop and share tactical strategies securely</li>
+                  </ul>
                 </div>
-                <div class="col-lg-4">
-                  <div class="subhead-capabilities">
-                    Scouting & Recruitment
-                  </div>
-                  <div class="key-description">
-                    <ul>
-                      <li>Create and assign scouting requests, simply and intuitively </li>
-                      <li>Access a global network of independent scouts to acquire scouting insights </li>
-                      <li>Sell and acquire reports in an open marketplace</li>
-                    </ul>
-                  </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="subhead-capabilities">
+                  Performance Insights
                 </div>
-                <div class="col-lg-4">
-                  <div class="subhead-capabilities">
-                    Club Management
-                  </div>
-                  <div class="key-description">
-                    <ul>
-                      <li>Access, schedule and manage events on the go, from matches to social gatherings </li>
-                      <li>Coordinate administrative activities such as contracts and league registrations </li>
-                      <li>Search for, identify and hire the best managers, coaches and medical staff </li>
-                    </ul>
-                  </div>
+                <div class="key-description">
+                  <ul>
+                    <li>Capture match data and stats using intuitive and flexible reporting mechanisms </li>
+                    <li>Prepare your next game by requesting opposition analyses from trusted scouts </li>
+                    <li>Use match insights to prepare your coach and team for the next match</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="subhead-capabilities">
+                  Development & Fitness
+                </div>
+                <div class="key-description">
+                  <ul>
+                    <li>Create training exercise programs and assign them to groups or individuals</li>
+                    <li>Analyse and track players’ talent development and progress</li>
+                    <li>Manage medical data and rehabilitation programs on the go with simple notes</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="subhead-capabilities">
+                  Scouting & Recruitment
+                </div>
+                <div class="key-description">
+                  <ul>
+                    <li>Create and assign scouting requests, simply and intuitively </li>
+                    <li>Access a global network of independent scouts to acquire scouting insights </li>
+                    <li>Sell and acquire reports in an open marketplace</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="subhead-capabilities">
+                  Club Management
+                </div>
+                <div class="key-description">
+                  <ul>
+                    <li>Access, schedule and manage events on the go, from matches to social gatherings </li>
+                    <li>Coordinate administrative activities such as contracts and league registrations </li>
+                    <li>Search for, identify and hire the best managers, coaches and medical staff </li>
+                  </ul>
                 </div>
               </div>
             </div>
