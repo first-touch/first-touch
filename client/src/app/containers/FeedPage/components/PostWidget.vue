@@ -2,15 +2,17 @@
   <div>
     <div class="timeline-widget">
       <div class="arrow"></div>
-      <button class="timeline-widget-button btn-png" @click="toggle">
+      <button class="timeline-widget-button" @click="toggle">
+        <button class="btn-png"></button>
+        <span class="btn-text">
+          publish a new post
+        </span>
       </button>
-       <button class="timeline-widget-button btn-text" @click="toggle">
-        publish a new post
-      </button>
-      <button class="timeline-widget-button btn-png">
-      </button>
-      <button class="timeline-widget-button btn-text">
-        upload a picture
+      <button class="timeline-widget-button">
+        <button class="btn-png"></button>
+        <span class="btn-text">
+          upload a picture
+        </span>
       </button>
     </div>
     <div class="timeline-widget writer" :class="{ active }">
@@ -34,21 +36,27 @@
   display: flex;
   border-left: 7px solid $secondary-header-color;
   .timeline-widget-button {
-    color: $secondary-text-color;
-    text-transform: uppercase;
     background-color: $navbar-background-color;
     border: none;
-    max-width: 12vw;
-    &.btn-png {
+    margin-right: 20px;
+    .btn-png {
       box-sizing: content-box;
-      width: 40px;
+      width: 33px;
+      height: 40px;
+      background-color: $navbar-background-color;
+      border: none;
       background-image: url('https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png');
       background-repeat: no-repeat;
       background-position: left;
       background-size: contain;
     }
-    &.btn-text {
+    .btn-text {
+      box-sizing: content-box;
+      max-width: 12vw;
+      color: $secondary-text-color;
+      text-transform: uppercase;
       text-align: left;
+      float: right;
     }
 
   }
