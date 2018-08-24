@@ -89,7 +89,7 @@
   .top {
     display: flex;
     .avatar {
-      height: 300px;
+      height: 185px;
       border-radius: 50%;
     }
     .info {
