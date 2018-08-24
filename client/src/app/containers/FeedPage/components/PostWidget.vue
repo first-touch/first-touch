@@ -60,7 +60,7 @@
     overflow: hidden;
     transition: height 1s;
     &.active {
-      height: 180px;
+      height: auto;
     }
     .container {
       padding: 10px 20px 0;
