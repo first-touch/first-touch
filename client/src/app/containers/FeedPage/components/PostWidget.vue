@@ -2,10 +2,14 @@
   <div>
     <div class="timeline-widget">
       <div class="arrow"></div>
-      <button class="timeline-widget-button btn-post" @click="toggle">
+      <button class="timeline-widget-button btn-png" @click="toggle">
+      </button>
+       <button class="timeline-widget-button btn-text" @click="toggle">
         publish a new post
       </button>
-      <button class="timeline-widget-button btn-upload">
+      <button class="timeline-widget-button btn-png">
+      </button>
+      <button class="timeline-widget-button btn-text">
         upload a picture
       </button>
     </div>
@@ -35,21 +39,18 @@
     background-color: $navbar-background-color;
     border: none;
     max-width: 12vw;
-    margin-right: 20px;
-    &.btn-post {
-      padding-left: 50px;
+    &.btn-png {
+      box-sizing: content-box;
+      width: 40px;
       background-image: url('https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png');
       background-repeat: no-repeat;
       background-position: left;
       background-size: contain;
     }
-    &.btn-upload {
-      padding-left: 50px;
-      background-image: url('https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png');
-      background-repeat: no-repeat;
-      background-position: left;
-      background-size: contain;
+    &.btn-text {
+      text-align: left;
     }
+
   }
   .arrow {
     margin-top: 18px;
