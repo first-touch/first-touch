@@ -58,7 +58,7 @@
   &.writer {
     height: 0;
     overflow: hidden;
-    transition: height 1s;
+    transition: height 0.55s;
     &.active {
       height: 180px;
     }
