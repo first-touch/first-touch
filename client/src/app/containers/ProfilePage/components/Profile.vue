@@ -46,7 +46,7 @@
       <div class="bottom">
         <div class="summary">
           <h5 class="summary-title">Summary</h5>
-          <p class="summary-field">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
+          <p class="summary-field name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
           <p class="summary-field">
             <span class="summary-field-title">Height</span>
             {{ info.personal_profile.height }} cm
@@ -143,6 +143,9 @@
         color: $secondary-text-color;
         text-transform: uppercase;
         margin-bottom: 20px;
+      }
+      .name {
+        text-transform: capitalize;
       }
       .summary-field {
         color: $main-text-color;
