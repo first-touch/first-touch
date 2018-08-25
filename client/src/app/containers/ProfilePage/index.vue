@@ -10,6 +10,56 @@
           :connect="connectUser"/>
         <career-history v-if="info" :careerHistory="info.career_history"/>
       </div>
+      <misc-container :title="'Language'">
+        <ul class="items">
+          <li>
+            <p class="name">Portugese</p>
+            <p class="details">Native or bilingual proficiency</p>
+          </li>
+          <li>
+            <p class="name">English</p>
+            <p class="details">Professional working proficiency</p>
+          </li>
+          <li>
+            <p class="name">Spanish</p>
+            <p class="details">Professional working proficiency</p>
+          </li>
+        </ul>
+      </misc-container>
+      <misc-container :title="'Attributes'">
+        <ul class="items">
+          <li>
+            <div class="score">
+              <radial-progress :percentage="'90'" :score="9"/>
+              <p class="name">Passing</p>
+            </div>
+            <p class="details">Lorem ipsum dolor sit amet.</p>
+          </li>
+          <li>
+            <div class="score">
+              <radial-progress :percentage="'70'" :score="7"/>
+              <p class="name">Shooting</p>
+            </div>
+            <p class="details">Lorem ipsum dolor sit amet.</p>
+          </li>
+        </ul>
+      </misc-container>
+      <misc-container :title="'Certificates and qualifications'">
+        <ul class="items">
+          <li>
+            <p class="name">Lorem Ipsum</p>
+            <p class="details">Lorem ipsum dolor sit amet.</p>
+          </li>
+          <li>
+            <p class="name">Lorem Ipsum</p>
+            <p class="details">Lorem ipsum dolor sit amet.</p>
+          </li>
+          <li>
+            <p class="name">Lorem Ipsum</p>
+            <p class="details">Lorem ipsum dolor sit amet.</p>
+          </li>
+        </ul>
+      </misc-container>
     </div>
   </div>
 </template>
@@ -28,6 +78,54 @@
     border-left-color: $main-header-color;
   }
 }
+
+.btn {
+  font-size: 0.9em;
+  padding: 5px 20px;
+  text-transform: uppercase;
+  border: 1px solid $main-text-color;
+  &.btn-bright {
+    color: $main-text-color;
+  }
+  &.btn-dark {
+    color: #fff;
+    background-color: $main-text-color;
+  }
+}
+
+.items {
+  li {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 15px;
+    }
+    .name,
+    .details {
+      color: $main-text-color;
+      margin-bottom: 0;
+    }
+    .name {
+      text-transform: uppercase;
+    }
+    .score {
+      display: flex;
+      align-items: center;
+
+      & + .details {
+        display: flex;
+        align-items: center;
+      }
+
+      .radial-progress {
+        margin-right: 20px;
+      }
+    }
+  }
+}
 </style>
 
 <script>
@@ -37,6 +135,8 @@ import { ASYNC_LOADING, ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 import NotificationSidebar from 'app/components/NotificationSidebar';
 import Profile from './components/Profile';
 import CareerHistory from './components/CareerHistory';
+import MiscContainer from './components/MiscContainer';
+import RadialProgress from 'app/components/RadialProgress';
 
 export default {
   name: 'ProfilePage',
@@ -45,6 +145,8 @@ export default {
     sidebar: NotificationSidebar,
     profile: Profile,
     'career-history': CareerHistory,
+    'misc-container': MiscContainer,
+    'radial-progress': RadialProgress,
   },
   computed: {
     ...mapGetters(['token', 'user', 'profile']),

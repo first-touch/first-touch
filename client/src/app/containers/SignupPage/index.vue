@@ -309,7 +309,11 @@ export default {
           this.$set(
             this,
             'countries',
-            countries.sort((a, b) => a.country_name > b.country_name),
+            countries.sort((a, b) => {
+              if (a.country_name > b.country_name) return 1;
+              if (a.country_name < b.country_name) return -1;
+              return 0;
+            }),
           ),
         );
     },
