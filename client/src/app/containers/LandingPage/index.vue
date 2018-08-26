@@ -18,7 +18,6 @@
 
           <div class="carousel-item active main">
             <img class="menu" src="/images/landing-page/team-logo.jpg" alt="First slide">
-<<<<<<< HEAD
             <div class="carousel-caption intro-message">
               <div class="d-flex flex-column justify-content-center">
                 <div class="row justify-content-center">

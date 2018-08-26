@@ -48,7 +48,7 @@ import VueAutosize from 'vue-autosize';
 import VueRouter from 'vue-router';
 import VeeValidate from 'vee-validate';
 import './app/constants/filters';
-import 'stylesheets/landingpage.scss';
+import VueFormWizard from 'vue-form-wizard';
 
 Vue.use(VueAutosize);
 Vue.use(VueRouter);
@@ -57,6 +57,7 @@ Vue.use(VeeValidate);
 
 window.$ = require('jquery');
 window.JQuery = require('jquery');
+Vue.use(VueFormWizard);
 
 // delete once registration is allowed
 // function redirectToPrereg (to, from, next) {
