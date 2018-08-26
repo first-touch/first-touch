@@ -119,7 +119,7 @@ export const router = new VueRouter({
       beforeEnter: checkIfLoggedIn
     },
     {
-      path: '/users/sign_up/:role',
+      path: '/users/sign_up/:role?',
       component: SignupPage,
       props: { props: true }
       // beforeEnter: redirectToPrereg

@@ -18,6 +18,7 @@
 
           <div class="carousel-item active main">
             <img class="menu" src="/images/landing-page/team-logo.jpg" alt="First slide">
+<<<<<<< HEAD
             <div class="carousel-caption intro-message">
               <div class="d-flex flex-column justify-content-center">
                 <div class="row justify-content-center">
@@ -29,7 +30,7 @@
                   <br>and team processes
                 </div>
                 <div class="row justify-content-center">
-                  <router-link to="/users/sign_up/default" class="a-bar-button">Get-started</router-link>
+                  <router-link to="/users/sign_up" class="a-bar-button">Get-started</router-link>
                 </div>
                 <div class="row justify-content-center">
                   <h1 class="typewriter">
@@ -440,7 +441,7 @@
                     <div class="description">
                       Promote your game and career
                     </div>
-                    <a class="register-plus-logo" href="users/sign_up/default">
+                    <a class="register-plus-logo" href="users/sign_up">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
@@ -455,7 +456,7 @@
                     <div class="description">
                       discover, promote and report on talent
                     </div>
-                    <a class="register-plus-logo" href="users/sign_up/default">
+                    <a class="register-plus-logo" href="users/sign_up">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
@@ -470,7 +471,7 @@
                     <div class="description">
                       power up your team management
                     </div>
-                    <a class="register-plus-logo" href="users/sign_up/default">
+                    <a class="register-plus-logo" href="users/sign_up">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
@@ -485,7 +486,7 @@
                     <div class="description">
                       recruit and manage clients
                     </div>
-                    <a class="register-plus-logo" href="users/sign_up/default">
+                    <a class="register-plus-logo" href="users/sign_up">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
@@ -500,7 +501,7 @@
                     <div class="description">
                       develop your players & your knowledge
                     </div>
-                    <a class="register-plus-logo" href="users/sign_up/default">
+                    <a class="register-plus-logo" href="users/sign_up">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
@@ -515,7 +516,7 @@
                     <div class="description">
                       achieve success through digitisation
                     </div>
-                    <a class="register-plus-logo" href="users/sign_up/default">
+                    <a class="register-plus-logo" href="users/sign_up">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
@@ -530,7 +531,7 @@
                     <div class="description">
                       effectively manage your medical affairs
                     </div>
-                    <a class="register-plus-logo" href="users/sign_up/default">
+                    <a class="register-plus-logo" href="users/sign_up">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
