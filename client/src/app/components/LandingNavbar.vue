@@ -10,7 +10,7 @@
           <router-link to="/">ABOUT</router-link>
         </b-nav-item>
         <form class="form-inline nav-link">
-          <router-link  to="/users/sign_up" class="btn btn-outline-secondary">SIGN UP</router-link>
+          <router-link  to="/users/sign_up/default" class="btn btn-outline-secondary">SIGN UP</router-link>
         </form>
          <b-nav-item>
           <router-link to="/users/sign_in">LOG IN</router-link>

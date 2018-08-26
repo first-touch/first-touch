@@ -29,7 +29,7 @@
                   <br>and team processes
                 </div>
                 <div class="row justify-content-center">
-                  <router-link to="/users/sign_up" class="a-bar-button">Get-started</router-link>
+                  <router-link to="/users/sign_up/default" class="a-bar-button">Get-started</router-link>
                 </div>
                 <div class="row justify-content-center">
                   <h1 class="typewriter">
@@ -59,7 +59,7 @@
               </div>
               <div class="row">
                 <div class="col-1">
-                  <router-link to="/users/sign_up" class="a-bar-button">
+                  <router-link to="/users/sign_up/player" class="a-bar-button">
                     Register Now
                   </router-link>
                 </div>
@@ -69,7 +69,6 @@
 
           <div class="carousel-item scouts">
             <img class="img-fluid menu" src="/images/landing-page/BG-scouts.jpg" alt="Third slide">
-
             <div class="carousel-caption content-slides">
               <div class="row">
                 <div class="col-12">
@@ -87,7 +86,7 @@
               </div>
               <div class="row">
                 <div class="col-1">
-                  <router-link to="/users/sign_up" class="a-bar-button">
+                  <router-link to="/users/sign_up/scout" class="a-bar-button">
                     Register Now
                   </router-link>
                 </div>
@@ -114,7 +113,7 @@
               </div>
               <div class="row">
                 <div class="col-1">
-                  <a class="a-bar-button center" href="users/sign_up">
+                  <a class="a-bar-button center" href="users/sign_up/director">
                     Register Now
                   </a>
                 </div>
@@ -441,7 +440,7 @@
                     <div class="description">
                       Promote your game and career
                     </div>
-                    <a class="register-plus-logo" href="users/sign_up">
+                    <a class="register-plus-logo" href="users/sign_up/default">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
@@ -456,7 +455,7 @@
                     <div class="description">
                       discover, promote and report on talent
                     </div>
-                    <a class="register-plus-logo" href="users/sign_up">
+                    <a class="register-plus-logo" href="users/sign_up/default">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
@@ -471,7 +470,7 @@
                     <div class="description">
                       power up your team management
                     </div>
-                    <a class="register-plus-logo" href="users/sign_up">
+                    <a class="register-plus-logo" href="users/sign_up/default">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
@@ -486,7 +485,7 @@
                     <div class="description">
                       recruit and manage clients
                     </div>
-                    <a class="register-plus-logo" href="users/sign_up">
+                    <a class="register-plus-logo" href="users/sign_up/default">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
@@ -501,7 +500,7 @@
                     <div class="description">
                       develop your players & your knowledge
                     </div>
-                    <a class="register-plus-logo" href="users/sign_up">
+                    <a class="register-plus-logo" href="users/sign_up/default">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
@@ -516,7 +515,7 @@
                     <div class="description">
                       achieve success through digitisation
                     </div>
-                    <a class="register-plus-logo" href="users/sign_up">
+                    <a class="register-plus-logo" href="users/sign_up/default">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
@@ -531,7 +530,7 @@
                     <div class="description">
                       effectively manage your medical affairs
                     </div>
-                    <a class="register-plus-logo" href="users/sign_up">
+                    <a class="register-plus-logo" href="users/sign_up/default">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
