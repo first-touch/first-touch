@@ -68,9 +68,14 @@
   .collapse {
     margin-left: -15px;
   }
-  .btn {
+  .btn-secondary,
+  .btn-secondary:active,
+  .btn-secondary:focus,
+  .btn-secondary:not([disabled]):not(.disabled).active,
+  .btn-secondary:not([disabled]):not(.disabled):active,
+  .show>.btn-secondary.dropdown-toggle {
     padding: 5px;
-    background-color: #7F8081;
+    background-color: transparent;
   }
   .card {
     background: transparent;
