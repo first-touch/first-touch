@@ -563,11 +563,11 @@
                 <p class="section-text">You may also want to review the following documents, which provide additional information about your use
                   of FirstTouch:</p>
                 <ul class="section-text">
-                  <li>Privacy Policy: This guide outlines how FirstTouch protects your personal information.</li>
-                  <li>Community Standards: These guidelines outline our expectations regarding the content you post to FirstTouch
+                  <li><router-link to="/privacy_policy" class="other-tcp">Privacy Policy</router-link>: This guide outlines how FirstTouch protects your personal information.</li>
+                  <li><router-link to="/" class="other-tcp">Community Standards</router-link>: These guidelines outline our expectations regarding the content you post to FirstTouch
                     and your activity on FirstTouch.
                   </li>
-                  <li>Complaints: Policy and process to manage complaints against Members.</li>
+                  <li><router-link to="/" class="other-tcp">Complaints</router-link>: Policy and process to manage complaints against Members.</li>
                 </ul>
               </div>
               </div>

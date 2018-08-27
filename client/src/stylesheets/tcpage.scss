@@ -74,6 +74,11 @@ a {
       color: #000;
       font-size: 15px;
     }
+    .other-tcp {
+      font-weight: 200;
+      color: #000;
+      font-size: 15px;
+    }
   }
   @at-root ol#{&} {
     list-style: decimal;
