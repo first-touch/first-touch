@@ -20,6 +20,7 @@
           </span>
         </div>
 
+        <div class="row">
         <b-collapse is-nav visible id="menu-contents" class="d-lg-block">
           <b-card>
             <div class="row">
@@ -42,6 +43,7 @@
             </div>
           </b-card>
         </b-collapse>
+        </div>
 
         <div class="inbox">
           <inbox-entry v-for="chat in chats" :chat="chat" :active="active(chat.chat_with.id)" :id="chat.chat_with.id" :key="chat.id"
@@ -65,9 +67,7 @@
     width: 15px;
     margin: 3px;
   }
-  .collapse {
-    margin-left: -15px;
-  }
+
   .btn-secondary,
   .btn-secondary:active,
   .btn-secondary:focus,
