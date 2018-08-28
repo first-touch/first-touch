@@ -2,14 +2,48 @@
   <div>
     <div class="timeline-widget">
       <div class="arrow"></div>
-      <button class="timeline-widget-button btn-post" @click="toggle">
-        publish a new post
+      <!-- <button class="timeline-widget-button" @click="toggle">
+        <button class="btn-png"></button>
+        <span class="btn-text">
+          publish a new post
+        </span>
+      </button> -->
+      <button class="timeline-widget-button" @click="toggleWrite">
+        <button class="btn-png"></button>
+        <span class="btn-text">
+          publish a new post
+        </span>
       </button>
-      <button class="timeline-widget-button btn-upload">
-        upload a picture
+      <button class="timeline-widget-button" @click="toggleUpload">
+        <button class="btn-png"></button>
+        <span class="btn-text">
+          upload a picture
+        </span>
       </button>
     </div>
-    <div class="timeline-widget writer" :class="{ active }">
+    <!-- <div class="timeline-widget writer" :class="{ active }">
+      <div class="container">
+        <form @submit.prevent="handleSubmit">
+          <fieldset class="form-group">
+            <textarea :value="content" @keyup="handleContentChange" class="form-control" rows="4" placeholder="What's on your mind?"></textarea>
+          </fieldset>
+          <button v-if="posting" type="button" class="bar-button" disabled>Posting...</button>
+          <button v-else type="submit" class="bar-button">Post</button>
+        </form>
+      </div>
+    </div> -->
+    <div class="timeline-widget writer" :class="{ active }" v-if="writePost">
+      <div class="container">
+        <form @submit.prevent="handleSubmit">
+          <fieldset class="form-group">
+            <textarea :value="content" @keyup="handleContentChange" class="form-control" rows="4" placeholder="What's on your mind?"></textarea>
+          </fieldset>
+          <button v-if="posting" type="button" class="bar-button" disabled>Posting...</button>
+          <button v-else type="submit" class="bar-button">Post</button>
+        </form>
+      </div>
+    </div>
+    <div class="timeline-widget writer" :class="{ active }" v-if="postMedia">
       <div class="container">
         <form @submit.prevent="handleSubmit">
           <fieldset class="form-group">
@@ -85,12 +119,24 @@ export default {
   props: ['posting', 'handleContentChange', 'handleSubmit', 'content'],
   data() {
     return {
-      active: false,
+      active: true,
+      writePost: false,
+      postMedia: false,
     };
   },
+  /*
   methods: {
     toggle() {
       this.$set(this, 'active', !this.active);
+    },
+  },
+  */
+  methods: {
+    toggleWrite() {
+      this.$set(this, 'writePost', !this.writePost);
+    },
+    toggleUpload() {
+      this.$set(this, 'postMedia', !this.postMedia);
     },
   },
 };
