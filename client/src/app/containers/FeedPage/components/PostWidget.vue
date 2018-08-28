@@ -52,7 +52,7 @@
     }
     .btn-text {
       box-sizing: content-box;
-      max-width: 12vw;
+      max-width: 6vw;
       color: $secondary-text-color;
       text-transform: uppercase;
       text-align: left;
@@ -82,6 +82,15 @@
         .bar-button {
           align-self: flex-end;
         }
+      }
+    }
+  }
+}
+@media (max-device-width:1200px) {
+  .timeline-widget {
+    .timeline-widget-button {
+      .btn-text {
+        max-width: 12vw;
       }
     }
   }
