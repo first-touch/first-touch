@@ -34,9 +34,10 @@
             </div>
 
           </fieldset>
-
-          <button v-if="posting" type="button" class="bar-button" disabled>Posting...</button>
-          <button v-else-if="files.length > 0" v-on:click="submitFiles()" type="submit" class="bar-button">Post</button>
+          <div class="post-button d-flex justify-content-end">
+            <button v-if="posting" type="button" class="bar-button" disabled>Posting...</button>
+            <button v-else-if="files.length > 0" v-on:click="submitFiles()" type="submit" class="bar-button">Post</button>
+          </div>
         </form>
       </div>
     </div>
@@ -47,8 +48,10 @@
           <fieldset class="form-group">
             <textarea :value="content" @keyup="handleContentChange" class="form-control" rows="4" placeholder="What's on your mind?"></textarea>
           </fieldset>
-          <button v-if="posting" type="button" class="bar-button" disabled>Posting...</button>
-          <button v-else type="submit" class="bar-button">Post</button>
+          <div class="post-button d-flex justify-content-end">
+            <button v-if="posting" type="button" class="bar-button" disabled>Posting...</button>
+            <button v-else type="submit" class="bar-button">Post</button>
+          </div>
         </form>
       </div>
     </div>
