@@ -123,6 +123,7 @@
         padding: 10px;
         display: flex;
         flex-direction: column;
+        width: 200px;
       }
       .file-listing img {
         height: 100px;
