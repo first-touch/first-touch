@@ -16,20 +16,20 @@
       </button>
     </div>
 
-    <div id="file-drag-drop" class="timeline-widget media" :class="{ active }" >
+    <div id="file-drag-drop" class="timeline-widget media" :class="{ active }">
       <div class="item-container">
         <form ref="fileform" @submit.prevent="handleSubmit">
           <fieldset class="form-group form-control" rows="4">
             <span class="drop-files">
               <b-form-file :value="content" @keyup="handleContentChange" placeholder="Browse for files..."></b-form-file>
-              <br>
-              OR Drop files here...
+              <br> OR Drop files here...
             </span>
-
-            <div v-for="(file, key) in files" class="file-listing">
-              <img class="preview" v-bind:ref="'preview'+parseInt( key )" /> {{ file.name }}
-              <div class="remove-container">
-                <a class="remove" v-on:click="removeFile( key )">Remove</a>
+            <div class="files-uploaded">
+              <div v-for="(file, key) in files" class="file-listing">
+                <img class="preview" v-bind:ref="'preview'+parseInt( key )" /> {{ file.name }}
+                <div class="remove-container">
+                  <a class="remove" v-on:click="removeFile( key )">Remove</a>
+                </div>
               </div>
             </div>
 
@@ -103,7 +103,7 @@
     &.media {
       fieldset {
         background: #fff;
-        min-height: 100px;
+        min-height: 200px;
       }
       .drop-files {
         padding: 20px;
@@ -113,16 +113,20 @@
         align-items: center;
         color: #7F8081;
       }
+      .files-uploaded {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        overflow: auto;
+      }
       .file-listing {
-        width: 400px;
-        margin: auto;
         padding: 10px;
+        display: flex;
+        flex-direction: column;
       }
       .file-listing img {
         height: 100px;
-      }
-      .remove-container {
-        text-align: center;
+        width: 150px;
       }
       .remove-container a {
         color: red;
@@ -130,6 +134,7 @@
       }
     }
   }
+
   .w-100 {
     width: 25% !important;
   }
