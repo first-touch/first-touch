@@ -2,14 +2,34 @@
   <div>
     <div class="timeline-widget">
       <div class="arrow"></div>
-      <b-btn class="timeline-widget-button" v-b-toggle.post-text>
-        <img src="https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png">
-        Publish a new post
-      </b-btn>
-      <b-btn class="timeline-widget-button" v-b-toggle.post-media>
-        <img src="https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png">
-        Upload a picture
-      </b-btn>
+      <div class="timeline-widget-button">
+        <b-btn v-b-toggle.post-text>
+          <div class="row">
+            <div class="col no-padding">
+              <img src="https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png">
+            </div>
+            <div class="col">
+              Publish a
+              <br>
+              new post
+            </div>
+          </div>
+        </b-btn>
+      </div>
+      <div class="timeline-widget-button">
+        <b-btn v-b-toggle.post-media>
+          <div class="row">
+            <div class="col no-padding">
+              <img src="https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png">
+            </div>
+            <div class="col">
+              Upload
+              <br>
+              a photo
+            </div>
+          </div>
+        </b-btn>
+      </div>
     </div>
     <b-collapse id="post-text" accordion="post-upload">
       <b-card>
@@ -68,14 +88,18 @@
     display: flex;
     border-left: 7px solid $secondary-header-color;
     .timeline-widget-button {
-      color: $secondary-text-color;
-      text-transform: uppercase;
-      background-color: $navbar-background-color;
-      border: none;
-      max-width: 12vw;
-      margin-right: 20px;
-      margin-bottom: 20px;
-
+      .btn-secondary {
+        border: none; // max-width: 12vw;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        color: $secondary-text-color;
+        text-transform: uppercase;
+        background-color: $navbar-background-color;
+        text-align: left;
+      }
+      .btn-text-title {
+        margin-top: 10px;
+      }
       img {
         height: 50px;
       }
