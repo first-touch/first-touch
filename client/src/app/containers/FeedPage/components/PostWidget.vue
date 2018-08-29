@@ -21,7 +21,8 @@
         <form ref="fileform" @submit.prevent="handleSubmit">
           <fieldset class="form-group form-control" rows="4">
             <span class="drop-files">
-              <b-form-file :value="content" @keyup="handleContentChange" placeholder="Browse for files..."></b-form-file>
+              <b-form-file id="input" :value="content" @change="browsedFiles()" placeholder="Browse for files..."
+                multiple></b-form-file>
               <br> OR Drop files here...
             </span>
             <div class="files-uploaded">
@@ -32,7 +33,6 @@
                 </div>
               </div>
             </div>
-
           </fieldset>
           <div class="post-button d-flex justify-content-end">
             <button v-if="posting" type="button" class="bar-button" disabled>Posting...</button>
@@ -169,6 +169,16 @@
         this.$set(this, 'mediaPost', !this.mediaPost);
         this.$set(this, 'writePost', false);
       },
+      browsedFiles() {
+        var inputElement = document.getElementById("input");
+        inputElement.addEventListener("change", handleFiles, false);
+        function handleFiles() {
+          var fileList = this.files;
+          for (var i = 0; i < fileList.length; i++) {
+            return fileList[i];
+          }
+        }
+      },
       determineDragAndDropCapable() {
         var div = document.createElement('div');
         return (('draggable' in div) ||
@@ -235,6 +245,5 @@
         }.bind(this));
       }
     },
-
   };
 </script>
