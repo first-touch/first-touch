@@ -58,34 +58,21 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['getInitialFeed', 'clearToken', 'succeedToPost']),
+    ...mapActions(['postIndex', 'postCreate']),
     handleContentChange(event) {
       this.$set(this, 'content', event.target.value);
     },
     handleSubmit() {
       this.$set(this, 'posting', true);
-      fetch('/api/v1/users/posts', {
-        method: 'POST',
-        headers: {
-          Authorization: this.token.value,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ content: this.content }),
-      }).then(res => {
-        if (res.status === 200 || res.status === 201) {
-          this.$set(this, 'content', '');
-          res.json().then(post => this.succeedToPost({ post }));
-        } else if (res.status === 401) {
-          this.clearToken();
-        } else {
-          res.json().then(console.log);
-        }
+      let postPromise = this.postCreate({ postData: { content: this.content } });
+      postPromise.then(post => {
         this.$set(this, 'posting', false);
+        this.$set(this, 'content', '');
       });
     },
   },
   mounted() {
-    this.getInitialFeed({ token: this.token.value });
+    this.postIndex();
   },
 };
 </script>
