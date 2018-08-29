@@ -20,6 +20,7 @@
 <script>
 import { mapActions } from 'vuex';
 import LandingNavbar from 'app/components/LandingNavbar';
+import AccountService from 'app/services/AccountService';
 
 export default {
   name: 'ConfirmAccount',
