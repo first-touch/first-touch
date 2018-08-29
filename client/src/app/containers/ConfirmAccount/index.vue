@@ -7,6 +7,7 @@
       </div>
 
       <h1> Confirming Account </h1>
+      <h2> Token: {{confirmationToken}}</h2>
     </div>
   </div>
 </template>
@@ -27,11 +28,11 @@ export default {
   },
   data() {
     return {
-      confirmation_token: '',
+      confirmationToken: '',
     };
   },
   mounted() {
-    console.log(this.$route.query);
+    this.confirmationToken = this.$route.query.confirmation_token
   },
 };
 </script>
