@@ -34,6 +34,11 @@ export default {
   },
   mounted() {
     this.confirmationToken = this.$route.query.confirmation_token
+    AccountService.confirm().then(() => {
+      debugger;
+    }).catch(() => {
+      debugger;
+    });
   },
 };
 </script>
