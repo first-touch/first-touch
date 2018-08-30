@@ -43,7 +43,8 @@
     margin-bottom: 20px;
   }
   .content {
-    color: $secondary-text-color;
+    color: $main-text-color;
+    letter-spacing: 1.3px;
     margin-bottom: 0;
   }
 }
