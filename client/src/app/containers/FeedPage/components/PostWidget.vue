@@ -176,16 +176,14 @@
       };
     },
     methods: {
-      browsedFiles() {
-        var inputElement = document.getElementById("input");
-        inputElement.addEventListener("change", handleFiles, false);
-
-        function handleFiles() {
-          var fileList = this.files;
-          for (var i = 0; i < fileList.length; i++) {
-            console.log(fileList[i]);
-            return fileList[i];
-            debugger;
+      browsedFiles(x) {
+        var selectedFiles = x.target.files || x.dataTransfer.files;
+        if (!selectedFiles.length) {
+          return;
+        } else {
+          for (var i = 0; i < selectedFiles.length; i++) {
+            this.files.push(selectedFiles[i]);
+            this.getImagePreviews()
           }
         }
       },
