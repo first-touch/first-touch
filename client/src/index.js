@@ -120,10 +120,8 @@ export const router = new VueRouter({
       beforeEnter: checkIfLoggedIn
     },
     {
-      path: '/users/sign_up/:role?',
-      component: SignupPage,
-      props: { props: true }
-      // beforeEnter: redirectToPrereg
+      path: '/users/sign_up/test',
+      component: SignupPage
     },
     {
       path: '/users/confirmation',
