@@ -71,7 +71,7 @@
   #post-text,
   #post-media {
     border-left: 7px solid $secondary-header-color;
-    padding-left: 20px;
+    padding-left: 25px;
     textarea {
       border: none;
       color: #7F8081;
