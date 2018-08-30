@@ -29,7 +29,7 @@
         </b-btn>
       </div>
     </div>
-    <b-collapse id="post-text" accordion="post-upload">
+    <b-collapse visible id="post-text" accordion="post-upload">
       <b-card>
         <div class="container">
           <form @submit.prevent="handleSubmit">
@@ -131,6 +131,7 @@
 
   .form-control {
     border: none;
+    min-height: 100px;
   }
 
   #post-media {
@@ -160,7 +161,6 @@
         }
       }
     }
-
   }
 </style>
 
@@ -209,29 +209,6 @@
           }
         }
       },
-      // submitFiles() {
-      //   let formData = new FormData();
-      //   for (var i = 0; i < this.files.length; i++) {
-      //     let file = this.files[i];
-
-      //     formData.append('files[' + i + ']', file);
-      //   }
-      //   axios.post('/post-media',
-      //       formData, {
-      //         headers: {
-      //           'Content-Type': 'multipart/form-data'
-      //         },
-      //         onUploadProgress: function (progressEvent) {
-      //           this.uploadPercentage = parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total));
-      //         }.bind(this)
-      //       }
-      //     ).then(function () {
-      //       console.log('SUCCESS!!');
-      //     })
-      //     .catch(function () {
-      //       console.log('FAILURE!!');
-      //     });
-      // },
       removeFile(key) {
         this.files.splice(key, 1);
       },
