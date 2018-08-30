@@ -73,7 +73,7 @@
           <p class="position-title">Playing position</p>
           <p class="position-content">{{ info.personal_profile.playing_position }}</p>
           <!-- <img class="img-fluid position-map" src="http://www.conceptdraw.com/solution-park/resource/images/solutions/soccer/Sport-Soccer-Football-Formation-4-4-1-1.png" /> -->
-          <position-map position="D"/>
+          <position-map positions="['Midfielder (Right)', 'Midfielder (Left)']"/>
         </div>
       </div>
     </div>
