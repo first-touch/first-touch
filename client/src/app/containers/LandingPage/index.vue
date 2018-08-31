@@ -43,11 +43,6 @@
           <div class="carousel-item player">
             <img class="img-fluid menu" src="/images/landing-page/BG-player.jpg" alt="Second slide">
             <div class="carousel-caption content-slides">
-              <div class="row justify-content-center">
-                <div class="ft-logo">
-                  <img src="/images/landing-page/ft-logo-content-slide.png" alt="ft-logo">
-                </div>
-              </div>
               <div class="row">
                 <div class="col-12">
                   <h1 class="header">
@@ -76,11 +71,6 @@
             <img class="img-fluid menu" src="/images/landing-page/BG-scouts.jpg" alt="Third slide">
 
             <div class="carousel-caption content-slides">
-              <div class="row justify-content-center">
-                <div class="ft-logo">
-                  <img src="/images/landing-page/ft-logo-content-slide.png" alt="ft-logo">
-                </div>
-              </div>
               <div class="row">
                 <div class="col-12">
                   <h1 class="header">
@@ -108,11 +98,6 @@
           <div class="carousel-item clubs">
             <img class="img-fluid menu" src="/images/landing-page/BG-clubs2.jpg" alt="Fourth slide">
             <div class="carousel-caption content-slides">
-              <div class="row justify-content-center">
-                <div class="ft-logo">
-                  <img src="/images/landing-page/ft-logo-content-slide.png" alt="ft-logo">
-                </div>
-              </div>
               <div class="row">
                 <div class="col-12">
                   <h1 class="header">
