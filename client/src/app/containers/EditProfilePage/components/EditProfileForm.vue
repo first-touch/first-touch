@@ -75,8 +75,8 @@
         </div>
       </div>
     </fieldset>
-    <fieldset class="form-group col-md-12">
-      <button type="submit" class="bar-button center">Save</button>
+    <fieldset class="form-group">
+      <button type="submit" class="bar-button">Save</button>
     </fieldset>
   </form>
 </template>
@@ -88,15 +88,18 @@
     color: $main-text-color;
   }
   .bar-button {
-    border: 1px solid #7f8081;
-    background-color: $first-touch-white;
-    color: #7f8081;
+    border: none;
+    margin: 0;
+    margin-top: 10px;
+    background-color: #B3CB75;
+    color: $first-touch-white;
     box-shadow: none;
     font-size: 0.9em;
-    width: auto;
+    width: 200px;
     padding: 5px 20px;
     font-weight: 400;
     border-radius: .25rem;
+    left: 0;
   }
 }
 </style>
