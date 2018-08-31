@@ -623,7 +623,7 @@
   import LandingNavbar from 'app/components/LandingNavbar';
   import LegalVerticalTab from 'app/containers/LegalPages/components/LegalVerticalTab';
   export default {
-    name: 'TCPage',
+    name: 'CommunityGuidelines',
     components: {
       'landing-navbar': LandingNavbar,
       'legal-verticaltab': LegalVerticalTab,

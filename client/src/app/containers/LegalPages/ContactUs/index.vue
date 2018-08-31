@@ -9,11 +9,10 @@
         <div class="col-12 col-lg-8 legal-content">
           <div class="row no-padding">
             <div class="js-toc-content col-12 px-lg-5">
-              <h1 class="title">User Agreement</h1>
+              <h1 class="title">Contact Us</h1>
               <div class="introduction">
                 <p>
                   <em>Effective on March 17, 2018</em>
-                  <a href="mailto:contact@firsttouch.io">Talk to us</a>
                 </p>
                 <p>
                   We are happy you have decided to sign up to FirstTouch and we truly hope our services and apps meet your needs! We just wanted
@@ -623,7 +622,7 @@
   import LandingNavbar from 'app/components/LandingNavbar';
   import LegalVerticalTab from 'app/containers/LegalPages/components/LegalVerticalTab';
   export default {
-    name: 'TCPage',
+    name: 'ContactUs',
     components: {
       'landing-navbar': LandingNavbar,
       'legal-verticaltab': LegalVerticalTab,

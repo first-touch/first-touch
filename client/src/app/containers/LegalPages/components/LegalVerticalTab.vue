@@ -17,7 +17,7 @@
             </b-nav-item>
             <div class="section-separator"></div>
             <b-nav-item>
-              <router-link class="nav-link vertSideItem" to="#">Help (Report a Problem)</router-link>
+              <router-link class="nav-link vertSideItem" to="#">Contact Us</router-link>
             </b-nav-item>
             <div class="section-separator"></div>
           </b-card>
