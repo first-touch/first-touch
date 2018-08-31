@@ -13,11 +13,15 @@
             </b-nav-item>
             <div class="section-separator"></div>
             <b-nav-item>
+              <router-link class="nav-link vertSideItem" to="/community_guidelines">Community Guidelines</router-link>
+            </b-nav-item>
+            <div class="section-separator"></div>
+            <b-nav-item>
               <router-link class="nav-link vertSideItem" to="/privacy_policy">Privacy Policy</router-link>
             </b-nav-item>
             <div class="section-separator"></div>
             <b-nav-item>
-              <router-link class="nav-link vertSideItem" to="#">Contact Us</router-link>
+              <router-link class="nav-link vertSideItem" to="/contact_us">Contact Us</router-link>
             </b-nav-item>
             <div class="section-separator"></div>
           </b-card>
