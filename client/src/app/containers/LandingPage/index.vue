@@ -572,22 +572,22 @@
           </div>
           <div class="col-12 col-lg links">
             <a class="text" href="/terms_conditions#contact">
-              Help
-            </a>
-          </div>
-          <div class="col-12 col-lg links">
-            <a class="text" href="/terms_conditions">
               User Agreement
             </a>
           </div>
           <div class="col-12 col-lg links">
-            <a class="text" href="/">
+            <a class="text" href="/terms_conditions">
               Community Guidelines
             </a>
           </div>
           <div class="col-12 col-lg links">
-            <a class="text" href="/privacy_policy">
+            <a class="text" href="/">
               Privacy Policy
+            </a>
+          </div>
+          <div class="col-12 col-lg links">
+            <a class="text" href="/privacy_policy">
+              Contact Us
             </a>
           </div>
           <div class="col-12 col-lg links">
