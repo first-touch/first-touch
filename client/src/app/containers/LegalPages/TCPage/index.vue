@@ -571,25 +571,6 @@
                 </ul>
               </div>
               </div>
-              <div class="legal-content-body">
-                <h2 class="section-title" id="10">How To Contact Us</h2>
-                <hr class="section-separator" />
-                <p class="section-text">If you want to send us notices or service of process, please contact us:</p>
-                <p class="section-text">
-                  <strong>ONLINE at: contact@firsttouch.io</strong>
-                </p>
-                <p class="section-text">
-                  <strong>OR BY MAIL at:</strong>
-                </p>
-                <p class="section-text">
-                  <strong>FirstTouch...</strong>
-                  <br/> Attn: Agreement Matters (Legal)
-                  <br/> Address Line 1
-                  <br/> Address Line 2
-                  <br/> Postcode
-                  <br/> Country
-                </p>
-              </div>
             </div>
           </div>
         </div>

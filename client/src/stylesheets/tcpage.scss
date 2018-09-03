@@ -54,6 +54,25 @@ a {
 }
 .section-text {
   line-height: 20px;
+  .community-guideline-list {
+    li {
+      display: list-item;
+      list-style-type: decimal;
+      margin-top: 10px;
+    }
+  }
+
+  .bar-button a {
+    color: #ffffff;
+  }
+  .contact-us-button {
+    box-shadow: none;
+    border: none;
+    width: 200px;
+    margin: 0;
+    background: #B3CB75;
+    letter-spacing: 1.3px;
+  }
   @at-root p#{&},
     p#{&} a {
     font-weight: 200px;

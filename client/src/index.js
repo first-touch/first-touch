@@ -17,6 +17,8 @@ import ClubStream from 'app/containers/ClubStreamPage';
 import ClubNotes from 'app/containers/ClubNotesPage';
 import TCPage from 'app/containers/LegalPages/TCPage';
 import PrivacyPolicy from 'app/containers/LegalPages/PrivacyPolicy';
+import CommunityGuidelines from 'app/containers/LegalPages/CommunityGuidelines';
+import ContactUs from 'app/containers/LegalPages/ContactUs';
 import NotesPage from 'app/containers/NotesPage';
 import NotePage from 'app/containers/NotePage';
 import TagContainer from 'app/containers/NotesPage/components/TagContainer';
@@ -111,6 +113,14 @@ export const router = new VueRouter({
     {
       path: '/privacy_policy',
       component: PrivacyPolicy
+    },
+    {
+      path: '/community_guidelines',
+      component: CommunityGuidelines
+    },
+    {
+      path: '/contact_us',
+      component: ContactUs
     },
     {
       path: '/about',
