@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~stylesheets/variables';
 .profile {
   .arrow {
@@ -26,20 +26,6 @@
     border-left: 7px slid;
     margin-top: 20px;
     border-left-color: $main-header-color;
-  }
-}
-
-.btn {
-  font-size: 0.9em;
-  padding: 5px 20px;
-  text-transform: uppercase;
-  border: 1px solid $main-text-color;
-  &.btn-bright {
-    color: $main-text-color;
-  }
-  &.btn-dark {
-    color: #fff;
-    background-color: $main-text-color;
   }
 }
 </style>
