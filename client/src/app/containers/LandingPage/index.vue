@@ -15,37 +15,26 @@
         </div>
 
         <div class="carousel-inner" role="listbox">
+
           <div class="carousel-item active main">
             <img class="menu" src="/images/landing-page/team-logo.jpg" alt="First slide">
-            <div class="intro-message">
-              <div class="container-fluid">
-                <div class="carousel-caption">
-                  <div class="row justify-content-center">
-                    <img src="images/landing-page/ft-logo.png" alt="Ft logo">
-                  </div>
-                  <div class="row justify-content-center">
-                    <div class="col-12">
-                      <ul class="main center">
-                        Carving out
-                        <br> individual and collective
-                        <br> success stories
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="row justify-content-center">
-                    <ul>
-                      <li>
-                        <a class="bar-button center" href="users/sign_up">
-                          Get Started
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="row justify-content-center">
-                    <h1 class="typewriter">
-                      #RaiseYourGame
-                    </h1>
-                  </div>
+            <div class="carousel-caption intro-message">
+              <div class="d-flex flex-column justify-content-center">
+                <div class="row justify-content-center">
+                  <img src="images/landing-page/ft-logo.png" class="img-fluid" alt="Ft logo">
+                </div>
+                <div class="row justify-content-center main">
+                  The football platform for
+                  <br>managing careers, performance
+                  <br>and team processes
+                </div>
+                <div class="row justify-content-center">
+                  <router-link to="/users/sign_up" class="bar-button">Get-started</router-link>
+                </div>
+                <div class="row justify-content-center">
+                  <h1 class="typewriter">
+                    #RaiseYourGame
+                  </h1>
                 </div>
               </div>
             </div>
@@ -53,35 +42,26 @@
 
           <div class="carousel-item player">
             <img class="img-fluid menu" src="/images/landing-page/BG-player.jpg" alt="Second slide">
-            <div class="content-slides">
-              <div class="container-fluid">
-                <div class="carousel-caption">
-                  <div class="row justify-content-center">
-                    <div class="ft-logo">
-                      <img src="/images/landing-page/ft-logo-content-slide.png" alt="ft-logo">
-                    </div>
-                  </div>
-                    <div class="row">
-                      <div class="col-12">
-                        <h1 class="header">
-                          Players
-                        </h1>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-10">
-                        <h3 class="description">
-                          Build and promote your profile, raise your game and take your career as far as you can.
-                        </h3>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-1">
-                        <a class="bar-button center" href="users/sign_up">
-                          Register Now
-                        </a>
-                      </div>
-                    </div>
+            <div class="carousel-caption content-slides">
+              <div class="row">
+                <div class="col-12">
+                  <h1 class="header">
+                    Players
+                  </h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-10">
+                  <h3 class="description">
+                    Build and promote your profile, raise your game and take your career as far as you can.
+                  </h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-1">
+                  <router-link to="/users/sign_up" class="bar-button">
+                    Register Now
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -89,35 +69,27 @@
 
           <div class="carousel-item scouts">
             <img class="img-fluid menu" src="/images/landing-page/BG-scouts.jpg" alt="Third slide">
-            <div class="content-slides">
-              <div class="container-fluid">
-                <div class="carousel-caption">
-                  <div class="row justify-content-center">
-                    <div class="ft-logo">
-                      <img src="/images/landing-page/ft-logo-content-slide.png" alt="ft-logo">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12">
-                      <h1 class="header">
-                        Scouts
-                      </h1>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-10">
-                      <h3 class="description">
-                        Build your reputation as a talent spotter or analyst and make a living from the sport you love.
-                      </h3>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-1">
-                      <a class="bar-button center" href="users/sign_up">
-                        Register Now
-                      </a>
-                    </div>
-                  </div>
+
+            <div class="carousel-caption content-slides">
+              <div class="row">
+                <div class="col-12">
+                  <h1 class="header">
+                    Scouts
+                  </h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-10">
+                  <h3 class="description">
+                    Build your reputation as a talent spotter or analyst and make a living from the sport you love.
+                  </h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-1">
+                  <router-link to="/users/sign_up" class="bar-button">
+                    Register Now
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -125,35 +97,26 @@
 
           <div class="carousel-item clubs">
             <img class="img-fluid menu" src="/images/landing-page/BG-clubs2.jpg" alt="Fourth slide">
-            <div class="content-slides">
-              <div class="container-fluid">
-                <div class="carousel-caption">
-                  <div class="row justify-content-center">
-                    <div class="ft-logo">
-                      <img src="/images/landing-page/ft-logo-content-slide.png" alt="ft-logo">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12">
-                      <h1 class="header">
-                        Clubs
-                      </h1>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-10">
-                      <h3 class="description">
-                        Maximise your teams’ performance by digitising everything from training and team management to scouting and medical processes.
-                      </h3>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-1">
-                      <a class="bar-button center" href="users/sign_up">
-                        Register Now
-                      </a>
-                    </div>
-                  </div>
+            <div class="carousel-caption content-slides">
+              <div class="row">
+                <div class="col-12">
+                  <h1 class="header">
+                    Clubs
+                  </h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <h3 class="description">
+                    Maximise your teams’ performance by digitising everything from training and team management to scouting and medical processes.
+                  </h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-1">
+                  <a class="bar-button center" href="users/sign_up">
+                    Register Now
+                  </a>
                 </div>
               </div>
             </div>
@@ -172,7 +135,7 @@
         </div>
         <div class="text-center">
           <h2>
-            Sign Up Now!
+            <router-link to="/users/sign_up" class="sign-up">Sign Up Now!</router-link>
           </h2>
         </div>
       </div>
@@ -219,79 +182,77 @@
 
           <div class="capabilities row-list">
             <!-- row-list shown only when screen is large (desktop and laptop)-->
-            <div class="container-fluid">
-              <div class="row justify-content-center">
-                <div class="col-lg-4">
-                  <div class="subhead-capabilities">
-                    Career Management
-                  </div>
-                  <div class="key-description">
-                    <ul>
-                      <li>Consolidate information into an attractive sporting profile for many core roles </li>
-                      <li>Build a professional network of agents, scouts, coaches, players and teams </li>
-                      <li>Interact with, learn from and share with peers and experts in a global community</li>
-                    </ul>
-                  </div>
+            <div class="row justify-content-center">
+              <div class="col-lg-4">
+                <div class="subhead-capabilities">
+                  Career Management
                 </div>
-                <div class="col-lg-4">
-                  <div class="subhead-capabilities">
-                    Team Management
-                  </div>
-                  <div class="key-description">
-                    <ul>
-                      <li>Manage full team rosters with team and individual player reports </li>
-                      <li>Empower players and staff to collaborate with versatile communications tools </li>
-                      <li>Enable Managers to develop and share tactical strategies securely</li>
-                    </ul>
-                  </div>
+                <div class="key-description">
+                  <ul>
+                    <li>Consolidate information into an attractive sporting profile for many core roles </li>
+                    <li>Build a professional network of agents, scouts, coaches, players and teams </li>
+                    <li>Interact with, learn from and share with peers and experts in a global community</li>
+                  </ul>
                 </div>
-                <div class="col-lg-4">
-                  <div class="subhead-capabilities">
-                    Performance Insights
-                  </div>
-                  <div class="key-description">
-                    <ul>
-                      <li>Capture match data and stats using intuitive and flexible reporting mechanisms </li>
-                      <li>Prepare your next game by requesting opposition analyses from trusted scouts </li>
-                      <li>Use match insights to prepare your coach and team for the next match</li>
-                    </ul>
-                  </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="subhead-capabilities">
+                  Team Management
                 </div>
-                <div class="col-lg-4">
-                  <div class="subhead-capabilities">
-                    Player Development & Fitness
-                  </div>
-                  <div class="key-description">
-                    <ul>
-                      <li>Create training exercise programs and assign them to groups or individuals</li>
-                      <li>Analyse and track players’ talent development and progress</li>
-                      <li>Manage medical data and rehabilitation programs on the go with simple notes</li>
-                    </ul>
-                  </div>
+                <div class="key-description">
+                  <ul>
+                    <li>Manage full team rosters with team and individual player reports </li>
+                    <li>Empower players and staff to collaborate with versatile communications tools </li>
+                    <li>Enable Managers to develop and share tactical strategies securely</li>
+                  </ul>
                 </div>
-                <div class="col-lg-4">
-                  <div class="subhead-capabilities">
-                    Scouting & Recruitment
-                  </div>
-                  <div class="key-description">
-                    <ul>
-                      <li>Create and assign scouting requests, simply and intuitively </li>
-                      <li>Access a global network of independent scouts to acquire scouting insights </li>
-                      <li>Sell and acquire reports in an open marketplace</li>
-                    </ul>
-                  </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="subhead-capabilities">
+                  Performance Insights
                 </div>
-                <div class="col-lg-4">
-                  <div class="subhead-capabilities">
-                    Club Management
-                  </div>
-                  <div class="key-description">
-                    <ul>
-                      <li>Access, schedule and manage events on the go, from matches to social gatherings </li>
-                      <li>Coordinate administrative activities such as contracts and league registrations </li>
-                      <li>Search for, identify and hire the best managers, coaches and medical staff </li>
-                    </ul>
-                  </div>
+                <div class="key-description">
+                  <ul>
+                    <li>Capture match data and stats using intuitive and flexible reporting mechanisms </li>
+                    <li>Prepare your next game by requesting opposition analyses from trusted scouts </li>
+                    <li>Use match insights to prepare your coach and team for the next match</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="subhead-capabilities">
+                  Development & Fitness
+                </div>
+                <div class="key-description">
+                  <ul>
+                    <li>Create training exercise programs and assign them to groups or individuals</li>
+                    <li>Analyse and track players’ talent development and progress</li>
+                    <li>Manage medical data and rehabilitation programs on the go with simple notes</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="subhead-capabilities">
+                  Scouting & Recruitment
+                </div>
+                <div class="key-description">
+                  <ul>
+                    <li>Create and assign scouting requests, simply and intuitively </li>
+                    <li>Access a global network of independent scouts to acquire scouting insights </li>
+                    <li>Sell and acquire reports in an open marketplace</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="subhead-capabilities">
+                  Club Management
+                </div>
+                <div class="key-description">
+                  <ul>
+                    <li>Access, schedule and manage events on the go, from matches to social gatherings </li>
+                    <li>Coordinate administrative activities such as contracts and league registrations </li>
+                    <li>Search for, identify and hire the best managers, coaches and medical staff </li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -611,22 +572,22 @@
           </div>
           <div class="col-12 col-lg links">
             <a class="text" href="/terms_conditions#contact">
-              Help
-            </a>
-          </div>
-          <div class="col-12 col-lg links">
-            <a class="text" href="/terms_conditions">
               User Agreement
             </a>
           </div>
           <div class="col-12 col-lg links">
-            <a class="text" href="/">
+            <a class="text" href="/terms_conditions">
               Community Guidelines
             </a>
           </div>
           <div class="col-12 col-lg links">
-            <a class="text" href="/privacy_policy">
+            <a class="text" href="/">
               Privacy Policy
+            </a>
+          </div>
+          <div class="col-12 col-lg links">
+            <a class="text" href="/privacy_policy">
+              Contact Us
             </a>
           </div>
           <div class="col-12 col-lg links">
