@@ -39,9 +39,9 @@
     .network-widget-sort,
     .network-widget-search {
       flex: 0 0 48%;
-      border: 1px solid #fff;
+      border: 1px solid $main-text-color;
       background-color: $navbar-background-color;
-      color: #fff;
+      color: $main-text-color;
       padding: 2px 7px;
     }
     .network-widget-search {
