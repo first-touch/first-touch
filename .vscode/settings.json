@@ -1,5 +1,9 @@
 {
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
-  "files.trimFinalNewlines": true
+  "files.trimFinalNewlines": true,
+  "cSpell.words": [
+    "dist",
+    "tocbot"
+  ]
 }
