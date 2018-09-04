@@ -132,11 +132,12 @@
 
     .nav-item {
       margin-right: -20px;
+      font-size: $left-menu-text-size;
       .sub-nav {
         max-height: 0;
         overflow: hidden;
         background-color: $main-text-color;
-        margin-left: 7px;
+        margin: 0 10px;
         display: flex;
         flex-direction: column;
         .sub-nav-item {
@@ -157,11 +158,16 @@
         transition: max-height 1s;
       }
       .nav-item-inner {
+        margin: 0 10px;
         text-transform: uppercase;
         font-weight: 300;
         padding: 10px 0 10px 20px;
         border-top: 1px solid $main-text-color;
         color: $main-text-color;
+        &:hover {
+          background: #5e5e5e;
+          cursor: pointer;
+        }
       }
     }
 
@@ -170,9 +176,15 @@
     }
 
     .nav-item.active {
-      .nav-item-inner {
-        border-left: 7px solid $main-header-color;
+      position: relative;
+      &::before {
+        content: '';
+        border-left: 4px solid $main-header-color;
         color: $main-header-color;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 45px;
       }
       .sub-nav {
         max-height: 400px;
@@ -215,13 +227,13 @@ export default {
     return {
       tab: [
         ['channel', 'profile', 'calendar', 'messages', 'notes'].indexOf(
-          this.page,
+          this.page
         ) > -1 || !this.page,
         false,
         false,
         false,
-        false,
-      ],
+        false
+      ]
     };
   },
   methods: {
@@ -229,9 +241,9 @@ export default {
       this.tab = [
         ...this.tab.slice(0, idx),
         !this.tab[idx],
-        ...this.tab.slice(idx + 1),
+        ...this.tab.slice(idx + 1)
       ];
-    },
-  },
+    }
+  }
 };
 </script>

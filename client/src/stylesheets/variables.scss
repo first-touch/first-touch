@@ -1,16 +1,16 @@
 // palette
 $navbar-background-color: #212223;
 $navbar-background-color2: #000000;
-$navbar-background-color-faded: rgba(33,34,35,0.8);
-$landing-page-dark-background-color: #191A1B;
+$navbar-background-color-faded: rgba(33, 34, 35, 0.8);
+$landing-page-dark-background-color: #191a1b;
 $background-color: #343434;
-$main-header-color: #A8CB5C;
+$main-header-color: #a8cb5c;
 
-$button-background-colour: #4BBA63;
+$button-background-colour: #4bba63;
 $button-background-colour2: #439042;
-$button-border: solid 2px #4BBA63;
+$button-border: solid 2px #4bba63;
 $button-box-shadow: 3px 3px 12px #000000;
-$button-background-colour-on-hover: #4BBA63;
+$button-background-colour-on-hover: #4bba63;
 $button-border-on-hover: 2px solid rgb(84, 207, 111);
 $button-border-on-hover-box-shadow: 3px 3px 20px #000000;
 
@@ -20,18 +20,19 @@ $second-layer-box-shadow: inset 0px 0px 55px #000000;
 $footer-text-color: #666464;
 
 // $secondary-header-color: #6DA87D;
-$secondary-header-color: #4BBA63;
+$secondary-header-color: #4bba63;
 $main-text-color: #7f8081;
-$main-text-alpha-20: rgba(140,140,140,0.2);
-$secondary-text-color: #BCBCBC;
-$first-touch-white: #FFFFFF;
-$first-touch-white-alpha-20: rgba(255,255,255,0.2);
-$first-touch-white-alpha-70: rgba(255,255,255,0.7);
+$main-text-alpha-20: rgba(140, 140, 140, 0.2);
+$secondary-text-color: #bcbcbc;
+$first-touch-white: #ffffff;
+$first-touch-white-alpha-20: rgba(255, 255, 255, 0.2);
+$first-touch-white-alpha-70: rgba(255, 255, 255, 0.7);
 
 // font sizes
 $important-size: 1.3em;
 $main-text-size: 0.98em;
 $main-subtitle-text-size: 1.2em;
+$left-menu-text-size: 0.85rem;
 
 $first-main-text: 1.5em;
 
@@ -61,5 +62,5 @@ $section-padding: 120px;
 $navbar-width: 18vw;
 $navbar-padding: 20px;
 
-$searchbar-padding: 40px;
+$searchbar-padding: 40px 35px;
 $searchbar-height: 125px;
