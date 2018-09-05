@@ -1,65 +1,67 @@
 <template>
   <div>
     <sidebar />
-    <div class="ft-page">
-      <div class="profile">
-        <h4 class="header">{{ mine ? 'Your profile' : 'User Profile' }}</h4>
-        <profile :mine="mine"
-          :info="info"
-          :follow="followUser"
-          :connect="connectUser"/>
-        <career-history v-if="info" :careerHistory="info.career_history"/>
+    <div class="container-fluid">
+      <div class="ft-page">
+        <div class="profile">
+          <h4 class="header">{{ mine ? 'Your profile' : 'User Profile' }}</h4>
+          <profile :mine="mine"
+            :info="info"
+            :follow="followUser"
+            :connect="connectUser"/>
+          <career-history v-if="info" :careerHistory="info.career_history"/>
+        </div>
+        <misc-container :title="'Language'">
+          <ul class="items">
+            <li>
+              <p class="name">Portugese</p>
+              <p class="details">Native or bilingual proficiency</p>
+            </li>
+            <li>
+              <p class="name">English</p>
+              <p class="details">Professional working proficiency</p>
+            </li>
+            <li>
+              <p class="name">Spanish</p>
+              <p class="details">Professional working proficiency</p>
+            </li>
+          </ul>
+        </misc-container>
+        <misc-container :title="'Attributes'">
+          <ul class="items">
+            <li>
+              <div class="score">
+                <radial-progress :percentage="'90'" :score="9"/>
+                <p class="name">Passing</p>
+              </div>
+              <p class="details">Lorem ipsum dolor sit amet.</p>
+            </li>
+            <li>
+              <div class="score">
+                <radial-progress :percentage="'70'" :score="7"/>
+                <p class="name">Shooting</p>
+              </div>
+              <p class="details">Lorem ipsum dolor sit amet.</p>
+            </li>
+          </ul>
+        </misc-container>
+        <misc-container :title="'Certificates and qualifications'">
+          <ul class="items">
+            <li>
+              <p class="name">Lorem Ipsum</p>
+              <p class="details">Lorem ipsum dolor sit amet.</p>
+            </li>
+            <li>
+              <p class="name">Lorem Ipsum</p>
+              <p class="details">Lorem ipsum dolor sit amet.</p>
+            </li>
+            <li>
+              <p class="name">Lorem Ipsum</p>
+              <p class="details">Lorem ipsum dolor sit amet.</p>
+            </li>
+          </ul>
+        </misc-container>
       </div>
-      <misc-container :title="'Language'">
-        <ul class="items">
-          <li>
-            <p class="name">Portugese</p>
-            <p class="details">Native or bilingual proficiency</p>
-          </li>
-          <li>
-            <p class="name">English</p>
-            <p class="details">Professional working proficiency</p>
-          </li>
-          <li>
-            <p class="name">Spanish</p>
-            <p class="details">Professional working proficiency</p>
-          </li>
-        </ul>
-      </misc-container>
-      <misc-container :title="'Attributes'">
-        <ul class="items">
-          <li>
-            <div class="score">
-              <radial-progress :percentage="'90'" :score="9"/>
-              <p class="name">Passing</p>
-            </div>
-            <p class="details">Lorem ipsum dolor sit amet.</p>
-          </li>
-          <li>
-            <div class="score">
-              <radial-progress :percentage="'70'" :score="7"/>
-              <p class="name">Shooting</p>
-            </div>
-            <p class="details">Lorem ipsum dolor sit amet.</p>
-          </li>
-        </ul>
-      </misc-container>
-      <misc-container :title="'Certificates and qualifications'">
-        <ul class="items">
-          <li>
-            <p class="name">Lorem Ipsum</p>
-            <p class="details">Lorem ipsum dolor sit amet.</p>
-          </li>
-          <li>
-            <p class="name">Lorem Ipsum</p>
-            <p class="details">Lorem ipsum dolor sit amet.</p>
-          </li>
-          <li>
-            <p class="name">Lorem Ipsum</p>
-            <p class="details">Lorem ipsum dolor sit amet.</p>
-          </li>
-        </ul>
-      </misc-container>
     </div>
   </div>
 </template>
