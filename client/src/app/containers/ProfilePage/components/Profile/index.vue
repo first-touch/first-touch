@@ -2,6 +2,7 @@
   <timeline-item>
     <div class="profile-item-container" v-if="info">
       <div class="top">
+        <edit-btn v-if="mine" to="#"/>
         <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
         <div class="info">
           <h4 class="name">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
@@ -21,8 +22,8 @@
           </p>
           <div class="widget">
             <div class="widget-row">
-              <router-link v-if="mine" to="/profile/edit" class="btn btn-bright">Edit Profile</router-link>
-              <a v-else-if="!info.following" @click.prevent="follow" href="#" class="btn btn-bright">+ Follow</a>
+              <!-- <router-link v-if="mine" to="/profile/edit" class="btn btn-bright">Edit Profile</router-link> -->
+              <a v-if="!info.following" @click.prevent="follow" href="#" class="btn btn-bright">+ Follow</a>
               <a v-else-if="info.following" class="btn btn-dark">&#10003; Following</a>
               <a v-if="!mine && info.connection_status === 'not_connected'"
                 @click.prevent="connect" class="btn btn-bright">
@@ -44,6 +45,7 @@
       </div>
       <hr />
       <div class="bottom">
+        <edit-btn v-if="mine" to="#"/>
         <div class="summary">
           <h5 class="summary-title">Summary</h5>
           <p class="summary-field name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
@@ -73,7 +75,7 @@
           <p class="position-title">Playing position</p>
           <p class="position-content">{{ info.personal_profile.playing_position }}</p>
           <!-- <img class="img-fluid position-map" src="http://www.conceptdraw.com/solution-park/resource/images/solutions/soccer/Sport-Soccer-Football-Formation-4-4-1-1.png" /> -->
-          <position-map positions="['Midfielder (Right)', 'Midfielder (Left)']"/>
+          <position-map :positions="['Midfielder (Right)', 'Midfielder (Left)']"/>
         </div>
       </div>
     </div>
@@ -89,6 +91,7 @@
   width: 100%;
   .top {
     display: flex;
+    position: relative;
     .avatar {
       height: 185px;
       border-radius: 50%;
@@ -142,6 +145,7 @@
     }
   }
   .bottom {
+    position: relative;
     display: flex;
     margin-top: 30px;
     .summary {
@@ -189,13 +193,15 @@
 <script>
 import TimelineItem from 'app/components/TimelineItem';
 import PositionMap from './components/PositionMap';
+import EditBtn from './components/EditBtn'
 
 export default {
   name: 'Profile',
   props: ['mine', 'info', 'follow', 'connect'],
   components: {
     'timeline-item': TimelineItem,
-    'position-map': PositionMap
+    'position-map': PositionMap,
+    'edit-btn': EditBtn,
   }
 };
 </script>
