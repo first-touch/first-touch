@@ -94,12 +94,18 @@
       border-radius: 50%;
     }
     .info {
-      margin-top: 40px;
+      margin-top: 10px;
       margin-left: 20px;
       flex: 1 0 calc(100% - 320px);
+      h4,
+      p {
+        margin-bottom: 0.2rem;
+        font-weight: 300;
+      }
       .name {
         color: $main-header-color;
         text-transform: uppercase;
+        letter-spacing: 2px;
       }
       .role,
       .club,
@@ -144,6 +150,7 @@
         color: $secondary-text-color;
         text-transform: uppercase;
         margin-bottom: 20px;
+        letter-spacing: 0.3rem;
       }
       .name {
         text-transform: capitalize;
@@ -151,6 +158,10 @@
       .summary-field {
         color: $main-text-color;
         margin-bottom: 5px;
+        font-weight: 300;
+        .summary-field-title {
+          color: $secondary-text-color;
+        }
       }
       *:last-child {
         margin-top: 30px;
