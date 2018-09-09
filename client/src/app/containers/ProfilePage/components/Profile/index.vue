@@ -161,7 +161,7 @@
       }
       .summary-field {
         color: $main-text-color;
-        margin-bottom: 5px;
+        margin-bottom: 0.2rem;
         font-weight: 300;
         .summary-field-title {
           color: $secondary-text-color;
