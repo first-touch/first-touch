@@ -23,8 +23,8 @@
           <div class="widget">
             <div class="widget-row">
               <!-- <router-link v-if="mine" to="/profile/edit" class="btn btn-bright">Edit Profile</router-link> -->
-              <a v-if="!info.following" @click.prevent="follow" href="#" class="btn btn-bright">+ Follow</a>
-              <a v-else-if="info.following" class="btn btn-dark">&#10003; Following</a>
+              <a v-if="!mine && !info.following" @click.prevent="follow" href="#" class="btn btn-bright">+ Follow</a>
+              <a v-else-if="!mine && info.following" class="btn btn-dark">&#10003; Following</a>
               <a v-if="!mine && info.connection_status === 'not_connected'"
                 @click.prevent="connect" class="btn btn-bright">
                 Connect
