@@ -1,7 +1,7 @@
 <template>
   <div class="timeline-post">
     <div class="arrow"></div>
-    <div class="item-container">
+    <div class="item-container" :style="{ 'background-color': bgColor, padding: padding }">
       <slot></slot>
     </div>
   </div>
@@ -30,5 +30,15 @@
 <script>
 export default {
   name: 'TimelineItem',
+  props: {
+    bgColor: {
+      type: String,
+      default: '#fff',
+    },
+    padding: {
+      type: String,
+      default: '20px',
+    }
+  }
 };
 </script>

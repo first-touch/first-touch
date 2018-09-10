@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,300);
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:400, 300');
 
 body {
   background: $navbar-background-color;
@@ -124,26 +124,22 @@ body {
   }
 }
 
-a.btn.btn-bright:hover {
-  cursor: pointer;
-}
-a.btn.btn-bright {
-  color: $main-text-color;
-  text-transform: uppercase;
-  margin-right: 5px;
-}
-a.btn.btn-bright:hover,
-a.btn.btn-bright:focus {
-  color: $main-text-color;
-}
-
 .btn {
   font-size: 0.9em;
   padding: 5px 20px;
   text-transform: uppercase;
   border: 1px solid $main-text-color;
+  &:hover {
+    cursor: pointer;
+  }
   &.btn-bright {
     color: $main-text-color;
+    text-transform: uppercase;
+    margin-right: 5px;
+    &:hover,
+    &:focus {
+      color: $main-text-color;
+    }
   }
   &.btn-dark {
     color: #fff;
