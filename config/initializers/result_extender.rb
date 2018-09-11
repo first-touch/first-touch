@@ -3,7 +3,7 @@ module Trailblazer
     class Result
       def errors
         return self['result.policy.failure'] if policy_error?
-        return self['contract.default'].errors.full_messages if contract_error?
+        return self['contract.default'].errors.messages.values if contract_error?
         return self['result.model'] if model_error?
       end
 
