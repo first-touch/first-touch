@@ -54,7 +54,25 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "ninja_dribble_#{Rails.env}"
+
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+
   config.action_mailer.perform_caching = false
+  # config mailcatcher
+  config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
+  config.action_mailer.default_url_options = { host: 'firsttouch.io' }
+
+  config.action_mailer.smtp_settings = {
+    address: Rails.application.secrets.SMTP_ADDRESS,
+    authentication: :login,
+    domain: 'firsttouch.io',
+    password: Rails.application.secrets.SMTP_PASSWORD,
+    port: 587,
+    user_name: Rails.application.secrets.SMTP_USERNAME,
+    enable_starttls_auto: true
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
