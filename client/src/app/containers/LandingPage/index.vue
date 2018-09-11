@@ -623,6 +623,7 @@
 </style>
 
 <script>
+  import $ from 'jquery';
   import LandingNavbar from 'app/components/LandingNavbar.vue';
   import LinkButton from 'app/components/LinkButton.vue';
 

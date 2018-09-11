@@ -6,6 +6,7 @@
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.10.0",
     "http-proxy-middleware": "^0.17.3",
+    "jquery": "latest",
     "tocbot": "^4.3.2",
     "url-loader": "^0.5.7",
     "v-autocomplete": "^1.8.2",
@@ -15,8 +16,7 @@
     "vue-template-compiler": "^2.5.3",
     "vuex": "2.1.2",
     "webpack": "^3.8.1",
-    "yarn": "^1.3.2",
-    "jquery": "latest"
+    "yarn": "^1.3.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.2.2",
