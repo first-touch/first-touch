@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navbar />
     <div class="container-fluid">
       <div class="logo">
         <img src="/images/landing-page/ft-logo.png" alt="Ft Logo" />
@@ -34,13 +33,15 @@ export default {
   },
   mounted() {
     this.confirmationToken = this.$route.query.confirmation_token
+  },
+  updated() {
     let data = {
       confirmation_token: this.confirmationToken
     };
-    AccountService.confirm(data).then(() => {
-      debugger;
+    AccountService.confirm(data).then((res) => {
+      alert('Thank you for confirming your email');
     }).catch(() => {
-      debugger;
+      alert('error');
     });
   },
 };

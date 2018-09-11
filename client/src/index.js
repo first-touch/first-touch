@@ -1,3 +1,4 @@
+import { $, jQuery } from 'jquery';
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 
@@ -30,6 +31,9 @@ import VueRouter from 'vue-router';
 import 'stylesheets/landingpage.scss';
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
+
+window.$ = $;
+window.jQuery = jQuery;
 
 // delete once registration is allowed
 // function redirectToPrereg (to, from, next) {
