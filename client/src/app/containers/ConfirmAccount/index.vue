@@ -1,12 +1,21 @@
 <template>
   <div>
-    <div class="container-fluid">
-      <div class="logo">
-        <img src="/images/landing-page/ft-logo.png" alt="Ft Logo" />
+    <navbar />
+    <div class="container h-100">
+      <div class="row justify-content-center align-items-center row-top-margin">
+        <div class="logo">
+          <img src="/images/landing-page/ft-logo.png" alt="Ft Logo" />
+        </div>
       </div>
-
-      <h1> Confirming Account </h1>
-      <h2> Token: {{confirmationToken}}</h2>
+      <div class="row justify-content-center align-items-center row-top-margin">
+        <div v-if="accountConfirmed">
+          <h1> Thank you for registering your account.</h1>
+          <h2>
+            <router-link to="/users/sign_in">You can now login</router-link>
+          </h2>
+        </div>
+        <h1 v-else> Confirming your account. Please wait </h1>
+      </div>
     </div>
   </div>
 </template>
@@ -29,19 +38,20 @@ export default {
   data() {
     return {
       confirmationToken: '',
+      accountConfirmed: false
     };
   },
   mounted() {
     this.confirmationToken = this.$route.query.confirmation_token
-  },
-  updated() {
-    let data = {
+
+    let confirmationTokenData = {
       confirmation_token: this.confirmationToken
     };
-    AccountService.confirm(data).then((res) => {
-      alert('Thank you for confirming your email');
+    AccountService.confirm(confirmationTokenData).then((res) => {
+      this.accountConfirmed = true;
+      // alert('Thank you for confirming your email');
     }).catch(() => {
-      alert('error');
+      // alert('error');
     });
   },
 };
