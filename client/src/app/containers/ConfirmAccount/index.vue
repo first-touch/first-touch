@@ -34,7 +34,10 @@ export default {
   },
   mounted() {
     this.confirmationToken = this.$route.query.confirmation_token
-    AccountService.confirm().then(() => {
+    let data = {
+      confirmation_token: this.confirmationToken
+    };
+    AccountService.confirm(data).then(() => {
       debugger;
     }).catch(() => {
       debugger;

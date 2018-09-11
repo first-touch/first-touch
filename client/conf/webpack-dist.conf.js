@@ -12,8 +12,7 @@ module.exports = {
   resolve: {
     alias: {
       stylesheets: path.resolve(__dirname, '../src/stylesheets/'),
-      images: path.resolve(__dirname, '../src/images/'),
-      tocbot_dist: path.resolve(__dirname, '../node_modules/tocbot/dist/')
+      images: path.resolve(__dirname, '../src/images/')
     },
     extensions: ['.js', '.vue', '.css'],
     modules: [NODE_MDL, SRC_DIR]
