@@ -305,19 +305,22 @@ export default {
       });
     },
     fetchCountries() {
-      ClubService.firstTouchCountries().then( data => {
+      ClubService.countriesForClubs().then( data => {
         let sortedCountries = _.sortBy(data.countries, "country_name");
         this.countries = sortedCountries;
       })
     },
     updateItems(text) {
-      this.$set(this, 'searchText', text);
-      if (!text) return this.$set(this, 'clubs', []);
-      fetch(`/api/v1/clubs/search?country=${this.club_country_code}&q=${text}`)
-        .then(res => res.status === 200 && res.json())
-        .then(({ clubs }) => {
-          this.$set(this, 'clubs', clubs.slice(0, 3));
-        });
+      this.searchText = text;
+      if (!text) return this.clubs = [];
+      let filters = {
+        country: this.club_country_code,
+        q: text
+      }
+      ClubService.searchClub(filters).then( data => {
+        let clubs = data.clubs.slice(0, 5);
+        this.clubs = clubs;
+      });
     },
     getLabel(item) {
       return item ? item.name : this.searchText;
