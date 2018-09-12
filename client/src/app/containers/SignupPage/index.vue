@@ -260,20 +260,15 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['attemptLogIn']),
     handleSubmit() {
       if (this.password !== this.password_confirmation) {
-        return this.$set(this, 'error', "Passwords don't Match!");
+        return this.error = "Passwords don't Match!";
       } else if (this.day.length === 0 || this.month.length === 0) {
-        return this.$set(this, 'error', 'Please enter Date of Birth!');
+        return this.error = 'Please enter Date of Birth!';
       } else if (!this.role_name) {
-        return this.$set(this, 'error', 'Please choose a role!');
+        return this.error = 'Please choose a role!';
       } else if (!this.tccheck) {
-        return this.$set(
-          this,
-          'error',
-          'Please agree to our Terms and Conditions',
-        );
+        return this.error = 'Please agree to our Terms and Conditions';
       }
       var clubId = undefined;
       if (this.item) {
