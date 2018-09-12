@@ -21,12 +21,12 @@
 
 en:
   career:
-    invalid_dates: 'has to be earlier than end date'
+    invalid_dates: 'Start date has to be earlier than end date'
     invalid_owner: 'This career entry does not belong to this user'
   not_club_owner: 'The user does not own any club'
   user:
     invalid_role: 'Please choose a valid role'
-    existing_email: 'already in use. If that is you, go to Sign In'
+    existing_email: 'Someone is already using that email. If that is you, go to Login'
     invalid_credentials: 'Your email and password do not match.'
   personal_profile:
     invalid_playing_positions_format: 'Playing positions must be an array'

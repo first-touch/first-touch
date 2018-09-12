@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :club do
     account_owner_id 1
     name "MyString"

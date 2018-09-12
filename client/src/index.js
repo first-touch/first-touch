@@ -1,7 +1,9 @@
+import { $, jQuery } from 'jquery';
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 
 import LandingPage from 'app/containers/LandingPage';
+import ConfirmAccount from 'app/containers/ConfirmAccount';
 import PreRegistration from 'app/containers/PreRegistrationPage';
 import UserLayout from 'app/components/UserLayout';
 import SignupPage from 'app/containers/SignupPage';
@@ -29,6 +31,9 @@ import VueRouter from 'vue-router';
 import 'stylesheets/landingpage.scss';
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
+
+window.$ = $;
+window.jQuery = jQuery;
 
 // delete once registration is allowed
 // function redirectToPrereg (to, from, next) {
@@ -62,6 +67,10 @@ export const router = new VueRouter({
       path: '/users/sign_up',
       component: SignupPage
       // beforeEnter: redirectToPrereg
+    },
+    {
+      path: '/users/confirmation',
+      component: ConfirmAccount
     },
     {
       path: '/',

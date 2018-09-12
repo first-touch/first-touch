@@ -12,11 +12,13 @@ module Api
 
       private
 
-      # TODO: Follow trailblazer auth logic
       def authenticate_request
-        @current_user = AuthorizeApiRequest.(request.headers).result
-        return if @current_user
-        render json: { error: 'Not Authorized' }, status: :unauthorized
+        res = ::V1::Session::Validate.(headers: request.headers)
+        if res.failure?
+          render json: { error: 'Not Authorized' }, status: :unauthorized
+          return
+        end
+        @current_user = res['user']
       end
 
       def permit_all_params

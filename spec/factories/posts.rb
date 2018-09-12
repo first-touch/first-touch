@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :post do
     transient do
       current_user do

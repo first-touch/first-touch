@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'Events', type: :request do
   let!(:club) do
-    FactoryGirl.create :club, account_owner_id: existing_user.id
+    FactoryBot.create :club, account_owner_id: existing_user.id
   end
   let!(:opponent) do
-    FactoryGirl.create :club
+    FactoryBot.create :club
   end
   let!(:existing_user) do
     res = V1::User::Register.(

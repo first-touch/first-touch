@@ -1,5 +1,5 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :competition do
-    
+
   end
 end

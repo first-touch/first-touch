@@ -12,7 +12,6 @@ class AuthorizeClubRequest < TokenBased
     if decoded_club_auth_token
       user_conditions = {
         id: decoded_club_auth_token[:account_owner_id],
-        password_digest: decoded_club_auth_token[:account_owner_digest]
       }
       club_id = decoded_club_auth_token[:club_id]
 

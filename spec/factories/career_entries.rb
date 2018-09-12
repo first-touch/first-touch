@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :career_entry do
     user
     start_date { Faker::Date.between(10.years.ago, 2.years.ago) }

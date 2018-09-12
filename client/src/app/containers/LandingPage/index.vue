@@ -619,9 +619,6 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-</style>
-
 <script>
   import LandingNavbar from 'app/components/LandingNavbar.vue';
   import LinkButton from 'app/components/LinkButton.vue';
@@ -646,42 +643,39 @@
             .prev()
             .fadeIn();
         });
+
+        if ($(window).width() < 992) {
+          $('.carousel').each(function () {
+            $(this).carousel({
+              interval: false
+            });
+          });
+        } else {
+          $('#toggle .carousel-item').each(function () {
+            var next = $(this).next();
+            if (!next.length) {
+              next = $(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+            for (var i = 0; i < 1; i++) {
+              next = next.next();
+              if (!next.length) {
+                next = $(this).siblings(':first');
+              }
+              next.children(':first-child').clone().appendTo($(this));
+            }
+          });
+          $('#second-p-slide').carousel({
+            interval: false
+          })
+          $('#toggle').carousel({
+            interval: false
+          })
+        }
       });
     },
     beforeDestroy() {
       $(window).off('scroll');
     },
   };
-
-  $(document).ready(function () {
-    if ($(window).width() < 992) {
-      $('.carousel').each(function () {
-        $(this).carousel({
-          interval: false
-        });
-      });
-    } else {
-      $('#toggle .carousel-item').each(function () {
-        var next = $(this).next();
-        if (!next.length) {
-          next = $(this).siblings(':first');
-        }
-        next.children(':first-child').clone().appendTo($(this));
-        for (var i = 0; i < 1; i++) {
-          next = next.next();
-          if (!next.length) {
-            next = $(this).siblings(':first');
-          }
-          next.children(':first-child').clone().appendTo($(this));
-        }
-      });
-      $('#second-p-slide').carousel({
-        interval: false
-      })
-      $('#toggle').carousel({
-        interval: false
-      })
-    }
-
-  });
 </script>

@@ -42,7 +42,7 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
