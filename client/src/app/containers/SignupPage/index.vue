@@ -220,6 +220,7 @@ import LandingNavbar from 'app/components/LandingNavbar';
 import AutoComplete from 'v-autocomplete';
 import ItemTemplate from './components/ItemTemplate';
 import _ from 'lodash';
+import ClubService from 'app/services/ClubService';
 
 export default {
   name: 'SignupPage',
@@ -304,18 +305,10 @@ export default {
       });
     },
     fetchCountries() {
-      fetch('/api/v1/clubs/countries')
-        .then(res => {
-          if (res.ok) {
-            return res.json();
-          }
-          else {
-            return Promise.reject('Failed to fetch countries');
-          }
-        }).then( data => {
-          let sortedCountries = _.sortBy(data.countries, "country_name");
-          this.countries = sortedCountries;
-        })
+      ClubService.firstTouchCountries().then( data => {
+        let sortedCountries = _.sortBy(data.countries, "country_name");
+        this.countries = sortedCountries;
+      })
     },
     updateItems(text) {
       this.$set(this, 'searchText', text);
