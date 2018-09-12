@@ -622,6 +622,7 @@
 <script>
   import LandingNavbar from 'app/components/LandingNavbar.vue';
   import LinkButton from 'app/components/LinkButton.vue';
+  import $ from 'jquery';
 
   export default {
     name: 'LandingPage',

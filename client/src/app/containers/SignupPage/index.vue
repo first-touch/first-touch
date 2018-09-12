@@ -219,6 +219,7 @@ import { mapActions } from 'vuex';
 import LandingNavbar from 'app/components/LandingNavbar';
 import AutoComplete from 'v-autocomplete';
 import ItemTemplate from './components/ItemTemplate';
+import _ from 'lodash';
 
 export default {
   name: 'SignupPage',
@@ -304,14 +305,17 @@ export default {
     },
     fetchCountries() {
       fetch('/api/v1/clubs/countries')
-        .then(res => res.status === 200 && res.json())
-        .then(({ countries }) =>
-          this.$set(
-            this,
-            'countries',
-            countries.sort((a, b) => a.country_name > b.country_name),
-          ),
-        );
+        .then(res => {
+          if (res.ok) {
+            return res.json();
+          }
+          else {
+            return Promise.reject('Failed to fetch countries');
+          }
+        }).then( data => {
+          let sortedCountries = _.sortBy(data.countries, "country_name");
+          this.countries = sortedCountries;
+        })
     },
     updateItems(text) {
       this.$set(this, 'searchText', text);
