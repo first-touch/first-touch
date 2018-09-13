@@ -226,10 +226,8 @@ export default {
     navbar: LandingNavbar,
     autocomplete: AutoComplete,
   },
-  props: ['route'],
+  props: ['role'],
   data() {
-    var role = this.$route.params.role.toLowerCase()
-
     return {
       email: '',
       password: '',
@@ -239,7 +237,7 @@ export default {
       month: '',
       day: '',
       year: '',
-      role_name: role == "default" ? '' : role,
+      role_name: this.role,
       tccheck: false,
       club_country_code: '',
       countries: [],
