@@ -228,6 +228,8 @@ export default {
   },
   props: ['route'],
   data() {
+    var role = this.$route.params.role.toLowerCase()
+
     return {
       email: '',
       password: '',
@@ -237,7 +239,7 @@ export default {
       month: '',
       day: '',
       year: '',
-      role_name: '',
+      role_name: role == "default" ? '' : role,
       tccheck: false,
       club_country_code: '',
       countries: [],

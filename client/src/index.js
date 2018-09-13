@@ -120,7 +120,7 @@ export const router = new VueRouter({
       beforeEnter: checkIfLoggedIn
     },
     {
-      path: '/users/sign_up/test',
+      path: '/users/sign_up/:role?',
       component: SignupPage
     },
     {
