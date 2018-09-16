@@ -78,6 +78,10 @@ export const router = new VueRouter({
       component: ResetPassword
     },
     {
+      path: '/users/new_password',
+      component: ConfirmAccount
+    },
+    {
       path: '/',
       component: UserLayout,
       beforeEnter: requireAuth,
