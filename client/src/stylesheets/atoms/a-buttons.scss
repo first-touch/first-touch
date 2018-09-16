@@ -1,0 +1,48 @@
+@import '../variables';
+
+.a-bar-button {
+  box-sizing: border-box;
+  display: block;
+  color: $first-touch-white;
+  font-size: 20px;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  padding: 7px 12px 6px 12px;
+  width: 250px;
+  border-radius: 5px;
+  background-color: $button-background-colour2;
+  border: $button-border;
+  box-shadow: $button-box-shadow;
+  text-align: center;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $button-background-colour-on-hover;
+    border: $button-border-on-hover;
+    box-shadow: $button-border-on-hover-box-shadow;
+    color: $first-touch-white;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  &.center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &.reverse {
+    border-color: $main-text-color;
+    color: $main-text-color;
+
+    &:hover {
+      background-color: $main-text-alpha-20;
+    }
+  }
+}

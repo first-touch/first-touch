@@ -76,7 +76,7 @@
       </div>
     </fieldset>
     <fieldset class="form-group">
-      <button type="submit" class="bar-button">Save</button>
+      <button type="submit" class="a-bar-button">Save</button>
     </fieldset>
   </form>
 </template>
@@ -87,7 +87,7 @@
   label {
     color: $main-text-color;
   }
-  .bar-button {
+  .a-bar-button {
     border: none;
     margin: 0;
     margin-top: 10px;

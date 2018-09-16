@@ -39,8 +39,8 @@
               <textarea :value="content" @keyup="handleContentChange" class="form-control" rows="4" placeholder="Share a thought, link or opinion"></textarea>
             </fieldset>
             <div class="row justify-content-end">
-              <button v-if="posting" type="button" class="bar-button" disabled>Posting...</button>
-              <button v-else type="submit" class="bar-button">Post</button>
+              <button v-if="posting" type="button" class="a-bar-button" disabled>Posting...</button>
+              <button v-else type="submit" class="a-bar-button">Post</button>
             </div>
           </form>
         </div>
@@ -54,8 +54,8 @@
               <textarea :value="content" @keyup="handleContentChange" class="form-control" rows="4" placeholder="uploadMedia"></textarea>
             </fieldset>
             <div class="row justify-content-end">
-              <button v-if="posting" type="button" class="bar-button" disabled>Posting...</button>
-              <button v-else type="submit" class="bar-button">Post</button>
+              <button v-if="posting" type="button" class="a-bar-button" disabled>Posting...</button>
+              <button v-else type="submit" class="a-bar-button">Post</button>
             </div>
           </form>
         </div>
@@ -76,7 +76,7 @@
       border: none;
       color: #7F8081;
     }
-    .bar-button {
+    .a-bar-button {
       border: none;
       box-shadow: none;
       background: #B3CB75;

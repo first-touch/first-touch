@@ -94,7 +94,7 @@
             <input type="checkbox" id="tc" name="termsandconditions" v-model="tccheck" />
             <label for="tc">By checking this box, you agree to our <router-link to="/terms_conditions">Terms &amp; Conditions</router-link> </label>
           </fieldset>
-          <button class="bar-button center" type="submit">Sign Up</button>
+          <button class="a-bar-button center" type="submit">Sign Up</button>
           <fieldset class="col-md-12">
             <div v-if="error" class="alert alert-danger">
               <em>{{ error }}</em>

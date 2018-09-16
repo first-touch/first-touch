@@ -16,9 +16,9 @@
             <input type="password" v-model="password" class="form-control" autocomplete="current-password" placeholder="Enter password..."/>
           </fieldset>
           <button v-if="loading"
-            class="bar-button center" type="button" disabled>Logging In...</button>
+            class="a-bar-button center" type="button" disabled>Logging In...</button>
           <button v-else
-            class="bar-button center" type="submit">Login</button>
+            class="a-bar-button center" type="submit">Login</button>
           <fieldset class="col-md-8">
             <div v-if="error" class="alert alert-danger">
               <em>{{ error }}</em>

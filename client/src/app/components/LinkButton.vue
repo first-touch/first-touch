@@ -1,5 +1,5 @@
 <template>
-  <router-link class="bar-button center" :to="url">
+  <router-link class="a-bar-button center" :to="url">
     <slot></slot>
   </router-link>
 </template>

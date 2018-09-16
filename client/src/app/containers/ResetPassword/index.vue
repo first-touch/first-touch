@@ -1,16 +1,17 @@
 <template>
   <div>
     <landing-navbar />
-    <div class="container-fluid">
+    <div class="container-fluid page-container">
       <div class="logo">
         <img src="/images/landing-page/ft-logo.png" alt="Ft Logo"  />
       </div>
       <div class="col col-lg-5">
         <form @submit.prevent="requestPasswordReset">
-          <fieldset class="form-group col-md-8">
+          <fieldset class="form-group col-md-12">
             <label>Email</label>
-            <input type="email" v-model="email" class="form-control"  autocomplete="username" placeholder="Enter email..."/>
+            <input type="email" v-model="email" class="form-control" autocomplete="username" placeholder="Enter email..."/>
           </fieldset>
+          <button class="a-bar-button center" type="submit">Reset Password</button>
         </form>
       </div>
     </div>
@@ -18,8 +19,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/landingpage';
-.container-fluid {
+.page-container {
   background: url('/images/landing-page/team-logo.jpg') no-repeat center center
     fixed;
   background-size: cover;
@@ -33,6 +33,7 @@
 
 <script>
 import LandingNavbar from 'app/components/LandingNavbar';
+import AccountService from 'app/services/AccountService';
 
 export default {
   name: 'ResetPassword',
@@ -46,7 +47,9 @@ export default {
   },
   methods: {
     requestPasswordReset() {
-      console.log("hello");
+      AccountService.requestPasswordReset(this.email).then(response => {
+        console.log('email has been sent. follow instructions');
+      });
     }
   }
 };
