@@ -13,7 +13,6 @@ gem 'jwt'
 gem 'multi_json'
 gem 'paperclip', '~> 5.0.0'
 gem 'pg', '< 1.0'
-gem 'puma'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 5.1'
@@ -40,6 +39,11 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'timecop'
+  gem 'thin'
+end
+
+group :production do
+  gem 'puma'
 end
 
 group :test do
