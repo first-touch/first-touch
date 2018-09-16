@@ -24,11 +24,34 @@
               <em>{{ error }}</em>
             </div>
           </fieldset>
+          <div class="col-md-8">
+            <div class="row d-flex justify-content-center">
+              <div class="not-registered">
+                Not registered?
+                <span>
+                  <router-link class="m-main-navigation-link" to="/users/sign_up"> Create your account </router-link>
+                </span>
+              </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+              <div class="forgot-password">
+                Forgot your password?
+                <span>
+                  <router-link class="m-main-navigation-link" to="/users/reset_password"> Reset your password </router-link>
+                </span>
+
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
   </div>
 </template>
+
+<style lang="scss">
+  @import '~stylesheets/molecules/m-navigation';
+</style>
 
 <style lang="scss" scoped>
 @import '~stylesheets/landingpage';
