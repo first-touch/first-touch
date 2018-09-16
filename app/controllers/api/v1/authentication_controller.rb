@@ -1,7 +1,7 @@
 module Api
   module V1
     class AuthenticationController < Api::V1::BaseController
-      skip_before_action :authenticate_request, only: %i[authenticate validate]
+      skip_before_action :authenticate_request, only: %i[authenticate reset_password]
 
       def authenticate
         res = ::V1::User::SignIn.(auth_params)
@@ -17,6 +17,11 @@ module Api
           render json: { error: @current_user.errors.full_messages },
                  status: :unprocessable_entity
         end
+      end
+
+      def reset_password
+        ::V1::User::ResetPassword.(auth_params)
+        render json: { message: I18n.t('user.reset_password') }, status: :ok
       end
 
       private
