@@ -33,7 +33,7 @@
 
 <script>
 import LandingNavbar from 'app/components/LandingNavbar';
-import UserService from 'app/services/UserService';
+import AccountService from 'app/services/AccountService';
 
 export default {
   name: 'EditPassword',
@@ -55,7 +55,7 @@ export default {
         password: this.password,
         password_confirmation: this.password
       }
-      UserService.update(passwordContent, this.token).then(response => {
+      AccountService.updatePassword(passwordContent, this.token).then(response => {
         console.log('success');
       }).catch(response => {
         console.log('error')

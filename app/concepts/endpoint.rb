@@ -69,7 +69,7 @@ module FirstTouch
         rule = rule_description[:rule] || DEFAULT_MATCHERS[rule_key][:rule]
         resolve = rule_description[:resolve] || DEFAULT_MATCHERS[rule_key][:resolve]
         if rule.nil? || resolve.nil?
-          puts 'Matcher is not properly set. #{rule_key} will be ignored'
+          puts "Matcher is not properly set. #{rule_key} will be ignored"
           next
         end
 

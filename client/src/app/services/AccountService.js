@@ -28,5 +28,20 @@ export default {
     }).then(response => {
       return response.json();
     });
+  },
+
+  updatePassword (passwordData, resetToken) {
+    const urlAction = 'update_password';
+    const url = `${this.endpoint}/${urlAction}`;
+    return fetch(url, {
+      method: 'PUT',
+      headers: {
+        ResetToken: resetToken,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(passwordData)
+    }).then(response => {
+      return response.json();
+    });
   }
 };

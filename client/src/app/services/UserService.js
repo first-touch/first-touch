@@ -2,13 +2,14 @@ import store from 'app/store';
 
 export default {
   endpoint: '/api/v1/users',
-  update (attributes, resetToken) {
-    const token = resetToken || store.state.token.value;
+  update (attributes) {
+    const token = store.state.token.value;
 
     return fetch(this.endpoint, {
       method: 'PUT',
       headers: {
-        Authorization: token
+        Authorization: token,
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(attributes)
     });
