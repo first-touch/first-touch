@@ -5,7 +5,16 @@
       <div class="logo">
         <img src="/images/landing-page/ft-logo.png" alt="Ft Logo"  />
       </div>
-      <div class="col col-lg-5">
+      <div v-if="requested" class="col col-lg-5">
+        <div class="header-wrapper">
+          <h1> We just emailed you </h1>
+          <p> Please check your email (<span class="a-highlight">{{ email }}</span>) and click the secure link.</p>
+        </div>
+        <div class="footnote">
+          <p> If you don’t see our email, check your spam folder or <a class="a-link light" href="/contact">Contact us</a></p>
+        </div>
+      </div>
+      <div v-else class="col col-lg-5">
         <form @submit.prevent="requestPasswordReset">
           <fieldset class="form-group col-md-12">
             <label>Email</label>
@@ -29,6 +38,10 @@
   align-items: center;
   justify-content: center;
 }
+
+.header-wrapper {
+  margin-top: 50px;
+}
 </style>
 
 <script>
@@ -42,13 +55,14 @@ export default {
   },
   data() {
     return {
-      email: ''
+      email: '',
+      requested: false
     };
   },
   methods: {
     requestPasswordReset() {
       AccountService.requestPasswordReset(this.email).then(response => {
-        console.log('email has been sent. follow instructions');
+        this.requested = true;
       });
     }
   }

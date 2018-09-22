@@ -1,0 +1,25 @@
+@import '../variables';
+
+// Links
+a.a-link {
+  &.dark {
+    color: $main-text-alpha-20;
+
+    &:hover,
+    &:focus {
+      color: $main-text-color;
+    }
+  }
+
+  &.light {
+    color: $first-touch-white-alpha-70;
+
+    &:hover,
+    &:focus {
+      color: $first-touch-white;
+    }
+  }
+
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
