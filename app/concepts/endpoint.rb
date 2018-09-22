@@ -29,7 +29,9 @@ module FirstTouch
       },
       unauthenticated: {
         rule: ->(result) { result.unauthenticated? },
-        resolve: ->(_result, _representer) { { 'data': {}, 'status': :unauthorized } }
+        resolve: lambda do |result, _representer|
+          { 'data': { errors: result.errors }, 'status': :unauthorized }
+        end
       },
       unauthorized: {
         rule: ->(result) { result.unauthorized? },

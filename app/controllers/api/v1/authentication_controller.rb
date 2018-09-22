@@ -1,11 +1,13 @@
 module Api
   module V1
     class AuthenticationController < Api::V1::BaseController
-      skip_before_action :authenticate_request, only: %i[authenticate reset_password update_password]
+      skip_before_action :authenticate_request,
+                         only: %i[authenticate reset_password update_password]
 
       def authenticate
         res = ::V1::User::SignIn.(auth_params)
-        response = FirstTouch::Endpoint.(res, ::V1::User::Representer::Authenticated)
+        representer = ::V1::User::Representer::Authenticated
+        response = FirstTouch::Endpoint.(res, representer)
         render json: response[:data], status: response[:status]
       end
 
@@ -26,7 +28,8 @@ module Api
 
       def update_password
         res = ::V1::User::UpdatePassword.(auth_params, headers: request.headers)
-        response = FirstTouch::Endpoint.(res, ::V1::User::Representer::PasswordUpdated)
+        representer = ::V1::User::Representer::PasswordUpdated
+        response = FirstTouch::Endpoint.(res, representer)
         render json: response[:data], status: response[:status]
       end
 

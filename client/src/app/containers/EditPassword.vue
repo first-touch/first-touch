@@ -5,7 +5,18 @@
       <div class="logo">
         <img src="/images/landing-page/ft-logo.png" alt="Ft Logo"  />
       </div>
-      <div class="col col-lg-5">
+
+      <div v-if="submitted" class="col col-lg-5">
+        <div class="header-wrapper">
+          <h1> {{ feedbackTitle }} </h1>
+          <p> {{ feedbackMessage }} </p>
+        </div>
+        <div class="footnote">
+          <a v-if="success" class="a-link-button light" href="/users/sign_in">Login</a>
+          <a v-else class="a-link-button light" href="/users/reset_password">Request new Reset Password Email</a>
+        </div>
+      </div>
+      <div v-else class="col col-lg-5">
         <form @submit.prevent="submitNewPassword">
           <fieldset class="form-group col-md-12">
             <label>Password</label>
@@ -29,6 +40,10 @@
   align-items: center;
   justify-content: center;
 }
+
+.header-wrapper {
+  margin-top: 50px;
+}
 </style>
 
 <script>
@@ -44,7 +59,19 @@ export default {
     return {
       password: '',
       token: '',
+      submitted: false,
+      feedbackMessage: '',
+      success: false
     };
+  },
+  computed: {
+    feedbackTitle() {
+      if (this.success) {
+        return "Password successfully updated";
+      } else {
+        return "An error occured when resetting the password";
+      }
+    }
   },
   mounted() {
     this.token = this.$route.query.reset_token;
@@ -56,9 +83,13 @@ export default {
         password_confirmation: this.password
       }
       AccountService.updatePassword(passwordContent, this.token).then(response => {
-        console.log('success');
+        this.submitted = true;
+        this.feedbackMessage = response.data;
+        this.success = true;
       }).catch(response => {
-        console.log('error')
+        this.submitted = true;
+        this.feedbackMessage = response.errors;
+        this.success = false;
       });
     }
   }

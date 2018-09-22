@@ -2,6 +2,7 @@ module Trailblazer
   class Operation
     class Result
       def errors
+        return self['errors'] unless self['errors'].blank?
         return self['result.policy.failure'] if policy_error?
         return self['contract.default'].errors.messages.values if contract_error?
         return self['result.model'] if model_error?

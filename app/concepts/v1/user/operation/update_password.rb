@@ -1,9 +1,10 @@
 module V1
   module User
-    class UpdatePassword < Trailblazer::Operation
+    class UpdatePassword < FirstTouch::NoAuthOperation
       step Policy::Guard(:validate_token!, name: :check_token)
       failure :missing_auth_token, fail_fast: true
       step :find_user!
+      failure :unauthenticated!, fail_fast: true
       step Trailblazer::Operation::Contract::Build(
         constant: User::Contract::Register
       )
@@ -23,8 +24,14 @@ module V1
         options['errors'] = 'missing token'
       end
 
+      def unauthenticated!(options)
+        super
+        options['errors'] = 'Invalid reset token'
+      end
+
       def find_user!(options, **)
         options['model'] = ::User.with_reset_password_token(options['reset_token'])
+        !options['model'].nil?
       end
     end
   end

@@ -41,7 +41,13 @@ export default {
       },
       body: JSON.stringify(passwordData)
     }).then(response => {
-      return response.json();
+      return response.json().then(responseData => {
+        if (response.ok) {
+          return Promise.resolve(responseData);
+        } else {
+          return Promise.reject(responseData);
+        }
+      });
     });
   }
 };
