@@ -29,6 +29,7 @@ en:
     existing_email: 'Someone is already using that email. If that is you, go to Login'
     invalid_credentials: 'Your email and password do not match.'
     reset_password: 'The instructions to reset your password have been sent to your email address'
+    updated_password: 'Password updated successfully. You can now Login with the new password'
   personal_profile:
     invalid_playing_positions_format: 'Playing positions must be an array'
     invalid_playing_positions: 'are not valid: %{invalid_positions}'

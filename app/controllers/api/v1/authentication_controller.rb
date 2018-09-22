@@ -26,7 +26,7 @@ module Api
 
       def update_password
         res = ::V1::User::UpdatePassword.(auth_params, headers: request.headers)
-        response = FirstTouch::Endpoint.(res)
+        response = FirstTouch::Endpoint.(res, ::V1::User::Representer::PasswordUpdated)
         render json: response[:data], status: response[:status]
       end
 
