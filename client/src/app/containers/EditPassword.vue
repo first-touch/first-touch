@@ -13,7 +13,7 @@
         </div>
         <div class="footnote">
           <a v-if="success" class="a-link-button light" href="/users/sign_in">Login</a>
-          <a v-else class="a-link-button light" href="/users/reset_password">Request new Reset Password Email</a>
+          <a v-else class="a-link-button light center" href="/users/reset_password">Request new Reset Password Email</a>
         </div>
       </div>
       <div v-else class="col col-lg-5">

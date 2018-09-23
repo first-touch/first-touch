@@ -1,3 +1,4 @@
+@import 'a-shared';
 @import '../variables';
 
 // Links
@@ -22,4 +23,8 @@ a.a-link {
 
   font-size: 0.9em;
   text-transform: uppercase;
+}
+
+a.a-link-button {
+  @extend %a-button-shared;
 }
