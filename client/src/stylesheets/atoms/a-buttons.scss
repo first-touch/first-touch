@@ -1,0 +1,7 @@
+@import 'a-shared';
+@import '../variables';
+
+// buttons
+.a-bar-button {
+  @extend %a-button-shared;
+}

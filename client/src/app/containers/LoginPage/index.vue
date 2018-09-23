@@ -16,19 +16,42 @@
             <input type="password" v-model="password" class="form-control" autocomplete="current-password" placeholder="Enter password..."/>
           </fieldset>
           <button v-if="loading"
-            class="bar-button center" type="button" disabled>Logging In...</button>
+            class="a-bar-button center" type="button" disabled>Logging In...</button>
           <button v-else
-            class="bar-button center" type="submit">Login</button>
+            class="a-bar-button center" type="submit">Login</button>
           <fieldset class="col-md-8">
             <div v-if="error" class="alert alert-danger">
               <em>{{ error }}</em>
             </div>
           </fieldset>
+          <div class="col-md-8">
+            <div class="row d-flex justify-content-center">
+              <div class="not-registered">
+                Not registered?
+                <span>
+                  <router-link class="m-main-navigation-link" to="/users/sign_up"> Create your account </router-link>
+                </span>
+              </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+              <div class="forgot-password">
+                Forgot your password?
+                <span>
+                  <router-link class="m-main-navigation-link" to="/users/reset_password"> Reset your password </router-link>
+                </span>
+
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
   </div>
 </template>
+
+<style lang="scss">
+  @import '~stylesheets/molecules/m-navigation';
+</style>
 
 <style lang="scss" scoped>
 @import '~stylesheets/landingpage';

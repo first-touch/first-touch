@@ -1,0 +1,9 @@
+@import '../variables';
+
+.m-main-navigation-link {
+  color: $link-color;
+
+  &:hover {
+    color: $link-color-hover;
+  }
+}

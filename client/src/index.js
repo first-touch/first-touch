@@ -4,6 +4,8 @@ import BootstrapVue from 'bootstrap-vue';
 
 import LandingPage from 'app/containers/LandingPage';
 import ConfirmAccount from 'app/containers/ConfirmAccount';
+import ResetPassword from 'app/containers/ResetPassword';
+import EditPassword from 'app/containers/EditPassword';
 import PreRegistration from 'app/containers/PreRegistrationPage';
 import UserLayout from 'app/components/UserLayout';
 import SignupPage from 'app/containers/SignupPage';
@@ -71,6 +73,14 @@ export const router = new VueRouter({
     {
       path: '/users/confirmation',
       component: ConfirmAccount
+    },
+    {
+      path: '/users/reset_password',
+      component: ResetPassword
+    },
+    {
+      path: '/users/new_password',
+      component: EditPassword
     },
     {
       path: '/',

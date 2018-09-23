@@ -20,13 +20,6 @@
   </b-navbar>
 </template>
 
-<style lang="scss">
-.form-inline {
-  margin-top: 0;
-}
-</style>
-
-
 <script>
 export default {
   name: 'LandingNavbar',

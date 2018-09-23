@@ -11,7 +11,7 @@
         <div v-if="accountConfirmed">
           <h1> Thank you for registering your account.</h1>
           <h2>
-            <router-link to="/users/sign_in">You can now login</router-link>
+            <router-link class="m-main-navigation-link" to="/users/sign_in">You can now login</router-link>
           </h2>
         </div>
         <h1 v-else> Confirming your account. Please wait </h1>
@@ -21,12 +21,11 @@
 </template>
 
 <style lang="scss">
-  @import '~stylesheets/variables';
+  @import '~stylesheets/molecules/m-navigation';
   @import '~stylesheets/common_style';
 </style>
 
 <script>
-import { mapActions } from 'vuex';
 import LandingNavbar from 'app/components/LandingNavbar';
 import AccountService from 'app/services/AccountService';
 

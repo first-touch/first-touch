@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu:400,300');
-@import 'variables';
+@import 'atoms/a-buttons';
+@import 'atoms/a-feedback';
+@import 'atoms/a-text';
 
 html,
 body {
@@ -71,53 +73,7 @@ li {
   }
 }
 
-//bar-button uniform
-.bar-button {
-  box-sizing: border-box;
-  display: block;
-  color: $first-touch-white;
-  font-size: 20px;
-  font-weight: 300;
-  text-transform: uppercase;
-  text-decoration: none;
-  text-align: center;
-  padding: 7px 12px 6px 12px;
-  width: 250px;
-  border-radius: 5px;
-  background-color: $button-background-colour2;
-  border: $button-border;
-  box-shadow: $button-box-shadow;
-  text-align: center;
-
-  a {
-    text-decoration: none;
-    color: black;
-  }
-
-  &:hover,
-  &:focus {
-    background-color: $button-background-colour-on-hover;
-    border: $button-border-on-hover;
-    box-shadow: $button-border-on-hover-box-shadow;
-    color: $first-touch-white;
-    cursor: pointer;
-    text-decoration: none;
-  }
-
-  &.center {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  &.reverse {
-    border-color: $main-text-color;
-    color: $main-text-color;
-
-    &:hover {
-      background-color: $main-text-alpha-20;
-    }
-  }
-}
+//a-bar-button uniform
 
 #content {
   min-height: calc(100vh - 40px);
@@ -170,7 +126,7 @@ li {
       font-size: $important-size;
       margin: 15px;
     }
-    .bar-button{
+    .a-bar-button{
       margin-bottom: 15px;
       width: 300px;
     }
@@ -225,7 +181,7 @@ li {
       margin-top: 0.7em;
       margin-bottom: 0.7em;
     }
-    .bar-button {
+    .a-bar-button {
       margin-top: 1.3em;
     }
   }
@@ -562,7 +518,7 @@ li {
         .main {
           margin: 5px;
         }
-        .bar-button {
+        .a-bar-button {
           width: 250px;
           font-size: 20px;
           margin-bottom: 10px;

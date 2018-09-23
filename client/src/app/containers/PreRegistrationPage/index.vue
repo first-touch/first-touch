@@ -30,7 +30,7 @@
                 <input type="text" v-model="email" @keydown="hideAlerts" class="form-control" placeholder="Enter your email..." required />
               </div>
               <div class="col-lg-4">
-                <button class="bar-button center" type="submit">Submit</button>
+                <button class="a-bar-button center" type="submit">Submit</button>
               </div>
               </div>
             </fieldset>
@@ -68,7 +68,7 @@ p {
   justify-content: center;
 }
 
-.bar-button {
+.a-bar-button {
   max-width: 150px;
   margin: 0;
 }
@@ -90,7 +90,7 @@ p {
     flex-direction: column;
   }
 
-  .bar-button {
+  .a-bar-button {
     margin-top: 20px;
     max-width: none;
     width: 100%;

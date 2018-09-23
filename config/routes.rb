@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       devise_for :users, only: [:confirmations]
+      post 'users/reset_password', controller: :authentication, action: :reset_password
+      put 'users/update_password', controller: :authentication, action: :update_password
       get 'settings/playing_positions', controller: :configurations, action: :playing_positions
       post 'authenticate', controller: :authentication, action: :authenticate
       get 'validate', controller: :authentication, action: :validate
