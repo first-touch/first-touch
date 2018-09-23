@@ -21,12 +21,12 @@ module V1
       end
 
       def missing_auth_token(options)
-        options['errors'] = 'missing token'
+        options['errors'] = I18n.t('auth.missing_token')
       end
 
       def unauthenticated!(options)
         super
-        options['errors'] = 'Invalid reset token'
+        options['errors'] = I18n.t('auth.invalid_reset_token')
       end
 
       def find_user!(options, **)

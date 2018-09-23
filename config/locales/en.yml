@@ -33,3 +33,6 @@ en:
   personal_profile:
     invalid_playing_positions_format: 'Playing positions must be an array'
     invalid_playing_positions: 'are not valid: %{invalid_positions}'
+  auth:
+    invalid_reset_token: 'Invalid reset token'
+    missing_token: 'Missing token'
