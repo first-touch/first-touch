@@ -54,7 +54,7 @@
 import NotificationSidebar from 'app/components/NotificationSidebar';
 import NoteWidgets from './components/NoteWidgets';
 import TimelineItem from 'app/components/TimelineItem';
-import Note from './components/Note';
+import ClubNote from './components/ClubNote';
 
 export default {
   name: 'ClubNotesPage',
@@ -62,7 +62,7 @@ export default {
     sidebar: NotificationSidebar,
     widget: NoteWidgets,
     'timeline-item': TimelineItem,
-    note: Note,
+    note: ClubNote,
   },
 };
 </script>

@@ -3,7 +3,7 @@
     <landing-navbar />
     <div class="container-fluid">
       <div class="logo">
-        <img src="images/landing-page/ft-logo.png" alt="Ft Logo" />
+        <img src="/images/landing-page/ft-logo.png" alt="Ft Logo" />
       </div>
       <div class="col-lg-5">
         <div v-if="submitted">

@@ -19,14 +19,14 @@
 import { mapGetters, mapActions } from 'vuex';
 import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import Note from './Note';
+import UserNote from './UserNote';
 
 export default {
   name: 'TagContainer',
   props: ['tag'],
   components: {
     sidebar: NotificationSidebar,
-    note: Note,
+    note: UserNote,
   },
   computed: {
     ...mapGetters(['token', 'note']),

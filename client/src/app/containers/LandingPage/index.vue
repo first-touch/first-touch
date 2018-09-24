@@ -17,11 +17,11 @@
         <div class="carousel-inner" role="listbox">
 
           <div class="carousel-item active main">
-            <img class="menu" src="/images/landing-page/team-logo.jpg" alt="First slide">
+            <img class="menu" src="~/images/landing-page/team-logo.jpg" alt="First slide">
             <div class="carousel-caption intro-message">
               <div class="d-flex flex-column justify-content-center">
                 <div class="row justify-content-center">
-                  <img src="images/landing-page/ft-logo.png" class="img-fluid" alt="Ft logo">
+                  <img src="~/images/landing-page/ft-logo.png" class="img-fluid" alt="Ft logo">
                 </div>
                 <div class="row justify-content-center main">
                   The football platform for
@@ -41,7 +41,7 @@
           </div>
 
           <div class="carousel-item player">
-            <img class="img-fluid menu" src="/images/landing-page/BG-player.jpg" alt="Second slide">
+            <img class="img-fluid menu" src="~/images/landing-page/BG-player.jpg" alt="Second slide">
             <div class="carousel-caption content-slides">
               <div class="row">
                 <div class="col-12">
@@ -68,7 +68,7 @@
           </div>
 
           <div class="carousel-item scouts">
-            <img class="img-fluid menu" src="/images/landing-page/BG-scouts.jpg" alt="Third slide">
+            <img class="img-fluid menu" src="~/images/landing-page/BG-scouts.jpg" alt="Third slide">
 
             <div class="carousel-caption content-slides">
               <div class="row">
@@ -96,7 +96,7 @@
           </div>
 
           <div class="carousel-item clubs">
-            <img class="img-fluid menu" src="/images/landing-page/BG-clubs2.jpg" alt="Fourth slide">
+            <img class="img-fluid menu" src="~/images/landing-page/BG-clubs2.jpg" alt="Fourth slide">
             <div class="carousel-caption content-slides">
               <div class="row">
                 <div class="col-12">
@@ -271,7 +271,7 @@
               </ol>
               <div class="carousel-inner">
                 <div class="carousel-item active">
-                  <img class="background-image" src="/images/landing-page/team-logo.jpg" alt="First slide">
+                  <img class="background-image" src="~/images/landing-page/team-logo.jpg" alt="First slide">
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
@@ -290,7 +290,7 @@
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <img class="background-image" src="/images/landing-page/team-logo.jpg" alt="First slide">
+                  <img class="background-image" src="~/images/landing-page/team-logo.jpg" alt="First slide">
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
@@ -309,7 +309,7 @@
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <img class="background-image" src="/images/landing-page/team-logo.jpg" alt="First slide">
+                  <img class="background-image" src="~/images/landing-page/team-logo.jpg" alt="First slide">
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
@@ -328,7 +328,7 @@
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <img class="background-image" src="/images/landing-page/team-logo.jpg" alt="First slide">
+                  <img class="background-image" src="~/images/landing-page/team-logo.jpg" alt="First slide">
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
@@ -347,7 +347,7 @@
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <img class="background-image" src="/images/landing-page/team-logo.jpg" alt="First slide">
+                  <img class="background-image" src="~/images/landing-page/team-logo.jpg" alt="First slide">
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
@@ -366,7 +366,7 @@
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <img class="background-image" src="/images/landing-page/team-logo.jpg" alt="First slide">
+                  <img class="background-image" src="~/images/landing-page/team-logo.jpg" alt="First slide">
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
@@ -434,7 +434,7 @@
               <div class="carousel-inner" role="listbox">
                 <div class="carousel-item active">
                   <div class="polaroid">
-                    <img class="d-block img-fluid" src="/images/landing-page/role_player.jpg" alt="Seventh slide">
+                    <img class="d-block img-fluid" src="~/images/landing-page/role_player.jpg" alt="Seventh slide">
                     <span class="polaroid-title">
                       Players
                     </span>
@@ -442,14 +442,14 @@
                       Promote your game and career
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
-                      <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
+                      <img src="~/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
                 </div>
 
                 <div class="carousel-item">
                   <div class="polaroid">
-                    <img class="d-block img-fluid " src="/images/landing-page/role_scouts.jpg" alt="Fifth slide">
+                    <img class="d-block img-fluid " src="~/images/landing-page/role_scouts.jpg" alt="Fifth slide">
                     <span class="polaroid-title">
                       Scouts
                     </span>
@@ -457,14 +457,14 @@
                       discover, promote and report on talent
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
-                      <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
+                      <img src="~/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
                 </div>
 
                 <div class="carousel-item">
                   <div class="polaroid">
-                    <img class="d-block img-fluid " src="/images/landing-page/role_manager.jpg" alt="Second slide">
+                    <img class="d-block img-fluid " src="~/images/landing-page/role_manager.jpg" alt="Second slide">
                     <span class="polaroid-title">
                       Managers
                     </span>
@@ -472,14 +472,14 @@
                       power up your team management
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
-                      <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
+                      <img src="~/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
                 </div>
 
                 <div class="carousel-item">
                   <div class="polaroid">
-                    <img class="d-block img-fluid" src="/images/landing-page/role_agents.jpg" alt="First slide">
+                    <img class="d-block img-fluid" src="~/images/landing-page/role_agents.jpg" alt="First slide">
                     <span class="polaroid-title">
                       Agents
                     </span>
@@ -487,14 +487,14 @@
                       recruit and manage clients
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
-                      <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
+                      <img src="~/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
                 </div>
 
                 <div class="carousel-item">
                   <div class="polaroid">
-                    <img class="d-block img-fluid " src="/images/landing-page/role_coach.jpg" alt="Third slide">
+                    <img class="d-block img-fluid " src="~/images/landing-page/role_coach.jpg" alt="Third slide">
                     <span class="polaroid-title">
                       Coaches
                     </span>
@@ -502,14 +502,14 @@
                       develop your players & your knowledge
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
-                      <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
+                      <img src="~/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
                 </div>
 
                 <div class="carousel-item">
                   <div class="polaroid">
-                    <img class="d-block img-fluid " src="/images/landing-page/role_gm.jpg" alt="Sixth slide">
+                    <img class="d-block img-fluid " src="~/images/landing-page/role_gm.jpg" alt="Sixth slide">
                     <span class="polaroid-title">
                       General Managers
                     </span>
@@ -517,14 +517,14 @@
                       achieve success through digitisation
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
-                      <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
+                      <img src="~/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
                 </div>
 
                 <div class="carousel-item">
                   <div class="polaroid">
-                    <img class="d-block img-fluid " src="/images/landing-page/role_medic.jpg" alt="Fourth slide">
+                    <img class="d-block img-fluid " src="~/images/landing-page/role_medic.jpg" alt="Fourth slide">
                     <span class="polaroid-title">
                       Medical Staff
                     </span>
@@ -532,7 +532,7 @@
                       effectively manage your medical affairs
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
-                      <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
+                      <img src="~/images/landing-page/role_registerPlus.png" alt="Register Sign">
                     </a>
                   </div>
                 </div>
@@ -567,7 +567,7 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <img class="logo" src="images/landing-page/ft-footer-logo.png" alt="Ft logo">
+            <img class="logo" src="/images/landing-page/ft-footer-logo.png" alt="Ft logo">
             <span class="cRight">&copy;2016</span>
           </div>
           <div class="col-12 col-lg links">
@@ -597,16 +597,16 @@
           </div>
           <div class="media links col-12 col-lg justify-content-center">
             <a href="https://www.instagram.com/?hl=en" target="_blank">
-              <img class="social" src="images/landing-page/social_instagram.png" alt="instagram">
+              <img class="social" src="~/images/landing-page/social_instagram.png" alt="instagram">
             </a>
             <a href="https://www.facebook.com" target="_blank">
-              <img class="social" src="images/landing-page/social_facebook.png" alt="facebook">
+              <img class="social" src="~/images/landing-page/social_facebook.png" alt="facebook">
             </a>
             <a href="https://www.linkedin.com" target="_blank">
-              <img class="social" src="images/landing-page/social_linkedIn.png" alt="linkedIn">
+              <img class="social" src="~/images/landing-page/social_linkedIn.png" alt="linkedIn">
             </a>
             <a href="https://twitter.com/?lang=en" target="_blank">
-              <img class="social" src="images/landing-page/social_twitter.png" alt="twitter">
+              <img class="social" src="~/images/landing-page/social_twitter.png" alt="twitter">
             </a>
           </div>
 

@@ -26,7 +26,7 @@ import { mapGetters, mapActions } from 'vuex';
 import NotificationSidebar from 'app/components/NotificationSidebar';
 import StrategyView from 'app/components/Strategy/StrategyView';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import Note from '../NotesPage/components/Note';
+import UserNote from '../NotesPage/components/UserNote';
 
 export default {
   name: 'NotePage',
@@ -34,7 +34,7 @@ export default {
   components: {
     sidebar: NotificationSidebar,
     strategy: StrategyView,
-    note: Note,
+    note: UserNote,
   },
   computed: {
     ...mapGetters(['token', 'note']),

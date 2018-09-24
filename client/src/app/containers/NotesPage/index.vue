@@ -16,13 +16,13 @@
 import { mapGetters, mapActions } from 'vuex';
 import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import Note from './components/Note';
+import UserNote from './components/UserNote';
 
 export default {
   name: 'NotesPage',
   components: {
     sidebar: NotificationSidebar,
-    note: Note,
+    note: UserNote,
   },
   computed: {
     ...mapGetters(['token', 'note']),

@@ -123,7 +123,7 @@
 </style>
 <script>
 export default {
-  name: 'Note',
+  name: 'ClubNote',
   data() {
     return { show: false };
   },

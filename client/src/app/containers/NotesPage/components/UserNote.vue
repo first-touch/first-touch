@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'Note',
+  name: 'UserNote',
   props: ['info', 'noteFn'],
   methods: {
     goToNote(){
