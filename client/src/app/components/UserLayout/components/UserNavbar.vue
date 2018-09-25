@@ -108,6 +108,7 @@
       margin: 0 0 15px 0;
     }
     .profile {
+      text-align: center;
       margin: 15px 0;
       * {
         margin: 10px 0;

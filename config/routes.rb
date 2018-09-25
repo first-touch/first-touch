@@ -53,7 +53,6 @@ Rails.application.routes.draw do
         get "tag/:tag", on: :collection, action: :index_by_tag
         get "field_types", on: :collection, action: :field_types
       end
-      get 'direct_upload/signed_url', to: 'direct_upload#signed_url'
       post 'direct_upload/signed_url', to: 'direct_upload#signed_url'
 
       resources :events, only: %i[index create show]

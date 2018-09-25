@@ -103,6 +103,7 @@
       margin: 0 0 15px 0;
     }
     .profile {
+      text-align: center;
       margin: 15px 0;
       display: flex;
       flex: 1 0 200px;

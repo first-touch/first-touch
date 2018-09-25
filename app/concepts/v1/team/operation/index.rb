@@ -13,8 +13,8 @@ module V1
           team_list = team_list.where(
             'team_name ILIKE ?', "%#{query_params}%"
           )
-          options['models'] = team_list
         end
+        options['models'] = team_list
       end
     end
   end
