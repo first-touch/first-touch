@@ -5,6 +5,7 @@
 <script>
 import countrydata from 'country-data';
 import vSelect from 'vue-select';
+import $ from 'jquery';
 
 export default {
   name: 'Nationality',

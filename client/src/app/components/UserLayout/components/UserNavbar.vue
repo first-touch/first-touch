@@ -61,60 +61,62 @@
         </li>
       </ul>
     </div>
-    <div class="sidenav-right">
-      <div class="nav-list">
-        <div class="nav-item">
-          <a href="/about">About</a>
-        </div>
-        <div class="nav-item">
-          <button @click="logout">Logout</button>
-        </div>
-        <div class="nav-item">
-          <a href="/settings">Settings</a>
-        </div>
-        </li>
-        <li class="nav-item" :class="{ active: page === 'calendar' }">
-          <div class="nav-item-inner">
-            <router-link to="/calendar">Calendar</router-link>
-          </div>
-        </li>
-        <li class="nav-item" v-if="{ isCoach }" :class="{ active: page === 'notes' }">
-          <div class="nav-item-inner">
-            <router-link to="/notes">Notes</router-link>
-          </div>
-        </li>
-        <li class="nav-item" :class="{ active: page === 'messages' }">
-          <div class="nav-item-inner">
-            <router-link to="/messages">Messages</router-link>
-          </div>
-        </li>
-        <li class="nav-item" :class="{ active: page === 'network' }">
-          <div class="nav-item-inner">
-            <router-link to="/network">My Network</router-link>
-          </div>
-        </li>
-        </ul>
+  <div class="sidenav-right">
+    <div class="nav-list">
+      <div class="nav-item">
+        <a href="/about">About</a>
+      </div>
+      <div class="nav-item">
+        <a href="/settings">Settings</a>
       </div>
       <div class="nav-item">
         <button @click="logout">Logout</button>
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/variables';
-  @import '~stylesheets/common_style';
-  .sidenav-left {
-    overflow-y: auto;
-    .brand {
-      margin: 0 0 15px 0;
+@import '~stylesheets/variables';
+@import '~stylesheets/common_style';
+
+.sidenav-left {
+  .brand {
+    margin: 0 0 15px 0;
+  }
+  .profile {
+    margin: 15px 0;
+    * {
+      margin: 10px 0;
     }
-    .profile {
-      text-align: center;
-      margin: 15px 0;
-      * {
-        margin: 10px 0;
+    .img-fluid {
+      max-width: 50%;
+    }
+
+    .profile-name {
+      text-transform: uppercase;
+      color: $main-header-color;
+      font-weight: 300;
+      font-size: 1.2em;
+    }
+    .profile-club,
+    .profile-role {
+      color: $secondary-text-color;
+      font-weight: 300;
+      text-transform: capitalize;
+      font-size: 1em;
+    }
+    .profile-edit-button {
+      border: 1px solid $secondary-text-color;
+      border-radius: 4px;
+      background-color: transparent;
+      text-transform: uppercase;
+      font-size: 0.85em;
+      padding: 5px 20px;
+      color: $secondary-text-color;
+      &:hover {
+        text-decoration: none;
       }
     }
   }
@@ -124,52 +126,7 @@
     margin: 15px 0 15px -20px;
     display: flex;
     flex-direction: column;
-    .nav-item .nav-item-inner {
-      text-transform: uppercase;
-      font-weight: 300;
-      font-size: $left-menu-text-size;
-      margin: 0 0 0 20px;
-      padding: 10px 0 10px 7px;
-      border-top: 1px solid $main-text-color;
-      &:hover {
-        background: #5e5e5e;
-        cursor: pointer;
-      }
-      a {
-        color: $main-text-color;
-      }
-      .profile-name {
-        text-transform: uppercase;
-        color: $main-header-color;
-        font-weight: 300;
-        font-size: 1.2em;
-      }
-      .profile-club,
-      .profile-role {
-        color: $secondary-text-color;
-        font-weight: 300;
-        text-transform: capitalize;
-        font-size: 1em;
-      }
-      .profile-edit-button {
-        border: 1px solid $secondary-text-color;
-        border-radius: 4px;
-        background-color: transparent;
-        text-transform: uppercase;
-        font-size: 0.85em;
-        padding: 5px 20px;
-        color: $secondary-text-color;
-        &:hover {
-          text-decoration: none;
-        }
-      }
-    }
-    .nav-list {
-      padding-left: 0;
-      margin: 15px 0 15px -20px;
-      display: flex;
-      flex-direction: column;
-      .nav-item {
+    .nav-item {
         .sub-nav {
           max-height: 0;
           overflow: hidden;
@@ -189,51 +146,61 @@
             &:not(:last-child) {
               border-bottom: 1px solid $navbar-background-color;
             }
-            &.active .router-link-active {
-              color: $main-header-color;
+            &.active  {
+              .submenu, .router-link-active {
+                color: $main-header-color;
+              }
             }
-            a {
+            a, .submenu, {
               color: #fff;
               text-decoration: none;
             }
           }
           transition: max-height 1s;
         }
-        .nav-item-inner {
-          text-transform: uppercase;
-          font-weight: 300;
-          padding: 10px 0 10px 20px;
-          border-top: 1px solid $main-text-color;
-          color: $main-text-color;
-          &.submenu {
+
+      .nav-item-inner {
+      text-transform: uppercase;
+      font-weight: 300;
+      font-size: $left-menu-text-size;
+      margin: 0 0 0 20px;
+      padding: 10px 0 10px 7px;
+      border-top: 1px solid $main-text-color;
+                &.submenu {
             cursor: pointer;
           }
-          a {
-            color: $main-text-color;
-          }
-          a:hover,
-          a:focus {
-            text-decoration: none;
-          }
-        }
+      &:hover {
+        background: #5e5e5e;
+        cursor: pointer;
       }
-      .nav-item:last-child .nav-item-inner {
-        border-bottom: 1px solid $main-text-color;
+      &.submenu, a {
+        color: $main-text-color;
       }
-      .nav-item.active {
-        .nav-item-inner {
-          border-left: 7px solid $main-header-color;
-        }
-        a,
-        .nav-item-inner {
-          color: $main-header-color;
-        }
-        .sub-nav {
-          max-height: 400px;
-        }
+      a:hover,
+      a:focus {
+        text-decoration: none;
       }
     }
   }
+
+    .nav-item:last-child .nav-item-inner {
+      border-bottom: 1px solid $main-text-color;
+    }
+
+    .nav-item.active {
+      border-left: 7px solid $main-header-color;
+      .sub-nav {
+        max-height: 400px;
+      }
+      .nav-item-inner {
+        margin-left: 13px;
+      }
+      a, .submenu {
+        color: $main-header-color;
+      }
+    }
+  }
+}
 .sidenav-right {
   height: 124px;
   box-shadow: -2px -2px 2px #555;
@@ -281,6 +248,11 @@
 export default {
   name: 'UserNavbar',
   props: ['page'],
+  data() {
+    return {
+      submenu: -1
+    };
+  },
   computed: {
     ...mapGetters(['token', 'user']),
     name() {

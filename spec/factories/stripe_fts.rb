@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :stripe_ft do
     preferred_account "MyText"
     stripe_id "MyText"

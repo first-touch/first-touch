@@ -21,6 +21,7 @@ user = ::User.find_by(email: 'dpayet@ftouch.io')
 user.teams = [team]
 club = ::Club.find(5129)
 user.clubs = [club]
+user.save!
 
 result = ::V1::User::Register.(email: 'minoraiola@ftouch.io', password: '123456789', password_confirmation: "123456789", role_name: 'scout', personal_profile: {
   first_name: 'Mino',

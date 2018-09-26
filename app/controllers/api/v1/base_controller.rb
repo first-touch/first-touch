@@ -19,10 +19,7 @@ module Api
           return
         end
         @current_user = res['user']
-        # @current_user = AuthorizeApiRequest.(request.headers).result
-        # @current_club = AuthorizeClubRequest.(request.headers).result[:club]
-        # return if @current_user
-        # render json: { error: 'Not Authorized' }, status: :unauthorized
+        @current_club = res['club']
       end
 
       def permit_all_params

@@ -177,15 +177,9 @@
         left: 0;
         height: 45px;
       }
-      .nav-item.active {
-        .nav-item-inner {
-          border-left: 7px solid $main-header-color;
-          color: $main-header-color;
-        }
         .sub-nav {
           max-height: 400px;
         }
-      }
     }
   }
 

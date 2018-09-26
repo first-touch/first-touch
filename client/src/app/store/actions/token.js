@@ -9,7 +9,7 @@ export const attemptLogIn = (store, { email, password }) => {
   }).then(res => {
     if (res.status === 200) {
       res.json().then(r => {
-        store.commit(types.TOKEN_SUCCESS, r.auth_token);
+        store.commit(types.TOKEN_SUCCESS, r);
       });
     } else {
       res.json().then(r =>

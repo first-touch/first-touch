@@ -64,7 +64,11 @@ window.jQuery = jQuery;
 
 function requireAuth (to, from, next) {
   store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
-  store.state.token.clubs = store.state.token.clubs || localStorage.getItem('club_token') ? JSON.parse(localStorage.getItem('club_token')) : null;
+  try {
+    store.state.token.clubs = store.state.token.clubs || localStorage.getItem('clubs_token') ? JSON.parse(localStorage.getItem('clubs_token')) : null;
+  } catch (e) {
+    store.state.token.clubs = null;
+  }
   if (!store.state.token.value) {
     next({
       path: '/welcome'
@@ -74,7 +78,11 @@ function requireAuth (to, from, next) {
 
 function requireClub (to, from, next) {
   store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
-  store.state.token.clubs = store.state.token.clubs || localStorage.getItem('club_token') ? JSON.parse(localStorage.getItem('club_token')) : null;
+  try {
+    store.state.token.clubs = store.state.token.clubs || localStorage.getItem('clubs_token') ? JSON.parse(localStorage.getItem('clubs_token')) : null;
+  } catch (e) {
+    store.state.token.clubs = null;
+  }
   if (!store.state.token.value) {
     next({
       path: '/welcome'
