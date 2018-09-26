@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "required": ["min_matches"],
+  "properties": {
+    "search": {
+      "type": "object",
+      "properties": {
+        "club": {
+          "type": "string"
+        },
+        "league": {
+          "type": "string"
+        }
+      },
+      "additionalProperties" : false
+    },
+    "training_report": {
+      "type": "string"
+    },
+    "team": {
+      "type": "string"
+    },
+    "min_matches": {
+      "type": "integer"
+    },
+    "comments": {
+      "type": "string"
+    }
+  },
+  "additionalProperties" : false
+}

@@ -1,5 +1,5 @@
 class Users::PublicProfileSerializer < ActiveModel::Serializer
-  attributes :id, :following
+  attributes :id, :following, :roles
   has_one :personal_profile
 
   def following

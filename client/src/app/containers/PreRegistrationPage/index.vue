@@ -54,7 +54,7 @@ p {
 }
 
 .container-fluid {
-  background: url('/images/landing-page/team-logo.jpg') no-repeat center center
+  background: url("/images/landing-page/team-logo.jpg") no-repeat center center
     fixed;
   background-size: cover;
   min-height: calc(100vh - 78px);
@@ -99,19 +99,19 @@ p {
 </style>
 
 <script>
-import LandingNavbar from 'app/components/LandingNavbar.vue';
+import LandingNavbar from "app/components/LandingNavbar.vue";
 
 export default {
-  name: 'PreRegistration',
+  name: "PreRegistration",
   components: {
-    'landing-navbar': LandingNavbar,
+    "landing-navbar": LandingNavbar
   },
   data() {
     return {
-      email: '',
+      email: "",
       invalidEmail: false,
       submitted: false,
-      ajaxErr: '',
+      ajaxErr: ""
     };
   },
   methods: {
@@ -121,11 +121,11 @@ export default {
         return;
       } else {
         $.ajax({
-          url: '/api/v1/pre_register',
-          method: 'POST',
+          url: "/api/v1/pre_register",
+          method: "POST",
           data: {
-            emai: this.email,
-          },
+            emai: this.email
+          }
         })
           .done(() => (this.submitted = true))
           .fail(e => (this.ajaxErr = e.responseText));
@@ -134,8 +134,8 @@ export default {
     hideAlerts() {
       this.invalidEmail = false;
       this.ajaxErr = false;
-    },
-  },
+    }
+  }
 };
 
 // helper functions

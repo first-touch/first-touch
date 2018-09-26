@@ -7,11 +7,11 @@
       </div>
       <div class="col col-lg-5">
         <form @submit.prevent="handleSubmit">
-          <fieldset class="form-group col-md-8">
+          <fieldset class="form-group col-lg-8">
             <label>Email</label>
             <input type="email" v-model="email" class="form-control"  autocomplete="username" placeholder="Enter email..."/>
           </fieldset>
-          <fieldset class="form-group col-md-8">
+          <fieldset class="form-group col-lg-8">
             <label>Password</label>
             <input type="password" v-model="password" class="form-control" autocomplete="current-password" placeholder="Enter password..."/>
           </fieldset>

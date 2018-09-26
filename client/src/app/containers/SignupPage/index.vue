@@ -7,26 +7,26 @@
       </div>
       <div class="col col-lg-5">
         <form class="form" @submit.prevent="handleSubmit">
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12">
             <label>Email</label>
             <input type="email" v-model="email" class="form-control" autocomplete="username" placeholder="Enter Email..." />
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12">
             <label>Password</label>
             <input type="password" v-model="password" class="form-control" autocomplete="new-password" placeholder="Enter Password..." />
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12">
             <label>Password Confirmation</label>
             <input type="password" v-model="password_confirmation" class="form-control" autocomplete="new-password" placeholder="Confirm Password..." />
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12">
             <label>Your Name</label>
             <div class="row">
-              <input type="text" v-model="first_name" class="form-control col-md-6" placeholder="First Name" />
-              <input type="text" v-model="last_name" class="form-control col-md-6" placeholder="Last Name" />
+              <input type="text" v-model="first_name" class="form-control col-lg-6" placeholder="First Name" />
+              <input type="text" v-model="last_name" class="form-control col-lg-6" placeholder="Last Name" />
             </div>
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12">
             <label>Date Of Birth</label>
             <div class="row">
               <select v-model="day" class="form-control col-md-3">
@@ -70,7 +70,7 @@
           <fieldset class="form-group col-md-12">
             <label>Your Club*</label>
             <div class="row">
-              <select v-model="club_country_code" class="form-control col-md-4">
+              <select v-model="club_country_code" class="form-control col-lg-4">
                 <option disabled value="" selected>Country</option>
                 <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
               </select>

@@ -36,3 +36,9 @@ en:
   auth:
     invalid_reset_token: 'Invalid reset token'
     missing_token: 'Missing token'
+  stripe:
+    no_bank_account: 'Please add a bank account first'
+    charge_not_found: 'This report can not be canceled, please contact an administrator'
+    balance_not_empty: 'Your balance is not empty, please wait few days and try again'
+    delete_bid_accepted: 'Please cancel your bid before'
+    scout_stripe_not_found: 'This report can not be buy yet'

@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "required": ["min_matches"],
+  "properties": {
+    "search": {
+      "type": "object",
+      "properties": {
+        "player": {
+          "type": "string"
+        },
+        "club": {
+          "type": "string"
+        },
+        "league": {
+          "type": "string"
+        }
+      },
+      "additionalProperties" : false
+    },
+    "training_report": {
+      "type": "string"
+    },
+    "languages": {
+      "type": "array"
+    },
+    "playing_position": {
+      "type": "array"
+    },
+    "age": {
+      "type": "integer"
+    },
+    "nationality_country_code": {
+      "type": "string"
+    },
+    "residence_country_code": {
+      "type": "string"
+    },
+    "preferred_foot": {
+      "type": "string"
+    },
+    "min_matches": {
+      "type": "integer"
+    },
+    "comments": {
+      "type": "string"
+    }
+  },
+  "additionalProperties" : false
+}

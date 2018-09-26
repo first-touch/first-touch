@@ -21,5 +21,22 @@ module FirstTouch
     def authenticate!(current_user:, **)
       current_user.present?
     end
+
+    def unauthenticated!(options, **)
+      options['result.policy.failure'] = :unauthenticated
+    end
+
+    def unauthorized!(options, **)
+      options['result.policy.failure'] = :unauthorized
+    end
+
+    def stripe_failure!(options, **)
+      stripe_error = options['stripe.errors']
+      if stripe_error.is_a?(::Stripe::StripeError)
+        body = stripe_error.json_body
+        err  = body[:error]
+        options['stripe.errors'] = err[:message]
+      end
+    end
   end
 end

@@ -1,0 +1,126 @@
+{
+  "type": "object",
+  "properties": {
+    "player_info": {
+      "type": "object",
+      "properties": {
+        "nationality_country_code": {
+          "type": "string"
+        },
+        "residence_country_code": {
+          "type": "string"
+        },
+        "languages": {
+          "type": "array"
+        },
+        "playing_position": {
+          "type": "array"
+        },
+        "age": {
+          "type": "integer"
+        },
+        "preferred_foot": {
+          "type": "string"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "weight": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties" : false
+    },
+    "transfer_sum": {
+      "type": "object",
+      "properties": {
+        "loan_interested": {
+          "type": "string"
+        },
+        "loan_availability": {
+          "type": "string"
+        },
+        "transfer_interested": {
+          "type": "string"
+        },
+        "transfer_availability": {
+          "type": "string"
+        },
+        "free_agent": {
+          "type": "string"
+        },
+        "contract_end":{
+          "type": "date"
+        },
+        "wage":{
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "integer"
+            },
+            "currency": {
+              "type": "string"
+            }
+          },
+          "additionalProperties" : false
+        },
+        "transfer_budget":{
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "integer"
+            },
+            "currency": {
+              "type": "string"
+            }
+          },
+          "additionalProperties" : false
+        }
+      },
+      "additionalProperties" : false
+    },
+    "analyzed_matches": {
+      "type": "array"
+    },
+    "search": {
+      "type": "object",
+      "properties": {
+        "player": {
+          "type": "string"
+        },
+        "club": {
+          "type": "string"
+        },
+        "league": {
+          "type": "string"
+        }
+      },
+      "additionalProperties" : false
+    },
+    "overview": {
+      "type": "string"
+    },
+    "physical_attributes": {
+      "type": "string"
+    },
+    "mental_attributes": {
+      "type": "string"
+    },
+    "technical_attributes": {
+      "type": "string"
+    },
+    "personality": {
+      "type": "string"
+    },
+    "potential": {
+      "type": "string"
+    },
+    "observations": {
+      "type": "string"
+    },
+    "conclusion": {
+      "type": "string"
+    }
+  },
+  "additionalProperties" : false
+}
