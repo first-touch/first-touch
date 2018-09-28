@@ -88,7 +88,7 @@
             </div>
           </fieldset>
           <fieldset class="form-group col-md-12">
-            <label class="club-note">*To register your Club, create your individual profile first.</label>
+            <label class="club-note" v-if="this.role == 'director'">*To register your Club, create your individual profile first.</label>
           </fieldset>
           <fieldset class="form-group col-md-12 tc-container">
             <input type="checkbox" id="tc" name="termsandconditions" v-model="tccheck" />
