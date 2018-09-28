@@ -18,7 +18,6 @@
                 v-model="item"
                 :get-label="getLabel"
                 :items="clubs"
-                :component-item="template"
                 @update-items="updateItems"
                 :min-len="0"
                 :auto-select-one-item="false"
@@ -26,7 +25,7 @@
                 />
             </div>
           </fieldset>
-          <button class="a-bar-button center" type="submit">Sign Up</button>
+          <button class="a-bar-button center" type="submit">Register Club</button>
           <!-- <fieldset class="col-md-12">
             <div v-if="error" class="alert alert-danger">
               <em>{{ error }}</em>
@@ -40,11 +39,19 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/template/sign-in-page.scss';
+
+.a-bar-button {
+  margin-top: 50px;
+}
 </style>
 
 
 <style lang="scss">
 @import '~stylesheets/molecules/auto-complete.scss';
+
+.wizard-nav, .wizard-header, .wizard-footer , .wizard-btn {
+  display: none;
+}
 </style>
 
 <script>
@@ -63,7 +70,9 @@ export default {
     return {
       club_country_code: '',
       countries: [],
-      clubs: []
+      clubs: [],
+      template: ItemTemplate,
+      item: null,
     }
   },
   methods: {

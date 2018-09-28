@@ -94,7 +94,8 @@
             <input type="checkbox" id="tc" name="termsandconditions" v-model="tccheck" />
             <label for="tc">By checking this box, you agree to our <router-link to="/terms_conditions">Terms &amp; Conditions</router-link> </label>
           </fieldset>
-          <button class="a-bar-button center" type="submit">Sign Up</button>
+          <button v-if="this.role != 'director'" class="a-bar-button center" type="submit">Sign Up</button>
+          <button v-if="this.role == 'director'" class="a-bar-button center" v-on:click="nextPage">Sign Up</button>
           <fieldset class="col-md-12">
             <div v-if="error" class="alert alert-danger">
               <em>{{ error }}</em>
@@ -160,6 +161,9 @@ export default {
   },
   methods: {
     ...mapActions(['attemptLogIn']),
+    nextPage() {
+      this.$parent.$parent.nextTab()
+    },
     handleSubmit() {
       if (this.password !== this.password_confirmation) {
         return this.$set(this, 'error', "Passwords don't Match!");
