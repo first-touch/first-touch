@@ -94,8 +94,7 @@
             <input type="checkbox" id="tc" name="termsandconditions" v-model="tccheck" />
             <label for="tc">By checking this box, you agree to our <router-link to="/terms_conditions">Terms &amp; Conditions</router-link> </label>
           </fieldset>
-          <button v-if="this.role != 'director'" class="a-bar-button center" type="submit">Sign Up</button>
-          <button v-if="this.role == 'director'" class="a-bar-button center" v-on:click="nextPage">Sign Up</button>
+          <button class="a-bar-button center" type="submit">Sign Up</button>
           <fieldset class="col-md-12">
             <div v-if="error" class="alert alert-danger">
               <em>{{ error }}</em>
@@ -201,7 +200,11 @@ export default {
         body: JSON.stringify(data),
       }).then(res => {
         if (res.status === 201) {
-          this.$router.push({ path: '/users/sign_in' });
+          if (this.role == "director") {
+            this.nextPage()
+          } else {
+            this.$router.push({ path: '/users/sign_in' });
+          }
         } else {
           res.json().then(r => this.$set(this, 'error', r.errors.join(", ")));
         }

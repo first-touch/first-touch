@@ -18,6 +18,7 @@
                 v-model="item"
                 :get-label="getLabel"
                 :items="clubs"
+                :component-item="template"
                 @update-items="updateItems"
                 :min-len="0"
                 :auto-select-one-item="false"
@@ -73,6 +74,7 @@ export default {
       clubs: [],
       template: ItemTemplate,
       item: null,
+      error: null
     }
   },
   methods: {
