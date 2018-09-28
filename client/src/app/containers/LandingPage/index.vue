@@ -21,7 +21,7 @@
             <div class="carousel-caption intro-message">
               <div class="d-flex flex-column justify-content-center">
                 <div class="row justify-content-center">
-                  <img src="images/landing-page/ft-logo.png" class="img-fluid" alt="Ft logo">
+                  <img src="~images/landing-page/ft-logo.png" class="img-fluid" alt="Ft logo">
                 </div>
                 <div class="row justify-content-center main">
                   The football platform for
@@ -567,7 +567,7 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <img class="logo" src="images/landing-page/ft-footer-logo.png" alt="Ft logo">
+            <img class="logo" src="~images/landing-page/ft-footer-logo.png" alt="Ft logo">
             <span class="cRight">&copy;2016</span>
           </div>
           <div class="col-12 col-lg links">
@@ -597,16 +597,16 @@
           </div>
           <div class="media links col-12 col-lg justify-content-center">
             <a href="https://www.instagram.com/?hl=en" target="_blank">
-              <img class="social" src="images/landing-page/social_instagram.png" alt="instagram">
+              <img class="social" src="../../../images/landing-page/social_instagram.png" alt="instagram">
             </a>
             <a href="https://www.facebook.com" target="_blank">
-              <img class="social" src="images/landing-page/social_facebook.png" alt="facebook">
+              <img class="social" src="../../../images/landing-page/social_facebook.png" alt="facebook">
             </a>
             <a href="https://www.linkedin.com" target="_blank">
-              <img class="social" src="images/landing-page/social_linkedIn.png" alt="linkedIn">
+              <img class="social" src="../../../images/landing-page/social_linkedIn.png" alt="linkedIn">
             </a>
             <a href="https://twitter.com/?lang=en" target="_blank">
-              <img class="social" src="images/landing-page/social_twitter.png" alt="twitter">
+              <img class="social" src="../../../images/landing-page/social_twitter.png" alt="twitter">
             </a>
           </div>
 

@@ -4,7 +4,7 @@
     <div class="container h-100">
       <div class="row justify-content-center align-items-center row-top-margin">
         <div class="logo">
-          <img src="/images/landing-page/ft-logo.png" alt="Ft Logo" />
+          <img src="~images/landing-page/ft-logo.png" alt="Ft Logo" />
         </div>
       </div>
       <div class="row justify-content-center align-items-center row-top-margin">

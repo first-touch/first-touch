@@ -3,7 +3,7 @@
     <landing-navbar />
     <div class="container-fluid page-container">
       <div class="logo">
-        <img src="/images/landing-page/ft-logo.png" alt="Ft Logo"  />
+        <img src="~images/landing-page/ft-logo.png" alt="Ft Logo"  />
       </div>
 
       <div v-if="submitted" class="col col-lg-5">
@@ -31,7 +31,7 @@
 
 <style lang="scss" scoped>
 .page-container {
-  background: url('/images/landing-page/team-logo.jpg') no-repeat center center
+  background: url('~images/landing-page/team-logo.jpg') no-repeat center center
     fixed;
   background-size: cover;
   min-height: calc(100vh - 78px);
@@ -47,8 +47,8 @@
 </style>
 
 <script>
-import LandingNavbar from 'app/components/LandingNavbar';
-import AccountService from 'app/services/AccountService';
+import LandingNavbar from '../components/LandingNavbar';
+import AccountService from '../services/AccountService';
 
 export default {
   name: 'EditPassword',

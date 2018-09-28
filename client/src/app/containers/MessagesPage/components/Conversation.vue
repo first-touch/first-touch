@@ -33,7 +33,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables.scss';
+@import '../../../../stylesheets/variables.scss';
 
 .body {
   display: flex;
@@ -69,7 +69,7 @@
 </style>
 
 <script>
-import TimelineItem from 'app/components/TimelineItem';
+import TimelineItem from '../../../components/TimelineItem';
 import ConvoEntry from './ConvoEntry';
 export default {
   name: 'Conversation',

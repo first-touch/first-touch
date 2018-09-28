@@ -57,3 +57,5 @@ config/secrets.yml.key
 /public/bid/15/Order Summary.pdf
 /public/bid/15/new 1.txt
 /zip.zip
+
+.cache

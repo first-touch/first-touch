@@ -8,8 +8,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import store from 'app/store';
-import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
+import store from '../../../store';
+import { ASYNC_SUCCESS } from '../../../constants/AsyncStatus';
 import Conversation from './Conversation.vue';
 
 export default {
