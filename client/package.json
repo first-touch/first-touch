@@ -65,16 +65,6 @@
     "serve:dist": "gulp serve:dist"
   },
   "eslintConfig": {
-    "root": true,
-    "env": {
-      "browser": true,
-      "jasmine": true
-    },
-    "extends": [
-      "xo-space/esnext"
-    ],
-    "plugins": [
-      "html"
-    ]
+    "root": true
   }
 }
