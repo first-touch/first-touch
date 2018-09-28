@@ -19,6 +19,7 @@ module Api
           return
         end
         @current_user = res['user']
+        @current_club = res['club']
       end
 
       def permit_all_params

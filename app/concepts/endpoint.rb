@@ -41,14 +41,33 @@ module FirstTouch
         rule: ->(result) { result.failure? && result['result.model']&.failure? },
         resolve: lambda do |result, _representer|
           { 'data': { errors: result['result.model.errors'] },
+            'status': :not_found }
+        end
+      },
+      empty: {
+        rule: ->(result) { result.success? && result['model'].nil? },
+        resolve: lambda do |_result, _representer|
+          { 'data': {},
+            'status': :ok }
+        end
+      },
+      stripe_errors: {
+        rule: ->(result) { result.failure? && !result['stripe.errors'].nil? },
+        resolve: lambda do |result, _representer|
+          { 'data': { errors: result['stripe.errors'] },
             'status': :unprocessable_entity }
+        end
+      },
+      model_not_found: {
+        rule: ->(result) { result.failure? && result['result.model.not_found'] },
+        resolve: lambda do |result, _representer|
+          { 'data': { errors: result['result.model.errors'] },
+            'status': :not_found }
         end
       },
       invalid: {
         rule: ->(result) { result.failure? },
-        resolve: lambda do |result, _representer|
-          { 'data': { errors: result.errors }, 'status': :unprocessable_entity }
-        end
+        resolve: ->(_result, _representer) { { 'data': { errors: _result.errors }, 'status': :unprocessable_entity } }
       },
       fallback: {
         rule: ->(_result) { true },

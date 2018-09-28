@@ -21,5 +21,11 @@ export default {
       status: ASYNC_SUCCESS,
       value: payload
     });
+  },
+  [ActionTypes.SEARCH_RESULT_FLUSH] (state) {
+    state.searchResult = Object.assign({}, state.searchResult, {
+      status: ASYNC_NONE,
+      value: []
+    });
   }
 };

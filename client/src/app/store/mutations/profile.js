@@ -10,6 +10,11 @@ export const profile = {
   value: {}
 };
 
+export const teamProfile = {
+  status: ASYNC_NONE,
+  value: {}
+};
+
 export default {
   [ActionTypes.PROFILE_LOADING] (state) {
     state.profile = Object.assign({}, state.profile, { status: ASYNC_LOADING });
@@ -18,6 +23,15 @@ export default {
     state.profile = Object.assign({}, state.profile, {
       status: ASYNC_SUCCESS,
       value: profile
+    });
+  },
+  [ActionTypes.TEAM_LOADING] (state) {
+    state.teamProfile = Object.assign({}, state.teamProfile, { status: ASYNC_LOADING });
+  },
+  [ActionTypes.TEAM_SUCCESS] (state, teamProfile) {
+    state.teamProfile = Object.assign({}, state.teamProfile, {
+      status: ASYNC_SUCCESS,
+      value: teamProfile
     });
   },
   [ActionTypes.PROFILE_FOLLOW] (state) {

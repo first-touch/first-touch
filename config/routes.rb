@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       resource :user, only: %i[show update]
 
       post 'users/register', to: 'users#register', as: :register
+      post 'users/import', to: 'users#import', as: :import
+
       get 'users/:id/follows', controller: :users, action: :follows
       resource :users, except: [:show] do
         resources :posts, only: %i[index create], controller: 'users/posts'
@@ -42,6 +44,8 @@ Rails.application.routes.draw do
       resources :clubs, only: %i[index show]
 
       resources :posts, only: %i[update destroy]
+      resources :teams, only: %i[index show]
+      resources :competitions, only: %i[index]
 
       # Note: Named route for users search because later on
       # the search will probably be more broad.
@@ -54,10 +58,27 @@ Rails.application.routes.draw do
         get 'tag/:tag', on: :collection, action: :index_by_tag
         get 'field_types', on: :collection, action: :field_types
       end
-      get 'direct_upload/signed_url', to: 'direct_upload#signed_url'
-      resources :events, only: %i[index create show]
+      post 'direct_upload/signed_url', to: 'direct_upload#signed_url'
 
+      resources :events, only: %i[index create show]
       post 'connect', controller: :connection, action: :create
+      post 'reports/refund/:report_id', controller: :orders, action: :refund
+      resources :reports
+      get 'reports/list/purchased', controller: :reports, action: :purchased
+      resources :orders
+      resources :requests
+      resources :bids
+      resources :stripe, only: %i[index create]
+      delete 'stripe', controller: :stripe, action: :destroy
+      put 'stripe', controller: :stripe, action: :update
+
+      get 'stripe/required', controller: :stripe, action: :required
+
+      get 'requests/bids/:request_id', controller: :bids, action: :requestbids
+      post 'requests/bids/:request_id', controller: :bids, action: :acceptbid
+      resource :club_stripes, :path => "club/stripe"
+      resources :files, only: [:show, :new]
+
     end
   end
 end

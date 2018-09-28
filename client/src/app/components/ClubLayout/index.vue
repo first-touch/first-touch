@@ -1,7 +1,7 @@
 <template>
   <div>
     <navbar :page="page" />
-    <search-bar :search="getSearchResults" :results="searchResult.value" />
+    <search-bar :search="getSearchResults" :results="searchResult.value" :placeholder="placeholder" :action="action"/>
     <router-view></router-view>
   </div>
 </template>
@@ -20,14 +20,21 @@ export default {
     navbar: Navbar,
     'search-bar': SearchBar,
   },
+  data() {
+    return {
+      placeholder: 'Search for players, clubs, events'
+    };
+  },
   computed: {
     ...mapGetters(['searchResult']),
     page() {
-      return this.$route.path.replace(/\/club\/?/, '');
+      return this.$route.path.replace(/\/club\/\d\/?/, '');
     },
   },
   methods: {
     ...mapActions(['getSearchResults']),
+    action(info){
+    }
   },
 };
 </script>

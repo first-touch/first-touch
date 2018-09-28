@@ -1,0 +1,218 @@
+@import '~stylesheets/variables';
+@import '~stylesheets/button';
+.form-group {
+  label {
+    color: $main-text-color !important;
+  }
+}
+
+.error {
+  color: red;
+  li {
+    color: red;
+    display: list-item;
+    list-style: disc;
+    &:first-letter {
+      text-transform: capitalize;
+    }
+  }
+}
+
+.ft-form {
+  ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    font-family: 'Ubuntu', sans-serif;
+    color: $secondary-text-color;
+  }
+  ::-moz-placeholder {
+    /* Firefox 19+ */
+    font-family: 'Ubuntu', sans-serif;
+    color: $secondary-text-color;
+  }
+  :-ms-input-placeholder {
+    /* IE 10+ */
+    font-family: 'Ubuntu', sans-serif;
+    color: $secondary-text-color;
+  }
+  :-moz-placeholder {
+    /* Firefox 18- */
+    font-family: 'Ubuntu', sans-serif;
+    color: $secondary-text-color;
+  }
+  .validate-errors {
+    color: red;
+  }
+  .validate-errors-list {
+    list-style: disc;
+    li {
+      display: list-item;
+      &:empty {
+        display: none;
+      }
+    }
+  }
+  .hide {
+    display: none;
+  }
+  .form-control {
+    border-radius: 10px;
+    border-color: #ced4da;
+    color: $main-text-color;
+    &.form-control-read-only {
+      background: $form-control-read-only;
+      input {
+        background: $form-control-read-only;
+      }
+    }
+    &:focus,
+    &.open {
+      box-shadow: 0 0 0 0.2rem $input-focus-color;
+    }
+    &.v-select {
+      padding: 0 5px;
+      &.disabled {
+        background: #f8f8f8;
+      }
+      &.empty {
+        color: $secondary-text-color;
+        .clear {
+          display: none;
+        }
+        .selected-tag {
+          color: $secondary-text-color;
+        }
+      }
+      &:focus {
+        width: 100000px;
+      }
+      .clearfix,
+      .open-indicator {
+        background: unset;
+      }
+    }
+    .vdp-datepicker {
+      border: 0;
+      border-radius: 999px;
+      input {
+        border: 0;
+        padding: 0;
+        max-height: 20px;
+        color: $main-text-color;
+      }
+    }
+    .dropdown-toggle {
+      border: 0;
+    }
+    &.multiple {
+      &:not(.empty){
+        input {
+          position: absolute;
+        }
+      }
+      .selected-tag {
+        color: white;
+        background: $main-text-color;
+        .close {
+          color: white;
+          opacity: unset;
+        }
+      }
+    }
+    .selected-tag {
+      margin-left: 0;
+      margin-left: 2px;
+      padding: 3px 5px;
+      height: 30px;
+      border-radius: 10px;
+    }
+  }
+  .ftcheckbox-inner {
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+    .ftcheckbox {
+      float: left;
+      margin-right: 20px;
+    }
+    .sub-menu-arrow {
+      float: right;
+    }
+    .title {
+      margin-top: 10px;
+      display: inline-block;
+    }
+  }
+  .separator {
+    text-align: center;
+  }
+  .update-attachments {
+    color: $main-text-color;
+    p {
+      display: inline-block;
+      &.removed {
+        text-decoration: line-through;
+      }
+      &.remove {
+        color: red;
+        cursor: pointer;
+      }
+      &.filename {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+  .attachments-div {
+    ul {
+      float: right;
+      li {
+        display: list-item;
+        list-style: disc;
+      }
+    }
+  }
+  .error {
+    li {
+      color: red;
+      display: list-item;
+      list-style: disc;
+      &:first-letter {
+        text-transform: capitalize;
+      }
+    }
+  }
+  background: $form-background;
+  color: $main-text-color;
+  padding: 40px 20px 80px 20px;
+  .info {
+    color: green;
+    font-weight: bold;
+    margin: 0;
+  }
+  .ft-input {
+    padding: 0;
+    input {
+      height: 40px;
+    }
+  }
+  .v-select:not(:focus) {
+    input.form-control:focus {
+      width: auto !important;
+    }
+  }
+  .required {
+    &:after {
+      content: '*';
+      color: red;
+    }
+  }
+  .required-before {
+    &:before {
+      content: '*';
+      color: red;
+      position: absolute;
+      left: 0;
+    }
+  }
+}

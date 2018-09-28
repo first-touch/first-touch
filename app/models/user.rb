@@ -44,8 +44,14 @@ class User < ApplicationRecord
   has_many :teams, through: :team_users
 
   has_many :notes
+  has_many :reports
+  has_many :orders
 
   before_save :downcase_email, if: :email_changed?
+  has_many :request_bids
+  has_one :stripe_ft
+
+  has_many :competitions, through: :teams
   before_save :update_search_string, if: -> { email_changed? }
 
   def connection_status(user)
@@ -156,6 +162,10 @@ class User < ApplicationRecord
 
   def career_history
     career_entries.order(start_date: :desc)
+  end
+
+  def scout?
+    !roles.find_by(name: 'scout').blank?
   end
 
   def note_tags

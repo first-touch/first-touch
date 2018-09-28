@@ -35,3 +35,25 @@ node_modules
 public/paperclip
 .story_branch
 .python-version
+/public/report
+
+# Ignore encrypted secrets key file.
+config/secrets.yml.key
+/client/src/app/constants/StripeConstant.js
+/checkout.bat
+/client/package-lock.json
+/dump.rdb
+/marketplace-GlobalInput.bat
+/marketplace-bids-C02.bat
+/marketplace-bids-CreateEditListbat.bat
+/marketplace-bids-Edit-On-Reports.bat
+/marketplace-bids-RefactorScss.bat
+/marketplace-bids-RoutesAndMenu.bat
+/marketplace-bids-S03.bat
+/marketplace-bids-S04.bat
+/marketplace-reports-marketplace.bat
+/package-lock.json
+/public/bid/13/Order Summary.pdf
+/public/bid/15/Order Summary.pdf
+/public/bid/15/new 1.txt
+/zip.zip

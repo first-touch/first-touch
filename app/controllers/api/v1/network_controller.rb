@@ -10,7 +10,7 @@ module Api
         }
         network = Network.new(network_attrs)
 
-        render json: NetworkSerializer.new(network), root: "network"
+        render json: NetworkSerializer.new(network), root: 'network'
       end
     end
   end
