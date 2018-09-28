@@ -26,12 +26,12 @@
                 />
             </div>
           </fieldset>
-          <button class="a-bar-button center" type="submit">Register Club</button>
-          <!-- <fieldset class="col-md-12">
+          <fieldset class="col-md-12">
             <div v-if="error" class="alert alert-danger">
               <em>{{ error }}</em>
             </div>
-          </fieldset> -->
+          </fieldset>
+          <button :disabled="canBeRegistered()" class="a-bar-button center" v-on:click="test">Register Club</button>
         </form>
       </div>
     </div>
@@ -78,8 +78,11 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
+    test() {
       alert('hello world')
+    },
+    canBeRegistered() {
+      return this.item != null && this.error == null
     },
     fetchCountries() {
       fetch('/api/v1/clubs/countries')
@@ -107,6 +110,19 @@ export default {
     itemSelected(item) {
       this.$set(this, 'item', item);
     },
+  },
+  watch: {
+    item: function(value) {
+      fetch('/api/v1/clubs/' + value.id)
+        .then(res => res.status === 200 && res.json())
+        .then(({has_owner}) => {
+          if (has_owner) {
+            return this.$set(this, 'error', "You can't register a club that already has an existing owner!");
+          } else {
+            return this.$set(this, 'error', null);
+          }
+        });
+    }
   },
   mounted() {
     this.fetchCountries();
