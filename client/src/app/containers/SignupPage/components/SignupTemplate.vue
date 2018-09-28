@@ -296,8 +296,8 @@ export default {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       }).then(res => {
-        if (res.status === 201 || res.status === 201) {
-          this.attemptLogIn({ email: this.email, password: this.password });
+        if (res.status === 201) {
+          this.$router.push({ path: '/users/sign_in' });
         } else {
           res.json().then(r => this.$set(this, 'error', r.errors.join(", ")));
         }

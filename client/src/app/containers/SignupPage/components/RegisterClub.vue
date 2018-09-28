@@ -6,7 +6,7 @@
         <img src="/images/landing-page/ft-logo.png" alt="Ft Logo" />
       </div>
       <div class="col col-lg-5">
-        <form class="form">
+        <form class="form" @submit.prevent="handleSubmit">
           <label>Your Club*</label>
             <div class="row">
               <!-- <select v-model="club_country_code" class="form-control col-md-4">
@@ -49,6 +49,18 @@ export default {
   components: {
     navbar: LandingNavbar,
     autocomplete: AutoComplete
+  },
+  data() {
+    return {
+      club_country_code: '',
+      countries: [],
+      clubs: []
+    }
+  },
+  methods: {
+    handleSubmit() {
+      alert('hello world')
+    }
   }
 };
 
