@@ -1,4 +1,4 @@
-import store from 'app/store';
+import store from '../store';
 
 export default {
   endpoint: '/api/v1/users/posts',

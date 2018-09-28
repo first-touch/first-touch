@@ -10,7 +10,7 @@ export const stripe = {
 };
 import {
   StripePublicKey
-} from 'app/constants/StripeConstant';
+} from '../../constants/StripeConstant';
 
 export const stripeJs = window.Stripe(StripePublicKey);
 export const stripeFtouch = {

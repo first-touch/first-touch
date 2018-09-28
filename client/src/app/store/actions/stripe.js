@@ -1,7 +1,7 @@
 import * as ActionTypes from '../../constants/ActionTypes';
 import {
   StripePublicKey
-} from 'app/constants/StripeConstant';
+} from '../../constants/StripeConstant';
 
 export const saveStripe = (store, data) => {
   store.commit(ActionTypes.SAVE_STRIPE_ACCOUNT_LOADING);
