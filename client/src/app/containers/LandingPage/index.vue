@@ -406,8 +406,6 @@
     </div>
     <!-- second-page -->
 
-
-
     <div id="third-page">
       <div class="container col-12">
         <div class="row justify-content-center">
@@ -415,8 +413,6 @@
             ROLES WE SERVE
           </div>
         </div>
-
-
         <div class="col-12 col-sm-12">
           <div class="row justify-content-center">
 

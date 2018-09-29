@@ -1,7 +1,9 @@
 import Vue from 'vue';
+// import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap';
+// import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap-vue/dist/bootstrap-vue.css';
 import './stylesheets/app.scss';
-import BootstrapVue from 'bootstrap-vue';
 
 import LandingPage from './app/containers/LandingPage/index.vue';
 // import ConfirmAccount from 'app/containers/ConfirmAccount';
@@ -52,12 +54,11 @@ import VueRouter from 'vue-router';
 
 // Vue.use(VueAutosize);
 Vue.use(VueRouter);
-Vue.use(BootstrapVue);
+// Vue.use(BootstrapVue);
 // Vue.use(VeeValidate);
 
 window.$ = require('jquery')
 window.JQuery = require('jquery')
-require('bootstrap');
 
 // // delete once registration is allowed
 // // function redirectToPrereg (to, from, next) {

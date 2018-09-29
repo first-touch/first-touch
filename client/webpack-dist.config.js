@@ -1,74 +1,49 @@
-const webpack = require('webpack');
-const conf = require('./conf/gulp.conf');
 const path = require('path');
-
+const conf = require('./conf/gulp.conf');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const autoprefixer = require('autoprefixer');
-const NODE_MDL = path.resolve('node_modules');
-const SRC_DIR = path.resolve('src');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
-  resolve: {
-    alias: {
-      stylesheets: path.resolve(__dirname, '../src/stylesheets/'),
-      images: path.resolve(__dirname, '../src/images/')
-    },
-    extensions: ['.js', '.vue', '.css'],
-    modules: [NODE_MDL, SRC_DIR]
+  mode: 'development',
+  entry: {
+    app: './src/index.js'
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'FirstTouch',
+      favicon: 'src/images/favicon.png',
+      template: 'src/index.html'
+    }),
+    new VueLoaderPlugin(),
+    new CleanWebpackPlugin([path.join(process.cwd(), conf.paths.dist)]),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "[name].[hash].css",
+      chunkFilename: "[id].[hash].css"
+    })
+  ],
+  output: {
+    filename: 'main.js',
+    path: path.join(process.cwd(), conf.paths.tmp),
+    publicPath: '/'
   },
   module: {
-    loaders: [
-      {
-        test: /.json$/,
-        loaders: ['json-loader']
-      },
-      {
-        test: /.js$/,
-        exclude: /node_modules/,
-        use: 'eslint-loader',
-        enforce: 'pre'
-      },
-      {
-        test: /\.(css|scss)$/,
-        loaders: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader?minimize!sass-loader!postcss-loader'
-        })
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loaders: ['babel-loader']
+    rules: [{
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'
+        ]
       },
       {
         test: /.vue$/,
         loaders: ['vue-loader']
       }
     ]
-  },
-  plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new HtmlWebpackPlugin({
-      template: conf.path.src('index.html')
-    }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
-    }),
-    new ExtractTextPlugin('index-[contenthash].css'),
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss: () => [autoprefixer]
-      }
-    })
-  ],
-  output: {
-    path: path.join(process.cwd(), conf.paths.dist),
-    filename: '[name]-[hash].js',
-    publicPath: '/'
-  },
-  entry: {
-    app: `./${conf.path.src('index')}`
   }
 };
