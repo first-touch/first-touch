@@ -52,11 +52,12 @@ import VueRouter from 'vue-router';
 
 // Vue.use(VueAutosize);
 Vue.use(VueRouter);
-// Vue.use(BootstrapVue);
+Vue.use(BootstrapVue);
 // Vue.use(VeeValidate);
 
-window.$ = require('jquery');
-window.JQuery = require('jquery');
+window.$ = require('jquery')
+window.JQuery = require('jquery')
+require('bootstrap');
 
 // // delete once registration is allowed
 // // function redirectToPrereg (to, from, next) {
