@@ -1,8 +1,5 @@
 import Vue from 'vue';
-// import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap';
-// import 'bootstrap/dist/css/bootstrap.css';
-// import 'bootstrap-vue/dist/bootstrap-vue.css';
 import './stylesheets/app.scss';
 
 import LandingPage from './app/containers/LandingPage/index.vue';
@@ -54,7 +51,6 @@ import VueRouter from 'vue-router';
 
 // Vue.use(VueAutosize);
 Vue.use(VueRouter);
-// Vue.use(BootstrapVue);
 // Vue.use(VeeValidate);
 
 window.$ = require('jquery')
