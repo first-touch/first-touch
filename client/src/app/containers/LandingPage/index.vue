@@ -2,9 +2,7 @@
   <div id="content">
     <landing-navbar sticky />
     <div class="full">
-
       <div id="first-p-Slide" class="carousel slide" data-ride="carousel">
-
         <div class="row justify-content-center">
           <ol class="carousel-indicators cursor toggle">
             <li data-target="#first-p-Slide" data-slide-to="0" class="active">Main</li>
@@ -13,11 +11,9 @@
             <li data-target="#first-p-Slide" data-slide-to="3">Clubs</li>
           </ol>
         </div>
-
         <div class="carousel-inner" role="listbox">
-
           <div class="carousel-item active main">
-            <img class="menu" src="images/landing-page/team-logo.jpg" alt="First slide">
+            <img class="menu" src="images/landing-page/bg-slide-1.png" alt="First slide">
             <div class="carousel-caption intro-message">
               <div class="d-flex flex-column justify-content-center">
                 <div class="row justify-content-center">
@@ -41,7 +37,7 @@
           </div>
 
           <div class="carousel-item player">
-            <img class="img-fluid menu" src="images/landing-page/BG-player.jpg" alt="Second slide">
+            <img class="img-fluid menu" src="images/landing-page/bg-slide-2.png" alt="Second slide">
             <div class="carousel-caption content-slides">
               <div class="row">
                 <div class="col-12">
@@ -68,8 +64,7 @@
           </div>
 
           <div class="carousel-item scouts">
-            <img class="img-fluid menu" src="images/landing-page/BG-scouts.jpg" alt="Third slide">
-
+            <img class="img-fluid menu" src="images/landing-page/bg-slide-3.png" alt="Third slide">
             <div class="carousel-caption content-slides">
               <div class="row">
                 <div class="col-12">
@@ -96,7 +91,7 @@
           </div>
 
           <div class="carousel-item clubs">
-            <img class="img-fluid menu" src="images/landing-page/BG-clubs2.jpg" alt="Fourth slide">
+            <img class="img-fluid menu" src="images/landing-page/bg-slide-4.png" alt="Fourth slide">
             <div class="carousel-caption content-slides">
               <div class="row">
                 <div class="col-12">
@@ -127,7 +122,7 @@
       <!--#first-p-Slide-->
     </div>
     <!--#full-->
-
+<!--
     <div id="transition-page">
       <div class="container-fluid col-12">
         <div class="header text-center">
@@ -142,10 +137,10 @@
     </div>
 
     <div id="second-page">
-      <!-- black background -->
+      <!-- black background
       <div class="container-fluid">
         <div class="second-layer">
-          <!-- content within parallax -->
+          <!-- content within parallax
 
           <div class="row justify-content-center">
             <div class="head-text challenge-head">
@@ -181,7 +176,7 @@
           </div>
 
           <div class="capabilities row-list">
-            <!-- row-list shown only when screen is large (desktop and laptop)-->
+            <!-- row-list shown only when screen is large (desktop and laptop)
             <div class="row justify-content-center">
               <div class="col-lg-4">
                 <div class="subhead-capabilities">
@@ -258,7 +253,7 @@
             </div>
           </div>
 
-          <!-- carousell on second page only shown when window is less than 992px (min-width: 992)-->
+          <!-- carousell on second page only shown when window is less than 992px (min-width: 992)
           <div class="row justify-content-center">
             <div id="second-p-slide" class="carousel slide" data-ride="carousel">
               <ol class="carousel-indicators">
@@ -393,18 +388,18 @@
                   <span class="sr-only">Next</span>
                 </a>
               </div>
-              <!-- carousel-inner-->
+              <!-- carousel-inner
 
             </div>
-            <!-- #second-p-slide -->
+            <!-- #second-p-slide
           </div>
 
         </div>
-        <!--second layer-->
+        <!--second layer
       </div>
-      <!-- container-fluid -->
+      <!-- container-fluid
     </div>
-    <!-- second-page -->
+    <!-- second-page
 
     <div id="third-page">
       <div class="container col-12">
@@ -596,12 +591,17 @@
             </a>
           </div>
         </div>
-        <!--row-->
+        <!--row
       </div>
-      <!--container-->
+      <!--container
     </div>
+    -->
   </div>
 </template>
+
+<style>
+@import '../../../stylesheets/landingpage';
+</style>
 
 <script>
   import LandingNavbar from 'app/components/LandingNavbar';
