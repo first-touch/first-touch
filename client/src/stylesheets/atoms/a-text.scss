@@ -54,3 +54,15 @@ a.a-link-button {
   color: $main-text-color;
   font-size: $main-text-size;
 }
+
+h1 {
+  font-size: 3em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  display: block;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+}

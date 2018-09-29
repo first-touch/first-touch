@@ -1,7 +1,7 @@
 <template>
   <div id="content">
     <landing-navbar sticky />
-    <div class="full">
+    <div class="full" id="section-1">
       <div id="first-p-Slide" class="carousel slide" data-ride="carousel">
         <div class="row justify-content-center">
           <ol class="carousel-indicators cursor toggle">
@@ -28,9 +28,9 @@
                   <router-link to="/users/sign_up" class="a-bar-button">Get-started</router-link>
                 </div>
                 <div class="row justify-content-center">
-                  <h1 class="typewriter">
+                  <p class="typewriter">
                     #RaiseYourGame
-                  </h1>
+                  </p>
                 </div>
               </div>
             </div>
@@ -48,7 +48,7 @@
               </div>
               <div class="row">
                 <div class="col-10">
-                  <h3 class="description">
+                  <h3 class="description a-color-dark">
                     Build and promote your profile, raise your game and take your career as far as you can.
                   </h3>
                 </div>
@@ -75,7 +75,7 @@
               </div>
               <div class="row">
                 <div class="col-10">
-                  <h3 class="description">
+                  <h3 class="description a-color-dark">
                     Build your reputation as a talent spotter or analyst and make a living from the sport you love.
                   </h3>
                 </div>
@@ -102,7 +102,7 @@
               </div>
               <div class="row">
                 <div class="col-12">
-                  <h3 class="description">
+                  <h3 class="description a-color-dark">
                     Maximise your teams’ performance by digitising everything from training and team management to scouting and medical processes.
                   </h3>
                 </div>
@@ -122,25 +122,25 @@
       <!--#first-p-Slide-->
     </div>
     <!--#full-->
-<!--
+
     <div id="transition-page">
       <div class="container-fluid col-12">
-        <div class="header text-center">
-          Take football seriously?
+        <div class="text-center">
+          <h1 class="a-color-primary">Take football seriously?</h1>
         </div>
         <div class="text-center">
           <h2>
-            <router-link to="/users/sign_up" class="sign-up">Sign Up Now!</router-link>
+            <router-link to="/users/sign_up" class="a-link light">Sign Up Now!</router-link>
           </h2>
         </div>
       </div>
     </div>
 
     <div id="second-page">
-      <!-- black background
+      <!-- black background -->
       <div class="container-fluid">
         <div class="second-layer">
-          <!-- content within parallax
+          <!-- content within parallax -->
 
           <div class="row justify-content-center">
             <div class="head-text challenge-head">
@@ -176,7 +176,7 @@
           </div>
 
           <div class="capabilities row-list">
-            <!-- row-list shown only when screen is large (desktop and laptop)
+            <!-- row-list shown only when screen is large (desktop and laptop) -->
             <div class="row justify-content-center">
               <div class="col-lg-4">
                 <div class="subhead-capabilities">
@@ -253,7 +253,7 @@
             </div>
           </div>
 
-          <!-- carousell on second page only shown when window is less than 992px (min-width: 992)
+          <!-- carousell on second page only shown when window is less than 992px (min-width: 992) -->
           <div class="row justify-content-center">
             <div id="second-p-slide" class="carousel slide" data-ride="carousel">
               <ol class="carousel-indicators">
@@ -388,29 +388,24 @@
                   <span class="sr-only">Next</span>
                 </a>
               </div>
-              <!-- carousel-inner
-
+              <!-- carousel-inner -->
             </div>
-            <!-- #second-p-slide
+            <!-- #second-p-slide -->
           </div>
-
         </div>
-        <!--second layer
+        <!--second layer -->
       </div>
-      <!-- container-fluid
+      <!-- container-fluid -->
     </div>
-    <!-- second-page
+    <!-- second-page -->
 
     <div id="third-page">
       <div class="container col-12">
         <div class="row justify-content-center">
-          <div class="header">
-            ROLES WE SERVE
-          </div>
+          <h1> Roles we serve </h1>
         </div>
         <div class="col-12 col-sm-12">
           <div class="row justify-content-center">
-
             <div id="toggle" class="carousel slide w-80" data-ride="carousel">
               <ol class="carousel-indicators">
                 <li data-target="#toggle" data-slide-to="0" class="active"></li>
@@ -424,12 +419,12 @@
 
               <div class="carousel-inner" role="listbox">
                 <div class="carousel-item active">
-                  <div class="polaroid">
+                  <div class="o-polaroid">
                     <img class="d-block img-fluid" src="images/landing-page/role_player.jpg" alt="Seventh slide">
-                    <span class="polaroid-title">
+                    <span class="polaroid-title a-color-dark">
                       Players
                     </span>
-                    <div class="description">
+                    <div class="description a-color-dark">
                       Promote your game and career
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
@@ -439,12 +434,12 @@
                 </div>
 
                 <div class="carousel-item">
-                  <div class="polaroid">
+                  <div class="o-polaroid">
                     <img class="d-block img-fluid " src="images/landing-page/role_scouts.jpg" alt="Fifth slide">
-                    <span class="polaroid-title">
+                    <span class="polaroid-title a-color-dark">
                       Scouts
                     </span>
-                    <div class="description">
+                    <div class="description a-color-dark">
                       discover, promote and report on talent
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
@@ -454,12 +449,12 @@
                 </div>
 
                 <div class="carousel-item">
-                  <div class="polaroid">
+                  <div class="o-polaroid">
                     <img class="d-block img-fluid " src="images/landing-page/role_manager.jpg" alt="Second slide">
-                    <span class="polaroid-title">
+                    <span class="polaroid-title a-color-dark">
                       Managers
                     </span>
-                    <div class="description">
+                    <div class="description a-color-dark">
                       power up your team management
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
@@ -469,12 +464,12 @@
                 </div>
 
                 <div class="carousel-item">
-                  <div class="polaroid">
+                  <div class="o-polaroid">
                     <img class="d-block img-fluid" src="images/landing-page/role_agents.jpg" alt="First slide">
-                    <span class="polaroid-title">
+                    <span class="polaroid-title a-color-dark">
                       Agents
                     </span>
-                    <div class="description">
+                    <div class="description a-color-dark">
                       recruit and manage clients
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
@@ -484,12 +479,12 @@
                 </div>
 
                 <div class="carousel-item">
-                  <div class="polaroid">
+                  <div class="o-polaroid">
                     <img class="d-block img-fluid " src="images/landing-page/role_coach.jpg" alt="Third slide">
-                    <span class="polaroid-title">
+                    <span class="polaroid-title a-color-dark">
                       Coaches
                     </span>
-                    <div class="description">
+                    <div class="description a-color-dark">
                       develop your players & your knowledge
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
@@ -499,12 +494,12 @@
                 </div>
 
                 <div class="carousel-item">
-                  <div class="polaroid">
+                  <div class="o-polaroid">
                     <img class="d-block img-fluid " src="images/landing-page/role_gm.jpg" alt="Sixth slide">
-                    <span class="polaroid-title">
+                    <span class="polaroid-title a-color-dark">
                       General Managers
                     </span>
-                    <div class="description">
+                    <div class="description a-color-dark">
                       achieve success through digitisation
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
@@ -514,12 +509,12 @@
                 </div>
 
                 <div class="carousel-item">
-                  <div class="polaroid">
+                  <div class="o-polaroid">
                     <img class="d-block img-fluid " src="images/landing-page/role_medic.jpg" alt="Fourth slide">
-                    <span class="polaroid-title">
+                    <span class="polaroid-title a-color-dark">
                       Medical Staff
                     </span>
-                    <div class="description">
+                    <div class="description a-color-dark">
                       effectively manage your medical affairs
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
@@ -543,7 +538,6 @@
       </div>
     </div>
 
-
     <div id="footer">
       <div class="container">
         <div class="row">
@@ -552,27 +546,27 @@
             <span class="cRight">&copy;2016</span>
           </div>
           <div class="col-12 col-lg links">
-            <a class="text" href="/terms_conditions">
+            <a class="a-link light" href="/terms_conditions">
               User Agreement
             </a>
           </div>
           <div class="col-12 col-lg links">
-            <a class="text" href="/community_guidelines">
+            <a class="a-link light" href="/community_guidelines">
               Community Guidelines
             </a>
           </div>
           <div class="col-12 col-lg links">
-            <a class="text" href="/privacy_policy">
+            <a class="a-link light" href="/privacy_policy">
               Privacy Policy
             </a>
           </div>
           <div class="col-12 col-lg links">
-            <a class="text" href="/contact_us">
+            <a class="a-link light" href="/contact_us">
               Contact Us
             </a>
           </div>
           <div class="col-12 col-lg links">
-            <a class="text">
+            <a class="a-link light">
               Follow Us
             </a>
           </div>
@@ -591,15 +585,14 @@
             </a>
           </div>
         </div>
-        <!--row
+        <!-- row -->
       </div>
-      <!--container
+      <!-- container -->
     </div>
-    -->
   </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
 @import '../../../stylesheets/landingpage';
 </style>
 

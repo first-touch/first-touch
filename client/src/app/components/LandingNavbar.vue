@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark" id="landing-navbar">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark m-navbar-nav" id="landing-navbar">
     <div class="d-flex flex-grow-1">
       <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
         <a class="navbar-brand d-none d-lg-inline-block" href="/">
@@ -16,14 +16,14 @@
     </div>
     <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
       <ul class="navbar-nav ml-auto flex-nowrap">
-        <li class="nav-item">
-          <a href="/about" class="nav-link m-2 menu-item nav-active">About</a>
+        <li class="nav-item m-navbar-item">
+          <a href="/about" class="nav-link menu-item nav-active m-navbar-link">About</a>
         </li>
-        <li class="nav-item">
-          <a href="/users/sign_up" class="nav-link m-2 menu-item btn btn-outline-secondary">Sign Up</a>
+        <li class="nav-item m-navbar-item">
+          <a href="/users/sign_up" class="nav-link menu-item outline m-navbar-link">Sign Up</a>
         </li>
-        <li class="nav-item">
-          <a href="/users/sign_in" class="nav-link m-2 menu-item">Log In</a>
+        <li class="nav-item m-navbar-item">
+          <a href="/users/sign_in" class="nav-link menu-item m-navbar-link">Log In</a>
         </li>
       </ul>
     </div>
