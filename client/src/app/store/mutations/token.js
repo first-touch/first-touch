@@ -6,7 +6,7 @@ import {
   ASYNC_FAIL
 } from '../../constants/AsyncStatus';
 
-import { router } from '../../../index';
+import { router } from '../../router/index';
 
 export const token = {
   status: ASYNC_NONE,

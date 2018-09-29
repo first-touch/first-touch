@@ -49,21 +49,17 @@
   </div>
 </template>
 
-<style lang="scss">
-  @import '~stylesheets/landingpage';
-</style>
-
 <style lang="scss" scoped>
-  .container-fluid {
-    background: url('/images/landing-page/team-logo.jpg') no-repeat center center
-      fixed;
-    background-size: cover;
-    min-height: calc(100vh - 78px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
+.container-fluid {
+  background: url('/images/landing-page/team-logo.jpg') no-repeat center center
+    fixed;
+  background-size: cover;
+  min-height: calc(100vh - 78px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
   form {
     margin-top: 20px;
@@ -84,8 +80,8 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 
-import { ASYNC_LOADING, ASYNC_FAIL } from 'app/constants/AsyncStatus';
-import LandingNavbar from 'app/components/LandingNavbar';
+import { ASYNC_LOADING, ASYNC_FAIL } from '../../constants/AsyncStatus';
+import LandingNavbar from '../../components/LandingNavbar.vue';
 
 export default {
   name: 'LoginPage',

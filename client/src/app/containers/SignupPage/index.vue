@@ -106,11 +106,22 @@
   </div>
 </template>
 
-<style lang="scss">
-  @import '~stylesheets/landingpage';
-  .v-autocomplete {
-    padding-right: 0;
-    .v-autocomplete-input-group {
+<style lang="scss" scoped>
+@import '../../../stylesheets/variables';
+
+.v-autocomplete {
+  padding-right: 0;
+  .v-autocomplete-input-group {
+    .v-autocomplete-input {
+      font-size: 1.5em;
+      padding: 10px 15px;
+      box-shadow: none;
+      border: 1px solid #157977;
+      width: calc(100% - 32px);
+      outline: none;
+      background-color: #eee;
+    }
+    &.v-autocomplete-selected {
       .v-autocomplete-input {
         font-size: 1.5em;
         padding: 10px 15px;
@@ -159,20 +170,33 @@
       }
     }
   }
-</style>
+}
+.container-fluid {
+  background: url('/images/landing-page/team-logo.jpg') no-repeat center center
+    fixed;
+  background-size: cover;
+  min-height: calc(100vh - 78px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+}
 
-<style lang="scss" scoped>
-  @import '~stylesheets/variables.scss';
-  .container-fluid {
-    background: url('/images/landing-page/team-logo.jpg') no-repeat center center
-      fixed;
-    background-size: cover;
-    min-height: calc(100vh - 78px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 50px 0;
+.form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .row {
+    margin: 0 1px;
+    justify-content: space-between;
+    .col-md-6 {
+      flex-basis: calc(50% - 5px);
+    }
+    .col-md-3 {
+      flex-basis: calc(25% - 5px);
+    }
   }
 
   .form {
@@ -217,11 +241,11 @@
 
 <script>
 import { mapActions } from 'vuex';
-import LandingNavbar from 'app/components/LandingNavbar';
+import LandingNavbar from '../../components/LandingNavbar.vue';
 import AutoComplete from 'v-autocomplete';
-import ItemTemplate from './components/ItemTemplate';
+import ItemTemplate from './components/ItemTemplate.vue';
 import _ from 'lodash';
-import ClubService from 'app/services/ClubService';
+import ClubService from '../../services/ClubService';
 
 export default {
   name: 'SignupPage',
