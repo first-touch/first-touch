@@ -1,12 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu:400,300');
-@import 'node_modules/bootstrap/scss/bootstrap';
-@import 'variables';
+@import "node_modules/bootstrap/scss/bootstrap";
 
 $font-family-base: Ubuntu;
 
 $theme-colors: (
   "dark": #000,
-  "primary": #439042
 );
-
-$carousel-indicator-active-bg: $main-header-color;

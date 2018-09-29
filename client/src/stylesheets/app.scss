@@ -1,2 +1,7 @@
 @import 'custom';
 @import '~bootstrap/scss/bootstrap';
+
+@import './atoms/a-buttons';
+@import './atoms/a-feedback';
+@import './atoms/a-text';
+@import './molecules/m-navigation';
