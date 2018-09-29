@@ -47,8 +47,8 @@
 </style>
 
 <script>
-import LandingNavbar from 'app/components/LandingNavbar';
-import AccountService from 'app/services/AccountService';
+import LandingNavbar from '../../components/LandingNavbar.vue';
+import AccountService from '../../services/AccountService';
 
 export default {
   name: 'EditPassword',

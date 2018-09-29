@@ -7,8 +7,8 @@
 </template>
 
 <style lang="scss">
-  @import '~stylesheets/variables';
-  @import '~stylesheets/common_style';
+  @import '../../../stylesheets/variables';
+  @import '../../../stylesheets/common_style';
 </style>
 
 <script>
@@ -16,8 +16,8 @@
     mapGetters,
     mapActions
   } from 'vuex';
-  import Navbar from './components/UserNavbar';
-  import SearchBar from '../SearchBar';
+  import Navbar from './components/UserNavbar.vue';
+  import SearchBar from '../SearchBar/index.vue';
 
   export default {
     name: 'UserLayout',

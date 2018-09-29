@@ -18,7 +18,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+@import '../../../stylesheets/variables';
 
 .searchbar-top {
   position: fixed;
@@ -84,7 +84,7 @@
 
 <script>
 import AutoComplete from 'v-autocomplete';
-import SearchResult from './components/SearchResult';
+import SearchResult from './components/SearchResult.vue';
 
 export default {
   name: 'SearchBar',
