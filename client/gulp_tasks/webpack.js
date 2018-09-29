@@ -2,8 +2,8 @@ const gulp = require('gulp');
 const gutil = require('gulp-util');
 
 const webpack = require('webpack');
-const webpackConf = require('../conf/webpack.conf');
-const webpackDistConf = require('../conf/webpack-dist.conf');
+const webpackConf = require('../webpack.config');
+const webpackDistConf = require('../webpack-dist.config');
 const gulpConf = require('../conf/gulp.conf');
 const browsersync = require('browser-sync');
 

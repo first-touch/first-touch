@@ -1,4 +1,5 @@
 const path = require('path');
+const conf = require('./conf/gulp.conf');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
@@ -9,7 +10,7 @@ module.exports = {
     app: './src/index.js'
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin([path.join(process.cwd(), conf.paths.tmp)]),
     new HtmlWebpackPlugin({
       title: 'FirstTouch',
       favicon: 'src/images/favicon.png',
@@ -17,13 +18,9 @@ module.exports = {
     }),
     new VueLoaderPlugin()
   ],
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist'
-  },
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.join(process.cwd(), conf.paths.tmp),
     publicPath: '/'
   },
   module: {
