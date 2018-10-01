@@ -28,7 +28,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+@import '../../../stylesheets/variables';
 .profile-item {
   display: flex;
   border-left: 7px solid $main-header-color;
@@ -50,7 +50,7 @@
 import NotificationSidebar from 'app/components/NotificationSidebar';
 import EditProfileForm from './components/EditProfileForm';
 import { mapGetters, mapActions } from 'vuex';
-import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
+import { ASYNC_SUCCESS } from '../../constants/AsyncStatus';
 
 export default {
   name: 'EditProfilePage',

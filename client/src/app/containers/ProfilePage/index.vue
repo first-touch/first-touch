@@ -15,7 +15,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+@import '../../../stylesheets/variables';
 .profile {
   .arrow {
     width: 0;
@@ -32,11 +32,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import store from 'app/store';
-import { ASYNC_LOADING, ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import NotificationSidebar from 'app/components/NotificationSidebar';
-import Profile from './components/Profile';
-import CareerHistory from './components/CareerHistory';
+import store from '../../store';
+import { ASYNC_LOADING, ASYNC_SUCCESS } from '../../constants/AsyncStatus';
+import NotificationSidebar from '../../components/NotificationSidebar.vue';
+import Profile from './components/Profile.vue';
+import CareerHistory from './components/CareerHistory.vue';
 
 export default {
   name: 'ProfilePage',

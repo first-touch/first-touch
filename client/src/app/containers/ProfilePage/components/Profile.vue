@@ -80,7 +80,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+@import '../../../../stylesheets/variables';
 .profile-item-container {
   background-color: #fff;
   border-radius: 5px;
@@ -175,7 +175,7 @@
 </style>
 
 <script>
-import TimelineItem from 'app/components/TimelineItem';
+import TimelineItem from '../../../components/TimelineItem.vue';
 
 export default {
   name: 'Profile',

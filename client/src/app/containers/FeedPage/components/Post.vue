@@ -17,7 +17,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+@import '../../../../stylesheets/variables';
 
 .header {
   display: flex;
@@ -51,7 +51,7 @@
 </style>
 
 <script>
-import TimelineItem from 'app/components/TimelineItem';
+import TimelineItem from '../../../components/TimelineItem.vue';
 
 export default {
   name: 'Post',

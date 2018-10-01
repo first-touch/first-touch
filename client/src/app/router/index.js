@@ -15,12 +15,12 @@ import NotesPage from '../containers/NotesPage/index.vue';
 import NotePage from '../containers/NotePage/index.vue';
 import TagContainer from '../containers/NotesPage/components/TagContainer.vue';
 import FeedPage from '../containers/FeedPage/index.vue';
+import EditProfilePage from '../containers/EditProfilePage/index.vue';
+import ProfilePage from '../containers/ProfilePage/index.vue';
+import Network from '../containers/NetworkPage/index.vue';
 
-// import ProfilePage from '../containers/ProfilePage/index.vue';
-// import Network from '../containers/NetworkPage/index.vue';
 // import Messages from '../containers/MessagesPage/index.vue';
 // import ConvoContainer from '../containers/MessagesPage/components/ConvoContainer.vue/index.vue';
-// import EditProfilePage from '../containers/EditProfilePage/index.vue';
 // import ClubLayout from './app/components/ClubLayout';
 // import ClubStream from '../containers/ClubStreamPage/index.vue';
 // import ClubNotes from '../containers/ClubNotesPage/index.vue';

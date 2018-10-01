@@ -82,7 +82,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
+@import '../../../../stylesheets/variables';
 .form-group {
   label {
     color: $main-text-color;

@@ -66,11 +66,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/landingpage';
-</style>
-
-<style lang="scss" scoped>
-  @import '~stylesheets/variables';
+  @import '../../../../stylesheets/variables.scss';
 
   #post-text,
   #post-media {
