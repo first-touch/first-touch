@@ -202,7 +202,7 @@ export default {
         if (res.status === 201) {
           if (this.role == "director") {
             res.json().then((data) => {
-              this.$emit('userId', data.id)
+              this.$store.state.userID = data.id
               this.nextPage()
             })
           } else {

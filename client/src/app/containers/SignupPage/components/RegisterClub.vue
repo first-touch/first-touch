@@ -31,7 +31,7 @@
               <em>{{ error }}</em>
             </div>
           </fieldset>
-          <button :disabled="canBeRegistered()" class="a-bar-button center" v-on:click="test">Register Club</button>
+          <button :disabled="!canBeRegistered()" class="a-bar-button center" v-on:click="test">Register Club</button>
         </form>
       </div>
     </div>
@@ -68,9 +68,6 @@ export default {
     autocomplete: AutoComplete
   },
   data() {
-    console.log('data:' + this.userId)
-    console.log('props:' + this.props)
-
     return {
       club_country_code: '',
       countries: [],
@@ -78,12 +75,12 @@ export default {
       template: ItemTemplate,
       item: null,
       error: null,
-      userId: null
+      userId: this.$store.state.userID
     }
   },
   methods: {
     test() {
-      alert('hello world')
+      alert(this.canBeRegistered())
     },
     canBeRegistered() {
       return this.item != null && this.error == null
@@ -127,9 +124,6 @@ export default {
           }
         });
     },
-    userId: function(value) {
-      console.log(value)
-    }
   },
   mounted() {
     this.fetchCountries();

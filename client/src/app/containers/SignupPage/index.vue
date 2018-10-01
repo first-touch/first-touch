@@ -4,7 +4,11 @@
     <tab-content title="Personal details" shape="tab">
       <signup-template :role="role_name"/>
     </tab-content>
+<<<<<<< HEAD
     <tab-content title="Register Club" shape="tab">
+=======
+    <tab-content title="Register Club">
+>>>>>>> WIP - pass down userID to sibling component successfully
       <register-club/>
     </tab-content>
   </form-wizard>
