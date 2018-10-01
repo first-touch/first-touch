@@ -68,13 +68,17 @@ export default {
     autocomplete: AutoComplete
   },
   data() {
+    console.log('data:' + this.userId)
+    console.log('props:' + this.props)
+
     return {
       club_country_code: '',
       countries: [],
       clubs: [],
       template: ItemTemplate,
       item: null,
-      error: null
+      error: null,
+      userId: null
     }
   },
   methods: {
@@ -122,6 +126,9 @@ export default {
             return this.$set(this, 'error', null);
           }
         });
+    },
+    userId: function(value) {
+      console.log(value)
     }
   },
   mounted() {

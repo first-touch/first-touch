@@ -201,7 +201,10 @@ export default {
       }).then(res => {
         if (res.status === 201) {
           if (this.role == "director") {
-            this.nextPage()
+            res.json().then((data) => {
+              this.$emit('userId', data.id)
+              this.nextPage()
+            })
           } else {
             this.$router.push({ path: '/users/sign_in' });
           }
