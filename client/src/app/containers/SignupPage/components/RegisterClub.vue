@@ -79,8 +79,13 @@ export default {
     }
   },
   methods: {
-    test() {
-      alert(this.canBeRegistered())
+    handleSubmit() {
+      if (this.canBeRegistered()) {
+        alert(this.error)
+      }
+      else {
+        alert('You can register')
+      }
     },
     canBeRegistered() {
       return this.item != null && this.error == null
@@ -118,7 +123,7 @@ export default {
         .then(res => res.status === 200 && res.json())
         .then(({has_owner}) => {
           if (has_owner) {
-            return this.$set(this, 'error', "You can't register a club that already has an existing owner!");
+            return this.$set(this, 'error', "You can't register youself as a director for a club with an existing owner!");
           } else {
             return this.$set(this, 'error', null);
           }
