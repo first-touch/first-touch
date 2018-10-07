@@ -80,7 +80,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '../../../../stylesheets/variables';
+@import '~stylesheets/variables';
 .profile-item-container {
   background-color: #fff;
   border-radius: 5px;

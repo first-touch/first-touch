@@ -18,7 +18,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '../../../stylesheets/variables';
+@import '~stylesheets/variables';
 
 .searchbar-top {
   position: fixed;

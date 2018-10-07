@@ -78,8 +78,8 @@
 </template>
 
 <style lang="scss" scoped>
-@import '../../../../stylesheets/variables';
-@import '../../../../stylesheets/common_style';
+@import '~stylesheets/variables';
+@import '~stylesheets/common_style';
 
 .sidenav-left {
   .brand {

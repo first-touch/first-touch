@@ -66,7 +66,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '../../../../stylesheets/variables.scss';
+  @import '~stylesheets/variables.scss';
 
   #post-text,
   #post-media {

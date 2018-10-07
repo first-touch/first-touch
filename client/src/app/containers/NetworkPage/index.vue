@@ -58,7 +58,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { ASYNC_LOADING, ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
+import { ASYNC_LOADING, ASYNC_SUCCESS } from '../../constants/AsyncStatus';
 
 import NotificationSidebar from 'app/components/NotificationSidebar';
 import NetworkItem from './components/NetworkItem';

@@ -28,7 +28,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '../../../stylesheets/variables';
+@import '~stylesheets/variables';
 .profile-item {
   display: flex;
   border-left: 7px solid $main-header-color;

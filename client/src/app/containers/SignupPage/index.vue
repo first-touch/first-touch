@@ -107,7 +107,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '../../../stylesheets/variables';
+@import '~stylesheets/variables';
 
 .v-autocomplete {
   padding-right: 0;

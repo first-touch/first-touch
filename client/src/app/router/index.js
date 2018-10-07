@@ -1,49 +1,49 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import store from '../store';
+import store from 'app/store';
 
-import LandingPage from '../containers/LandingPage/index.vue';
-import LoginPage from '../containers/LoginPage/index.vue';
-import SignupPage from '../containers/SignupPage/index.vue';
-import ConfirmAccount from '../containers/ConfirmAccount/index.vue';
-import ResetPassword from '../containers/ResetPassword/index.vue';
-import EditPassword from '../containers/EditPassword/index.vue';
+import LandingPage from 'app/containers/LandingPage';
+import LoginPage from 'app/containers/LoginPage';
+import SignupPage from 'app/containers/SignupPage';
+import ConfirmAccount from 'app/containers/ConfirmAccount';
+import ResetPassword from 'app/containers/ResetPassword';
+import EditPassword from 'app/containers/EditPassword';
 
-import UserLayout from '../components/UserLayout/index.vue';
+import UserLayout from 'app/components/UserLayout';
 // TODO: Understand the difference between note and notes pages
-import NotesPage from '../containers/NotesPage/index.vue';
-import NotePage from '../containers/NotePage/index.vue';
-import TagContainer from '../containers/NotesPage/components/TagContainer.vue';
-import FeedPage from '../containers/FeedPage/index.vue';
-import EditProfilePage from '../containers/EditProfilePage/index.vue';
-import ProfilePage from '../containers/ProfilePage/index.vue';
-import Network from '../containers/NetworkPage/index.vue';
+import NotesPage from 'app/containers/NotesPage';
+import NotePage from 'app/containers/NotePage';
+import TagContainer from 'app/containers/NotesPage/components/TagContainer';
+import FeedPage from 'app/containers/FeedPage';
+import EditProfilePage from 'app/containers/EditProfilePage';
+import ProfilePage from 'app/containers/ProfilePage';
+import Network from 'app/containers/NetworkPage';
+import CreateReportPage from 'app/containers/CreateReportPage';
+import EditReportPage from 'app/containers/EditReportPage';
+import ReportPage from 'app/containers/ReportPage';
 
-// import Messages from '../containers/MessagesPage/index.vue';
-// import ConvoContainer from '../containers/MessagesPage/components/ConvoContainer.vue/index.vue';
-// import ClubLayout from './app/components/ClubLayout';
-// import ClubStream from '../containers/ClubStreamPage/index.vue';
-// import ClubNotes from '../containers/ClubNotesPage/index.vue';
-// import TCPage from '../containers/LegalPages/TCPage/index.vue';
-// import PrivacyPolicy from '../containers/LegalPages/PrivacyPolicy/index.vue';
-// import CommunityGuidelines from '../containers/LegalPages/CommunityGuidelines/index.vue';
-// import ContactUs from '../containers/LegalPages/ContactUs/index.vue';
-// import AboutPage from '../containers/AboutPage/index.vue';
+import Messages from 'app/containers/MessagesPage';
+import ConvoContainer from 'app/containers/MessagesPage/components/ConvoContainer';
+import ClubLayout from 'app/components/ClubLayout';
+import ClubStream from 'app/containers/ClubStreamPage';
+import ClubNotes from 'app/containers/ClubNotesPage';
+import TCPage from 'app/containers/LegalPages/TCPage';
+import PrivacyPolicy from 'app/containers/LegalPages/PrivacyPolicy';
+import CommunityGuidelines from 'app/containers/LegalPages/CommunityGuidelines';
+import ContactUs from 'app/containers/LegalPages/ContactUs';
+import AboutPage from 'app/containers/AboutPage';
 
-// import CreateReportPage from '../containers/CreateReportPage/index.vue';
-// import EditReportPage from '../containers/EditReportPage/index.vue';
-// import ReportPage from '../containers/ReportPage/index.vue';
-// import MarketPlacePage from '../containers/MarketPlacePage/index.vue';
-// import JobsListPage from '../containers/JobsListPage/index.vue';
-// import MyPurchasedReportsPage from '../containers/MyPurchasedReportsPage/index.vue';
-// import JobRequestPage from '../containers/JobRequestPage/index.vue';
-// import RequestPage from '../containers/RequestPage/index.vue';
-// import RequestBidsPage from '../containers/RequestBidsPage/index.vue';
-// import PaymentDetailPage from '../containers/PaymentDetailPage/index.vue';
-// import ClubPaymentDetails from '../containers/ClubPaymentDetailsPage/index.vue';
-// import ProposedPlayer from '../containers/ProposedPlayerPage/index.vue';
-// import JobsBankPage from '../containers/JobsBankPage/index.vue';
-// import JobBidPage from '../containers/JobBidPage/index.vue';
+import MarketPlacePage from 'app/containers/MarketPlacePage';
+import JobsListPage from 'app/containers/JobsListPage';
+import MyPurchasedReportsPage from 'app/containers/MyPurchasedReportsPage';
+import JobRequestPage from 'app/containers/JobRequestPage';
+import RequestPage from 'app/containers/RequestPage';
+import RequestBidsPage from 'app/containers/RequestBidsPage';
+import PaymentDetailPage from 'app/containers/PaymentDetailPage';
+import ClubPaymentDetails from 'app/containers/ClubPaymentDetailsPage';
+import ProposedPlayer from 'app/containers/ProposedPlayerPage';
+import JobsBankPage from 'app/containers/JobsBankPage';
+import JobBidPage from 'app/containers/JobBidPage';
 
 Vue.use(VueRouter);
 
@@ -207,82 +207,82 @@ export const router = new VueRouter({
         }
       ]
     },
-  //   {
-  //     path: '/club',
-  //     component: ClubLayout,
-  //     beforeEnter: requireClub,
-  //     children: [
-  //       {
-  //         path: '',
-  //         component: ClubStream
-  //       },
-  //       {
-  //         path: 'notes',
-  //         component: ClubNotes
-  //       },
-  //       {
-  //         path: '/club/scouting/report/marketplace',
-  //         component: MarketPlacePage,
-  //         name: 'clubReportMarketplace'
-  //       },
-  //       {
-  //         path: '/club/scouting/report/proposed',
-  //         component: ProposedPlayer,
-  //         name: 'clubReportProposed',
-  //         props: true
-  //       },
-  //       {
-  //         path: '/club/scouting/report/list',
-  //         component: MyPurchasedReportsPage,
-  //         name: 'clubReportList'
-  //       },
-  //       {
-  //         path: '/club/scouting/request',
-  //         component: JobRequestPage,
-  //         name: 'clubRequestList',
-  //         props: true
-  //       },
-  //       {
-  //         path: '/club/scouting/report/:id',
-  //         component: ReportPage,
-  //         name: 'clubReport'
-  //       },
-  //       {
-  //         path: '/club/scouting/request/:id',
-  //         component: RequestPage,
-  //         name: 'clubRequest'
-  //       },
-  //       {
-  //         path: '/club/scouting/request/:id/bids',
-  //         component: RequestBidsPage,
-  //         name: 'clubRequestBids'
-  //       },
-  //       {
-  //         path: '/club/scouting/payments',
-  //         component: ClubPaymentDetails,
-  //         name: 'ClubPaymentDetails'
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     path: '/terms_conditions',
-  //     component: TCPage
-  //   },
-  //   {
-  //     path: '/privacy_policy',
-  //     component: PrivacyPolicy
-  //   },
-  //   {
-  //     path: '/community_guidelines',
-  //     component: CommunityGuidelines
-  //   },
-  //   {
-  //     path: '/contact_us',
-  //     component: ContactUs
-  //   },
-  //   {
-  //     path: '/about',
-  //     component: AboutPage
-  //   }
+    {
+      path: '/club',
+      component: ClubLayout,
+      beforeEnter: requireClub,
+      children: [
+        {
+          path: '',
+          component: ClubStream
+        },
+        {
+          path: 'notes',
+          component: ClubNotes
+        },
+        {
+          path: '/club/scouting/report/marketplace',
+          component: MarketPlacePage,
+          name: 'clubReportMarketplace'
+        },
+        {
+          path: '/club/scouting/report/proposed',
+          component: ProposedPlayer,
+          name: 'clubReportProposed',
+          props: true
+        },
+        {
+          path: '/club/scouting/report/list',
+          component: MyPurchasedReportsPage,
+          name: 'clubReportList'
+        },
+        {
+          path: '/club/scouting/request',
+          component: JobRequestPage,
+          name: 'clubRequestList',
+          props: true
+        },
+        {
+          path: '/club/scouting/report/:id',
+          component: ReportPage,
+          name: 'clubReport'
+        },
+        {
+          path: '/club/scouting/request/:id',
+          component: RequestPage,
+          name: 'clubRequest'
+        },
+        {
+          path: '/club/scouting/request/:id/bids',
+          component: RequestBidsPage,
+          name: 'clubRequestBids'
+        },
+        {
+          path: '/club/scouting/payments',
+          component: ClubPaymentDetails,
+          name: 'ClubPaymentDetails'
+        }
+      ]
+    },
+    {
+      path: '/terms_conditions',
+      component: TCPage
+    },
+    {
+      path: '/privacy_policy',
+      component: PrivacyPolicy
+    },
+    {
+      path: '/community_guidelines',
+      component: CommunityGuidelines
+    },
+    {
+      path: '/contact_us',
+      component: ContactUs
+    },
+    {
+      path: '/about',
+      component: AboutPage
+    }
   ]
 });

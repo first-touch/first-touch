@@ -593,7 +593,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '../../../stylesheets/landingpage';
+@import '~stylesheets/landingpage';
 </style>
 
 <script>

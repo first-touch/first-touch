@@ -7,8 +7,8 @@
 </template>
 
 <style lang="scss">
-  @import '../../../stylesheets/variables';
-  @import '../../../stylesheets/common_style';
+  @import '~stylesheets/variables';
+  @import '~stylesheets/common_style';
 </style>
 
 <script>
