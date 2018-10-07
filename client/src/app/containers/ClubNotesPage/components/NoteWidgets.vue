@@ -2,9 +2,9 @@
   <div>
     <div class="timeline-widget">
       <div class="arrow"></div>
-      <b-btn @click="modalShow = true" class="timeline-widget-button btn-add">
+      <button @click="modalShow = true" class="timeline-widget-button btn-add">
         Add A Note
-      </b-btn>
+      </button>
       <button class="timeline-widget-button btn-create">
         Create A Category
       </button>
@@ -150,5 +150,3 @@ export default {
   },
 };
 </script>
-
-

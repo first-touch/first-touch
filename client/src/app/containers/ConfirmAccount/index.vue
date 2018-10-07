@@ -26,8 +26,8 @@
 </style>
 
 <script>
-import LandingNavbar from '../../components/LandingNavbar.vue';
-import AccountService from '../../services/AccountService';
+import LandingNavbar from 'app/components/LandingNavbar.vue';
+import AccountService from 'app/services/AccountService';
 
 export default {
   name: 'ConfirmAccount',

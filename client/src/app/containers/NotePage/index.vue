@@ -23,8 +23,8 @@
 </style>
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import NotificationSidebar from '../../components/NotificationSidebar.vue';
-import StrategyView from '../../components/Strategy/StrategyView.vue';
+import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+import StrategyView from 'app/components/Strategy/StrategyView.vue';
 import { ASYNC_SUCCESS } from '../../constants/AsyncStatus';
 import Note from '../NotesPage/components/Note.vue';
 

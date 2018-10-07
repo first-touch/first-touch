@@ -241,7 +241,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import LandingNavbar from '../../components/LandingNavbar.vue';
+import LandingNavbar from 'app/components/LandingNavbar.vue';
 import AutoComplete from 'v-autocomplete';
 import ItemTemplate from './components/ItemTemplate.vue';
 import _ from 'lodash';

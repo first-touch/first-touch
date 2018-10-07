@@ -34,7 +34,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import store from '../../store';
 import { ASYNC_LOADING, ASYNC_SUCCESS } from '../../constants/AsyncStatus';
-import NotificationSidebar from '../../components/NotificationSidebar.vue';
+import NotificationSidebar from 'app/components/NotificationSidebar.vue';
 import Profile from './components/Profile.vue';
 import CareerHistory from './components/CareerHistory.vue';
 

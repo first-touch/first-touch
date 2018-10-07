@@ -1,33 +1,33 @@
 <template>
   <div id="legal-verticaltab">
     <div class="d-block d-lg-none menu-btn">
-      <b-btn v-b-toggle.menu-contents>MENU</b-btn>
+      <button aria-controls="#menu-contents" aria-expanded="false">MENU</button>
     </div>
-    <b-nav vertical>
-      <b-collapse is-nav visible id="menu-contents" class="mt-2 d-lg-block">
+    <ul class="nav flex-column">
+      <div id="menu-contents" class="collapse navbar-collapse show mt-2 d-lg-block">
         <div class="contents-vertical-tab d-block" id="navbar-contents">
-          <b-card class="vertical-tab">
+          <article class="card vertical-tab">
             <div class="section-separator"></div>
-            <b-nav-item>
+            <li class="nav-item">
               <router-link class="nav-link vertSideItem" to="/terms_conditions">User Agreement</router-link>
-            </b-nav-item>
+            </li>
             <div class="section-separator"></div>
-            <b-nav-item>
+            <li class="nav-item">
               <router-link class="nav-link vertSideItem" to="/community_guidelines">Community Guidelines</router-link>
-            </b-nav-item>
+            </li>
             <div class="section-separator"></div>
-            <b-nav-item>
+            <li class="nav-item">
               <router-link class="nav-link vertSideItem" to="/privacy_policy">Privacy Policy</router-link>
-            </b-nav-item>
+            </li>
             <div class="section-separator"></div>
-            <b-nav-item>
+            <li class="nav-item">
               <router-link class="nav-link vertSideItem" to="/contact_us">Contact Us</router-link>
-            </b-nav-item>
+            </li>
             <div class="section-separator"></div>
-          </b-card>
+          </article>
         </div>
-      </b-collapse>
-    </b-nav>
+      </div>
+    </ul>
   </div>
 </template>
 
