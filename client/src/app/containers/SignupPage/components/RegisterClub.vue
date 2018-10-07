@@ -74,28 +74,28 @@ export default {
       clubs: [],
       template: ItemTemplate,
       item: null,
-      error: null,
-      userId: this.$store.state.userID
+      error: null
     }
   },
   methods: {
     handleSubmit() {
       if (this.canBeRegistered()) {
         const data = {
-          user_id: this.userId,
+          user_id: this.$store.state.userID,
           id: this.item.id
         }
-
         fetch('/api/v1/clubs/' + this.item.id, {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            Authorization: this.$store.state.token.value,
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify(data),
         }).then(res => {
           if (res.status == 200) {
             alert('Club successfully registered')
             this.$router.push({ path: '/users/sign_in' });
           } else {
-            debugger
             res.json().then(r => this.$set(this, 'error', r.errors.join(", ")));
           }
         })
