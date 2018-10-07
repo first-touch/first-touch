@@ -18,6 +18,9 @@ module Api
         index
       end
 
+      def update
+      end
+
       def countries
         result = ::V1::Club::Countries.()
         response = FirstTouch::Endpoint.(result, ::V1::Club::Representer::Countries)
