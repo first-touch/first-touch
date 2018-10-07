@@ -19,6 +19,9 @@ module Api
       end
 
       def update
+        result = ::V1::Club::Update.(params)
+        response = FirstTouch::Endpoint.(result, ::V1::Club::Representer::Show)
+        render json: response[:data], status: response[:status]
       end
 
       def countries

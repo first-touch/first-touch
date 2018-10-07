@@ -209,7 +209,7 @@ export default {
             this.$router.push({ path: '/users/sign_in' });
           }
         } else {
-          res.json().then(r => this.$set(this, 'error', r.errors.join(", ")));
+          console.log("haha")
         }
       });
     },

@@ -21,7 +21,7 @@ module V1
         property :third_kit_color
         property :account_owner
 
-        validates :name, :city, :country_code, :account_owner, presence: true
+        validates :name, :country_code, :account_owner, presence: true
       end
     end
   end
