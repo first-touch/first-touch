@@ -12,24 +12,23 @@
             <p class="steps active"> Step 2 - Register Club </p>
           </div>
 
-          <label>Your Club*</label>
-            <div class="row">
-              <select v-model="club_country_code" class="form-control col-md-4">
-                <option disabled value="" selected>Country</option>
-                <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
-              </select>
-              <autocomplete class="col-md-8" input-class="form-control"
-                placeholder="Search For Club"
-                v-model="item"
-                :get-label="getLabel"
-                :items="clubs"
-                :component-item="template"
-                @update-items="updateItems"
-                :min-len="0"
-                :auto-select-one-item="false"
-                :input-attrs="{disabled: countries.length === 0 || club_country_code === ''}"
-                />
-            </div>
+          <div class="row">
+            <select v-model="club_country_code" class="form-control col-md-4">
+              <option disabled value="" selected>Country</option>
+              <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
+            </select>
+            <autocomplete class="col-md-8" input-class="form-control"
+              placeholder="Search For Club"
+              v-model="item"
+              :get-label="getLabel"
+              :items="clubs"
+              :component-item="template"
+              @update-items="updateItems"
+              :min-len="0"
+              :auto-select-one-item="false"
+              :input-attrs="{disabled: countries.length === 0 || club_country_code === ''}"
+              />
+          </div>
           </fieldset>
           <fieldset class="col-md-12">
             <div v-if="error" class="alert alert-danger">
