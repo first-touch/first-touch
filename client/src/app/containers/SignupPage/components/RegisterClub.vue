@@ -7,6 +7,11 @@
       </div>
       <div class="col col-lg-5">
         <form class="form" @submit.prevent="handleSubmit">
+          <div class="steps-container">
+            <p class="steps inactive"> Step 1 - Personal Details </p>
+            <p class="steps active"> Step 2 - Register Club </p>
+          </div>
+
           <label>Your Club*</label>
             <div class="row">
               <select v-model="club_country_code" class="form-control col-md-4">
@@ -44,15 +49,18 @@
 .a-bar-button {
   margin-top: 50px;
 }
+
+.steps-container {
+  margin-right: 5vw;
+}
 </style>
 
 
 <style lang="scss">
 @import '~stylesheets/molecules/auto-complete.scss';
+@import '~stylesheets/molecules/steps.scss';
+@import '~stylesheets/variables';
 
-.wizard-nav, .wizard-header, .wizard-footer , .wizard-btn {
-  display: none;
-}
 </style>
 
 <script>

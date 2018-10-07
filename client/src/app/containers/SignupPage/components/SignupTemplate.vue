@@ -6,6 +6,11 @@
         <img src="/images/landing-page/ft-logo.png" alt="Ft Logo" />
       </div>
       <div class="col col-lg-5">
+        <div class="steps-container" v-if="this.role == 'director'">
+          <p class="steps active"> Step 1 - Personal Details </p>
+          <p class="steps inactive"> Step 2 - Register Club </p>
+        </div>
+
         <form class="form" @submit.prevent="handleSubmit">
           <fieldset class="form-group col-md-12">
             <label>Email</label>
@@ -112,6 +117,9 @@
 
 <style lang="scss">
 @import '~stylesheets/molecules/auto-complete.scss';
+@import '~stylesheets/molecules/steps.scss';
+@import '~stylesheets/variables';
+
 </style>
 
 <script>
