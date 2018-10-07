@@ -50,7 +50,7 @@
 import NotificationSidebar from 'app/components/NotificationSidebar';
 import EditProfileForm from './components/EditProfileForm';
 import { mapGetters, mapActions } from 'vuex';
-import { ASYNC_SUCCESS } from '../../constants/AsyncStatus';
+import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 
 export default {
   name: 'EditProfilePage',

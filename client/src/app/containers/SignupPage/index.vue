@@ -241,9 +241,9 @@
 
 <script>
 import { mapActions } from 'vuex';
-import LandingNavbar from 'app/components/LandingNavbar.vue';
+import LandingNavbar from 'app/components/LandingNavbar';
 import AutoComplete from 'v-autocomplete';
-import ItemTemplate from './components/ItemTemplate.vue';
+import ItemTemplate from './components/ItemTemplate';
 import _ from 'lodash';
 import ClubService from '../../services/ClubService';
 

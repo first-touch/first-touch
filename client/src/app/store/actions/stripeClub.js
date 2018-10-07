@@ -1,5 +1,5 @@
 
-import * as ActionTypes from '../../constants/ActionTypes';
+import * as ActionTypes from 'app/constants/ActionTypes';
 
 export const getClubsCards = (store) => {
   store.commit(ActionTypes.GET_CLUB_STRIPE_ACCOUNT_LOADING);

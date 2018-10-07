@@ -175,7 +175,7 @@
 </style>
 
 <script>
-import TimelineItem from 'app/components/TimelineItem.vue';
+import TimelineItem from 'app/components/TimelineItem';
 
 export default {
   name: 'Profile',

@@ -1,5 +1,5 @@
-import * as ActionTypes from '../../constants/ActionTypes';
-import { ASYNC_NONE, ASYNC_FAIL, ASYNC_SUCCESS, ASYNC_LOADING } from '../../constants/AsyncStatus';
+import * as ActionTypes from 'app/constants/ActionTypes';
+import { ASYNC_NONE, ASYNC_FAIL, ASYNC_SUCCESS, ASYNC_LOADING } from 'app/constants/AsyncStatus';
 
 export const report = {
   status: ASYNC_NONE,

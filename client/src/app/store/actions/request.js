@@ -1,4 +1,4 @@
-import * as ActionTypes from '../../constants/ActionTypes';
+import * as ActionTypes from 'app/constants/ActionTypes';
 
 export const createRequest = (store, request) => {
   store.commit(ActionTypes.UPLOADING_REQUEST_LOADING);

@@ -16,8 +16,8 @@
     mapGetters,
     mapActions
   } from 'vuex';
-  import Navbar from './components/UserNavbar.vue';
-  import SearchBar from '../SearchBar/index.vue';
+  import Navbar from './components/UserNavbar';
+  import SearchBar from '../SearchBar';
 
   export default {
     name: 'UserLayout',

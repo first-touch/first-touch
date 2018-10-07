@@ -1,4 +1,4 @@
-import * as ActionTypes from '../../constants/ActionTypes';
+import * as ActionTypes from 'app/constants/ActionTypes';
 
 export const StripeCardToken = (store, card) => {
   store.commit(ActionTypes.STRIPE_CARD_LOADING);

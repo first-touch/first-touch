@@ -117,7 +117,7 @@
     mapActions,
     mapGetters
   } from 'vuex';
-  import InboxEntry from './InboxEntry.vue';
+  import InboxEntry from './InboxEntry';
 
   export default {
     name: 'MessagesSidebar',

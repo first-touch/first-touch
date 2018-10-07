@@ -84,7 +84,7 @@
 
 <script>
 import AutoComplete from 'v-autocomplete';
-import SearchResult from './components/SearchResult.vue';
+import SearchResult from './components/SearchResult';
 
 export default {
   name: 'SearchBar',

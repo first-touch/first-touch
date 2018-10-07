@@ -1,4 +1,4 @@
-import * as types from '../../constants/ActionTypes';
+import * as types from 'app/constants/ActionTypes';
 import { reloadInbox } from './inbox';
 
 export const getConversation = (store, { token, partnerId }) => {

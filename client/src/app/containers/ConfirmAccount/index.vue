@@ -26,7 +26,7 @@
 </style>
 
 <script>
-import LandingNavbar from 'app/components/LandingNavbar.vue';
+import LandingNavbar from 'app/components/LandingNavbar';
 import AccountService from 'app/services/AccountService';
 
 export default {

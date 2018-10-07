@@ -1,4 +1,4 @@
-import * as types from '../../constants/ActionTypes';
+import * as types from 'app/constants/ActionTypes';
 
 export const getSearchResults = (store, { searchTerm, role = '', team = '' }) => {
   store.commit(types.SEARCH_RESULT_LOADING);

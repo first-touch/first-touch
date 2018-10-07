@@ -1,4 +1,4 @@
-import * as types from '../../constants/ActionTypes';
+import * as types from 'app/constants/ActionTypes';
 import { getNetwork } from './network';
 
 export const fetchUserInfo = (store, { id }) => {

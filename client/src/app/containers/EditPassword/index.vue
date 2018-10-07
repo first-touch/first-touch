@@ -47,7 +47,7 @@
 </style>
 
 <script>
-import LandingNavbar from 'app/components/LandingNavbar.vue';
+import LandingNavbar from 'app/components/LandingNavbar';
 import AccountService from '../../services/AccountService';
 
 export default {

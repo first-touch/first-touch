@@ -1,4 +1,4 @@
-import * as ActionTypes from '../../constants/ActionTypes';
+import * as ActionTypes from 'app/constants/ActionTypes';
 
 export const newOrder = (store, order) => {
   store.commit(ActionTypes.ORDER_REPORT_LOADING);

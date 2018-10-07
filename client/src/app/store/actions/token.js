@@ -1,4 +1,4 @@
-import * as types from '../../constants/ActionTypes';
+import * as types from 'app/constants/ActionTypes';
 
 export const attemptLogIn = (store, { email, password }) => {
   store.commit(types.TOKEN_LOADING);

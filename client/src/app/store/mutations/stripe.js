@@ -1,7 +1,7 @@
-import * as ActionTypes from '../../constants/ActionTypes';
+import * as ActionTypes from 'app/constants/ActionTypes';
 import {
   ASYNC_NONE, ASYNC_FAIL, ASYNC_SUCCESS, ASYNC_LOADING
-} from '../../constants/AsyncStatus';
+} from 'app/constants/AsyncStatus';
 export const stripe = {
   status: ASYNC_NONE,
   value: null,
@@ -10,7 +10,7 @@ export const stripe = {
 };
 import {
   StripePublicKey
-} from '../../constants/StripeConstant';
+} from 'app/constants/StripeConstant';
 
 export const stripeJs = window.Stripe(StripePublicKey);
 export const stripeFtouch = {

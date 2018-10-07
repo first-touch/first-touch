@@ -1,5 +1,5 @@
 import downloadjs from 'downloadjs';
-import * as ActionTypes from '../../constants/ActionTypes';
+import * as ActionTypes from 'app/constants/ActionTypes';
 
 export const getAttachment = (store, { url, filename }) => {
   fetch(url, {

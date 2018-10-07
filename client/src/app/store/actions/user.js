@@ -1,4 +1,4 @@
-import * as types from '../../constants/ActionTypes';
+import * as types from 'app/constants/ActionTypes';
 
 export const getUserInfo = (store, { token }) => {
   store.commit(types.USER_LOADING);

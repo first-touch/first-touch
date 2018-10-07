@@ -1,4 +1,4 @@
-import * as ActionTypes from '../../constants/ActionTypes';
+import * as ActionTypes from 'app/constants/ActionTypes';
 
 export const createReport = (store, report) => {
   store.commit(ActionTypes.UPLOADING_REPORT_LOADING);

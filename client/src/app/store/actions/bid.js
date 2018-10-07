@@ -1,4 +1,4 @@
-import * as ActionTypes from '../../constants/ActionTypes';
+import * as ActionTypes from 'app/constants/ActionTypes';
 
 export const clearBid = store => store.commit(ActionTypes.BID_CLEAR);
 export const createBid = (store, bids) => {

@@ -17,9 +17,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+import NotificationSidebar from 'app/components/NotificationSidebar';
 import { ASYNC_SUCCESS } from '../../../constants/AsyncStatus';
-import Note from './Note.vue';
+import Note from './Note';
 
 export default {
   name: 'TagContainer',

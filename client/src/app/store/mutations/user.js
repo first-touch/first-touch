@@ -1,9 +1,9 @@
-import * as ActionTypes from '../../constants/ActionTypes';
+import * as ActionTypes from 'app/constants/ActionTypes';
 import {
   ASYNC_NONE,
   ASYNC_LOADING,
   ASYNC_SUCCESS
-} from '../../constants/AsyncStatus';
+} from 'app/constants/AsyncStatus';
 
 export const user = {
   status: ASYNC_NONE,

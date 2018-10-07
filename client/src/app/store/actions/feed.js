@@ -1,4 +1,4 @@
-import * as types from '../../constants/ActionTypes';
+import * as types from 'app/constants/ActionTypes';
 import PostService from '../../services/PostService';
 
 export const postIndex = (store) => {

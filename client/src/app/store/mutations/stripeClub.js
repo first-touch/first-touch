@@ -1,10 +1,10 @@
-import * as ActionTypes from '../../constants/ActionTypes';
+import * as ActionTypes from 'app/constants/ActionTypes';
 import {
   ASYNC_NONE,
   ASYNC_SUCCESS,
   ASYNC_FAIL,
   ASYNC_LOADING
-} from '../../constants/AsyncStatus';
+} from 'app/constants/AsyncStatus';
 
 export const stripeClubCards = {
   status: ASYNC_NONE,

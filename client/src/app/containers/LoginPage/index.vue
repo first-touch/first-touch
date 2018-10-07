@@ -80,8 +80,8 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 
-import { ASYNC_LOADING, ASYNC_FAIL } from '../../constants/AsyncStatus';
-import LandingNavbar from 'app/components/LandingNavbar.vue';
+import { ASYNC_LOADING, ASYNC_FAIL } from 'app/constants/AsyncStatus';
+import LandingNavbar from 'app/components/LandingNavbar';
 
 export default {
   name: 'LoginPage',
