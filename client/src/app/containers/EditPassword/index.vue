@@ -48,7 +48,7 @@
 
 <script>
 import LandingNavbar from 'app/components/LandingNavbar';
-import AccountService from '../../services/AccountService';
+import AccountService from 'app/services/AccountService';
 
 export default {
   name: 'EditPassword',
