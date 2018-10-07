@@ -31,7 +31,7 @@
               <em>{{ error }}</em>
             </div>
           </fieldset>
-          <button :disabled="!canBeRegistered()" class="a-bar-button center" v-on:click="test">Register Club</button>
+          <button :disabled="!canBeRegistered()" class="a-bar-button center" type="submit">Register Club</button>
         </form>
       </div>
     </div>
@@ -81,10 +81,27 @@ export default {
   methods: {
     handleSubmit() {
       if (this.canBeRegistered()) {
-        alert(this.error)
+        const data = {
+          user_id: this.userId,
+          id: this.item.id
+        }
+
+        fetch('/api/v1/clubs/' + this.item.id, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        }).then(res => {
+          if (res.status == 200) {
+            alert('Club successfully registered')
+            this.$router.push({ path: '/users/sign_in' });
+          } else {
+            debugger
+            res.json().then(r => this.$set(this, 'error', r.errors.join(", ")));
+          }
+        })
       }
       else {
-        alert('You can register')
+        alert(this.error)
       }
     },
     canBeRegistered() {
