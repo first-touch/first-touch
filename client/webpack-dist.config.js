@@ -36,8 +36,8 @@ module.exports = {
     })
   ],
   output: {
-    filename: 'main.js',
-    path: path.join(process.cwd(), conf.paths.tmp),
+    filename: 'main.[hash].js',
+    path: path.join(process.cwd(), conf.paths.dist),
     publicPath: '/'
   },
   module: {
