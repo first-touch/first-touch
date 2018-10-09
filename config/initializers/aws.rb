@@ -1,3 +1,5 @@
+puts Rails.application.secrets
+
 Aws.config.update(
   region: Rails.application.secrets.FT_AWS_REGION,
   credentials: Aws::Credentials.new(Rails.application.secrets.FT_AWS_ACCESS_KEY,
