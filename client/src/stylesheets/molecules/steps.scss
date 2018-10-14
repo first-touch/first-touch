@@ -1,0 +1,22 @@
+.wizard-nav, .wizard-header, .wizard-footer , .wizard-btn {
+  display: none;
+}
+
+.steps-container {
+  margin-top: 5vh;
+
+  .steps {
+    display: inline-block;
+    size: 30px;
+    padding-left: 5vw;
+  }
+
+  .active {
+    color: #4bba63;
+    font-weight: 800;
+  }
+
+  .inactive {
+    color: gray;
+  }
+}
