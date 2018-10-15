@@ -571,22 +571,22 @@
             <span class="cRight">&copy;2016</span>
           </div>
           <div class="col-12 col-lg links">
-            <a class="text" href="/terms_conditions#contact">
+            <a class="text" href="/terms_conditions">
               User Agreement
             </a>
           </div>
           <div class="col-12 col-lg links">
-            <a class="text" href="/terms_conditions">
+            <a class="text" href="/community_guidelines">
               Community Guidelines
             </a>
           </div>
           <div class="col-12 col-lg links">
-            <a class="text" href="/">
+            <a class="text" href="/privacy_policy">
               Privacy Policy
             </a>
           </div>
           <div class="col-12 col-lg links">
-            <a class="text" href="/privacy_policy">
+            <a class="text" href="/contact_us">
               Contact Us
             </a>
           </div>
