@@ -109,7 +109,7 @@
   import TimelineItem from 'app/components/TimelineItem';
   import ReportItem from 'app/components/ReportItem';
   import vSelect from 'vue-select';
-  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+  import NotificationSidebar from 'app/components/NotificationSidebar';
   import PlayerReportPopup from './components/PlayerReportPopup';
   import PaymentPopup from 'app/components/Stripe/PaymentPopup';
   import FtDatepicker from 'app/components/Input/FtDatepicker';

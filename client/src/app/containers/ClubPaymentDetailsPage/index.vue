@@ -32,8 +32,8 @@
     ASYNC_SUCCESS,
   } from 'app/constants/AsyncStatus';
   import TimelineItem from 'app/components/TimelineItem';
-  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
-  import CardsList from './components/CardsList.vue';
+  import NotificationSidebar from 'app/components/NotificationSidebar';
+  import CardsList from './components/CardsList';
   import Actions from './components/Actions';
   import AddCard from './components/AddCard';
 

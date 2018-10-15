@@ -71,7 +71,7 @@
 </style>
 
 <script>
-  import CardInput from 'app/components/Stripe/CardInput.vue';
+  import CardInput from 'app/components/Stripe/CardInput';
   import Loading from 'app/components/Loading';
   import {
     ASYNC_SUCCESS,

@@ -7,7 +7,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables.scss';
+@import '~stylesheets/variables';
 
 .search-results-item {
   flex: 1 0 100%;

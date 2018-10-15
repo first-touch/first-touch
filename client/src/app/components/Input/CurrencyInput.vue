@@ -105,7 +105,7 @@
 </style>
 
 <script>
-  import VueAutonumeric from 'vue-autonumeric/src/components/VueAutonumeric.vue';
+  import VueAutonumeric from 'vue-autonumeric/src/components/VueAutonumeric';
 
   export default {
     name: 'CurrencyInput',

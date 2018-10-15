@@ -31,9 +31,9 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { ASYNC_LOADING, ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import Post from './components/Post.vue';
+import Post from './components/Post';
 import NotificationSidebar from 'app/components/NotificationSidebar';
-import PostWidget from './components/PostWidget.vue';
+import PostWidget from './components/PostWidget';
 
 export default {
   name: 'Feed',

@@ -123,7 +123,7 @@
   import TimelineItem from 'app/components/TimelineItem';
   import ReportItem from 'app/components/ReportItem';
   import vSelect from 'vue-select';
-  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+  import NotificationSidebar from 'app/components/NotificationSidebar';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import Filters from './components/Filters';
   import 'vue-awesome/icons/arrow-alt-circle-up';

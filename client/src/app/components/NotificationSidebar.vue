@@ -53,7 +53,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables.scss';
+@import '~stylesheets/variables';
 .sidenav-right {
   margin-top: 119px;
   padding-top: 5px;

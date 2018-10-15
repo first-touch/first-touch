@@ -60,7 +60,7 @@
   } from 'app/constants/AsyncStatus';
   import TimelineItem from 'app/components/TimelineItem';
   import vSelect from 'vue-select';
-  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+  import NotificationSidebar from 'app/components/NotificationSidebar';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import PlayerRequest from './components/PlayerRequest';
   import PositionRequest from './components/PositionRequest';

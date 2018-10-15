@@ -14,7 +14,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+import NotificationSidebar from 'app/components/NotificationSidebar';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 import Note from './components/Note';
 

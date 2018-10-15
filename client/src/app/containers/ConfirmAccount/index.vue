@@ -21,8 +21,8 @@
 </template>
 
 <style lang="scss">
-  @import '~stylesheets/molecules/m-navigation';
-  @import '~stylesheets/common_style';
+@import '~stylesheets/molecules/m-navigation';
+@import '~stylesheets/common_style';
 </style>
 
 <script>

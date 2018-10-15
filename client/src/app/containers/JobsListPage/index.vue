@@ -19,7 +19,7 @@
 </style>
 
 <script>
-import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+import NotificationSidebar from 'app/components/NotificationSidebar';
 import ReportList from './components/ReportsList';
 import BidsList from './components/BidsList';
 import Actions from './components/Actions';

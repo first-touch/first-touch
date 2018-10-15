@@ -223,9 +223,9 @@
     ASYNC_SUCCESS,
     ASYNC_LOADING
   } from 'app/constants/AsyncStatus';
-  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
-  import PlayerReportForm from 'app/components/EditReport/PlayerReportForm.vue';
-  import TeamReportForm from 'app/components/EditReport/TeamReportForm.vue';
+  import NotificationSidebar from 'app/components/NotificationSidebar';
+  import PlayerReportForm from 'app/components/EditReport/PlayerReportForm';
+  import TeamReportForm from 'app/components/EditReport/TeamReportForm';
   import 'vue-awesome/icons/edit';
   import 'vue-awesome/icons/eye';
   import 'vue-awesome/icons/eye-slash';

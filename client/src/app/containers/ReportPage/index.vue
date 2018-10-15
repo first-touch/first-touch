@@ -55,9 +55,6 @@
 <style lang="scss">
   @import '~stylesheets/modal';
 </style>
-<style lang="scss" scoped>
-  @import '~stylesheets/modal';
-</style>
 
 <script>
   import {
@@ -67,7 +64,7 @@
   import {
     ASYNC_SUCCESS
   } from 'app/constants/AsyncStatus';
-  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+  import NotificationSidebar from 'app/components/NotificationSidebar';
   import PlayerReport from './components/PlayerReport';
   import TeamReport from './components/TeamReport';
   import 'vue-awesome/icons/edit';

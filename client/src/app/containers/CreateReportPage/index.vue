@@ -55,8 +55,6 @@
 </template>
 
 <style lang="scss">
-  /* global styles */
-
   .report-type-form {
     .searchbar-top.search-bar-report {
       input {
@@ -111,9 +109,9 @@
     ASYNC_SUCCESS,
     ASYNC_LOADING
   } from 'app/constants/AsyncStatus';
-  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
-  import PlayerReportForm from 'app/components/EditReport/PlayerReportForm.vue';
-  import TeamReportForm from 'app/components/EditReport/TeamReportForm.vue';
+  import NotificationSidebar from 'app/components/NotificationSidebar';
+  import PlayerReportForm from 'app/components/EditReport/PlayerReportForm';
+  import TeamReportForm from 'app/components/EditReport/TeamReportForm';
   import Status from './components/Status';
   import BasicForm from './components/BasicForm';
   import TimelineItem from 'app/components/TimelineItem';

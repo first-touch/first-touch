@@ -57,7 +57,7 @@
 <script>
   import 'vue-awesome/icons/trash';
   import Icon from 'vue-awesome/components/Icon';
-  import FtDropZone from 'app/components/Input/FtDropZone.vue';
+  import FtDropZone from 'app/components/Input/FtDropZone';
 
   export default {
     name: 'files',

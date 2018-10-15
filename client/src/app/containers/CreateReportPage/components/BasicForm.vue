@@ -56,7 +56,7 @@
   } from 'vuex';
   import vSelect from 'vue-select';
   import TeamSelect from 'app/components/Input/TeamSelect';
-  import inputSearch from 'app/components/Input/InputSearch.vue';
+  import inputSearch from 'app/components/Input/InputSearch';
 
   export default {
     name: 'ReportBasicForm',

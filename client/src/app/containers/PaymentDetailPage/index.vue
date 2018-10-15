@@ -39,7 +39,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import { ASYNC_SUCCESS, ASYNC_LOADING, ASYNC_FAIL } from 'app/constants/AsyncStatus';
 import TimelineItem from 'app/components/TimelineItem';
-import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+import NotificationSidebar from 'app/components/NotificationSidebar';
 import Actions from './components/Actions';
 import PersonalInformationPopup from './components/PersonalInformationPopup';
 import BankAccountPopup from './components/BankAccountPopup';

@@ -20,7 +20,7 @@
   }
 </style>
 <script>
-  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+  import NotificationSidebar from 'app/components/NotificationSidebar';
   import {
     mapGetters,
     mapActions
@@ -32,9 +32,9 @@
   } from 'app/constants/AsyncStatus';
   import Actions from './components/Actions';
   import JobRequestWidget from './components/JobRequestWidget';
-  import PlayerJobRequest from 'app/components/EditRequest/PlayerJobRequest.vue';
-  import PositionJobRequest from 'app/components/EditRequest/PositionJobRequest.vue';
-  import TeamJobRequest from 'app/components/EditRequest/TeamJobRequest.vue';
+  import PlayerJobRequest from 'app/components/EditRequest/PlayerJobRequest';
+  import PositionJobRequest from 'app/components/EditRequest/PositionJobRequest';
+  import TeamJobRequest from 'app/components/EditRequest/TeamJobRequest';
 
   export default {
     name: 'JobRequestPage',

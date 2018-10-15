@@ -18,7 +18,7 @@
 }
 </style>
 <script>
-import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+import NotificationSidebar from 'app/components/NotificationSidebar';
 import { mapGetters, mapActions } from 'vuex';
 import { ASYNC_SUCCESS, ASYNC_FAIL, ASYNC_LOADING } from 'app/constants/AsyncStatus';
 import JobRequestWidget from './components/JobRequestWidget';

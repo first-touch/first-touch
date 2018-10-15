@@ -607,13 +607,11 @@
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
   @import '~stylesheets/common_style';
-  @import '/tocbot/dist/tocbot.css';
-  @import '/tocbot/dist/styles.css';
   @import '~stylesheets/tcpage';
 </style>
 
 <script>
-  import tocbot from 'tocbot/dist/tocbot'
+  import 'tocbot/dist/tocbot'
   import LandingNavbar from 'app/components/LandingNavbar';
   import LegalVerticalTab from 'app/containers/LegalPages/components/LegalVerticalTab';
   export default {
