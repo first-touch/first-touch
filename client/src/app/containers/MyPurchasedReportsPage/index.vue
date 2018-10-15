@@ -101,13 +101,11 @@
     </div>
   </div>
 </template>
-<style lang="scss">
-  @import '~stylesheets/form';
-  @import '~stylesheets/search';
-  @import '~stylesheets/modal';
-</style>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import '~stylesheets/form';
+@import '~stylesheets/search';
+@import '~stylesheets/modal';
 </style>
 
 <script>
