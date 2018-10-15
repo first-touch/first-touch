@@ -31,7 +31,8 @@ module Api
       private
 
       def client
-        @client ||= Fog::Storage::AWS.new(...)
+        # @client ||= Fog::Storage::AWS.new(...)
+        nil
       end
     end
   end
