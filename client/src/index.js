@@ -55,8 +55,8 @@ Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
 
-window.$ = require('jquery')
-window.JQuery = require('jquery')
+window.$ = require('jquery');
+window.JQuery = require('jquery');
 
 // delete once registration is allowed
 // function redirectToPrereg (to, from, next) {
