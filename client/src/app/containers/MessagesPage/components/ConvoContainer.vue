@@ -10,7 +10,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import store from 'app/store';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import Conversation from './Conversation.vue';
+import Conversation from './Conversation';
 
 export default {
   name: 'ConvoContainer',

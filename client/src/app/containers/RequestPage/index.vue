@@ -24,10 +24,10 @@
   import {
     ASYNC_SUCCESS
   } from 'app/constants/AsyncStatus';
-  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
-  import PlayerJobRequest from 'app/components/EditRequest/PlayerJobRequest.vue';
-  import PositionJobRequest from 'app/components/EditRequest/PositionJobRequest.vue';
-  import TeamJobRequest from 'app/components/EditRequest/TeamJobRequest.vue';
+  import NotificationSidebar from 'app/components/NotificationSidebar';
+  import PlayerJobRequest from 'app/components/EditRequest/PlayerJobRequest';
+  import PositionJobRequest from 'app/components/EditRequest/PositionJobRequest';
+  import TeamJobRequest from 'app/components/EditRequest/TeamJobRequest';
 
   export default {
     name: 'ReportPage',

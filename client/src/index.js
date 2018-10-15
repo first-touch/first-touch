@@ -1,5 +1,6 @@
-import { $, jQuery } from 'jquery';
 import Vue from 'vue';
+import 'bootstrap';
+import './stylesheets/app.scss';
 import BootstrapVue from 'bootstrap-vue';
 
 import LandingPage from 'app/containers/LandingPage';
@@ -54,8 +55,8 @@ Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
 
-window.$ = $;
-window.jQuery = jQuery;
+window.$ = require('jquery');
+window.JQuery = require('jquery');
 
 // delete once registration is allowed
 // function redirectToPrereg (to, from, next) {

@@ -175,7 +175,7 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
 </style>
 
 <script>
-  import inputSearch from 'app/components/Input/InputSearch.vue';
+  import inputSearch from 'app/components/Input/InputSearch';
   import PlayerPosition from 'app/components/Input/PlayerPosition';
   import Nationality from 'app/components/Input/Nationality';
   import Language from 'app/components/Input/Language';

@@ -620,9 +620,8 @@
 </template>
 
 <script>
-  import LandingNavbar from 'app/components/LandingNavbar.vue';
-  import LinkButton from 'app/components/LinkButton.vue';
-  import $ from 'jquery';
+  import LandingNavbar from 'app/components/LandingNavbar';
+  import LinkButton from 'app/components/LinkButton';
 
   export default {
     name: 'LandingPage',
@@ -632,19 +631,6 @@
     },
     mounted() {
       this.$nextTick(() => {
-
-        $('.more').click(function () {
-          return $(this)
-            .parent()
-            .fadeOut();
-        });
-
-        $('.back').click(function () {
-          return $(this)
-            .prev()
-            .fadeIn();
-        });
-
         if ($(window).width() < 992) {
           $('.carousel').each(function () {
             $(this).carousel({

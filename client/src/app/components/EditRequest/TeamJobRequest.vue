@@ -117,7 +117,7 @@
     mapGetters,
     mapActions
   } from 'vuex';
-  import inputSearch from 'app/components/Input/InputSearch.vue';
+  import inputSearch from 'app/components/Input/InputSearch';
   import vSelect from 'vue-select';
   import CurrencyInput from 'app/components/Input/CurrencyInput';
   import TeamSelect from 'app/components/Input/TeamSelect';

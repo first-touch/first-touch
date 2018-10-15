@@ -191,7 +191,7 @@
   import 'vue-awesome/icons/arrow-alt-circle-up';
   import 'vue-awesome/icons/arrow-alt-circle-down';
   import Icon from 'vue-awesome/components/Icon';
-  import NotificationSidebar from 'app/components/NotificationSidebar.vue';
+  import NotificationSidebar from 'app/components/NotificationSidebar';
 
   export default {
     name: 'JobBidPage',

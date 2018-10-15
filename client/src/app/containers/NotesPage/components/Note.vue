@@ -1,6 +1,6 @@
 <template>
 <div class="col-12 col-lg-6">
-  <img src={{ info.image }}
+  <img src={{ info.image }} />
   <div class="info" v-on:click="goToNote">
     <h2 class="title">{{ info.name }}</h2>
     <img :src=info.image_url class="note-image"/>
