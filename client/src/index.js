@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import 'bootstrap';
 import './stylesheets/app.scss';
+import 'stylesheets/landingpage.scss';
 import BootstrapVue from 'bootstrap-vue';
 
 import LandingPage from 'app/containers/LandingPage';
