@@ -3,7 +3,7 @@
     <div class="timeline-widget">
       <div class="arrow"></div>
       <div class="timeline-widget-button">
-        <button aria-controls="#post-text" aria-expanded="false">
+        <button aria-controls="post-text" aria-expanded="true">
           <div class="row">
             <div class="col no-padding">
               <img src="https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png">
@@ -17,7 +17,7 @@
         </button>
       </div>
       <div class="timeline-widget-button">
-        <button aria-controls="#post-media" aria-expanded="false">
+        <button aria-controls="post-media" aria-expanded="false">
           <div class="row">
             <div class="col no-padding">
               <img src="https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png">
