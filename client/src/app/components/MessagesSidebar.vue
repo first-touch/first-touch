@@ -9,40 +9,40 @@
             </span>
           </span>
           <span class="col-3 no-padding">
-            <b-btn class="d-block d-lg-none" v-b-toggle.menu-contents>
+            <button class="d-block d-lg-none" aria-controls=".menu-contents" aria-expanded="false">
               <div class="bar">
               </div>
               <div class="bar">
               </div>
               <div class="bar">
               </div>
-            </b-btn>
+            </button>
           </span>
         </div>
 
         <div class="row">
-        <b-collapse is-nav visible id="menu-contents" class="d-lg-block">
-          <b-card>
-            <div class="row">
-              <div class="info-blk-body">
-                <div class="sidebar-widget">
-                  <div class="row d-md-flex flex-md-row">
-                    <div class="col no-padding">
-                      <input v-model="searchTerm" type="text" class="search" placeholder="Type a name" />
-                    </div>
-                    <div class="col no-padding">
-                      <select class="sort" v-model="sortTerm">
-                        <option disabled>Sort</option>
-                        <option>Name</option>
-                        <option>Club</option>
-                      </select>
+          <div id="menu-contents" class="d-lg-block collapse navbar-collapse show">
+            <article class="card">
+              <div class="row">
+                <div class="info-blk-body">
+                  <div class="sidebar-widget">
+                    <div class="row d-md-flex flex-md-row">
+                      <div class="col no-padding">
+                        <input v-model="searchTerm" type="text" class="search" placeholder="Type a name" />
+                      </div>
+                      <div class="col no-padding">
+                        <select class="sort" v-model="sortTerm">
+                          <option disabled>Sort</option>
+                          <option>Name</option>
+                          <option>Club</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </b-card>
-        </b-collapse>
+            </article>
+          </div>
         </div>
 
         <div class="inbox">
@@ -117,7 +117,7 @@
     mapActions,
     mapGetters
   } from 'vuex';
-  import InboxEntry from './InboxEntry.vue';
+  import InboxEntry from './InboxEntry';
 
   export default {
     name: 'MessagesSidebar',

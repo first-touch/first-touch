@@ -7,3 +7,25 @@
     color: $link-color-hover;
   }
 }
+
+nav.m-navbar-nav {
+  li.m-navbar-item {
+    a.m-navbar-link {
+      text-transform: uppercase;
+      color: $link-color;
+
+      &:hover, &:focus {
+        color: $link-color-hover;
+      }
+
+      &.outline {
+        border: 1px solid $link-color;
+        border-radius: 4px;
+
+        &:hover, &:focus {
+          border-color: $link-color-hover;
+        }
+      }
+    }
+  }
+}

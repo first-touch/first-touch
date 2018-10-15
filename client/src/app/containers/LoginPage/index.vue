@@ -49,12 +49,7 @@
   </div>
 </template>
 
-<style lang="scss">
-  @import '~stylesheets/molecules/m-navigation';
-</style>
-
 <style lang="scss" scoped>
-@import '~stylesheets/landingpage';
 .container-fluid {
   background: url('/images/landing-page/team-logo.jpg') no-repeat center center
     fixed;

@@ -3,7 +3,7 @@
     <div class="timeline-widget">
       <div class="arrow"></div>
       <div class="timeline-widget-button">
-        <b-btn v-b-toggle.post-text>
+        <button aria-controls=".post-text" aria-expanded="false">
           <div class="row">
             <div class="col no-padding">
               <img src="https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png">
@@ -14,10 +14,10 @@
               new post
             </div>
           </div>
-        </b-btn>
+        </button>
       </div>
       <div class="timeline-widget-button">
-        <b-btn v-b-toggle.post-media>
+        <button aria-controls=".post-media" aria-expanded="false">
           <div class="row">
             <div class="col no-padding">
               <img src="https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png">
@@ -28,11 +28,11 @@
               a photo
             </div>
           </div>
-        </b-btn>
+        </button>
       </div>
     </div>
-    <b-collapse id="post-text" accordion="post-upload">
-      <b-card>
+    <div id="post-text" class="collapse" accordion="post-upload">
+      <article class="card">
         <div class="container">
           <form @submit.prevent="handleSubmit">
             <fieldset class="form-group">
@@ -44,10 +44,10 @@
             </div>
           </form>
         </div>
-      </b-card>
-    </b-collapse>
-    <b-collapse id="post-media" accordion="post-upload">
-      <b-card>
+      </article>
+    </div>
+    <div id="post-media"  class="collapse" accordion="post-upload">
+      <article class="card">
         <div class="container">
           <form @submit.prevent="handleSubmit">
             <fieldset class="form-group">
@@ -59,8 +59,8 @@
             </div>
           </form>
         </div>
-      </b-card>
-    </b-collapse>
+      </article>
+    </div>
 
   </div>
 </template>
