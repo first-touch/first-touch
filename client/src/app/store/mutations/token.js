@@ -6,7 +6,7 @@ import {
   ASYNC_FAIL
 } from '../../constants/AsyncStatus';
 
-import { router } from '../../../index';
+import { router } from 'app/router/index';
 
 export const token = {
   status: ASYNC_NONE,
@@ -31,7 +31,6 @@ export default {
       value: value.auth_token,
       clubs: value.clubs_token
     });
-    console.log(value, 'Valuuuee');
     localStorage.setItem('auth_token', value.auth_token);
     localStorage.setItem('clubs_token', JSON.stringify(value.clubs_token));
     router.push('/');
