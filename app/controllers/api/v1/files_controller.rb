@@ -5,14 +5,14 @@ module Api
       TIME_TO_ACCESS = 2.minutes
 
       def new
-        upload_url = client.put_object_url(
-          BUCKET_NAME,
-          params.fetch(:filename),
-          TIME_TO_ACCESS.from_now.to_i
-        )
+        resource.bucket(Rails.application.secrets.FT_AWS_S3_BUCKET_NAME)
+        params = { acl: 'public-read' }
+        filename = params.fetch(:filename)
+        key = "uploads/#{filename}"
+        obj = resource.object key
 
         render json: {
-          upload_url: upload_url
+          upload_url: obj.presigned_url(:put, params)
         }
       end
 
@@ -31,8 +31,13 @@ module Api
       private
 
       def client
-        # @client ||= Fog::Storage::AWS.new(...)
-        nil
+        @client ||= Aws::S3::Client.new(
+          region: Rails.application.secrets.FT_AWS_REGION
+        )
+      end
+
+      def resource
+        @resource ||= Aws::S3::Resource.new(client: client)
       end
     end
   end
