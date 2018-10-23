@@ -1,6 +1,6 @@
 <template>
   <div class="widget-request ft-search-widget">
-    <h4 class="header">Jobs Bank</h4>
+    <h4 class="spaced-title">Jobs Bank</h4>
     <timeline-item>
       <div class="widget-content col col-lg-12">
         <div class="row align-items-start">

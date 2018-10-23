@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="ft-page">
         <div v-if="request">
-          <h4 class="header">Request</h4>
+          <h4 class="spaced-title">Request</h4>
           <timeline-item>
             <request :key="request.id" :request="request" :viewSummary="viewSummary" class="onlyone"></request>
             <b-modal id="metaModal" size="lg" ref="metaModal">
@@ -22,7 +22,7 @@
           <playerresume v-if="report_type == 'player'" :player="playerInfo" :clubInfo="clubInfo" :search="search"></playerresume>
           <clubresume v-if="report_type == 'team'" :clubInfo="clubInfo" :search="search"></clubresume>
         </div>
-        <h4 class="header">Report</h4>
+        <h4 class="spaced-title">Report</h4>
         <timeline-item>
           <div class="form-container">
             <status :status="status" />

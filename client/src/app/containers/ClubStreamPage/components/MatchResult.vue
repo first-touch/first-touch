@@ -1,6 +1,6 @@
 <template>
 <div class="ft-page timeline">
-  <h4 class="header">Your Profile</h4>
+  <h4 class="spaced-title">Your Profile</h4>
   <div class="result-container">
     <button class="btn back">
     </button>
@@ -102,4 +102,3 @@ export default {
   name: 'MatchResult',
 };
 </script>
-

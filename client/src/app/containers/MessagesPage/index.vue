@@ -2,7 +2,7 @@
   <div>
     <div class="container-fluid">
       <div class="ft-page messages">
-        <h4 class="header">Messages</h4>
+        <h4 class="spaced-title">Messages</h4>
         <router-view v-if="currentChatWith"></router-view>
       </div>
     </div>
