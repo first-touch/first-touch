@@ -107,6 +107,40 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: attachments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.attachments (
+    id bigint NOT NULL,
+    url text,
+    filename text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    report_id bigint,
+    request_bid_id bigint
+);
+
+
+--
+-- Name: attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.attachments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.attachments_id_seq OWNED BY public.attachments.id;
+
+
+--
 -- Name: awards; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -232,7 +266,8 @@ CREATE TABLE public.clubs (
     away_kit_color character varying,
     third_kit_color character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    stripe_id text
 );
 
 
@@ -568,6 +603,44 @@ ALTER SEQUENCE public.notes_id_seq OWNED BY public.notes.id;
 
 
 --
+-- Name: orders; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.orders (
+    id bigint NOT NULL,
+    user_id bigint,
+    customer_id integer,
+    price integer,
+    report_id bigint,
+    status text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    request_bid_id bigint,
+    refund_status text,
+    completed_date timestamp without time zone
+);
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.orders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
+
+
+--
 -- Name: personal_profiles; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -682,6 +755,122 @@ ALTER SEQUENCE public.relationships_id_seq OWNED BY public.relationships.id;
 
 
 --
+-- Name: reports; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.reports (
+    id bigint NOT NULL,
+    headline text,
+    status character varying,
+    type_report character varying,
+    user_id bigint,
+    price json,
+    team_id bigint,
+    player_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    meta_data json,
+    league_id integer,
+    request_id bigint,
+    completion_status text
+);
+
+
+--
+-- Name: reports_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.reports_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: reports_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.reports_id_seq OWNED BY public.reports.id;
+
+
+--
+-- Name: request_bids; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.request_bids (
+    id bigint NOT NULL,
+    price json,
+    user_id bigint,
+    status text,
+    request_id bigint,
+    report_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    reason text
+);
+
+
+--
+-- Name: request_bids_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.request_bids_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: request_bids_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.request_bids_id_seq OWNED BY public.request_bids.id;
+
+
+--
+-- Name: requests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.requests (
+    id bigint NOT NULL,
+    type_request text,
+    deadline date,
+    status text,
+    meta_data json,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    price json,
+    player_id integer,
+    team_id integer,
+    league_id integer,
+    club_id bigint
+);
+
+
+--
+-- Name: requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.requests_id_seq OWNED BY public.requests.id;
+
+
+--
 -- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -753,6 +942,75 @@ CREATE SEQUENCE public.statistics_id_seq
 --
 
 ALTER SEQUENCE public.statistics_id_seq OWNED BY public.statistics.id;
+
+
+--
+-- Name: stripe_fts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stripe_fts (
+    id bigint NOT NULL,
+    preferred_account text,
+    stripe_id text,
+    user_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: stripe_fts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.stripe_fts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: stripe_fts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.stripe_fts_id_seq OWNED BY public.stripe_fts.id;
+
+
+--
+-- Name: stripe_transactions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stripe_transactions (
+    id bigint NOT NULL,
+    stripe_id text,
+    refounded boolean,
+    refound_at date,
+    order_id bigint,
+    type_transaction text,
+    payout boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: stripe_transactions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.stripe_transactions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: stripe_transactions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.stripe_transactions_id_seq OWNED BY public.stripe_transactions.id;
 
 
 --
@@ -978,6 +1236,40 @@ CREATE TABLE public.users_roles (
 
 
 --
+-- Name: versions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.versions (
+    id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object text,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
+
+
+--
 -- Name: app_notification_templates id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -989,6 +1281,13 @@ ALTER TABLE ONLY public.app_notification_templates ALTER COLUMN id SET DEFAULT n
 --
 
 ALTER TABLE ONLY public.app_notifications ALTER COLUMN id SET DEFAULT nextval('public.app_notifications_id_seq'::regclass);
+
+
+--
+-- Name: attachments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.attachments ALTER COLUMN id SET DEFAULT nextval('public.attachments_id_seq'::regclass);
 
 
 --
@@ -1083,6 +1382,13 @@ ALTER TABLE ONLY public.notes ALTER COLUMN id SET DEFAULT nextval('public.notes_
 
 
 --
+-- Name: orders id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
+
+
+--
 -- Name: personal_profiles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1104,6 +1410,27 @@ ALTER TABLE ONLY public.relationships ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: reports id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reports ALTER COLUMN id SET DEFAULT nextval('public.reports_id_seq'::regclass);
+
+
+--
+-- Name: request_bids id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.request_bids ALTER COLUMN id SET DEFAULT nextval('public.request_bids_id_seq'::regclass);
+
+
+--
+-- Name: requests id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.requests ALTER COLUMN id SET DEFAULT nextval('public.requests_id_seq'::regclass);
+
+
+--
 -- Name: roles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1115,6 +1442,20 @@ ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_
 --
 
 ALTER TABLE ONLY public.statistics ALTER COLUMN id SET DEFAULT nextval('public.statistics_id_seq'::regclass);
+
+
+--
+-- Name: stripe_fts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_fts ALTER COLUMN id SET DEFAULT nextval('public.stripe_fts_id_seq'::regclass);
+
+
+--
+-- Name: stripe_transactions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_transactions ALTER COLUMN id SET DEFAULT nextval('public.stripe_transactions_id_seq'::regclass);
 
 
 --
@@ -1160,6 +1501,13 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
+-- Name: versions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.versions ALTER COLUMN id SET DEFAULT nextval('public.versions_id_seq'::regclass);
+
+
+--
 -- Name: app_notification_templates app_notification_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1181,6 +1529,14 @@ ALTER TABLE ONLY public.app_notifications
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: attachments attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.attachments
+    ADD CONSTRAINT attachments_pkey PRIMARY KEY (id);
 
 
 --
@@ -1288,6 +1644,14 @@ ALTER TABLE ONLY public.notes
 
 
 --
+-- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: personal_profiles personal_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1312,6 +1676,30 @@ ALTER TABLE ONLY public.relationships
 
 
 --
+-- Name: reports reports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reports
+    ADD CONSTRAINT reports_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: request_bids request_bids_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.request_bids
+    ADD CONSTRAINT request_bids_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: requests requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.requests
+    ADD CONSTRAINT requests_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1333,6 +1721,22 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.statistics
     ADD CONSTRAINT statistics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: stripe_fts stripe_fts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_fts
+    ADD CONSTRAINT stripe_fts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: stripe_transactions stripe_transactions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_transactions
+    ADD CONSTRAINT stripe_transactions_pkey PRIMARY KEY (id);
 
 
 --
@@ -1384,10 +1788,32 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: versions versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.versions
+    ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: index_app_notifications_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_app_notifications_on_user_id ON public.app_notifications USING btree (user_id);
+
+
+--
+-- Name: index_attachments_on_report_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_attachments_on_report_id ON public.attachments USING btree (report_id);
+
+
+--
+-- Name: index_attachments_on_request_bid_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_attachments_on_request_bid_id ON public.attachments USING btree (request_bid_id);
 
 
 --
@@ -1489,6 +1915,27 @@ CREATE INDEX index_notes_on_user_id ON public.notes USING btree (user_id);
 
 
 --
+-- Name: index_orders_on_report_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_orders_on_report_id ON public.orders USING btree (report_id);
+
+
+--
+-- Name: index_orders_on_request_bid_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_orders_on_request_bid_id ON public.orders USING btree (request_bid_id);
+
+
+--
+-- Name: index_orders_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_orders_on_user_id ON public.orders USING btree (user_id);
+
+
+--
 -- Name: index_relationships_on_followed_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1510,6 +1957,55 @@ CREATE UNIQUE INDEX index_relationships_on_follower_id_and_followed_id ON public
 
 
 --
+-- Name: index_reports_on_request_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_reports_on_request_id ON public.reports USING btree (request_id);
+
+
+--
+-- Name: index_reports_on_team_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_reports_on_team_id ON public.reports USING btree (team_id);
+
+
+--
+-- Name: index_reports_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_reports_on_user_id ON public.reports USING btree (user_id);
+
+
+--
+-- Name: index_request_bids_on_report_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_request_bids_on_report_id ON public.request_bids USING btree (report_id);
+
+
+--
+-- Name: index_request_bids_on_request_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_request_bids_on_request_id ON public.request_bids USING btree (request_id);
+
+
+--
+-- Name: index_request_bids_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_request_bids_on_user_id ON public.request_bids USING btree (user_id);
+
+
+--
+-- Name: index_requests_on_club_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_requests_on_club_id ON public.requests USING btree (club_id);
+
+
+--
 -- Name: index_roles_on_name_and_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1521,6 +2017,20 @@ CREATE INDEX index_roles_on_name_and_resource_type_and_resource_id ON public.rol
 --
 
 CREATE INDEX index_roles_on_resource_type_and_resource_id ON public.roles USING btree (resource_type, resource_id);
+
+
+--
+-- Name: index_stripe_fts_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_stripe_fts_on_user_id ON public.stripe_fts USING btree (user_id);
+
+
+--
+-- Name: index_stripe_transactions_on_order_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_stripe_transactions_on_order_id ON public.stripe_transactions USING btree (order_id);
 
 
 --
@@ -1664,6 +2174,13 @@ CREATE INDEX index_users_roles_on_user_id_and_role_id ON public.users_roles USIN
 
 
 --
+-- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_versions_on_item_type_and_item_id ON public.versions USING btree (item_type, item_id);
+
+
+--
 -- Name: taggings_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1686,11 +2203,43 @@ ALTER TABLE ONLY public.notes
 
 
 --
+-- Name: attachments fk_rails_1d1925c606; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.attachments
+    ADD CONSTRAINT fk_rails_1d1925c606 FOREIGN KEY (report_id) REFERENCES public.reports(id);
+
+
+--
+-- Name: requests fk_rails_2a11f32fe1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.requests
+    ADD CONSTRAINT fk_rails_2a11f32fe1 FOREIGN KEY (club_id) REFERENCES public.clubs(id);
+
+
+--
 -- Name: awards fk_rails_37369770d2; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.awards
     ADD CONSTRAINT fk_rails_37369770d2 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: reports fk_rails_41a3103eaf; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reports
+    ADD CONSTRAINT fk_rails_41a3103eaf FOREIGN KEY (request_id) REFERENCES public.requests(id);
+
+
+--
+-- Name: attachments fk_rails_44db406d9c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.attachments
+    ADD CONSTRAINT fk_rails_44db406d9c FOREIGN KEY (request_bid_id) REFERENCES public.request_bids(id);
 
 
 --
@@ -1726,11 +2275,27 @@ ALTER TABLE ONLY public.club_users
 
 
 --
+-- Name: stripe_transactions fk_rails_660a3f5895; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_transactions
+    ADD CONSTRAINT fk_rails_660a3f5895 FOREIGN KEY (order_id) REFERENCES public.orders(id);
+
+
+--
 -- Name: team_users fk_rails_6a8dc6a6fc; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.team_users
     ADD CONSTRAINT fk_rails_6a8dc6a6fc FOREIGN KEY (team_id) REFERENCES public.teams(id);
+
+
+--
+-- Name: request_bids fk_rails_8720ee8066; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.request_bids
+    ADD CONSTRAINT fk_rails_8720ee8066 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -1750,6 +2315,30 @@ ALTER TABLE ONLY public.awards
 
 
 --
+-- Name: stripe_fts fk_rails_941364effe; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_fts
+    ADD CONSTRAINT fk_rails_941364effe FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: request_bids fk_rails_9dafe7cbff; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.request_bids
+    ADD CONSTRAINT fk_rails_9dafe7cbff FOREIGN KEY (request_id) REFERENCES public.requests(id);
+
+
+--
+-- Name: orders fk_rails_aeb6477983; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT fk_rails_aeb6477983 FOREIGN KEY (request_bid_id) REFERENCES public.request_bids(id);
+
+
+--
 -- Name: app_notifications fk_rails_af8bc3d8f0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1766,6 +2355,14 @@ ALTER TABLE ONLY public.teams_competitions
 
 
 --
+-- Name: reports fk_rails_b3347c8015; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reports
+    ADD CONSTRAINT fk_rails_b3347c8015 FOREIGN KEY (team_id) REFERENCES public.clubs(id);
+
+
+--
 -- Name: career_entries fk_rails_b85c77a838; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1774,11 +2371,43 @@ ALTER TABLE ONLY public.career_entries
 
 
 --
+-- Name: orders fk_rails_b95e66f096; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT fk_rails_b95e66f096 FOREIGN KEY (report_id) REFERENCES public.reports(id);
+
+
+--
+-- Name: reports fk_rails_c7699d537d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reports
+    ADD CONSTRAINT fk_rails_c7699d537d FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: request_bids fk_rails_d9f6bd56d4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.request_bids
+    ADD CONSTRAINT fk_rails_d9f6bd56d4 FOREIGN KEY (report_id) REFERENCES public.reports(id);
+
+
+--
 -- Name: teams_competitions fk_rails_dc67f14426; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.teams_competitions
     ADD CONSTRAINT fk_rails_dc67f14426 FOREIGN KEY (competition_season_id) REFERENCES public.competition_seasons(id);
+
+
+--
+-- Name: orders fk_rails_f868b47f6a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT fk_rails_f868b47f6a FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -1833,10 +2462,32 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180224062829'),
 ('20180224102659'),
 ('20180225012959'),
+('20180319100414'),
+('20180319100627'),
+('20180323045654'),
+('20180323073717'),
+('20180329030239'),
+('20180404034328'),
 ('20180406105938'),
 ('20180406150443'),
 ('20180406150548'),
 ('20180407014221'),
+('20180410070030'),
+('20180411094531'),
+('20180417095148'),
+('20180418035045'),
+('20180420075036'),
+('20180426082006'),
+('20180426110344'),
+('20180427091112'),
+('20180502040431'),
+('20180509092809'),
+('20180510081850'),
+('20180515091513'),
+('20180522020909'),
+('20180523072119'),
+('20180524020748'),
+('20180605092730'),
 ('20180708081004'),
 ('20180708083954'),
 ('20180708084944'),
