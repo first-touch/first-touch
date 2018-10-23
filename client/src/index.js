@@ -13,8 +13,8 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 // Vue.use(VeeValidate);
 
-window.$ = require('jquery')
-window.JQuery = require('jquery')
+window.$ = require('jquery');
+window.JQuery = require('jquery');
 
 export default new Vue({
   el: '#root',

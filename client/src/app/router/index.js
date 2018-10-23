@@ -7,7 +7,7 @@ import LoginPage from 'app/containers/LoginPage';
 import SignupPage from 'app/containers/SignupPage';
 import ConfirmAccount from 'app/containers/ConfirmAccount';
 import ResetPassword from 'app/containers/ResetPassword';
-import EditPassword from 'app/containers/EditPassword';
+import EditPassword from 'app/containers/EditPassword/index';
 
 import UserLayout from 'app/components/UserLayout';
 // TODO: Understand the difference between note and notes pages
@@ -93,196 +93,195 @@ function checkIfLoggedIn (to, from, next) {
 export const router = new VueRouter({
   mode: 'history',
   routes: [{
-      path: '/welcome',
-      component: LandingPage
-    },
-    {
-      path: '/users/sign_in',
-      component: LoginPage,
-      beforeEnter: checkIfLoggedIn
-    },
-    {
-      path: '/users/sign_up',
-      component: SignupPage
-    },
-    {
-      path: '/users/confirmation',
-      component: ConfirmAccount
-    },
-    {
-      path: '/users/reset_password',
-      component: ResetPassword
-    },
-    {
-      path: '/users/new_password',
-      component: EditPassword
-    },
-    {
-      path: '/',
-      component: UserLayout,
-      beforeEnter: requireAuth,
-      children: [
-        { path: 'notes', component: NotesPage },
-        { path: 'notes/:id', component: NotePage, props: true },
-        { path: 'notes/tags/:tag', component: TagContainer, props: true },
-        {
-          path: '',
-          component: FeedPage
+    path: '/welcome',
+    component: LandingPage
+  },
+  {
+    path: '/users/sign_in',
+    component: LoginPage,
+    beforeEnter: checkIfLoggedIn
+  },
+  {
+    path: '/users/sign_up',
+    component: SignupPage
+  },
+  {
+    path: '/users/confirmation',
+    component: ConfirmAccount
+  },
+  {
+    path: '/users/reset_password',
+    component: ResetPassword
+  },
+  {
+    path: '/users/new_password',
+    component: EditPassword
+  },
+  {
+    path: '/',
+    component: UserLayout,
+    beforeEnter: requireAuth,
+    children: [
+      { path: 'notes', component: NotesPage },
+      { path: 'notes/:id', component: NotePage, props: true },
+      { path: 'notes/tags/:tag', component: TagContainer, props: true },
+      {
+        path: '',
+        component: FeedPage
+      },
+      {
+        path: 'profile/edit',
+        component: EditProfilePage
+      },
+      {
+        path: 'profile',
+        component: ProfilePage,
+        props: {
+          mine: true
+        }
+      },
+      {
+        path: '/users/:id/profile',
+        component: ProfilePage,
+        name: 'userProfilePage',
+        props: {
+          mine: false
         },
-        {
-          path: 'profile/edit',
-          component: EditProfilePage
-        },
-        {
-          path: 'profile',
-          component: ProfilePage,
-          props: {
-            mine: true
-          }
-        },
-        {
-          path: '/users/:id/profile',
-          component: ProfilePage,
-          name: 'userProfilePage',
-          props: {
-            mine: false
+        meta: {
+          reuse: false
+        }
+      },
+      {
+        path: 'network',
+        component: Network
+      },
+      {
+        path: '/scouting/report/create',
+        component: CreateReportPage,
+        name: 'scoutReportCreate',
+        props: true
+      },
+      {
+        path: '/scouting/report/view/:id',
+        component: ReportPage,
+        name: 'scoutReportView'
+      },
+      {
+        path: '/scouting/report/edit/:id',
+        component: EditReportPage,
+        name: 'scoutReportEdit'
+      },
+      {
+        path: '/scouting/jobs/list',
+        component: JobsListPage,
+        name: 'scoutJobsList'
+      },
+      {
+        path: '/scouting/jobs/pending',
+        component: JobBidPage,
+        name: 'ScoutJobBidPage'
+      },
+      {
+        path: '/scouting/jobs/bank',
+        component: JobsBankPage,
+        name: 'scoutJobsBank'
+      },
+      {
+        path: '/scouting/payment',
+        component: PaymentDetailPage,
+        name: 'scoutPaymentDetailPage'
+      },
+      {
+        path: '/messages',
+        component: Messages,
+        children: [
+          {
+            path: '',
+            component: ConvoContainer
           },
-          meta: {
-            reuse: false
+          {
+            path: ':id',
+            component: ConvoContainer
           }
-        },
-        {
-          path: 'network',
-          component: Network
-        },
-        {
-          path: '/scouting/report/create',
-          component: CreateReportPage,
-          name: 'scoutReportCreate',
-          props: true
-        },
-        {
-          path: '/scouting/report/view/:id',
-          component: ReportPage,
-          name: 'scoutReportView'
-        },
-        {
-          path: '/scouting/report/edit/:id',
-          component: EditReportPage,
-          name: 'scoutReportEdit'
-        },
-        {
-          path: '/scouting/jobs/list',
-          component: JobsListPage,
-          name: 'scoutJobsList'
-        },
-        {
-          path: '/scouting/jobs/pending',
-          component: JobBidPage,
-          name: 'ScoutJobBidPage'
-        },
-        {
-          path: '/scouting/jobs/bank',
-          component: JobsBankPage,
-          name: 'scoutJobsBank'
-        },
-        {
-          path: '/scouting/payment',
-          component: PaymentDetailPage,
-          name: 'scoutPaymentDetailPage'
-        },
-        {
-          path: '/messages',
-          component: Messages,
-          children: [
-            {
-              path: '',
-              component: ConvoContainer
-            },
-            {
-              path: ':id',
-              component: ConvoContainer
-            }
-          ]
-        }
-      ]
-    },
-    {
-      path: '/club',
-      component: ClubLayout,
-      beforeEnter: requireClub,
-      children: [
-        {
-          path: '',
-          component: ClubStream
-        },
-        {
-          path: 'notes',
-          component: ClubNotes
-        },
-        {
-          path: '/club/scouting/report/marketplace',
-          component: MarketPlacePage,
-          name: 'clubReportMarketplace'
-        },
-        {
-          path: '/club/scouting/report/proposed',
-          component: ProposedPlayer,
-          name: 'clubReportProposed',
-          props: true
-        },
-        {
-          path: '/club/scouting/report/list',
-          component: MyPurchasedReportsPage,
-          name: 'clubReportList'
-        },
-        {
-          path: '/club/scouting/request',
-          component: JobRequestPage,
-          name: 'clubRequestList',
-          props: true
-        },
-        {
-          path: '/club/scouting/report/:id',
-          component: ReportPage,
-          name: 'clubReport'
-        },
-        {
-          path: '/club/scouting/request/:id',
-          component: RequestPage,
-          name: 'clubRequest'
-        },
-        {
-          path: '/club/scouting/request/:id/bids',
-          component: RequestBidsPage,
-          name: 'clubRequestBids'
-        },
-        {
-          path: '/club/scouting/payments',
-          component: ClubPaymentDetails,
-          name: 'ClubPaymentDetails'
-        }
-      ]
-    },
-    {
-      path: '/terms_conditions',
-      component: TCPage
-    },
-    {
-      path: '/privacy_policy',
-      component: PrivacyPolicy
-    },
-    {
-      path: '/community_guidelines',
-      component: CommunityGuidelines
-    },
-    {
-      path: '/contact_us',
-      component: ContactUs
-    },
-    {
-      path: '/about',
-      component: AboutPage
-    }
-  ]
+        ]
+      }
+    ]
+  },
+  {
+    path: '/club',
+    component: ClubLayout,
+    beforeEnter: requireClub,
+    children: [
+      {
+        path: '',
+        component: ClubStream
+      },
+      {
+        path: 'notes',
+        component: ClubNotes
+      },
+      {
+        path: '/club/scouting/report/marketplace',
+        component: MarketPlacePage,
+        name: 'clubReportMarketplace'
+      },
+      {
+        path: '/club/scouting/report/proposed',
+        component: ProposedPlayer,
+        name: 'clubReportProposed',
+        props: true
+      },
+      {
+        path: '/club/scouting/report/list',
+        component: MyPurchasedReportsPage,
+        name: 'clubReportList'
+      },
+      {
+        path: '/club/scouting/request',
+        component: JobRequestPage,
+        name: 'clubRequestList',
+        props: true
+      },
+      {
+        path: '/club/scouting/report/:id',
+        component: ReportPage,
+        name: 'clubReport'
+      },
+      {
+        path: '/club/scouting/request/:id',
+        component: RequestPage,
+        name: 'clubRequest'
+      },
+      {
+        path: '/club/scouting/request/:id/bids',
+        component: RequestBidsPage,
+        name: 'clubRequestBids'
+      },
+      {
+        path: '/club/scouting/payments',
+        component: ClubPaymentDetails,
+        name: 'ClubPaymentDetails'
+      }
+    ]
+  },
+  {
+    path: '/terms_conditions',
+    component: TCPage
+  },
+  {
+    path: '/privacy_policy',
+    component: PrivacyPolicy
+  },
+  {
+    path: '/community_guidelines',
+    component: CommunityGuidelines
+  },
+  {
+    path: '/contact_us',
+    component: ContactUs
+  },
+  {
+    path: '/about',
+    component: AboutPage
+  }]
 });
