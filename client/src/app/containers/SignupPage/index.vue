@@ -22,8 +22,8 @@
           <fieldset class="form-group col-lg-12">
             <label>Your Name</label>
             <div class="row">
-              <input type="text" v-model="first_name" class="form-control col-lg-6" placeholder="First Name" />
-              <input type="text" v-model="last_name" class="form-control col-lg-6" placeholder="Last Name" />
+              <input type="text" v-model="first_name" class="form-control col-md-6" placeholder="First Name" />
+              <input type="text" v-model="last_name" class="form-control col-md-6" placeholder="Last Name" />
             </div>
           </fieldset>
           <fieldset class="form-group col-lg-12">

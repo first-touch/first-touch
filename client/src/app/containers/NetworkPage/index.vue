@@ -2,6 +2,7 @@
   <div>
     <div class="container-fluid">
       <div class="ft-page network">
+<<<<<<< HEAD
         <h4 class="header">My network</h4>
 
         <b-row>
@@ -212,6 +213,17 @@
 
       </b-row>
 
+=======
+        <h4 class="spaced-title">My network</h4>
+        <div class="network-widget">
+          <select class="network-widget-sort">
+            <option disabled selected value>Sort by</option>
+            <option value="name">Name</option>
+            <option value="club">Club</option>
+          </select>
+          <input type="text" class="network-widget-search" placeholder="Type a name" />
+        </div>
+>>>>>>> [Resolves #151936872] Contact support page
         <div class="network-container">
           <div v-if="loading">
             <h4 class="text-center">Loading...</h4>

@@ -15,10 +15,10 @@
                 <h2 class="section-title" id="4">Got a question about FirstTouch?</h2>
                 <hr class="section-separator" />
                 <p class="subsection-title">
-                  The FirstTouch support team is available 24/7 by email
+                  The FirstTouch support team is available 24/7 by email: <a class="a-link dark" href="mailto:contact@firsttouch.io">contact@firsttouch.io </a>
                 </p>
                 <p class="section-text">
-                  <button class="a-bar-button contact-us-button"> <a class="contact-us-link" href="mailTo:contact@firsttouch.io">Talk to us!</a> </button>
+                  <button class="a-bar-button contact-us-button"> <a class="contact-us-link" href="mailto:contact@firsttouch.io">Talk to us!</a> </button>
                 </p>
               </div>
 

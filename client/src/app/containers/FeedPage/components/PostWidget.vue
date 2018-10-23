@@ -77,7 +77,7 @@
     padding-left: 25px;
     textarea {
       border: none;
-      color: #7F8081;
+      color: $main-text-color;
     }
     .a-bar-button {
       border: none;
