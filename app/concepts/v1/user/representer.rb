@@ -9,24 +9,21 @@ module V1
         property :personal_profile,
                  extend: V1::PersonalProfile::Representer::Simplified
 
-        property :has_stripe, getter: lambda { |represented:, **|
-          begin
-            !represented.stripe_ft.nil?
-          rescue StandardError => e
-            false
-          end
-        }
-
-        property :has_bank_account, getter: lambda { |represented:, **|
-          begin
-            !represented.stripe_ft.preferred_account.nil?
-          rescue StandardError => e
-            false
-          end
-        }
+        property :stripe?, as: 'has_stripe', exec_context: :decorator
+        property :bank_account?, as: 'has_bank_account', exec_context: :decorator
 
         property :role_name, exec_context: :decorator
         property :current_club, exec_context: :decorator
+
+        private
+
+        def stripe?
+          !represented.stripe_ft.nil?
+        end
+
+        def bank_account?
+          !represented.stripe_ft&.preferred_account.nil?
+        end
 
         def current_club
           return nil unless represented.clubs.length.positive?
