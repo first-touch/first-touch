@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
    <div>
       <div class="ft-page">
          <div class="profile">
@@ -32,18 +31,6 @@
             </div>
             <career-history v-if="info" :careerHistory="info.career_history"/>
          </div>
-=======
-  <div>
-    <sidebar />
-    <div class="ft-page">
-      <div class="profile">
-        <h4 class="spaced-title">{{ mine ? 'Your profile' : 'User Profile' }}</h4>
-        <profile :mine="mine"
-          :info="info"
-          :follow="followUser"
-          :connect="connectUser"/>
-        <career-history v-if="info" :careerHistory="info.career_history"/>
->>>>>>> [Resolves #151936872] Contact support page
       </div>
       <sidebar />
    </div>

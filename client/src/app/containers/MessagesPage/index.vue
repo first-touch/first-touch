@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
    <div>
       <div class="container-fluid">
          <div class="ft-page messages">
@@ -41,13 +40,6 @@
             </b-row>
             <router-view v-if="currentChatWith"></router-view>
          </div>
-=======
-  <div>
-    <div class="container-fluid">
-      <div class="ft-page messages">
-        <h4 class="spaced-title">Messages</h4>
-        <router-view v-if="currentChatWith"></router-view>
->>>>>>> [Resolves #151936872] Contact support page
       </div>
       <messages-sidebar :currentChatWith="currentChatWith" />
    </div>

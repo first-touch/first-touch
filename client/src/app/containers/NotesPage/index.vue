@@ -3,7 +3,7 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page notes">
-        <h4 class="spaced-title">Notes</h4>
+        <h4 class="header">Notes</h4>
         <div class="row" v-if="{loaded}">
           <note v-for="note in notebook" :info="note" :noteFn="getNotesByTag" :key="note.id"/>
         </div>

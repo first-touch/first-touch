@@ -3,7 +3,7 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
-        <h4 class="spaced-title">Marketplace {{type}}</h4>
+        <h4 class="header">Marketplace {{type}}</h4>
         <actions class="widget" :toAssignement="toAssignement" />
         <timeline-item>
           <div class="ft-search-widget widget-reports col col-lg-12">

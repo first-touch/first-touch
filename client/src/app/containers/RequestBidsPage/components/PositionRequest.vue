@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 class="spaced-title">My Bids List</h4>
+    <h4 class="header">My Bids List</h4>
     <timeline-item>
       <div class="wrapper ft-item">
         <div class="header-wrapper col-lg-12">

@@ -32,21 +32,19 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/variables.scss';
-
   .menu-btn>.btn-secondary,
   .menu-btn>.btn-secondary:active,
   .menu-btn>.btn-secondary:focus,
   .menu-btn>.btn-secondary:not([disabled]):not(.disabled).active,
   .btn-secondary:not([disabled]):not(.disabled):active,
   .show>.btn-secondary.dropdown-toggle {
-    background: $background-color;
-    color: $main-text-color;
+    background: #343434;
+    color: #7F8081;
     margin: 1em;
   }
 
   #legal-verticaltab {
-    background: $background-color;
+    background: #343434;
     top: 0;
     position: sticky;
     position: -webkit-sticky;
@@ -54,7 +52,7 @@
       padding: 0.7em;
     }
     .vertical-tab {
-      background: $background-color;
+      background: #343434;
       padding-top: 9em;
       border: 0;
       height: 100vh;
@@ -62,7 +60,7 @@
     .vertSideItem {
       margin-bottom: 0.5em;
       margin-top: 0.5em;
-      color: $main-text-color;
+      color: #7F8081;
       text-transform: uppercase;
       font-weight: 100;
     }
@@ -74,7 +72,7 @@
       color: #A8CB5C;
     }
     .contents-vertical-tab .section-separator {
-      border-bottom: 1px solid $main-text-color;
+      border-bottom: 1px solid #7F8081;
     }
   }
 

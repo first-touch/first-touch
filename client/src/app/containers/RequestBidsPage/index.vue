@@ -8,7 +8,7 @@
         <teamrequest v-if="request.value && request.value.type_request == 'team'" :request="request.value" :toEdit="toEdit" :updateStatus="customUpdateRequest" />
         <playerrequest v-if="request.value && request.value.type_request == 'player'" :request="request.value" :toEdit="toEdit" :updateStatus="customUpdateRequest" />
         <positionrequest v-if="request.value && request.value.type_request == 'position'" :request="request.value" :toEdit="toEdit" :updateStatus="customUpdateRequest" />
-        <h4 class="spaced-title">Bids Received</h4>
+        <h4 class="header">Bids Received</h4>
         <timeline-item v-if="request.value">
           <bids :bids="bids.value" :request="requestValue" :getBids="customGetBids" :acceptAction="acceptAction" />
         </timeline-item>

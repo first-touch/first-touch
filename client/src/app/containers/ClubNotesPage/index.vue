@@ -2,7 +2,7 @@
   <div>
     <sidebar/>
     <div class="ft-page timeline">
-      <h4 class="spaced-title">Notes</h4>
+      <h4 class="header">Notes</h4>
       <widget/>
       <timeline-item>
         <div class="row">
