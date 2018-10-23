@@ -6,6 +6,7 @@ class Club < ApplicationRecord
   has_many :organizing_events, foreign_key: :organizer_id, class_name: 'Event'
   has_many :participating_events, foreign_key: :opponent_id, class_name: 'Event'
   has_many :reports_buy, foreign_key: :customer_id, class_name: 'Order'
+  has_many :posts, as: :author, foreign_key: 'author_id'
 
   has_many :teams
 

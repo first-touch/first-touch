@@ -29,7 +29,7 @@ class User < ApplicationRecord
            -> { where status: 'accepted' },
            through: :connections
 
-  has_many :posts, as: :author
+  has_many :posts, as: :author, foreign_key: 'author_id'
   has_many :sent_messages, class_name: 'Message', foreign_key: 'creator_id'
   has_many :messages_to_receive,
            class_name: 'MessageRecipient',
