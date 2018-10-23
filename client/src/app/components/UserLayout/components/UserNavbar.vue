@@ -257,24 +257,23 @@ export default {
     ...mapGetters(['token', 'user']),
     name() {
       if (this.user.status === ASYNC_SUCCESS) {
-        return `${this.user.value.personal_profile.first_name} ${
-          this.user.value.personal_profile.last_name
-        }`;
+        return `${this.user.value.personal_profile.first_name} ${this.user.value.personal_profile.last_name}`;
       } else {
         return '';
       }
     },
-          club(){
-        if (this.token.clubs && this.token.clubs.length > 0)
-          return true;
+    club(){
+      if (this.token.clubs && this.token.clubs.length > 0) {
+        return true;
+      } else {
         return false
-      },
-            hasBankAccount() {
-        if (this.user.status === ASYNC_SUCCESS) {
-          return (this.user.value.has_bank_account)
-        }
-        return false;
-      },
+      }
+    },
+    hasBankAccount() {
+      if (this.user.status === ASYNC_SUCCESS) {
+        return (this.user.value.has_bank_account)
+      }
+    },
     role() {
       if (this.user.status === ASYNC_SUCCESS) {
         return this.user.value.role_name;
@@ -282,9 +281,9 @@ export default {
         return '';
       }
     },
-          scout() {
-        return this.role == 'scout';
-      },
+    scout() {
+      return this.role == 'scout';
+    },
     isCoach() {
       return (
         this.user.status === ASYNC_SUCCESS &&
@@ -303,7 +302,8 @@ export default {
       }
     },
   mounted() {
-    if (this.token.status !== ASYNC_SUCCESS) {
+    // FIXME: hack around store messups
+    if (this.token.value !== undefined) {
       this.getUserInfo({ token: this.token.value });
     }
   }
