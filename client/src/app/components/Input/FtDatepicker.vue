@@ -57,7 +57,7 @@
         .icon-inner {
           display: inline-flex;
           text-align: center;
-          background: #7F8081;
+          background: $main-text-color;
           margin: 0;
           padding: 0px 4px;
           border-radius: 50%;

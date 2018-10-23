@@ -3,7 +3,7 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page timeline">
-        <h4 class="header">Timeline</h4>
+        <h4 class="spaced-title">Timeline</h4>
         <widget
           :content="content"
           :posting="posting"

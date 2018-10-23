@@ -3,7 +3,7 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page notes">
-        <h4 class="header">Notes</h4>
+        <h4 class="spaced-title">Notes</h4>
         <div class="row">
           <h5 class="col-12">
             Showing Notes Tagged by: {{ tag }}
