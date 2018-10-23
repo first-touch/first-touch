@@ -39,7 +39,7 @@
   .btn-secondary:not([disabled]):not(.disabled):active,
   .show>.btn-secondary.dropdown-toggle {
     background: #343434;
-    color: #7F8081;
+    color: $main-text-color;
     margin: 1em;
   }
 
@@ -60,7 +60,7 @@
     .vertSideItem {
       margin-bottom: 0.5em;
       margin-top: 0.5em;
-      color: #7F8081;
+      color: $main-text-color;
       text-transform: uppercase;
       font-weight: 100;
     }
@@ -72,7 +72,7 @@
       color: #A8CB5C;
     }
     .contents-vertical-tab .section-separator {
-      border-bottom: 1px solid #7F8081;
+      border-bottom: 1px solid $main-text-color;
     }
   }
 

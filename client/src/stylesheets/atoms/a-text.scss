@@ -4,11 +4,11 @@
 // Links
 a.a-link {
   &.dark {
-    color: $main-text-alpha-20;
+    color: $link-color;
 
     &:hover,
     &:focus {
-      color: $main-text-color;
+      color: $link-color-hover;
     }
   }
 
