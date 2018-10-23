@@ -60,6 +60,7 @@ group :development do
   gem 'capistrano-rvm', require: false
   gem 'capistrano-sidekiq', require: false
   gem 'capistrano3-puma', require: false
+  gem 'listen'
   gem 'rubocop'
   gem 'sshkit-sudo', require: false
   gem 'story_branch'
