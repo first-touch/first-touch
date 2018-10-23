@@ -15,8 +15,6 @@ module V1
         property :role_name, exec_context: :decorator
         property :current_club, exec_context: :decorator
 
-        private
-
         def stripe?
           !represented.stripe_ft.nil?
         end
