@@ -4,13 +4,13 @@
       <label>Your Name</label>
       <div class="row">
         <div class="col">
-          <input type="text" v-model="first_name" class="form-control" placeholder="First Name" />
+          <input type="text" v-model="first_name" class="form-control m-field-input" placeholder="First Name" />
         </div>
         <div class="col">
-          <input type="text" v-model="middle_name" class="form-control" placeholder="Middle Name" />
+          <input type="text" v-model="middle_name" class="form-control m-field-input" placeholder="Middle Name" />
         </div>
         <div class="col">
-          <input type="text" v-model="last_name" class="form-control" placeholder="Last Name" />
+          <input type="text" v-model="last_name" class="form-control m-field-input" placeholder="Last Name" />
         </div>
       </div>
     </fieldset>
@@ -18,7 +18,7 @@
       <label>Date Of Birth</label>
       <div class="row">
         <div class="col">
-          <select v-model="bMonth" class="form-control">
+          <select v-model="bMonth" class="form-control m-field-input">
             <option disabled value="">Month</option>
             <option value="1">January</option>
             <option value="2">February</option>
@@ -35,13 +35,13 @@
           </select>
         </div>
         <div class="col">
-          <select v-model="bDay" class="form-control">
+          <select v-model="bDay" class="form-control m-field-input">
             <option disabled value="">Date</option>
             <option v-for="d in 31" :value="d">{{ d }}</option>
           </select>
         </div>
         <div class="col">
-          <input type="number" v-model="bYear" class="form-control" placeholder="Year" />
+          <input type="number" v-model="bYear" class="form-control m-field-input" placeholder="Year" />
         </div>
       </div>
     </fieldset>
@@ -49,10 +49,10 @@
       <label>Country</label>
       <div class="row">
         <div class="col">
-          <input type="number" v-model="country_code" class="form-control" placeholder="Country Code" />
+          <input type="number" v-model="country_code" class="form-control m-field-input" placeholder="Country Code" />
         </div>
         <div class="col">
-          <input type="text" v-model="place_of_birth" class="form-control" placeholder="Place of Birth" />
+          <input type="text" v-model="place_of_birth" class="form-control m-field-input" placeholder="Place of Birth" />
         </div>
       </div>
     </fieldset>
@@ -60,13 +60,13 @@
       <label>Physique</label>
       <div class="row">
         <div class="col">
-          <input type="number" v-model="weight" class="form-control" placeholder="Weight" />
+          <input type="number" v-model="weight" class="form-control m-field-input" placeholder="Weight" />
         </div>
         <div class="col">
-          <input type="number" v-model="height" class="form-control" placeholder="Height" />
+          <input type="number" v-model="height" class="form-control m-field-input" placeholder="Height" />
         </div>
         <div class="col">
-          <select v-model="preferred_foot" class="form-control">
+          <select v-model="preferred_foot" class="form-control m-field-input">
             <option disabled value="">Preferred Foot</option>
             <option value="R">Right</option>
             <option value="L">Left</option>

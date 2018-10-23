@@ -7,7 +7,7 @@
         <vselect v-model="cardSelect" v-if="!newCard" @input="cardToken = cardSelect.value" :options="cards" :searchable="false"
         />
         <div class="card-input" :class="!newCard? 'hide' : ''">
-          <div ref="card" class="form-control"></div>
+          <div ref="card" class="form-control m-field-input"></div>
         </div>
         <div class="error" v-if="serverErrors">
           <ul>

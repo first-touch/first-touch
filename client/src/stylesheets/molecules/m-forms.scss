@@ -1,0 +1,9 @@
+@import '../variables';
+
+input.m-field-input {
+  color: $main-text-color;
+
+  &:focus {
+    color: $main-text-color;
+  }
+}

@@ -2,7 +2,7 @@
   <timeline-item>
     <div class="header">
       <img class="avatar" src="https://unsplash.it/200/200" />
-      <div class="info">
+      <div class="info spaced-title">
         <h5 class="name">{{ info.author_name }}</h5>
         <p class="role">{{ info.author_status }}</p>
       </div>

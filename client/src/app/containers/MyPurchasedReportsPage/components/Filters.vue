@@ -8,7 +8,7 @@
         <input class="col-lg-12 form-control" placeholder="Scout's Name" type="text" v-model="params.scout_name" />
       </fieldset>
       <fieldset class="col-lg-3 col-md-12" v-if="!request">
-        <vselect v-model="status_select" @input="search"  class="form-control" :class="params.completion_status == ''? 'empty': '' " :options="options.report_status" :searchable="false" />
+        <vselect v-model="status_select" @input="search"  class="form-control m-field-input" :class="params.completion_status == ''? 'empty': '' " :options="options.report_status" :searchable="false" />
       </fieldset>
       <fieldset class="col-lg-5 col-md-12 calendar-filter">
         <ftdatepicker class="col-lg-12 form-control" ref="createdDate" :value="params.created_date" v-on:update:val="params.created_date = $event; search()"

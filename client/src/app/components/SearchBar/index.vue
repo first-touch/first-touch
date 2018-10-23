@@ -3,7 +3,7 @@
     <div class="input-group">
       <input type="text" v-model="searchTerm"
         @keyup.prevent="search({ searchTerm })"
-        class="form-control" :placeholder="placeholder"
+        class="form-control m-field-input" :placeholder="placeholder"
       />
       <span class="input-group-btn">
         <button class="btn btn-secondary" type="button">

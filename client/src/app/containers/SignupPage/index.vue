@@ -9,15 +9,15 @@
         <form class="form" @submit.prevent="handleSubmit">
           <fieldset class="form-group col-lg-12">
             <label>Email</label>
-            <input type="email" v-model="email" class="form-control" autocomplete="username" placeholder="Enter Email..." />
+            <input type="email" v-model="email" class="form-control m-field-input" autocomplete="username" placeholder="Enter Email..." />
           </fieldset>
           <fieldset class="form-group col-lg-12">
             <label>Password</label>
-            <input type="password" v-model="password" class="form-control" autocomplete="new-password" placeholder="Enter Password..." />
+            <input type="password" v-model="password" class="form-control m-field-input" autocomplete="new-password" placeholder="Enter Password..." />
           </fieldset>
           <fieldset class="form-group col-lg-12">
             <label>Password Confirmation</label>
-            <input type="password" v-model="password_confirmation" class="form-control" autocomplete="new-password" placeholder="Confirm Password..." />
+            <input type="password" v-model="password_confirmation" class="form-control m-field-input" autocomplete="new-password" placeholder="Confirm Password..." />
           </fieldset>
           <fieldset class="form-group col-lg-12">
             <label>Your Name</label>
@@ -57,7 +57,7 @@
           <fieldset class="form-group col-md-12">
             <label>Your Role</label>
             <div class="row">
-              <select v-model="role_name" class="form-control">
+              <select v-model="role_name" class="form-control m-field-input">
                 <option disabled value="">Role</option>
                 <option value="player">Player</option>
                 <option value="scout">Scout</option>
@@ -74,7 +74,7 @@
                 <option disabled value="" selected>Country</option>
                 <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
               </select>
-              <autocomplete class="col-md-8" input-class="form-control"
+              <autocomplete class="col-md-8" input-class="form-control m-field-input"
                 placeholder="Search For Club"
                 v-model="item"
                 :get-label="getLabel"
@@ -107,111 +107,112 @@
 </template>
 
 <style lang="scss">
-.v-autocomplete {
-  padding-right: 0;
-  .v-autocomplete-input-group {
-    .v-autocomplete-input {
-      font-size: 1.5em;
-      padding: 10px 15px;
-      box-shadow: none;
-      border: 1px solid #157977;
-      width: calc(100% - 32px);
-      outline: none;
-      background-color: #eee;
-    }
-    &.v-autocomplete-selected {
+  @import '~stylesheets/landingpage';
+  .v-autocomplete {
+    padding-right: 0;
+    .v-autocomplete-input-group {
       .v-autocomplete-input {
-        color: green;
-        background: #f2fff2;
-      }
-    }
-  }
-  .v-autocomplete-list {
-    position: absolute;
-    z-index: 2;
-    width: calc(100% - 15px);
-    text-align: left;
-    border: none;
-    max-height: 400px;
-    overflow-y: auto;
-    border-bottom: 1px solid #157977;
-    .v-autocomplete-list-item {
-      cursor: pointer;
-      background-color: #fff;
-      color: #000;
-      padding: 5px 10px;
-      border-bottom: 1px solid #157977;
-      border-left: 1px solid #157977;
-      border-right: 1px solid #157977;
-      &:last-child {
-        border-bottom: none;
-      }
-      &:hover {
+        font-size: 1.5em;
+        padding: 10px 15px;
+        box-shadow: none;
+        border: 1px solid #157977;
+        width: calc(100% - 32px);
+        outline: none;
         background-color: #eee;
       }
-      abbr {
-        opacity: 0.8;
-        font-size: 0.8em;
-        display: block;
-        font-family: sans-serif;
+      &.v-autocomplete-selected {
+        .v-autocomplete-input {
+          color: green;
+          background: #f2fff2;
+        }
+      }
+    }
+    .v-autocomplete-list {
+      position: absolute;
+      z-index: 2;
+      width: calc(100% - 15px);
+      text-align: left;
+      border: none;
+      max-height: 400px;
+      overflow-y: auto;
+      border-bottom: 1px solid #157977;
+      .v-autocomplete-list-item {
+        cursor: pointer;
+        background-color: #fff;
+        color: #000;
+        padding: 5px 10px;
+        border-bottom: 1px solid #157977;
+        border-left: 1px solid #157977;
+        border-right: 1px solid #157977;
+        &:last-child {
+          border-bottom: none;
+        }
+        &:hover {
+          background-color: #eee;
+        }
+        abbr {
+          opacity: 0.8;
+          font-size: 0.8em;
+          display: block;
+          font-family: sans-serif;
+        }
       }
     }
   }
-}
 </style>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables.scss';
-.container-fluid {
-  background: url('/images/landing-page/team-logo.jpg') no-repeat center center
-    fixed;
-  background-size: cover;
-  min-height: calc(100vh - 78px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 50px 0;
-}
-
-.form {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .row {
-    margin: 0 1px;
-    justify-content: space-between;
-    .col-md-6 {
-      flex-basis: calc(50% - 5px);
-    }
-    .col-md-3 {
-      flex-basis: calc(25% - 5px);
-    }
+  @import '~stylesheets/variables.scss';
+  .container-fluid {
+    background: url('/images/landing-page/team-logo.jpg') no-repeat center center
+      fixed;
+    background-size: cover;
+    min-height: calc(100vh - 78px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
   }
-  .tc-container {
-    #tc {
-      height: 16px;
-    }
-    label {
-      margin-bottom: 0;
-      a {
-        color: $secondary-text-color;
+
+  .form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .row {
+      margin: 0 1px;
+      justify-content: space-between;
+      .col-md-6 {
+        flex-basis: calc(50% - 5px);
       }
-      a:hover {
-        color: $main-text-color;
+      .col-md-3 {
+        flex-basis: calc(25% - 5px);
       }
     }
+    .tc-container {
+      #tc {
+        height: 16px;
+      }
+      label {
+        margin-bottom: 0;
+        a {
+          color: $secondary-text-color;
+        }
+        a:hover {
+          color: $main-text-color;
+        }
+      }
+    }
   }
-}
 
-.alert.alert-danger {
-  background: transparent;
-  border: none;
-  text-align: center;
-  font-size: 0.9rem;
-  color: #fff;
-}
+  .alert.alert-danger {
+    background: transparent;
+    border: none;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #fff;
+  }
 </style>
 
 <script>

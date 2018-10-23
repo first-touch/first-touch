@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div ref="card" class="form-control"></div>
+    <div ref="card" class="form-control m-field-input"></div>
     <div class="img-container col-lg-4">
       <img class="img-fluid" src="/images/stripe/secure-stripe-payment-logo.png" alt="Stripe secure" />
     </div>

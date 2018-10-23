@@ -20,7 +20,7 @@
         <form @submit.prevent="submitNewPassword">
           <fieldset class="form-group col-md-12">
             <label>Password</label>
-            <input type="password" v-model="password" class="form-control" autocomplete="password" placeholder="Enter password..."/>
+            <input type="password" v-model="password" class="form-control m-field-input" autocomplete="password" placeholder="Enter password..."/>
           </fieldset>
           <button class="a-bar-button center" type="submit">Set new password</button>
         </form>

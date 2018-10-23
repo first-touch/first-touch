@@ -20,7 +20,7 @@
               <input type="text" class="col-lg-12 form-control" v-model="params.club" placeholder="Requested by" @keyup="search()" />
             </fieldset>
             <fieldset class="col-lg-4">
-              <vselect v-model="vselect_type" class="form-control" :options="options.type_request" :class="params.type_request == '' ? 'empty' : '' " :searchable="false" clearable="false" />
+              <vselect v-model="vselect_type" class="form-control m-field-input" :options="options.type_request" :class="params.type_request == '' ? 'empty' : '' " :searchable="false" clearable="false" />
             </fieldset>
             <fieldset class="col-lg-12 calendar-filter">
               <ftdatepicker class="col-lg-5 col form-control" :model="params.deadline_from" ref="deadlineFrom" :value="params.deadline_from"

@@ -36,7 +36,7 @@
         <div class="container">
           <form @submit.prevent="handleSubmit">
             <fieldset class="form-group">
-              <textarea :value="content" @keyup="handleContentChange" class="form-control" rows="4" placeholder="Share a thought, link or opinion"></textarea>
+              <textarea :value="content" @keyup="handleContentChange" class="form-control m-field-input" rows="4" placeholder="Share a thought, link or opinion"></textarea>
             </fieldset>
             <div class="row justify-content-end">
               <button v-if="posting" type="button" class="a-bar-button" disabled>Posting...</button>
@@ -51,7 +51,7 @@
         <div class="container">
           <form @submit.prevent="handleSubmit">
             <fieldset class="form-group">
-              <textarea :value="content" @keyup="handleContentChange" class="form-control" rows="4" placeholder="uploadMedia"></textarea>
+              <textarea :value="content" @keyup="handleContentChange" class="form-control m-field-input" rows="4" placeholder="uploadMedia"></textarea>
             </fieldset>
             <div class="row justify-content-end">
               <button v-if="posting" type="button" class="a-bar-button" disabled>Posting...</button>

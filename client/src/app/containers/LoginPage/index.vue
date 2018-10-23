@@ -9,11 +9,11 @@
         <form @submit.prevent="handleSubmit">
           <fieldset class="form-group col-lg-8">
             <label>Email</label>
-            <input type="email" v-model="email" class="form-control"  autocomplete="username" placeholder="Enter email..."/>
+            <input type="email" v-model="email" class="form-control m-field-input"  autocomplete="username" placeholder="Enter email..."/>
           </fieldset>
           <fieldset class="form-group col-lg-8">
             <label>Password</label>
-            <input type="password" v-model="password" class="form-control" autocomplete="current-password" placeholder="Enter password..."/>
+            <input type="password" v-model="password" class="form-control m-field-input" autocomplete="current-password" placeholder="Enter password..."/>
           </fieldset>
           <button v-if="loading"
             class="a-bar-button center" type="button" disabled>Logging In...</button>
@@ -50,36 +50,35 @@
 </template>
 
 <style lang="scss">
-  @import '~stylesheets/molecules/m-navigation';
+  @import '~stylesheets/landingpage';
 </style>
 
 <style lang="scss" scoped>
-@import '~stylesheets/landingpage';
-.container-fluid {
-  background: url('/images/landing-page/team-logo.jpg') no-repeat center center
-    fixed;
-  background-size: cover;
-  min-height: calc(100vh - 78px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+  .container-fluid {
+    background: url('/images/landing-page/team-logo.jpg') no-repeat center center
+      fixed;
+    background-size: cover;
+    min-height: calc(100vh - 78px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
-form {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.alert.alert-danger {
-  background: transparent;
-  border: none;
-  text-align: center;
-  font-size: 0.9rem;
-  color: #fff;
-}
+  .alert.alert-danger {
+    background: transparent;
+    border: none;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #fff;
+  }
 </style>
 
 <script>

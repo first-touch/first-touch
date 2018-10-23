@@ -17,10 +17,10 @@
               />
             </fieldset>
             <fieldset class="col-lg-3">
-              <vselect v-model="vselect_type"  class="form-control" :class="params.type_request == '' ? 'empty' : '' " :options="options.type_request" :searchable="false" clearable="false" />
+              <vselect v-model="vselect_type"  class="form-control m-field-input" :class="params.type_request == '' ? 'empty' : '' " :options="options.type_request" :searchable="false" clearable="false" />
             </fieldset>
             <fieldset class="col-lg-2">
-              <vselect v-model="vselect_status"  class="form-control"  :class="params.status == '' ? 'empty' : '' " :options="options.status" :searchable="false" />
+              <vselect v-model="vselect_status"  class="form-control m-field-input"  :class="params.status == '' ? 'empty' : '' " :options="options.status" :searchable="false" />
             </fieldset>
             <fieldset class="col-lg-3 calendar-filter">
               <ftdatepicker class="col-lg-12 form-control" ref="createdDate" :value="params.created_date" :clearable="false" placeholder="Created date"

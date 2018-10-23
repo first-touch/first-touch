@@ -27,7 +27,7 @@
             <fieldset class="form-group">
               <div class="row">
               <div class="col-lg-8">
-                <input type="text" v-model="email" @keydown="hideAlerts" class="form-control" placeholder="Enter your email..." required />
+                <input type="text" v-model="email" @keydown="hideAlerts" class="form-control m-field-input" placeholder="Enter your email..." required />
               </div>
               <div class="col-lg-4">
                 <button class="a-bar-button center" type="submit">Submit</button>

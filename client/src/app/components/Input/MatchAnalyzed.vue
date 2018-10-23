@@ -29,27 +29,27 @@
         </div>
 
         <div class="col" :class="match.date != '' ? 'date-selected': ''">
-          <ftdatepicker class="form-control" v-if="!readonly" placeholder="Date" :value="match.date " v-on:update:val="match.date  = $event"
+          <ftdatepicker class="form-control m-field-input" v-if="!readonly" placeholder="Date" :value="match.date " v-on:update:val="match.date  = $event"
           />
           <span class="read" v-if="readonly">
             {{match.date | moment}}
           </span>
         </div>
         <div class="col" :title="match.opponent">
-          <input type="text" class="form-control" :readonly="readonly" v-model="match.opponent" />
+          <input type="text" class="form-control m-field-input" :readonly="readonly" v-model="match.opponent" />
         </div>
         <div class="col" :title="match.venue">
-          <input type="text" class="form-control" :readonly="readonly" v-model="match.venue" />
+          <input type="text" class="form-control m-field-input" :readonly="readonly" v-model="match.venue" />
         </div>
         <div class="col" v-if="type == 'team'" :title="match.result">
-          <input type="text" class="form-control" :readonly="readonly" v-model="match.result" />
+          <input type="text" class="form-control m-field-input" :readonly="readonly" v-model="match.result" />
         </div>
         <div class="col" v-if="type == 'player'" :title="match.training">
-          <vselect v-if="!readonly" v-model="match.training" class="form-control" :options="['Yes','No']" />
+          <vselect v-if="!readonly" v-model="match.training" class="form-control m-field-input" :options="['Yes','No']" />
           <span class="read" v-if="readonly">{{match.training}}</span>
         </div>
         <div class="col" v-if="type == 'player'" :title="match.comment">
-          <input type="text" class="form-control" :readonly="readonly" v-model="match.comment" />
+          <input type="text" class="form-control m-field-input" :readonly="readonly" v-model="match.comment" />
         </div>
       </div>
     </div>

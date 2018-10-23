@@ -2,7 +2,7 @@
   <div class="inline-form row ft-form col-lg-12">
     <p>You are currently viewing reports for </p>
     <fieldset class="inline col-lg-1">
-      <vselect v-model="type_select" class="form-control" :class="params.type_report == '' ? 'empty' : ''" @input="search" :options="options.report_type"
+      <vselect v-model="type_select" class="form-control m-field-input" :class="params.type_report == '' ? 'empty' : ''" @input="search" :options="options.report_type"
         :searchable="false" />
     </fieldset>
     <p>From </p>
