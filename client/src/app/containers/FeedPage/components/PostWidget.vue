@@ -69,7 +69,11 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/variables.scss';
+  @import '~stylesheets/landingpage';
+</style>
+
+<style lang="scss" scoped>
+  @import '~stylesheets/variables';
 
   #post-text,
   #post-media {
@@ -78,12 +82,6 @@
     textarea {
       border: none;
       color: #7F8081;
-    }
-    .a-bar-button {
-      border: none;
-      box-shadow: none;
-      background: #B3CB75;
-      width: 200px;
     }
   }
 
