@@ -122,7 +122,7 @@ export default {
           'countries',
           response.countries.sort((a, b) => a.country_name > b.country_name),
         )
-      })
+      });
     },
     updateItems(text) {
       this.$set(this, 'searchText', text);
@@ -144,7 +144,6 @@ export default {
   },
   watch: {
     item: function(value) {
-      debugger
       ClubService.show(value.id).then(response => {
         debugger
         if (response.has_owner) {

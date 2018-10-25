@@ -127,6 +127,7 @@ import { mapActions } from 'vuex';
 import LandingNavbar from 'app/components/LandingNavbar';
 import AutoComplete from 'v-autocomplete';
 import ItemTemplate from './ItemTemplate';
+import ClubService from 'app/services/ClubService'
 
 export default {
   name: 'SignupTemplate',
@@ -222,24 +223,24 @@ export default {
       });
     },
     fetchCountries() {
-      fetch('/api/v1/clubs/countries')
-        .then(res => res.status === 200 && res.json())
-        .then(({ countries }) =>
-          this.$set(
-            this,
-            'countries',
-            countries.sort((a, b) => a.country_name > b.country_name),
-          ),
-        );
+      ClubService.countriesForClubs().then(response => {
+        this.$set(
+          this,
+          'countries',
+          response.countries.sort((a, b) => a.country_name > b.country_name),
+        )
+      });
     },
     updateItems(text) {
       this.$set(this, 'searchText', text);
       if (!text) return this.$set(this, 'clubs', []);
-      fetch(`/api/v1/clubs/search?country=${this.club_country_code}&q=${text}`)
-        .then(res => res.status === 200 && res.json())
-        .then(({ clubs }) => {
-          this.$set(this, 'clubs', clubs.slice(0, 3));
-        });
+      const params = {
+        country: this.club_country_code,
+        q: text
+      }
+      ClubService.searchClub(params).then(response => {
+        this.$set(this, 'clubs', response.clubs.slice(0, 3));
+      });
     },
     getLabel(item) {
       return item ? item.name : this.searchText;
