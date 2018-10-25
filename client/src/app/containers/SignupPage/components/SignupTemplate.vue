@@ -128,6 +128,7 @@ import LandingNavbar from 'app/components/LandingNavbar';
 import AutoComplete from 'v-autocomplete';
 import ItemTemplate from './ItemTemplate';
 import ClubService from 'app/services/ClubService'
+import UserService from 'app/services/UserService'
 
 export default {
   name: 'SignupTemplate',
@@ -203,11 +204,7 @@ export default {
         role_name: this.role_name,
       };
 
-      fetch('/api/v1/users/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      }).then(res => {
+      UserService.register(data).then(res => {
         if (res.status === 201) {
           if (this.role == "director") {
             res.json().then((data) => {

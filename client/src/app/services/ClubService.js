@@ -23,10 +23,13 @@ export default {
     });
   },
   update (data) {
+    // how do i retrieve the authorization token from here?
+    const token = 'test';
+
     fetch(`${this.endpoint}/${data.id}`, {
       method: 'PUT',
       headers: {
-        Authorization: this.$store.state.token.value,
+        Authorization: token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)

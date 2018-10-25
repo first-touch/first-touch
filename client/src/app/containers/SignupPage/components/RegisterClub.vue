@@ -92,21 +92,15 @@ export default {
           user_id: this.$store.state.userID,
           id: this.item.id
         }
-        fetch('/api/v1/clubs/' + this.item.id, {
-          method: 'PUT',
-          headers: {
-            Authorization: this.$store.state.token.value,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data),
-        }).then(res => {
-          if (res.status == 200) {
+        // how do i pass down the authorization token from here to club service?
+        ClubService.update(data).then(response => {
+          if (response.status == 200) {
             alert('Club successfully registered')
             this.$router.push({ path: '/users/sign_in' });
           } else {
-            res.json().then(r => this.$set(this, 'error', r.errors.join(", ")));
+            response.json().then(r => this.$set(this, 'error', r.errors.join(", ")));
           }
-        })
+        });
       }
       else {
         alert(this.error)
@@ -145,7 +139,6 @@ export default {
   watch: {
     item: function(value) {
       ClubService.show(value.id).then(response => {
-        debugger
         if (response.has_owner) {
           return this.$set(this, 'error', "The club that you have chosen already has an existing director! You can choose to sign in to your account first while we email the club's director");
         } else {
