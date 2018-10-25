@@ -144,15 +144,15 @@ export default {
   },
   watch: {
     item: function(value) {
-      fetch('/api/v1/clubs/' + value.id)
-        .then(res => res.status === 200 && res.json())
-        .then(({has_owner}) => {
-          if (has_owner) {
-            return this.$set(this, 'error', "The club that you have chosen already has an existing director! You can choose to sign in to your account first while we email the club's director");
-          } else {
-            return this.$set(this, 'error', null);
-          }
-        });
+      debugger
+      ClubService.show(value.id).then(response => {
+        debugger
+        if (response.has_owner) {
+          return this.$set(this, 'error', "The club that you have chosen already has an existing director! You can choose to sign in to your account first while we email the club's director");
+        } else {
+          return this.$set(this, 'error', null);
+        }
+      });
     },
   },
   mounted() {

@@ -31,5 +31,15 @@ export default {
       },
       body: JSON.stringify(data)
     });
+  },
+  show (params) {
+    const url = `${this.endpoint}/${params}`;
+    return fetch(url).then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(response);
+      }
+    });
   }
 };
