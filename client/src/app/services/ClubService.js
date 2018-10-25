@@ -21,5 +21,15 @@ export default {
         return Promise.reject(response);
       }
     });
+  },
+  update (clubId, data) {
+    fetch('/api/v1/clubs/' + clubId, {
+      method: 'PUT',
+      headers: {
+        Authorization: this.$store.state.token.value,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
+    })
   }
 };

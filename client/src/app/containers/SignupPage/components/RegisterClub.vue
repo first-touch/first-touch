@@ -91,14 +91,7 @@ export default {
           user_id: this.$store.state.userID,
           id: this.item.id
         }
-        fetch('/api/v1/clubs/' + this.item.id, {
-          method: 'PUT',
-          headers: {
-            Authorization: this.$store.state.token.value,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data),
-        }).then(res => {
+        ClubService.update(this.item.id, data).then(res => {
           if (res.status == 200) {
             alert('Club successfully registered')
             this.$router.push({ path: '/users/sign_in' });
