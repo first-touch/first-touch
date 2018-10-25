@@ -67,6 +67,7 @@ import { mapActions } from 'vuex';
 import LandingNavbar from 'app/components/LandingNavbar';
 import AutoComplete from 'v-autocomplete';
 import ItemTemplate from './ItemTemplate';
+import ClubService from 'app/services/ClubService'
 
 export default {
   name: 'RegisterClub',
