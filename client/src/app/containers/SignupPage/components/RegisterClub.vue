@@ -92,7 +92,14 @@ export default {
           user_id: this.$store.state.userID,
           id: this.item.id
         }
-        ClubService.update(this.item.id, data).then(res => {
+        fetch('/api/v1/clubs/' + this.item.id, {
+          method: 'PUT',
+          headers: {
+            Authorization: this.$store.state.token.value,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data),
+        }).then(res => {
           if (res.status == 200) {
             alert('Club successfully registered')
             this.$router.push({ path: '/users/sign_in' });
@@ -109,24 +116,24 @@ export default {
       return this.item != null && this.error == null
     },
     fetchCountries() {
-      fetch('/api/v1/clubs/countries')
-        .then(res => res.status === 200 && res.json())
-        .then(({ countries }) =>
-          this.$set(
-            this,
-            'countries',
-            countries.sort((a, b) => a.country_name > b.country_name),
-          ),
-        );
+      ClubService.countriesForClubs().then(response => {
+        this.$set(
+          this,
+          'countries',
+          response.countries.sort((a, b) => a.country_name > b.country_name),
+        )
+      })
     },
     updateItems(text) {
       this.$set(this, 'searchText', text);
       if (!text) return this.$set(this, 'clubs', []);
-      fetch(`/api/v1/clubs/search?country=${this.club_country_code}&q=${text}`)
-        .then(res => res.status === 200 && res.json())
-        .then(({ clubs }) => {
-          this.$set(this, 'clubs', clubs.slice(0, 3));
-        });
+      const params = {
+        country: this.club_country_code,
+        q: text
+      }
+      ClubService.searchClub(params).then(response => {
+        this.$set(this, 'clubs', response.clubs.slice(0, 3));
+      });
     },
     getLabel(item) {
       return item ? item.name : this.searchText;
