@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import store from '../store';
 
 export default {
   endpoint: '/api/v1/clubs',
@@ -24,12 +25,10 @@ export default {
   },
   update (data) {
     // how do i retrieve the authorization token from here?
-    const token = 'test';
-
     fetch(`${this.endpoint}/${data.id}`, {
       method: 'PUT',
       headers: {
-        Authorization: token,
+        Authorization: store.state.token.value,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)

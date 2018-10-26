@@ -93,14 +93,21 @@ export default {
           id: this.item.id
         }
         // how do i pass down the authorization token from here to club service?
-        ClubService.update(data).then(response => {
-          if (response.status == 200) {
+        fetch('/api/v1/clubs/' + this.item.id, {
+          method: 'PUT',
+          headers: {
+            Authorization: this.$store.state.token.value,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data),
+        }).then(res => {
+          if (res.status == 200) {
             alert('Club successfully registered')
             this.$router.push({ path: '/users/sign_in' });
           } else {
-            response.json().then(r => this.$set(this, 'error', r.errors.join(", ")));
+            res.json().then(r => this.$set(this, 'error', r.errors.join(", ")));
           }
-        });
+        })
       }
       else {
         alert(this.error)
