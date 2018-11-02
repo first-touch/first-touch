@@ -59,7 +59,7 @@
               </div>
               <div class="row">
                 <div class="col-1">
-                  <router-link to="/users/sign_up" class="a-bar-button">
+                  <router-link to="/users/sign_up/player" class="a-bar-button">
                     Register Now
                   </router-link>
                 </div>
@@ -69,7 +69,6 @@
 
           <div class="carousel-item scouts">
             <img class="img-fluid menu" src="/images/landing-page/BG-scouts.jpg" alt="Third slide">
-
             <div class="carousel-caption content-slides">
               <div class="row">
                 <div class="col-12">
@@ -87,7 +86,7 @@
               </div>
               <div class="row">
                 <div class="col-1">
-                  <router-link to="/users/sign_up" class="a-bar-button">
+                  <router-link to="/users/sign_up/scout" class="a-bar-button">
                     Register Now
                   </router-link>
                 </div>
@@ -114,7 +113,7 @@
               </div>
               <div class="row">
                 <div class="col-1">
-                  <a class="a-bar-button center" href="users/sign_up">
+                  <a class="a-bar-button center" href="users/sign_up/director">
                     Register Now
                   </a>
                 </div>

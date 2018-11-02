@@ -41,7 +41,7 @@ Rails.application.routes.draw do
         post 'import_roster', action: :import_roster
         resources :posts, only: %i[index create], controller: 'clubs/posts'
       end
-      resources :clubs, only: %i[index show]
+      resources :clubs, only: %i[index show update]
 
       resources :posts, only: %i[update destroy]
       resources :teams, only: %i[index show]

@@ -13,5 +13,14 @@ export default {
       },
       body: JSON.stringify(attributes)
     });
+  },
+  register (data) {
+    return fetch(`${this.endpoint}/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
   }
 };
