@@ -1,5 +1,12 @@
 import { $, jQuery } from 'jquery';
 import Vue from 'vue';
+<<<<<<< HEAD
+=======
+import 'bootstrap';
+import './stylesheets/app.scss';
+// NOTE: Not sure if this should live here
+import 'stylesheets/landingpage.scss';
+>>>>>>> [Resolves #159952028] Fix registration workflow
 import BootstrapVue from 'bootstrap-vue';
 
 import LandingPage from 'app/containers/LandingPage';
@@ -48,15 +55,21 @@ import VueAutosize from 'vue-autosize';
 import VueRouter from 'vue-router';
 import VeeValidate from 'vee-validate';
 import './app/constants/filters';
-import 'stylesheets/landingpage.scss';
+import VueFormWizard from 'vue-form-wizard';
 
 Vue.use(VueAutosize);
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
 
+<<<<<<< HEAD
 window.$ = $;
 window.jQuery = jQuery;
+=======
+window.$ = require('jquery');
+window.JQuery = require('jquery');
+Vue.use(VueFormWizard);
+>>>>>>> [Resolves #159952028] Fix registration workflow
 
 // delete once registration is allowed
 // function redirectToPrereg (to, from, next) {
@@ -119,9 +132,8 @@ export const router = new VueRouter({
       beforeEnter: checkIfLoggedIn
     },
     {
-      path: '/users/sign_up',
+      path: '/users/sign_up/:role?',
       component: SignupPage
-      // beforeEnter: redirectToPrereg
     },
     {
       path: '/users/confirmation',

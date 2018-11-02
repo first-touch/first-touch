@@ -8193,10 +8193,20 @@ vue-awesome@^3.0.0:
   resolved "https://registry.yarnpkg.com/vue-awesome/-/vue-awesome-3.0.0.tgz#0b0b37488dd4b7e4b9a269d0e9173cd5ab65ff0f"
   integrity sha512-SD3x/t9s/vfIVucIMcILGOOqQ9gk4dfVClx8BWaqGLcB1/hgCiemQ2GDYyu2j3bxtiq1Ad6tz6AZTYINDbnung==
 
+<<<<<<< HEAD
 vue-functional-data-merge@^2.0.3:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/vue-functional-data-merge/-/vue-functional-data-merge-2.0.6.tgz#f08055adfb92458debcf2ad10c3aa712277f7fc2"
   integrity sha512-eivElFOJwhXJopKlq71/8onDxOKK4quPwWGFF9yIVjpU2sNzxISRpufu18bh674ivSADuEAPU2OhT+vrH0E9Mg==
+=======
+vue-form-wizard@^0.8.4:
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/vue-form-wizard/-/vue-form-wizard-0.8.4.tgz#ddf864c9709b7ba2a6323f59e5d6d17536b7800e"
+
+vue-functional-data-merge@^2.0.5:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/vue-functional-data-merge/-/vue-functional-data-merge-2.0.7.tgz#bdee655181eacdcb1f96ce95a4cc14e75313d1da"
+>>>>>>> [Resolves #159952028] Fix registration workflow
 
 vue-hot-reload-api@^2.2.0:
   version "2.3.0"

@@ -10,6 +10,7 @@
     "file-loader": "^0.10.0",
     "http-proxy-middleware": "^0.17.3",
     "jquery": "latest",
+<<<<<<< HEAD
     "tocbot": "^4.3.2",
     "moment": "^2.21.0",
     "url-loader": "^0.5.7",
@@ -19,6 +20,19 @@
     "vue-autonumeric": "^1.2.0",
     "vue-autosize": "^1.0.2",
     "vue-awesome": "^3.0.0",
+=======
+    "moment": "latest",
+    "popper.js": "^1.14.4",
+    "tocbot": "latest",
+    "url-loader": "latest",
+    "v-autocomplete": "latest",
+    "vee-validate": "latest",
+    "vue": "latest",
+    "vue-autonumeric": "latest",
+    "vue-autosize": "latest",
+    "vue-awesome": "latest",
+    "vue-form-wizard": "^0.8.4",
+>>>>>>> [Resolves #159952028] Fix registration workflow
     "vue-loader": "^13.5.0",
     "vue-router": "^2.0.0",
     "vue-select": "^2.4.0",

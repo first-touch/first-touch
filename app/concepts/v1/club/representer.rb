@@ -8,6 +8,11 @@ module V1
         property :name
         property :city
         property :country_code
+        property :has_owner, exec_context: :decorator
+
+        def has_owner
+          !represented.account_owner_id.nil?
+        end
       end
 
       class Search < Representable::Decorator
