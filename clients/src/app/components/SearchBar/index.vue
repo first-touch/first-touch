@@ -24,8 +24,8 @@
   position: fixed;
   z-index: 2;
   top: 0;
-  left: 21vw;
-  width: 52vw;
+  left: 20vw;
+  width: 55vw;
   padding: $searchbar-padding;
   background-color: #343434;
 

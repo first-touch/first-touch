@@ -30,8 +30,8 @@ body {
       margin-top: 5px;
     }
   }
-  width: 663px;
-  margin:112px 23vw 0 21vw;
+  width: 744px;
+  margin:112px 23vw 0 20vw;
   background-color: #343434;
 
 
@@ -39,7 +39,7 @@ body {
     margin-top: auto;
   }
  float: left;
-  padding: 20px;
+  padding: 30px;
   .header {
     color: $main-text-color;
     font-weight: 300;
@@ -180,7 +180,7 @@ a.btn.btn-bright:focus {
   z-index: 3;
   left: 0;
   top: 0;
-  width: 270px;
+  width: 280px;
   height: 100vh;
   background-color: #343434;
   padding: $navbar-padding;

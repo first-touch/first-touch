@@ -203,7 +203,7 @@
         for (var i in this.stripe.cards) {
           var card = this.stripe.cards[i];
           options.push({
-            label: ` ${card.brand} **${card.last4} expire on ${card.exp_month}/${card.exp_year} `,
+            label: ` ${card.brand} **${card.last4} expire on ${card.exp_}/${card.exp_year} `,
             value: card.id
           });
           if (card.id == this.stripe.default_source)

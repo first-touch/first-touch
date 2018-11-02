@@ -262,7 +262,7 @@
 }
 
 .leonel_tittle {
-    width: 300px;
+    width: 330px;
     background-color: #fff;
     display: inline-block;
     padding: 15px;
@@ -276,7 +276,7 @@
 }
 
 .leonel_tittle_right {
-    width: 300px;
+    width: 330px;
     background-color: #fff;
     display: inline-block;
     padding: 15px;

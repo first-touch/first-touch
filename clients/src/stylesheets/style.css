@@ -2,13 +2,7 @@
   padding: 32px 0 0 0;
 }
 
-.leonel_tittle {
-  width: 300px;
-  background-color: #fff;
-  display: inline-block;
-  padding: 15px;
-  border-radius: 5px;
-}
+
 
 
 .player_sec {
@@ -16,14 +10,7 @@
   display: inline-block;
 }
 
-.leonel_tittle_right {
-  width: 300px;
-  background-color: #fff;
-  display: inline-block;
-  padding: 15px;
-  float: right;
-  border-radius: 5px;
-}
+
 
 .month {
   float: left;

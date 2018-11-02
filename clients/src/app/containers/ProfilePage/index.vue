@@ -37,7 +37,6 @@
     </b-row>
 
 </div>
-<career-statics v-if="info" :CareerStatics="info.career_statics"/>
 <career-history v-if="info" :careerHistory="info.career_history"/>
       </div>
     </div>
@@ -145,7 +144,6 @@ import NotificationSidebar from 'app/components/NotificationSidebar';
 import Profile from './components/Profile';
 import CareerHistory from './components/CareerHistory';
 import FootballPlayer from './components/FootballPlayer';
-import CareerStatics from './components/CareerStatics';
 
 export default {
   name: 'ProfilePage',
@@ -155,7 +153,6 @@ export default {
     profile: Profile,
     'career-history': CareerHistory,
     'football-player': FootballPlayer,
-    'career-statics': CareerStatics,
 
   },
   computed: {
