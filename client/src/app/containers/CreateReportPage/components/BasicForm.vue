@@ -46,6 +46,7 @@
         margin-right: 5%;
       }
     }
+	
   }
 </style>
 
