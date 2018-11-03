@@ -174,8 +174,7 @@ export default {
         height,
         preferred_foot,
       }).then(response => {
-        debugger;
-        this.$refs.feedbackMessage.displayMessage();
+        this.$refs.feedbackMessage.displayMessage("Saved successfully");
       })
     },
     fetchCountries() {

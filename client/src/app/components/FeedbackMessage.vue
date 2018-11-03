@@ -1,7 +1,8 @@
 <template>
   <transition name="fade"
               enter-active-class="fadeIn"
-              leave-active-class="fadeOut">
+              leave-active-class="fadeOut"
+              v-on="hooks">
     <div v-if="show" class="m-feedback">
       <div class="text-wrapper">
         {{ messageContent }}
@@ -13,18 +14,34 @@
 <script>
 export default {
   name: 'FeedbackMessage',
-  props: [
-    'feedbackClass'
-  ],
   data() {
     return {
       show: false
     };
   },
+  computed: {
+    hooks() {
+      return {
+        beforeEnter: this.setDuration,
+        beforeLeave: this.setDuration,
+        afterEnter: this.hideMessage,
+        ...this.$listeners
+      };
+    }
+  },
   methods: {
-    displayMessage() {
-      this.messageContent = "Success";
+    displayMessage(messageContent) {
+      if(messageContent == "") {
+        return;
+      }
+      this.messageContent = messageContent;
       this.show = true;
+    },
+    setDuration(el) {
+      el.style.animationDuration = '1500ms';
+    },
+    hideMessage() {
+      this.show = false;
     }
   },
 }
