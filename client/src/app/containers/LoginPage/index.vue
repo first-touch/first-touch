@@ -107,7 +107,7 @@ export default {
       if (this.token.status != ASYNC_FAIL) {
         return false;
       }
-      return JSON.parse(this.token.err)['error'][0];
+      return JSON.parse(this.token.err)['errors'];
     },
   },
   methods: {
