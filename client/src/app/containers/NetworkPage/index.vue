@@ -3,7 +3,7 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page network">
-        <h4 class="spaced-title">My network</h4>
+        <h4 class="spaced-title upper-cased main-color">My network</h4>
         <div class="network-widget">
           <select class="network-widget-sort">
             <option disabled selected value>Sort by</option>

@@ -2,7 +2,7 @@
   <timeline-item>
     <div class="header">
       <img class="avatar" src="https://unsplash.it/200/200" />
-      <div class="info spaced-title">
+      <div class="info spaced-title upper-cased main-color">
         <h5 class="name">{{ info.author_name }}</h5>
         <p class="role">{{ info.author_status }}</p>
       </div>
@@ -24,8 +24,8 @@
   margin-bottom: 20px;
   .avatar {
     border-radius: 50%;
-    max-height: 100px;
-    width: 100px;
+    max-height: 70px;
+    width: 70px;
   }
   .info {
     margin-left: 30px;

@@ -39,7 +39,7 @@
             color: $secondary-header-color;
           }
           &:hover {
-            color: #A8CB5C;
+            color: $main-header-color;
             text-decoration: none;
           }
         }

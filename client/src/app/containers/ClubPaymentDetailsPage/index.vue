@@ -3,7 +3,7 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
-        <h4 class="spaced-title">Billing & Payments</h4>
+        <h4 class="spaced-title upper-cased main-color">Billing & Payments</h4>
         <actions :addPayment="addPayment">
         </actions>
         <timeline-item>

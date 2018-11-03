@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 class="spaced-title">{{teamName}} {{leagueName}}</h4>
+    <h4 class="spaced-title upper-cased main-color">{{teamName}} {{leagueName}}</h4>
     <timeline-item>
 
       <div class="wrapper ft-item">

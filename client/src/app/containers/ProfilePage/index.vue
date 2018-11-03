@@ -3,7 +3,7 @@
     <sidebar />
     <div class="ft-page">
       <div class="profile">
-        <h4 class="spaced-title">{{ mine ? 'Your profile' : 'User Profile' }}</h4>
+        <h4 class="spaced-title upper-cased main-color">{{ mine ? 'Your profile' : 'User Profile' }}</h4>
         <profile :mine="mine"
           :info="info"
           :follow="followUser"

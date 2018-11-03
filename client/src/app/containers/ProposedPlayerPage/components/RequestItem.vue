@@ -1,6 +1,6 @@
 <template>
   <div v-if="requestValue">
-    <h4 class="spaced-title">Request</h4>
+    <h4 class="spaced-title upper-cased main-color">Request</h4>
     <action-item>
       <button class="timeline-widget-button" @click="newPlayerRequest">
         <span class="newRequest">
