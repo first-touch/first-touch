@@ -1,6 +1,6 @@
 <template>
   <div class="page-wrapper">
-    <feedback-message></feedback-message>
+    <feedback-message ref="feedbackMessage"></feedback-message>
     <form @submit.prevent="handleSubmit">
       <fieldset class="form-group">
         <label>Your Name</label>
@@ -103,20 +103,6 @@
   label {
     color: $main-text-color;
   }
-  .a-bar-button {
-    border: none;
-    margin: 0;
-    margin-top: 10px;
-    background-color: #B3CB75;
-    color: $first-touch-white;
-    box-shadow: none;
-    font-size: 0.9em;
-    width: 200px;
-    padding: 5px 20px;
-    font-weight: 400;
-    border-radius: .25rem;
-    left: 0;
-  }
 }
 </style>
 
@@ -187,7 +173,10 @@ export default {
         weight,
         height,
         preferred_foot,
-      });
+      }).then(response => {
+        debugger;
+        this.$refs.feedbackMessage.displayMessage();
+      })
     },
     fetchCountries() {
       ClubService.countriesForClubs().then(response => {
