@@ -63,10 +63,20 @@
       <label>Physique</label>
       <div class="row">
         <div class="col">
-          <input type="number" v-model="weight" class="form-control m-field-input" placeholder="Weight" />
+          <div class="input-group mb-3">
+            <input type="number" v-model="weight" class="form-control m-field-input" placeholder="Weight" />
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">Kg</span>
+            </div>
+          </div>
         </div>
         <div class="col">
-          <input type="number" v-model="height" class="form-control m-field-input" placeholder="Height" />
+          <div class="input-group mb-3">
+            <input type="number" v-model="height" class="form-control m-field-input" placeholder="Height" />
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">cm</span>
+            </div>
+          </div>
         </div>
         <div class="col">
           <select v-model="preferred_foot" class="form-control m-field-input">
