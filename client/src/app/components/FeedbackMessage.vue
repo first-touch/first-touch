@@ -29,6 +29,7 @@ export default {
       };
     }
   },
+  // TODO: Add display errorMessage and successMessage
   methods: {
     displayMessage(messageContent) {
       if(messageContent == "") {
