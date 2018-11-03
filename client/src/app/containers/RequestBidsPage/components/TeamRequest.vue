@@ -1,6 +1,10 @@
 <template>
   <div>
+<<<<<<< HEAD
     <h4 class="header">{{teamName}} {{leagueName}}</h4>
+=======
+    <h4 class="spaced-title upper-cased main-color">{{teamName}} {{leagueName}}</h4>
+>>>>>>> [Chore] cleaning up some more styling
     <timeline-item>
 
       <div class="wrapper ft-item">

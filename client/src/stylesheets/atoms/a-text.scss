@@ -4,11 +4,11 @@
 // Links
 a.a-link {
   &.dark {
-    color: $main-text-alpha-20;
+    color: $link-color;
 
     &:hover,
     &:focus {
-      color: $main-text-color;
+      color: $link-color-hover;
     }
   }
 
@@ -27,4 +27,35 @@ a.a-link {
 
 a.a-link-button {
   @extend %a-button-shared;
+}
+
+h4 {
+  font-weight: 300;
+}
+
+.upper-cased {
+  text-transform: uppercase;
+}
+
+// .title {
+//   color: $main-header-color;
+//   font-weight: bold;
+//   font-size: $important-size;
+// }
+
+// TODO: Check if its possible and reasonable to merge with title
+.spaced-title upper-cased main-color {
+  letter-spacing: 2px;
+}
+
+.main-color {
+  color: $main-text-color;
+}
+
+.large-sub-title {
+  font-size: $main-subtitle-text-size;
+}
+
+.small-sub-title {
+  font-size: $main-text-size;
 }

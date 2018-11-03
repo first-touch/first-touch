@@ -2,7 +2,11 @@
   <div>
     <sidebar/>
     <div class="ft-page timeline">
+<<<<<<< HEAD
       <h4 class="header">Notes</h4>
+=======
+      <h4 class="spaced-title upper-cased main-color">Notes</h4>
+>>>>>>> [Chore] cleaning up some more styling
       <widget/>
       <timeline-item>
         <div class="row">

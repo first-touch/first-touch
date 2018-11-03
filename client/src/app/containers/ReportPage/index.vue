@@ -12,7 +12,11 @@
           </button>
         </action-item>
         <div v-if="request">
+<<<<<<< HEAD
           <h4 class="header">Request</h4>
+=======
+          <h4 class="spaced-title upper-cased main-color">Request</h4>
+>>>>>>> [Chore] cleaning up some more styling
           <timeline-item>
             <request :key="request.id" :request="request" :viewSummary="viewSummary" class="onlyone"></request>
             <b-modal id="metaModal" class="ft-modal" size="lg" ref="metaModal">
@@ -24,7 +28,11 @@
             </b-modal>
           </timeline-item>
         </div>
+<<<<<<< HEAD
         <h4 class="header">Report</h4>
+=======
+        <h4 class="spaced-title upper-cased main-color">Report</h4>
+>>>>>>> [Chore] cleaning up some more styling
         <action-item v-if="owner && reportValue">
           <button class="timeline-widget-button">
             <span>

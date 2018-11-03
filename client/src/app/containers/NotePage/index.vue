@@ -3,7 +3,11 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page note" v-if="{loaded}">
+<<<<<<< HEAD
         <h4 class="header">{{ note.value.name }}</h4>
+=======
+        <h4 class="spaced-title upper-cased main-color">{{ note.value.name }}</h4>
+>>>>>>> [Chore] cleaning up some more styling
         <div class="row">
           <div class="col-12">
             <strategy v-bind:info="note.value.elements" />

@@ -1,4 +1,4 @@
-  @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,300);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,300);
 
 body {
   background: $navbar-background-color;
@@ -12,15 +12,15 @@ body {
     content: '';
     position: absolute;
     margin-top: -15px;
-    width: 10%;
-    border-top: 5px solid $secondary-header-color;
+    width: 3%;
+    border-top: 5px solid $main-header-color;
   }
   .timeline-widget-button {
     span {
       padding-left: 4px;
       width: 49px;
       height: 49px;
-      background-color: #a8cb5c;
+      background-color: $main-header-color;
       border: solid 1px #a8cb5c;
     }
     svg {

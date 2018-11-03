@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
    <div class="ft-page timeline">
       <h4 class="header">Your Profile</h4>
       <div class="result-container">
@@ -36,6 +37,27 @@
          </div>
          <button class="btn next">
          </button>
+=======
+<div class="ft-page timeline">
+  <h4 class="spaced-title upper-cased main-color">Your Profile</h4>
+  <div class="result-container">
+    <button class="btn back">
+    </button>
+    <div class="results">
+      <div class="single-result">
+        <h5 class="title">Recent Result<br/>Win</h5>
+        <div class="info">
+          <div class="team">
+            <img class="img-fluid" src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Toronto_FC_Logo.svg/1095px-Toronto_FC_Logo.svg.png"/>
+            <h2 class="score">4</h2>
+          </div>
+          <h4 class="vs">vs</h4>
+          <div class="team">
+            <img class="img-fluid" src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Toronto_FC_Logo.svg/1095px-Toronto_FC_Logo.svg.png"/>
+            <h2 class="score">4</h2>
+          </div>
+        </div>
+>>>>>>> [Chore] cleaning up some more styling
       </div>
    </div>
 </template>

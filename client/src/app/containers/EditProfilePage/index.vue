@@ -3,7 +3,11 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page edit-profile">
+<<<<<<< HEAD
         <h4 class="header">Edit Profile</h4>
+=======
+        <h4 class="spaced-title upper-cased main-color">Edit Profile</h4>
+>>>>>>> [Chore] cleaning up some more styling
         <div class="profile-item">
           <div class="arrow"></div>
           <div class="form-container">

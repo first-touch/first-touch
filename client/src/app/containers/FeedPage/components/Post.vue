@@ -1,5 +1,6 @@
 <template>
   <timeline-item>
+<<<<<<< HEAD
 
 <b-container>
     <b-row>
@@ -27,6 +28,21 @@
 
     </b-row>
 </b-container>
+=======
+    <div class="header">
+      <img class="avatar" src="https://unsplash.it/200/200" />
+      <div class="info spaced-title upper-cased main-color">
+        <h5 class="name">{{ info.author_name }}</h5>
+        <p class="role">{{ info.author_status }}</p>
+      </div>
+    </div>
+    <div class="body">
+      <!-- <img class="img-fluid" src="https://unsplash.it/1000/600" /> -->
+      <p class="content">
+        {{ info.content }}
+      </p>
+    </div>
+>>>>>>> [Chore] cleaning up some more styling
   </timeline-item>
 </template>
 
@@ -38,8 +54,8 @@
   margin-bottom: 20px;
   .avatar {
     border-radius: 50%;
-    max-height: 100px;
-    width: 100px;
+    max-height: 70px;
+    width: 70px;
   }
   .info {
     margin-left: 30px;

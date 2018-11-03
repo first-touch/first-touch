@@ -14,7 +14,11 @@
           :closeAction="closeAction" />
       </b-modal>
       <div class="ft-page">
+<<<<<<< HEAD
         <h4 class="header">Payment Details</h4>
+=======
+        <h4 class="spaced-title upper-cased main-color">Payment Details</h4>
+>>>>>>> [Chore] cleaning up some more styling
         <actions class="widget" :hasStripe="hasStripe" :PersonalInformation="PersonalInformation" :AddPayment="AddPayment"  />
         <timeline-item>
           <bankaccountlist :stripe="stripeFtouch" :deleteBank="deleteBank" :deleteAccount="deleteAccount" :preferredBank="preferredBank" />

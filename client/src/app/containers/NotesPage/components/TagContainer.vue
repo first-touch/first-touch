@@ -3,7 +3,11 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page notes">
+<<<<<<< HEAD
         <h4 class="header">Notes</h4>
+=======
+        <h4 class="spaced-title upper-cased main-color">Notes</h4>
+>>>>>>> [Chore] cleaning up some more styling
         <div class="row">
           <h5 class="col-12">
             Showing Notes Tagged by: {{ tag }}

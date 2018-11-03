@@ -3,7 +3,11 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
+<<<<<<< HEAD
         <h4 class="header">My reports</h4>
+=======
+        <h4 class="spaced-title upper-cased main-color">My reports</h4>
+>>>>>>> [Chore] cleaning up some more styling
         <timeline-item>
           <div class="widget-reports ft-search-widget col col-lg-12">
             <div class="row">

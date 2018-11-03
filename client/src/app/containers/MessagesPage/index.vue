@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
    <div>
       <div class="container-fluid">
          <div class="ft-page messages">
@@ -40,6 +41,13 @@
             </b-row>
             <router-view v-if="currentChatWith"></router-view>
          </div>
+=======
+  <div>
+    <div class="container-fluid">
+      <div class="ft-page messages">
+        <h4 class="spaced-title upper-cased main-color">Messages</h4>
+        <router-view v-if="currentChatWith"></router-view>
+>>>>>>> [Chore] cleaning up some more styling
       </div>
       <messages-sidebar :currentChatWith="currentChatWith" />
    </div>

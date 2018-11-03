@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
    <div>
       <div class="ft-page">
          <div class="profile">
@@ -31,6 +32,18 @@
             </div>
             <career-history v-if="info" :careerHistory="info.career_history"/>
          </div>
+=======
+  <div>
+    <sidebar />
+    <div class="ft-page">
+      <div class="profile">
+        <h4 class="spaced-title upper-cased main-color">{{ mine ? 'Your profile' : 'User Profile' }}</h4>
+        <profile :mine="mine"
+          :info="info"
+          :follow="followUser"
+          :connect="connectUser"/>
+        <career-history v-if="info" :careerHistory="info.career_history"/>
+>>>>>>> [Chore] cleaning up some more styling
       </div>
       <sidebar />
    </div>

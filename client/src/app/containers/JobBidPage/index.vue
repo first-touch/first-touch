@@ -4,7 +4,11 @@
     <div class="container-fluid">
       <div class="ft-page">
         <div class="widget-request ft-search-widget">
+<<<<<<< HEAD
           <h4 class="header">My Bids</h4>
+=======
+          <h4 class="spaced-title upper-cased main-color">My Bids</h4>
+>>>>>>> [Chore] cleaning up some more styling
           <timeline-item>
             <div class="widget-content col col-lg-12">
               <div class="row align-items-start">

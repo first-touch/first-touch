@@ -1,6 +1,10 @@
 <template>
   <div>
+<<<<<<< HEAD
     <h4 class="header">My Bids List</h4>
+=======
+    <h4 class="spaced-title upper-cased main-color">My Bids List</h4>
+>>>>>>> [Chore] cleaning up some more styling
     <timeline-item>
       <div class="wrapper ft-item">
         <div class="header-wrapper col-lg-12">

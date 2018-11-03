@@ -66,10 +66,10 @@
     }
     .contents-vertical-tab .router-link-active {
       border-left: 2px solid #A8CB5C;
-      color: #A8CB5C;
+      color: $main-header-color;
     }
     .vertSideItem:hover {
-      color: #A8CB5C;
+      color: $main-header-color;
     }
     .contents-vertical-tab .section-separator {
       border-bottom: 1px solid #7F8081;

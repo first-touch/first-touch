@@ -4,7 +4,11 @@
     <div class="container-fluid">
       <div class="ft-page ">
         <div v-if="request">
+<<<<<<< HEAD
           <h4 class="header">Request</h4>
+=======
+          <h4 class="spaced-title upper-cased main-color">Request</h4>
+>>>>>>> [Chore] cleaning up some more styling
           <timeline-item>
             <request :key="request.id" :request="request" :viewSummary="viewSummary" class="onlyone"></request>
             <b-modal id="metaModal" class="ft-modal" size="lg" ref="metaModal">
@@ -22,7 +26,11 @@
           <playerresume v-if="player" :player="playerInfo" :clubInfo="clubInfo" :search="search"></playerresume>
           <clubresume v-if="team" :clubInfo="clubInfo" :search="search"></clubresume>
         </div>
+<<<<<<< HEAD
         <h4 class="header">Edit Report</h4>
+=======
+        <h4 class="spaced-title upper-cased main-color">Edit Report</h4>
+>>>>>>> [Chore] cleaning up some more styling
         <action-item v-if="reportValue">
           <button class="timeline-widget-button">
             <span>

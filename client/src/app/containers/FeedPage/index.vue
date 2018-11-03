@@ -1,6 +1,7 @@
 <template>
    <div>
       <div class="ft-page timeline">
+<<<<<<< HEAD
          <h4 class="header">Your Profile</h4>
          <b-carousel id="carousel1"
             style="text-shadow: 1px 1px 2px #333;"
@@ -20,6 +21,18 @@
             <b-carousel-slide img-src="../img/slider_img.png">
             </b-carousel-slide>
          </b-carousel>
+=======
+        <h4 class="spaced-title upper-cased main-color">Timeline</h4>
+        <widget
+          :content="content"
+          :posting="posting"
+          :handleContentChange="handleContentChange"
+          :handleSubmit="handleSubmit" />
+        <post v-for="post in posts" :info="post" :key="post.id" />
+        <div v-if="loading">
+          <h4 class="text-center">Loading...</h4>
+        </div>
+>>>>>>> [Chore] cleaning up some more styling
       </div>
       <div class="ft-page timeline">
          <h4 class="header">CAREER STATISTICS</h4>

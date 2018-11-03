@@ -3,7 +3,11 @@
     <sidebar />
     <div class="container-fluid">
       <div class="ft-page">
+<<<<<<< HEAD
         <h4 class="header">Marketplace {{type}}</h4>
+=======
+        <h4 class="spaced-title upper-cased main-color">Marketplace {{type}}</h4>
+>>>>>>> [Chore] cleaning up some more styling
         <actions class="widget" :toAssignement="toAssignement" />
         <timeline-item>
           <div class="ft-search-widget widget-reports col col-lg-12">
