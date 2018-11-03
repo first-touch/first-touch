@@ -19,13 +19,12 @@ module V1
           options['clubs'].push(
             name: club.name,
             id: club.id,
-            token: JsonWebToken.encode({
-                                         club_id: club.id,
-                                        },
-                                         Time.now + FirstTouch::TOKEN_TTL)
-        )
+            token: JsonWebToken.encode({ club_id: club.id },
+                                       Time.now + FirstTouch::TOKEN_TTL)
+          )
         end
       end
+
       def generate_token!(options, **)
         jwt = JsonWebToken.encode(
           { user_id: options['user'].id,
@@ -34,7 +33,9 @@ module V1
         )
         puts options['clubs'].to_json
 
-        options['model'] = OpenStruct.new(auth_token: jwt, clubs_token: options['clubs'])
+        options['model'] = OpenStruct.new(
+          auth_token: jwt, clubs_token: options['clubs']
+        )
       end
     end
   end

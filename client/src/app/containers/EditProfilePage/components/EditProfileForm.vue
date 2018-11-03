@@ -46,10 +46,17 @@
       </div>
     </fieldset>
     <fieldset class="form-group">
-      <label>Country</label>
+      <label>Nationality</label>
       <div class="row">
         <div class="col">
+<<<<<<< HEAD
           <input type="number" v-model="country_code" class="form-control" placeholder="Country Code" />
+=======
+          <select v-model="country_code" class="form-control m-field-input">
+            <option disabled value="" selected>Country of Birth</option>
+            <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
+          </select>
+>>>>>>> [Resolves #157169989] Editing a profile is not working
         </div>
         <div class="col">
           <input type="text" v-model="place_of_birth" class="form-control" placeholder="Place of Birth" />
@@ -60,10 +67,27 @@
       <label>Physique</label>
       <div class="row">
         <div class="col">
+<<<<<<< HEAD
           <input type="number" v-model="weight" class="form-control" placeholder="Weight" />
         </div>
         <div class="col">
           <input type="number" v-model="height" class="form-control" placeholder="Height" />
+=======
+          <div class="input-group mb-3">
+            <input type="number" v-model="weight" class="form-control m-field-input" placeholder="Weight" />
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">Kg</span>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-group mb-3">
+            <input type="number" v-model="height" class="form-control m-field-input" placeholder="Height" />
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">cm</span>
+            </div>
+          </div>
+>>>>>>> [Resolves #157169989] Editing a profile is not working
         </div>
         <div class="col">
           <select v-model="preferred_foot" class="form-control">
@@ -87,24 +111,12 @@
   label {
     color: $main-text-color;
   }
-  .a-bar-button {
-    border: none;
-    margin: 0;
-    margin-top: 10px;
-    background-color: #B3CB75;
-    color: $first-touch-white;
-    box-shadow: none;
-    font-size: 0.9em;
-    width: 200px;
-    padding: 5px 20px;
-    font-weight: 400;
-    border-radius: .25rem;
-    left: 0;
-  }
 }
 </style>
 
 <script>
+import ClubService from 'app/services/ClubService';
+
 export default {
   name: 'EditProfileForm',
   props: [
@@ -134,6 +146,7 @@ export default {
       weight: this.pWeight || '',
       height: this.pHeight || '',
       preferred_foot: this.preferredFoot || '',
+      countries: []
     };
   },
   methods: {
@@ -164,8 +177,22 @@ export default {
         weight,
         height,
         preferred_foot,
+      }).then(response => {
+        this.flash('Updated successfully', 'success', {
+          timeout: 3000,
+          important: true
+        });
+      })
+    },
+    fetchCountries() {
+      ClubService.countriesForClubs().then(response => {
+        this.$set(this, 'countries',
+                  response.countries.sort((a, b) => a.country_name > b.country_name))
       });
     },
   },
+  mounted() {
+    this.fetchCountries();
+  }
 };
 </script>

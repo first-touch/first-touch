@@ -2,6 +2,12 @@
 @import 'atoms/a-buttons';
 @import 'atoms/a-feedback';
 @import 'atoms/a-text';
+<<<<<<< HEAD
+=======
+@import 'molecules/m-forms';
+@import 'molecules/m-navigation';
+@import 'molecules/m-messaging';
+>>>>>>> [Resolves #157169989] Editing a profile is not working
 
 html,
 body {
@@ -85,10 +91,10 @@ li {
     display: contents;
   }
   .toggle .active {
-    color: $button-background-colour2;
+    color: $button-background-colour;
   }
   .toggle li:hover {
-    color: $button-background-colour2;
+    color: $button-background-colour;
   }
   .cursor {
     cursor: pointer;

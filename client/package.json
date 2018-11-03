@@ -31,6 +31,7 @@
     "vue-autonumeric": "latest",
     "vue-autosize": "latest",
     "vue-awesome": "latest",
+    "vue-flash-message": "^0.7.2",
     "vue-form-wizard": "^0.8.4",
 >>>>>>> [Resolves #159952028] Fix registration workflow
     "vue-loader": "^13.5.0",
