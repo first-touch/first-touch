@@ -2,13 +2,12 @@
   <timeline-item>
     <div class="header">
       <img class="avatar" src="https://unsplash.it/200/200" />
-      <div class="info spaced-title upper-cased main-color">
-        <h5 class="name">{{ info.author_name }}</h5>
-        <p class="role">{{ info.author_status }}</p>
+      <div class="info">
+        <h5 class="name spaced-title main-color">{{ info.author_name }}</h5>
+        <p class="role main-color">{{ info.author_status }}</p>
       </div>
     </div>
     <div class="body">
-      <!-- <img class="img-fluid" src="https://unsplash.it/1000/600" /> -->
       <p class="content">
         {{ info.content }}
       </p>
@@ -33,7 +32,12 @@
     flex-direction: column;
     justify-content: center;
     .name {
+      margin-bottom: 0;
+      text-transform: uppercase;
       color: $secondary-header-color;
+    }
+    .role {
+      text-transform: capitalize;
     }
   }
 }
