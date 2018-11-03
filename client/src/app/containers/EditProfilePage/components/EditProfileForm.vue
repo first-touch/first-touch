@@ -1,6 +1,5 @@
 <template>
   <div class="page-wrapper">
-    <feedback-message ref="feedbackMessage"></feedback-message>
     <form @submit.prevent="handleSubmit">
       <fieldset class="form-group">
         <label>Your Name</label>
@@ -107,13 +106,9 @@
 </style>
 
 <script>
-import FeedbackMessage from 'app/components/FeedbackMessage';
 import ClubService from 'app/services/ClubService';
 
 export default {
-  components: {
-    "feedback-message": FeedbackMessage
-  },
   name: 'EditProfileForm',
   props: [
     'firstName',
@@ -174,7 +169,10 @@ export default {
         height,
         preferred_foot,
       }).then(response => {
-        this.$refs.feedbackMessage.displayMessage("Saved successfully");
+        this.flash('Updated successfully', 'success', {
+          timeout: 3000,
+          important: true
+        });
       })
     },
     fetchCountries() {

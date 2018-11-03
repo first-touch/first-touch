@@ -2,6 +2,7 @@
   <div>
     <navbar :page="page" />
     <search-bar :search="getSearchResults" :results="searchResult.value" :placeholder="placeholder" :action="action" />
+    <flash-message outerClass="m-feedback"></flash-message>
     <router-view></router-view>
   </div>
 </template>
