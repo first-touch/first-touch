@@ -1,0 +1,12 @@
+@import '../variables';
+
+.m-feedback {
+  position: fixed;
+  top: 90px;
+  z-index: 100;
+  background-color: $button-background-colour;
+  color: $first-touch-white;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: -3px -3px 1px $button-background-colour-on-hover;
+}
