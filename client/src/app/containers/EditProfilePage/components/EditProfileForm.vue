@@ -46,10 +46,13 @@
       </div>
     </fieldset>
     <fieldset class="form-group">
-      <label>Country</label>
+      <label>Nationality</label>
       <div class="row">
         <div class="col">
-          <input type="number" v-model="country_code" class="form-control m-field-input" placeholder="Country Code" />
+          <select v-model="country_code" class="form-control m-field-input">
+            <option disabled value="" selected>Country of Birth</option>
+            <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
+          </select>
         </div>
         <div class="col">
           <input type="text" v-model="place_of_birth" class="form-control m-field-input" placeholder="Place of Birth" />
@@ -105,6 +108,7 @@
 </style>
 
 <script>
+import ClubService from 'app/services/ClubService'
 export default {
   name: 'EditProfileForm',
   props: [
@@ -134,6 +138,7 @@ export default {
       weight: this.pWeight || '',
       height: this.pHeight || '',
       preferred_foot: this.preferredFoot || '',
+      countries: []
     };
   },
   methods: {
@@ -166,6 +171,15 @@ export default {
         preferred_foot,
       });
     },
+    fetchCountries() {
+      ClubService.countriesForClubs().then(response => {
+        this.$set(this, 'countries',
+                  response.countries.sort((a, b) => a.country_name > b.country_name))
+      });
+    },
+  },
+  mounted() {
+    this.fetchCountries();
   },
 };
 </script>
