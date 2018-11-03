@@ -4,9 +4,9 @@
   position: fixed;
   top: 90px;
   z-index: 100;
-  background-color: $button-background-colour;
+  background-color: $button-background-colour-on-hover;
   color: $first-touch-white;
   border-radius: 4px;
   padding: 10px;
-  box-shadow: -3px -3px 1px $button-background-colour-on-hover;
+  box-shadow: -3px -3px 1px $button-background-colour;
 }
