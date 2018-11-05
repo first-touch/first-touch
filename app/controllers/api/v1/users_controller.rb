@@ -17,12 +17,8 @@ module Api
 
       def public_profile
         result = ::V1::User::Show.(params, current_user: current_user)
-        if result.failure?
-          render json: { error: 'User not found' },
-                 status: :unprocessable_entity
-        else
-          render json: result['response'], status: :ok
-        end
+        response = FirstTouch::Endpoint.(result, ::V1::User::Representer::PublicProfile)
+        render json: response[:data], status: response[:status]
       end
 
       def update
