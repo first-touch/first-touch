@@ -18,7 +18,7 @@ gem 'stripe'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'paper_trail'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rails', '~> 5.1'
+gem 'rails'
 # pubsub
 gem 'redis'
 gem 'rolify'
