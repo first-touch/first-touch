@@ -4,9 +4,12 @@ import Vue from 'vue';
 =======
 import 'bootstrap';
 import './stylesheets/app.scss';
+<<<<<<< HEAD
 // NOTE: Not sure if this should live here
 import 'stylesheets/landingpage.scss';
 >>>>>>> [Resolves #159952028] Fix registration workflow
+=======
+>>>>>>> [Resolves] Fix background images (#76)
 import BootstrapVue from 'bootstrap-vue';
 
 import LandingPage from 'app/containers/LandingPage';

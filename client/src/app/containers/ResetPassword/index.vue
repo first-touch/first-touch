@@ -29,7 +29,7 @@
 
 <style lang="scss" scoped>
 .page-container {
-  background: url('/images/landing-page/team-logo.jpg') no-repeat center center
+  background: url('/images/landing-page/bg-teams.png') no-repeat center center
     fixed;
   background-size: cover;
   min-height: calc(100vh - 78px);

@@ -1,7 +1,7 @@
 <template>
   <div>
     <landing-navbar />
-    <div class="container-fluid">
+    <div class="container-fluid team-background">
       <div class="logo">
         <img src="/images/landing-page/ft-logo.png" alt="Ft Logo"  />
       </div>
@@ -49,6 +49,7 @@
   </div>
 </template>
 
+<<<<<<< HEAD
 <style lang="scss">
   @import '~stylesheets/molecules/m-navigation';
 </style>
@@ -65,6 +66,10 @@
   align-items: center;
   justify-content: center;
 }
+=======
+<style lang="scss" scoped>
+  @import '~stylesheets/pages/landing';
+>>>>>>> [Resolves] Fix background images (#76)
 
 form {
   margin-top: 20px;
