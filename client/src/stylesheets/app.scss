@@ -7,3 +7,12 @@
 @import 'molecules/m-forms';
 @import 'molecules/m-navigation';
 @import 'molecules/m-messaging';
+
+// Default text color to white
+// Set default font family
+// Set minimum height to the page
+body {
+  min-height: 100%;
+  font-family: 'Ubuntu', sans-serif;
+  color: $first-touch-white;
+}

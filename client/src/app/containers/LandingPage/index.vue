@@ -2,9 +2,7 @@
   <div id="content">
     <landing-navbar sticky />
     <div class="full">
-
       <div id="first-p-Slide" class="carousel slide" data-ride="carousel">
-
         <div class="row justify-content-center">
           <ol class="carousel-indicators cursor toggle">
             <li data-target="#first-p-Slide" data-slide-to="0" class="active">Main</li>
