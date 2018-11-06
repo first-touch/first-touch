@@ -8,7 +8,9 @@ class PersonalProfile < ApplicationRecord
 
   def avatar_url
     if avatar.attached?
-      Rails.application.routes.url_helpers.rails_blob_path(avatar, only_path: true)
+      Rails.application.routes.url_helpers.rails_blob_path(
+        avatar, only_path: true
+      )
     else
       FirstTouch::AVATAR
     end
