@@ -83,7 +83,6 @@ development:
     FT_AWS_ACCESS_KEY: AKIAJYS3DZ7XTTFUBN2D
     FT_AWS_SECRET_KEY: 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
     FT_AWS_REGION: us-west-1
-    FT_AWS_PRODUCTION_BUCKET_NAME: first-touch-web
     FT_AWS_S3_BUCKET_NAME: first-touch-web
     stripe:
       secret_key: sk_test_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -95,7 +94,6 @@ development:
     FT_AWS_ACCESS_KEY: AKIAJYS3DZ7XTTFUBN2D
     FT_AWS_SECRET_KEY: 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
     FT_AWS_REGION: us-west-1
-    FT_AWS_PRODUCTION_BUCKET_NAME: first-touch-web
     FT_AWS_S3_BUCKET_NAME: first-touch-web
     stripe:
       secret_key: sk_test_XXXXXXXXXXXXXXXXXXXX
