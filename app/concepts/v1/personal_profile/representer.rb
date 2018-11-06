@@ -20,6 +20,7 @@ module V1
         property :pro_status
         property :total_caps
         property :biography
+        property :avatar_url
       end
     end
   end

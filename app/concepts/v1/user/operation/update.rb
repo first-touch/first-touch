@@ -10,11 +10,24 @@ module V1
       )
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
+      step :update_avatar!
 
       private
 
-      def authorize!(options, **)
-        model && model == options[:current_user]
+      def update_avatar!(params:, model:, **)
+        return true unless params['avatar']
+        personal_profile = model.personal_profile
+        personal_profile.avatar.purge if personal_profile.avatar.attached?
+        model.personal_profile.avatar.attach(params['avatar'])
+        true
+      end
+
+      def missing_profile!(options, **)
+        options['errors'] = I18n.t('user.no_profile')
+      end
+
+      def authorize!(_options, model:, current_user:, **)
+        model && model == current_user
       end
 
       def unauthorized!(options, **)

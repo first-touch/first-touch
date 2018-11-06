@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
       # Authenticated user actions: profile get and update
       resource :user, only: %i[show update]
+      post 'users/:id/avatar', controller: :users, action: :avatar
 
       post 'users/register', to: 'users#register', as: :register
       post 'users/import', to: 'users#import', as: :import

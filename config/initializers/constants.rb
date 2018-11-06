@@ -10,4 +10,5 @@ module FirstTouch
   REGISTERABLE_REQUEST_STATUS = %w[draft publish private deleted].freeze
 
   REGISTERABLE_ORDER_STATUS = %w[completed pending_report refused refounded canceled].freeze
+  AVATAR = 'https://cdn4.iconfinder.com/data/icons/green-shopper/1068/user.png'
 end
