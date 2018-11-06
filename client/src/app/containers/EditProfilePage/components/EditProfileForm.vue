@@ -8,7 +8,7 @@
             <img data-v-8e1e5708="" :src="avatar_url" class="rounded-circle img-fluid">
           </div>
           <div class="col">
-            <input type="file" id="avatar" name="avatar" accept="image/*" class="input-file">
+            <input type="file" id="avatar" name="avatar" accept="image/*" @change="filePickerUpdated($event.target.files)" class="input-file">
             <button type="submit" class="a-bar-button">Upload</button>
           </div>
         </div>
@@ -159,8 +159,10 @@ export default {
     };
   },
   methods: {
+    filePickerUpdated(newFiles) {
+      this.avatar = newFiles[0];
+    },
     updateProfilePic() {
-      this.avatar = $('#avatar').prop('files')[0];
       if (this.avatar == undefined) {
         return;
       }
