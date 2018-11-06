@@ -19,6 +19,7 @@
               :pWeight="weight"
               :pHeight="height"
               :preferredFoot="preferredFoot"
+              :avatarUrl="avatarUrl"
               :updateUserInfo="updateUserInfo" />
           </div>
         </div>
@@ -122,6 +123,9 @@ export default {
     preferredFoot() {
       return this.personalProfile.preferred_foot || '';
     },
+    avatarUrl() {
+      return this.personalProfile.avatar_url;
+    }
   },
   methods: {
     ...mapActions(['updateUserInfo']),

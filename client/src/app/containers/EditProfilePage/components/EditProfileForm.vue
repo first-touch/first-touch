@@ -5,7 +5,7 @@
         <label>Your Profile Picture</label>
         <div class="row">
           <div class="col-2">
-            <img data-v-8e1e5708="" src="https://unsplash.it/500/500" class="rounded-circle img-fluid">
+            <img data-v-8e1e5708="" :src="avatar_url" class="rounded-circle img-fluid">
           </div>
           <div class="col">
             <input type="file" id="avatar" name="avatar" accept="image/*" class="input-file">
@@ -137,6 +137,7 @@ export default {
     'pWeight',
     'pHeight',
     'preferredFoot',
+    'avatarUrl',
     'updateUserInfo',
   ],
   data() {
@@ -153,7 +154,7 @@ export default {
       height: this.pHeight || '',
       preferred_foot: this.preferredFoot || '',
       countries: [],
-      avatar: '',
+      avatar_url: this.avatarUrl,
       formData: {}
     };
   },
