@@ -49,10 +49,6 @@
   </div>
 </template>
 
-<style lang="scss">
-  @import '~stylesheets/landingpage';
-</style>
-
 <style lang="scss" scoped>
   .container-fluid {
     background: url('/images/landing-page/bg-teams.png') no-repeat center center

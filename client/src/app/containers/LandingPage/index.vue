@@ -17,7 +17,7 @@
         <div class="carousel-inner" role="listbox">
 
           <div class="carousel-item active main">
-            <img class="menu" src="/images/landing-page/bg-teams.png" alt="First slide">
+            <img class="menu img-fluid" src="/images/landing-page/bg-teams.png" alt="First slide">
             <div class="carousel-caption intro-message">
               <div class="d-flex flex-column justify-content-center">
                 <div class="row justify-content-center">
@@ -535,13 +535,6 @@
                     </a>
                   </div>
                 </div>
-
-
-
-
-
-
-
               </div>
 
               <a class="carousel-control-prev arrowLeft" href="#toggle" role="button" data-slide="prev">
@@ -552,15 +545,11 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
               </a>
-
             </div>
           </div>
-
         </div>
-
       </div>
     </div>
-
 
     <div id="footer">
       <div class="container">
@@ -614,9 +603,12 @@
       </div>
       <!--container-->
     </div>
-
   </div>
 </template>
+
+<style lang="scss" scoped>
+  @import '~stylesheets/pages/landing';
+</style>
 
 <script>
   import LandingNavbar from 'app/components/LandingNavbar';
