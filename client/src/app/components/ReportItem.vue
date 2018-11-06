@@ -4,7 +4,7 @@
       <div class="header-wrapper">
         <div class="header col-lg-10">
           <div class="img-container">
-            <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
+            <img class="img-fluid avatar" :src="report.user.avatar_url" />
             <router-link v-if="!own" :to="{ name: 'userProfilePage', params: { id: report.user.id }}" target="_blank">{{report.user.first_name}} {{report.user.last_name}}</router-link>
           </div>
           <div class="info col-lg-8 col-md-10">
