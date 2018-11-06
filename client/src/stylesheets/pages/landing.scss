@@ -1,11 +1,12 @@
 @import '../variables';
+@import '~stylesheets/organisms/full-page';
 
 #content {
   min-height: calc(100vh - 40px);
 }
 
 .full {
-  background: $navbar-background-color2;
+  background: $navbar-background-color;
 
   .carousel {
     display: contents;
@@ -236,7 +237,7 @@
 }
 
 #third-page {
-  background: $navbar-background-color2;
+  background: $navbar-background-color;
   padding-top: 100px;
   padding-bottom: 100px;
 
@@ -294,7 +295,7 @@
 
   .polaroid-title {
     text-align: left;
-    color: $navbar-background-color2;
+    color: $navbar-background-color;
     text-transform: capitalize;
     font-weight: bold;
     padding: 50px 0 0 10px;
@@ -305,7 +306,7 @@
     position: relative;
     text-transform: lowercase;
     font-size: $third-page-polaroid-description;
-    color: $navbar-background-color2;
+    color: $navbar-background-color;
     text-align: left;
     padding-left: 10px;
     padding-top: 0;

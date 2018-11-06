@@ -20,6 +20,10 @@
   </b-navbar>
 </template>
 
+<style lang="scss" scoped>
+  @import '~stylesheets/molecules/m-navigation';
+</style>
+
 <script>
 export default {
   name: 'LandingNavbar',
