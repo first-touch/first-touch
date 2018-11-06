@@ -37,7 +37,7 @@ module V1
           'completion_status' => 'pending',
           'meta_data' => { conclusion: '' }
         }
-        result = ::V1::Report::Pending.(report_params, current_user: current_user)
+        result = ::V1::Report::Pending.(params: report_params, current_user: current_user)
         puts result['contract.default'].to_json
         if result.success?
           report = result['model']
@@ -140,7 +140,7 @@ module V1
           'status' => 'pending_report',
           'request_bid_id' => model.id
         }
-        result = ::V1::Order::CreateBidOrder.(order_params)
+        result = ::V1::Order::CreateBidOrder.(params: order_params)
         result.success?
       end
 
@@ -152,7 +152,7 @@ module V1
           type_transaction: 'charge',
           payout: false
         }
-        result = ::V1::StripeTransaction::Create.(transaction_params)
+        result = ::V1::StripeTransaction::Create.(params: transaction_params)
         if result.failure?
           stripe_logger.error("StripeTransaction creation failed for bid #{model.id}, charge_id: #{options['stripe_charge_id']}")
         end

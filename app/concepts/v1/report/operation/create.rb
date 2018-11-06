@@ -99,7 +99,7 @@ module V1
               'user' => model.user,
               'report_id' => model.id
             }
-            result = ::V1::Order::SendMoney.(order_params, user_id: options['bid'].user_id, current_user: current_user)
+            result = ::V1::Order::SendMoney.(params: order_params, user_id: options['bid'].user_id, current_user: current_user)
             return result.success?
           end
         end
@@ -108,7 +108,8 @@ module V1
 
       def persist_files!(model:, params:, current_user:, **)
         params[:files].each do |file|
-          result = ::V1::Attachment::Create.({ url: file[:url], filename: file[:filename], report: model }, current_user: current_user)
+          file_params = { url: file[:url], filename: file[:filename], report: model }
+          result = ::V1::Attachment::Create.(params: file_params, current_user: current_user)
         end
         true
       end

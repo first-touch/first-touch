@@ -49,7 +49,7 @@ module V1
               type_transaction: 'refund',
               payout: nil
             }
-            result = ::V1::StripeTransaction::Create.(transaction_params)
+            result = ::V1::StripeTransaction::Create.(params: transaction_params)
           else
             options['stripe.errors'] = I18n.t 'stripe.charge_not_found'
             result = false
@@ -85,7 +85,8 @@ module V1
 
       def persist_files!(model:, params:, current_user:, **)
         params[:files].each do |file|
-          result = ::V1::Attachment::Create.({ url: file[:url], filename: file[:filename], request_bid: model }, current_user: current_user)
+          file_params = { url: file[:url], filename: file[:filename], request_bid: model }
+          result = ::V1::Attachment::Create.(params: file_params, current_user: current_user)
         end
         true
       end

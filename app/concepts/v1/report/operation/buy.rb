@@ -125,7 +125,7 @@ module V1
           type_transaction: 'charge',
           payout: false
         }
-        result = ::V1::StripeTransaction::Create.(transaction_params)
+        result = ::V1::StripeTransaction::Create.(params: transaction_params)
         if result.success?
           stripe_transaction = result['model']
           ::StripePayoutJob.set(wait: Rails.configuration.stripe[:payout_schedule]).perform_later stripe_transaction.id

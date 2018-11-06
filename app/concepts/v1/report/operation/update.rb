@@ -21,7 +21,8 @@ module V1
       def persist_files!(model:, params:, current_user:, **)
         if !params[:files].blank?
           params[:files].each do |file|
-            result = ::V1::Attachment::Create.({ url: file[:url], filename: file[:filename], report: model }, current_user: current_user)
+            file_params = { url: file[:url], filename: file[:filename], report: model }
+            result = ::V1::Attachment::Create.(params: file_params, current_user: current_user)
           end
         end
         true

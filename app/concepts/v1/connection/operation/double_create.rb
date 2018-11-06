@@ -6,16 +6,24 @@ module V1
       step :notify_user!
 
       def create_connections!(options, params:, current_user:, **)
+        user_params = {
+          user_id: current_user.id,
+          connected_to_id: params[:connected_to_id]
+        }
         user_connection = Create.(
-          { user_id: current_user.id,
-            connected_to_id: params[:connected_to_id] },
+          params: user_params,
           current_user: current_user
         )
+
+        friend_params = {
+          user_id: params[:connected_to_id],
+          connected_to_id: current_user.id
+        }
         friend_connection = Create.(
-          { user_id: params[:connected_to_id],
-            connected_to_id: current_user.id },
+          params: friend_params,
           current_user: current_user
         )
+
         options['results'] = {
           user: user_connection,
           friend: friend_connection
