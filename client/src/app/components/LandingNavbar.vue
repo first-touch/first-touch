@@ -2,7 +2,7 @@
   <b-navbar toggleable="md" variant="" type="" :sticky="sticky" id="landing-navbar">
     <b-nav-toggle target="ft-nav-collapse" />
       <a href="/welcome" class="navbar-brand">
-        <img src="/images/landing-page/ft-logo-content-slide.png" alt="Ft logo">
+        <img src="/images/landing-page/ft-navbar-logo.png" alt="Ft logo">
       </a>
     <b-collapse isNav id="ft-nav-collapse">
       <b-nav class="ml-auto navOptions">
@@ -19,6 +19,10 @@
     </b-collapse>
   </b-navbar>
 </template>
+
+<style lang="scss" scoped>
+  @import '~stylesheets/molecules/m-navigation';
+</style>
 
 <script>
 export default {

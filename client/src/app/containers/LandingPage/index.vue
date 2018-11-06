@@ -2,9 +2,7 @@
   <div id="content">
     <landing-navbar sticky />
     <div class="full">
-
       <div id="first-p-Slide" class="carousel slide" data-ride="carousel">
-
         <div class="row justify-content-center">
           <ol class="carousel-indicators cursor toggle">
             <li data-target="#first-p-Slide" data-slide-to="0" class="active">Main</li>
@@ -17,7 +15,7 @@
         <div class="carousel-inner" role="listbox">
 
           <div class="carousel-item active main">
-            <img class="menu" src="/images/landing-page/team-logo.jpg" alt="First slide">
+            <img class="menu img-fluid" src="/images/landing-page/bg-teams.png" alt="First slide">
             <div class="carousel-caption intro-message">
               <div class="d-flex flex-column justify-content-center">
                 <div class="row justify-content-center">
@@ -41,7 +39,7 @@
           </div>
 
           <div class="carousel-item player">
-            <img class="img-fluid menu" src="/images/landing-page/BG-player.jpg" alt="Second slide">
+            <img class="img-fluid menu" src="/images/landing-page/bg-players.png" alt="Second slide">
             <div class="carousel-caption content-slides">
               <div class="row">
                 <div class="col-12">
@@ -68,7 +66,7 @@
           </div>
 
           <div class="carousel-item scouts">
-            <img class="img-fluid menu" src="/images/landing-page/BG-scouts.jpg" alt="Third slide">
+            <img class="img-fluid menu" src="/images/landing-page/bg-scouts.png" alt="Third slide">
             <div class="carousel-caption content-slides">
               <div class="row">
                 <div class="col-12">
@@ -95,7 +93,7 @@
           </div>
 
           <div class="carousel-item clubs">
-            <img class="img-fluid menu" src="/images/landing-page/BG-clubs2.jpg" alt="Fourth slide">
+            <img class="img-fluid menu" src="/images/landing-page/bg-clubs.png" alt="Fourth slide">
             <div class="carousel-caption content-slides">
               <div class="row">
                 <div class="col-12">
@@ -270,7 +268,7 @@
               </ol>
               <div class="carousel-inner">
                 <div class="carousel-item active">
-                  <img class="background-image" src="/images/landing-page/team-logo.jpg" alt="First slide">
+                  <img class="background-image" src="/images/landing-page/bg-teams.png" alt="First slide">
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
@@ -289,7 +287,7 @@
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <img class="background-image" src="/images/landing-page/team-logo.jpg" alt="First slide">
+                  <img class="background-image" src="/images/landing-page/bg-teams.png" alt="First slide">
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
@@ -308,7 +306,7 @@
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <img class="background-image" src="/images/landing-page/team-logo.jpg" alt="First slide">
+                  <img class="background-image" src="/images/landing-page/bg-teams.png" alt="First slide">
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
@@ -327,7 +325,7 @@
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <img class="background-image" src="/images/landing-page/team-logo.jpg" alt="First slide">
+                  <img class="background-image" src="/images/landing-page/bg-teams.png" alt="First slide">
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
@@ -346,7 +344,7 @@
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <img class="background-image" src="/images/landing-page/team-logo.jpg" alt="First slide">
+                  <img class="background-image" src="/images/landing-page/bg-teams.png" alt="First slide">
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
@@ -365,7 +363,7 @@
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <img class="background-image" src="/images/landing-page/team-logo.jpg" alt="First slide">
+                  <img class="background-image" src="/images/landing-page/bg-teams.png" alt="First slide">
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
@@ -535,13 +533,6 @@
                     </a>
                   </div>
                 </div>
-
-
-
-
-
-
-
               </div>
 
               <a class="carousel-control-prev arrowLeft" href="#toggle" role="button" data-slide="prev">
@@ -552,15 +543,11 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
               </a>
-
             </div>
           </div>
-
         </div>
-
       </div>
     </div>
-
 
     <div id="footer">
       <div class="container">
@@ -614,9 +601,12 @@
       </div>
       <!--container-->
     </div>
-
   </div>
 </template>
+
+<style lang="scss" scoped>
+  @import '~stylesheets/pages/landing';
+</style>
 
 <script>
   import LandingNavbar from 'app/components/LandingNavbar';

@@ -1,0 +1,29 @@
+@import '~stylesheets/variables';
+
+.container-fluid {
+  &.team-background {
+    background: url('/images/landing-page/bg-teams.png') no-repeat;
+    background-size: cover;
+  }
+
+  min-height: calc(100vh - #{$navbar-height});
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.alert.alert-danger {
+  background: transparent;
+  border: none;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #fff;
+}

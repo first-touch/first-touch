@@ -1,7 +1,7 @@
 <template>
   <div>
     <landing-navbar />
-    <div class="container-fluid">
+    <div class="container-fluid team-background">
       <div class="logo">
         <img src="/images/landing-page/ft-logo.png" alt="Ft Logo"  />
       </div>
@@ -49,21 +49,8 @@
   </div>
 </template>
 
-<style lang="scss">
-  @import '~stylesheets/landingpage';
-</style>
-
 <style lang="scss" scoped>
-  .container-fluid {
-    background: url('/images/landing-page/team-logo.jpg') no-repeat center center
-      fixed;
-    background-size: cover;
-    min-height: calc(100vh - 78px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
+  @import '~stylesheets/pages/landing';
 
   form {
     margin-top: 20px;
