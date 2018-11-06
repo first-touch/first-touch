@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'active_model_serializers'
 # tags
 gem 'acts-as-taggable-on', '~> 5.0'
-gem 'aws-sdk', '~> 2.3.0'
+gem 'aws-sdk-s3', '~> 1'
 gem 'bcrypt', '~>3.1.7'
 gem 'bundler', '>= 1.8.4'
 gem 'devise'
