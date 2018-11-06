@@ -17,6 +17,7 @@ module V1
         property :playing_positions
         property :pro_status
         property :biography
+        property :avatar
 
         validates :first_name,
                   :last_name,
