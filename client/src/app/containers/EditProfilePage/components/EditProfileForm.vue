@@ -5,11 +5,11 @@
         <label>Your Profile Picture</label>
         <div class="row">
           <div class="col-2">
-            <img data-v-8e1e5708="" :src="avatar_url" class="rounded-circle img-fluid">
-          </div>
-          <div class="col">
             <input type="file" id="avatar" name="avatar" accept="image/*" @change="filePickerUpdated($event.target.files)" class="input-file">
-            <button type="submit" class="a-bar-button">Upload</button>
+            <img data-v-8e1e5708="" :src="currentAvatar" class="rounded-circle img-fluid">
+          </div>
+          <div class="col-4">
+            <button type="submit" :disabled="noNewAvatar" class="a-bar-button">Update my picture</button>
           </div>
         </div>
       </fieldset>
@@ -117,6 +117,16 @@
     color: $main-text-color;
   }
 }
+
+.input-file {
+  opacity: 0; /* invisible but it's there! */
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  cursor: pointer;
+  margin-top: -32px;
+}
+
 </style>
 
 <script>
@@ -155,12 +165,30 @@ export default {
       preferred_foot: this.preferredFoot || '',
       countries: [],
       avatar_url: this.avatarUrl,
+      avatar: undefined,
       formData: {}
     };
+  },
+  computed: {
+    currentAvatar() {
+      if (this.avatar) {
+        return this.avatar.url;
+      } else {
+        return this.avatar_url;
+      }
+    },
+    noNewAvatar() {
+      return !this.avatar;
+    }
   },
   methods: {
     filePickerUpdated(newFiles) {
       this.avatar = newFiles[0];
+      this.avatar.url = '';
+      let URL = window.URL || window.webkitURL;
+      if (URL && URL.createObjectURL) {
+        this.avatar.url = URL.createObjectURL(this.avatar);
+      }
     },
     updateProfilePic() {
       if (this.avatar == undefined) {
