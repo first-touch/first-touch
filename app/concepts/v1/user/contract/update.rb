@@ -1,4 +1,4 @@
-require 'reform/form/validation/unique_validator'
+# require 'reform/form/validation/unique_validator'
 
 module V1
   module User
