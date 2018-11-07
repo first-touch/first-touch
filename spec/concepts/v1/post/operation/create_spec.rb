@@ -18,8 +18,6 @@ RSpec.describe V1::Post::Create do
     res['model']
   end
   let(:club) do
-    debugger
-
     res = V1::Club::Create.(
       params: {
         club: {

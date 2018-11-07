@@ -28,6 +28,7 @@ gem 'sidekiq'
 gem 'simple_command'
 gem 'simple_token_authentication'
 gem 'trailblazer-rails', '~> 2.1'
+gem "reform-rails"
 gem 'activerecord_json_validator'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
