@@ -14,7 +14,7 @@ module V1
         key = "uploads/#{SecureRandom.uuid}"
         params = { acl: 'public-read' }
         obj = s3_bucket.object key
-        options['model'] = {
+        options[:model] = {
           presigned_url: obj.presigned_url(:put, params),
           public_url: obj.public_url
         }

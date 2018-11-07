@@ -22,12 +22,12 @@ module V1
 
       def find_model!(options, params:, current_user:, **)
         options['model.class'] = ::RequestBid
-        options['model'] = model = current_user.request_bids.find_by(request_id: params[:id], status: %w[accepted joblist])
+        options[:model] = model = current_user.request_bids.find_by(request_id: params[:id], status: %w[accepted joblist])
         options['result.model'] = result = Result.new(!model.nil?, {})
         result.success?
       end
 
-      def find_report!(options, params:, model:, current_user:, **)
+      def find_report!(options, params:, current_user:, **)
         success = true
         if model.request.type_request != 'position'
           report = model.order.report
@@ -37,7 +37,7 @@ module V1
         success
       end
 
-      def refund!(options, model:, current_user:, **)
+      def refund!(options, current_user:, **)
         result = true
         if model.request.type_request != 'position'
           transaction = model.order.stripe_transactions.find_by(type_transaction: 'charge')
@@ -58,7 +58,7 @@ module V1
         result
       end
 
-      def cancel!(options, model:, **)
+      def cancel!(options, **)
         if model.request.type_request != 'position'
           model.status = 'canceled'
           report = options['report']
@@ -71,7 +71,7 @@ module V1
         true
       end
 
-      def notify!(model:, **)
+      def notify!(options, **)
         if model.request.type_request != 'position'
           begin
             ::SystemMailer.notify('cancelation', model, model.request.user.id)
@@ -83,7 +83,7 @@ module V1
         true
       end
 
-      def persist_files!(model:, params:, current_user:, **)
+      def persist_files!(options, params:, current_user:, **)
         params[:files].each do |file|
           file_params = { url: file[:url], filename: file[:filename], request_bid: model }
           result = ::V1::Attachment::Create.(params: file_params, current_user: current_user)
@@ -91,7 +91,7 @@ module V1
         true
       end
 
-      def position!(_options, model:, **)
+      def position!(_options, **)
         model.destroy if model.request.type_request == 'position'
         true
       end

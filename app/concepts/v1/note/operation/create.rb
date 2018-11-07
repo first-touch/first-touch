@@ -13,17 +13,17 @@ module V1
       step Trailblazer::Operation::Contract::Persist()
       step :ping_redis!
 
-      def setup_model!(model:, current_user:, **)
+      def setup_model!(options, current_user:, **)
         model.user = current_user
         true
       end
 
-      def set_ownership!(params:, model:, current_user:, **)
+      def set_ownership!(options, params:, current_user:, **)
         current_user.tag(model, with: params[:note][:tag_list], on: :tags, skip_save: true)
         true
       end
 
-      def ping_redis!(model:, **)
+      def ping_redis!(options, **)
         redis = Redis.new
         if model.image_url.present?
           print 'Submitting to Redis..'

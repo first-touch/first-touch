@@ -9,10 +9,10 @@ module V1
       step Trailblazer::Operation::Contract::Validate(key: :club)
       step Trailblazer::Operation::Contract::Persist()
 
-      def setup_model!(model:, params:, **)
+      def setup_model!(options, params:, **)
         owner_id = params[:club][:account_owner_id]
         account_owner = ::User.find_by id: owner_id
-        model.account_owner = account_owner
+        options[:model].account_owner = account_owner
         true
       end
     end

@@ -15,10 +15,10 @@ module V1
 
       def find_model!(options, params:, current_user:, **)
         options['model.class'] = ::Report
-        options['model'] = current_user.reports.find_by(id: params[:id])
+        options[:model] = current_user.reports.find_by(id: params[:id])
       end
 
-      def persist_files!(model:, params:, current_user:, **)
+      def persist_files!(options, params:, current_user:, **)
         if !params[:files].blank?
           params[:files].each do |file|
             file_params = { url: file[:url], filename: file[:filename], report: model }
@@ -28,7 +28,7 @@ module V1
         true
       end
 
-      def destroy_attachments!(model:, params:, **)
+      def destroy_attachments!(options, params:, **)
         unless params['remove_attachment'].blank?
           model.attachments.where(id: params['remove_attachment'].keys).destroy_all
         end

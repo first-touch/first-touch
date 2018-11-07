@@ -10,7 +10,7 @@ module V1
       private
 
       def setup_model!(options, params:, current_user:, **)
-        options['model'] = {}
+        options[:model] = {}
       end
 
       def create!(options, params:, current_user:, **)
@@ -34,7 +34,7 @@ module V1
           stripe_ft = current_user.stripe_ft
           begin
             account = ::Stripe::Account.retrieve(stripe_ft.stripe_id)
-            options['model'] = account
+            options[:model] = account
             account.external_account = token
             account.save
             if account.external_accounts.data.length == 1
@@ -61,7 +61,7 @@ module V1
             account.transfer_schedule.interval = 'manual'
             account.save
             options['stripe_id'] = account.id
-            options['model'] = account
+            options[:model] = account
           rescue StandardError => e
             options['stripe.errors'] = e
           end
@@ -70,7 +70,7 @@ module V1
             account = ::Stripe::Account.retrieve(current_user.stripe_ft.stripe_id)
             account.account_token = token
             account.save
-            options['model'] = account
+            options[:model] = account
             options['update'] = true
           rescue StandardError => e
             options['stripe.errors'] = e
@@ -95,7 +95,7 @@ module V1
       end
 
       def set_preferred_acount!(options, params:, current_user:, **)
-        account = options['model']
+        account = options[:model]
         stripe_ft = current_user.stripe_ft
         pf = stripe_ft.preferred_account
         found = false
@@ -107,7 +107,7 @@ module V1
             stripe_ft.preferred_account = account.external_accounts.data[0].id
             stripe_ft.save!
           end
-          options['model'] = account
+          options[:model] = account
         end
         account['preferred_id'] = stripe_ft.preferred_account
         true

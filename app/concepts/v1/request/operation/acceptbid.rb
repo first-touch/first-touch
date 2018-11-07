@@ -25,7 +25,7 @@ module V1
 
       private
 
-      def init_report!(_options, model:, params:, current_user:, **)
+      def init_report!(_options, params:, current_user:, **)
         request = model.request
         type_report = model.request.type_request == 'team' ? 'team' : 'player'
         report_params = {
@@ -49,7 +49,7 @@ module V1
         result.success?
       end
 
-      def delete_report!(model:, **)
+      def delete_report!(options, **)
         request = model.request
         report = ::Report.find_by user: model.user, request: request
         report&.delete
@@ -62,13 +62,13 @@ module V1
           request = current_club.requests.find(requestId)
           model = request.request_bids.find_by(id: bidId, status: 'pending')
           params['currency'] = request.price['currency'] if model
-          options['model'] = model
+          options[:model] = model
           options['model.class'] = ::RequestBid
         end
-        options['model']
+        options[:model]
       end
 
-      def save_card!(options, params:, model:, current_club:, **)
+      def save_card!(options, params:, current_club:, **)
         save = params[:save]
         success = true
         if save
@@ -98,7 +98,7 @@ module V1
 
       def payment(options, params:, current_club:, **)
         card_token = params[:token]
-        bid = options['model']
+        bid = options[:model]
         user = bid.user
         amount = bid.price['value'] * 100
         success = false
@@ -131,7 +131,7 @@ module V1
         success
       end
 
-      def order(_options, params:, model:, current_club:, **)
+      def order(_options, params:, current_club:, **)
         order_params = {
           'customer_id' => current_club.id,
           'user' => model.user,
@@ -144,7 +144,7 @@ module V1
         result.success?
       end
 
-      def persist_stripe_transaction!(options, params:, model:, **)
+      def persist_stripe_transaction!(options, params:, **)
         stripe_logger = ::Logger.new("#{Rails.root}/log/stripe_payout.log")
         transaction_params = {
           stripe_id: options['stripe_charge_id'],
@@ -159,11 +159,11 @@ module V1
         true
       end
 
-      def finalize(model:, **)
+      def finalize(options, **)
         model.status = 'accepted'
       end
 
-      def unpublish(params:, model:, **)
+      def unpublish(options, params:, **)
         if params[:keep] == false
           request = model.request
           request.status = 'private'

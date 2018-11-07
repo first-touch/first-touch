@@ -23,7 +23,7 @@ module V1
           club_id: club.id
         }
         token = JsonWebToken.encode(token_params, 1.week.from_now)
-        options['model'] = { club_token: token }
+        options[:model] = { club_token: token }
       end
     end
   end

@@ -13,12 +13,13 @@ module V1
 
       private
 
-      def setup_model!(model:, params:, **)
-        model.add_role params[:role_name]
+      def setup_model!(options, params:, **)
+        debugger
+        options[:model].add_role params[:role_name]
       end
 
       def claim_account!(options, **)
-        options['model'].unclaimed = false
+        options[:model].unclaimed = false
         true
       end
     end

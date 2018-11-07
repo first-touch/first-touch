@@ -9,8 +9,8 @@ module V1
 
       private
 
-      def owns_career_entry?(current_user:, model:, **)
-        return true if model.user_id == current_user.id
+      def owns_career_entry?(options, current_user:, **)
+        return true if options[:model].user_id == current_user.id
         false
       end
 
@@ -19,7 +19,7 @@ module V1
         options['result.policy.failure'] = [error_message]
       end
 
-      def destroy!(options, model:, **)
+      def destroy!(options, **)
         options['model.action'] = :destroy
         model.destroy
       end

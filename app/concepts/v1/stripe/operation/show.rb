@@ -13,7 +13,7 @@ module V1
           account = ::Stripe::Account.retrieve(current_user.stripe_ft.stripe_id)
           unless account.nil?
             account['preferred_id'] = current_user.stripe_ft.preferred_account
-            options['model'] = model = account
+            options[:model] = model = account
           end
         end
         true

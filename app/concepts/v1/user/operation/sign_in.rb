@@ -33,7 +33,7 @@ module V1
         )
         puts options['clubs'].to_json
 
-        options['model'] = OpenStruct.new(
+        options[:model] = OpenStruct.new(
           auth_token: jwt, clubs_token: options['clubs']
         )
       end

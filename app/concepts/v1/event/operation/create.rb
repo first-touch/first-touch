@@ -20,7 +20,7 @@ module V1
       end
 
       # FIXME: Find a way to handle multiple clubs managed by a user
-      def setup_model!(params:, model:, current_user:, **)
+      def setup_model!(options, params:, current_user:, **)
         model.organizer_id = current_user.managed_clubs.first.id
         return true unless params['opponent_id']
         model.opponent = ::Club.find_by(id: params['opponent_id'])

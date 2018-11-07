@@ -33,10 +33,10 @@ module V1
         else
           model = ::Report.new
         end
-        options['model'] = model
+        options[:model] = model
       end
 
-      def setup_model!(options, model:, current_user:, **)
+      def setup_model!(options, current_user:, **)
         if options['bid']
           unless options['position']
             request = model.request
@@ -71,7 +71,7 @@ module V1
         success
       end
 
-      def is_a_bid?(options, model:, params:, current_user:, **)
+      def is_a_bid?(options, params:, current_user:, **)
         success = true
         unless params[:job_id].blank?
           bid = ::RequestBid.find_by request_id: params[:job_id], user_id: current_user.id, status: %w[accepted joblist]
@@ -81,7 +81,7 @@ module V1
         success
       end
 
-      def persist_bid(options, model:, params:, current_user:, **)
+      def persist_bid(options, params:, current_user:, **)
         if options['bid']
           bid = options['bid']
           bid.status = 'completed'
@@ -91,7 +91,7 @@ module V1
         true
       end
 
-      def send_money(options, model:, params:, current_user:, **)
+      def send_money(options, params:, current_user:, **)
         if options['bid']
           if options['bid'].request.type_request != 'position'
             order_params = {
@@ -106,7 +106,7 @@ module V1
         true
       end
 
-      def persist_files!(model:, params:, current_user:, **)
+      def persist_files!(options, params:, current_user:, **)
         params[:files].each do |file|
           file_params = { url: file[:url], filename: file[:filename], report: model }
           result = ::V1::Attachment::Create.(params: file_params, current_user: current_user)

@@ -13,7 +13,7 @@ module V1
 
       def find_model!(options, params:, current_club:, **)
         model = current_club.requests.find_by(id: params[:id])
-        options['model'] = model
+        options[:model] = model
         options['model.class'] = ::Request
       end
     end

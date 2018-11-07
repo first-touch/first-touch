@@ -13,7 +13,7 @@ module V1
 
       private
 
-      def authorize!(model:, current_user:, **)
+      def authorize!(options, current_user:, **)
         model && model == current_user
       end
 

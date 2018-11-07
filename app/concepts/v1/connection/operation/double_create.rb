@@ -34,7 +34,7 @@ module V1
         user = results[:user]
         friend = results[:friend]
         if user.success? && friend.success?
-          options['model'] = user['model']
+          options[:model] = user['model']
           true
         elsif user.failure?
           options['contract.default'] = user['contract.default']

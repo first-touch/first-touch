@@ -14,20 +14,20 @@ module V1
 
       def find_model!(options, params:, user_id:, **)
         options['model.class'] = ::Order
-        options['model'] = ::Order.find_by request_bid_id: params['bid_id'], user_id: user_id, status: 'pending_report'
+        options[:model] = ::Order.find_by request_bid_id: params['bid_id'], user_id: user_id, status: 'pending_report'
       end
 
       def setup_model!(options, params:, user_id:, **)
-        model = options['model']
+        model = options[:model]
         model.status = 'completed'
         model.completed_date = Time.now
         model.report = ::Report.find(params['report_id'])
-        options['model'] = model
+        options[:model] = model
         model.report
       end
 
       def pay_scout!(options, params:, user_id:, **)
-        model = options['model']
+        model = options[:model]
 
         stripe_transaction = model.stripe_transactions.find_by(type_transaction: 'charge')
         if !stripe_transaction.nil?

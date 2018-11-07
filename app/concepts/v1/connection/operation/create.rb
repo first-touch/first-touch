@@ -9,7 +9,7 @@ module V1
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
 
-      def setup_model!(model:, params:, current_user:, **)
+      def setup_model!(options, params:, current_user:, **)
         model.status = if params[:user_id] == current_user.id
                          ::Connection::ACCEPTED
                        else

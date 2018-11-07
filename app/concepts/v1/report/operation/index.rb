@@ -13,14 +13,14 @@ module V1
         if current_user.is_a?(::User) && current_user.scout?
           models = current_user.reports.not_hided
         elsif !current_club.nil?
-          models = club(params, options, current_club: current_club)
+          models = club(options, params, current_club: current_club)
         end
         options['result.model'] = result = Result.new(!options['models'].nil?, {})
         options['model.class'] = ::Report
         options['models'] = models
       end
 
-      def club(_params, options, current_club:)
+      def club(options, params:, current_club:)
         if _params[:purchased] == 'true'
           purchased!(options, current_club)
         elsif !_params[:request_id].blank?

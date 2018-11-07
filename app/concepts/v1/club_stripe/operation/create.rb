@@ -39,7 +39,7 @@ module V1
           success = false
           options['stripe.errors'] = e
         end
-        options['model'] = customer
+        options[:model] = customer
         success
       end
 

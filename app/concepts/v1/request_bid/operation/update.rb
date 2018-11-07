@@ -13,7 +13,7 @@ module V1
 
       def find_model!(options, params:, current_user:, **)
         options['model.class'] = ::RequestBid
-        options['model'] = current_user.request_bids.find(params[:id])
+        options[:model] = current_user.request_bids.find(params[:id])
       end
     end
   end

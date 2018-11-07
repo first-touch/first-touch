@@ -8,8 +8,8 @@ module V1
 
       def find!(options, params:, current_user:, **)
         country = params[:country]
-        options['model'] = ::Stripe::CountrySpec.retrieve(country)
-        !options['model'].nil?
+        options[:model] = ::Stripe::CountrySpec.retrieve(country)
+        !options[:model].nil?
       end
     end
   end

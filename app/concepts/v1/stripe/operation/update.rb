@@ -16,19 +16,19 @@ module V1
           unless account.nil?
             begin
               account.external_accounts.retrieve(id)
-              options['model'] = account
+              options[:model] = account
             rescue StandardError => e
               options['stripe.errors'] = e
             end
           end
         end
-        !options['model'].nil?
+        !options[:model].nil?
       end
 
       def update!(options, params:, current_user:, **)
         id = params[:id]
         type = params[:type]
-        account = options['model']
+        account = options[:model]
         success = false
         if type == 'preferred'
           account.external_accounts.retrieve(id)
@@ -39,7 +39,7 @@ module V1
         end
         if success
           account['preferred_id'] = current_user.stripe_ft.preferred_account
-          options['model'] = account
+          options[:model] = account
         end
         success
       end

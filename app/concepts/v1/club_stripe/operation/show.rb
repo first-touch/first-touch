@@ -11,7 +11,7 @@ module V1
         model = nil
         unless current_club.stripe_id.nil?
           account = ::Stripe::Customer.retrieve(current_club.stripe_id)
-          options['model'] = model = account unless account.nil?
+          options[:model] = model = account unless account.nil?
         end
         options['result.model'] = result = Result.new(!model.nil?, {})
         true

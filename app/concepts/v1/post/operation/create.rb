@@ -9,7 +9,7 @@ module V1
       step Trailblazer::Operation::Contract::Validate(key: :post)
       step Trailblazer::Operation::Contract::Persist()
 
-      def setup_model!(model:, current_user:, **)
+      def setup_model!(options, current_user:, **)
         model.author = current_user
       end
     end

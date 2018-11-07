@@ -21,7 +21,7 @@ module V1
           end
         end
         options['model.class'] = ::Report
-        options['model'] = model
+        options[:model] = model
       end
     end
   end

@@ -13,12 +13,12 @@ module V1
 
       def find_model!(options, params:, current_user:, **)
         options['model.class'] = ::Order
-        options['model'] = model = ::Order.find_by report_id: params['report_id'], customer_id: current_user.id, status: %w[pending_report completed], refund_status: nil
+        options[:model] = model = ::Order.find_by report_id: params['report_id'], customer_id: current_user.id, status: %w[pending_report completed], refund_status: nil
         options['result.model'] = result = Result.new(!model.nil?, {})
         result.success?
       end
 
-      def send_mail!(model:, current_user:, **)
+      def send_mail!(options, current_user:, **)
         begin
           ::SystemMailer.notify('refund', model, current_user.id)
         rescue StandardError => e
@@ -28,7 +28,7 @@ module V1
         true
       end
 
-      def setup_model!(model:, current_user:, **)
+      def setup_model!(options, current_user:, **)
         model.refund_status = 'asked'
       end
     end
