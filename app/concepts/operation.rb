@@ -22,8 +22,8 @@ module FirstTouch
       options['result.policy.failure'] = :unauthorized
     end
 
-    def authenticate!(current_user:, **)
-      current_user.present?
+    def authenticate!(options, **)
+      options[:current_user].present?
     end
 
     def stripe_failure!(options, **)

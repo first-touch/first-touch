@@ -13,8 +13,8 @@ module V1
 
       private
 
-      def authorize!(options, current_user:, **)
-        model && model == current_user
+      def authorize!(options,  **)
+        model && model == options[:current_user]
       end
 
       def unauthorized!(options, **)

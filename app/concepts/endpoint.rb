@@ -4,14 +4,14 @@ module FirstTouch
       created: {
         rule: ->(result) { result.success? && result['model.action'] == :new },
         resolve: lambda do |result, representer|
-          { 'data': representer.new(result['model']),
+          { 'data': representer.new(result[:model]),
             'status': :created }
         end
       },
       deleted: {
         rule: ->(result) { result.success? && result['model.action'] == :destroy },
         resolve: lambda do |result, _representer|
-          { 'data': { id: result['model'].id },
+          { 'data': { id: result[:model].id },
             'status': :ok }
         end
       },
@@ -22,9 +22,9 @@ module FirstTouch
         end
       },
       success: {
-        rule: ->(result) { result.success? && !result['model'].nil? },
+        rule: ->(result) { result.success? && !result[:model].nil? },
         resolve: lambda do |result, representer|
-          { 'data': representer.new(result['model']), 'status': :ok }
+          { 'data': representer.new(result[:model]), 'status': :ok }
         end
       },
       unauthenticated: {
@@ -45,7 +45,7 @@ module FirstTouch
         end
       },
       empty: {
-        rule: ->(result) { result.success? && result['model'].nil? },
+        rule: ->(result) { result.success? && result[:model].nil? },
         resolve: lambda do |_result, _representer|
           { 'data': {},
             'status': :ok }

@@ -30,14 +30,14 @@ module V1
       end
 
       def setup_model!(options, current_club:, **)
-        model.customer_id = current_club.id
-        model.report = options[:model].report
-        model.price = model.report.price['value']
-        model.user = model.report.user
+        options[:model].customer_id = current_club.id
+        options[:model].report = options[:model].report
+        options[:model].price = options[:model].report.price['value']
+        options[:model].user = options[:model].report.user
       end
 
       def dest_has_stripe!(options, params:, **)
-        stripe_ft = model.user.stripe_ft
+        stripe_ft = options[:model].user.stripe_ft
         if stripe_ft.nil? || stripe_ft.preferred_account.nil?
           options['stripe.errors'] = I18n.t 'stripe.scout_stripe_not_found'
         end
@@ -108,8 +108,8 @@ module V1
       end
 
       def complete_order!(options, **)
-        model.status = 'completed'
-        model.completed_date = Time.now
+        options[:model].status = 'completed'
+        options[:model].completed_date = Time.now
         true
       end
 
@@ -127,7 +127,7 @@ module V1
         }
         result = ::V1::StripeTransaction::Create.(params: transaction_params)
         if result.success?
-          stripe_transaction = result['model']
+          stripe_transaction = result[:model]
           ::StripePayoutJob.set(wait: Rails.configuration.stripe[:payout_schedule]).perform_later stripe_transaction.id
         else
           stripe_logger.error("StripeTransaction creation failed, Payout had not be schedule, charge_id: #{options['stripe_charge_id']}")

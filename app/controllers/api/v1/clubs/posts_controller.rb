@@ -8,9 +8,9 @@ module Api
         end
 
         def create
-          result = ::V1::Post::Create.(params, current_user: @current_club)
+          result = ::V1::Post::Create.(params: params, current_user: @current_club)
           if result.success?
-            render json: ::V1::Post::Representer::Full.new(result['model']),
+            render json: ::V1::Post::Representer::Full.new(result[:model]),
                    status: :created
           elsif result['result.policy.failure'] == :unauthorized
             render json: { error: 'Unauthorized' }, status: :unauthorized

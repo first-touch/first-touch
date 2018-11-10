@@ -6,13 +6,13 @@ module V1
 
       private
 
-      def find_account!(options, params:, current_user:, **)
+      def find_account!(options, params:,  **)
         options['model.class'] = ::Stripe::Account
         model = nil
-        unless current_user.stripe_ft.nil?
-          account = ::Stripe::Account.retrieve(current_user.stripe_ft.stripe_id)
+        unless options[:current_user].stripe_ft.nil?
+          account = ::Stripe::Account.retrieve(options[:current_user].stripe_ft.stripe_id)
           unless account.nil?
-            account['preferred_id'] = current_user.stripe_ft.preferred_account
+            account['preferred_id'] = options[:current_user].stripe_ft.preferred_account
             options[:model] = model = account
           end
         end

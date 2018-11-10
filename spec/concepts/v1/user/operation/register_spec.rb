@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe V1::User::Register do
   let(:owner) do
     res = V1::User::Register.(
-      {
+      params: {
         email: 'test1@firsttouch.io',
         password: 'password',
         password_confirmation: 'password',
@@ -15,19 +15,21 @@ RSpec.describe V1::User::Register do
         }
       }
     )
-    res['model']
+    res[:model]
   end
-  let(:operation) { V1::User::Register.(params) }
+  let(:operation) { V1::User::Register.(params: params) }
   let(:existing_club) do
     res = V1::Club::Create.(
-      club: {
-        name: 'Club',
-        city: 'City',
-        country_code: 'PT',
-        account_owner_id: owner.id
+      params: {
+        club: {
+          name: 'Club',
+          city: 'City',
+          country_code: 'PT',
+          account_owner_id: owner.id
+        }
       }
     )
-    res['model']
+    res[:model]
   end
   let(:params) do
     {
@@ -47,7 +49,7 @@ RSpec.describe V1::User::Register do
   shared_examples 'registerable role' do |role_name|
     it 'registers the user' do
       expect(operation.success?).to eq true
-      user = operation['model']
+      user = operation[:model]
       expect(user).to be_persisted
       expect(user.roles.first).to eq Role.find_by(name: role_name)
     end
@@ -64,7 +66,7 @@ RSpec.describe V1::User::Register do
     let(:role_name) { 'scout' }
     it 'associates the user with the club' do
       expect(operation.success?).to eq true
-      user = operation['model']
+      user = operation[:model]
       expect(user).to be_persisted
       expect(user.clubs.first).to eq existing_club
     end
@@ -74,7 +76,7 @@ RSpec.describe V1::User::Register do
     let(:role_name) { 'admin' }
     it 'fails to register the user' do
       expect(operation.success?).to eq false
-      user = operation['model']
+      user = operation[:model]
       expect(user).to_not be_persisted
     end
   end

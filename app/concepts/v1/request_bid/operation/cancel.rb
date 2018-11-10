@@ -20,32 +20,32 @@ module V1
 
       private
 
-      def find_model!(options, params:, current_user:, **)
+      def find_model!(options, params:,  **)
         options['model.class'] = ::RequestBid
-        options[:model] = model = current_user.request_bids.find_by(request_id: params[:id], status: %w[accepted joblist])
-        options['result.model'] = result = Result.new(!model.nil?, {})
+        options[:model] = model = options[:current_user].request_bids.find_by(request_id: params[:id], status: %w[accepted joblist])
+        options['result.model'] = result = Result.new(!options[:model].nil?, {})
         result.success?
       end
 
-      def find_report!(options, params:, current_user:, **)
+      def find_report!(options, params:,  **)
         success = true
-        if model.request.type_request != 'position'
-          report = model.order.report
+        if options[:model].request.type_request != 'position'
+          report = options[:model].order.report
           options['report'] = report
           success = true if report.nil?
         end
         success
       end
 
-      def refund!(options, current_user:, **)
+      def refund!(options,  **)
         result = true
-        if model.request.type_request != 'position'
-          transaction = model.order.stripe_transactions.find_by(type_transaction: 'charge')
-          refund = PaymentUtil.refund_charge(transaction.stripe_id, model.id)
+        if options[:model].request.type_request != 'position'
+          transaction = options[:model].order.stripe_transactions.find_by(type_transaction: 'charge')
+          refund = PaymentUtil.refund_charge(transaction.stripe_id, options[:model].id)
           if refund
             transaction_params = {
               stripe_id: refund.id,
-              order: model.order,
+              order: options[:model].order,
               type_transaction: 'refund',
               payout: nil
             }
@@ -59,12 +59,12 @@ module V1
       end
 
       def cancel!(options, **)
-        if model.request.type_request != 'position'
-          model.status = 'canceled'
+        if options[:model].request.type_request != 'position'
+          options[:model].status = 'canceled'
           report = options['report']
           report.status = 'deleted'
           report.save!
-          order = model.order
+          order = options[:model].order
           order.status = 'canceled'
           order.save!
         end
@@ -72,7 +72,7 @@ module V1
       end
 
       def notify!(options, **)
-        if model.request.type_request != 'position'
+        if options[:model].request.type_request != 'position'
           begin
             ::SystemMailer.notify('cancelation', model, model.request.user.id)
           rescue StandardError => e
@@ -83,16 +83,16 @@ module V1
         true
       end
 
-      def persist_files!(options, params:, current_user:, **)
+      def persist_files!(options, params:,  **)
         params[:files].each do |file|
           file_params = { url: file[:url], filename: file[:filename], request_bid: model }
-          result = ::V1::Attachment::Create.(params: file_params, current_user: current_user)
+          result = ::V1::Attachment::Create.(params: file_params, current_user: options[:current_user])
         end
         true
       end
 
       def position!(_options, **)
-        model.destroy if model.request.type_request == 'position'
+        options[:model].destroy if options[:model].request.type_request == 'position'
         true
       end
     end

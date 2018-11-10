@@ -14,7 +14,6 @@ module V1
       private
 
       def setup_model!(options, params:, **)
-        debugger
         options[:model].add_role params[:role_name]
       end
 

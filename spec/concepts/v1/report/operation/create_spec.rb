@@ -7,7 +7,7 @@ describe V1::Report::Create do
 
   let(:report_good) do
     res = V1::Report::Create.(
-      {
+      params: {
         headline: 'The new ronaldo',
         price: 20,
         type_report: report_name,
@@ -15,14 +15,14 @@ describe V1::Report::Create do
       },
       current_user: current_user
     )
-    res['model']
+    res[:model]
   end
 
   let(:report_failed) do
-    res = V1::Report::Create.({},
+    res = V1::Report::Create.(params: {},
       current_user: current_user
     )
-    res['model']
+    res[:model]
   end
 
   describe 'when report is invalid' do
@@ -36,11 +36,12 @@ describe V1::Report::Create do
 
     it 'succeed to register the report' do
       res = V1::Report::Create.(
-        {
+        params: {
           headline: 'The new ronaldo',
           price: 20,
           type_report: report_name
-        }, current_user: current_user
+        },
+        current_user: current_user
       )
       expect(report_good).to be_persisted
     end

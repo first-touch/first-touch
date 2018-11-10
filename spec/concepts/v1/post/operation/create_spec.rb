@@ -15,7 +15,7 @@ RSpec.describe V1::Post::Create do
         }
       }
     )
-    res['model']
+    res[:model]
   end
   let(:club) do
     res = V1::Club::Create.(
@@ -28,10 +28,10 @@ RSpec.describe V1::Post::Create do
         }
       }
     )
-    res['model']
+    res[:model]
   end
 
-  let(:operation) { V1::Post::Create.(params, current_user: author) }
+  let(:operation) { V1::Post::Create.(params: params, current_user: author) }
 
   describe 'when the user is posting' do
     let(:author) { current_user }
@@ -45,7 +45,7 @@ RSpec.describe V1::Post::Create do
     describe 'when the user is allowed' do
       it 'persists the post' do
         expect(operation.success?).to eq true
-        post = operation['model']
+        post = operation[:model]
         expect(post).to be_persisted
         expect(post.author).to eq current_user
         expect(post.content).to eq 'hello'
@@ -65,7 +65,7 @@ RSpec.describe V1::Post::Create do
 
     it 'persists the post' do
       expect(operation.success?).to eq true
-      post = operation['model']
+      post = operation[:model]
       expect(post).to be_persisted
       expect(post.author).to eq club
       expect(post.content).to eq 'hello'

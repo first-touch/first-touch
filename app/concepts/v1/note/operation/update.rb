@@ -11,8 +11,8 @@ module V1
 
       private
 
-      def find_model!(options, params:, current_user:, **)
-        options[:model] = model = current_user.notes.find_by(id: params[:id])
+      def find_model!(options, params:,  **)
+        options[:model] = model = options[:current_user].notes.find_by(id: params[:id])
         options['model.class'] = ::Note
         options['result.model'] = result = Result.new(!model.nil?, {})
         result.success?

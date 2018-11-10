@@ -25,7 +25,8 @@ module V1
 
       private
 
-      def init_report!(_options, params:, current_user:, **)
+      def init_report!(options, params:,  **)
+        model = options[:model]
         request = model.request
         type_report = model.request.type_request == 'team' ? 'team' : 'player'
         report_params = {
@@ -37,10 +38,10 @@ module V1
           'completion_status' => 'pending',
           'meta_data' => { conclusion: '' }
         }
-        result = ::V1::Report::Pending.(params: report_params, current_user: current_user)
+        result = ::V1::Report::Pending.(params: report_params, current_user: options[:current_user])
         puts result['contract.default'].to_json
         if result.success?
-          report = result['model']
+          report = result[:model]
           order = model.order
           order.report = report
           order.save!
@@ -50,7 +51,7 @@ module V1
       end
 
       def delete_report!(options, **)
-        request = model.request
+        request = options[:model].request
         report = ::Report.find_by user: model.user, request: request
         report&.delete
       end
@@ -131,7 +132,8 @@ module V1
         success
       end
 
-      def order(_options, params:, current_club:, **)
+      def order(options, params:, current_club:, **)
+        model = options[:model]
         order_params = {
           'customer_id' => current_club.id,
           'user' => model.user,
@@ -148,24 +150,24 @@ module V1
         stripe_logger = ::Logger.new("#{Rails.root}/log/stripe_payout.log")
         transaction_params = {
           stripe_id: options['stripe_charge_id'],
-          order: model.order,
+          order: options[:model].order,
           type_transaction: 'charge',
           payout: false
         }
         result = ::V1::StripeTransaction::Create.(params: transaction_params)
         if result.failure?
-          stripe_logger.error("StripeTransaction creation failed for bid #{model.id}, charge_id: #{options['stripe_charge_id']}")
+          stripe_logger.error("StripeTransaction creation failed for bid #{options[:model].id}, charge_id: #{options['stripe_charge_id']}")
         end
         true
       end
 
       def finalize(options, **)
-        model.status = 'accepted'
+        options[:model].status = 'accepted'
       end
 
       def unpublish(options, params:, **)
         if params[:keep] == false
-          request = model.request
+          request = options[:model].request
           request.status = 'private'
           request.save
         end

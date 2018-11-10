@@ -18,18 +18,14 @@ module V1
       end
 
       def setup_model!(options, params:, user_id:, **)
-        model = options[:model]
-        model.status = 'completed'
-        model.completed_date = Time.now
-        model.report = ::Report.find(params['report_id'])
-        options[:model] = model
-        model.report
+        options[:model].status = 'completed'
+        options[:model].completed_date = Time.now
+        options[:model].report = ::Report.find(params['report_id'])
+        options[:model].report
       end
 
       def pay_scout!(options, params:, user_id:, **)
-        model = options[:model]
-
-        stripe_transaction = model.stripe_transactions.find_by(type_transaction: 'charge')
+        stripe_transaction = options[:model].stripe_transactions.find_by(type_transaction: 'charge')
         if !stripe_transaction.nil?
           ::StripePayoutJob.set(wait: Rails.configuration.stripe[:payout_schedule]).perform_later stripe_transaction.id
         else

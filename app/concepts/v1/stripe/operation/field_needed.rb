@@ -6,7 +6,7 @@ module V1
 
       private
 
-      def find!(options, params:, current_user:, **)
+      def find!(options, params:,  **)
         country = params[:country]
         options[:model] = ::Stripe::CountrySpec.retrieve(country)
         !options[:model].nil?

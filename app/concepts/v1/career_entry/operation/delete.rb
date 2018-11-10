@@ -9,8 +9,8 @@ module V1
 
       private
 
-      def owns_career_entry?(options, current_user:, **)
-        return true if options[:model].user_id == current_user.id
+      def owns_career_entry?(options,  **)
+        return true if options[:model].user_id == options[:current_user].id
         false
       end
 
@@ -21,7 +21,7 @@ module V1
 
       def destroy!(options, **)
         options['model.action'] = :destroy
-        model.destroy
+        options[:model].destroy
       end
     end
   end

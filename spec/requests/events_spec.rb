@@ -9,17 +9,19 @@ RSpec.describe 'Events', type: :request do
   end
   let!(:existing_user) do
     res = V1::User::Register.(
-      email: 'test@banaas.com',
-      password: '123123',
-      role_name: 'director',
-      password_confirmation: '123123',
-      personal_profile: {
-        first_name: 'Test',
-        last_name: 'Bananas',
-        birthday: '10/01/1989'
+      params: {
+        email: 'test@banaas.com',
+        password: '123123',
+        role_name: 'director',
+        password_confirmation: '123123',
+        personal_profile: {
+          first_name: 'Test',
+          last_name: 'Bananas',
+          birthday: '10/01/1989'
+        }
       }
     )
-    res['model']
+    res[:model]
   end
   let(:mocked_result) do
     instance_double(SimpleCommand, result: existing_user)
@@ -27,8 +29,8 @@ RSpec.describe 'Events', type: :request do
   let(:start_date) { 6.months.from_now }
   let(:end_date) { 6.months.from_now + 1.hour }
   let!(:existing_event) do
-    res = V1::Event::Create.(params, current_user: existing_user)
-    res['model']
+    res = V1::Event::Create.(params: params, current_user: existing_user)
+    res[:model]
   end
 
   before do

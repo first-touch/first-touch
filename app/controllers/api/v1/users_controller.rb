@@ -6,7 +6,7 @@ module Api
       before_action :track_view, only: [:public_profile]
 
       def register
-        result = ::V1::User::Register.(params)
+        result = ::V1::User::Register.(params: params)
         response = FirstTouch::Endpoint.(result, ::V1::User::Representer::SelfProfile)
         render json: response[:data], status: response[:status]
       end
@@ -16,7 +16,7 @@ module Api
       end
 
       def public_profile
-        result = ::V1::User::Show.(params, current_user: current_user)
+        result = ::V1::User::Show.(params: params, current_user: current_user)
         if result.failure?
           render json: { error: 'User not found' },
                  status: :unprocessable_entity
@@ -26,7 +26,7 @@ module Api
       end
 
       def update
-        result = ::V1::User::Update.(params, current_user: current_user)
+        result = ::V1::User::Update.(params: params, current_user: current_user)
         response = FirstTouch::Endpoint.(result, ::V1::User::Representer::SelfProfile)
         render json: response[:data], status: response[:status]
       end
@@ -40,7 +40,7 @@ module Api
       end
 
       def search
-        result = ::V1::User::Index.(params, current_user: current_user)
+        result = ::V1::User::Index.(params: params, current_user: current_user)
         if result.failure?
           render json: { error_message: result['errors'] },
                  status: :unprocessable_entity
@@ -52,12 +52,12 @@ module Api
       end
 
       def club_token
-        result = ::V1::User::ClubToken.(params, current_user: current_user)
+        result = ::V1::User::ClubToken.(params: params, current_user: current_user)
         if result.failure?
           render json: { error_message: result.errors },
                  status: :unprocessable_entity
         else
-          render json: result['model'], status: :ok
+          render json: result[:model], status: :ok
         end
       end
 

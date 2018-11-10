@@ -8,10 +8,10 @@ module V1
 
       private
 
-      def find_model!(options, params:, current_user:, current_club:, **)
+      def find_model!(options, params:,  current_club:, **)
         models = nil
-        if current_user.is_a?(::User) && current_user.scout?
-          models = current_user.reports.not_hided
+        if options[:current_user].is_a?(::User) && options[:current_user].scout?
+          models = options[:current_user].reports.not_hided
         elsif !current_club.nil?
           models = club(options, params, current_club: current_club)
         end

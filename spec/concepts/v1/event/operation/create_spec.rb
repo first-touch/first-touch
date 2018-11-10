@@ -3,20 +3,22 @@ require 'rails_helper'
 RSpec.describe V1::Event::Create do
   let(:current_user) do
     res = V1::User::Register.(
-      email: 'test@banaas.com',
-      password: '123123',
-      password_confirmation: '123123',
-      role_name: 'director',
-      personal_profile: {
-        first_name: 'Test',
-        last_name: 'Bananas',
-        birthday: '10/01/1989'
+      params: {
+        email: 'test@banaas.com',
+        password: '123123',
+        password_confirmation: '123123',
+        role_name: 'director',
+        personal_profile: {
+          first_name: 'Test',
+          last_name: 'Bananas',
+          birthday: '10/01/1989'
+        }
       }
     )
-    res['model']
+    res[:model]
   end
   let(:opponent) { FactoryBot.create :club }
-  let(:operation) { V1::Event::Create.(params, current_user: current_user) }
+  let(:operation) { V1::Event::Create.(params: params, current_user: current_user) }
   let(:start_date) { 6.months.from_now }
   let(:end_date) { 6.months.from_now + 1.hour }
   let(:params) do
@@ -38,7 +40,7 @@ RSpec.describe V1::Event::Create do
 
     it 'persists the event' do
       expect(operation.success?).to eq true
-      event = operation['model']
+      event = operation[:model]
       expect(event).to be_persisted
       expect(event.evt_type).to eq 'friendly_match'
       expect(event.organizer).to eq club
