@@ -2,7 +2,7 @@ module V1
   module Report
     class Create < FirstTouch::Operation
       step :authorized!
-      failure :unauthorized, fail_fast: true
+      failure :unauthorized!, fail_fast: true
       step :model!
       step :stripe
       failure :stripe_account_not_found!, fail_fast: true
@@ -57,7 +57,7 @@ module V1
         options[:model].user = options[:current_user]
       end
 
-      def authorized!( **)
+      def authorized!(options, **)
         options[:current_user].scout?
       end
 

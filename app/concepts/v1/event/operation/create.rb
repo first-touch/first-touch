@@ -11,7 +11,7 @@ module V1
       step Trailblazer::Operation::Contract::Validate(key: :event)
       step Trailblazer::Operation::Contract::Persist()
 
-      def authorized!( **)
+      def authorized!(options, **)
         options[:current_user].managed_clubs.count.positive?
       end
 

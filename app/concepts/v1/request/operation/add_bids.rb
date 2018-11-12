@@ -33,7 +33,7 @@ module V1
         model.status = model.request.type_request == 'position' ? 'joblist' : 'pending'
       end
 
-      def authorized!( **)
+      def authorized!(options, **)
         options[:current_user].scout?
       end
     end
