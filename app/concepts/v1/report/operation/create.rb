@@ -36,7 +36,7 @@ module V1
         options[:model] = model
       end
 
-      def setup_model!(options,  **)
+      def setup_model!(options, **)
         if options['bid']
           unless options['position']
             request = options[:model].request
@@ -61,7 +61,7 @@ module V1
         options[:current_user].scout?
       end
 
-      def stripe(params:,  **)
+      def stripe(options, params:, **)
         success = true
         unless params[:job_id].blank?
           stripe_ft = options[:current_user].stripe_ft

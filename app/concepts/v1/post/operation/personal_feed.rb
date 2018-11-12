@@ -13,8 +13,8 @@ module V1
 
       private
 
-      def relevant_user_ids(options, **)
-        [options[:current_user].id] + options[:current_user].following_ids
+      def relevant_user_ids(current_user)
+        [current_user.id] + current_user.following_ids
       end
     end
   end
