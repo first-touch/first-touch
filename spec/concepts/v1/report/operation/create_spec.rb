@@ -2,7 +2,20 @@ require 'rails_helper'
 
 describe V1::Report::Create do
   let(:current_user) do
-    create :user
+    res = V1::User::Register.(
+      params: {
+        email: 'test@banaas.com',
+        password: '123123',
+        password_confirmation: '123123',
+        role_name: 'scout',
+        personal_profile: {
+          first_name: 'Test',
+          last_name: 'Bananas',
+          birthday: '10/01/1989'
+        }
+      }
+    )
+    res[:model]
   end
 
   let(:report_good) do
@@ -39,11 +52,12 @@ describe V1::Report::Create do
         params: {
           headline: 'The new ronaldo',
           price: 20,
-          type_report: report_name
+          status: 'pending',
+          type_report: 'player'
         },
         current_user: current_user
       )
-      expect(report_good).to be_persisted
+      expect(res).to be_persisted
     end
   end
 
