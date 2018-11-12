@@ -6,63 +6,61 @@
 
     <b-row>
 
-      <b-col lg="8" md="8" sm="12">
+      <b-col lg="12" md="12" sm="12">
+
+
 
         <div class="month">
             <ul class="weekdays">
-              <li>Mo</li>
-              <li>Tu</li>
-              <li>We</li>
-              <li>Th</li>
-              <li>Fr</li>
-              <li>Sa</li>
-              <li>Su</li>
+              <li class="list-group-item">Mo</li>
+              <li class="list-group-item">Tu</li>
+              <li class="list-group-item">We</li>
+              <li class="list-group-item">Th</li>
+              <li class="list-group-item">Fr</li>
+              <li class="list-group-item">Sa</li>
+              <li class="list-group-item">Su</li>
             </ul>
+
             <ul class="days">
-              <li>1</li>
-              <li>2</li>
-              <li>3</li>
-              <li>4</li>
-              <li><span class="active">5</span></li>
-              <li>6</li>
-              <li>7</li>
-              <li>8</li>
-              <li>9</li>
-              <li>10</li>
-              <li>11</li>
-              <li>12</li>
-              <li>13</li>
-              <li>14</li>
-              <li><span class="active">15</span></li>
-              <li>16</li>
-              <li>17</li>
-              <li>18</li>
-              <li>19</li>
-              <li>20</li>
-              <li>21</li>
-              <li>22</li>
-              <li>23</li>
-              <li>24</li>
-              <li>25</li>
-              <li>26</li>
-              <li>27</li>
-              <li>28</li>
-              <li>29</li>
-              <li>30</li>
-              <li>1</li>
-              <li>2</li>
-              <li>3</li>
-              <li>4</li>
-              <li>5</li>
-            </ul>
+              <li class="list-group-item">1</li>
+              <li class="list-group-item">2</li>
+              <li class="list-group-item">3</li>
+              <li class="list-group-item">4</li>
+              <li class="list-group-item"><span class="active">5</span></li>
+              <li class="list-group-item">6</li>
+              <li class="list-group-item">7</li>
+              <li class="list-group-item">8</li>
+              <li class="list-group-item">9</li>
+              <li class="list-group-item">10</li>
+              <li class="list-group-item">11</li>
+              <li class="list-group-item">12</li>
+              <li class="list-group-item">13</li>
+              <li class="list-group-item">14</li>
+              <li class="list-group-item"><span class="active">15</span></li>
+              <li class="list-group-item">16</li>
+              <li class="list-group-item">17</li>
+              <li class="list-group-item">18</li>
+              <li class="list-group-item">19</li>
+              <li class="list-group-item">20</li>
+              <li class="list-group-item">21</li>
+              <li class="list-group-item">22</li>
+              <li class="list-group-item">23</li>
+              <li class="list-group-item">24</li>
+              <li class="list-group-item">25</li>
+              <li class="list-group-item">26</li>
+              <li class="list-group-item">27</li>
+              <li class="list-group-item">28</li>
+              <li class="list-group-item">29</li>
+              <li class="list-group-item">30</li>
+              <li class="list-group-item">1</li>
+              <li class="list-group-item">2</li>
+              <li class="list-group-item">3</li>
+              <li class="list-group-item">4</li>
+              <li class="list-group-item">5</li>
+            </ul>           
             <div class="clear"></div>
           </div>
-
-      </b-col>
-
-       <b-col lg="4" md="4" sm="12">
-
-        <div class="month_live">
+          <div class="month_live">
 
             <div class="up_month">
                <i class="fa fa-angle-up" aria-hidden="true"></i>
@@ -82,13 +80,17 @@
             <div class="clear"></div>
           </div>
 
-    </b-col>
+
+
+      </b-col>
+
+       
 
     <b-col lg="12" md="12" sm="12">
 
           <div class="create_sec">
-        <div class="clender_img"><img src="http://demourls.xyz/first-touch/calender.png"></div>
-        <div class="events_tac"> <div class="right_line_arrow"><img src="http://demourls.xyz/first-touch/right_tac.png"></div>
+        <div class="clender_img"><img src="../../../img/calender.png"></div>
+        <div class="events_tac"> <div class="right_line_arrow"><img src="../../../img/right_tac.png"></div>
             <h3> CREATE A NEW EVENT</h3>
         </div>
       </div>
@@ -100,7 +102,7 @@
 
         <div class="month_date_sec"><p>05</p><p>JUN</p></div>
 
-        <div class="right_arrow_icon"><img src="http://demourls.xyz/first-touch/right_tac-shot.png"></div>
+        <div class="right_arrow_icon"><img src="../../../img/right_tac-shot.png"></div>
 
         <div class="champions_sec">
             <div class="box_type"></div>
@@ -131,7 +133,7 @@
           </div>
 
           <div class="dote_sec">
-            <img src="http://demourls.xyz/first-touch/dote_icon.png">
+            <img src="../../../img/dote_icon.png">
           </div>
         </div>
 
@@ -145,7 +147,7 @@
 
         <div class="green_date_sec"><p>15</p><p>JUN</p></div>
 
-        <div class="right_arrow_icon"><img src="http://demourls.xyz/first-touch/green_line.png"></div>
+        <div class="right_arrow_icon"><img src="../../../img/green_line.png"></div>
 
         <div class="champions_sec">
             <div class="box_type"></div>
@@ -176,7 +178,7 @@
           </div>
 
           <div class="dote_sec">
-            <img src="http://demourls.xyz/first-touch/dote_icon.png">
+            <img src="../../../img/dote_icon.png">
           </div>
         </div>
 

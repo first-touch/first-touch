@@ -1,0 +1,28 @@
+
+
+Home Page =>
+> Profile Crousel Slider
+>Share a thought Section
+
+
+Profile Page =>
+>Your Profile Page Footbar players section
+>Carrier Statics 
+
+
+Calender Page=>
+> Calender Section
+> Add New Event
+
+Message Page=>
+> Career Statics section
+>Chat box section
+ 
+ My Network Page=>
+ > My Network Section 
+
+ Right Sidebar 
+> About dropdown
+> setting dropdown
+
+

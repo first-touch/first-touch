@@ -10,7 +10,7 @@
                      <b-col id="career-statics-inner">
                      <b-col id="career-statics-inner-1">
                      <b-col id="career-statics-inner-2">
-                                <img src="http://demourls.xyz/first-touch/lionel-img.png">
+                                <img src="../../../../img/lionel-img.png">
                                         </b-col>
                                     <h3>{{ info.author_name }}</h3>
                                     <p>{{ info.author_status }}</p>

@@ -175,7 +175,7 @@
     color: #969696;
     font-size: 13px;
     font-family: 'ubunturegular';
-    background: url(http://demourls.xyz/first-touch/user.png) no-repeat 0px 20px;
+    background: url(../../img/user.png) no-repeat 0px 20px;
     padding-left: 27px;
     display: inline-block;
     width: 100%;
@@ -194,7 +194,7 @@
 }
 
 .list li:hover {
-    background: #000 url(http://demourls.xyz/first-touch/left_arrow_hover.png) no-repeat;
+    background: #000 url(../../img/left_arrow_hover.png) no-repeat;
 }
 
 

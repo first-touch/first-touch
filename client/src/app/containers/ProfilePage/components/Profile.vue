@@ -3,7 +3,7 @@
   <timeline-item>
     <div class="profile-item-container" v-if="info">
       <div class="top">
-        <img class="img-fluid avatar" src="http://demourls.xyz/first-touch/profile_pic.png " />
+        <img class="img-fluid avatar" src = "../../../../img/profile_pic.png" />
         <div class="info">
           <h4 class="name">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
           <p class="role">{{ role }}</p>
@@ -73,7 +73,7 @@
         <div class="position">
           <p class="position-title">Playing position</p>
           <p class="position-content">{{ info.personal_profile.playing_position }}</p>
-          <img class="img-fluid position-map" src="http://demourls.xyz/first-touch/plaing_img.png" />
+          <img class="img-fluid position-map" src="../../../../img/plaing_img.png" />
         </div>
       </div>
     </div>

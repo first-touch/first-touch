@@ -28,13 +28,13 @@
         <b-col lg="6" md="6" id="leonel_sec">
 
           <div class="leonel_tittle">
-            <div class="glob_sec"> <img src="http://demourls.xyz/first-touch/lionel-img.png"> </div>
+            <div class="glob_sec"> <img src="../../../img/lionel-img.png"> </div>
             <div class="player_sec">
               <h3>LEONEL MESSI</h3>
               <p>Football player</p>
               <p>Barcelona FC, Spain</p>
             </div>
-            <img src="http://demourls.xyz/first-touch/dote.png">
+            <img src="../../../img/dote.png">
             <div class="clear"></div>
           </div>
 
@@ -43,74 +43,46 @@
         <b-col lg="6" md="6" id="leonel_sec">
 
           <div class="leonel_tittle_right">
-            <div class="glob_sec"> <img src="http://demourls.xyz/first-touch/lionel-img.png"> </div>
+            <div class="glob_sec"> <img src="../../../img/lionel-img.png"> </div>
             <div class="player_sec">
               <h3>LEONEL MESSI</h3>
               <p>Football player</p>
               <p>Barcelona FC, Spain</p>
             </div>
-            <img src="http://demourls.xyz/first-touch/dote.png">
+            <img src="../../../img/dote.png">
             <div class="clear"></div>
           </div>
 
          </b-col>
 
-
-         <b-col lg="6" md="6" id="leonel_sec">
+     <b-col lg="6" md="6" id="leonel_sec">
 
           <div class="leonel_tittle">
-            <div class="glob_sec"> <img src="http://demourls.xyz/first-touch/lionel-img.png"> </div>
+            <div class="glob_sec"> <img src="../../../img/lionel-img.png"> </div>
             <div class="player_sec">
               <h3>LEONEL MESSI</h3>
               <p>Football player</p>
               <p>Barcelona FC, Spain</p>
             </div>
-            <img src="http://demourls.xyz/first-touch/dote.png">
+            <img src="../../../img/dote.png">
             <div class="clear"></div>
           </div>
 
         </b-col>
 
-        <b-col lg="6" md="6" id="leonel_sec">
 
-          <div class="leonel_tittle_right">
-            <div class="glob_sec"> <img src="http://demourls.xyz/first-touch/lionel-img.png"> </div>
-            <div class="player_sec">
-              <h3>LEONEL MESSI</h3>
-              <p>Football player</p>
-              <p>Barcelona FC, Spain</p>
-            </div>
-            <img src="http://demourls.xyz/first-touch/dote.png">
-            <div class="clear"></div>
-          </div>
-
-         </b-col>
-
-         <b-col lg="6" md="6" id="leonel_sec">
-
-          <div class="leonel_tittle">
-            <div class="glob_sec"> <img src="http://demourls.xyz/first-touch/lionel-img.png"> </div>
-            <div class="player_sec">
-              <h3>LEONEL MESSI</h3>
-              <p>Football player</p>
-              <p>Barcelona FC, Spain</p>
-            </div>
-            <img src="http://demourls.xyz/first-touch/dote.png">
-            <div class="clear"></div>
-          </div>
-
-        </b-col>
+        
 
         <b-col lg="6" md="6" id="leonel_sec">
 
           <div class="leonel_tittle_right">
-            <div class="glob_sec"> <img src="http://demourls.xyz/first-touch/lionel-img.png"> </div>
+            <div class="glob_sec"> <img src="../../../img/lionel-img.png"> </div>
             <div class="player_sec">
               <h3>LEONEL MESSI</h3>
               <p>Football player</p>
               <p>Barcelona FC, Spain</p>
             </div>
-            <img src="http://demourls.xyz/first-touch/dote.png">
+            <img src="../../../img/dote.png">
             <div class="clear"></div>
           </div>
 
@@ -119,13 +91,13 @@
          <b-col lg="6" md="6" id="leonel_sec">
 
           <div class="leonel_tittle">
-            <div class="glob_sec"> <img src="http://demourls.xyz/first-touch/lionel-img.png"> </div>
+            <div class="glob_sec"> <img src="../../../img/lionel-img.png"> </div>
             <div class="player_sec">
               <h3>LEONEL MESSI</h3>
               <p>Football player</p>
               <p>Barcelona FC, Spain</p>
             </div>
-            <img src="http://demourls.xyz/first-touch/dote.png">
+            <img src="../../../img/dote.png">
             <div class="clear"></div>
           </div>
 
@@ -134,13 +106,13 @@
         <b-col lg="6" md="6" id="leonel_sec">
 
           <div class="leonel_tittle_right">
-            <div class="glob_sec"> <img src="http://demourls.xyz/first-touch/lionel-img.png"> </div>
+            <div class="glob_sec"> <img src="../../../img/lionel-img.png"> </div>
             <div class="player_sec">
               <h3>LEONEL MESSI</h3>
               <p>Football player</p>
               <p>Barcelona FC, Spain</p>
             </div>
-            <img src="http://demourls.xyz/first-touch/dote.png">
+            <img src="../../../img/dote.png">
             <div class="clear"></div>
           </div>
 
@@ -149,13 +121,13 @@
          <b-col lg="6" md="6" id="leonel_sec">
 
           <div class="leonel_tittle">
-            <div class="glob_sec"> <img src="http://demourls.xyz/first-touch/lionel-img.png"> </div>
+            <div class="glob_sec"> <img src="../../../img/lionel-img.png"> </div>
             <div class="player_sec">
               <h3>LEONEL MESSI</h3>
               <p>Football player</p>
               <p>Barcelona FC, Spain</p>
             </div>
-            <img src="http://demourls.xyz/first-touch/dote.png">
+            <img src="../../../img/dote.png">
             <div class="clear"></div>
           </div>
 
@@ -164,13 +136,13 @@
         <b-col lg="6" md="6" id="leonel_sec">
 
           <div class="leonel_tittle_right">
-            <div class="glob_sec"> <img src="http://demourls.xyz/first-touch/lionel-img.png"> </div>
+            <div class="glob_sec"> <img src="../../../img/lionel-img.png"> </div>
             <div class="player_sec">
               <h3>LEONEL MESSI</h3>
               <p>Football player</p>
               <p>Barcelona FC, Spain</p>
             </div>
-            <img src="http://demourls.xyz/first-touch/dote.png">
+            <img src="../../../img/dote.png">
             <div class="clear"></div>
           </div>
 
@@ -179,13 +151,13 @@
          <b-col lg="6" md="6" id="leonel_sec">
 
           <div class="leonel_tittle">
-            <div class="glob_sec"> <img src="http://demourls.xyz/first-touch/lionel-img.png"> </div>
+            <div class="glob_sec"> <img src="../../../img/lionel-img.png"> </div>
             <div class="player_sec">
               <h3>LEONEL MESSI</h3>
               <p>Football player</p>
               <p>Barcelona FC, Spain</p>
             </div>
-            <img src="http://demourls.xyz/first-touch/dote.png">
+            <img src="../../../img/dote.png">
             <div class="clear"></div>
           </div>
 
@@ -194,13 +166,43 @@
         <b-col lg="6" md="6" id="leonel_sec">
 
           <div class="leonel_tittle_right">
-            <div class="glob_sec"> <img src="http://demourls.xyz/first-touch/lionel-img.png"> </div>
+            <div class="glob_sec"> <img src="../../../img/lionel-img.png"> </div>
             <div class="player_sec">
               <h3>LEONEL MESSI</h3>
               <p>Football player</p>
               <p>Barcelona FC, Spain</p>
             </div>
-            <img src="http://demourls.xyz/first-touch/dote.png">
+            <img src="../../../img/dote.png">
+            <div class="clear"></div>
+          </div>
+
+         </b-col>
+
+         <b-col lg="6" md="6" id="leonel_sec">
+
+          <div class="leonel_tittle">
+            <div class="glob_sec"> <img src="../../../img/lionel-img.png"> </div>
+            <div class="player_sec">
+              <h3>LEONEL MESSI</h3>
+              <p>Football player</p>
+              <p>Barcelona FC, Spain</p>
+            </div>
+            <img src="../../../img/dote.png">
+            <div class="clear"></div>
+          </div>
+
+        </b-col>
+
+        <b-col lg="6" md="6" id="leonel_sec">
+
+          <div class="leonel_tittle_right">
+            <div class="glob_sec"> <img src="../../../img/lionel-img.png"> </div>
+            <div class="player_sec">
+              <h3>LEONEL MESSI</h3>
+              <p>Football player</p>
+              <p>Barcelona FC, Spain</p>
+            </div>
+            <img src="../../../img/dote.png">
             <div class="clear"></div>
           </div>
 

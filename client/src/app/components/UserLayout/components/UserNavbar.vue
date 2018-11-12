@@ -194,17 +194,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
 
-
-
-  .sidenav-left{
-           height: 130vh;}
-
-
-
-
-}
 
 
 

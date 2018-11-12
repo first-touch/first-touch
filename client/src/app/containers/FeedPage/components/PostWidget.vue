@@ -6,7 +6,7 @@
         <b-btn v-b-toggle.post-text>
           <div class="row">
             <div class="col no-padding">
-              <img src="http://demourls.xyz/first-touch/newpost.png">
+              <img src="../../../../img/newpost.png">
             </div>
             <div class="col">
               Publish
@@ -20,7 +20,7 @@
         <b-btn v-b-toggle.post-media>
           <div class="row">
             <div class="col no-padding">
-              <img src="http://demourls.xyz/first-touch/picture.png">
+              <img src="../../../../img/picture.png">
             </div>
             <div class="col">
               Upload
@@ -121,7 +121,7 @@
 
 .profile_div {
     width: 96%;
-    background: url(http://demourls.xyz/first-touch/img02.png) repeat-y;
+    background: url(../../../../img/img02.png) repeat-y;
     padding-left: 25px;
     position: relative;
 }
