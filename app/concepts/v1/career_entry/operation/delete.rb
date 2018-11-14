@@ -9,7 +9,7 @@ module V1
 
       private
 
-      def owns_career_entry?(options,  **)
+      def owns_career_entry?(options, **)
         return true if options[:model].user_id == options[:current_user].id
         false
       end

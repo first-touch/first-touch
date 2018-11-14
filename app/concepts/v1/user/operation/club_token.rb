@@ -5,7 +5,7 @@ module V1
       failure :club_not_found!, fail_fast: true
       step :generate_club_token!
 
-      def look_for_club!(options,  **)
+      def look_for_club!(options, **)
         # FIXME: Theoretically a user can own more than one club.
         # For simplicity we assume there aren't scenarios like that for now
         options['club'] = options[:current_user].clubs.first
@@ -16,7 +16,7 @@ module V1
         options['result.model'] = I18n.t 'not_club_owner'
       end
 
-      def generate_club_token!(options,  club:, **)
+      def generate_club_token!(options, club:, **)
         token_params = {
           account_owner_id: options[:current_user].id,
           account_owner_last_logout: options[:current_user].last_logout_at,

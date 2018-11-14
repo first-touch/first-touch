@@ -27,7 +27,7 @@ module V1
         options[:model].request
       end
 
-      def setup_model!(options,  **)
+      def setup_model!(options, **)
         model = options[:model]
         model.user = options[:current_user]
         model.status = model.request.type_request == 'position' ? 'joblist' : 'pending'

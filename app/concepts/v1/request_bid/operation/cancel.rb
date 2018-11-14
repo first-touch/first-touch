@@ -37,7 +37,7 @@ module V1
         success
       end
 
-      def refund!(options,  **)
+      def refund!(options, **)
         result = true
         if options[:model].request.type_request != 'position'
           transaction = options[:model].order.stripe_transactions.find_by(type_transaction: 'charge')

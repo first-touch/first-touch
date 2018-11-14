@@ -71,7 +71,7 @@ module V1
         success
       end
 
-      def is_a_bid?(options, params:,  **)
+      def is_a_bid?(options, params:, **)
         success = true
         unless params[:job_id].blank?
           bid = ::RequestBid.find_by request_id: params[:job_id], user_id: options[:current_user].id, status: %w[accepted joblist]
@@ -107,6 +107,7 @@ module V1
       end
 
       def persist_files!(options, params:,  **)
+        return true if params[:files].blank?
         params[:files].each do |file|
           file_params = { url: file[:url], filename: file[:filename], report: model }
           result = ::V1::Attachment::Create.(params: file_params, current_user: options[:current_user])

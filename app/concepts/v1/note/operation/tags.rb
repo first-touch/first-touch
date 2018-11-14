@@ -3,7 +3,7 @@ module V1
     class Tags < Trailblazer::Operation
       step :get_tags!
 
-      def get_tags!(options,  **)
+      def get_tags!(options, **)
         tags = options[:current_user].owned_tags.pluck(:name)
         options['models'] = tags
         true

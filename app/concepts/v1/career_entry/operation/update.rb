@@ -12,7 +12,7 @@ module V1
       step Trailblazer::Operation::Contract::Validate(key: :career_entry)
       step Trailblazer::Operation::Contract::Persist()
 
-      def owns_career_entry?(options,  **)
+      def owns_career_entry?(options, **)
         return true if options[:model].user_id == options[:current_user].id
         false
       end
@@ -28,7 +28,7 @@ module V1
         options[:model].club = ::Club.find_by id: club_id
       end
 
-      def setup_user!(options,  **)
+      def setup_user!(options, **)
         options[:model].user = options[:current_user]
         true
       end

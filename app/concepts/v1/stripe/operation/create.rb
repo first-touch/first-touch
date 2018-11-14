@@ -19,9 +19,9 @@ module V1
         type = params['type']
         if !token.nil?
           if type == 'account'
-            create_update_stripe_account(options,  token, country)
+            create_update_stripe_account(options, token, country)
           elsif type == 'bank_account'
-            create_update_bank_account(options,  token, country)
+            create_update_bank_account(options, token, country)
           end
         else
           options['stripe.errors'] = 'token_not_found'
@@ -29,7 +29,7 @@ module V1
         options['stripe_id'] || options['update']
       end
 
-      def create_update_bank_account(options,  token, _country)
+      def create_update_bank_account(options, token, _country)
         if !options[:current_user].stripe_ft.nil?
           stripe_ft = options[:current_user].stripe_ft
           begin
@@ -50,7 +50,7 @@ module V1
         end
       end
 
-      def create_update_stripe_account(options,  token, country)
+      def create_update_stripe_account(options, token, country)
         if options[:current_user].stripe_ft.nil? && country
           begin
             account = ::Stripe::Account.create(

@@ -18,7 +18,7 @@ module V1
         result.success?
       end
 
-      def send_mail!(options,  **)
+      def send_mail!(options, **)
         begin
           ::SystemMailer.notify('refund', model, options[:current_user].id)
         rescue StandardError => e
@@ -28,7 +28,7 @@ module V1
         true
       end
 
-      def setup_model!(options,  **)
+      def setup_model!(options, **)
         options[:model].refund_status = 'asked'
       end
     end

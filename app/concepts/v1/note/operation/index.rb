@@ -3,7 +3,7 @@ module V1
     class Index < Trailblazer::Operation
       step :setup_model!
 
-      def setup_model!(options,  **)
+      def setup_model!(options, **)
         options['models'] = options[:current_user].notes.includes(:tags)
       end
     end

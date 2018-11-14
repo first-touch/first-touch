@@ -45,19 +45,34 @@ describe V1::Report::Create do
   end
 
   describe 'when report is valid' do
-    let(:report_name) { 'player' }
+    let(:report_type) { 'player' }
+    let(:report_status) { 'pending' }
+    let(:meta_data) do
+      {
+        "player_info": {
+          "nationality_country_code": "123",
+          "residence_country_code": "123"
+        }
+      }
+    end
 
-    it 'succeed to register the report' do
+    let(:successful_report) do
       res = V1::Report::Create.(
         params: {
+          user: current_user,
           headline: 'The new ronaldo',
           price: 20,
-          status: 'pending',
-          type_report: 'player'
+          status: report_status,
+          type_report: report_type,
+          meta_data: meta_data
         },
         current_user: current_user
       )
-      expect(res).to be_persisted
+      res[:model]
+    end
+
+    it 'succeed to register the report' do
+      expect(successful_report).to be_persisted
     end
   end
 

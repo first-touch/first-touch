@@ -8,7 +8,7 @@ module V1
 
       private
 
-      def find_model!(options,  current_club:, **)
+      def find_model!(options, current_club:, **)
         if options[:current_user].is_a?(::User) && options[:current_user].scout?
           stripe_ft = options[:current_user].stripe_ft
           models = if !stripe_ft.nil? && !stripe_ft.preferred_account.nil?

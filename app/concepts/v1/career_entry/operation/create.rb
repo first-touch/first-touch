@@ -16,7 +16,7 @@ module V1
         options[:model].club = ::Club.find_by id: club_id
       end
 
-      def setup_user!(options,  **)
+      def setup_user!(options, **)
         options[:model].user = options[:current_user]
         true
       end

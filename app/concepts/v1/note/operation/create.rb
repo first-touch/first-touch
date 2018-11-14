@@ -13,7 +13,7 @@ module V1
       step Trailblazer::Operation::Contract::Persist()
       step :ping_redis!
 
-      def setup_model!(options,  **)
+      def setup_model!(options, **)
         options[:model].user = options[:current_user]
         true
       end
