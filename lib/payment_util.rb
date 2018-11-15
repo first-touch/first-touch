@@ -2,22 +2,26 @@ class PaymentUtil
   class << self
     def stripe_charge(params, current_club:)
       stripe_logger = ::Logger.new("#{Rails.root}/log/stripe.log")
-      ft_fees = (Rails.configuration.stripe[:fees].nil?) ? 0.05: Rails.configuration.stripe[:fees]
+      ft_fees = if Rails.configuration.stripe[:fees].nil?
+                  0.05
+                else
+                  Rails.configuration.stripe[:fees]
+                end
       fees = (params[:amount] * ft_fees).round
       amount = params[:amount] - fees
       charge = nil
-      errors = nil
+
       begin
         charge_params = {
-          :amount => params[:amount] - fees,
-          :currency => params[:currency],
-          :source => params[:card_token],
-          :application_fee => fees,
-          :destination => {
-            :account => params[:account],
+          amount: params[:amount] - fees,
+          currency: params[:currency],
+          source: params[:card_token],
+          application_fee: fees,
+          destination: {
+            account: params[:account]
           }
         }
-        if !params[:customer].nil?
+        unless params[:customer].nil?
           charge_params['customer'] = params[:customer]
         end
         charge = ::Stripe::Charge.create(charge_params)
@@ -40,11 +44,11 @@ class PaymentUtil
       refund = nil
       begin
         charge = Stripe::Charge.retrieve(charge_id)
-        refund = Stripe::Refund.create({
-          charge: charge_id,
-          amount: charge.amount,
-        })
-        stripe_logger.info("StripeRefund: Charge id : #{charge_id} succefuly refunded ! ")
+        refund = Stripe::Refund.create(params: {
+                                         charge: charge_id,
+                                         amount: charge.amount
+                                       })
+        stripe_logger.info("StripeRefund: Charge id : #{charge_id} succefuly refunded !")
       rescue => e
         body = e.json_body
         stripe_logger.error("StripeRefund: Can not refund charge with stripe id #{charge_id} for bid id = #{bid_id} stripe_error: #{body}")

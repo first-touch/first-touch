@@ -81,7 +81,7 @@ module V1
         success
       end
 
-      def persist_bid(options, params:,  **)
+      def persist_bid(options, **)
         if options['bid']
           bid = options['bid']
           bid.status = 'completed'
@@ -91,7 +91,7 @@ module V1
         true
       end
 
-      def send_money(options, params:,  **)
+      def send_money(options, **)
         if options['bid']
           if options['bid'].request.type_request != 'position'
             order_params = {
@@ -99,7 +99,11 @@ module V1
               'user' => options[:model].user,
               'report_id' => options[:model].id
             }
-            result = ::V1::Order::SendMoney.(params: order_params, user_id: options['bid'].user_id, current_user: options[:current_user])
+            result = ::V1::Order::SendMoney.(
+              params: order_params,
+              user_id: options['bid'].user_id,
+              current_user: options[:current_user]
+            )
             return result.success?
           end
         end
@@ -110,7 +114,7 @@ module V1
         return true if params[:files].blank?
         params[:files].each do |file|
           file_params = { url: file[:url], filename: file[:filename], report: model }
-          result = ::V1::Attachment::Create.(params: file_params, current_user: options[:current_user])
+          ::V1::Attachment::Create.(params: file_params, current_user: options[:current_user])
         end
         true
       end

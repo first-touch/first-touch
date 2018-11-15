@@ -49,7 +49,7 @@ RSpec.describe V1::Post::PersonalFeed do
     )
     res[:model]
   end
-  let(:operation) { V1::Post::PersonalFeed.({}, current_user: current_user) }
+  let(:operation) { V1::Post::PersonalFeed.(params: {}, current_user: current_user) }
 
   before do
     current_user.follow(user1)
