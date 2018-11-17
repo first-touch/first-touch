@@ -13,7 +13,7 @@ module Api
       private
 
       def authenticate_request
-        res = ::V1::Session::Validate.(headers: request.headers)
+        res = ::V1::Session::Validate.(params: { headers: request.headers })
         if res.failure?
           render json: { error: 'Not Authorized' }, status: :unauthorized
           return

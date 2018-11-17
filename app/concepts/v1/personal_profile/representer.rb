@@ -3,6 +3,7 @@ module V1
     module Representer
       class Simplified < Representable::Decorator
         include Representable::JSON
+        include Rails.application.routes.url_helpers
 
         property :id
         property :first_name
@@ -20,7 +21,15 @@ module V1
         property :pro_status
         property :total_caps
         property :biography
-        property :avatar_url
+        property :avatar_url, exec_context: :decorator
+
+        def avatar_url
+          if represented.avatar.attached?
+            rails_blob_path(represented.avatar)
+          else
+            FirstTouch::AVATAR
+          end
+        end
       end
     end
   end

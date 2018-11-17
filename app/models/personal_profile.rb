@@ -6,14 +6,6 @@ class PersonalProfile < ApplicationRecord
 
   before_save :update_search_string, if: -> { name_changed? }
 
-  def avatar_url
-    if avatar.attached?
-      service_url(avatar)
-    else
-      FirstTouch::AVATAR
-    end
-  end
-
   private
 
   def name_changed?

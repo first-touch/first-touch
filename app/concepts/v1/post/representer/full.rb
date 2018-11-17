@@ -11,7 +11,6 @@ module V1
         property :author_status, exec_context: :decorator
         property :created_at
         property :updated_at
-        collection :images, extend: V1::Image::Representer::Full
 
         def author_name
           represented.author.display_name
