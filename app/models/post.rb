@@ -8,13 +8,5 @@ class Post < ApplicationRecord
              -> { where(posts: { author_type: 'Club' }) },
              foreign_key: 'author_id'
 
-  has_many :images, as: :imageable, inverse_of: :imageable, dependent: :destroy
-
-  accepts_nested_attributes_for :images,
-                                allow_destroy: true,
-                                reject_if: lambda { |attr|
-                                  attr['id'].blank? && attr['file'].blank?
-                                }
-
   validates_presence_of :content
 end

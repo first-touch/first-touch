@@ -67,7 +67,10 @@ module FirstTouch
       },
       invalid: {
         rule: ->(result) { result.failure? },
-        resolve: ->(_result, _representer) { { 'data': { errors: _result.errors }, 'status': :unprocessable_entity } }
+        resolve: lambda do |result, _representer|
+          { 'data': { errors: result.errors },
+            'status': :unprocessable_entity }
+        end
       },
       fallback: {
         rule: ->(_result) { true },

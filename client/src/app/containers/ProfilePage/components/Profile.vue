@@ -2,7 +2,7 @@
   <timeline-item>
     <div class="profile-item-container" v-if="info">
       <div class="top">
-        <img class="img-fluid avatar" src="https://unsplash.it/500/500" />
+        <img class="img-fluid avatar" :src="info.personal_profile.avatar_url" />
         <div class="info">
           <h4 class="name">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
           <p class="role">Football Player</p>

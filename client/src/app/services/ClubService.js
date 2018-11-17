@@ -1,3 +1,4 @@
+// NOTE: needed for $.param
 import $ from 'jquery';
 import store from '../store';
 
@@ -13,6 +14,7 @@ export default {
       }
     });
   },
+
   searchClub (params) {
     const url = `${this.endpoint}/search?${$.param(params)}`;
     return fetch(url).then(response => {
@@ -23,6 +25,7 @@ export default {
       }
     });
   },
+
   update (data) {
     // how do i retrieve the authorization token from here?
     fetch(`${this.endpoint}/${data.id}`, {
@@ -34,6 +37,7 @@ export default {
       body: JSON.stringify(data)
     });
   },
+
   show (params) {
     const url = `${this.endpoint}/${params}`;
     return fetch(url).then(response => {

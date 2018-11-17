@@ -4,7 +4,7 @@
 
 1. Install [homebrew](http://brew.sh/)
 1. Install [postgres](https://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/)
-1. Install [rvm](https://rvm.io/rvm/install)
+1. Install [rbenv](https://github.com/rbenv/rbenv)
 1. Install npm
 
 `$ brew install npm`
@@ -23,7 +23,8 @@
 
 ```
 $ cd first-touch
-$ rvm install <ruby version pointed in the .ruby-version file>
+$ rbenv install <ruby version pointed in the .ruby-version file>
+$ rbenv rehash
 ```
 
 1. Load newly installed version (RVM takes care of that)
@@ -83,7 +84,6 @@ development:
     FT_AWS_ACCESS_KEY: AKIAJYS3DZ7XTTFUBN2D
     FT_AWS_SECRET_KEY: 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
     FT_AWS_REGION: us-west-1
-    FT_AWS_PRODUCTION_BUCKET_NAME: first-touch-web
     FT_AWS_S3_BUCKET_NAME: first-touch-web
     stripe:
       secret_key: sk_test_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -95,7 +95,6 @@ development:
     FT_AWS_ACCESS_KEY: AKIAJYS3DZ7XTTFUBN2D
     FT_AWS_SECRET_KEY: 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
     FT_AWS_REGION: us-west-1
-    FT_AWS_PRODUCTION_BUCKET_NAME: first-touch-web
     FT_AWS_S3_BUCKET_NAME: first-touch-web
     stripe:
       secret_key: sk_test_XXXXXXXXXXXXXXXXXXXX
@@ -119,8 +118,29 @@ $ yarn serve
 7. Open the browser in `localhost:3001`
 
 8. We rely on mailcatcher to trap emails on dev enviroment. Make sure you install it and start the deamon
+
 ```
 $ gem install mailcatcher
 $ mailcatcher
 ```
+
 The service should be available in http://localhost:1080/
+
+9. We rely on imagemagick for image handling (mini_magick gem requires it), so make sure you have it
+installed in your computer as well.
+
+### In OSx:
+```
+$ brew install imagemagick
+```
+
+### In Ubuntu (untested)
+```
+$ wget http://www.imagemagick.org/download/ImageMagick.tar.gz
+$ tar -xvf ImageMagick.tar.gz
+$ cd ImageMagick-7.*
+$ ./configure
+$ make
+$ sudo make install
+$ sudo ldconfig /usr/local/lib
+```

@@ -1,5 +1,6 @@
 class PersonalProfile < ApplicationRecord
   belongs_to :user
+  has_one_attached :avatar
 
   delegate :update_search_string, to: :user, allow_nil: true
 
