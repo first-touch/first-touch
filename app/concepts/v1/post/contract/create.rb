@@ -6,11 +6,6 @@ module V1
       class Create < Reform::Form
         property :content
         property :author
-
-        collection :images, populate_if_empty: ::Image do
-          property :file
-        end
-
         validates :content,
                   :author,
                   presence: true
