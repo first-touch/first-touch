@@ -8,10 +8,11 @@ module V1
       private
 
       def setup_model!(options, params:, **)
-        options['model'] = ::User.find_or_initialize_by email: params['email']
+        options[:model] = ::User.find_or_initialize_by email: params['email']
       end
 
-      def register_or_init!(model:, params:, **)
+      def register_or_init!(options, params:, **)
+        model = options[:model]
         return true if model.persisted?
         model.personal_profile = ::PersonalProfile.new
         model.personal_profile.first_name = params['first_name']
@@ -43,7 +44,8 @@ module V1
         model.unclaimed = true
       end
 
-      def associate_club(model:, club_id:, **)
+      def associate_club(options, club_id:, **)
+        model = options[:model]
         club = ::Club.find_by id: club_id
         model.clubs << club if club
         model.save

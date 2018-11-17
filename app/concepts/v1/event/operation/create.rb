@@ -11,8 +11,8 @@ module V1
       step Trailblazer::Operation::Contract::Validate(key: :event)
       step Trailblazer::Operation::Contract::Persist()
 
-      def authorized!(current_user:, **)
-        current_user.managed_clubs.count.positive?
+      def authorized!(options, **)
+        options[:current_user].managed_clubs.count.positive?
       end
 
       def unauthorized!(options, **)
@@ -20,10 +20,10 @@ module V1
       end
 
       # FIXME: Find a way to handle multiple clubs managed by a user
-      def setup_model!(params:, model:, current_user:, **)
-        model.organizer_id = current_user.managed_clubs.first.id
+      def setup_model!(options, params:,  **)
+        options[:model].organizer_id = options[:current_user].managed_clubs.first.id
         return true unless params['opponent_id']
-        model.opponent = ::Club.find_by(id: params['opponent_id'])
+        options[:model].opponent = ::Club.find_by(id: params['opponent_id'])
         true
       end
     end

@@ -5,17 +5,25 @@ module V1
       step :build_response!
       step :notify_user!
 
-      def create_connections!(options, params:, current_user:, **)
+      def create_connections!(options, params:,  **)
+        user_params = {
+          user_id: options[:current_user].id,
+          connected_to_id: params[:connected_to_id]
+        }
         user_connection = Create.(
-          { user_id: current_user.id,
-            connected_to_id: params[:connected_to_id] },
-          current_user: current_user
+          params: user_params,
+          current_user: options[:current_user]
         )
+
+        friend_params = {
+          user_id: params[:connected_to_id],
+          connected_to_id: options[:current_user].id
+        }
         friend_connection = Create.(
-          { user_id: params[:connected_to_id],
-            connected_to_id: current_user.id },
-          current_user: current_user
+          params: friend_params,
+          current_user: options[:current_user]
         )
+
         options['results'] = {
           user: user_connection,
           friend: friend_connection
@@ -26,7 +34,7 @@ module V1
         user = results[:user]
         friend = results[:friend]
         if user.success? && friend.success?
-          options['model'] = user['model']
+          options[:model] = user[:model]
           true
         elsif user.failure?
           options['contract.default'] = user['contract.default']
@@ -37,10 +45,10 @@ module V1
         end
       end
 
-      def notify_user!(params:, current_user:, **)
+      def notify_user!(params:,  **)
         NotificationCenter.send_notification(
           'connection_requested',
-          { user_name: current_user.display_name },
+          { user_name: options[:current_user].display_name },
           params[:connected_to_id]
         )
       end

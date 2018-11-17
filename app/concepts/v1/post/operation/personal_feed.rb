@@ -3,9 +3,9 @@ module V1
     class PersonalFeed < FirstTouch::Operation
       step :build_feed
 
-      def build_feed(options, current_user:, **)
+      def build_feed(options, **)
         options['models'] = ::Post.where(
-          author_id: relevant_user_ids(current_user),
+          author_id: relevant_user_ids(options[:current_user]),
           author_type: 'User'
         ).order('updated_at DESC')
         true

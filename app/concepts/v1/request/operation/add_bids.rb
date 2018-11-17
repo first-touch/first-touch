@@ -13,27 +13,28 @@ module V1
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
 
-      def model!(options, params:, current_user:, **)
+      def model!(options, params:,  **)
         options['model.class'] = ::RequestBid
-        model = current_user.request_bids.where(request_id: params[:id]).where.not(status: 'canceled').first
+        model = options[:current_user].request_bids.where(request_id: params[:id]).where.not(status: 'canceled').first
         model = ::RequestBid.new if model.blank?
-        options['model'] = model
+        options[:model] = model
       end
 
-      def find_request!(options, params:, current_user:, **)
+      def find_request!(options, params:,  **)
         request = ::Request.all.where(status: 'publish', id: params[:id])
-        options['model'].request = request.blank? ? nil : request.first
+        options[:model].request = request.blank? ? nil : request.first
         options['model.class'] = ::RequestBid
-        options['model'].request
+        options[:model].request
       end
 
-      def setup_model!(model:, current_user:, **)
-        model.user = current_user
+      def setup_model!(options, **)
+        model = options[:model]
+        model.user = options[:current_user]
         model.status = model.request.type_request == 'position' ? 'joblist' : 'pending'
       end
 
-      def authorized!(current_user:, **)
-        current_user.scout?
+      def authorized!(options, **)
+        options[:current_user].scout?
       end
     end
   end

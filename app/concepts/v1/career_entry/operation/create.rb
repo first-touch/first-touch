@@ -10,14 +10,14 @@ module V1
       step Trailblazer::Operation::Contract::Validate(key: :career_entry)
       step Trailblazer::Operation::Contract::Persist()
 
-      def setup_club!(model:, params:, **)
+      def setup_club!(options, params:, **)
         club_id = params[:career_entry][:club_id]
         return true unless club_id
-        model.club = ::Club.find_by id: club_id
+        options[:model].club = ::Club.find_by id: club_id
       end
 
-      def setup_user!(model:, current_user:, **)
-        model.user = current_user
+      def setup_user!(options, **)
+        options[:model].user = options[:current_user]
         true
       end
     end

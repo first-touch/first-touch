@@ -6,10 +6,10 @@ module V1
 
       private
 
-      def find_model!(options, params:, current_user:, current_club:, **)
+      def find_model!(options, params:,  current_club:, **)
         model = nil
-        if current_user.scout?
-          model = current_user.reports.find(params[:id])
+        if options[:current_user].scout?
+          model = options[:current_user].reports.find(params[:id])
         elsif !current_club.nil?
           free_report = ::Report.find_by("(price->>'value')::int = 0 and id = ?", params[:id])
           if !free_report.nil?
@@ -21,7 +21,7 @@ module V1
           end
         end
         options['model.class'] = ::Report
-        options['model'] = model
+        options[:model] = model
       end
     end
   end

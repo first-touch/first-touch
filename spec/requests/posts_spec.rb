@@ -3,31 +3,35 @@ require 'rails_helper'
 RSpec.describe 'Posts', type: :request do
   let!(:existing_user) do
     res = V1::User::Register.(
-      email: 'test@banaas.com',
-      password: '123123',
-      password_confirmation: '123123',
-      role_name: 'manager',
-      personal_profile: {
-        first_name: 'Test',
-        last_name: 'Bananas',
-        birthday: '10/01/1989'
+      params: {
+        email: 'test@banaas.com',
+        password: '123123',
+        password_confirmation: '123123',
+        role_name: 'manager',
+        personal_profile: {
+          first_name: 'Test',
+          last_name: 'Bananas',
+          birthday: '10/01/1989'
+        }
       }
     )
-    res['model']
+    res[:model]
   end
 
   let!(:existing_club) do
     res = V1::Club::Create.(
-      club: {
-        account_owner_id: existing_user.id,
-        name: 'Ajax',
-        city: 'Amsterdam',
-        country_code: 'NL',
-        stadium_name: 'Johan Cruijff Arena',
-        date_founded: '18/03/1900'
+      params: {
+        club: {
+          account_owner_id: existing_user.id,
+          name: 'Ajax',
+          city: 'Amsterdam',
+          country_code: 'NL',
+          stadium_name: 'Johan Cruijff Arena',
+          date_founded: '18/03/1900'
+        }
       }
     )
-    res['model']
+    res[:model]
   end
 
   before do

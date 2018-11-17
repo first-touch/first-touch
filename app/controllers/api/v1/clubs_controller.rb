@@ -3,13 +3,13 @@ module Api
     class ClubsController < Api::V1::BaseController
       skip_before_action :authenticate_request, only: %i[index search show countries update]
       def index
-        result = ::V1::Club::Index.(params)
+        result = ::V1::Club::Index.(params: params)
         response = FirstTouch::Endpoint.(result, ::V1::Club::Representer::Search)
         render json: response[:data], status: response[:status]
       end
 
       def show
-        result = ::V1::Club::Show.(params, current_user: current_user)
+        result = ::V1::Club::Show.(params: params: params: params, current_user: current_user)
         response = FirstTouch::Endpoint.(result, ::V1::Club::Representer::Show)
         render json: response[:data], status: response[:status]
       end
@@ -19,7 +19,7 @@ module Api
       end
 
       def update
-        result = ::V1::Club::Update.(params)
+        result = ::V1::Club::Update.(params: params)
         response = FirstTouch::Endpoint.(result, ::V1::Club::Representer::Show)
         render json: response[:data], status: response[:status]
       end
@@ -31,7 +31,7 @@ module Api
       end
 
       def import_roster
-        result = ::V1::Club::ImportRoster.(params)
+        result = ::V1::Club::ImportRoster.(params: params)
         if result.failure?
           render json: { error_message: result['errors'] },
                  status: :unprocessable_entity

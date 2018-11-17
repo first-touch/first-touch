@@ -25,7 +25,8 @@ module V1
 
       private
 
-      def init_report!(_options, model:, params:, current_user:, **)
+      def init_report!(options, params:,  **)
+        model = options[:model]
         request = model.request
         type_report = model.request.type_request == 'team' ? 'team' : 'player'
         report_params = {
@@ -37,10 +38,10 @@ module V1
           'completion_status' => 'pending',
           'meta_data' => { conclusion: '' }
         }
-        result = ::V1::Report::Pending.(report_params, current_user: current_user)
+        result = ::V1::Report::Pending.(params: report_params, current_user: options[:current_user])
         puts result['contract.default'].to_json
         if result.success?
-          report = result['model']
+          report = result[:model]
           order = model.order
           order.report = report
           order.save!
@@ -49,8 +50,8 @@ module V1
         result.success?
       end
 
-      def delete_report!(model:, **)
-        request = model.request
+      def delete_report!(options, **)
+        request = options[:model].request
         report = ::Report.find_by user: model.user, request: request
         report&.delete
       end
@@ -62,13 +63,13 @@ module V1
           request = current_club.requests.find(requestId)
           model = request.request_bids.find_by(id: bidId, status: 'pending')
           params['currency'] = request.price['currency'] if model
-          options['model'] = model
+          options[:model] = model
           options['model.class'] = ::RequestBid
         end
-        options['model']
+        options[:model]
       end
 
-      def save_card!(options, params:, model:, current_club:, **)
+      def save_card!(options, params:, current_club:, **)
         save = params[:save]
         success = true
         if save
@@ -98,7 +99,7 @@ module V1
 
       def payment(options, params:, current_club:, **)
         card_token = params[:token]
-        bid = options['model']
+        bid = options[:model]
         user = bid.user
         amount = bid.price['value'] * 100
         success = false
@@ -131,7 +132,8 @@ module V1
         success
       end
 
-      def order(_options, params:, model:, current_club:, **)
+      def order(options, params:, current_club:, **)
+        model = options[:model]
         order_params = {
           'customer_id' => current_club.id,
           'user' => model.user,
@@ -140,32 +142,32 @@ module V1
           'status' => 'pending_report',
           'request_bid_id' => model.id
         }
-        result = ::V1::Order::CreateBidOrder.(order_params)
+        result = ::V1::Order::CreateBidOrder.(params: order_params)
         result.success?
       end
 
-      def persist_stripe_transaction!(options, params:, model:, **)
+      def persist_stripe_transaction!(options, params:, **)
         stripe_logger = ::Logger.new("#{Rails.root}/log/stripe_payout.log")
         transaction_params = {
           stripe_id: options['stripe_charge_id'],
-          order: model.order,
+          order: options[:model].order,
           type_transaction: 'charge',
           payout: false
         }
-        result = ::V1::StripeTransaction::Create.(transaction_params)
+        result = ::V1::StripeTransaction::Create.(params: transaction_params)
         if result.failure?
-          stripe_logger.error("StripeTransaction creation failed for bid #{model.id}, charge_id: #{options['stripe_charge_id']}")
+          stripe_logger.error("StripeTransaction creation failed for bid #{options[:model].id}, charge_id: #{options['stripe_charge_id']}")
         end
         true
       end
 
-      def finalize(model:, **)
-        model.status = 'accepted'
+      def finalize(options, **)
+        options[:model].status = 'accepted'
       end
 
-      def unpublish(params:, model:, **)
+      def unpublish(options, params:, **)
         if params[:keep] == false
-          request = model.request
+          request = options[:model].request
           request.status = 'private'
           request.save
         end

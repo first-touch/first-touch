@@ -3,36 +3,44 @@ require 'rails_helper'
 RSpec.describe 'Notes', type: :request do
   let!(:existing_user) do
     res = V1::User::Register.(
-      email: 'test@bananas.com',
-      password: '123123',
-      password_confirmation: '123123',
-      role_name: 'manager',
-      personal_profile: {
-        first_name: 'Test',
-        last_name: 'Bananas',
-        birthday: '10/01/1989'
+      params: {
+        email: 'test@bananas.com',
+        password: '123123',
+        password_confirmation: '123123',
+        role_name: 'manager',
+        personal_profile: {
+          first_name: 'Test',
+          last_name: 'Bananas',
+          birthday: '10/01/1989'
+        }
       }
     )
-    res['model']
+    res[:model]
   end
   let(:mocked_result) do
     instance_double(SimpleCommand, result: existing_user)
   end
   let!(:existing_notes) do
-    ::V1::Note::Create.({
-      note: {
-        name: 'n1',
-        content: 'hello',
-        tag_list: 'banana, potato'
-      }
-    }, current_user: existing_user)
-    ::V1::Note::Create.({
-      note: {
-        name: 'n2',
-        content: 'hello2',
-        tag_list: 'fire, banana'
-      }
-    }, current_user: existing_user)
+    ::V1::Note::Create.(
+      params: {
+        note: {
+          name: 'n1',
+          content: 'hello',
+          tag_list: 'banana, potato'
+        }
+      },
+      current_user: existing_user
+    )
+    ::V1::Note::Create.(
+      params: {
+        note: {
+          name: 'n2',
+          content: 'hello2',
+          tag_list: 'fire, banana'
+        }
+      },
+      current_user: existing_user
+    )
   end
 
   before do

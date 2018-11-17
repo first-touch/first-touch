@@ -24,29 +24,29 @@ module V1
       step :persist_stripe_transaction!
 
       def find_report!(options, params:, **)
-        options['model'].report = ::Report.find_by("(price->>'value')::int > 0 and id = ?", params[:order]['report_id'])
+        options[:model].report = ::Report.find_by("(price->>'value')::int > 0 and id = ?", params[:order]['report_id'])
         options['model.class'] = ::Order
-        !options['model'].report.nil?
+        !options[:model].report.nil?
       end
 
-      def setup_model!(options, model:, current_club:, **)
-        model.customer_id = current_club.id
-        model.report = options['model'].report
-        model.price = model.report.price['value']
-        model.user = model.report.user
+      def setup_model!(options, current_club:, **)
+        options[:model].customer_id = current_club.id
+        options[:model].report = options[:model].report
+        options[:model].price = options[:model].report.price['value']
+        options[:model].user = options[:model].report.user
       end
 
-      def dest_has_stripe!(options, params:, model:, **)
-        stripe_ft = model.user.stripe_ft
+      def dest_has_stripe!(options, params:, **)
+        stripe_ft = options[:model].user.stripe_ft
         if stripe_ft.nil? || stripe_ft.preferred_account.nil?
           options['stripe.errors'] = I18n.t 'stripe.scout_stripe_not_found'
         end
         stripe_ft.nil? ? false : stripe_ft.stripe_id
       end
 
-      def made_payment!(options, params:, model:, current_club:, **)
+      def made_payment!(options, params:, current_club:, **)
         card_token = params[:token]
-        report = options['model'].report
+        report = options[:model].report
         user = report.user
         amount = report.price['value'] * 100
         success = false
@@ -79,7 +79,7 @@ module V1
         success
       end
 
-      def save_card!(options, params:, model:, current_club:, **)
+      def save_card!(options, params:, current_club:, **)
         save = params[:save]
         success = true
         if save
@@ -107,9 +107,9 @@ module V1
         success
       end
 
-      def complete_order!(model:, **)
-        model.status = 'completed'
-        model.completed_date = Time.now
+      def complete_order!(options, **)
+        options[:model].status = 'completed'
+        options[:model].completed_date = Time.now
         true
       end
 
@@ -117,7 +117,7 @@ module V1
         !current_club.nil?
       end
 
-      def persist_stripe_transaction!(options, params:, model:, **)
+      def persist_stripe_transaction!(options, params:, **)
         stripe_logger = ::Logger.new("#{Rails.root}/log/stripe_payout.log")
         transaction_params = {
           stripe_id: options['stripe_charge_id'],
@@ -125,9 +125,9 @@ module V1
           type_transaction: 'charge',
           payout: false
         }
-        result = ::V1::StripeTransaction::Create.(transaction_params)
+        result = ::V1::StripeTransaction::Create.(params: transaction_params)
         if result.success?
-          stripe_transaction = result['model']
+          stripe_transaction = result[:model]
           ::StripePayoutJob.set(wait: Rails.configuration.stripe[:payout_schedule]).perform_later stripe_transaction.id
         else
           stripe_logger.error("StripeTransaction creation failed, Payout had not be schedule, charge_id: #{options['stripe_charge_id']}")

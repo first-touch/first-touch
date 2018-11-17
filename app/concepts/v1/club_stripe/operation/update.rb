@@ -16,21 +16,21 @@ module V1
           unless account.nil?
             begin
               account.sources.retrieve(id)
-              options['model'] = account
+              options[:model] = account
             rescue StandardError => e
               options['stripe.errors'] = e.to_s
             end
           end
         end
-        !options['model'].nil?
+        !options[:model].nil?
       end
 
       def update!(options, params:, current_club:, **)
         id = params[:id]
-        account = options['model']
+        account = options[:model]
         account.default_source = id
         account.save
-        options['model'] = account
+        options[:model] = account
       end
     end
   end

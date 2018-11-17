@@ -30,8 +30,8 @@ module V1
       end
 
       def find_user!(options, **)
-        options['model'] = ::User.with_reset_password_token(options['reset_token'])
-        !options['model'].nil?
+        options[:model] = ::User.with_reset_password_token(options['reset_token'])
+        !options[:model].nil?
       end
     end
   end

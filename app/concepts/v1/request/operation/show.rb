@@ -9,7 +9,7 @@ module V1
       def find_model!(options, params:, current_club:, **)
         model = current_club.requests.where(id: params[:id]).where.not(status: 'deleted').first
         options['model.class'] = ::Request
-        options['model'] = model
+        options[:model] = model
       end
     end
   end

@@ -18,17 +18,19 @@ RSpec.describe Event, type: :model do
 
       let(:current_user) do
         res = V1::User::Register.(
-          email: 'test@banaas.com',
-          password: '123123',
-          password_confirmation: '123123',
-          role_name: 'scout',
-          personal_profile: {
-            first_name: 'Test',
-            last_name: 'Bananas',
-            birthday: '10/01/1989'
+          params: {
+            email: 'test@banaas.com',
+            password: '123123',
+            password_confirmation: '123123',
+            role_name: 'scout',
+            personal_profile: {
+              first_name: 'Test',
+              last_name: 'Bananas',
+              birthday: '10/01/1989'
+            }
           }
         )
-        res['model']
+        res[:model]
       end
       let!(:club) { FactoryBot.create :club, account_owner: current_user }
       let(:params_before) do
@@ -57,9 +59,9 @@ RSpec.describe Event, type: :model do
       end
 
       let!(:events) do
-        ::V1::Event::Create.(params_before, current_user: current_user)
-        ::V1::Event::Create.(params_now, current_user: current_user)
-        ::V1::Event::Create.(params_after, current_user: current_user)
+        ::V1::Event::Create.(params: params_before, current_user: current_user)
+        ::V1::Event::Create.(params: params_now, current_user: current_user)
+        ::V1::Event::Create.(params: params_after, current_user: current_user)
       end
 
       it 'returns max 10 events happening now or after' do

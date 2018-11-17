@@ -3,9 +3,9 @@ module V1
     class IndexByTag < Trailblazer::Operation
       step :setup_model!
 
-      def setup_model!(options, params:, current_user:, **)
+      def setup_model!(options, params:,  **)
         # need to customize query to prevent N+1
-        options['models'] = current_user.notes.joins(:tags).where('tags.name = ?', params['tag'])
+        options['models'] = options[:current_user].notes.joins(:tags).where('tags.name = ?', params['tag'])
         true
       end
     end

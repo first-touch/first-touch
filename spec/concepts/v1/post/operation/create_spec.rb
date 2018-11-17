@@ -3,31 +3,35 @@ require 'rails_helper'
 RSpec.describe V1::Post::Create do
   let(:current_user) do
     res = V1::User::Register.(
-      email: 'test@banaas.com',
-      password: '123123',
-      role_name: 'director',
-      password_confirmation: '123123',
-      personal_profile: {
-        first_name: 'Test',
-        last_name: 'Bananas',
-        birthday: '10/01/1989'
+      params: {
+        email: 'test@banaas.com',
+        password: '123123',
+        role_name: 'director',
+        password_confirmation: '123123',
+        personal_profile: {
+          first_name: 'Test',
+          last_name: 'Bananas',
+          birthday: '10/01/1989'
+        }
       }
     )
-    res['model']
+    res[:model]
   end
   let(:club) do
     res = V1::Club::Create.(
-      club: {
-        name: 'Club',
-        city: 'City',
-        country_code: 'PT',
-        account_owner_id: current_user.id
+      params: {
+        club: {
+          name: 'Club',
+          city: 'City',
+          country_code: 'PT',
+          account_owner_id: current_user.id
+        }
       }
     )
-    res['model']
+    res[:model]
   end
 
-  let(:operation) { V1::Post::Create.(params, current_user: author) }
+  let(:operation) { V1::Post::Create.(params: params, current_user: author) }
 
   describe 'when the user is posting' do
     let(:author) { current_user }
@@ -41,7 +45,7 @@ RSpec.describe V1::Post::Create do
     describe 'when the user is allowed' do
       it 'persists the post' do
         expect(operation.success?).to eq true
-        post = operation['model']
+        post = operation[:model]
         expect(post).to be_persisted
         expect(post.author).to eq current_user
         expect(post.content).to eq 'hello'
@@ -61,7 +65,7 @@ RSpec.describe V1::Post::Create do
 
     it 'persists the post' do
       expect(operation.success?).to eq true
-      post = operation['model']
+      post = operation[:model]
       expect(post).to be_persisted
       expect(post.author).to eq club
       expect(post.content).to eq 'hello'

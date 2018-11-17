@@ -16,18 +16,18 @@ module V1
           unless account.nil?
             begin
               account.sources.retrieve(id)
-              options['model'] = account
+              options[:model] = account
             rescue StandardError => e
               options['stripe.errors'] = e
             end
           end
         end
-        !options['model'].nil?
+        !options[:model].nil?
       end
 
       def delete!(options, params:, current_club:, **)
         id = params[:id]
-        account = options['model']
+        account = options[:model]
         card = account.sources.retrieve(id)
         unless card.nil?
           begin
@@ -36,7 +36,7 @@ module V1
             options['stripe.errors'] = e
           end
         end
-        options['model'] = ::Stripe::Customer.retrieve(account.id)
+        options[:model] = ::Stripe::Customer.retrieve(account.id)
         options['stripe.errors'].nil?
       end
     end

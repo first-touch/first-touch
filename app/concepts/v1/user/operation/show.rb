@@ -5,9 +5,9 @@ module V1
       step :setup_twin_model!
       step :build_response!
 
-      def setup_twin_model!(options, model:, current_user:, **)
-        following = current_user.following?(model)
-        connection_status = current_user.connection_status(model)
+      def setup_twin_model!(options, **)
+        following = options[:current_user].following?(model)
+        connection_status = options[:current_user].connection_status(model)
         options['twin'] = ::V1::Twins::UserTwin.new(
           model,
           following: following,
