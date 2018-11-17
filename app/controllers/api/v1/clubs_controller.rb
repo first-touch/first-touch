@@ -9,7 +9,7 @@ module Api
       end
 
       def show
-        result = ::V1::Club::Show.(params: params: params: params, current_user: current_user)
+        result = ::V1::Club::Show.(params: params, current_user: current_user)
         response = FirstTouch::Endpoint.(result, ::V1::Club::Representer::Show)
         render json: response[:data], status: response[:status]
       end

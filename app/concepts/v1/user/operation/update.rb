@@ -14,7 +14,7 @@ module V1
 
       private
 
-      def update_avatar!(params:, model:, **)
+      def update_avatar!(_options, params:, model:, **)
         return true unless params['avatar']
         personal_profile = model.personal_profile
         personal_profile.avatar.purge if personal_profile.avatar.attached?
@@ -27,7 +27,7 @@ module V1
       end
 
       def authorize!(_options, model:, current_user:, **)
-        model && model == current_user
+        model&.id == current_user.id
       end
 
       def unauthorized!(options, **)

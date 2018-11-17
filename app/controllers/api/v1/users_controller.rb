@@ -32,7 +32,8 @@ module Api
       end
 
       def avatar
-        result = ::V1::User::Update.(params, current_user: current_user)
+        result = ::V1::User::Update.(params: params, current_user: current_user)
+        puts result.inspect
         response = FirstTouch::Endpoint.(result, ::V1::User::Representer::SelfProfile)
         render json: response[:data], status: response[:status]
       end
