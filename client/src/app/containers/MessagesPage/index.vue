@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="ft-page messages">
         <h4 class="spaced-title upper-cased main-color">Messages</h4>
-        <ft-button :on-click="consoleClick">
+        <ft-button :on-click="consoleClick" disabled>
           <span class="fa fa-notes"></span>
           Write Message
         </ft-button>
