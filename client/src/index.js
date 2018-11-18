@@ -62,6 +62,7 @@ Vue.use(VueFormWizard);
 
 window.$ = require('jquery');
 window.JQuery = require('jquery');
+window._ = require('lodash');
 
 function requireAuth (to, from, next) {
   store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');

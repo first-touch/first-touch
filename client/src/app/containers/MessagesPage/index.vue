@@ -18,6 +18,7 @@
 @import '~stylesheets/variables';
 @import '~stylesheets/common_style';
 
+// FIXME: Move this to a separate component and extract scss to organisms
 .timeline-widget {
   display: flex;
   border-left: 7px solid $secondary-header-color;

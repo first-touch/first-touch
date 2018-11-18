@@ -2,10 +2,10 @@
   <timeline-item>
     <div class="sub-container">
       <div class="header">
-        <img class="avatar" src="https://unsplash.it/200/200" />
+        <img class="avatar" :src="avatar"  />
         <div class="info">
           <h5 class="name">{{ name }}</h5>
-          <p class="role">Football Player at FC Barcelona</p>
+          <p class="role">{{ fullRole }}</p>
         </div>
       </div>
       <div class="body">
@@ -71,6 +71,7 @@
 <script>
 import TimelineItem from 'app/components/TimelineItem';
 import ConvoEntry from './ConvoEntry';
+
 export default {
   name: 'Conversation',
   props: ['currentUser', 'messages', 'reloadConversation', 'sendMessage'],
@@ -84,8 +85,21 @@ export default {
     };
   },
   computed: {
+    personalProfile() {
+      return this.messages.value.chat_with.personal_profile;
+    },
     name() {
-      return this.messages.value.chat_with.display_name;
+      return `${this.personalProfile.first_name} ${this.personalProfile.last_name}`;
+    },
+    fullRole() {
+      let roleParts = _.compact([
+        this.messages.value.chat_with.role_name,
+        this.messages.value.chat_with.club
+      ]);
+      return roleParts.join(' at ');
+    },
+    avatar() {
+      return this.personalProfile.avatar_url;
     },
     entries() {
       return this.messages.value.messages;

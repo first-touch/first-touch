@@ -111,6 +111,8 @@ class User < ApplicationRecord
     }
   end
 
+  # FIXME: Move this to an extender module that we use to extend individual
+  # users rather than poluting all user models with it.
   def full_chat_with(user)
     outgoing = sent_messages.includes(:message_recipient)
                             .where(message_recipients: { recipient: user })
