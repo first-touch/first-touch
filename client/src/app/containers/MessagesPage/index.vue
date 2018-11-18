@@ -3,10 +3,7 @@
     <div class="container-fluid">
       <div class="ft-page messages">
         <h4 class="spaced-title upper-cased main-color">Messages</h4>
-        <ft-button :on-click="consoleClick" disabled>
-          <span class="fa fa-notes"></span>
-          Write Message
-        </ft-button>
+        <ft-button :on-click="consoleClick" icon="ft-notes">Write Message</ft-button>
         <router-view v-if="currentChatWith"></router-view>
       </div>
     </div>

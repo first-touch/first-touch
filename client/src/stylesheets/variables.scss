@@ -8,7 +8,7 @@ $third-header-color: #6DA87D;
 $link-color: #666464;
 $link-color-hover: #439042;
 
-$button-background-colour: #439042;
+$button-background-colour: $link-color-hover;
 $button-border: solid 2px #4bba63;
 $button-box-shadow: 3px 3px 12px #000000;
 $button-background-colour-on-hover: #4bba63;
