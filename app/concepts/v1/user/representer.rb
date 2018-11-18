@@ -16,10 +16,14 @@ module V1
         property :current_club, exec_context: :decorator
 
         def stripe?
+          # FIXME: Hacking around to quick fix the messups with representers
+          return false unless represented.respond_to? :stripe_ft
           !represented.stripe_ft.nil?
         end
 
         def bank_account?
+          # FIXME: Hacking around to quick fix the messups with representers
+          return false unless represented.respond_to? :stripe_ft
           !represented.stripe_ft&.preferred_account.nil?
         end
 

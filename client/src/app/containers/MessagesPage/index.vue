@@ -3,7 +3,10 @@
     <div class="container-fluid">
       <div class="ft-page messages">
         <h4 class="spaced-title upper-cased main-color">Messages</h4>
-        <ft-button :on-click="consoleClick" icon="ft-notes">Write Message</ft-button>
+        <div class="timeline-widget">
+          <div class="arrow"></div>
+          <ft-button :on-click="consoleClick" icon="ft-notes">Write Message</ft-button>
+        </div>
         <router-view v-if="currentChatWith"></router-view>
       </div>
     </div>
@@ -14,6 +17,16 @@
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
 @import '~stylesheets/common_style';
+
+.timeline-widget {
+  display: flex;
+  border-left: 7px solid $secondary-header-color;
+
+  .arrow {
+    margin-top: 14px;
+    border-left-color: $secondary-header-color;
+  }
+}
 
 body {
   min-height: 0;
