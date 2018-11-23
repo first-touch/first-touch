@@ -9,9 +9,8 @@
         </div>
         <router-view></router-view>
       </div>
-    </div>
-    <messages-sidebar :currentChatWith="currentChatWith" />
-  </div>
+      <messages-sidebar :currentChatWith="currentChatWith" />
+   </div>
 </template>
 
 <script>

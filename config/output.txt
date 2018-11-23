@@ -1,0 +1,47 @@
+* d83222b (HEAD -> master, origin/master, origin/HEAD) [Resolves #161753834] Allow the user to edit his profile image
+* cb508af [Chore] Added ci config
+* 6df2b18 [Resolves #161747613] Update trailblazer gem to fix compatibility issue with rails 5.2
+* 803c3bf (origin/nbt-touch) [Resolves] Update to rails 5.2
+* 9a87b3d [Resolves] Fix background images (#76)
+* 0a9dccd [Hotfix] Fixed post widget
+* 40d73d9 [Chore] cleaning up some more styling
+* 28d278c [Resolves #157169989] Editing a profile is not working
+* 2b82194 [Resolves #159952028] Fix registration workflow
+* 303b990 [Hotfix] fixed associations and post creation
+* b9a534b [Hotfix] cleanup personal profile model
+* 1bb0ddb [Hotfix] cleanup user representer
+* 4b97c75 [Hotfix] Ran missing migrations and updated structure.sql
+* f703967 [Resolves #160583390] Multiple logins with different accounts mess up the displayed profile
+* 9c0b516 [Hotfix] Fixed button usage in posting
+* 9187e84 [Hotfix] Using same class in platform for input color on focus
+* 10fc901 [Hotfix] Added missing link to community guidelines
+* 5ebd33d [Resolves #151936872] Contact support page
+* 6404f8b [Hotfix] commented Fog incomplete logic
+* 5465783 [Hotfix] Fixed footer links
+* 53221a6 Fix client side imports
+* fd78793 [Hotfix] rubocoped aws initializers
+* 46ba67e [Hotfix] fixed yml in readme
+* 9139af5 [Resolves] Marketplace complete
+* ab973a2 [Hotfix] put back puma in the gemfile
+* b4b897b [Resolves #151779439] Allow user to reset their password
+* d8b80a5 [Hotfix] Cleanup code
+* cc9977e [Resolves #157213766] Country list should be alphabetically sorted
+* c664da6 [Resolves #157213761] Registration need email validation
+* e6c67b2 [Resolves #67] Bar bugs catching
+* 87301e5 [Chore] Added key to dictionary
+* 3fdd06c [Hotfix] Fixed webpack dist config
+* 4019450 [Resolves #159980313] Landing Page - edit-landing-page (#53)
+* e5dd486 [Resolves #159918580] Edit Profile - save button
+* 56ee2e0 [Resolves #157213819] minor edit: in your profile = profile picture should be much smaller
+* 3192da6 [Resolves #157213807] minor edit: in home = words in the title and actions should be looser
+* f1e77dc [Resolves #157213804] minor edit: edit color of headers and buttons
+* a219df5 [Resolves#160013478]minor edit: name under summary capitalize
+* 4a0a930 [Resolves#157213837] Section 9.4 of user agreement to link to other policies
+* 0289c37 [Resolves#157213833] Right side column to adapt to small screens
+* 9d56022 [Resolves#160055489 , #160190706 , #160190705] Edit TCP Page
+* c66c4a2 [Resolves #157213810 , #157213809 , #160011770 , #160014459 , #157213806] Amend design for Posting (#65)
+* c4cae79 [Resolves#157213813] minor-edit: edit text in posts
+* 9f076a1 [Resolves#159916842] Login - fix background height to cover entire screen
+* f81f2e1 [Resolves #158234152] add club note
+* 58bfa32 [Resolves #159586482] Legal pages - fix orientation and create vertical tab for policies
+* 1e22556 [Resolves #159717198] Registration of a user without a club fails

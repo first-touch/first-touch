@@ -8,6 +8,8 @@
           :info="info"
           :follow="followUser"
           :connect="connectUser"/>
+        <football-player/>
+        <career-statics/>
         <career-history v-if="info" :careerHistory="info.career_history"/>
       </div>
     </div>
@@ -28,73 +30,87 @@
     border-left-color: $main-header-color;
   }
 }
+
 </style>
-
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import store from 'app/store';
-import { ASYNC_LOADING, ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import NotificationSidebar from 'app/components/NotificationSidebar';
-import Profile from './components/Profile';
-import CareerHistory from './components/CareerHistory';
+   import { mapGetters, mapActions } from 'vuex';
+   import store from 'app/store';
+   import { ASYNC_LOADING, ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
+   import NotificationSidebar from 'app/components/NotificationSidebar';
+   
+   import Profile from './components/Profile';
+   import CareerHistory from './components/CareerHistory';
+   import FootballPlayer from './components/FootballPlayer';
+  import CareerStatics from './components/CareerStatics';
 
-export default {
-  name: 'ProfilePage',
-  props: ['mine'],
-  components: {
-    sidebar: NotificationSidebar,
-    profile: Profile,
-    'career-history': CareerHistory,
-  },
-  computed: {
-    ...mapGetters(['token', 'user', 'profile']),
-    info() {
-      if (!this.$route.params.id) return this.user.value;
-      if (this.profile.status === ASYNC_SUCCESS) return this.profile.value;
-      return null;
-    },
-  },
-  methods: {
-    ...mapActions([
-      'follow',
-      'unfollow',
-      'fetchUserInfo',
-      'clearToken',
-      'connect',
-    ]),
-    followUser() {},
-    connectUser() {},
-    onRouteChange() {
-      if (
-        this.user.status === ASYNC_SUCCESS &&
-        parseInt(this.$route.params.id) === this.user.value.id
-      ) {
-        return this.$router.push({ path: '/profile' });
-      }
-      if (this.$route.params.id) {
-        this.fetchUserInfo({ id: this.$route.params.id });
-        this.followUser = this.follow.bind(this, { id: this.$route.params.id });
-        this.connectUser = this.connect.bind(this, {
-          id: this.$route.params.id,
-        });
-      }
-    },
-  },
-  watch: {
-    $route: 'onRouteChange',
-  },
-  mounted() {
-    store.watch(
-      () => this.user.status,
-      () => {
-        if (
-          this.user.value &&
-          this.user.value.id.toString() === this.$route.params.id
-        )
-          this.$router.push({ path: '/profile' });
-      },
-    );
-    this.onRouteChange();
-  },
-};
+   export default {
+     name: 'ProfilePage',
+     props: ['mine'],
+     components: {
+       sidebar: NotificationSidebar,
+       profile: Profile,
+       'career-history': CareerHistory,
+       'football-player': FootballPlayer,
+       'career-statics': CareerStatics,
+
+     },
+     computed: {
+       ...mapGetters(['token', 'user', 'profile']),
+       info() {
+         if (!this.$route.params.id) return this.user.value;
+         if (this.profile.status === ASYNC_SUCCESS) return this.profile.value;
+         return null;
+       },
+     },
+    role() {
+       if (this.user.status === ASYNC_SUCCESS) {
+       return this.user.value.role_name;
+       } else {
+       return '';
+       }
+   },
+   
+     methods: {
+       ...mapActions([
+         'follow',
+         'unfollow',
+         'fetchUserInfo',
+         'clearToken',
+         'connect',
+       ]),
+       followUser() {},
+       connectUser() {},
+       onRouteChange() {
+         if (
+           this.user.status === ASYNC_SUCCESS &&
+           parseInt(this.$route.params.id) === this.user.value.id
+         ) {
+           return this.$router.push({ path: '/profile' });
+         }
+         if (this.$route.params.id) {
+           this.fetchUserInfo({ id: this.$route.params.id });
+           this.followUser = this.follow.bind(this, { id: this.$route.params.id });
+           this.connectUser = this.connect.bind(this, {
+             id: this.$route.params.id,
+           });
+         }
+       },
+     },
+     watch: {
+       $route: 'onRouteChange',
+     },
+     mounted() {
+       store.watch(
+         () => this.user.status,
+         () => {
+           if (
+             this.user.value &&
+             this.user.value.id.toString() === this.$route.params.id
+           )
+             this.$router.push({ path: '/profile' });
+         },
+       );
+       this.onRouteChange();
+     },
+   };
 </script>

@@ -63,4 +63,7 @@ group :development do
   gem 'sshkit-sudo', require: false
   gem 'story_branch'
   gem 'web-console', '~> 2.0'
+  gem "unicode-display_width", ">= 1.3.3"
+
+
 end

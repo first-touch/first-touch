@@ -2,7 +2,6 @@ import Vue from 'vue';
 import 'bootstrap';
 import './stylesheets/app.scss';
 import BootstrapVue from 'bootstrap-vue';
-
 import LandingPage from 'app/containers/LandingPage';
 import ConfirmAccount from 'app/containers/ConfirmAccount';
 import ResetPassword from 'app/containers/ResetPassword';
@@ -13,6 +12,8 @@ import SignupPage from 'app/containers/SignupPage';
 import LoginPage from 'app/containers/LoginPage';
 import FeedPage from 'app/containers/FeedPage';
 import ProfilePage from 'app/containers/ProfilePage';
+
+import Calendar from 'app/containers/CalendarPage';
 import Network from 'app/containers/NetworkPage';
 import Messages from 'app/containers/MessagesPage';
 import ConvoContainer from 'app/containers/MessagesPage/components/ConvoContainer.vue';
@@ -168,6 +169,10 @@ export const router = new VueRouter({
           meta: {
             reuse: false
           }
+        },
+        {
+          path: 'calendar',
+          component: Calendar
         },
         {
           path: 'network',

@@ -6,10 +6,10 @@
         <b-btn v-b-toggle.post-text>
           <div class="row">
             <div class="col no-padding">
-              <img src="https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png">
+              <img src="../../../../img/newpost.png">
             </div>
             <div class="col">
-              Publish a
+              Publish
               <br>
               new post
             </div>
@@ -20,7 +20,7 @@
         <b-btn v-b-toggle.post-media>
           <div class="row">
             <div class="col no-padding">
-              <img src="https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png">
+              <img src="../../../../img/picture.png">
             </div>
             <div class="col">
               Upload
@@ -36,7 +36,7 @@
         <div class="container">
           <form @submit.prevent="handleSubmit">
             <fieldset class="form-group">
-              <textarea :value="content" @keyup="handleContentChange" class="form-control m-field-input" rows="4" placeholder="Share a thought, link or opinion"></textarea>
+              <textarea :value="content" @keyup="handleContentChange" class="form-control" rows="4" placeholder="Share a thought, link or opinion"></textarea>
             </fieldset>
             <div class="row justify-content-end">
               <button v-if="posting" type="button" class="a-bar-button" disabled>Posting...</button>
@@ -51,7 +51,7 @@
         <div class="container">
           <form @submit.prevent="handleSubmit">
             <fieldset class="form-group">
-              <textarea :value="content" @keyup="handleContentChange" class="form-control m-field-input" rows="4" placeholder="uploadMedia"></textarea>
+<b-form-file accept="image/jpeg, image/png, image/gif"></b-form-file>
             </fieldset>
             <div class="row justify-content-end">
               <button v-if="posting" type="button" class="a-bar-button" disabled>Posting...</button>
@@ -65,7 +65,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/variables';
+  @import '~stylesheets/variables.scss';
 
   #post-text,
   #post-media {
@@ -73,7 +73,13 @@
     padding-left: 25px;
     textarea {
       border: none;
-      color: $main-text-color;
+      color: #7F8081;
+    }
+    .a-bar-button {
+      border: none;
+      box-shadow: none;
+      background: #B3CB75;
+      width: 200px;
     }
   }
 

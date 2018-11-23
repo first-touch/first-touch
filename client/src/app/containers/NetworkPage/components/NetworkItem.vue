@@ -16,7 +16,6 @@
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
 
-
 .network-item {
   margin-top: 20px;
   background-color: #fff;

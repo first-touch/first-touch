@@ -2,42 +2,55 @@
   <timeline-item>
     <div class="profile-item-container" v-if="info">
       <div class="top">
-        <img class="img-fluid avatar" :src="info.personal_profile.avatar_url" />
+        <img class="img-fluid avatar" src = "../../../../img/profile_pic.png" />
         <div class="info">
-          <h4 class="name">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
-          <p class="role">Football Player</p>
-          <p class="club">Real Madrid FC, Spain</p>
+          <h4 class="name">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}
+          </h4>
+          <p class="role">{{ role }}
+          </p>
+          <p class="club">{{ club }}
+          </p>
           <p class="detail">
-            <span class="detail-title">Date of birth</span>
+            <span class="detail-title">Date of birth
+            </span>
             {{ info.personal_profile.birthday }}
           </p>
           <p class="detail">
-            <span class="detail-title">Nationality</span>
+            <span class="detail-title">Nationality
+            </span>
             {{ info.personal_profile.nationality_country_code }}
           </p>
           <p class="detail">
-            <span class="detail-title">Place of birth</span>
+            <span class="detail-title">Place of birth
+            </span>
             {{ info.personal_profile.place_of_birth }}
           </p>
           <div class="widget">
             <div class="widget-row">
-              <router-link v-if="mine" to="/profile/edit" class="btn btn-bright">Edit Profile</router-link>
-              <a v-else-if="!info.following" @click.prevent="follow" href="#" class="btn btn-bright">+ Follow</a>
-              <a v-else-if="info.following" class="btn btn-dark">&#10003; Following</a>
+              <router-link v-if="mine" to="/profile/edit" class="btn btn-bright">CONTACT INFO
+              </router-link>
+              <a v-else-if="!info.following" @click.prevent="follow" href="#" class="btn btn-bright">+ Follow
+              </a>
+              <a v-else-if="info.following" class="btn btn-dark">&#10003; Following
+              </a>
               <a v-if="!mine && info.connection_status === 'not_connected'"
-                @click.prevent="connect" class="btn btn-bright">
+                 @click.prevent="connect" class="btn btn-bright">
                 Connect
               </a>
               <a v-else-if="!mine && info.connection_status === 'pending'"
-                class="btn btn-dark">&sim; Pending
+                 class="btn btn-dark">&sim; Pending
               </a>
               <a v-else-if="!mine && info.connection_status === 'connected'"
-                class="btn btn-dark">&#10003; Connected
+                 class="btn btn-dark">&#10003; Connected
               </a>
-              <router-link v-if="!mine" :to="`/messages/${info.id}`" class="btn btn-bright">Message</router-link>
+              <router-link v-if="!mine" :to="`/messages/${info.id}`" class="btn btn-bright">Message
+              </router-link>
             </div>
             <div class="widget-row">
-              <p class="connection"><span class="number">467</span> Connections</p>
+              <p class="connection">
+                <span class="number">467
+                </span> Connections
+              </p>
             </div>
           </div>
         </div>
@@ -45,40 +58,49 @@
       <hr />
       <div class="bottom">
         <div class="summary">
-          <h5 class="summary-title">Summary</h5>
-          <p class="summary-field name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
+          <h5 class="summary-title">Summary
+          </h5>
+          <p class="summary-field name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}
+          </p>
           <p class="summary-field">
-            <span class="summary-field-title">Height</span>
+            <span class="summary-field-title">Height
+            </span>
             {{ info.personal_profile.height }} cm
           </p>
           <p class="summary-field">
-            <span class="summary-field-title">Weight</span>
+            <span class="summary-field-title">Weight
+            </span>
             {{ info.personal_profile.weight }} kg
           </p>
           <p class="summary-field">
-            <span class="summary-field-title">Preferred Foot:</span>
+            <span class="summary-field-title">Preferred Foot:
+            </span>
             {{ info.personal_profile.preferred_foot }}
           </p>
           <p class="summary-field">
-            <span class="summary-field-title">Pro Status:</span>
+            <span class="summary-field-title">Pro Status:
+            </span>
             {{ info.personal_profile.pro_status || "N/a"}}
           </p>
           <p class="summary-field">
-            <span class="summary-field-title"># Caps:</span>
+            <span class="summary-field-title"># Caps:
+            </span>
             {{ info.personal_profile.total_caps || "0" }}
           </p>
-          <a href="#" class="btn btn-bright">Biography</a>
+          <a href="#" class="btn btn-bright">Biography
+          </a>
         </div>
         <div class="position">
-          <p class="position-title">Playing position</p>
-          <p class="position-content">{{ info.personal_profile.playing_position }}</p>
-          <img class="img-fluid position-map" src="http://www.conceptdraw.com/solution-park/resource/images/solutions/soccer/Sport-Soccer-Football-Formation-4-4-1-1.png" />
+          <p class="position-title">Playing position
+          </p>
+          <p class="position-content">{{ info.personal_profile.playing_position }}
+          </p>
+          <img class="img-fluid position-map" src="../../../../img/plaing_img.png" />
         </div>
       </div>
     </div>
   </timeline-item>
 </template>
-
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
 .profile-item-container {
@@ -107,77 +129,156 @@
       .detail-title {
         color: $secondary-text-color;
       }
-      .widget {
-        margin-top: 70px;
-        margin-bottom: 20px;
-        .widget-row {
-          display: flex;
-          align-items: center;
+      .info {
+        margin-top: 40px;
+        margin-left: 20px;
+        flex: 1 0 calc(100% - 320px);
+        .name {
+          color: $main-header-color;
+          text-transform: uppercase;
         }
-        .btn {
-          margin-right: 5px;
+        .role,
+        .club,
+        .detail {
+          color: $main-text-color;
         }
-        .connection {
+        .role {
+          font-size: 1.2em;
+        }
+        .detail-title {
           color: $secondary-text-color;
-          margin-bottom: 0;
-          margin-left: auto;
-          .number {
-            color: $main-text-color;
-            font-weight: bold;
-            font-size: 1.3em;
+        }
+        .widget {
+          margin-top: 70px;
+          margin-bottom: 20px;
+          .widget-row {
+            display: flex;
+            align-items: center;
+          }
+          .btn {
+            margin-right: 5px;
+          }
+          .connection {
+            color: $secondary-text-color;
+            margin-bottom: 0;
+            margin-left: auto;
+            .number {
+              color: $main-text-color;
+              font-weight: bold;
+              font-size: 1.3em;
+            }
           }
         }
       }
     }
-  }
-  .bottom {
-    display: flex;
-    margin-top: 30px;
-    .summary {
-      flex: 1 0 55%;
-      .summary-title {
-        color: $secondary-text-color;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-      }
-      .name {
-        text-transform: capitalize;
-      }
-      .summary-field {
-        color: $main-text-color;
-        margin-bottom: 5px;
-      }
-      *:last-child {
-        margin-top: 30px;
-      }
-    }
-    .position {
-      flex: 1 0 45%;
+    .bottom {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      .position-title {
-        color: $secondary-text-color;
-        font-size: 1.2em;
-        margin-bottom: 0;
+      margin-top: 30px;
+      .summary {
+        flex: 1 0 55%;
+        .summary-title {
+          color: $secondary-text-color;
+          text-transform: uppercase;
+          margin-bottom: 20px;
+        }
+        .name {
+          text-transform: capitalize;
+        }
+        .summary-field {
+          color: $main-text-color;
+          margin-bottom: 5px;
+        }
+        *:last-child {
+          margin-top: 30px;
+        }
       }
-      .position-content {
-        color: $main-text-color;
-        font-size: 1.2em;
+      .position {
+        flex: 1 0 45%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .position-title {
+          color: $secondary-text-color;
+          font-size: 1.2em;
+          margin-bottom: 0;
+        }
+        .position-content {
+          color: $main-text-color;
+          font-size: 1.2em;
+        }
       }
     }
   }
+
+.detail {
+    margin: 0;
+}
+.club {
+    margin: 0;
+}
+.widget {
+    margin: 24px 0 !important;
 }
 </style>
-
 <script>
-import TimelineItem from 'app/components/TimelineItem';
-
-export default {
-  name: 'Profile',
-  props: ['mine', 'info', 'follow', 'connect'],
-  components: {
-    'timeline-item': TimelineItem,
-  },
-};
+  import TimelineItem from 'app/components/TimelineItem';
+  import {
+    mapGetters,
+    mapActions
+  }
+  from 'vuex';
+  import {
+    ASYNC_LOADING,
+    ASYNC_SUCCESS
+  }
+  from '../../../constants/AsyncStatus';
+  export default {
+    name: 'Profile',
+    props: ['mine', 'info', 'follow', 'connect','page'],
+    components: {
+      'timeline-item': TimelineItem,
+    }
+    ,
+    computed: {
+      ...mapGetters(['token', 'user']),
+      role() {
+      if (this.user.status === ASYNC_SUCCESS) {
+      return this.user.value.role_name;
+    }
+    else {
+    return '';
+  }
+  }
+    ,
+      club(){
+        if (this.token.clubs && this.token.clubs.length > 0){
+          return true;
+        }
+        else{
+          return '';
+        }
+      }
+  ,
+  }
+    ,
+      methods: {
+        ...mapActions(['getUserInfo', 'logout']),
+          setMenu(id) {
+          this.submenu = id;
+        }
+        ,
+          scoutingPage() {
+            if (/scouting\//.test(this.page) || this.submenu == 0) return true;
+            return false;
+          }
+      }
+  ,
+    mounted() {
+      if (this.token.status !== ASYNC_SUCCESS) {
+        this.getUserInfo({
+          token: this.token.value }
+                        );
+      }
+    }
+  };
 </script>
