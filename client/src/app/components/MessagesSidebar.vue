@@ -44,6 +44,14 @@
           </b-card>
         </b-collapse>
         </div>
+<b-list-group class="list_right_sec">
+<b-list-group-item class="message_rightlist"><i class="fa fa-user"></i>Lionel Messi<br>When are you coming...</b-list-group-item>
+<b-list-group-item class="message_rightlist"><i class="fa fa-user"></i>Nani<br>When are you coming...</b-list-group-item>
+<b-list-group-item class="message_rightlist"><i class="fa fa-user"></i>José Mourinho<br>When are you coming...</b-list-group-item>
+<b-list-group-item class="message_rightlist"><i class="fa fa-user"></i>Bruno Marmo<br>When are you coming...</b-list-group-item>
+<b-list-group-item class="message_rightlist"><i class="fa fa-user"></i>Luis Carmona <br>When are you coming...</b-list-group-item>
+<b-list-group-item class="message_rightlist"><i class="fa fa-user"></i>Luis Carmona <br>When are you coming...</b-list-group-item>
+</b-list-group>
 
         <div class="inbox">
           <inbox-entry v-for="chat in chats" :chat="chat" :active="active(chat.chat_with.id)" :id="chat.chat_with.id" :key="chat.id"
@@ -103,13 +111,44 @@
     }
   }
   .inbox {
-    margin-top: 20px;
-    height: 420px;
+    margin-top: 10px;
+    height: 400px;
+    display: inline-block;
+    vertical-align: top;
     overflow-y: scroll;
     .inbox-entry:last-child {
       border-bottom: 1px solid #fff;
     }
   }
+
+.list_right_sec {
+    background: none !important;
+    margin-top: 14px;
+    display: inline-block;
+    width: 90%;
+
+}
+.message_rightlist {
+    background: none;
+    border-top: 1px solid#929292;
+    font-size: 12px; 
+    padding: 8px 20px;  
+}
+
+.message_rightlist .fa {
+    color: #a9ca43;
+    position: relative;
+    left: -14px;
+    font-size: 16px;
+    float: left;
+    padding: 10px 0;
+}
+.message_rightlist:hover {
+      background-color: #000;
+}
+
+
+
 </style>
 
 <script>

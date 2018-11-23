@@ -212,6 +212,8 @@ background: #d5d5d5;
 }
 .ft-page .header {
 color: #929292;
+  font-size: 24px;
+    margin-bottom: 24px;
 }
 </style>
 <script>

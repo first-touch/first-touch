@@ -2,7 +2,7 @@
   <div>
     <div class="container-fluid">
       <div class="ft-page network">
-        <h4 class="header">My network</h4>
+        <h4 class="header">MY NETWORK</h4>
 
         <b-row>
 
@@ -343,6 +343,8 @@
 }
 .ft-page .header {
     color: #929292;
+      font-size: 24px;
+    margin-bottom: 24px;
 }
 </style>
 
