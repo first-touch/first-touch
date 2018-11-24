@@ -19,6 +19,7 @@ module V1
       end
 
       def setup_club!(options, params:, **)
+        return true unless params[:club_id]
         club = ::Club.find(params[:club_id])
         options[:model].clubs = [club]
       end
