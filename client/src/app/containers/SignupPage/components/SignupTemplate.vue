@@ -186,6 +186,12 @@ export default {
           'error',
           'Please agree to our Terms and Conditions',
         );
+      } else if (this.role_name !== "director" && !this.searchText) {
+        return this.$set(
+          this,
+          'error',
+          'Please choose an existing club or enter the name and country of your club!'
+        );
       }
       var clubId = undefined;
       if (this.item) {
