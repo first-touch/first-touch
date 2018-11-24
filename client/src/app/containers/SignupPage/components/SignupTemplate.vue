@@ -191,33 +191,38 @@ export default {
       if (this.item) {
         clubId = this.item.id;
       }
-      const data = {
-        email: this.email,
-        password: this.password,
-        password_confirmation: this.password_confirmation,
-        club_id: clubId,
-        personal_profile: {
-          first_name: this.first_name,
-          last_name: this.last_name,
-          birthday: new Date(Date.UTC(this.year, this.month, this.day))
-        },
-        role_name: this.role_name,
-      };
 
-      UserService.register(data).then(res => {
-        if (res.status === 201) {
-          if (this.role == "director") {
-            res.json().then((data) => {
-              this.$store.state.userID = data.id
-              this.nextPage()
-            })
+      if (this.shouldCreateClub(clubId)) {
+        alert('create new club')
+      } else {
+        const data = {
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.password_confirmation,
+          club_id: clubId,
+          personal_profile: {
+            first_name: this.first_name,
+            last_name: this.last_name,
+            birthday: new Date(Date.UTC(this.year, this.month, this.day))
+          },
+          role_name: this.role_name,
+        };
+
+        UserService.register(data).then(res => {
+          if (res.status === 201) {
+            if (this.role == "director") {
+              res.json().then((data) => {
+                this.$store.state.userID = data.id
+                this.nextPage()
+              })
+            } else {
+              this.$router.push({ path: '/users/sign_in' });
+            }
           } else {
-            this.$router.push({ path: '/users/sign_in' });
+            res.json().then(r => this.$set(this, 'error', r.errors.join(", ")));
           }
-        } else {
-          res.json().then(r => this.$set(this, 'error', r.errors.join(", ")));
-        }
-      });
+        });
+      }
     },
     fetchCountries() {
       ClubService.countriesForClubs().then(response => {
@@ -245,6 +250,9 @@ export default {
     itemSelected(item) {
       this.$set(this, 'item', item);
     },
+    shouldCreateClub(clubId) {
+      return Boolean(!clubId && this.searchText && this.club_country_code)
+    }
   },
   mounted() {
     this.fetchCountries();
