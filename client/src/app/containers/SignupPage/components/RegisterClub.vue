@@ -1,7 +1,7 @@
 <template>
   <div>
     <navbar />
-    <div class="container-fluid">
+    <div class="container-fluid team-background">
       <div class="logo">
         <img src="/images/landing-page/ft-logo.png" alt="Ft Logo" />
       </div>
