@@ -1,6 +1,5 @@
 <template>
-  <signup-template :role="role_name" v-if="role_name != 'director'"/>
-  <form-wizard v-else-if="role_name == 'director'">
+  <form-wizard>
     <tab-content title="Personal details" shape="tab">
       <signup-template :role="role_name"/>
     </tab-content>

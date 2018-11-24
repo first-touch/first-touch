@@ -6,7 +6,7 @@
         <img src="/images/landing-page/ft-logo.png" alt="Ft Logo" />
       </div>
       <div class="col col-lg-5">
-        <div class="steps-container" v-if="this.role == 'director'">
+        <div class="steps-container" v-if="this.role_name == 'director'">
           <p class="steps active"> Step 1 - Personal Details </p>
           <p class="steps inactive"> Step 2 - Register Club </p>
         </div>
@@ -72,7 +72,7 @@
               </select>
             </div>
           </fieldset>
-          <fieldset class="form-group col-md-12" v-if="this.role != 'director'">
+          <fieldset class="form-group col-md-12" v-if="this.role_name != 'director'">
             <label>Your Club*</label>
             <div class="row">
               <select v-model="club_country_code" class="form-control col-md-4">
@@ -93,7 +93,7 @@
             </div>
           </fieldset>
           <fieldset class="form-group col-md-12">
-            <label class="club-note" v-if="this.role == 'director'">*To register your Club, create your individual profile first.</label>
+            <label class="club-note" v-if="this.role_name == 'director'">*As a Director, to register your Club, create your individual profile first.</label>
           </fieldset>
           <fieldset class="form-group col-md-12 tc-container">
             <input type="checkbox" id="tc" name="termsandconditions" v-model="tccheck" />
@@ -206,7 +206,7 @@ export default {
 
       UserService.register(data).then(res => {
         if (res.status === 201) {
-          if (this.role == "director") {
+          if (this.role_name == "director") {
             res.json().then((data) => {
               this.$store.state.userID = data.id
               this.nextPage()
