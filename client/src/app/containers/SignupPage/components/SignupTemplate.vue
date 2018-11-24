@@ -225,6 +225,8 @@ export default {
                   }
                 })
               })
+            } else {
+              this.$router.push({ path: '/users/sign_in' });
             }
           }
         } else {
