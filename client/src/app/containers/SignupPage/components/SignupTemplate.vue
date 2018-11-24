@@ -195,11 +195,11 @@ export default {
         email: this.email,
         password: this.password,
         password_confirmation: this.password_confirmation,
+        club_id: clubId,
         personal_profile: {
           first_name: this.first_name,
           last_name: this.last_name,
-          birthday: new Date(Date.UTC(this.year, this.month, this.day)),
-          club_id: clubId
+          birthday: new Date(Date.UTC(this.year, this.month, this.day))
         },
         role_name: this.role_name,
       };
