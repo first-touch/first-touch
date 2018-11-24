@@ -81,13 +81,14 @@ export default {
       countries: [],
       clubs: [],
       template: ItemTemplate,
+      searchText: '',
       item: null,
       error: null
     }
   },
   methods: {
     handleSubmit() {
-      if (this.canBeRegistered()) {
+      if (this.item) {
         const data = {
           user_id: this.$store.state.userID,
           id: this.item.id
@@ -109,12 +110,24 @@ export default {
           }
         })
       }
-      else {
+      else if (this.searchText) {
+        const clubData = {
+          account_owner_id: this.$store.state.userID,
+          country_code: this.club_country_code,
+          name: this.searchText
+        };
+
+        ClubService.create(clubData).then(res => {
+          if (res.status === 201) {
+            this.$router.push({ path: '/users/sign_in' });
+          }
+        })
+      } else {
         alert(this.error)
       }
     },
     canBeRegistered() {
-      return this.item != null && this.error == null
+      return (this.item != null && this.error == null) || this.searchText
     },
     fetchCountries() {
       ClubService.countriesForClubs().then(response => {
@@ -145,6 +158,9 @@ export default {
   },
   watch: {
     item: function(value) {
+      if (!value) {
+        return true
+      }
       ClubService.show(value.id).then(response => {
         if (response.has_owner) {
           return this.$set(this, 'error', "The club that you have chosen already has an existing director! You can choose to sign in to your account first while we email the club's director");
