@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe V1::Club::Create do
-  let(:current_user) do
+  let(:user) do
     res = V1::User::Register.(
       params: {
         email: 'test@banaas.com',
@@ -21,7 +21,7 @@ RSpec.describe V1::Club::Create do
     {
       name: 'Club',
       country_code: 'PT',
-      account_owner_id: current_user.id
+      account_owner_id: user.id
     }
   end
   let(:operation) { V1::Club::Create.(params: params) }
@@ -31,7 +31,7 @@ RSpec.describe V1::Club::Create do
       expect(operation.success?).to eq true
       club = operation[:model]
       expect(club).to be_persisted
-      expect(club.account_owner).to eq current_user
+      expect(club.account_owner).to eq user
       expect(club.country_code).to eq 'PT'
       expect(club.name).to eq 'Club'
     end
@@ -39,21 +39,26 @@ RSpec.describe V1::Club::Create do
 
   describe 'when there are missing params' do
     describe 'when account owner is missing' do
-    let(:params) { { name: 'Club', country_code: 'PT', account_owner_id: nil } }
+      let(:params) { { name: 'Club', country_code: 'PT', account_owner_id: nil } }
+
       it 'would not persist the club' do
         expect(operation.failure?).to eq true
         expect(operation.errors).to include ["can't be blank"]
       end
     end
+
     describe 'when name is missing' do
-    let(:params) { { name: nil, country_code: 'PT', account_owner_id: current_user.id } }
+      let(:params) { { name: nil, country_code: 'PT', account_owner_id: user.id } }
+
       it 'would not persist the club' do
         expect(operation.failure?).to eq true
         expect(operation.errors).to include ["can't be blank"]
       end
     end
+
     describe 'when country code is missing' do
-    let(:params) { { name: 'Club', country_code: nil, account_owner_id: current_user.id } }
+      let(:params) { { name: 'Club', country_code: nil, account_owner_id: user.id } }
+
       it 'would not persist the club' do
         expect(operation.failure?).to eq true
         expect(operation.errors).to include ["can't be blank"]
