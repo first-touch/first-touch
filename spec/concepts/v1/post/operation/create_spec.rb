@@ -20,12 +20,10 @@ RSpec.describe V1::Post::Create do
   let(:club) do
     res = V1::Club::Create.(
       params: {
-        club: {
-          name: 'Club',
-          city: 'City',
-          country_code: 'PT',
-          account_owner_id: current_user.id
-        }
+        name: 'Club',
+        city: 'City',
+        country_code: 'PT',
+        account_owner_id: current_user.id
       }
     )
     res[:model]
