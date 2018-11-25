@@ -27,7 +27,6 @@ export default {
   },
 
   create (data) {
-    debugger;
     return fetch(this.endpoint, {
       method: 'POST',
       headers: {
