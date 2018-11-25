@@ -20,8 +20,8 @@ module V1
 
       def setup_club!(options, params:, **)
         return true unless params[:club_id]
-        club = ::Club.find(params[:club_id])
-        options[:model].clubs = [club]
+        clubs = ::Club.where(id: params[:club_id])
+        options[:model].clubs = clubs
       end
 
       def claim_account!(options, **)
