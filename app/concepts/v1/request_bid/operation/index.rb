@@ -16,13 +16,13 @@ module V1
         elsif !current_club.nil?
           models = current_club.requests.find(requestId).request_bids.where status: 'pending'
         end
-        options['models'] = models
+        options[:models] = models
         options['model.class'] = ::RequestBid
         models
       end
 
       def filters!(options, params:, **)
-        models = options['models'].joins(:user)
+        models = options[:models].joins(:user)
         models = models.where("(price->>'value')::int >= ?", params[:price_min]) unless params[:price_min].blank?
         models = models.where("(price->>'value')::int <= ?", params[:price_max]) unless params[:price_max].blank?
         models = models.where('users.search_string iLIKE ?', "%#{params[:scout_name]}%")
@@ -30,7 +30,7 @@ module V1
         date = params[:created_date].to_date unless params[:created_date].blank?
         models = models.where created_at: date.all_day if date
         models = filters_date(models, params)
-        options['models'] = models
+        options[:models] = models
         true
       end
 
@@ -43,7 +43,7 @@ module V1
       end
 
       def orders!(options, params:, **)
-        models = options['models']
+        models = options[:models]
         unless params[:order].blank?
           order = params[:order_asc] == 'true' ? :asc : :desc
           if %w[created_at]
@@ -56,7 +56,7 @@ module V1
             models = models.order("users.search_string #{order}")
           end
         end
-        options['models'] = models
+        options[:models] = models
         true
       end
     end

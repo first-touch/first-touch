@@ -16,9 +16,9 @@ module FirstTouch
         end
       },
       success_list: {
-        rule: ->(result) { result.success? && !result['models'].nil? },
+        rule: ->(result) { result.success? && !result[:models].nil? },
         resolve: lambda do |result, representer|
-          { 'data': representer.new(result['models']), 'status': :ok }
+          { 'data': representer.new(result[:models]), 'status': :ok }
         end
       },
       success: {

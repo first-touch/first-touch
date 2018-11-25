@@ -16,7 +16,7 @@ module V1
           if FirstTouch::REGISTERABLE_ROLE_NAMES.include? params[:role]
             user_list = user_list.with_role params[:role]
           end
-          options['models'] = user_list
+          options[:models] = user_list
         end
       end
     end

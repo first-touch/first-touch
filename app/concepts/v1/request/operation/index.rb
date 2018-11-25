@@ -19,7 +19,7 @@ module V1
         end
         options['result.model'] = result = Result.new(!models.nil?, {})
         options['model.class'] = ::Request
-        options['models'] = models
+        options[:models] = models
       end
 
       def scout(options, **)
@@ -39,7 +39,7 @@ module V1
       end
 
       def filters!(options, params:, **)
-        models = options['models']
+        models = options[:models]
         models = add_where(models, 'requests.id =', params[:id])
         models = add_where(models, 'requests.type_request =', params[:type_request])
         models = add_where(models, 'requests.status =', params[:status])
@@ -55,7 +55,7 @@ module V1
 
         date = params[:created_date].to_date unless params[:created_date].blank?
         models = models.where created_at: date.all_day if date
-        options['models'] = models
+        options[:models] = models
         true
       end
 
@@ -73,7 +73,7 @@ module V1
       end
 
       def orders!(options, params:, **)
-        models = options['models']
+        models = options[:models]
         unless params[:order].blank?
           order = params[:order_asc] == 'true' ? :asc : :desc
           if %w[id type_request status created_at deadline]
@@ -90,7 +90,7 @@ module V1
             models = models.order("request_bids.status #{order}")
           end
         end
-        options['models'] = models
+        options[:models] = models
         true
       end
     end

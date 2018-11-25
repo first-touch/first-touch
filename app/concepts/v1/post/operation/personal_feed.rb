@@ -4,7 +4,7 @@ module V1
       step :build_feed
 
       def build_feed(options, **)
-        options['models'] = ::Post.where(
+        options[:models] = ::Post.where(
           author_id: relevant_user_ids(options[:current_user]),
           author_type: 'User'
         ).order('updated_at DESC')

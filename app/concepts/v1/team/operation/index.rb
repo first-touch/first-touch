@@ -4,7 +4,7 @@ module V1
       step :setup_model!
 
       def setup_model!(options, params:, **)
-        options['models'] = []
+        options[:models] = []
         team_list = ::Team.all.limit(7)
         query_params = params[:q]
         if query_params
@@ -14,7 +14,7 @@ module V1
             'team_name ILIKE ?', "%#{query_params}%"
           )
         end
-        options['models'] = team_list
+        options[:models] = team_list
       end
     end
   end

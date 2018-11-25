@@ -5,7 +5,7 @@ module V1
 
       def setup_model!(options, **)
         uniq_countries = ::Club.pluck(:country_code).uniq
-        options['models'] = uniq_countries.map do |country_code|
+        options[:models] = uniq_countries.map do |country_code|
           country_struct = OpenStruct.new(
             country_code: country_code,
             country_name: find_iso_name(country_code)

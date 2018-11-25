@@ -12,6 +12,7 @@ module Api
       end
 
       def show
+        puts @current_user
         render json: ::V1::User::Representer::SelfProfile.new(@current_user)
       end
 
@@ -52,7 +53,7 @@ module Api
           render json: { error_message: result['errors'] },
                  status: :unprocessable_entity
         else
-          render json: result['models'],
+          render json: result[:models],
                  each_serializer: ::Users::SearchSerializer,
                  status: :ok
         end

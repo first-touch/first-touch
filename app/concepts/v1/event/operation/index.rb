@@ -7,10 +7,10 @@ module V1
       def setup_model!(options, **)
         managed_clubs = options[:current_user].managed_clubs
         if managed_clubs.count.zero?
-          options['models'] = []
+          options[:models] = []
           return true
         end
-        options['models'] = managed_clubs.first.events
+        options[:models] = managed_clubs.first.events
         true
       end
     end

@@ -18,8 +18,8 @@ module Api
           render json: { error: 'Not Authorized' }, status: :unauthorized
           return
         end
-        @current_user = res['user']
-        @current_club = res['club']
+        @current_user = res[:user]
+        @current_club = res[:club]
       end
 
       def permit_all_params

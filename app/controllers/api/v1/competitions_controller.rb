@@ -3,7 +3,7 @@ module Api
     class CompetitionsController < Api::V1::BaseController
       def index
         result = ::V1::Competition::Index.(params: params, current_user: current_user)
-        render json: result['models'], status: :ok
+        render json: result[:models], status: :ok
       end
     end
   end

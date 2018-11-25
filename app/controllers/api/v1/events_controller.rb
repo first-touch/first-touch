@@ -19,7 +19,7 @@ module Api
 
       def index
         result = ::V1::Event::Index.(params: params, current_user: current_user)
-        render json: ::V1::Event::Representer::Index.new(result['models'])
+        render json: ::V1::Event::Representer::Index.new(result[:models])
       end
     end
   end

@@ -15,9 +15,9 @@ module V1
         elsif !current_club.nil?
           models = club(options, params, current_club: current_club)
         end
-        options['result.model'] = result = Result.new(!options['models'].nil?, {})
+        options['result.model'] = result = Result.new(!options[:models].nil?, {})
         options['model.class'] = ::Report
-        options['models'] = models
+        options[:models] = models
       end
 
       def club(options, params:, current_club:)
@@ -34,22 +34,22 @@ module V1
         models = nil
         request = current_club.requests.find(params[:request_id]) if params[:request_id]
         models = ::Report.proposed_reports request.id unless request.nil?
-        options['models'] = models
+        options[:models] = models
       end
 
       def marketplace!(options, current_club)
         models = ::Report.purchased_by_club_or_publish current_club.id
-        options['models'] = models
+        options[:models] = models
       end
 
       def purchased!(options, current_club)
-        models = options['models']
+        models = options[:models]
         models = ::Report.purchased_by_club current_club.id
-        options['models'] = models
+        options[:models] = models
       end
 
       def filters!(options, params:, **)
-        models = options['models'].joins(:user)
+        models = options[:models].joins(:user)
         models = add_where(models, 'reports.id = ', params[:id])
         models = add_where(models, 'reports.type_report = ', params[:type_report])
         models = add_where(models, 'reports.completion_status = ', params[:completion_status])
@@ -57,7 +57,7 @@ module V1
         models = add_where(models, 'users.search_string iLIKE ', "%#{params[:scout_name]}%")
         models = filters_date(models, params)
         models = filters_price(models, params)
-        options['models'] = models
+        options[:models] = models
       end
 
       def add_where(models, column, value)
@@ -80,7 +80,7 @@ module V1
       end
 
       def orders!(options, params:, **)
-        models = options['models']
+        models = options[:models]
         order = params[:order_asc] == 'true' ? :asc : :desc
         if %w[id created_at updated_at headline report_type completion_status]
            .include?(params[:order])
@@ -106,7 +106,7 @@ module V1
         if %w[club competition category player].include?(params[:order])
           models = models.reverse if order == :asc
         end
-        options['models'] = models
+        options[:models] = models
       end
     end
   end

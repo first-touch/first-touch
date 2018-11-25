@@ -5,7 +5,7 @@ module V1
 
       def setup_model!(options, params:,  **)
         # need to customize query to prevent N+1
-        options['models'] = options[:current_user].notes.joins(:tags).where('tags.name = ?', params['tag'])
+        options[:models] = options[:current_user].notes.joins(:tags).where('tags.name = ?', params['tag'])
         true
       end
     end
