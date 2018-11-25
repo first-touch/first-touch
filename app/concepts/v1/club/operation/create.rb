@@ -6,7 +6,7 @@ module V1
       step Trailblazer::Operation::Contract::Build(
         constant: Club::Contract::Create
       )
-      step Trailblazer::Operation::Contract::Validate(key: :club)
+      step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
 
       def setup_model!(options, params:, **)
