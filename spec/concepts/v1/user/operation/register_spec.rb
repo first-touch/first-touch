@@ -17,7 +17,18 @@ RSpec.describe V1::User::Register do
     )
     res[:model]
   end
-  let(:existing_club) { create(:club) }
+
+  let!(:existing_club) do
+    res = V1::Club::Create.(
+      params: {
+        account_owner_id: owner.id,
+        name: 'Club',
+        city: 'City',
+        country_code: 'PT',
+      }
+    )
+    res[:model]
+  end
   let(:params) do
     {
       email: 'test@firsttouch.io',
