@@ -9,7 +9,8 @@
         </div>
         <router-view v-if="currentChatWith"></router-view>
         <div v-else class="new-message">
-          Write a new message
+          <div class="item-container">
+          </div>
         </div>
       </div>
     </div>

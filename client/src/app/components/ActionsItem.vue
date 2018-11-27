@@ -11,7 +11,6 @@
   @import '~stylesheets/variables';
 
   .item-container {
-      display: flex;
     button.timeline-widget-button {
       display: flex;
     }

@@ -79,10 +79,6 @@
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
   .profile-item-container {
-    background-color: #fff;
-    border-radius: 5px;
-    padding: 20px;
-    width: 100%;
     .top {
       display: flex;
       .avatar {

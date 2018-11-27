@@ -229,7 +229,6 @@
   }
 
   .item-container {
-    display: contents;
     .table-item {
       font-size: 0.8em;
     }
