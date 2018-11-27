@@ -3,37 +3,19 @@
     <div class="container-fluid">
       <div class="ft-page messages">
         <h4 class="spaced-title upper-cased main-color">Messages</h4>
-        <div class="timeline-widget">
+        <div class="a-side-indicator primary">
           <div class="arrow"></div>
-          <ft-button :on-click="consoleClick" icon="ft-notes">Write Message</ft-button>
+          <ft-button :on-click="writeNewMessage" icon="ft-notes">Write Message</ft-button>
         </div>
         <router-view v-if="currentChatWith"></router-view>
+        <div v-else class="new-message">
+          Write a new message
+        </div>
       </div>
     </div>
     <messages-sidebar :currentChatWith="currentChatWith" />
   </div>
 </template>
-
-<style lang="scss" scoped>
-@import '~stylesheets/variables';
-@import '~stylesheets/common_style';
-
-// FIXME: Move this to a separate component and extract scss to organisms
-.timeline-widget {
-  display: flex;
-  border-left: 7px solid $secondary-header-color;
-
-  .arrow {
-    margin-top: 14px;
-    border-left-color: $secondary-header-color;
-  }
-}
-
-body {
-  min-height: 0;
-  height: auto;
-}
-</style>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
@@ -54,8 +36,8 @@ export default {
   },
   methods: {
     ...mapActions(['reloadConversation', 'sendMessage']),
-    consoleClick() {
-      console.log('Button clicked')
+    writeNewMessage() {
+      this.$router.push({ path: '/messages' });
     }
   },
 };

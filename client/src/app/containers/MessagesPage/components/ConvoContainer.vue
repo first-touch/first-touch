@@ -28,7 +28,9 @@ export default {
     onRouteChange() {
       const token = this.token.value;
       const partnerId = this.$route.params.id;
-      this.getConversation({ token, partnerId });
+      if (partnerId) {
+        this.getConversation({ token, partnerId });
+      }
     },
   },
   mounted() {

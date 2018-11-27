@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="timeline-widget">
+    <div class="a-side-indicator primary">
       <div class="arrow"></div>
       <div class="timeline-widget-button">
         <b-btn v-b-toggle.post-text>
@@ -61,7 +61,6 @@
         </div>
       </b-card>
     </b-collapse>
-
   </div>
 </template>
 
@@ -78,31 +77,24 @@
     }
   }
 
-  .timeline-widget {
-    display: flex;
-    border-left: 7px solid $secondary-header-color;
-    .timeline-widget-button {
-      .btn-secondary {
-        border: none; // max-width: 12vw;
-        margin-right: 20px;
-        margin-bottom: 20px;
-        color: $secondary-text-color;
-        text-transform: uppercase;
-        background-color: $navbar-background-color;
-        text-align: left;
-      }
-      .btn-text-title {
-        margin-top: 10px;
-      }
-      img {
-        height: 50px;
-      }
+  .timeline-widget-button {
+    .btn-secondary {
+      border: none; // max-width: 12vw;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      color: $secondary-text-color;
+      text-transform: uppercase;
+      background-color: $navbar-background-color;
+      text-align: left;
     }
-    .arrow {
-      margin-top: 18px;
-      border-left-color: $secondary-header-color;
+    .btn-text-title {
+      margin-top: 10px;
+    }
+    img {
+      height: 50px;
     }
   }
+
 </style>
 
 <script>

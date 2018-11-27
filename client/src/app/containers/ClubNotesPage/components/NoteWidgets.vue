@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="timeline-widget">
+    <div class="a-side-indicator primary">
       <div class="arrow"></div>
       <b-btn @click="modalShow = true" class="timeline-widget-button btn-add">
         Add A Note
@@ -37,35 +37,26 @@
 <style lang="scss" scoped>
 @import '~stylesheets/variables.scss';
 
-.timeline-widget {
-  display: flex;
-  border-left: 7px solid $secondary-header-color;
-
-  .timeline-widget-button {
-    color: $secondary-text-color;
-    text-transform: uppercase;
-    background-color: $navbar-background-color;
-    border: none;
-    max-width: 12vw;
-    margin-right: 20px;
-    &.btn-add {
-      padding-left: 50px;
-      background-image: url('https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png');
-      background-repeat: no-repeat;
-      background-position: left;
-      background-size: contain;
-    }
-    &.btn-create {
-      padding-left: 50px;
-      background-image: url('https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png');
-      background-repeat: no-repeat;
-      background-position: left;
-      background-size: contain;
-    }
+.timeline-widget-button {
+  color: $secondary-text-color;
+  text-transform: uppercase;
+  background-color: $navbar-background-color;
+  border: none;
+  max-width: 12vw;
+  margin-right: 20px;
+  &.btn-add {
+    padding-left: 50px;
+    background-image: url('https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png');
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: contain;
   }
-  .arrow {
-    margin-top: 18px;
-    border-left-color: $secondary-header-color;
+  &.btn-create {
+    padding-left: 50px;
+    background-image: url('https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png');
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: contain;
   }
 }
 </style>
@@ -150,5 +141,3 @@ export default {
   },
 };
 </script>
-
-

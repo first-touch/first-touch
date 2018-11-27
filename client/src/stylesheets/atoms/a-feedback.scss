@@ -3,3 +3,29 @@
 .a-highlight {
   color: $link-color-hover;
 }
+
+.a-side-indicator {
+  display: flex;
+  border-left: 7px solid;
+  margin: 20px 0;
+
+  .arrow {
+    margin-top: 18px;
+  }
+
+  &.primary {
+    border-color: $secondary-header-color;
+
+    .arrow {
+      border-left-color: $secondary-header-color;
+    }
+  }
+
+  &.secondary {
+    border-color: $main-header-color;
+
+    .arrow {
+      border-left-color: $main-header-color;
+    }
+  }
+}

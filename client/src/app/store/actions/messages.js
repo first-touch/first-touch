@@ -18,6 +18,7 @@ export const getConversation = (store, { token, partnerId }) => {
 };
 
 export const reloadConversation = (store, { token }) => {
+  debugger;
   fetch(`/api/v1/messages/${store.state.messages.value.chat_with.id}`, {
     method: 'GET',
     headers: { Authorization: token }

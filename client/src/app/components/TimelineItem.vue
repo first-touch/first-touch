@@ -1,5 +1,5 @@
 <template>
-  <div class="timeline-post">
+  <div class="a-side-indicator secondary">
     <div class="arrow"></div>
     <div class="item-container">
       <slot></slot>
@@ -8,22 +8,11 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/variables';
-
-.timeline-post {
-  display: flex;
-  border-left: 7px solid $main-header-color;
-  margin: 20px 0;
-  .arrow {
-    margin-top: 20px;
-    border-left-color: $main-header-color;
-  }
-  .item-container {
-    background: #fff;
-    border-radius: 5px;
-    padding: 20px;
-    width: 100%;
-  }
+.item-container {
+  background: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  width: 100%;
 }
 </style>
 
