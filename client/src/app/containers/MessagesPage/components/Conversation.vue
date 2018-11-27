@@ -2,10 +2,10 @@
   <timeline-item>
     <div class="sub-container">
       <div class="header">
-        <img class="avatar" src="https://unsplash.it/200/200" />
-        <div class="info">
+        <img v-if="!newMessage" class="avatar" :src="avatar"  />
+        <div v-if="!newMessage" class="info">
           <h5 class="name">{{ name }}</h5>
-          <p class="role">Football Player at FC Barcelona</p>
+          <p class="role">{{ fullRole }}</p>
         </div>
       </div>
       <div class="body">
@@ -71,9 +71,12 @@
 <script>
 import TimelineItem from 'app/components/TimelineItem';
 import ConvoEntry from './ConvoEntry';
+
 export default {
   name: 'Conversation',
-  props: ['currentUser', 'messages', 'reloadConversation', 'sendMessage'],
+  props: [
+    'currentUser', 'messages', 'reloadConversation', 'sendMessage'
+  ],
   components: {
     'convo-entry': ConvoEntry,
     'timeline-item': TimelineItem,
@@ -84,11 +87,31 @@ export default {
     };
   },
   computed: {
+    personalProfile() {
+      return this.messages.value.chat_with.personal_profile;
+    },
     name() {
-      return this.messages.value.chat_with.display_name;
+      return `${this.personalProfile.first_name} ${this.personalProfile.last_name}`;
+    },
+    fullRole() {
+      let roleParts = _.compact([
+        this.messages.value.chat_with.role_name,
+        this.messages.value.chat_with.club
+      ]);
+      return roleParts.join(' at ');
+    },
+    avatar() {
+      return this.personalProfile.avatar_url;
     },
     entries() {
-      return this.messages.value.messages;
+      if (this.messages.value) {
+        return this.messages.value.messages;
+      } else {
+        return [];
+      }
+    },
+    newMessage() {
+      return !this.messages.value
     },
   },
   methods: {
@@ -107,7 +130,14 @@ export default {
     },
   },
   mounted() {
-    this.reloadInterval = setInterval(this.reloadConversation, 5000);
+    if (!this.newMessage) {
+      this.reloadInterval = setInterval(this.reloadConversation, 5000);
+    }
+  },
+  updated() {
+    if (this.newMessage && this.reloadInterval) {
+      clearInterval(this.reloadInterval);
+    }
   },
   beforeDestroy() {
     clearInterval(this.reloadInterval);

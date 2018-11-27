@@ -4,14 +4,15 @@ $navbar-background-color-faded: rgba(33, 34, 35, 0.8);
 $landing-page-dark-background-color: #191a1b;
 $background-color: #343434;
 $main-header-color: #a8cb5c;
+$secondary-header-color: #4bba63;
 $third-header-color: #6DA87D;
 $link-color: #666464;
 $link-color-hover: #439042;
 
-$button-background-colour: #439042;
-$button-border: solid 2px #4bba63;
+$button-background-colour: $link-color-hover;
+$button-border: solid 2px $secondary-header-color;
 $button-box-shadow: 3px 3px 12px #000000;
-$button-background-colour-on-hover: #4bba63;
+$button-background-colour-on-hover: $secondary-header-color;
 $button-border-on-hover: 2px solid rgb(84, 207, 111);
 $button-border-on-hover-box-shadow: 3px 3px 20px #000000;
 
@@ -21,7 +22,6 @@ $second-layer-box-shadow: inset 0px 0px 55px #000000;
 $footer-text-color: #666464;
 
 // $secondary-header-color: #6DA87D;
-$secondary-header-color: #4bba63;
 $main-text-color: #7f8081;
 $main-text-alpha-20: rgba(140, 140, 140, 0.2);
 $main-text-alpha-50: rgba(140,140,140,0.5);
@@ -78,8 +78,8 @@ $button-background:  rgba(255, 255, 255, 0.2);
 $button-background-hover:  rgba(0, 0, 0, 0.2);
 
 // timeline-widget
-$timeline-widget-button-background: #a8cb5c;
+$timeline-widget-button-background: $main-header-color;
 $timeline-widget-button-color: #ffffff;
 
-$input-focus-color: #a8cb5c;
+$input-focus-color: $main-header-color;
 $form-control-read-only: #e9ecef;

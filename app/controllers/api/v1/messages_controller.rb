@@ -16,46 +16,15 @@ module Api
       end
 
       def show
-        begin
-          user = ::User.find(chat_params[:chat_with_id])
-        rescue ActiveRecord::RecordNotFound => e
-          render json: { error: 'User not found' }, status: :unprocessable_entity
-          return
-        end
-
-        full_chat = @current_user.full_chat_with user
-
-        render json: {
-          chat_with: {
-            id: user.id,
-            display_name: user.display_name
-          },
-          messages: full_chat
-        }, status: :ok
+        result = ::V1::Message::Show.(params: params, current_user: current_user)
+        res = FirstTouch::Endpoint.(result, ::V1::Chat::Representer::FullChat)
+        render json: res[:data], status: res[:status]
       end
 
       def create
-        new_message = Message.new(message_params.merge(creator_id: @current_user.id))
-        if new_message.save
-          render json: { message: new_message }, status: :created
-        else
-          render json: { error: new_message.errors.full_messages },
-                 status: :unprocessable_entity
-        end
-      end
-
-      private
-
-      def message_params
-        params.require(:message)
-              .permit(:message_body,
-                      message_recipient_attributes: [
-                        :recipient_id
-                      ])
-      end
-
-      def chat_params
-        params.permit(:chat_with_id)
+        op = ::V1::Message::Create.(params: params, current_user: current_user)
+        res = FirstTouch::Endpoint.(op, ::V1::Message::Representer::Simple)
+        render json: res[:data], status: res[:status]
       end
     end
   end

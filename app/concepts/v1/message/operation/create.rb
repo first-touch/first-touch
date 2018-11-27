@@ -1,20 +1,25 @@
 module V1
   module Message
     class Create < Trailblazer::Operation
-      step Model(Message, :new)
+      step Model(::Message, :new)
+      step :find_recipient!
       step :setup_model!
       step Trailblazer::Operation::Contract::Build(constant: Message::Contract::Create)
-      step Trailblazer::Operation::Contract::Validate(key: :message)
+      step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
 
       private
 
-      def setup_model!(options, params:,  **)
-        recipient = User.find_by(id: params[:message][:recipient_id])
-        options[:model].message_recipient = MessageRecipient.new(
+      def find_recipient!(options, params:, **)
+        options[:recipient] = ::User.find_by(id: params[:recipient_id])
+        !options[:recipient].nil?
+      end
+
+      def setup_model!(_options, model:, recipient:, current_user:, **)
+        model.message_recipient = MessageRecipient.new(
           recipient: recipient
         )
-        options[:model].creator = options[:current_user]
+        model.creator = current_user
       end
     end
   end

@@ -1,0 +1,16 @@
+.ft-icon {
+  &.ft-camera {
+    background-image: url('/images/ft-icons/ft-camera.png');
+    display: inline-block;
+    height: 15px;
+    width: 17px;
+    margin-left: 1px;
+  }
+
+  &.ft-notes {
+    background-image: url('/images/ft-icons/ft-notes.png');
+    display: inline-block;
+    height: 19px;
+    width: 19px;
+  }
+}

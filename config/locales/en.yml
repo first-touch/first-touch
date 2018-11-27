@@ -20,6 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  models:
+    not_found: "%{model} with the given ID(%{id}) was not found"
   career:
     invalid_dates: 'Start date has to be earlier than end date'
     invalid_owner: 'This career entry does not belong to this user'
