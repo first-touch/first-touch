@@ -134,6 +134,11 @@ export default {
       this.reloadInterval = setInterval(this.reloadConversation, 5000);
     }
   },
+  updated() {
+    if (this.newMessage && this.reloadInterval) {
+      clearInterval(this.reloadInterval);
+    }
+  },
   beforeDestroy() {
     clearInterval(this.reloadInterval);
   },
