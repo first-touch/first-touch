@@ -2,8 +2,8 @@
   <timeline-item>
     <div class="sub-container">
       <div class="header">
-        <img class="avatar" :src="avatar"  />
-        <div class="info">
+        <img v-if="!newMessage" class="avatar" :src="avatar"  />
+        <div v-if="!newMessage" class="info">
           <h5 class="name">{{ name }}</h5>
           <p class="role">{{ fullRole }}</p>
         </div>
@@ -74,7 +74,9 @@ import ConvoEntry from './ConvoEntry';
 
 export default {
   name: 'Conversation',
-  props: ['currentUser', 'messages', 'reloadConversation', 'sendMessage'],
+  props: [
+    'currentUser', 'messages', 'reloadConversation', 'sendMessage'
+  ],
   components: {
     'convo-entry': ConvoEntry,
     'timeline-item': TimelineItem,
@@ -102,7 +104,14 @@ export default {
       return this.personalProfile.avatar_url;
     },
     entries() {
-      return this.messages.value.messages;
+      if (this.messages.value) {
+        return this.messages.value.messages;
+      } else {
+        return [];
+      }
+    },
+    newMessage() {
+      return !this.messages.value
     },
   },
   methods: {
@@ -121,7 +130,9 @@ export default {
     },
   },
   mounted() {
-    this.reloadInterval = setInterval(this.reloadConversation, 5000);
+    if (!this.newMessage) {
+      this.reloadInterval = setInterval(this.reloadConversation, 5000);
+    }
   },
   beforeDestroy() {
     clearInterval(this.reloadInterval);

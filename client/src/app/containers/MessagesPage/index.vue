@@ -7,11 +7,7 @@
           <div class="arrow"></div>
           <ft-button :on-click="writeNewMessage" icon="ft-notes">Write Message</ft-button>
         </div>
-        <router-view v-if="currentChatWith"></router-view>
-        <div v-else class="new-message">
-          <div class="item-container">
-          </div>
-        </div>
+        <router-view></router-view>
       </div>
     </div>
     <messages-sidebar :currentChatWith="currentChatWith" />
@@ -20,6 +16,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import TimelineItem from 'app/components/TimelineItem';
 import MessagesSidebar from 'app/components/MessagesSidebar';
 import Button from 'app/components/Button/Button';
 
@@ -28,6 +25,7 @@ export default {
   components: {
     'messages-sidebar': MessagesSidebar,
     'ft-button': Button,
+    'timeline-item': TimelineItem
   },
   computed: {
     ...mapGetters(['messages', 'user', 'token']),
