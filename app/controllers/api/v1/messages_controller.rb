@@ -26,5 +26,6 @@ module Api
         res = FirstTouch::Endpoint.(op, ::V1::Message::Representer::Simple)
         render json: res[:data], status: res[:status]
       end
+    end
   end
 end
