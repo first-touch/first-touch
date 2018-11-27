@@ -6,7 +6,7 @@
         <img src="/images/landing-page/ft-logo.png" alt="Ft Logo" />
       </div>
       <div class="col col-lg-5">
-        <div class="steps-container" v-if="this.role == 'director'">
+        <div class="steps-container" v-if="this.role_name == 'director'">
           <p class="steps active"> Step 1 - Personal Details </p>
           <p class="steps inactive"> Step 2 - Register Club </p>
         </div>
@@ -72,7 +72,7 @@
               </select>
             </div>
           </fieldset>
-          <fieldset class="form-group col-md-12" v-if="this.role != 'director'">
+          <fieldset class="form-group col-md-12" v-if="this.role_name != 'director'">
             <label>Your Club*</label>
             <div class="row">
               <select v-model="club_country_code" class="form-control col-md-4">
@@ -93,7 +93,7 @@
             </div>
           </fieldset>
           <fieldset class="form-group col-md-12">
-            <label class="club-note" v-if="this.role == 'director'">*To register your Club, create your individual profile first.</label>
+            <label class="club-note" v-if="this.role_name == 'director'">*As a Director, to register your Club, create your individual profile first.</label>
           </fieldset>
           <fieldset class="form-group col-md-12 tc-container">
             <input type="checkbox" id="tc" name="termsandconditions" v-model="tccheck" />
@@ -186,6 +186,12 @@ export default {
           'error',
           'Please agree to our Terms and Conditions',
         );
+      } else if (this.role_name !== "director" && !this.searchText) {
+        return this.$set(
+          this,
+          'error',
+          'Please choose an existing club or enter the name and country of your club!'
+        );
       }
       var clubId = undefined;
       if (this.item) {
@@ -195,24 +201,39 @@ export default {
         email: this.email,
         password: this.password,
         password_confirmation: this.password_confirmation,
+        club_id: clubId,
         personal_profile: {
           first_name: this.first_name,
           last_name: this.last_name,
-          birthday: new Date(Date.UTC(this.year, this.month, this.day)),
-          club_id: clubId
+          birthday: new Date(Date.UTC(this.year, this.month, this.day))
         },
         role_name: this.role_name,
       };
 
       UserService.register(data).then(res => {
         if (res.status === 201) {
-          if (this.role == "director") {
+          if (this.role_name == "director") {
             res.json().then((data) => {
               this.$store.state.userID = data.id
               this.nextPage()
             })
           } else {
-            this.$router.push({ path: '/users/sign_in' });
+            if (this.shouldCreateClub(this.item)) {
+              res.json().then((data) => {
+                const clubData = {
+                  account_owner_id: data.id,
+                  country_code: this.club_country_code,
+                  name: this.searchText
+                };
+                ClubService.create(clubData).then(res => {
+                  if (res.status === 201) {
+                    this.$router.push({ path: '/users/sign_in' });
+                  }
+                })
+              })
+            } else {
+              this.$router.push({ path: '/users/sign_in' });
+            }
           }
         } else {
           res.json().then(r => this.$set(this, 'error', r.errors.join(", ")));
@@ -245,6 +266,9 @@ export default {
     itemSelected(item) {
       this.$set(this, 'item', item);
     },
+    shouldCreateClub(clubId) {
+      return Boolean(!clubId && this.searchText && this.club_country_code)
+    }
   },
   mounted() {
     this.fetchCountries();

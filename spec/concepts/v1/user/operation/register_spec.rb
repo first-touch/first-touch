@@ -17,16 +17,14 @@ RSpec.describe V1::User::Register do
     )
     res[:model]
   end
-  let(:operation) { V1::User::Register.(params: params) }
-  let(:existing_club) do
+
+  let!(:existing_club) do
     res = V1::Club::Create.(
       params: {
-        club: {
-          name: 'Club',
-          city: 'City',
-          country_code: 'PT',
-          account_owner_id: owner.id
-        }
+        account_owner_id: owner.id,
+        name: 'Club',
+        city: 'City',
+        country_code: 'PT',
       }
     )
     res[:model]
@@ -37,7 +35,7 @@ RSpec.describe V1::User::Register do
       password: 'password',
       password_confirmation: 'password',
       role_name: role_name,
-      club_ids: [existing_club.id],
+      club_id: existing_club.id,
       personal_profile: {
         first_name: 'Test',
         last_name: 'Bananas',
@@ -45,6 +43,7 @@ RSpec.describe V1::User::Register do
       }
     }
   end
+  let(:operation) { V1::User::Register.(params: params) }
 
   shared_examples 'registerable role' do |role_name|
     it 'registers the user' do

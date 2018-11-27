@@ -26,6 +26,16 @@ export default {
     });
   },
 
+  create (data) {
+    return fetch(this.endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+  },
+
   update (data) {
     // how do i retrieve the authorization token from here?
     fetch(`${this.endpoint}/${data.id}`, {

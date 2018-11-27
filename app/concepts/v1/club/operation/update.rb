@@ -10,8 +10,8 @@ module V1
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
 
-      def find_account_owner!(params:, **)
-        account_owner = ::User.find_by id: params[:user_id]
+      def find_account_owner!(_opts, params:, **)
+        account_owner = ::User.find_by id: params['user_id']
         params[:account_owner] = account_owner
         true
       end

@@ -21,14 +21,12 @@ RSpec.describe 'Posts', type: :request do
   let!(:existing_club) do
     res = V1::Club::Create.(
       params: {
-        club: {
-          account_owner_id: existing_user.id,
-          name: 'Ajax',
-          city: 'Amsterdam',
-          country_code: 'NL',
-          stadium_name: 'Johan Cruijff Arena',
-          date_founded: '18/03/1900'
-        }
+        account_owner_id: existing_user.id,
+        name: 'Ajax',
+        city: 'Amsterdam',
+        country_code: 'NL',
+        stadium_name: 'Johan Cruijff Arena',
+        date_founded: '18/03/1900'
       }
     )
     res[:model]

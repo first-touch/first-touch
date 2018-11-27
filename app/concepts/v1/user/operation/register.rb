@@ -4,6 +4,7 @@ module V1
       # TODO: Should guarantee that there is no user logged in
       step Model(::User, :new)
       step :setup_model!
+      step :setup_club!
       step :claim_account!
       step Trailblazer::Operation::Contract::Build(
         constant: User::Contract::Register
@@ -15,6 +16,12 @@ module V1
 
       def setup_model!(options, params:, **)
         options[:model].add_role params[:role_name]
+      end
+
+      def setup_club!(options, params:, **)
+        return true unless params[:club_id]
+        clubs = ::Club.where(id: params[:club_id])
+        options[:model].clubs = clubs
       end
 
       def claim_account!(options, **)
