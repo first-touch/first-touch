@@ -40,13 +40,8 @@ export const sendMessage = (store, { content }) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      message: {
-        message_body: content, // eslint-disable-line camelcase
-        // eslint-disable-next-line camelcase
-        message_recipient_attributes: {
-          recipient_id: store.state.messages.value.chat_with.id // eslint-disable-line camelcase
-        }
-      }
+      message_body: content, // eslint-disable-line camelcase
+      recipient_id: store.state.messages.value.chat_with.id // eslint-disable-line camelcase
     })
   }).then(res => {
     if (res.status === 201) {

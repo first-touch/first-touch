@@ -22,13 +22,16 @@ module Api
       end
 
       def create
-        new_message = Message.new(message_params.merge(creator_id: @current_user.id))
-        if new_message.save
-          render json: { message: new_message }, status: :created
-        else
-          render json: { error: new_message.errors.full_messages },
-                 status: :unprocessable_entity
-        end
+        op = ::V1::Message::Create.(params: params, current_user: current_user)
+        res = FirstTouch::Endpoint.(op, ::V1::Message::Representer::Simple)
+        render json: res[:data], status: res[:status]
+        # new_message = Message.new(message_params.merge(creator_id: @current_user.id))
+        # if new_message.save
+        #   render json: { message: new_message }, status: :created
+        # else
+        #   render json: { error: new_message.errors.full_messages },
+        #          status: :unprocessable_entity
+        # end
       end
 
       private
