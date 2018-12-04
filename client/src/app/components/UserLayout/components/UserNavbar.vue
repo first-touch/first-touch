@@ -8,17 +8,16 @@
         <img class="rounded-circle img-fluid avatar" :src="avatarUrl" />
         <h4 class="profile-name">{{ name }}</h4>
         <h5 class="profile-role"> {{ role }} </h5>
-        <h5 class="profile-club"> {{ club }} </h5>
-        <router-link to="/profile/edit" class="a-sidebar-button">Edit Profile</router-link>
-        <router-link to="/club" v-if="club" class="a-sidebar-button">My clubs</router-link>
+        <h5 class="profile-club"> {{ clubName }} </h5>
+        <router-link to="/club" v-if="club" class="a-sidebar-button">My club</router-link>
       </div>
       <ul class="nav-list">
-        <li class="nav-item" :class="{ active: page === 'home'  && submenu == -1 }">
+        <li class="nav-item" :class="{ active: page === 'home' && submenu == -1 }">
           <div class="nav-item-inner" @click="setMenu(-1)">
             <router-link to="/">Home</router-link>
           </div>
         </li>
-        <li class="nav-item" :class="{ active: page === 'profile'  && submenu == -1 }">
+        <li class="nav-item" :class="{ active: page === 'profile' && submenu == -1 }">
           <div class="nav-item-inner" @click="setMenu(-1)">
             <router-link to="/profile">Profile</router-link>
           </div>
@@ -28,7 +27,7 @@
             <router-link to="/calendar">Calendar</router-link>
           </div>
         </li>
-        <li class="nav-item" :class="{ active: page === 'messages'  && submenu == -1 }">
+        <li class="nav-item" :class="{ active: page === 'messages' && submenu == -1 }">
           <div class="nav-item-inner" @click="setMenu(-1)">
             <router-link to="/messages">Messages</router-link>
           </div>
@@ -60,19 +59,19 @@
         </li>
       </ul>
     </div>
-  <div class="sidenav-right">
-    <div class="nav-list">
-      <div class="nav-item">
-        <a href="/about">About</a>
-      </div>
-      <div class="nav-item">
-        <a href="/settings">Settings</a>
-      </div>
-      <div class="nav-item">
-        <button @click="logout">Logout</button>
+    <div class="sidenav-right">
+      <div class="nav-list">
+        <div class="nav-item">
+          <a href="/about">About</a>
+        </div>
+        <div class="nav-item">
+          <a href="/settings">Settings</a>
+        </div>
+        <div class="nav-item">
+          <button @click="logout">Logout</button>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -240,6 +239,11 @@ export default {
         return false
       }
     },
+    clubName() {
+      if(this.club) {
+        return this.token.clubs[0].name;
+      }
+    },
     hasBankAccount() {
       if (this.user.status === ASYNC_SUCCESS) {
         return (this.user.value.has_bank_account)
@@ -262,16 +266,16 @@ export default {
       );
     }
   },
-    methods: {
-      ...mapActions(['getUserInfo', 'logout']),
-      setMenu(id) {
-        this.submenu = id;
-      },
-      scoutingPage() {
-        if (/scouting\//.test(this.page) || this.submenu == 0) return true;
-        return false;
-      }
+  methods: {
+    ...mapActions(['getUserInfo', 'logout']),
+    setMenu(id) {
+      this.submenu = id;
     },
+    scoutingPage() {
+      if (/scouting\//.test(this.page) || this.submenu == 0) return true;
+      return false;
+    }
+  },
   mounted() {
     // FIXME: hack around store messups
     if (this.token.value !== undefined) {
