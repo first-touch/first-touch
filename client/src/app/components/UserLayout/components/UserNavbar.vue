@@ -4,14 +4,13 @@
       <router-link class="brand" to="/">
         <img class="img-fluid" src="/images/landing-page/ft-navbar-logo.png" alt="Ft Logo" />
       </router-link>
-      <div class="profile">
-        <img class="rounded-circle img-fluid" :src="avatarUrl" />
+      <div class="m-profile">
+        <img class="rounded-circle img-fluid avatar" :src="avatarUrl" />
         <h4 class="profile-name">{{ name }}</h4>
         <h5 class="profile-role"> {{ role }} </h5>
         <h5 class="profile-club"> {{ club }} </h5>
-        <router-link to="/profile/edit" class="profile-edit-button">Edit Profile</router-link>
-        <router-link to="/club" v-if="club" class="profile-edit-button">My clubs</router-link>
-
+        <router-link to="/profile/edit" class="a-sidebar-button">Edit Profile</router-link>
+        <router-link to="/club" v-if="club" class="a-sidebar-button">My clubs</router-link>
       </div>
       <ul class="nav-list">
         <li class="nav-item" :class="{ active: page === 'home'  && submenu == -1 }">
@@ -84,41 +83,6 @@
 .sidenav-left {
   .brand {
     margin: 0 0 15px 0;
-  }
-  .profile {
-    margin: 15px 0;
-    * {
-      margin: 10px 0;
-    }
-    .img-fluid {
-      max-width: 50%;
-    }
-
-    .profile-name {
-      text-transform: uppercase;
-      color: $main-header-color;
-      font-weight: 300;
-      font-size: 1.2em;
-    }
-    .profile-club,
-    .profile-role {
-      color: $secondary-text-color;
-      font-weight: 300;
-      text-transform: capitalize;
-      font-size: 1em;
-    }
-    .profile-edit-button {
-      border: 1px solid $secondary-text-color;
-      border-radius: 4px;
-      background-color: transparent;
-      text-transform: uppercase;
-      font-size: 0.85em;
-      padding: 5px 20px;
-      color: $secondary-text-color;
-      &:hover {
-        text-decoration: none;
-      }
-    }
   }
 
   .nav-list {

@@ -4,11 +4,10 @@
       <router-link class="brand" to="/">
         <img class="img-fluid" src="/images/landing-page/ft-navbar-logo.png" alt="Ft Logo" />
       </router-link>
-      <div class="profile">
-        <img class="rounded-circle img-fluid" src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Toronto_FC_Logo.svg/1095px-Toronto_FC_Logo.svg.png"
-        />
+      <div class="m-profile">
+        <img class="rounded-circle img-fluid avatar" src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Toronto_FC_Logo.svg/1095px-Toronto_FC_Logo.svg.png" >
         <h4 class="profile-name">{{clubName}}</h4>
-        <router-link to="/" class="profile-edit-button">My Profile</router-link>
+        <router-link to="/" class="a-sidebar-button">My Profile</router-link>
       </div>
       <ul class="nav-list">
         <li class="nav-item" :class="{ active: tab[0] }">
