@@ -44,7 +44,7 @@
           </ul>
         </li>
         <li class="nav-item" :class="{ active: tab[2] || /\/club\/scouting/.test(page) || /\/club\/request/.test(page) }">
-          <div class="nav-item-inner nav-item-inner-link" @click="onTabClick(2); toMarketplace()">
+          <div class="nav-item-inner nav-item-inner-link" @click="onTabClick(2);">
             Scouting
           </div>
           <ul class="sub-nav">
