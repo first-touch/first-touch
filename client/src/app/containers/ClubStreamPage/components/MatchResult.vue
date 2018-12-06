@@ -1,6 +1,6 @@
 <template>
 <div class="ft-page timeline">
-  <h4 class="spaced-title upper-cased main-color">Your Profile</h4>
+  <h4 class="spaced-title upper-cased main-color">Club Dashboard</h4>
   <div class="result-container">
     <button class="btn back">
     </button>
