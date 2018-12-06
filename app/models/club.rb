@@ -8,6 +8,7 @@ class Club < ApplicationRecord
   has_many :reports_buy, foreign_key: :customer_id, class_name: 'Order'
   has_many :posts, as: :author, foreign_key: 'author_id'
   has_many :teams
+  has_one_attached :club_logo
 
   validates_presence_of :name, :country_code
 

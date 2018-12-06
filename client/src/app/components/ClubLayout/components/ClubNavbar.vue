@@ -10,6 +10,11 @@
         <router-link to="/" class="a-sidebar-button">My profile</router-link>
       </div>
       <ul class="nav-list">
+        <li class="nav-item">
+          <div class="nav-item-inner">
+            <router-link to="/club"> Dashboard </router-link>
+          </div>
+        </li>
         <li class="nav-item" :class="{ active: tab[0] }">
           <div class="nav-item-inner" @click="onTabClick(0)">
             Channel
