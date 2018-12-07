@@ -1,7 +1,8 @@
 module Api
   module V1
     class ClubsController < Api::V1::BaseController
-      skip_before_action :authenticate_request, only: %i[index search show countries update create]
+      skip_before_action :authenticate_request,
+                         only: %i[index search show countries update create]
       def index
         result = ::V1::Club::Index.(params: params)
         response = FirstTouch::Endpoint.(result, ::V1::Club::Representer::Search)
