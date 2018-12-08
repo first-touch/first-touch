@@ -105,7 +105,7 @@ export default {
       let password = this.password;
 
       this.attemptLogIn({ email, password }).then(() => {
-        console.log(arguments);
+        this.$router.push('/');
       }).catch((err) => {
         this.errorMessage = err.errors;
       });

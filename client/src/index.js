@@ -65,13 +65,7 @@ window.JQuery = require('jquery');
 window._ = require('lodash');
 
 function requireAuth (to, from, next) {
-  store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
-  try {
-    store.state.token.clubs = store.state.token.clubs || localStorage.getItem('clubs_token') ? JSON.parse(localStorage.getItem('clubs_token')) : null;
-  } catch (e) {
-    store.state.token.clubs = null;
-  }
-  if (!store.state.token.value) {
+  if (!store.state.token) {
     next({
       path: '/welcome'
     });
@@ -99,11 +93,8 @@ function requireClub (to, from, next) {
 }
 
 function checkIfLoggedIn (to, from, next) {
-  store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
-  if (store.state.token.value) {
-    next({
-      path: '/'
-    });
+  if (store.state.token) {
+    next({ path: '/' });
   } else next();
 }
 
