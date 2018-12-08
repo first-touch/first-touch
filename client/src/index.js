@@ -66,13 +66,12 @@ window._ = require('lodash');
 
 function requireAuth (to, from, next) {
   if (!store.state.token) {
-    next({
-      path: '/welcome'
-    });
+    next({ path: '/welcome' });
   } else next();
 }
 
 function requireClub (to, from, next) {
+  debugger;
   store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
   try {
     store.state.token.clubs = store.state.token.clubs || localStorage.getItem('clubs_token') ? JSON.parse(localStorage.getItem('clubs_token')) : null;
@@ -80,13 +79,9 @@ function requireClub (to, from, next) {
     store.state.token.clubs = null;
   }
   if (!store.state.token.value) {
-    next({
-      path: '/welcome'
-    });
+    next({ path: '/welcome' });
   } else if (store.state.token.clubs.length === 0) {
-    next({
-      path: '/'
-    });
+    next({ path: '/' });
   }
 
   next();

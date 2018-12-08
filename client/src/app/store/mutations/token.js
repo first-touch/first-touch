@@ -6,7 +6,7 @@ import * as ActionTypes from '../../constants/ActionTypes';
 //   // ASYNC_FAIL
 // } from '../../constants/AsyncStatus';
 
-export const token = null;
+export const token = localStorage.getItem('token', token);
 
 export default {
   'USER_TOKEN' (state, payload) {
