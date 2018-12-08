@@ -1,21 +1,18 @@
 import * as types from '../../constants/ActionTypes';
+import AuthenticateService from 'app/services/AuthenticateService';
 
 export const attemptLogIn = (store, { email, password }) => {
-  store.commit(types.TOKEN_LOADING);
-  fetch('/api/v1/authenticate', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `email=${email}&password=${password}`
-  }).then(res => {
-    if (res.status === 200) {
-      res.json().then(r => {
-        store.commit(types.TOKEN_SUCCESS, r);
-      });
-    } else {
-      res.json().then(r =>
-        store.commit(types.TOKEN_FAILURE, JSON.stringify(r))
-      );
-    }
+  store.commit('AUTHENTICATING');
+  return AuthenticateService.login({ email: email, password: password }).then(res => {
+    const userToken = res.auth_token;
+    const clubInfo = res.clubs_token;
+    store.commit('USER_TOKEN', userToken);
+    store.commit('CLUB_INFO', clubInfo);
+    store.commit('AUTHENTICATION_COMPLETE');
+  }).catch(err => {
+    store.commit('USER_TOKEN', null);
+    store.commit('CLUB_INFO', null);
+    return Promise.reject(err);
   });
 };
 
