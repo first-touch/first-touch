@@ -19,6 +19,7 @@ import ConvoContainer from 'app/containers/MessagesPage/components/ConvoContaine
 import EditProfilePage from 'app/containers/EditProfilePage';
 import ClubLayout from 'app/components/ClubLayout';
 import ClubDashboard from 'app/containers/ClubDashboardPage';
+import ClubStream from 'app/containers/ClubStreamPage';
 import ClubNotes from 'app/containers/ClubNotesPage';
 import TCPage from 'app/containers/LegalPages/TCPage';
 import PrivacyPolicy from 'app/containers/LegalPages/PrivacyPolicy';
@@ -214,7 +215,7 @@ export const router = new VueRouter({
         },
         {
           path: 'feed',
-          component: ClubNotes
+          component: ClubStream
         },
         {
           path: 'profile',
