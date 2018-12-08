@@ -68,7 +68,7 @@
           <a href="/settings">Settings</a>
         </div>
         <div class="nav-item">
-          <button @click="logout">Logout</button>
+          <button @click="handleLogout">Logout</button>
         </div>
       </div>
     </div>
@@ -152,11 +152,15 @@ export default {
     scoutingPage() {
       if (/scouting\//.test(this.page) || this.submenu == 0) return true;
       return false;
+    },
+    handleLogout() {
+      this.logout().then(() => {
+        this.$router.push('/users/sign_in');
+      });
     }
   },
   mounted() {
     this.getUserInfo({ token: this.token }).catch((err) => {
-      console.log("user error");
       this.$router.push('/');
     });
   }

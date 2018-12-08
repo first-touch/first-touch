@@ -21,4 +21,5 @@ export const attemptLogIn = (store, { email, password }) => {
 export const logout = (store) => {
   localStorage.removeItem('token');
   store.commit(types.TOKEN_CLEAR);
+  return Promise.resolve('logout');
 };

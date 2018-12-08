@@ -93,7 +93,7 @@
           <a href="/settings">Settings</a>
         </div>
         <div class="nav-item">
-          <button @click="logout">Logout</button>
+          <button @click="handleLogout">Logout</button>
         </div>
       </div>
     </div>
@@ -218,6 +218,12 @@ export default {
     toMarketplace() {
       this.$router.push({
         name: 'clubReportMarketplace'
+      })
+    },
+    handleLogout() {
+      this.logout().then(() => {
+        console.log('here');
+        this.$router.push('/');
       })
     }
   }
