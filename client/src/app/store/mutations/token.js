@@ -6,14 +6,16 @@ import * as ActionTypes from '../../constants/ActionTypes';
 //   // ASYNC_FAIL
 // } from '../../constants/AsyncStatus';
 
-export const token = localStorage.getItem('token', token);
+export const token = localStorage.getItem('token');
+export const clubs = JSON.parse(localStorage.getItem('club_info'));
+export const authenticating = false;
 
 export default {
   'USER_TOKEN' (state, payload) {
     state.token = payload;
   },
   'CLUB_INFO' (state, payload) {
-    state.club = payload;
+    state.clubs = payload;
   },
   'AUTHENTICATING' (state) {
     state.authenticating = true;
@@ -23,6 +25,6 @@ export default {
   },
   [ActionTypes.TOKEN_CLEAR] (state) {
     state.token = null;
-    state.club = null;
+    state.clubs = null;
   }
 };

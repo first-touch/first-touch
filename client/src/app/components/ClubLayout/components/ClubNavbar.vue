@@ -222,7 +222,6 @@ export default {
     },
     handleLogout() {
       this.logout().then(() => {
-        console.log('here');
         this.$router.push('/');
       })
     }

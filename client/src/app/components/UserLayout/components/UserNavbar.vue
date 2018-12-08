@@ -94,7 +94,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['token', 'user', 'club']),
+    ...mapGetters(['token', 'user', 'clubs']),
     name() {
       if (this.user.status === ASYNC_SUCCESS) {
         return `${this.user.value.personal_profile.first_name} ${this.user.value.personal_profile.last_name}`;

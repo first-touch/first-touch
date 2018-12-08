@@ -1,4 +1,4 @@
-import tokenReducer, { token } from './token';
+import tokenReducer, { token, authenticating, clubs } from './token';
 import feedReducer, { feed } from './feed';
 import userReducer, { user, newUser } from './user';
 import networkReducer, { network } from './network';
@@ -16,6 +16,8 @@ import stripePaymentReducer, { stripePayment } from './stripePayment';
 import stripeClubReducer, { stripeClubCards } from './stripeClub';
 
 export const initialState = {
+  authenticating,
+  clubs,
   token,
   feed,
   note,

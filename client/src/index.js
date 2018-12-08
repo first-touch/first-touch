@@ -71,19 +71,11 @@ function requireAuth (to, from, next) {
 }
 
 function requireClub (to, from, next) {
-  debugger;
-  store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
-  try {
-    store.state.token.clubs = store.state.token.clubs || localStorage.getItem('clubs_token') ? JSON.parse(localStorage.getItem('clubs_token')) : null;
-  } catch (e) {
-    store.state.token.clubs = null;
-  }
-  if (!store.state.token.value) {
+  if (!store.state.token) {
     next({ path: '/welcome' });
-  } else if (store.state.token.clubs.length === 0) {
+  } else if (store.state.clubs.length === 0) {
     next({ path: '/' });
   }
-
   next();
 }
 

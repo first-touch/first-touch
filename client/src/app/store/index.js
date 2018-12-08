@@ -8,9 +8,7 @@ Vue.use(Vuex);
 const getters = Object.keys(state).reduce((v, k) => {
   v[k] = state => state[k];
   return v;
-}, {
-  authenticating: (state) => state.authenticating
-});
+}, {});
 
 export default new Vuex.Store({
   state,
