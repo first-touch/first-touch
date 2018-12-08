@@ -21,16 +21,17 @@
           </div>
           <ul class="sub-nav">
             <li class="sub-nav-item" :class="{ active: page === 'channel' || !page }">
-              <router-link to="/club">Stream</router-link>
+              <router-link to="/club/feed">Stream</router-link>
             </li>
             <li class="sub-nav-item" :class="{ active: page === 'profile' }">
-              Profile
+              <router-link to="/club/profile">Profile</router-link>
             </li>
             <li class="sub-nav-item" :class="{ active: page === 'calendar' }">
-              Calendar
+              <router-link to="/club/calendar">Calendar</router-link>
             </li>
             <li class="sub-nav-item" :class="{ active: page === 'messages' }">
-              Messages
+              <router-link to="/club/messages">Messages</router-link>
+
             </li>
             <li class="sub-nav-item" :class="{ active: page === 'notes' }">
               <router-link to="/club/notes">Notes</router-link>

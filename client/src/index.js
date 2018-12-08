@@ -18,7 +18,7 @@ import Messages from 'app/containers/MessagesPage';
 import ConvoContainer from 'app/containers/MessagesPage/components/ConvoContainer.vue';
 import EditProfilePage from 'app/containers/EditProfilePage';
 import ClubLayout from 'app/components/ClubLayout';
-import ClubStream from 'app/containers/ClubStreamPage';
+import ClubDashboard from 'app/containers/ClubDashboardPage';
 import ClubNotes from 'app/containers/ClubNotesPage';
 import TCPage from 'app/containers/LegalPages/TCPage';
 import PrivacyPolicy from 'app/containers/LegalPages/PrivacyPolicy';
@@ -210,51 +210,59 @@ export const router = new VueRouter({
       children: [
         {
           path: '',
-          component: ClubStream
+          component: ClubDashboard
+        },
+        {
+          path: 'feed',
+          component: ClubNotes
+        },
+        {
+          path: 'profile',
+          component: ClubNotes
         },
         {
           path: 'notes',
           component: ClubNotes
         },
         {
-          path: '/club/scouting/report/marketplace',
+          path: 'scouting/report/marketplace',
           component: MarketPlacePage,
           name: 'clubReportMarketplace'
         },
         {
-          path: '/club/scouting/report/proposed',
+          path: 'scouting/report/proposed',
           component: ProposedPlayer,
           name: 'clubReportProposed',
           props: true
         },
         {
-          path: '/club/scouting/report/list',
+          path: 'scouting/report/list',
           component: MyPurchasedReportsPage,
           name: 'clubReportList'
         },
         {
-          path: '/club/scouting/request',
+          path: 'scouting/request',
           component: JobRequestPage,
           name: 'clubRequestList',
           props: true
         },
         {
-          path: '/club/scouting/report/:id',
+          path: 'scouting/report/:id',
           component: ReportPage,
           name: 'clubReport'
         },
         {
-          path: '/club/scouting/request/:id',
+          path: 'scouting/request/:id',
           component: RequestPage,
           name: 'clubRequest'
         },
         {
-          path: '/club/scouting/request/:id/bids',
+          path: 'scouting/request/:id/bids',
           component: RequestBidsPage,
           name: 'clubRequestBids'
         },
         {
-          path: '/club/scouting/payments',
+          path: 'scouting/payments',
           component: ClubPaymentDetails,
           name: 'ClubPaymentDetails'
         }

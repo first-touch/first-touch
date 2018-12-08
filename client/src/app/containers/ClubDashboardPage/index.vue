@@ -17,7 +17,7 @@ import NotificationSidebar from 'app/components/NotificationSidebar';
 import MatchResult from './components/MatchResult';
 
 export default {
-  name: 'StreamPage',
+  name: 'ClubDashboard',
   components: {
     sidebar: NotificationSidebar,
     'match-result': MatchResult,
