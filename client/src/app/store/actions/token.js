@@ -12,11 +12,13 @@ export const attemptLogIn = (store, { email, password }) => {
     store.commit('AUTHENTICATION_COMPLETE');
     return Promise.resolve(res);
   }).catch(err => {
-    localStorage.removeItem('token')
-    store.commit('USER_TOKEN', null);
-    store.commit('CLUB_INFO', null);
+    localStorage.removeItem('token');
+    store.commit(types.TOKEN_CLEAR);
     return Promise.reject(err);
   });
 };
 
-export const logout = store => store.commit(types.TOKEN_CLEAR);
+export const logout = (store) => {
+  localStorage.removeItem('token');
+  store.commit(types.TOKEN_CLEAR);
+};

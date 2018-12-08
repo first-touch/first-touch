@@ -4,7 +4,7 @@ export default {
   endpoint: '/api/v1/users',
 
   update (attributes) {
-    const token = store.state.token.value;
+    const token = store.state.token;
 
     return fetch(this.endpoint, {
       method: 'PUT',
@@ -17,8 +17,8 @@ export default {
   },
 
   updateProfilePicture (formData) {
-    const token = store.state.token.value;
-    const user = store.state.user.value;
+    const token = store.state.token;
+    const user = store.state.user;
     return fetch(`${this.endpoint}/${user.id}/avatar`, {
       method: 'POST',
       headers: {

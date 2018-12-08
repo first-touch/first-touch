@@ -94,7 +94,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['token', 'user']),
+    ...mapGetters(['token', 'user', 'club']),
     name() {
       if (this.user.status === ASYNC_SUCCESS) {
         return `${this.user.value.personal_profile.first_name} ${this.user.value.personal_profile.last_name}`;
@@ -110,7 +110,7 @@ export default {
       }
     },
     club() {
-      if (this.token.clubs && this.token.clubs.length > 0) {
+      if (this.clubs && this.clubs.length > 0) {
         return true;
       } else {
         return false
@@ -118,7 +118,7 @@ export default {
     },
     clubName() {
       if(this.club) {
-        return this.token.clubs[0].name;
+        return this.clubs[0].name;
       }
       return '';
     },
@@ -155,10 +155,10 @@ export default {
     }
   },
   mounted() {
-    // FIXME: hack around store messups
-    if (this.token.value !== undefined) {
-      this.getUserInfo({ token: this.token.value });
-    }
+    this.getUserInfo({ token: this.token }).catch((err) => {
+      console.log("user error");
+      this.$router.push('/');
+    });
   }
 };
 </script>
