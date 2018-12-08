@@ -21,6 +21,7 @@ import ClubLayout from 'app/components/ClubLayout';
 import ClubDashboard from 'app/containers/ClubDashboardPage';
 import ClubStream from 'app/containers/ClubStreamPage';
 import ClubNotes from 'app/containers/ClubNotesPage';
+import ClubProfile from 'app/containers/ClubProfilePage';
 import TCPage from 'app/containers/LegalPages/TCPage';
 import PrivacyPolicy from 'app/containers/LegalPages/PrivacyPolicy';
 import CommunityGuidelines from 'app/containers/LegalPages/CommunityGuidelines';
@@ -219,7 +220,7 @@ export const router = new VueRouter({
         },
         {
           path: 'profile',
-          component: ClubNotes
+          component: ClubProfile
         },
         {
           path: 'notes',
