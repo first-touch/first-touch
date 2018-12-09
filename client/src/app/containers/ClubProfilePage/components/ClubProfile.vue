@@ -20,16 +20,28 @@
     </div>
     <hr />
     <h4 class="upper-cased main-color spaced-title">Summary</h4>
-    <div class="m-profile-card vertical">
-      <info-detail detailTitle="League Competition" detailContent="TBA" />
-      <info-detail detailTitle="Cup Competition" detailContent="TBA" />
-      <info-detail detailTitle="Stadium" :detailContent="profile.stadium_name" />
-      <info-detail detailTitle="Home Kit Color" :detailContent="profile.home_kit_color" />
-      <info-detail detailTitle="Away Kit Color" :detailContent="profile.away_kit_color" />
-      <info-detail detailTitle="Third Kit Color" :detailContent="profile.third_kit_color" />
+    <div class="m-profile-card">
+      <div id="league-details" class="m-profile-card vertical">
+        <info-detail detailTitle="League Competition" detailContent="TBA" />
+        <info-detail detailTitle="Cup Competition" detailContent="TBA" />
+        <info-detail detailTitle="Stadium" :detailContent="profile.stadium_name" />
+        <info-detail detailTitle="Home Kit Color" :detailContent="profile.home_kit_color" />
+        <info-detail detailTitle="Away Kit Color" :detailContent="profile.away_kit_color" />
+        <info-detail detailTitle="Third Kit Color" :detailContent="profile.third_kit_color" />
+      </div>
+      <div id="club-history" class="m-profile-card">
+        <p>{{ profile.history }}</p>
+      </div>
     </div>
   </timeline-item>
 </template>
+
+<style lang="scss" scoped>
+#league-details, #club-history {
+  width: 50%;
+}
+</style>
+
 
 <script>
 import { mapActions, mapGetters } from 'vuex';

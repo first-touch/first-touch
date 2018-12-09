@@ -7,10 +7,6 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
-.contact-title {
-  color: $main-text-color;
-}
-
 .contact {
   color: $main-header-color;
 }

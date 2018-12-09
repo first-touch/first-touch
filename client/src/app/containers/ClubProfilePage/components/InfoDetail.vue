@@ -7,12 +7,8 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
-.detail {
-  color: $main-text-color;
-
-  .detail-title {
-    color: $secondary-text-color;
-  }
+.detail-title {
+  color: $secondary-text-color;
 }
 </style>
 
