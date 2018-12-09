@@ -223,6 +223,10 @@ export const router = new VueRouter({
           component: ClubProfile
         },
         {
+          path: ':id/profile',
+          component: ClubProfile
+        },
+        {
           path: 'notes',
           component: ClubNotes
         },
