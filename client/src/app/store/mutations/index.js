@@ -1,4 +1,5 @@
 import tokenReducer, { token, authenticating, clubs } from './token';
+import clubProfileReducer, { clubProfile } from './club';
 import feedReducer, { feed } from './feed';
 import userReducer, { user, newUser } from './user';
 import networkReducer, { network } from './network';
@@ -19,6 +20,7 @@ export const initialState = {
   authenticating,
   clubs,
   token,
+  clubProfile,
   feed,
   note,
   user,
@@ -49,6 +51,7 @@ export const initialState = {
 
 export default Object.assign({},
   tokenReducer,
+  clubProfileReducer,
   feedReducer,
   userReducer,
   networkReducer,

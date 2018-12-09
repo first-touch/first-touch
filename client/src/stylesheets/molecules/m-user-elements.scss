@@ -9,7 +9,7 @@
     max-width: 50%;
   }
 
-  .profile-name{
+  .profile-name {
     text-transform: uppercase;
     color: $main-header-color;
     font-weight: 300;
@@ -22,5 +22,64 @@
     font-weight: 300;
     text-transform: capitalize;
     font-size: 1em;
+  }
+}
+
+.m-full-profile {
+  display: flex;
+
+  .avatar {
+    height: 185px;
+    border-radius: 50%;
+  }
+  .info {
+    margin-top: 40px;
+    margin-left: 20px;
+    flex: 1 0 calc(100% - 320px);
+
+    .name {
+      color: $main-header-color;
+      text-transform: uppercase;
+    }
+
+    .role,
+    .club,
+    .detail {
+      color: $main-text-color;
+    }
+
+    .role {
+      font-size: 1.2em;
+    }
+
+    .detail-title {
+      color: $secondary-text-color;
+    }
+
+    .widget {
+      margin-top: 70px;
+      margin-bottom: 20px;
+
+      .widget-row {
+        display: flex;
+        align-items: center;
+      }
+
+      .btn {
+        margin-right: 5px;
+      }
+
+      .connection {
+        color: $secondary-text-color;
+        margin-bottom: 0;
+        margin-left: auto;
+
+        .number {
+          color: $main-text-color;
+          font-weight: bold;
+          font-size: 1.3em;
+        }
+      }
+    }
   }
 }
