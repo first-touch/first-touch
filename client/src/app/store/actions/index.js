@@ -16,3 +16,4 @@ export * from './stripe';
 export * from './stripePayment';
 export * from './stripeClub';
 export * from './awsS3';
+export * from './club';
