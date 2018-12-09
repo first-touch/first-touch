@@ -2,6 +2,7 @@ import * as types from '../../constants/ActionTypes';
 import PostService from '../../services/PostService';
 
 export const postIndex = (store) => {
+  console.warn('[Actions/Feed] Migrate to User service');
   store.commit(types.FEED_LOADING);
   return PostService.index().then(res => {
     if (res.status === 200) {

@@ -1,6 +1,7 @@
 import * as types from '../../constants/ActionTypes';
 
 export const getUserInfo = (store, { token }) => {
+  console.warn('[Actions/Feed] Migrate to User service');
   store.commit(types.USER_LOADING);
   fetch('/api/v1/user', {
     method: 'GET',
@@ -20,6 +21,7 @@ export const getUserInfo = (store, { token }) => {
 };
 
 export const updateUserInfo = (store, userInfo) => {
+  console.warn('[Actions/Feed] Migrate to User service');
   fetch('/api/v1/user', {
     method: 'PUT',
     headers: {
@@ -42,6 +44,7 @@ export const updateUserInfo = (store, userInfo) => {
 };
 
 export const importUser = (store, userInfo) => {
+  console.warn('[Actions/Feed] Migrate to User service');
   fetch('/api/v1/users/import', {
     method: 'POST',
     headers: {

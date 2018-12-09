@@ -47,7 +47,7 @@ export default {
     'career-history': CareerHistory,
   },
   computed: {
-    ...mapGetters(['token', 'user', 'profile']),
+    ...mapGetters(['user', 'profile']),
     info() {
       if (!this.$route.params.id) return this.user.value;
       if (this.profile.status === ASYNC_SUCCESS) return this.profile.value;
@@ -59,7 +59,6 @@ export default {
       'follow',
       'unfollow',
       'fetchUserInfo',
-      'clearToken',
       'connect',
     ]),
     followUser() {},

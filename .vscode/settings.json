@@ -3,12 +3,15 @@
   "files.trimTrailingWhitespace": true,
   "files.trimFinalNewlines": true,
   "cSpell.words": [
-    "dist",
-    "tocbot",
     "container",
     "convo",
+    "dist",
+    "left",
     "page",
+    "sidenav",
     "signup",
+    "submenu",
+    "tocbot",
     "unfollow"
   ]
 }

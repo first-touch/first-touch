@@ -48,8 +48,8 @@ export default {
     });
   },
 
-  show (params) {
-    const url = `${this.endpoint}/${params}`;
+  show (clubId) {
+    const url = `${this.endpoint}/${clubId}`;
     return fetch(url).then(response => {
       if (response.ok) {
         return response.json();
