@@ -6,20 +6,9 @@
       </div>
       <div class="info">
         <h4 class="name"> {{ profile.name }} </h4>
-        <p class="detail">
-          <span class="detail-title">Founded</span>
-          {{ profile.date_founded }}
-        </p>
-
-        <p class="detail">
-          <span class="detail-title">Location</span>
-          {{ profile.city }}, {{ profile.country_code }}
-        </p>
-
-        <p class="detail">
-          <span class="detail-title">Address</span>
-          {{ profile.address }}
-        </p>
+        <info-detail detailTitle="Founded" :detailContent="profile.date_founded" />
+        <info-detail detailTitle="Location" :detailContent="profile.city" />
+        <info-detail detailTitle="Founded" :detailContent="profile.address" />
       </div>
     </div>
     <hr />
@@ -30,34 +19,14 @@
       <contact-detail contactTitle="Email" :contactDetail="profile.email" />
     </div>
     <hr />
-    <div class="m-profile-card">
-      <div class="summary info">
-        <h5 class="summary-title">Summary</h5>
-        <p class="detail">
-          <span class="detail-title">Founded</span>
-          {{ profile.date_founded }}
-        </p>
-        <p class="detail">
-          <span class="detail-title">Founded</span>
-          {{ profile.date_founded }}
-        </p>
-        <p class="detail">
-          <span class="detail-title">Founded</span>
-          {{ profile.date_founded }}
-        </p>
-        <p class="detail">
-          <span class="detail-title">Founded</span>
-          {{ profile.date_founded }}
-        </p>
-        <p class="detail">
-          <span class="detail-title">Founded</span>
-          {{ profile.date_founded }}
-        </p>
-        <p class="detail">
-          <span class="detail-title">Founded</span>
-          {{ profile.date_founded }}
-        </p>
-      </div>
+    <h4 class="upper-cased main-color spaced-title">Summary</h4>
+    <div class="m-profile-card vertical">
+      <info-detail detailTitle="League Competition" detailContent="TBA" />
+      <info-detail detailTitle="Cup Competition" detailContent="TBA" />
+      <info-detail detailTitle="Stadium" :detailContent="profile.stadium_name" />
+      <info-detail detailTitle="Home Kit Color" :detailContent="profile.home_kit_color" />
+      <info-detail detailTitle="Away Kit Color" :detailContent="profile.away_kit_color" />
+      <info-detail detailTitle="Third Kit Color" :detailContent="profile.third_kit_color" />
     </div>
   </timeline-item>
 </template>
@@ -66,13 +35,15 @@
 import { mapActions, mapGetters } from 'vuex';
 import TimelineItem from 'app/components/TimelineItem';
 import ContactDetail from './ContactDetail';
+import InfoDetail from './InfoDetail';
 
 export default {
   name: 'ClubProfile',
   props: ['clubId'],
   components: {
     'timeline-item': TimelineItem,
-    'contact-detail': ContactDetail
+    'contact-detail': ContactDetail,
+    'info-detail': InfoDetail
   },
   methods: {
     ...mapActions(['getClubProfile']),
