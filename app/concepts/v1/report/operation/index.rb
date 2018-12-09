@@ -8,23 +8,23 @@ module V1
 
       private
 
-      def find_model!(options, params:,  current_club:, **)
+      def find_model!(options, params:, current_club:, **)
         models = nil
         if options[:current_user].is_a?(::User) && options[:current_user].scout?
           models = options[:current_user].reports.not_hided
         elsif !current_club.nil?
-          models = club(options, params, current_club: current_club)
+          models = club(options, params, current_club)
         end
-        options['result.model'] = result = Result.new(!options[:models].nil?, {})
+        options['result.model'] = Result.new(!options[:models].nil?, {})
         options['model.class'] = ::Report
         options[:models] = models
       end
 
-      def club(options, params:, current_club:)
-        if _params[:purchased] == 'true'
+      def club(options, params, current_club)
+        if params[:purchased] == 'true'
           purchased!(options, current_club)
-        elsif !_params[:request_id].blank?
-          proposed!(options, current_club, _params)
+        elsif !params[:request_id].blank?
+          proposed!(options, current_club, params)
         else
           marketplace!(options, current_club)
         end
@@ -43,7 +43,6 @@ module V1
       end
 
       def purchased!(options, current_club)
-        models = options[:models]
         models = ::Report.purchased_by_club current_club.id
         options[:models] = models
       end
@@ -65,9 +64,9 @@ module V1
         models
       end
 
-      def filters_price(models, _params)
-        models = models.where("(reports.price->>'value')::int >= ?", _params[:min_price]) unless _params[:min_price].blank?
-        models = models.where("(reports.price->>'value')::int <= ?", _params[:max_price]) unless _params[:max_price].blank?
+      def filters_price(models, params)
+        models = models.where("(reports.price->>'value')::int >= ?", params[:min_price]) unless params[:min_price].blank?
+        models = models.where("(reports.price->>'value')::int <= ?", params[:max_price]) unless params[:max_price].blank?
         models
       end
 
