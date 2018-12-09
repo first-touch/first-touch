@@ -19,33 +19,60 @@
           {{ profile.address }}
         </p>
       </div>
-      <hr />
-
-      <hr />
-      <div class="summary">
+    </div>
+    <hr />
+    <div class="m-full-profile">
+      <div class="info">
+        <p class="detail">
+          <span class="detail-title">Founded</span>
+          {{ profile.date_founded }}
+        </p>
+        <p class="detail">
+          <span class="detail-title">Founded</span>
+          {{ profile.date_founded }}
+        </p>
+        <p class="detail">
+          <span class="detail-title">Founded</span>
+          {{ profile.date_founded }}
+        </p>
+        <p class="detail">
+          <span class="detail-title">Founded</span>
+          {{ profile.date_founded }}
+        </p>
+        <p class="detail">
+          <span class="detail-title">Founded</span>
+          {{ profile.date_founded }}
+        </p>
+      </div>
+    </div>
+    <hr />
+    <div class="m-full-profile">
+      <div class="summary info">
         <h5 class="summary-title">Summary</h5>
-        <!-- <p class="summary-field name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
-        <p class="summary-field">
-          <span class="summary-field-title">Height</span>
-          {{ info.personal_profile.height }} cm
+        <p class="detail">
+          <span class="detail-title">Founded</span>
+          {{ profile.date_founded }}
         </p>
-        <p class="summary-field">
-          <span class="summary-field-title">Weight</span>
-          {{ info.personal_profile.weight }} kg
+        <p class="detail">
+          <span class="detail-title">Founded</span>
+          {{ profile.date_founded }}
         </p>
-        <p class="summary-field">
-          <span class="summary-field-title">Preferred Foot:</span>
-          {{ info.personal_profile.preferred_foot }}
+        <p class="detail">
+          <span class="detail-title">Founded</span>
+          {{ profile.date_founded }}
         </p>
-        <p class="summary-field">
-          <span class="summary-field-title">Pro Status:</span>
-          {{ info.personal_profile.pro_status || "N/a"}}
+        <p class="detail">
+          <span class="detail-title">Founded</span>
+          {{ profile.date_founded }}
         </p>
-        <p class="summary-field">
-          <span class="summary-field-title"># Caps:</span>
-          {{ info.personal_profile.total_caps || "0" }}
+        <p class="detail">
+          <span class="detail-title">Founded</span>
+          {{ profile.date_founded }}
         </p>
-        <a href="#" class="btn btn-bright">Biography</a> -->
+        <p class="detail">
+          <span class="detail-title">Founded</span>
+          {{ profile.date_founded }}
+        </p>
       </div>
     </div>
   </timeline-item>
