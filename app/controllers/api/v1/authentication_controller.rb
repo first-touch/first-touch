@@ -7,14 +7,7 @@ module Api
       def authenticate
         res = ::V1::User::SignIn.(params: auth_params)
         representer = ::V1::User::Representer::Authenticated
-        unauthenticated = {
-          resolve: lambda do |_result, _representer|
-            { "data": { errors: I18n.t('user.invalid_credentials') },
-              "status": :unauthorized }
-          end
-        }
-        response = FirstTouch::Endpoint.(res, representer,
-                                         unauthenticated: unauthenticated)
+        response = FirstTouch::Endpoint.(res, representer)
         render json: response[:data], status: response[:status]
       end
 
