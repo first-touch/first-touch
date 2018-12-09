@@ -33,19 +33,12 @@ h4 {
   font-weight: 300;
 }
 
-.upper-cased {
-  text-transform: uppercase;
+.spaced-title {
+  letter-spacing: 2px;
 }
 
-// .title {
-//   color: $main-header-color;
-//   font-weight: bold;
-//   font-size: $important-size;
-// }
-
-// TODO: Check if its possible and reasonable to merge with title
-.spaced-title upper-cased main-color {
-  letter-spacing: 2px;
+.upper-cased {
+  text-transform: uppercase;
 }
 
 .main-color {

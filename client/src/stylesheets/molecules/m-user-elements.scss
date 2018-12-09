@@ -25,61 +25,40 @@
   }
 }
 
-.m-full-profile {
+.m-profile-card {
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 
-  .avatar {
-    height: 185px;
+  .avatar-wrapper {
+    height: 100%;
     border-radius: 50%;
-  }
-  .info {
-    margin-top: 40px;
-    margin-left: 20px;
-    flex: 1 0 calc(100% - 320px);
 
+    .avatar {
+      height: 185px;
+    }
+  }
+
+  .info {
     .name {
       color: $main-header-color;
       text-transform: uppercase;
     }
 
-    .role,
+    .main-subtitle,
+    .subtitle,
     .club,
     .detail {
       color: $main-text-color;
     }
 
-    .role {
+    .main-subtitle{
       font-size: 1.2em;
     }
 
     .detail-title {
       color: $secondary-text-color;
-    }
-
-    .widget {
-      margin-top: 70px;
-      margin-bottom: 20px;
-
-      .widget-row {
-        display: flex;
-        align-items: center;
-      }
-
-      .btn {
-        margin-right: 5px;
-      }
-
-      .connection {
-        color: $secondary-text-color;
-        margin-bottom: 0;
-        margin-left: auto;
-
-        .number {
-          color: $main-text-color;
-          font-weight: bold;
-          font-size: 1.3em;
-        }
-      }
     }
   }
 }
