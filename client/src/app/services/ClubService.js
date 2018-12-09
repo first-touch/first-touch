@@ -42,7 +42,7 @@ export default {
     fetch(`${this.endpoint}/${data.id}`, {
       method: 'PUT',
       headers: {
-        Authorization: store.state.token.value,
+        Authorization: store.state.token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)

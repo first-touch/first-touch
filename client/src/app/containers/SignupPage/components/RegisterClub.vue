@@ -97,7 +97,7 @@ export default {
         fetch('/api/v1/clubs/' + this.item.id, {
           method: 'PUT',
           headers: {
-            Authorization: this.$store.state.token.value,
+            Authorization: this.$store.state.token,
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(data),

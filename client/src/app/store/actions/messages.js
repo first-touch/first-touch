@@ -40,7 +40,7 @@ export const sendMessage = (store, { content }) => {
   fetch('/api/v1/messages', {
     method: 'POST',
     headers: {
-      Authorization: store.state.token.value,
+      Authorization: store.state.token,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
@@ -49,7 +49,7 @@ export const sendMessage = (store, { content }) => {
     })
   }).then(res => {
     if (res.status === 201) {
-      reloadConversation(store, { token: store.state.token.value });
+      reloadConversation(store, { token: store.state.token });
       reloadInbox(store);
     } else if (res.status === 403) {
       store.commit(types.TOKEN_CLEAR);

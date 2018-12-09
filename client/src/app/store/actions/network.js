@@ -21,7 +21,7 @@ export const getNetwork = (store, { token }) => {
 export const unfollow = (store, { id }) => {
   fetch(`/api/v1/relationships/${id}`, {
     method: 'DELETE',
-    headers: { Authorization: store.state.token.value }
+    headers: { Authorization: store.state.token }
   }).then(res => {
     if (res.status === 200) {
       store.commit(types.NETWORK_UNFOLLOW, id);
