@@ -87,9 +87,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['authenticating']),
+    // ...mapGetters(['authenticating']),
+    ...mapGetters(['token']),
     loading() {
-      return this.authenticating;
+      // return this.authenticating;
+      return this.token.status === ASYNC_LOADING;
     },
     error() {
       if (this.token.status != ASYNC_FAIL) {

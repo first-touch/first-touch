@@ -21,7 +21,7 @@ export const getInbox = (store, { token }) => {
 export const reloadInbox = store => {
   fetch('/api/v1/messages', {
     method: 'GET',
-    headers: { Authorization: store.state.token }
+    headers: { Authorization: store.state.token.value }
   }).then(res => {
     if (res.status === 200) {
       res.json().then(r => store.commit(types.INBOX_RELOAD, r.inbox));

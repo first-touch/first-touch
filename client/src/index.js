@@ -67,22 +67,25 @@ window.JQuery = require('jquery');
 window._ = require('lodash');
 
 function requireAuth (to, from, next) {
-  if (!store.state.token) {
+  // if (!store.state.token) {
+  if (!store.state.token.value) {
     next({ path: '/welcome' });
   } else next();
 }
 
 function requireClub (to, from, next) {
-  if (!store.state.token) {
+  // if (!store.state.token) {
+  if (!store.state.token.value) {
     next({ path: '/welcome' });
-  } else if (store.state.clubs.length === 0) {
+  // } else if (store.state.clubs.length === 0) {
+  } else if (store.state.clubs.value.length === 0) {
     next({ path: '/' });
   }
   next();
 }
 
 function checkIfLoggedIn (to, from, next) {
-  if (store.state.token) {
+  if (store.state.token.value) {
     next({ path: '/' });
   } else next();
 }

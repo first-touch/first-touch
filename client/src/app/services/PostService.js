@@ -6,7 +6,7 @@ export default {
     return fetch(this.endpoint, {
       method: 'GET',
       headers: {
-        Authorization: store.state.token
+        Authorization: store.state.token.value
       }
     });
   },
@@ -15,7 +15,7 @@ export default {
     return fetch(this.endpoint, {
       method: 'POST',
       headers: {
-        Authorization: store.state.token,
+        Authorization: store.state.token.value,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(postData)
