@@ -160,7 +160,7 @@ export default {
     }
   },
   mounted() {
-    this.getUserInfo({ token: this.token }).catch((err) => {
+    this.getUserInfo({ token: this.token.value }).catch((err) => {
       this.$router.push('/');
     });
   }
