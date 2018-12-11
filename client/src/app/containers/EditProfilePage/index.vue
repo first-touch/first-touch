@@ -19,6 +19,7 @@
               :pWeight="weight"
               :pHeight="height"
               :preferredFoot="preferredFoot"
+              :playingPosition="playingPosition"
               :avatarUrl="avatarUrl"
               :updateUserInfo="updateUserInfo" />
           </div>
@@ -123,6 +124,12 @@ export default {
     preferredFoot() {
       return this.personalProfile.preferred_foot || '';
     },
+    preferredFoot() {
+      return this.personalProfile.preferred_foot || '';
+    },
+    playingPosition() {
+      return this.personalProfile.playing_positions[0].position || '';
+    },  
     avatarUrl() {
       return this.personalProfile.avatar_url;
     }
