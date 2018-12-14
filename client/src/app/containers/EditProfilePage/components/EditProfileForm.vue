@@ -121,161 +121,161 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/variables';
-  .form-group {
-    label {
-      color: $main-text-color;
-    }
+@import '~stylesheets/variables';
+.form-group {
+  label {
+    color: $main-text-color;
   }
+}
 
-  .input-file {
-    opacity: 0; /* invisible but it's there! */
-    width: 100%;
-    height: 100px;
-    position: absolute;
-    cursor: pointer;
-    margin-top: -32px;
-  }
+.input-file {
+  opacity: 0; /* invisible but it's there! */
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  cursor: pointer;
+  margin-top: -32px;
+}
 
-  </style>
+</style>
 
-  <script>
-  import ClubService from 'app/services/ClubService';
-  import UserService from 'app/services/UserService';
-  import PlayingSettings from 'app/services/PlayingSettings';
+<script>
+import ClubService from 'app/services/ClubService';
+import UserService from 'app/services/UserService';
+import PlayingSettings from 'app/services/PlayingSettings';
 
-  export default {
-    name: 'EditProfileForm',
-    props: [
-      'firstName',
-      'middleName',
-      'lastName',
-      'month',
-      'day',
-      'year',
-      'countryCode',
-      'placeOfBirth',
-      'pWeight',
-      'pHeight',
-      'preferredFoot',
-      'playingPosition',
-      'avatarUrl',
-      'updateUserInfo',
-    ],
-    data() {
-      return {
-        first_name: this.firstName || '',
-        middle_name: this.middleName || '',
-        last_name: this.lastName || '',
-        bMonth: this.month || '',
-        bDay: this.day || '',
-        bYear: this.year || '',
-        playing_positions: this.playingPosition || null,
-        country_code: this.countryCode || '',
-        place_of_birth: this.placeOfBirth || '',
-        weight: this.pWeight || '',
-        height: this.pHeight || '',
-        preferred_foot: this.preferredFoot || '',
-        positions: [],
-        countries: [],
-        avatar_url: this.avatarUrl,
-        avatar: undefined,
-        temp_value: null,
-        ratings: [1, 2, 3, 4, 5],
-        formData: {}
-      };
-    },
-    computed: {
-      currentAvatar() {
-        if (this.avatar) {
-          return this.avatar.url;
-        } else {
-          return this.avatar_url;
-        }
-      },
-      noNewAvatar() {
-        return !this.avatar;
+export default {
+  name: 'EditProfileForm',
+  props: [
+    'firstName',
+    'middleName',
+    'lastName',
+    'month',
+    'day',
+    'year',
+    'countryCode',
+    'placeOfBirth',
+    'pWeight',
+    'pHeight',
+    'preferredFoot',
+    'playingPosition',
+    'avatarUrl',
+    'updateUserInfo',
+  ],
+  data() {
+    return {
+      first_name: this.firstName || '',
+      middle_name: this.middleName || '',
+      last_name: this.lastName || '',
+      bMonth: this.month || '',
+      bDay: this.day || '',
+      bYear: this.year || '',
+      playing_positions: this.playingPosition || null,
+      country_code: this.countryCode || '',
+      place_of_birth: this.placeOfBirth || '',
+      weight: this.pWeight || '',
+      height: this.pHeight || '',
+      preferred_foot: this.preferredFoot || '',
+      positions: [],
+      countries: [],
+      avatar_url: this.avatarUrl,
+      avatar: undefined,
+      temp_value: null,
+      ratings: [1, 2, 3, 4, 5],
+      formData: {}
+    };
+  },
+  computed: {
+    currentAvatar() {
+      if (this.avatar) {
+        return this.avatar.url;
+      } else {
+        return this.avatar_url;
       }
     },
-    methods: {
-      filePickerUpdated(newFiles) {
-        this.avatar = newFiles[0];
-        this.avatar.url = '';
-        let URL = window.URL || window.webkitURL;
-        if (URL && URL.createObjectURL) {
-          this.avatar.url = URL.createObjectURL(this.avatar);
-        }
-      },
-      updateProfilePic() {
-        if (this.avatar == undefined) {
-          return;
-        }
-        this.formData = new FormData();
-        this.formData.append('avatar', this.avatar);
-        UserService.updateProfilePicture(this.formData).then(response => {
-          this.flash('Updated successfully', 'success', {
-            timeout: 3000,
-            important: true
-          });
-        }).catch(response => {
-          this.flash('Failed to update', 'error', {
-            timeout: 3000,
-            important: true
-          });
-        })
-      },
-      handleSubmit() {
-        const {
-          first_name,
-          last_name,
-          middle_name,
-          bMonth,
-          bDay,
-          bYear,
-          place_of_birth,
-          weight,
-          height,
-          preferred_foot,
-
-        } = this;
-        const nationality_country_code = this.country_code;
-        const residence_country_code = this.country_code;
-        const playing_positions = [{ "position": this.playing_positions, "skill": "1" }];
-        const birthday = new Date(Date.UTC(bYear, bMonth, bDay));
-        this.updateUserInfo({
-          first_name,
-          middle_name,
-          last_name,
-          birthday,
-          nationality_country_code,
-          residence_country_code,
-          playing_positions,
-          place_of_birth,
-          weight,
-          height,
-          preferred_foot,
-        }).then(response => {
-          this.flash('Updated successfully', 'success', {
-            timeout: 3000,
-            important: true
-          });
-        })
-      },
-      fetchCountries() {
-        ClubService.countriesForClubs().then(response => {
-          this.$set(this, 'countries',
-          response.countries.sort((a, b) => a.country_name > b.country_name))
-        });
-      },
-      fetchPlayingPositions() {
-        PlayingSettings.playingPositions().then(response => {
-          this.positions = response
-        });
-      },
-    },
-    mounted() {
-      this.fetchPlayingPositions();
-      this.fetchCountries();
+    noNewAvatar() {
+      return !this.avatar;
     }
-  };
-  </script>
+  },
+  methods: {
+    filePickerUpdated(newFiles) {
+      this.avatar = newFiles[0];
+      this.avatar.url = '';
+      let URL = window.URL || window.webkitURL;
+      if (URL && URL.createObjectURL) {
+        this.avatar.url = URL.createObjectURL(this.avatar);
+      }
+    },
+    updateProfilePic() {
+      if (this.avatar == undefined) {
+        return;
+      }
+      this.formData = new FormData();
+      this.formData.append('avatar', this.avatar);
+      UserService.updateProfilePicture(this.formData).then(response => {
+        this.flash('Updated successfully', 'success', {
+          timeout: 3000,
+          important: true
+        });
+      }).catch(response => {
+        this.flash('Failed to update', 'error', {
+          timeout: 3000,
+          important: true
+        });
+      })
+    },
+    handleSubmit() {
+      const {
+        first_name,
+        last_name,
+        middle_name,
+        bMonth,
+        bDay,
+        bYear,
+        place_of_birth,
+        weight,
+        height,
+        preferred_foot,
+
+      } = this;
+      const nationality_country_code = this.country_code;
+      const residence_country_code = this.country_code;
+      const playing_positions = [{ "position": this.playing_positions, "skill": "1" }];
+      const birthday = new Date(Date.UTC(bYear, bMonth, bDay));
+      this.updateUserInfo({
+        first_name,
+        middle_name,
+        last_name,
+        birthday,
+        nationality_country_code,
+        residence_country_code,
+        playing_positions,
+        place_of_birth,
+        weight,
+        height,
+        preferred_foot,
+      }).then(response => {
+        this.flash('Updated successfully', 'success', {
+          timeout: 3000,
+          important: true
+        });
+      })
+    },
+    fetchCountries() {
+      ClubService.countriesForClubs().then(response => {
+        this.$set(this, 'countries',
+        response.countries.sort((a, b) => a.country_name > b.country_name))
+      });
+    },
+    fetchPlayingPositions() {
+      PlayingSettings.playingPositions().then(response => {
+        this.positions = response
+      });
+    },
+  },
+  mounted() {
+    this.fetchPlayingPositions();
+    this.fetchCountries();
+  }
+};
+</script>
