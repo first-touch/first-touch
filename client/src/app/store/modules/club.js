@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import NotesService from 'app/services/NotesService';
 
 export default {
@@ -45,7 +46,11 @@ export default {
         'setNotes' (state, notes) { state.value = notes; },
         'addNote' (state, note) { state.value.push(note); }
       },
-      getters: { }
+      getters: {
+        allNotes (state) {
+          return _.orderBy(state.value, 'updated_at', 'desc');
+        }
+      }
     }
   }
 };
