@@ -5,3 +5,19 @@
 .a-bar-button {
   @extend %a-button-shared;
 }
+
+.a-sidebar-button {
+  border: 1px solid $secondary-text-color;
+  border-radius: 4px;
+  background-color: transparent;
+  text-transform: uppercase;
+  font-size: 0.85em;
+  padding: 5px 20px;
+  color: $secondary-text-color;
+  display: inline-block;
+
+  &:hover {
+    text-decoration: none;
+    color: $main-text-color;
+  }
+}

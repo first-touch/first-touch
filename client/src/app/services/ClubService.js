@@ -4,6 +4,7 @@ import store from '../store';
 
 export default {
   endpoint: '/api/v1/clubs',
+
   countriesForClubs () {
     const url = `${this.endpoint}/countries`;
     return fetch(url).then(response => {

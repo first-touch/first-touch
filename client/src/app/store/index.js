@@ -8,7 +8,15 @@ Vue.use(Vuex);
 const getters = Object.keys(state).reduce((v, k) => {
   v[k] = state => state[k];
   return v;
-}, {});
+}, {
+  userClubId: (state) => {
+    if (state.clubs.length > 0) {
+      return state.clubs[0].id;
+    } else {
+      return undefined;
+    }
+  }
+});
 
 export default new Vuex.Store({
   state,

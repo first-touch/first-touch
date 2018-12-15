@@ -12,7 +12,7 @@ module Api
       end
 
       def show
-        puts @current_user
+        puts @current_user.inspect
         render json: ::V1::User::Representer::SelfProfile.new(@current_user)
       end
 

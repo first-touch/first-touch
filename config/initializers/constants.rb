@@ -11,4 +11,5 @@ module FirstTouch
 
   REGISTERABLE_ORDER_STATUS = %w[completed pending_report refused refounded canceled].freeze
   AVATAR = 'https://cdn4.iconfinder.com/data/icons/green-shopper/1068/user.png'
+  CLUB_LOGO = 'https://s3-us-west-1.amazonaws.com/first-touch-web/assets/FT_Icons_Club_220217.png'
 end

@@ -1,0 +1,68 @@
+.m-profile {
+  margin: 15px 0;
+
+  * {
+    margin: 10px 0;
+  }
+
+  .avatar {
+    max-width: 50%;
+  }
+
+  .profile-name {
+    text-transform: uppercase;
+    color: $main-header-color;
+    font-weight: 300;
+    font-size: 1.2em;
+  }
+
+  .profile-club,
+  .profile-role {
+    color: $secondary-text-color;
+    font-weight: 300;
+    text-transform: capitalize;
+    font-size: 1em;
+  }
+}
+
+.m-profile-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+
+  &.vertical {
+    flex-direction: column;
+  }
+
+  .avatar-wrapper {
+    height: 100%;
+    border-radius: 50%;
+
+    .avatar {
+      height: 185px;
+    }
+  }
+
+  .info {
+    .name {
+      color: $main-header-color;
+      text-transform: uppercase;
+    }
+
+    .main-subtitle,
+    .subtitle,
+    .club,
+    .detail {
+      color: $main-text-color;
+    }
+
+    .main-subtitle{
+      font-size: 1.2em;
+    }
+
+    .detail-title {
+      color: $secondary-text-color;
+    }
+  }
+}

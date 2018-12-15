@@ -20,8 +20,8 @@
           <button v-else
             class="a-bar-button center" type="submit">Login</button>
           <fieldset class="col-md-8">
-            <div v-if="error" class="alert alert-danger">
-              <em>{{ error }}</em>
+            <div v-if="errorMessage" class="alert alert-danger">
+              <em>{{ errorMessage }}</em>
             </div>
           </fieldset>
           <div class="col-md-8">
@@ -83,15 +83,18 @@ export default {
     return {
       email: '',
       password: '',
+      errorMessage: ''
     };
   },
   computed: {
+    // ...mapGetters(['authenticating']),
     ...mapGetters(['token']),
     loading() {
-      return this.token.status === ASYNC_LOADING;
+      // return this.authenticating;
+      return this.token && (this.token.status === ASYNC_LOADING);
     },
     error() {
-      if (this.token.status != ASYNC_FAIL) {
+      if (this.token && this.token.status != ASYNC_FAIL) {
         return false;
       }
       return JSON.parse(this.token.err)['errors'];
@@ -100,7 +103,14 @@ export default {
   methods: {
     ...mapActions(['attemptLogIn']),
     handleSubmit() {
-      this.attemptLogIn(this);
+      let email = this.email;
+      let password = this.password;
+
+      this.attemptLogIn({ email, password }).then(() => {
+        this.$router.push('/');
+      }).catch((err) => {
+        this.errorMessage = err.errors;
+      });
     },
   },
 };

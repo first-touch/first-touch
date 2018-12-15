@@ -8,8 +8,11 @@
 </template>
 
 <style lang="scss" scoped>
+@import '~stylesheets/variables';
+
 .item-container {
-  background: #fff;
+  background: $first-touch-white;
+  color: $main-text-color;
   border-radius: 5px;
   padding: 20px;
   width: 100%;

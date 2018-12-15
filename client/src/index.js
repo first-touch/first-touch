@@ -18,8 +18,10 @@ import Messages from 'app/containers/MessagesPage';
 import ConvoContainer from 'app/containers/MessagesPage/components/ConvoContainer.vue';
 import EditProfilePage from 'app/containers/EditProfilePage';
 import ClubLayout from 'app/components/ClubLayout';
+import ClubDashboard from 'app/containers/ClubDashboardPage';
 import ClubStream from 'app/containers/ClubStreamPage';
 import ClubNotes from 'app/containers/ClubNotesPage';
+import ClubProfile from 'app/containers/ClubProfilePage';
 import TCPage from 'app/containers/LegalPages/TCPage';
 import PrivacyPolicy from 'app/containers/LegalPages/PrivacyPolicy';
 import CommunityGuidelines from 'app/containers/LegalPages/CommunityGuidelines';
@@ -65,45 +67,26 @@ window.JQuery = require('jquery');
 window._ = require('lodash');
 
 function requireAuth (to, from, next) {
-  store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
-  try {
-    store.state.token.clubs = store.state.token.clubs || localStorage.getItem('clubs_token') ? JSON.parse(localStorage.getItem('clubs_token')) : null;
-  } catch (e) {
-    store.state.token.clubs = null;
-  }
-  if (!store.state.token.value) {
-    next({
-      path: '/welcome'
-    });
+  // if (!store.state.token) {
+  if (!store.state.token || !store.state.token.value) {
+    next({ path: '/welcome' });
   } else next();
 }
 
 function requireClub (to, from, next) {
-  store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
-  try {
-    store.state.token.clubs = store.state.token.clubs || localStorage.getItem('clubs_token') ? JSON.parse(localStorage.getItem('clubs_token')) : null;
-  } catch (e) {
-    store.state.token.clubs = null;
-  }
+  // if (!store.state.token) {
   if (!store.state.token.value) {
-    next({
-      path: '/welcome'
-    });
-  } else if (store.state.token.clubs.length === 0) {
-    next({
-      path: '/'
-    });
+    next({ path: '/welcome' });
+  // } else if (store.state.clubs.length === 0) {
+  } else if (store.state.token && store.state.token.clubs && store.state.clubs.length === 0) {
+    next({ path: '/' });
   }
-
   next();
 }
 
 function checkIfLoggedIn (to, from, next) {
-  store.state.token.value = store.state.token.value || localStorage.getItem('auth_token');
-  if (store.state.token.value) {
-    next({
-      path: '/'
-    });
+  if (store.state.token && store.state.token.value) {
+    next({ path: '/' });
   } else next();
 }
 
@@ -232,51 +215,63 @@ export const router = new VueRouter({
       children: [
         {
           path: '',
+          component: ClubDashboard
+        },
+        {
+          path: 'feed',
           component: ClubStream
+        },
+        {
+          path: 'profile',
+          component: ClubProfile
+        },
+        {
+          path: ':id/profile',
+          component: ClubProfile
         },
         {
           path: 'notes',
           component: ClubNotes
         },
         {
-          path: '/club/scouting/report/marketplace',
+          path: 'scouting/report/marketplace',
           component: MarketPlacePage,
           name: 'clubReportMarketplace'
         },
         {
-          path: '/club/scouting/report/proposed',
+          path: 'scouting/report/proposed',
           component: ProposedPlayer,
           name: 'clubReportProposed',
           props: true
         },
         {
-          path: '/club/scouting/report/list',
+          path: 'scouting/report/list',
           component: MyPurchasedReportsPage,
           name: 'clubReportList'
         },
         {
-          path: '/club/scouting/request',
+          path: 'scouting/request',
           component: JobRequestPage,
           name: 'clubRequestList',
           props: true
         },
         {
-          path: '/club/scouting/report/:id',
+          path: 'scouting/report/:id',
           component: ReportPage,
           name: 'clubReport'
         },
         {
-          path: '/club/scouting/request/:id',
+          path: 'scouting/request/:id',
           component: RequestPage,
           name: 'clubRequest'
         },
         {
-          path: '/club/scouting/request/:id/bids',
+          path: 'scouting/request/:id/bids',
           component: RequestBidsPage,
           name: 'clubRequestBids'
         },
         {
-          path: '/club/scouting/payments',
+          path: 'scouting/payments',
           component: ClubPaymentDetails,
           name: 'ClubPaymentDetails'
         }
