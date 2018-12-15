@@ -32,7 +32,7 @@
             </div>
           </div>
         </div>
-        <note v-for="note in notes" :key="note.id"/>
+        <note v-for="note in notes" v-bind:note="note" :key="note.id"/>
       </timeline-item>
     </div>
   </div>
@@ -67,7 +67,7 @@ export default {
   },
   computed: {
     ...mapState('club/notes', {
-      notes: state => state.value
+      notes: notesState => notesState.value
     })
   },
   created() {

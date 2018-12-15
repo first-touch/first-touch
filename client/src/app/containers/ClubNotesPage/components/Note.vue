@@ -6,7 +6,7 @@
         <img class="img-fluid" src="https://static1.squarespace.com/static/543ecc8de4b0a4f2ae6d3908/t/543efb25e4b0faf717591299/1413413671222/"/>
       </div>
       <div class="info">
-        <h2 class="title">LOREM IPSUM</h2>
+        <h2 class="title"> {{ note.name }} </h2>
         <p class="extra">
           <span class="author">Cristiano Ronaldo</span> May 20 6:40pm
         </p>
@@ -19,7 +19,7 @@
   </div>
   <div class="body" v-if="show">
     <p class="content">
-      Bacon ipsum dolor amet short loin pork beef ribs, frankfurter doner alcatra turducken. Sausage prosciutto pork loin alcatra jowl turducken corned beef drumstick. Porchetta beef jowl, cupim ham pork tri-tip rump pig pork chop. Fatback bacon ground round jerky chicken pork loin burgdoggen sausage swine tri-tip pork doner ham spare ribs short loin. Shank corned beef capicola turducken turkey meatloaf short ribs kevin tri-tip pig pork chop rump. Pork chop capicola flank alcatra kielbasa boudin bacon. Corned beef tail leberkas salami.
+      {{ note.content }}
     </p>
     <div class="widget">
       <button class="btn btn-round btn-green">Edit note</button>
@@ -124,6 +124,7 @@
 <script>
 export default {
   name: 'Note',
+  props: ['note'],
   data() {
     return { show: false };
   },
@@ -134,5 +135,3 @@ export default {
   },
 };
 </script>
-
-
