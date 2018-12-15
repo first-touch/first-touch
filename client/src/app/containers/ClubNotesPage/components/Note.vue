@@ -8,13 +8,12 @@
       <div class="info">
         <h2 class="title"> {{ note.name }} </h2>
         <p class="extra">
-          <span class="author">Cristiano Ronaldo</span> May 20 6:40pm
+          <span class="author">{{ note.author }}</span> {{ note.updated_at }}
         </p>
       </div>
     </div>
     <div class="widget">
       <button class="btn-round" @click="toggleView" >View</button>
-      <button class="btn-round">Private</button>
     </div>
   </div>
   <div class="body" v-if="show">
@@ -23,13 +22,8 @@
     </p>
     <div class="widget">
       <button class="btn btn-round btn-green">Edit note</button>
-      <button class="btn btn-round btn-green">Open all</button>
-      <button class="btn btn-round btn-green">Comment</button>
       <button class="btn btn-round btn-white">Delete</button>
       <button class="btn btn-round btn-white">Close</button>
-    </div>
-    <div class="comment-section">
-      <h3 class="title">Comments</h3>
     </div>
   </div>
 </div>
@@ -130,7 +124,7 @@ export default {
   },
   methods: {
     toggleView() {
-      this.$set(this, 'show', !this.show);
+      this.show = !this.show;
     },
   },
 };
