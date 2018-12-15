@@ -95,9 +95,6 @@ export default {
     createCategory() {
       console.log("to be implemented");
     }
-  },
-  mounted() {
-    this.$store.dispatch('club/notes/index');
   }
 };
 </script>

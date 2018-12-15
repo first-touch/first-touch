@@ -8,7 +8,7 @@
         <div class="row">
           <div class="col-lg-2">
             <h6 class="notelist-title">Note Count</h6>
-            <h1 class="notelist-count">4</h1>
+            <h1 class="notelist-count"> {{ notes.length}} </h1>
           </div>
           <div class="col-lg-10">
             <div class="row">
@@ -32,7 +32,7 @@
             </div>
           </div>
         </div>
-        <note v-for="i in 4" :key="i"/>
+        <note v-for="note in notes" :key="note.id"/>
       </timeline-item>
     </div>
   </div>
@@ -51,6 +51,7 @@
 }
 </style>
 <script>
+import { mapGetters, mapState } from 'vuex'
 import NotificationSidebar from 'app/components/NotificationSidebar';
 import NoteWidgets from './components/NoteWidgets';
 import TimelineItem from 'app/components/TimelineItem';
@@ -64,5 +65,13 @@ export default {
     'timeline-item': TimelineItem,
     note: Note,
   },
+  computed: {
+    ...mapState('club/notes', {
+      notes: state => state.value
+    })
+  },
+  created() {
+    this.$store.dispatch('club/notes/index');
+  }
 };
 </script>
