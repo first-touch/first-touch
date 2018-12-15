@@ -2,26 +2,21 @@
   <div>
     <div class="a-side-indicator primary">
       <div class="arrow"></div>
-      <b-btn @click="modalShow = true" class="timeline-widget-button btn-add">
-        Add A Note
-      </b-btn>
-      <button class="timeline-widget-button btn-create">
-        Create A Category
-      </button>
+      <ft-button :on-click="openAddNoteModal" icon="ft-notes">Add Note</ft-button>
+      <ft-button :on-click="createCategory" icon="ft-notes">Create a Category</ft-button>
     </div>
-    <b-modal ref="modal" id="add-modal" size="lg" centered v-model="modalShow">
+    <b-modal ref="newNoteModal" id="add-modal" size="lg" hide-footer hide-header centered>
       <div class="header">
         <div class="left">
-        <h3 class="name">Publish a Post</h3>
+        <h3 class="name">Add a new note</h3>
         </div>
         <div class="right">
           <select class="privacy">
             <option>Private</option>
             <option>Public</option>
-            <option>Custom</option>
           </select>
-          <button class="btn-main">Publish</button>
-          <button class="btn-sub" @click="modalShow = false">Close</button>
+          <button class="a-bar-button">Publish</button>
+          <button class="a-bar-button reverse" @click="closeAddNoteModal">Close</button>
         </div>
       </div>
       <div class="body">
@@ -34,68 +29,29 @@
     </b-modal>
   </div>
 </template>
-<style lang="scss" scoped>
-@import '~stylesheets/variables.scss';
 
-.timeline-widget-button {
-  color: $secondary-text-color;
-  text-transform: uppercase;
-  background-color: $navbar-background-color;
-  border: none;
-  max-width: 12vw;
-  margin-right: 20px;
-  &.btn-add {
-    padding-left: 50px;
-    background-image: url('https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png');
-    background-repeat: no-repeat;
-    background-position: left;
-    background-size: contain;
-  }
-  &.btn-create {
-    padding-left: 50px;
-    background-image: url('https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/photo512x512.png');
-    background-repeat: no-repeat;
-    background-position: left;
-    background-size: contain;
-  }
-}
-</style>
 <style lang="scss">
 @import '~stylesheets/variables.scss';
 
 #add-modal {
-  color: #000;
-  .modal-header,
-  .modal-footer {
-    display: none;
-  }
-  .modal-body {
-    padding: 20px;
-  }
+  color: $main-text-color;
+
   .header {
     display: flex;
     justify-content: space-between;
     .left {
       .name {
         text-transform: uppercase;
-        color: #000;
       }
     }
     .right {
-      .privacy,
-      .btn-main,
-      .btn-sub {
+      .privacy{
         height: 30px;
         line-height: 20px;
         border-radius: 4px;
         border: 1px solid $main-text-color;
         margin-left: 10px;
         color: $main-text-color;
-      }
-      .btn-main {
-        background: $main-header-color;
-        border: 1px solid $main-header-color;
-        color: #fff;
       }
     }
   }
@@ -132,12 +88,23 @@
 </style>
 
 <script>
+import Button from 'app/components/Button/Button';
+
 export default {
   name: 'NoteWidget',
-  data() {
-    return {
-      modalShow: false,
-    };
+  components: {
+    'ft-button': Button
   },
+  methods: {
+    openAddNoteModal() {
+      this.$refs.newNoteModal.show()
+    },
+    closeAddNoteModal() {
+      this.$refs.newNoteModal.hide()
+    },
+    createCategory() {
+      console.log("to be implemented");
+    }
+  }
 };
 </script>
