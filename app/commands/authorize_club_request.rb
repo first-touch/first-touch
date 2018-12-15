@@ -11,7 +11,7 @@ class AuthorizeClubRequest < TokenBased
     return @result if @result
     if decoded_club_auth_token
       user_conditions = {
-        id: decoded_club_auth_token[:account_owner_id],
+        id: decoded_club_auth_token[:account_owner_id]
       }
       club_id = decoded_club_auth_token[:club_id]
       if decoded_club_auth_token[:last_logout] != 0

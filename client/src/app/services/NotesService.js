@@ -1,62 +1,38 @@
 // NOTE: needed for $.param
 import $ from 'jquery';
-import store from '../store';
+// NOTE: I'm not sure the api service should know about
+// the store, but for the time being stays here
+import store from 'app/store';
 
 export default {
   endpoint: '/api/v1/notes',
 
-  countriesForClubs() {
-    const url = `${this.endpoint}/countries`;
-    return fetch(url).then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return Promise.reject(response);
-      }
+  index (params = {}) {
+    const url = `${this.endpoint}?${$.param(params)}`;
+    return new Promise((resolve, reject) => {
+      return fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: store.state.token.value
+        }
+      }).then(response => {
+        if (response.ok) {
+          return resolve(response.json());
+        } else {
+          return reject(response);
+        }
+      });
     });
   },
 
-  searchClub(params) {
-    const url = `${this.endpoint}/search?${$.param(params)}`;
-    return fetch(url).then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return Promise.reject(response);
-      }
-    });
-  },
-
-  create(data) {
+  create (noteData) {
     return fetch(this.endpoint, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-  },
-
-  update(data) {
-    // how do i retrieve the authorization token from here?
-    fetch(`${this.endpoint}/${data.id}`, {
-      method: 'PUT',
       headers: {
         Authorization: store.state.token.value,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
-    });
-  },
-
-  show(clubId) {
-    const url = `${this.endpoint}/${clubId}`;
-    return fetch(url).then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return Promise.reject(response);
-      }
+      body: JSON.stringify(noteData)
     });
   }
 };
