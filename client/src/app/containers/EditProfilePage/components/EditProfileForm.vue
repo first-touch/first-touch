@@ -9,7 +9,7 @@
             <img data-v-8e1e5708="" :src="currentAvatar" class="rounded-circle img-fluid">
           </div>
           <div class="col-4">
-            <button type="submit" :disabled="noNewAvatar" class="a-bar-button">Update my picture</button>
+            <button type="submit" :disabled="noNewAvatar" class="form-control a-bar-button">Update my picture</button>
           </div>
         </div>
       </fieldset>
@@ -104,7 +104,7 @@
         </div>
       </fieldset>
       <fieldset class="form-group">
-        <button type="submit" class="a-bar-button">Save</button>
+        <button type="submit" class="form-control a-bar-button">Save</button>
       </fieldset>
     </form>
   </div>

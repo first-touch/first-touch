@@ -30,7 +30,7 @@
                 <input type="text" v-model="email" @keydown="hideAlerts" class="form-control m-field-input" placeholder="Enter your email..." required />
               </div>
               <div class="col-lg-4">
-                <button class="a-bar-button center" type="submit">Submit</button>
+                <button class="form-control a-bar-button center" type="submit">Submit</button>
               </div>
               </div>
             </fieldset>
@@ -66,11 +66,6 @@ p {
 .logo {
   display: flex;
   justify-content: center;
-}
-
-.a-bar-button {
-  max-width: 150px;
-  margin: 0;
 }
 
 .col-lg-5 {

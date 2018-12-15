@@ -64,10 +64,6 @@
         background: $form-control-read-only;
       }
     }
-    &:focus,
-    &.open {
-      box-shadow: 0 0 0 0.2rem $input-focus-color;
-    }
     &.v-select {
       padding: 0 5px;
       &.disabled {

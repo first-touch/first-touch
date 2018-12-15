@@ -39,8 +39,8 @@
               <textarea :value="content" @keyup="handleContentChange" class="form-control m-field-input" rows="4" placeholder="Share a thought, link or opinion"></textarea>
             </fieldset>
             <div class="row justify-content-end">
-              <button v-if="posting" type="button" class="a-bar-button" disabled>Posting...</button>
-              <button v-else type="submit" class="a-bar-button">Post</button>
+              <button v-if="posting" type="button" class="form-control a-bar-button" disabled>Posting...</button>
+              <button v-else type="submit" class="form-control a-bar-button">Post</button>
             </div>
           </form>
         </div>
@@ -54,8 +54,8 @@
               <textarea :value="content" @keyup="handleContentChange" class="form-control m-field-input" rows="4" placeholder="uploadMedia"></textarea>
             </fieldset>
             <div class="row justify-content-end">
-              <button v-if="posting" type="button" class="a-bar-button" disabled>Posting...</button>
-              <button v-else type="submit" class="a-bar-button">Post</button>
+              <button v-if="posting" type="button" class="form-control a-bar-button" disabled>Posting...</button>
+              <button v-else type="submit" class="form-control a-bar-button">Post</button>
             </div>
           </form>
         </div>

@@ -15,10 +15,12 @@
             <label>Password</label>
             <input type="password" v-model="password" class="form-control m-field-input" autocomplete="current-password" placeholder="Enter password..."/>
           </fieldset>
-          <button v-if="loading"
-            class="a-bar-button center" type="button" disabled>Logging In...</button>
-          <button v-else
-            class="a-bar-button center" type="submit">Login</button>
+          <div class="col-lg-8">
+            <button v-if="loading"
+              class="form-control a-bar-button center" type="button" disabled>Logging In...</button>
+            <button v-else
+              class="form-control a-bar-button center" type="submit">Login</button>
+          </div>
           <fieldset class="col-md-8">
             <div v-if="errorMessage" class="alert alert-danger">
               <em>{{ errorMessage }}</em>
@@ -39,7 +41,6 @@
                 <span>
                   <router-link class="m-main-navigation-link" to="/users/reset_password"> Reset your password </router-link>
                 </span>
-
               </div>
             </div>
           </div>

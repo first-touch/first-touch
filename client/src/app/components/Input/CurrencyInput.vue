@@ -60,10 +60,6 @@
     }
     .form-control {
       z-index: unset;
-      &:focus {
-        box-shadow: 0 0 0 0.2rem $input-focus-color;
-        border-color: $input-focus-color;
-      }
     }
     .input-group-addon {
       padding: 0;

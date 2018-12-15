@@ -48,7 +48,7 @@
     .content {
       display: flex;
       &.opened {
-        box-shadow: 0 0 0 0.2rem $input-focus-color;
+        box-shadow: 0 0 0 0.2rem $input-border-focus-shadow;
       }
       .icon-container {
         position: relative;

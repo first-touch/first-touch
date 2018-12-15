@@ -35,7 +35,7 @@
               <em>{{ error }}</em>
             </div>
           </fieldset>
-          <button :disabled="!canBeRegistered()" class="a-bar-button center" type="submit">Register Club</button>
+          <button :disabled="!canBeRegistered()" class="form-control a-bar-button center" type="submit">Register Club</button>
         </form>
       </div>
     </div>

@@ -22,7 +22,7 @@
             <label>Password</label>
             <input type="password" v-model="password" class="form-control m-field-input" autocomplete="password" placeholder="Enter password..."/>
           </fieldset>
-          <button class="a-bar-button center" type="submit">Set new password</button>
+          <button class="form-control a-bar-button center" type="submit">Set new password</button>
         </form>
       </div>
     </div>

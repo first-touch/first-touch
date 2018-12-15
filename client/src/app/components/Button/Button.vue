@@ -1,5 +1,5 @@
 <template>
-<button @click="onClick" class="header-button">
+<button @click="onClick" class="a-button header-button">
   <div class="icon-wrapper">
     <div :class="['ft-icon', icon]"></div>
   </div>
@@ -13,7 +13,7 @@
   @import '~stylesheets/variables';
 
   .icon-wrapper {
-    background-color: $button-background-colour;
+    background-color: $button-background-color;
     display: inline-block;
     padding: 7px 10px;
     border-radius: 20px;

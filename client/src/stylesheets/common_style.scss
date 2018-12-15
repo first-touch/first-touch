@@ -183,3 +183,10 @@ a.btn.btn-bright:focus {
 .row-top-margin {
   margin-top: 40px;
 }
+
+.form-control {
+  &:focus {
+    box-shadow: 0 0 0 0.2rem $input-border-focus-shadow;
+    border-color: $input-border-focus;
+  }
+}
