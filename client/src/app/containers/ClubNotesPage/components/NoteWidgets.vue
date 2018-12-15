@@ -11,7 +11,7 @@
         <h3 class="name">Add a new note</h3>
         </div>
         <div class="right">
-          <select class="privacy">
+          <select class="form-control">
             <option>Private</option>
             <option>Public</option>
           </select>
@@ -42,16 +42,6 @@
     .left {
       .name {
         text-transform: uppercase;
-      }
-    }
-    .right {
-      .privacy{
-        height: 30px;
-        line-height: 20px;
-        border-radius: 4px;
-        border: 1px solid $main-text-color;
-        margin-left: 10px;
-        color: $main-text-color;
       }
     }
   }

@@ -80,5 +80,6 @@ $button-background-hover:  rgba(0, 0, 0, 0.2);
 $timeline-widget-button-background: $main-header-color;
 $timeline-widget-button-color: #ffffff;
 
-$input-focus-color: $main-header-color;
+$input-border-focus: $main-header-color;
+$input-border-focus-shadow: rgba(168, 203, 92, 0.25);
 $form-control-read-only: #e9ecef;

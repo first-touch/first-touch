@@ -120,9 +120,6 @@
   .form-control {
     padding: 3px 10px;
     height: 40px;
-    &:focus {
-      box-shadow: 0 0 0 0.2rem $input-focus-color;
-    }
     input,
     .vdp-datepicker {
       border-radius: 100%;
