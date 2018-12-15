@@ -13,7 +13,7 @@
   @import '~stylesheets/variables';
 
   .icon-wrapper {
-    background-color: $button-background-colour;
+    background-color: $button-background-color;
     display: inline-block;
     padding: 7px 10px;
     border-radius: 20px;
