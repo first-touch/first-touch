@@ -18,7 +18,7 @@
                   The FirstTouch support team is available 24/7 by email: <a class="a-link dark" href="mailto:contact@firsttouch.io">contact@firsttouch.io </a>
                 </p>
                 <p class="section-text">
-                  <button class="a-bar-button contact-us-button"> <a class="contact-us-link" href="mailto:contact@firsttouch.io">Talk to us!</a> </button>
+                  <button class="form-control a-bar-button contact-us-button"> <a class="contact-us-link" href="mailto:contact@firsttouch.io">Talk to us!</a> </button>
                 </p>
               </div>
 

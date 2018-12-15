@@ -20,7 +20,7 @@
             <label>Email</label>
             <input type="email" v-model="email" class="form-control m-field-input" autocomplete="username" placeholder="Enter email..."/>
           </fieldset>
-          <button class="a-bar-button center" type="submit">Reset Password</button>
+          <button class="form-control a-bar-button center" type="submit">Reset Password</button>
         </form>
       </div>
     </div>

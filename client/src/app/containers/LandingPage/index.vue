@@ -27,7 +27,7 @@
                   <br>and team processes
                 </div>
                 <div class="row justify-content-center">
-                  <router-link to="/users/sign_up" class="a-bar-button">Get started</router-link>
+                  <router-link to="/users/sign_up" class="form-control a-bar-button">Get started</router-link>
                 </div>
                 <div class="row justify-content-center">
                   <h1 class="typewriter">
@@ -57,7 +57,7 @@
               </div>
               <div class="row">
                 <div class="col-1">
-                  <router-link to="/users/sign_up/player" class="a-bar-button">
+                  <router-link to="/users/sign_up/player" class="form-control a-bar-button">
                     Register Now
                   </router-link>
                 </div>
@@ -84,7 +84,7 @@
               </div>
               <div class="row">
                 <div class="col-1">
-                  <router-link to="/users/sign_up/scout" class="a-bar-button">
+                  <router-link to="/users/sign_up/scout" class="form-control a-bar-button">
                     Register Now
                   </router-link>
                 </div>
@@ -111,7 +111,7 @@
               </div>
               <div class="row">
                 <div class="col-1">
-                  <a class="a-bar-button center" href="users/sign_up/director">
+                  <a class="form-control a-bar-button center" href="users/sign_up/director">
                     Register Now
                   </a>
                 </div>

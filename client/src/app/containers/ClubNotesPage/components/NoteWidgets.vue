@@ -15,8 +15,8 @@
             <option>Private</option>
             <option>Public</option>
           </select>
-          <button class="a-bar-button">Publish</button>
-          <button class="a-bar-button reverse" @click="closeAddNoteModal">Close</button>
+          <button class="form-control a-bar-button">Publish</button>
+          <button class="form-control a-bar-button reverse" @click="closeAddNoteModal">Close</button>
         </div>
       </div>
       <div class="body">
