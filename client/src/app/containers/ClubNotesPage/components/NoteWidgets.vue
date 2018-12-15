@@ -95,6 +95,9 @@ export default {
     createCategory() {
       console.log("to be implemented");
     }
+  },
+  mounted() {
+
   }
 };
 </script>
