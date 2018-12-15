@@ -68,11 +68,6 @@ p {
   justify-content: center;
 }
 
-.a-bar-button {
-  max-width: 150px;
-  margin: 0;
-}
-
 .col-lg-5 {
   margin-left: 100px;
 }

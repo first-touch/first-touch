@@ -1,5 +1,5 @@
 <template>
-<button @click="onClick" class="header-button">
+<button @click="onClick" class="a-button header-button">
   <div class="icon-wrapper">
     <div :class="['ft-icon', icon]"></div>
   </div>

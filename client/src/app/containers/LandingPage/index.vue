@@ -27,7 +27,7 @@
                   <br>and team processes
                 </div>
                 <div class="row justify-content-center">
-                  <router-link to="/users/sign_up" class="a-bar-button">Get-started</router-link>
+                  <router-link to="/users/sign_up" class="a-bar-button">Get started</router-link>
                 </div>
                 <div class="row justify-content-center">
                   <h1 class="typewriter">

@@ -5,6 +5,7 @@
   box-sizing: border-box;
   display: block;
   color: $first-touch-white;
+  cursor: pointer;
   font-size: 20px;
   font-weight: 300;
   text-transform: uppercase;
@@ -13,7 +14,7 @@
   padding: 7px 12px 6px 12px;
   width: auto;
   border-radius: 5px;
-  border: none;
+  border: 1px solid $button-background-colour;
   background-color: $button-background-colour;
   text-align: center;
 
@@ -21,7 +22,6 @@
   &:focus {
     background-color: $button-background-colour-on-hover;
     color: $first-touch-white;
-    cursor: pointer;
     text-decoration: none;
   }
 
@@ -31,6 +31,7 @@
   }
 
   &.reverse {
+    background-color: $first-touch-white;
     border-color: $main-text-color;
     color: $main-text-color;
 
