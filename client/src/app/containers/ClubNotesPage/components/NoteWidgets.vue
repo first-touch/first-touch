@@ -6,24 +6,33 @@
       <ft-button :on-click="createCategory" icon="ft-notes">Create a Category</ft-button>
     </div>
     <b-modal ref="newNoteModal" id="add-modal" size="lg" hide-footer hide-header centered>
-      <div class="header">
-        <div class="left">
-        <h3 class="name">Add a new note</h3>
+      <div class="row">
+        <div class="col-lg-4">
+          <h3 class="name">Add a new note</h3>
         </div>
-        <div class="right">
-          <select class="form-control">
-            <option>Private</option>
-            <option>Public</option>
-          </select>
-          <button class="form-control a-bar-button">Publish</button>
-          <button class="form-control a-bar-button reverse" @click="closeAddNoteModal">Close</button>
+        <div class="col-lg-8">
+          <div class="form-inline float-right">
+            <div class="form-group mx-1">
+              <select class="form-control" v-model="notePrivacy">
+                <option v-for="option in privacyOptions" v-bind:value="option.value" v-bind:key="option.value">
+                  {{ option.text }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group mx-1">
+              <button class="form-control a-bar-button" @click="publishNote">Publish</button>
+            </div>
+            <div class="form-group mx-1">
+              <button class="form-control a-bar-button reverse" @click="closeAddNoteModal">Close</button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="body">
         <form class="form">
-          <input class="title" placeholder="Title" required/>
+          <input class="title" placeholder="Title" required v-model="noteName" />
           <div class="separator"></div>
-          <textarea class="content" rows="7" placeholder="Content" required/>
+          <textarea class="content" rows="7" placeholder="Content" required v-model="noteContent"/>
         </form>
       </div>
     </b-modal>
@@ -85,6 +94,17 @@ export default {
   components: {
     'ft-button': Button
   },
+  data(){
+    return {
+      noteName : '',
+      noteContent : '',
+      notePrivacy : 'private',
+      privacyOptions: [
+        { text: 'Private', value: 'private' },
+        { text: 'Public', value: 'public' }
+      ]
+    }
+  },
   methods: {
     openAddNoteModal() {
       this.$refs.newNoteModal.show()
@@ -94,6 +114,15 @@ export default {
     },
     createCategory() {
       console.log("to be implemented");
+    },
+    publishNote() {
+      let noteData = {
+        name: this.noteName,
+        content: this.noteContent
+      }
+      this.$store.dispatch('club/notes/create', noteData).then(() => {
+        this.closeAddNoteModal();
+      });
     }
   }
 };

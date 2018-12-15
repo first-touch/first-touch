@@ -26,13 +26,21 @@ export default {
   },
 
   create (noteData) {
-    return fetch(this.endpoint, {
-      method: 'POST',
-      headers: {
-        Authorization: store.state.token.value,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(noteData)
+    return new Promise((resolve, reject) => {
+      return fetch(this.endpoint, {
+        method: 'POST',
+        headers: {
+          Authorization: store.state.token.value,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(noteData)
+      }).then(response => {
+        if (response.ok) {
+          return resolve(response.json());
+        } else {
+          return reject(response);
+        }
+      });
     });
   }
 };

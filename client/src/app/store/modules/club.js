@@ -11,7 +11,8 @@ export default {
       namespaced: true,
       state: {
         value: [],
-        loading: false
+        loading: false,
+        publishing: false
       },
       actions: {
         index ({ commit }) {
@@ -24,12 +25,25 @@ export default {
           }).finally(() => {
             commit('loaded');
           });
+        },
+        create ({ commit }, noteData) {
+          commit('publishing');
+          NotesService.create(noteData).then(res => {
+            commit('addNote', res);
+          }).catch(err => {
+            console.log(err);
+          }).finally(() => {
+            commit('published');
+          });
         }
       },
       mutations: {
         'loading' (state) { state.loading = true; },
         'loaded' (state) { state.loading = false; },
-        'setNotes' (state, notes) { state.value = notes; }
+        'publishing' (state) { state.publishing = true; },
+        'published' (state) { state.publishing = false; },
+        'setNotes' (state, notes) { state.value = notes; },
+        'addNote' (state, note) { state.value.push(note); }
       },
       getters: { }
     }

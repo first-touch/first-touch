@@ -13,17 +13,23 @@
       </div>
     </div>
     <div class="widget">
-      <button class="btn-round" @click="toggleView" >View</button>
+      <button class="form-control a-bar-button reverse" @click="toggleView" >View</button>
     </div>
   </div>
   <div class="body" v-if="show">
     <p class="content">
       {{ note.content }}
     </p>
-    <div class="widget">
-      <button class="btn btn-round btn-green">Edit note</button>
-      <button class="btn btn-round btn-white">Delete</button>
-      <button class="btn btn-round btn-white">Close</button>
+    <div class="widget row">
+      <div class="col-lg-4">
+        <button class="form-control a-bar-button">Edit</button>
+      </div>
+      <div class="col-lg-4">
+        <button class="form-control a-bar-button reverse">Delete</button>
+      </div>
+      <div class="col-lg-4">
+        <button class="form-control a-bar-button reverse">Close</button>
+      </div>
     </div>
   </div>
 </div>
@@ -67,12 +73,6 @@
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-      .btn-round {
-        border-radius: 9999px;
-        border: 1px solid $secondary-text-color;
-        background: #fff;
-        width: 100px;
-      }
     }
   }
 
@@ -85,32 +85,6 @@
       margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
-      .btn-round {
-        border-radius: 9999px;
-      }
-      .btn-white {
-        background: #fff;
-        border: 1px solid $secondary-text-color;
-      }
-      .btn-green {
-        background: $main-header-color;
-        border: 1px solid $main-header-color;
-      }
-    }
-    .comment-section {
-      padding-top: 15px;
-      &:before {
-        content: '';
-        position: absolute;
-        left: 150px;
-        width: 15%;
-        margin-top: -15px;
-        border-top: 2px solid $secondary-text-color;
-      }
-      .title {
-        font-weight: 300;
-        text-transform: uppercase;
-      }
     }
   }
 }
