@@ -97,7 +97,7 @@ export default {
     }
   },
   mounted() {
-
+    this.$store.dispatch('club/notes/index');
   }
 };
 </script>
