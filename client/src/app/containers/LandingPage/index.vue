@@ -56,7 +56,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-1">
+                <div class="col-2">
                   <router-link to="/users/sign_up/player" class="form-control a-bar-button">
                     Register Now
                   </router-link>
@@ -83,7 +83,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-1">
+                <div class="col-2">
                   <router-link to="/users/sign_up/scout" class="form-control a-bar-button">
                     Register Now
                   </router-link>
@@ -110,7 +110,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-1">
+                <div class="col-2">
                   <a class="form-control a-bar-button center" href="users/sign_up/director">
                     Register Now
                   </a>
