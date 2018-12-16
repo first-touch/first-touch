@@ -6,21 +6,25 @@
         <img src="/images/landing-page/ft-logo.png" alt="Ft Logo"  />
       </div>
       <div v-if="requested" class="col col-lg-5">
-        <div class="header-wrapper">
-          <h1> We just emailed you </h1>
-          <p> Please check your email (<span class="a-highlight">{{ email }}</span>) and click the secure link.</p>
-        </div>
-        <div class="footnote">
-          <p> If you don’t see our email, check your spam folder or <a class="a-link light" href="/contact">Contact us</a></p>
+        <div class="row justify-content-lg-center">
+          <div class="header-wrapper">
+            <h1> We just emailed you </h1>
+            <p> Please check your email (<span class="a-highlight">{{ email }}</span>) and click the secure link.</p>
+          </div>
+          <div class="footnote">
+            <p> If you don’t see our email, check your spam folder or <a class="a-link light" href="/contact">Contact us</a></p>
+          </div>
         </div>
       </div>
       <div v-else class="col col-lg-5">
         <form @submit.prevent="requestPasswordReset">
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-8">
             <label>Email</label>
             <input type="email" v-model="email" class="form-control m-field-input" autocomplete="username" placeholder="Enter email..."/>
           </fieldset>
-          <button class="form-control a-bar-button center" type="submit">Reset Password</button>
+          <div class="col-lg-8">
+            <button class="form-control a-bar-button center" type="submit">Reset Password</button>
+          </div>
         </form>
       </div>
     </div>
@@ -39,8 +43,11 @@
   justify-content: center;
 }
 
-.header-wrapper {
-  margin-top: 50px;
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
 

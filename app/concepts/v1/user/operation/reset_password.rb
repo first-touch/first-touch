@@ -6,10 +6,10 @@ module V1
 
       def find_user!(options, params:, **)
         user = ::User.find_by(email: params[:email])
-        options['user'] = user
+        options[:user] = user
       end
 
-      def send_reset_instructions!(user:, **)
+      def send_reset_instructions!(_opts, user:, **)
         return true if user.nil?
         user.send_reset_password_instructions
       end
