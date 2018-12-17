@@ -15,7 +15,7 @@ module Importer
         next if idx.zero?
         break if empty_row?(row)
         user_params = prepare_user(row, headers)
-        ::V1::User::Import.(user_params, club_id: club_id)
+        ::V1::User::Import.(params: user_params, club_id: club_id)
       end
     end
 
