@@ -63,9 +63,6 @@
             <li class="sub-nav-item" :class="{ active: page === '/club/scouting/report/list' || !page }">
               <router-link :to="{ name: 'clubReportList'}">Reports</router-link>
             </li>
-            <li class="sub-nav-item" :class="{ active: page === '/club/scouting/payments' || !page }">
-              <router-link :to="{ name: 'ClubPaymentDetails'}">Payment Details</router-link>
-            </li>
           </ul>
         </li>
         <li class="nav-item" :class="{ active: tab[3] }">
@@ -79,9 +76,14 @@
           </div>
         </li>
         <li class="nav-item" :class="{ active: tab[5] }">
-          <div class="nav-item-inner" @click="onTabClick(5)">
+          <div class="nav-item-inner nav-item-inner-link" @click="onTabClick(5)">
             Admin
           </div>
+          <ul class="sub-nav">
+            <li class="sub-nav-item" :class="{ active: page === '/club/scouting/payments' || !page }">
+              <router-link :to="{ name: 'ClubPaymentDetails'}">Payment Details</router-link>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
