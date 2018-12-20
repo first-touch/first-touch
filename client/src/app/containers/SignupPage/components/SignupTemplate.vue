@@ -80,13 +80,13 @@
                 <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
               </select>
               <autocomplete class="col-md-8" input-class="form-control"
-                placeholder="Search For Club"
+                placeholder="Search for OR Add Club"
                 v-model="item"
                 :get-label="getLabel"
                 :items="clubs"
                 :component-item="template"
                 @update-items="updateItems"
-                :min-len="0"
+                :min-len="3"
                 :auto-select-one-item="false"
                 :input-attrs="{disabled: countries.length === 0 || club_country_code === ''}"
                 />
@@ -257,7 +257,7 @@ export default {
         q: text
       }
       ClubService.searchClub(params).then(response => {
-        this.$set(this, 'clubs', response.clubs.slice(0, 3));
+        this.$set(this, 'clubs', response.clubs);
       });
     },
     getLabel(item) {

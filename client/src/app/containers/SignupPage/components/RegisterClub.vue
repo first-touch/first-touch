@@ -24,12 +24,11 @@
               :items="clubs"
               :component-item="template"
               @update-items="updateItems"
-              :min-len="0"
+              :min-len="3"
               :auto-select-one-item="false"
               :input-attrs="{disabled: countries.length === 0 || club_country_code === ''}"
               />
           </div>
-          </fieldset>
           <fieldset class="col-md-12">
             <div v-if="error" class="alert alert-danger">
               <em>{{ error }}</em>
@@ -146,7 +145,7 @@ export default {
         q: text
       }
       ClubService.searchClub(params).then(response => {
-        this.$set(this, 'clubs', response.clubs.slice(0, 3));
+        this.$set(this, 'clubs', response.clubs);
       });
     },
     getLabel(item) {
