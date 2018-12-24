@@ -3,8 +3,8 @@ module V1
     class SignIn < FirstTouch::NoAuthOperation
       step :find_user!
       failure :unauthenticated!, fail_fast: true
-      step :confirmed_user?
-      failure :unconfirmed!, fail_fast: true
+      # step :confirmed_user?
+      # failure :unconfirmed!, fail_fast: true
       step :find_clubs!
       step :generate_token!
 

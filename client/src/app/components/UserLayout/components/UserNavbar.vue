@@ -28,10 +28,11 @@
           </div>
         </li>
         <li class="nav-item" :class="{ active: page === 'messages' && submenu == -1 }">
-          <div class="nav-item-inner" @click="setMenu(-1)">
-            <router-link to="/messages">Messages</router-link>
-          </div>
+          <div class="nav-item-inner" @click="openNewMessageModal">Message</div>
         </li>
+        <b-modal ref="newMessageModal" id="new-message-modal" size="lg" hide-footer hide-header centered>
+          <new-message-popup/>
+        </b-modal>
         <li class="nav-item" :class="{ active: page === 'network' && submenu == -1}">
           <div class="nav-item-inner" @click="setMenu(-1)">
             <router-link to="/network">My Network</router-link>
@@ -85,8 +86,13 @@
     ASYNC_SUCCESS
   } from '../../../constants/AsyncStatus';
 
+  import NewMessagePopup from 'app/components/NewMessage/NewMessageFormPopup'
+
 export default {
   name: 'UserNavbar',
+  components: {
+    'new-message-popup': NewMessagePopup
+  },
   props: ['page'],
   data() {
     return {
@@ -157,6 +163,9 @@ export default {
       this.logout().then(() => {
         this.$router.push('/users/sign_in');
       });
+    },
+    openNewMessageModal() {
+      this.$refs.newMessageModal.show()
     }
   },
   mounted() {
