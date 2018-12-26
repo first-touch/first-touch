@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import store from 'app/store';
 
 export default {
@@ -13,6 +14,24 @@ export default {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(attributes)
+    });
+  },
+
+  search (params) {
+    const endpoint = `api/v1/search${$.param(params)}`;
+    const token = store.state.token.value;
+
+    return fetch(endpoint, {
+      method: 'GET',
+      headers: {
+        Authorization: token
+      }
+    }).then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(response);
+      }
     });
   },
 
