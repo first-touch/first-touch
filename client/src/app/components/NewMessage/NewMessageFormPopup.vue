@@ -17,7 +17,7 @@
     </div>
     <div class="form">
       <fieldset class="form-group col-md-12">
-        <input type="users" v-model="user_ids" class="form-control" placeholder="Type a name" />
+        <vselect multiple v-model="selected" :options="['foo','bar']" placeholder="Type a name"></vselect>
       </fieldset>
       <fieldset class="form-group col-md-12">
         <input type="subject" v-model="subject" class="form-control" placeholder="Give this conversation a name(optional)" />
@@ -43,8 +43,13 @@
 </style>
 
 <script>
+ import vSelect from 'vue-select';
+
 export default {
   name: 'NewMessagePopup',
+  components: {
+    vselect: vSelect
+  },
   data() {
     return {
       user_ids: [],
