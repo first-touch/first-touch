@@ -26,6 +26,9 @@
         <input type="body" v-model="body" class="form-control" placeholder="Write your message..." />
       </fieldset>
     </div>
+    <div v-if="error" class="alert alert-danger">
+      <em>{{ error }}</em>
+    </div>
   </div>
 </template>
 
@@ -56,6 +59,7 @@ export default {
       chosen_users: [],
       subject: '',
       body: '',
+      error: null
     }
   },
   methods: {
@@ -65,6 +69,14 @@ export default {
       });
     },
     send() {
+      if (!this.body) {
+        return this.$set(this, 'error', "You need to write a message");
+      } else if (this.chosen_users.length === 0) {
+        return this.$set(this, 'error', 'You need to select at least one user to send the message to');
+      }
+
+      const chosen_user_ids = this.chosen_users.map(user => user.id)
+
       debugger
     },
     closeModal() {
