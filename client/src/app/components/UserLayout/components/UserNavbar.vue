@@ -31,7 +31,7 @@
           <div class="nav-item-inner" @click="openNewMessageModal">Message</div>
         </li>
         <b-modal ref="newMessageModal" id="new-message-modal" size="lg" hide-footer hide-header centered>
-          <new-message-popup/>
+          <new-message-popup @closeModal="closeNewMessageModal"/>
         </b-modal>
         <li class="nav-item" :class="{ active: page === 'network' && submenu == -1}">
           <div class="nav-item-inner" @click="setMenu(-1)">
@@ -166,6 +166,9 @@ export default {
     },
     openNewMessageModal() {
       this.$refs.newMessageModal.show()
+    },
+    closeNewMessageModal() {
+      this.$refs.newMessageModal.hide()
     }
   },
   mounted() {

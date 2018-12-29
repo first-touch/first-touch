@@ -10,7 +10,7 @@
             <button class="form-control a-bar-button" v-on:click="send">Send</button>
           </div>
           <div class="form-group mx-1">
-            <button class="form-control a-bar-button reverse">Close</button>
+            <button class="form-control a-bar-button reverse" v-on:click="closeModal">Close</button>
           </div>
         </div>
       </div>
@@ -66,6 +66,9 @@ export default {
     },
     send() {
       debugger
+    },
+    closeModal() {
+      this.$emit('closeModal', true)
     }
   },
   mounted() {
