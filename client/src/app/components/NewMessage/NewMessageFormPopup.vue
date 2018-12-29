@@ -47,6 +47,7 @@ h4 {
 <script>
 import vSelect from 'vue-select';
 import UserService from 'app/services/UserService'
+import MessageService from 'app/services/MessageService'
 
 export default {
   name: 'NewMessagePopup',
@@ -77,7 +78,18 @@ export default {
 
       const chosen_user_ids = this.chosen_users.map(user => user.id)
 
-      debugger
+      $.each(chosen_user_ids, function(index, user_id) {
+        const messageData = {
+          recipient_id: user_id,
+          message_body: this.body,
+          subject: this.subject
+        }
+        MessageService.create(messageData).then(res => {
+          if (res.status === 201) {
+            this.closeModal()
+          }
+        })
+      }.bind(this));
     },
     closeModal() {
       this.$emit('closeModal', true)
