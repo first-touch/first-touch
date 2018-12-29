@@ -87,6 +87,8 @@ export default {
         MessageService.create(messageData).then(res => {
           if (res.status === 201) {
             this.closeModal()
+          } else {
+            return this.$set(this, 'error', "There was an error sending the message");
           }
         })
       }.bind(this));
