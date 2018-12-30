@@ -28,11 +28,10 @@
           </div>
         </li>
         <li class="nav-item" :class="{ active: page === 'messages' && submenu == -1 }">
-          <div class="nav-item-inner" @click="openNewMessageModal">Message</div>
+          <div class="nav-item-inner" @click="setMenu(-1)">
+            <router-link to="/messages">Messages</router-link>
+          </div>
         </li>
-        <b-modal ref="newMessageModal" id="new-message-modal" size="lg" hide-footer hide-header centered>
-          <new-message-popup @closeModal="closeNewMessageModal"/>
-        </b-modal>
         <li class="nav-item" :class="{ active: page === 'network' && submenu == -1}">
           <div class="nav-item-inner" @click="setMenu(-1)">
             <router-link to="/network">My Network</router-link>
@@ -90,9 +89,6 @@
 
 export default {
   name: 'UserNavbar',
-  components: {
-    'new-message-popup': NewMessagePopup
-  },
   props: ['page'],
   data() {
     return {

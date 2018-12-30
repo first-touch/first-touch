@@ -87,6 +87,7 @@ export default {
         MessageService.create(messageData).then(res => {
           if (res.status === 201) {
             this.closeModal()
+            this.updateSuccessMessage()
           } else {
             return this.$set(this, 'error', "There was an error sending the message");
           }
@@ -95,6 +96,9 @@ export default {
     },
     closeModal() {
       this.$emit('closeModal', true)
+    },
+    updateSuccessMessage() {
+      this.$emit('updateSuccessMessage', true)
     }
   },
   mounted() {
