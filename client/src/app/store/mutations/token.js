@@ -19,12 +19,16 @@ export default {
   // FIXME: Temporary token management to be updated with below methods
   [ActionTypes.TOKEN_LOADING] (state) {
     state.token = Object.assign({}, state.token, {
-      status: ASYNC_LOADING
+      status: ASYNC_LOADING,
+      value: undefined,
+      clubs: undefined
     });
   },
   [ActionTypes.TOKEN_FAILURE] (state, err) {
     state.token = Object.assign({}, state.token, {
       status: ASYNC_FAIL,
+      value: undefined,
+      clubs: undefined,
       err
     });
   },
