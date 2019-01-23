@@ -1,4 +1,5 @@
-require_relative '../../lib/file_type_detector'
+needs 'lib'
+require 'file_type_detector'
 
 describe 'FileTypeDetector' do
   describe 'mime_type' do
