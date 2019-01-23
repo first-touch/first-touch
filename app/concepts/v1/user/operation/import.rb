@@ -17,7 +17,7 @@ module V1
         model.personal_profile = ::PersonalProfile.new
         model.personal_profile.first_name = params['first_name']
 
-        model.personal_profile.middle_name = params['first_name']
+        model.personal_profile.middle_name = params['middle_name']
 
         model.personal_profile.last_name = params['last_name']
         model.personal_profile.birthday = params['birthday']
