@@ -110,6 +110,7 @@ GEM
     case_transform (0.2)
       activesupport
     choice (0.2.0)
+    climate_control (0.2.0)
     concurrent-ruby (1.1.2)
     connection_pool (2.2.1)
     crass (1.0.4)
@@ -287,9 +288,6 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-graphviz (1.2.4)
     ruby-progressbar (1.9.0)
-    rubyXL (3.3.33)
-      nokogiri (>= 1.4.4)
-      rubyzip (>= 1.1.6)
     rubyzip (1.2.2)
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
@@ -441,7 +439,6 @@ DEPENDENCIES
   rspec-json_expectations
   rspec-rails (~> 3.0)
   rubocop
-  rubyXL
   sdoc (~> 0.4.0)
   shoulda-matchers (~> 3.1)
   sidekiq
