@@ -45,8 +45,4 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
-
-  config.after(:suite) do
-    FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
-  end
 end
