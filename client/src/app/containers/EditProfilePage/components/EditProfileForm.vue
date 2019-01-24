@@ -2,7 +2,7 @@
   <div class="profile-form">
     <form @submit.prevent="updateProfilePic" enctype="multipart/form-data">
       <fieldset class="form-group">
-        <label>Your Profile Picture</label>
+        <label>Your Profile Pictures</label>
         <div class="row">
           <div class="col-2">
             <input type="file" id="avatar" name="avatar" accept="image/*" @change="filePickerUpdated($event.target.files)" class="input-file">
