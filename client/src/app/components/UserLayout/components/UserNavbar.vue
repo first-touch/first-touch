@@ -76,14 +76,16 @@
 </template>
 
 <script>
-  import {
-    mapGetters,
-    mapActions
-  } from 'vuex';
-  import {
-    ASYNC_LOADING,
-    ASYNC_SUCCESS
-  } from '../../../constants/AsyncStatus';
+import {
+  mapGetters,
+  mapActions
+} from 'vuex';
+import {
+  ASYNC_LOADING,
+  ASYNC_SUCCESS
+} from '../../../constants/AsyncStatus';
+
+import NewMessagePopup from 'app/components/NewMessage/NewMessageFormPopup'
 
 export default {
   name: 'UserNavbar',
@@ -157,6 +159,12 @@ export default {
       this.logout().then(() => {
         this.$router.push('/users/sign_in');
       });
+    },
+    openNewMessageModal() {
+      this.$refs.newMessageModal.show()
+    },
+    closeNewMessageModal() {
+      this.$refs.newMessageModal.hide()
     }
   },
   mounted() {

@@ -7,6 +7,7 @@ module V1
         property :message_body
         property :message_recipient
         property :creator
+        property :subject
 
         validates :message_body,
                   :message_recipient,
