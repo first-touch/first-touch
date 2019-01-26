@@ -1,0 +1,13 @@
+@media (max-width: $max-mobile-width) {
+  label, input, a, p, button {
+    font-size: 2em;
+  }
+
+  button, input {
+    height: 2em;
+  }
+
+  .logo {
+    margin-top: 10em;
+  }
+}
