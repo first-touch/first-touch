@@ -12,33 +12,33 @@
         </div>
 
         <form class="form" @submit.prevent="handleSubmit">
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12 col-md-8">
             <label>Email</label>
             <input type="email" v-model="email" class="form-control" autocomplete="username" placeholder="Enter Email..." />
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12 col-md-8">
             <label>Password</label>
             <input type="password" v-model="password" class="form-control" autocomplete="new-password" placeholder="Enter Password..." />
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12 col-md-8">
             <label>Password Confirmation</label>
             <input type="password" v-model="password_confirmation" class="form-control" autocomplete="new-password" placeholder="Confirm Password..." />
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12 col-md-8">
             <label>Your Name</label>
             <div class="row">
-              <input type="text" v-model="first_name" class="form-control col-md-6" placeholder="First Name" />
-              <input type="text" v-model="last_name" class="form-control col-md-6" placeholder="Last Name" />
+              <input type="text" v-model="first_name" class="form-control col-lg-10 col-md-6" placeholder="First Name" />
+              <input type="text" v-model="last_name" class="form-control col-lg-10 col-md-6" placeholder="Last Name" />
             </div>
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12 col-md-8">
             <label>Date Of Birth</label>
             <div class="row">
-              <select v-model="day" class="form-control col-md-3">
+              <select v-model="day" class="form-control col-lg-3 col-md-3">
                 <option disabled value="" selected>Day</option>
                 <option v-for="d in 31" :key="d" :value="d">{{ d }}</option>
               </select>
-              <select v-model="month" class="form-control col-md-6">
+              <select v-model="month" class="form-control col-lg-6 col-md-6">
                 <option disabled value="" selected>Month</option>
                 <option value="1">January</option>
                 <option value="2">February</option>
@@ -53,13 +53,13 @@
                 <option value="11">November</option>
                 <option value="12">December</option>
               </select>
-              <select v-model="year" class="form-control col-md-3">
+              <select v-model="year" class="form-control col-lg-3 col-md-3">
                 <option disabled value="" selected>Year</option>
                 <option v-for="y in validYears" :key="y" :value="y">{{y}}</option>
               </select>
             </div>
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12 col-md-8">
             <label>Your Role</label>
             <div class="row">
               <select v-model="role_name" class="form-control">
@@ -72,14 +72,14 @@
               </select>
             </div>
           </fieldset>
-          <fieldset class="form-group col-md-12" v-if="this.role_name != 'director'">
+          <fieldset class="form-group col-lg-12 col-md-8" v-if="this.role_name != 'director'">
             <label>Your Club*</label>
             <div class="row">
-              <select v-model="club_country_code" class="form-control col-md-4">
+              <select v-model="club_country_code" class="form-control col-lg-4 col-md-4">
                 <option disabled value="" selected>Country</option>
                 <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
               </select>
-              <autocomplete class="col-md-8" input-class="form-control"
+              <autocomplete class="col-lg-8 col-md-8" input-class="form-control"
                 placeholder="Search for OR Add Club"
                 v-model="item"
                 :get-label="getLabel"
@@ -92,15 +92,15 @@
                 />
             </div>
           </fieldset>
-          <fieldset class="form-group col-md-12">
+          <fieldset class="form-group col-lg-12 col-md-8">
             <label class="club-note" v-if="this.role_name == 'director'">*As a Director, to register your Club, create your individual profile first.</label>
           </fieldset>
-          <fieldset class="form-group col-md-12 tc-container">
+          <fieldset class="form-group col-lg-12 col-md-8 tc-container">
             <input type="checkbox" id="tc" name="termsandconditions" v-model="tccheck" />
             <label for="tc">By checking this box, you agree to our <router-link to="/terms_conditions">Terms &amp; Conditions</router-link> </label>
           </fieldset>
-          <button class="form-control a-bar-button center" type="submit">Sign Up</button>
-          <fieldset class="col-md-12">
+          <button class="form-control a-bar-button center col-md-8" type="submit">Sign Up</button>
+          <fieldset class="col-lg-12 col-md-8">
             <div v-if="error" class="alert alert-danger">
               <em>{{ error }}</em>
             </div>
@@ -113,13 +113,19 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/template/sign-in-page.scss';
+@import '~stylesheets/atoms/mobile-text';
+
+@media (max-width: $max-mobile-width) {
+  a {
+    font-size: 1em
+  }
+}
 </style>
 
 <style lang="scss">
 @import '~stylesheets/molecules/auto-complete.scss';
 @import '~stylesheets/molecules/steps.scss';
 @import '~stylesheets/variables';
-
 </style>
 
 <script>
