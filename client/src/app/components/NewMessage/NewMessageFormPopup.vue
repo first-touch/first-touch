@@ -17,7 +17,7 @@
     </div>
     <div class="form">
       <fieldset class="form-group col-md-12">
-        <vselect multiple :options="users_list" v-model="chosen_users" label="display_name" placeholder="Type a name"></vselect>
+        <vselect multiple :options="usersList" v-model="chosenUsers" label="display_name" placeholder="Type a name"></vselect>
       </fieldset>
       <fieldset class="form-group col-md-12">
         <input type="subject" v-model="subject" class="form-control" placeholder="Give this conversation a name(optional)" />
@@ -56,8 +56,8 @@ export default {
   },
   data() {
     return {
-      users_list: [],
-      chosen_users: [],
+      usersList: [],
+      chosenUsers: [],
       subject: '',
       body: '',
       error: null
@@ -66,17 +66,17 @@ export default {
   methods: {
     fetchUsers() {
       UserService.search({}).then(response => {
-        this.$set(this, 'users_list', response.users)
+        this.usersList = response.users
       });
     },
     send() {
       if (!this.body) {
         return this.$set(this, 'error', "You need to write a message");
-      } else if (this.chosen_users.length === 0) {
+      } else if (this.chosenUsers.length === 0) {
         return this.$set(this, 'error', 'You need to select at least one user to send the message to');
       }
 
-      const chosen_user_ids = this.chosen_users.map(user => user.id)
+      const chosen_user_ids = this.chosenUsers.map(user => user.id)
 
       $.each(chosen_user_ids, function(index, user_id) {
         const messageData = {

@@ -76,16 +76,16 @@
 </template>
 
 <script>
-  import {
-    mapGetters,
-    mapActions
-  } from 'vuex';
-  import {
-    ASYNC_LOADING,
-    ASYNC_SUCCESS
-  } from '../../../constants/AsyncStatus';
+import {
+  mapGetters,
+  mapActions
+} from 'vuex';
+import {
+  ASYNC_LOADING,
+  ASYNC_SUCCESS
+} from '../../../constants/AsyncStatus';
 
-  import NewMessagePopup from 'app/components/NewMessage/NewMessageFormPopup'
+import NewMessagePopup from 'app/components/NewMessage/NewMessageFormPopup'
 
 export default {
   name: 'UserNavbar',

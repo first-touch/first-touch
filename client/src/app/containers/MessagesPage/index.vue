@@ -7,8 +7,8 @@
           <div class="arrow"></div>
           <ft-button :on-click="openNewMessageModal" icon="ft-notes">Write Message</ft-button>
         </div>
-        <div v-if="success_message">
-          <em>{{ success_message }}</em>
+        <div v-if="successMessage">
+          <em>{{ successMessage }}</em>
         </div>
         <b-modal ref="newMessageModal" id="new-message-modal" size="lg" hide-footer hide-header centered>
           <new-message-popup @closeModal="closeNewMessageModal" @updateSuccessMessage="updateSuccessMessage"/>
@@ -36,7 +36,7 @@ export default {
   },
   data() {
     return {
-      success_message: ''
+      successMessage: ''
     }
   },
   computed: {
@@ -52,13 +52,13 @@ export default {
     },
     openNewMessageModal() {
       this.$refs.newMessageModal.show()
-      this.$set(this, 'success_message', '');
+      this.$set(this, 'successMessage', '');
     },
     closeNewMessageModal() {
       this.$refs.newMessageModal.hide()
     },
     updateSuccessMessage() {
-      this.$set(this, 'success_message', 'Message was successfully sent to all recipients');
+      this.$set(this, 'successMessage', 'Message was successfully sent to all recipients');
     }
   }
 };
