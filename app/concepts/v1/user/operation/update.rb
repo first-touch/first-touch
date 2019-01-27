@@ -23,7 +23,7 @@ module V1
       end
 
       def missing_profile!(options, **)
-        options['errors'] = I18n.t('user.no_profile')
+        options[:errors] = I18n.t('user.no_profile')
       end
 
       def authorize!(_options, model:, current_user:, **)
