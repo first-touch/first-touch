@@ -186,3 +186,18 @@
     }
   }
 }
+
+@media (max-width: $max-mobile-width) {
+  #landing-navbar {
+    height: 9vh;
+
+    a, form {
+      font-size: 1.5em;
+    }
+
+    img {
+      height: 5vh;
+      padding-left: 3vw;
+    }
+  }
+}
