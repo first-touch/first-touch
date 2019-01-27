@@ -22,16 +22,14 @@
                   <img src="images/landing-page/ft-logo.png" class="img-fluid" alt="Ft logo">
                 </div>
                 <div class="row justify-content-center main">
-                  The football platform for
-                  <br>managing careers, performance
-                  <br>and team processes
+                  <p class="first-page-desc">The football platform for managing careers, performance and team processes</p>
                 </div>
                 <div class="row justify-content-center">
                   <router-link to="/users/sign_up" class="form-control a-bar-button">Get started</router-link>
                 </div>
                 <div class="row justify-content-center">
                   <h1 class="typewriter">
-                    #RaiseYourGame
+                    <p>#RaiseYourGame</p>
                   </h1>
                 </div>
               </div>
@@ -152,9 +150,9 @@
 
           <div class="row justify-content-center">
             <div class="challenge-sub">
-              Managing an increasing amount of information and tasks using outdated processes and tools, limited budgets, resources and
+              <p class="main-description">Managing an increasing amount of information and tasks using outdated processes and tools, limited budgets, resources and
               capabilities present a real challenge for today’s professionals as they seek to maximise performance and remain
-              competitive.
+              competitive.</p>
             </div>
           </div>
 
@@ -166,8 +164,8 @@
 
           <div class="row justify-content-center">
             <div class="solution-sub">
-              A cloud-based platform that optimises the management of teams, players and careers by consolidating and digitising sports
-              performance and team management processes, whilst capitalising on and augmenting core networks within the industry.
+              <p class="main-description">A cloud-based platform that optimises the management of teams, players and careers by consolidating and digitising sports
+              performance and team management processes, whilst capitalising on and augmenting core networks within the industry.</p>
             </div>
           </div>
 
@@ -182,7 +180,7 @@
             <div class="row justify-content-center">
               <div class="col-lg-4">
                 <div class="subhead-capabilities">
-                  Career Management
+                  <p>Career Management</p>
                 </div>
                 <div class="key-description">
                   <ul>
@@ -194,7 +192,7 @@
               </div>
               <div class="col-lg-4">
                 <div class="subhead-capabilities">
-                  Team Management
+                  <p>Team Management</p>
                 </div>
                 <div class="key-description">
                   <ul>
@@ -206,7 +204,7 @@
               </div>
               <div class="col-lg-4">
                 <div class="subhead-capabilities">
-                  Performance Insights
+                  <p>Performance Insights</p>
                 </div>
                 <div class="key-description">
                   <ul>
@@ -218,7 +216,7 @@
               </div>
               <div class="col-lg-4">
                 <div class="subhead-capabilities">
-                  Development & Fitness
+                  <p>Development & Fitness</p>
                 </div>
                 <div class="key-description">
                   <ul>
@@ -230,7 +228,7 @@
               </div>
               <div class="col-lg-4">
                 <div class="subhead-capabilities">
-                  Scouting & Recruitment
+                  <p>Scouting & Recruitment</p>
                 </div>
                 <div class="key-description">
                   <ul>
@@ -242,7 +240,7 @@
               </div>
               <div class="col-lg-4">
                 <div class="subhead-capabilities">
-                  Club Management
+                  <p>Club Management</p>
                 </div>
                 <div class="key-description">
                   <ul>
@@ -272,7 +270,7 @@
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
-                        Career Management
+                        <p>Career Management</p>
                       </div>
                     </div>
                     <div class="key-description row">
@@ -291,7 +289,7 @@
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
-                        Team Management
+                        <p>Team Management</p>
                       </div>
                     </div>
                     <div class="key-description row justify-content-center">
@@ -310,7 +308,7 @@
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
-                        Performance Insights
+                        <p>Performance Insights</p>
                       </div>
                     </div>
                     <div class="key-description row justify-content-center">
@@ -329,7 +327,7 @@
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
-                        Player Development & Fitness
+                        <p>Player Development & Fitness</p>
                       </div>
                     </div>
                     <div class="key-description row justify-content-center">
@@ -348,7 +346,7 @@
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
-                        Scouting & Recruitment
+                        <p>Scouting & Recruitment</p>
                       </div>
                     </div>
                     <div class="key-description row justify-content-center">
@@ -367,7 +365,7 @@
                   <div class="carousel-caption">
                     <div class="subhead-capabilities">
                       <div class="col-12">
-                        Club Management
+                        <p>Club Management</p>
                       </div>
                     </div>
                     <div class="key-description row justify-content-center">
@@ -433,10 +431,10 @@
                   <div class="polaroid">
                     <img class="d-block img-fluid" src="/images/landing-page/role_player.jpg" alt="Seventh slide">
                     <span class="polaroid-title">
-                      Players
+                      <p>Players</p>
                     </span>
                     <div class="description">
-                      Promote your game and career
+                      <p>Promote your game and career</p>
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
@@ -448,10 +446,10 @@
                   <div class="polaroid">
                     <img class="d-block img-fluid " src="/images/landing-page/role_scouts.jpg" alt="Fifth slide">
                     <span class="polaroid-title">
-                      Scouts
+                      <p>Scouts</p>
                     </span>
                     <div class="description">
-                      discover, promote and report on talent
+                      <p>discover, promote and report on talent</p>
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
@@ -463,10 +461,10 @@
                   <div class="polaroid">
                     <img class="d-block img-fluid " src="/images/landing-page/role_manager.jpg" alt="Second slide">
                     <span class="polaroid-title">
-                      Managers
+                      <p>Managers</p>
                     </span>
                     <div class="description">
-                      power up your team management
+                      <p>power up your team management</p>
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
@@ -478,10 +476,10 @@
                   <div class="polaroid">
                     <img class="d-block img-fluid" src="/images/landing-page/role_agents.jpg" alt="First slide">
                     <span class="polaroid-title">
-                      Agents
+                      <p>Agents</p>
                     </span>
                     <div class="description">
-                      recruit and manage clients
+                      <p>recruit and manage clients</p>
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
@@ -493,10 +491,10 @@
                   <div class="polaroid">
                     <img class="d-block img-fluid " src="/images/landing-page/role_coach.jpg" alt="Third slide">
                     <span class="polaroid-title">
-                      Coaches
+                      <p>Coaches</p>
                     </span>
                     <div class="description">
-                      develop your players & your knowledge
+                      <p>develop your players & your knowledge</p>
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
@@ -508,10 +506,10 @@
                   <div class="polaroid">
                     <img class="d-block img-fluid " src="/images/landing-page/role_gm.jpg" alt="Sixth slide">
                     <span class="polaroid-title">
-                      General Managers
+                      <p>General Managers</p>
                     </span>
                     <div class="description">
-                      achieve success through digitisation
+                      <p>achieve success through digitisation</p>
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
@@ -523,10 +521,10 @@
                   <div class="polaroid">
                     <img class="d-block img-fluid " src="/images/landing-page/role_medic.jpg" alt="Fourth slide">
                     <span class="polaroid-title">
-                      Medical Staff
+                      <p>Medical Staff</p>
                     </span>
                     <div class="description">
-                      effectively manage your medical affairs
+                      <p>effectively manage your medical affairs</p>
                     </div>
                     <a class="register-plus-logo" href="users/sign_up">
                       <img src="/images/landing-page/role_registerPlus.png" alt="Register Sign">
@@ -558,27 +556,27 @@
           </div>
           <div class="col-12 col-lg links">
             <a class="text" href="/terms_conditions">
-              User Agreement
+              <p>User Agreement</p>
             </a>
           </div>
           <div class="col-12 col-lg links">
             <a class="text" href="/community_guidelines">
-              Community Guidelines
+              <p>Community Guidelines</p>
             </a>
           </div>
           <div class="col-12 col-lg links">
             <a class="text" href="/privacy_policy">
-              Privacy Policy
+              <p>Privacy Policy</p>
             </a>
           </div>
           <div class="col-12 col-lg links">
             <a class="text" href="/contact_us">
-              Contact Us
+              <p>Contact Us</p>
             </a>
           </div>
           <div class="col-12 col-lg links">
             <a class="text">
-              Follow Us
+              <p>Follow Us</p>
             </a>
           </div>
           <div class="media links col-12 col-lg justify-content-center">
@@ -606,6 +604,79 @@
 
 <style lang="scss" scoped>
   @import '~stylesheets/pages/landing';
+  @import '~stylesheets/atoms/mobile-text';
+
+  @media (max-width: $max-mobile-width) {
+    p {
+      font-size: 1.5em;
+
+      .main-description {
+        font-size: 0.8em;
+      }
+    }
+
+    li {
+      font-size: 1.8em;
+    }
+
+    .second-layer {
+      .carousel {
+        .carousel-inner {
+          height: 45vh;
+        }
+
+        .carousel-control-prev, .carousel-control-next {
+          padding-top: 1.5vh;
+        }
+      }
+    }
+
+    #third-page {
+      .polaroid {
+        height: 25vh;
+        width: 25vh;
+
+        .description {
+          width: 20vh;
+          margin-top: -1.8vh;
+        }
+
+        .img-fluid {
+          height: 12vh;
+          width: 22vh;
+        }
+
+        p {
+          font-size: 2em;
+        }
+      }
+
+      .carousel-inner {
+        height: 30vh;
+      }
+    }
+
+    #footer {
+      p, a {
+        font-size: 2.5em;
+      }
+
+      .cRight {
+        font-size: 1.8em;
+      }
+
+      .logo {
+        height: 5vh;
+        width: 15vh;
+        margin-bottom: 2vh;
+      }
+
+      .social {
+        height: 3.5vh;
+        width: 3.5vh;
+      }
+    }
+  }
 </style>
 
 <script>

@@ -81,6 +81,12 @@
       animation: typing 3s steps(17);
     }
 
+    @media (max-width: $max-mobile-width) {
+      .typewriter {
+        width: 50vw
+      }
+    }
+
     h1 {
       margin-top: 15px;
       font-size: $important-size;
@@ -151,6 +157,14 @@
     font-weight: 300;
     color: $first-touch-white;
     text-decoration: none;
+  }
+}
+
+@media (max-width: $max-mobile-width) {
+  #transition-page {
+    .container-fluid {
+      min-height: 20vh;
+    }
   }
 }
 
@@ -324,6 +338,10 @@
   .carousel-indicators {
     bottom: -25px;
   }
+}
+
+.first-page-desc {
+  width: 400px;
 }
 
 #footer {
