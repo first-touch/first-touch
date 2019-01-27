@@ -97,7 +97,7 @@
           </fieldset>
           <fieldset class="form-group col-lg-12 col-md-8 tc-container">
             <input type="checkbox" id="tc" name="termsandconditions" v-model="tccheck" />
-            <label for="tc">By checking this box, you agree to our <router-link to="/terms_conditions">Terms &amp; Conditions</router-link> </label>
+            <label for="tc">By checking this box, you agree to our <router-link class="tnc" to="/terms_conditions">Terms &amp; Conditions</router-link> </label>
           </fieldset>
           <button class="form-control a-bar-button center col-md-8" type="submit">Sign Up</button>
           <fieldset class="col-lg-12 col-md-8">
@@ -114,12 +114,6 @@
 <style lang="scss" scoped>
 @import '~stylesheets/template/sign-in-page.scss';
 @import '~stylesheets/atoms/mobile-text';
-
-@media (max-width: $max-mobile-width) {
-  a {
-    font-size: 1em
-  }
-}
 </style>
 
 <style lang="scss">

@@ -73,9 +73,6 @@
     display: inline-block;
   }
 
-  .suggestions-container {
-    margin-top: 3em;
-  }
 </style>
 
 <script>
