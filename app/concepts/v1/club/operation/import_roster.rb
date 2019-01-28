@@ -3,7 +3,8 @@ module V1
     class ImportRoster < FirstTouch::Operation
       # TODO: Include other possible file types
       ACCEPTED_FILETYPES = [
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'text/csv'
       ].freeze
 
       # TODO: make this an app constant
