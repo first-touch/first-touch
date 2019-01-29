@@ -38,7 +38,12 @@ module Api
       end
 
       def import_roster
-        result = ::V1::Club::ImportRoster.(params: params)
+        # NOTE: params should bring the URL to the file
+        result = ::V1::Club::ImportRoster.(
+          params: params,
+          current_user: @current_user,
+          current_club: @current_club
+        )
         if result.failure?
           render json: { error_message: result['errors'] },
                  status: :unprocessable_entity

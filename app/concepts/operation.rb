@@ -9,6 +9,14 @@ module FirstTouch
     def unauthenticated!(options, **)
       options['result.policy.failure'] = :unauthenticated
     end
+
+    def stripe_failure!(options, **)
+      stripe_error = options['stripe.errors']
+      return unless stripe_error.is_a?(::Stripe::StripeError)
+      body = stripe_error.json_body
+      err  = body[:error]
+      options['stripe.errors'] = err[:message]
+    end
   end
 
   class NoAuthOperation < BaseOperation
@@ -25,13 +33,19 @@ module FirstTouch
     def authenticate!(options, **)
       options[:current_user].present?
     end
+  end
 
-    def stripe_failure!(options, **)
-      stripe_error = options['stripe.errors']
-      return unless stripe_error.is_a?(::Stripe::StripeError)
-      body = stripe_error.json_body
-      err  = body[:error]
-      options['stripe.errors'] = err[:message]
+  class ClubOperation < Operation
+    def authenticate!(options, **)
+      super
+      return false unless options[:current_club].present?
+      performed_by_club_admin?(options[:current_user], options[:current_club])
+    end
+
+    private
+
+    def performed_by_club_admin?(user, club)
+      user.managed_clubs.include?(club)
     end
   end
 end

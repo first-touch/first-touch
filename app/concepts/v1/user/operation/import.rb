@@ -25,7 +25,7 @@ module V1
         model.personal_profile.weight = params['weight']
         model.personal_profile.height = params['height']
         model.personal_profile.preferred_foot = params['preferred_foot']
-        model.personal_profile.playing_position = params['playing_position']
+        model.personal_profile.playing_positions = params['playing_positions']
         model.personal_profile.pro_status = params['pro_status']
         model.personal_profile.total_caps = params['total_caps']
         model.personal_profile.languages = params['languages']
