@@ -81,9 +81,20 @@ export default {
             weight: null,
           };
     },
-    firstName() {
-      return this.personalProfile.first_name || '';
+    careerHistory() {
+     return this.user.status === ASYNC_SUCCESS
+       ? this.user.value.career_history
+       : {
+           club_id: null
+
+         };
     },
+    clubId(){
+
+     return this.career_history.club_id || '';
+
+    },
+
     middleName() {
       return this.personalProfile.middle_name || '';
     },
