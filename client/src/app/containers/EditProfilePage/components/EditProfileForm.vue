@@ -15,11 +15,13 @@
          </fieldset>
       </form>
           <fieldset class="form-group">
-           <input type="text" v-model="club_id" class="form-control m-field-input" placeholder="Club ID" />
             <label>Career Entries</label>
-            <fieldset class="form-group col-md-12" v-if="this.role_name != 'director'">
+            <fieldset v-for= "career_history of career_histories" class="form-group col-md-12">
                <div class="row">
-                  <select name="country_code" id="country_code" v-model="club_country_code" class="form-control col">
+
+                   <div class="career_entries_fast"><h3>1.</h3></div>
+
+                  <select name="country_code" id="country_code" v-model="career_history.club_country" class="form-control select-btn col">
                      <option disabled value="" selected>Country</option>
                      <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
                   </select>
@@ -27,10 +29,9 @@
                     <option value="" disabled selected >Select Club </option>
                   </select>
                </div>
-            </fieldset>
                <div class="row">
-                  <div class="col">
-                     <select name="role_name" id="role_name" class="form-control m-field-input">
+                  <div class="col select-btn-two">
+                      <select name="role_name" v-model="career_history.your_role"  id="role_name" class="form-control m-field-input">
                       <option disabled selected value=" ">Your Role</option>
                       <option value="player">player</option>
                       <option value="manager">manager</option>
@@ -39,15 +40,21 @@
                       <option value="director">director</option>
                      </select>
                   </div>
-                  <div class="col">
-                     <input name="start_date" placeholder="Start Date" class="form-control m-field-input" type="text" onfocus="(this.type='date')"  id="date">
+                  <div class="col select-btn-two">
+                     <input name="start_date" v-model="career_history.start_date" placeholder="Start Date" class="form-control m-field-input" type="text" onfocus="(this.type='date')"  id="date">
                   </div>
-                  <div class="col">
-                      <input name="end_date" placeholder="End Date" class="form-control m-field-input" type="text" onfocus="(this.type='date')"  id="date">
+                  <div class="col select-btn-three">
+                      <input name="end_date" v-model="career_history.end_date"  placeholder="End Date" class="form-control m-field-input" type="text" onfocus="(this.type='date')"  id="date">
                   </div>
                </div>
+               <div class="row">
+                  <div class="col remove-space">
+                  <button class="button-Delete" type="button" name="dentry" value="Delete"> Delete </button>
+                  </div>
+               </div>
+
+            </fieldset>
          </fieldset>
-      </form>
 
       <form @submit.prevent="handleSubmit">
          <fieldset class="form-group">
@@ -163,6 +170,39 @@
        margin-top: -32px;
    }
 
+  .select-btn {
+    width: 36%;
+    display: inline-block;
+    margin: 0 24px 24px 0px;
+}
+
+.select-btn-two,.select-btn-three {
+    padding: 0 0 0 24px;
+    margin: 0 0 10px 0px;
+
+}
+
+
+
+.button-Delete {
+    color: #fff;
+    padding: 5px 14px 5px 15px;
+    background: grey;
+}
+
+.remove-space {
+    padding: 0 0 0 24px;
+}
+
+.career_entries_fast h3 {
+    color: #7f8081;
+    font-size: 18px;
+    padding-right: 10px;
+}
+
+
+
+
 </style>
 
 <script>
@@ -189,7 +229,6 @@
      ],
      data() {
        return {
-         careerInfo: {'career_entry':{'club_id':'1','start_date':'1990-08-01','end_date':'1999-10-02','role':'player'}},
          club_country_code: '',
          clubs: [],
          item: null,
@@ -212,6 +251,10 @@
          avatar_url: this.avatarUrl,
          avatar: undefined,
          formData: {},
+         career_histories: [
+           { club_country: 'USA', club_name: 'My Club', your_role: 'Player', start_date: '1998-01-20',end_date: '1999-01-20' },
+           { club_country: 'USA', club_name: 'My Club', your_role: 'Player', start_date: '1998-01-20',end_date: '1999-01-20' }
+         ],
        };
      },
      computed: {
