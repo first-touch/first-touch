@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'activerecord_json_validator'
 gem 'active_model_serializers'
 # tags
 gem 'acts-as-taggable-on', '~> 5.0'
@@ -20,15 +21,16 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rails'
 # pubsub
 gem 'redis'
+gem 'reform-rails'
 gem 'rolify'
+gem 'roo'
 gem 'rubyXL'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'
 gem 'simple_command'
 gem 'simple_token_authentication'
+gem 'terrapin', require: false
 gem 'trailblazer-rails', '~> 2.1'
-gem "reform-rails"
-gem 'activerecord_json_validator'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -59,6 +61,7 @@ group :development do
   gem 'capistrano-rvm', require: false
   gem 'capistrano-sidekiq', require: false
   gem 'capistrano3-puma', require: false
+  gem 'rails-erd'
   gem 'rubocop'
   gem 'sshkit-sudo', require: false
   gem 'story_branch'
