@@ -24,6 +24,7 @@ gem 'redis'
 gem 'reform-rails'
 gem 'rolify'
 gem 'roo'
+gem 'rubyXL'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'
 gem 'simple_command'
