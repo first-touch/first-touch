@@ -12,26 +12,26 @@
         </div>
 
         <form class="form" @submit.prevent="handleSubmit">
-          <fieldset class="form-group col-lg-12 col-md-8">
+          <fieldset class="form-group col-lg-12">
             <label>Email</label>
             <input type="email" v-model="email" class="form-control" autocomplete="username" placeholder="Enter Email..." />
           </fieldset>
-          <fieldset class="form-group col-lg-12 col-md-8">
+          <fieldset class="form-group col-lg-12">
             <label>Password</label>
             <input type="password" v-model="password" class="form-control" autocomplete="new-password" placeholder="Enter Password..." />
           </fieldset>
-          <fieldset class="form-group col-lg-12 col-md-8">
+          <fieldset class="form-group col-lg-12">
             <label>Password Confirmation</label>
             <input type="password" v-model="password_confirmation" class="form-control" autocomplete="new-password" placeholder="Confirm Password..." />
           </fieldset>
-          <fieldset class="form-group col-lg-12 col-md-8">
+          <fieldset class="form-group col-lg-12">
             <label>Your Name</label>
             <div class="row">
               <input type="text" v-model="first_name" class="form-control col-lg-10 col-md-6" placeholder="First Name" />
               <input type="text" v-model="last_name" class="form-control col-lg-10 col-md-6" placeholder="Last Name" />
             </div>
           </fieldset>
-          <fieldset class="form-group col-lg-12 col-md-8">
+          <fieldset class="form-group col-lg-12">
             <label>Date Of Birth</label>
             <div class="row">
               <select v-model="day" class="form-control col-lg-3 col-md-3">
@@ -59,7 +59,7 @@
               </select>
             </div>
           </fieldset>
-          <fieldset class="form-group col-lg-12 col-md-8">
+          <fieldset class="form-group col-lg-12">
             <label>Your Role</label>
             <div class="row">
               <select v-model="role_name" class="form-control">
@@ -72,7 +72,7 @@
               </select>
             </div>
           </fieldset>
-          <fieldset class="form-group col-lg-12 col-md-8" v-if="this.role_name != 'director'">
+          <fieldset class="form-group col-lg-12" v-if="this.role_name != 'director'">
             <label>Your Club*</label>
             <div class="row">
               <select v-model="club_country_code" class="form-control col-lg-4 col-md-4">
@@ -92,10 +92,10 @@
                 />
             </div>
           </fieldset>
-          <fieldset class="form-group col-lg-12 col-md-8">
+          <fieldset class="form-group col-lg-12">
             <label class="club-note" v-if="this.role_name == 'director'">*As a Director, to register your Club, create your individual profile first.</label>
           </fieldset>
-          <fieldset class="form-group col-lg-12 col-md-8 tc-container">
+          <fieldset class="form-group col-lg-12 tc-container">
             <input type="checkbox" id="tc" name="termsandconditions" v-model="tccheck" />
             <label for="tc">By checking this box, you agree to our <router-link class="tnc" to="/terms_conditions">Terms &amp; Conditions</router-link> </label>
           </fieldset>
