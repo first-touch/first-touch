@@ -14,48 +14,6 @@
             </div>
          </fieldset>
       </form>
-          <fieldset class="form-group">
-            <label>Career Entries</label>
-            <fieldset v-for= "career_history of career_histories" class="form-group col-md-12">
-               <div class="row">
-
-                   <div class="career_entries_fast"><h3>1.</h3></div>
-
-                  <select name="country_code" id="country_code" v-model="career_history.club_country" class="form-control select-btn col">
-                     <option disabled value="" selected>Country</option>
-                     <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
-                  </select>
-                   <select name="club_name" id="club_name" class="form-control col">
-                    <option value="" disabled selected >Select Club </option>
-                  </select>
-               </div>
-               <div class="row">
-                  <div class="col select-btn-two">
-                      <select name="role_name" v-model="career_history.your_role"  id="role_name" class="form-control m-field-input">
-                      <option disabled selected value=" ">Your Role</option>
-                      <option value="player">player</option>
-                      <option value="manager">manager</option>
-                      <option value="coach">coach</option>
-                      <option value="scout">scout</option>
-                      <option value="director">director</option>
-                     </select>
-                  </div>
-                  <div class="col select-btn-two">
-                     <input name="start_date" v-model="career_history.start_date" placeholder="Start Date" class="form-control m-field-input" type="text" onfocus="(this.type='date')"  id="date">
-                  </div>
-                  <div class="col select-btn-three">
-                      <input name="end_date" v-model="career_history.end_date"  placeholder="End Date" class="form-control m-field-input" type="text" onfocus="(this.type='date')"  id="date">
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col remove-space">
-                  <button class="button-Delete" type="button" name="dentry" value="Delete"> Delete </button>
-                  </div>
-               </div>
-
-            </fieldset>
-         </fieldset>
-
       <form @submit.prevent="handleSubmit">
          <fieldset class="form-group">
             <label>Your Name</label>
@@ -106,7 +64,7 @@
             <label>Nationality</label>
             <div class="row">
                <div class="col">
-                  <select v-model="country_code" class="form-control m-field-input">
+                  <select v-model="country_code"  class="form-control m-field-input">
                      <option disabled value="" selected>Country of Birth</option>
                      <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
                   </select>
@@ -145,7 +103,43 @@
                </div>
             </div>
          </fieldset>
+          <fieldset class="form-group">
+            <label>Career Entries</label>
+            <fieldset v-for= "career_history of career_histories" class="form-group col-md-12">
+               <div class="row">
 
+                   <div class="career_entries_fast"><h3>{{ career_history.id }}.</h3></div>
+                  <select name="country_code" id="country_code" v-model="career_history.club_country" class="form-control select-btn col" @change="handleChange">
+                     <option disabled value="" selected>Country</option>
+                     <option v-for="c in countries" :key="c.country_code" :value="c.country_code" v-bind:data-foo="c.country_code">{{ c.country_name }}</option>
+                  </select>
+                   <select name="club_name" id="club_name" class="form-control col" v-model="career_history.club_name">
+                    <option disabled value="">{{ career_history.club_name }}</option>
+                    <option v-for="club in todos.clubs" :key="club.id" :value="club.id">{{ club.name }}</option>
+
+                  </select>
+               </div>
+               <div class="row">
+                  <div class="col select-btn-two">
+                   <select name="your_role" id="your_role" v-model="career_history.your_role" class="form-control select-btn col">
+                      <option disabled value="" selected>Your Role</option>
+                       <option v-for="role in roles" :key="role.role_name" :value="role.role_name">{{ role.role_name }}</option>
+                    </select>
+                  </div>
+                  <div class="col select-btn-two">
+                     <input name="start_date" v-model="career_history.start_date" placeholder="Start Date" class="form-control m-field-input" type="text" onfocus="(this.type='date')"  id="date">
+                  </div>
+                  <div class="col select-btn-three">
+                      <input name="end_date" v-model="career_history.end_date"  placeholder="End Date" class="form-control m-field-input" type="text" onfocus="(this.type='date')"  id="date">
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col remove-space">
+                  <button class="button-Delete" type="button" name="dentry" value="Delete"> Delete </button>
+                  </div>
+               </div>
+            </fieldset>
+         </fieldset>
          <fieldset class="form-group">
             <button type="submit" class="form-control a-bar-button">Save</button>
          </fieldset>
@@ -199,16 +193,13 @@
     font-size: 18px;
     padding-right: 10px;
 }
-
-
-
-
 </style>
 
 <script>
    import ClubService from 'app/services/ClubService';
    import UserService from 'app/services/UserService';
    import CareerEntries from 'app/services/CareerEntries';
+   import axios from 'axios';
     export default {
      name: 'EditProfileForm',
      props: [
@@ -247,14 +238,17 @@
          weight: this.pWeight || '',
          height: this.pHeight || '',
          preferred_foot: this.preferredFoot || '',
+         club_id: this.clubId || '',
          countries: [],
          avatar_url: this.avatarUrl,
          avatar: undefined,
          formData: {},
+         roles: [ { role_name: 'player'},{role_name: 'manager'},{role_name: 'coach'},{role_name: 'scout'},{role_name: 'director'}],
          career_histories: [
-           { club_country: 'USA', club_name: 'My Club', your_role: 'Player', start_date: '1998-01-20',end_date: '1999-01-20' },
-           { club_country: 'USA', club_name: 'My Club', your_role: 'Player', start_date: '1998-01-20',end_date: '1999-01-20' }
+           {id:'1', club_country: 'BE', club_name: 'AA Gent', your_role: 'player', start_date: '1998-01-20',end_date: '1999-01-20' },
+           {id:'2',  club_country: 'SG', club: 'B Club', your_role: 'manager', start_date: '1998-01-20',end_date: '1999-01-20' }
          ],
+         todos:[],
        };
      },
      computed: {
@@ -277,6 +271,16 @@
          if (URL && URL.createObjectURL) {
            this.avatar.url = URL.createObjectURL(this.avatar);
          }
+       },
+       handleChange(e) {
+         if(e.target.options.selectedIndex > -1) {
+            var country_code = e.target.options[e.target.options.selectedIndex].dataset.foo;
+            axios.get('http://localhost:3001/api/v1/clubs/search?country='+country_code+'').then(response => {
+            this.todos = response.data
+             }).catch(error => {
+              console.log(error);
+             })
+          }
        },
        updateCareerEntry(careerInfo) {
           CareerEntries.updateCareerEntries(careerInfo).then(response => {
@@ -349,6 +353,10 @@
            this.$set(this, 'countries',
                      response.countries.sort((a, b) => a.country_name > b.country_name))
          });
+       },
+       fetchClubs() {
+
+
        },
        updateItems(text) {
          this.$set(this, 'searchText', text);

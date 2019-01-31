@@ -2,20 +2,21 @@
    <div class="profile-form">
           <fieldset class="form-group">
             <label>Enter New Career Entries</label>
-            <fieldset v-for= "career_history of career_histories" class="form-group col-md-12">
+            <fieldset class="form-group col-md-12">
                <div class="row">
-                  <select name="country_code" id="country_code" v-model="career_history.club_country" class="form-control select-button-two col">
+                  <select name="country_code" id="country_code" class="form-control select-btn col" @change="handleChange">
                      <option disabled value="" selected>Country</option>
-                     <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
+                     <option v-for="c in countries" :key="c.country_code" :value="c.country_code" v-bind:data-foo="c.country_code">{{ c.country_name }}</option>
                   </select>
-                   <select name="club_name" id="club_name" class="form-control col">
-                    <option value="" disabled selected >Select Club </option>
+                   <select name="club_name" id="club_name" class="form-control col" v-model="club_id">
+                    <option disabled value="">Select Club</option>
+                    <option v-for="club in clubs_data.clubs" :key="club.id" :value="club.id">{{ club.name }}</option>
                   </select>
                </div>
                <div class="row">
                   <div class="col remove-space-one">
-                     <select name="role_name" v-model="career_history.your_role"  id="role_name" class="form-control m-field-input">
-                      <option disabled selected value=" ">Your Role</option>
+                     <select name="role_name" v-model="role" id="role_name" class="form-control m-field-input">
+                      <option disabled value="">Select Role</option>
                       <option value="player">player</option>
                       <option value="manager">manager</option>
                       <option value="coach">coach</option>
@@ -24,19 +25,17 @@
                      </select>
                   </div>
                   <div class="col">
-                     <input name="start_date" v-model="career_history.start_date" placeholder="Start Date" class="form-control m-field-input" type="text" onfocus="(this.type='date')"  id="date">
+                     <input name="start_date" v-model="start_date" placeholder="Start Date" class="form-control m-field-input" type="text" onfocus="(this.type='date')"  id="date">
                   </div>
                   <div class="col remove-space-two">
-                      <input name="end_date" v-model="career_history.end_date"  placeholder="End Date" class="form-control m-field-input" type="text" onfocus="(this.type='date')"  id="date">
+                      <input name="end_date" v-model="end_date"  placeholder="End Date" class="form-control m-field-input" type="text" onfocus="(this.type='date')"  id="date">
                   </div>
                </div>
                 <div class="row">
                   <div class="col remove-space-three">
-                  <button class="button-add" type="button" name="dentry" value="add"> add </button>
+                  <button @click="addCareerEntry" class="button-add" type="button" name="dentry" value="add"> add </button>
                   </div>
                </div>
-
-
             </fieldset>
          </fieldset>
    </div>
@@ -83,16 +82,24 @@
 <script>
    import ClubService from 'app/services/ClubService';
    import UserService from 'app/services/UserService';
-   import CareerEntries from 'app/services/CareerEntries';
+   import axios from 'axios';
+   import store from 'app/store';
+
     export default {
-     name: 'EditProfileForm',
+     name: 'NewCareerEntry',
      data() {
        return {
-         career_histories: [{ club_country: 'USA', club_name: 'My Club', your_role: 'Player', start_date: '1998-01-20',end_date: '1999-01-20' }],
          countries:[],
+         clubs_data:[],
+         club_id: '',
+         start_date: '',
+         end_date : '',
+         role: '',
+         endpoint: '/api/v1'
        };
      },
      methods: {
+
        updateCareerEntry(careerInfo) {
           CareerEntries.updateCareerEntries(careerInfo).then(response => {
            this.flash('Updated successfully', 'success', {
@@ -105,6 +112,44 @@
              important: true
            });
          })
+       },
+       handleChange(e) {
+         if(e.target.options.selectedIndex > -1) {
+            var country_code = e.target.options[e.target.options.selectedIndex].dataset.foo;
+            axios.get('http://localhost:3001/api/v1/clubs/search?country='+country_code+'').then(response => {
+            this.clubs_data = response.data
+             }).catch(error => {
+              console.log(error);
+             })
+          }
+       },
+       addCareerEntry() {
+
+        if(this.club_id=='' && this.start_date=='' && this.end_date=='' && this.role==='') {
+
+          alert("Please Fill All the Entries");
+        }else {
+         const token = store.state.token.value;
+           axios( {
+               method: "POST", "url": "http://localhost:3001/api/v1/career_entries", "headers": {
+                   "Authorization": token, "Content-Type": "application/json"
+               },
+                "data": {
+                   "career_entry": {
+                       "club_id": this.club_id, "start_date": this.start_date, "end_date": this.end_date, "role": this.role
+                   }
+               }
+           }
+           ).then(function (response) {
+               alert("Added Successfully");
+           }
+
+           ).catch(function (error) {
+                alert("Please Fill All the Entries");
+
+              }
+           );
+        }
        },
        fetchCountries() {
          ClubService.countriesForClubs().then(response => {
