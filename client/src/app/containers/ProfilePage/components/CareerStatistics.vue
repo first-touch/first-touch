@@ -2,8 +2,6 @@
    <timeline-item>
       <h4 class="title">Career Statistics</h4>
       <div class="section">
-         <b-form-select v-model="selected" :options="options" class="mb-3 slect_career_statistics" size="sm" />
-         <b-form-select :options="options" class="mb-3 slect_career_statistics" size="sm" />
          <b-table striped hover :items="items" :fields="fields"></b-table>
       </div>
       <div class="btn-holder">

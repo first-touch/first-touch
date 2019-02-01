@@ -9,7 +9,6 @@
           :follow="followUser"
           :connect="connectUser"/>
          <career-events/>
-         <career-statistics/>
       </div>
     </div>
   </div>
@@ -38,8 +37,6 @@ import { ASYNC_LOADING, ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 import NotificationSidebar from 'app/components/NotificationSidebar';
 import Profile from './components/Profile';
 import CareerEvents from './components/CareerEvents';
-import CareerStatistics from './components/CareerStatistics';
-
 
 export default {
   name: 'ProfilePage',
@@ -47,8 +44,7 @@ export default {
   components: {
     sidebar: NotificationSidebar,
     profile: Profile,
-    'career-events':CareerEvents,
-    'career-statistics':CareerStatistics,
+    'career-events':CareerEvents
   },
   computed: {
     ...mapGetters(['user', 'profile']),
