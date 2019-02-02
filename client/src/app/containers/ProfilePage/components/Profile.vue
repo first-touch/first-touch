@@ -70,7 +70,7 @@
             <a href="#" class="btn btn-bright">Biography</a>
           </div>
           <div id="playing-position-wrapper">
-            <p class="position-title">Playing position</p>
+            <h5>Playing position</h5>
             <p class="position-content">{{ info.personal_profile.playing_position }}</p>
             <img class="img-fluid position-map" src="http://www.conceptdraw.com/solution-park/resource/images/solutions/soccer/Sport-Soccer-Football-Formation-4-4-1-1.png" />
           </div>
@@ -176,6 +176,10 @@ export default {
     },
     preferredFoot() {
       return _.capitalize(this.info.personal_profile.preferred_foot);
+    },
+    playingPositions() {
+      if(!this.info.personal_profile) { return [] }
+      return this.info.personal_profile.playing_positions;
     }
   }
 };
