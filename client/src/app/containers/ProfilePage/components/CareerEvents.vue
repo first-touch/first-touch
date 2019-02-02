@@ -21,7 +21,7 @@
       </div>
     </div>
     <div v-if="!isHidden" class="career-history-section">
-      <h4 class="title">Career History</h4>
+      <h4 class="spaced-title upper-cased main-color">Career History</h4>
       <div class="section">
         <h5 class="section-title">{{ player_profile }}</h5>
         <div class="main-career-events" v-for="event in event_info">
@@ -65,12 +65,6 @@
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
-  .title {
-    color: $secondary-text-color;
-    text-transform: uppercase;
-    margin-bottom: 50px;
-  }
-
   .section {
     &:not(:last-child) {
       margin-bottom: 50px;

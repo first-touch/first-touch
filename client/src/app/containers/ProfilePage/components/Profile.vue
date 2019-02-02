@@ -1,14 +1,14 @@
 <template>
   <timeline-item>
     <div class="profile-item-container" v-if="info">
-      <div class="top">
+      <div id="biography" class="flex-row">
         <div class="avatar-wrapper">
           <img class="img-fluid avatar" :src="info.personal_profile.avatar_url" />
         </div>
         <div class="info">
-          <h4 class="name">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
-          <p class="role">{{ role }}</p>
-          <p class="club"> {{ clubName }}</p>
+          <h4 class="main-header-color upper-cased">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
+          <h5 id="role">{{ role }}</h5>
+          <p id="club"> {{ clubName }}</p>
           <p class="detail">
             <span class="detail-title">Date of birth</span>
             {{ birthday }}
@@ -38,43 +38,42 @@
               </a>
               <router-link v-if="!mine" :to="`/messages/${info.id}`" class="btn btn-bright">Message</router-link>
             </div>
-            <div class="widget-row">
-              <p class="connection"><span class="number">467</span> Connections</p>
-            </div>
           </div>
         </div>
       </div>
       <hr />
-      <div class="bottom">
-        <div class="summary">
-          <h5 class="summary-title">Summary</h5>
-          <p class="summary-field name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
-          <p class="summary-field">
-            <span class="summary-field-title">Height</span>
-            {{ info.personal_profile.height }} cm
-          </p>
-          <p class="summary-field">
-            <span class="summary-field-title">Weight</span>
-            {{ info.personal_profile.weight }} kg
-          </p>
-          <p class="summary-field">
-            <span class="summary-field-title">Preferred Foot:</span>
-            {{ preferredFoot }}
-          </p>
-          <p class="summary-field">
-            <span class="summary-field-title">Pro Status:</span>
-            {{ info.personal_profile.pro_status || "N/a"}}
-          </p>
-          <p class="summary-field">
-            <span class="summary-field-title"># Caps:</span>
-            {{ info.personal_profile.total_caps || "0" }}
-          </p>
-          <a href="#" class="btn btn-bright">Biography</a>
-        </div>
-        <div class="position">
-          <p class="position-title">Playing position</p>
-          <p class="position-content">{{ info.personal_profile.playing_position }}</p>
-          <img class="img-fluid position-map" src="http://www.conceptdraw.com/solution-park/resource/images/solutions/soccer/Sport-Soccer-Football-Formation-4-4-1-1.png" />
+      <div id="summary">
+        <h4 class="spaced-title upper-cased main-color">Summary</h4>
+        <div class="flex-row">
+          <div id="summary-text-wrapper">
+            <p class="detail name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
+            <p class="detail">
+              <span class="detail-title">Height</span>
+              {{ info.personal_profile.height }} cm
+            </p>
+            <p class="detail">
+              <span class="detail-title">Weight</span>
+              {{ info.personal_profile.weight }} kg
+            </p>
+            <p class="detail">
+              <span class="detail-title">Preferred Foot:</span>
+              {{ preferredFoot }}
+            </p>
+            <p class="detail">
+              <span class="detail-title">Pro Status:</span>
+              {{ info.personal_profile.pro_status || "N/a"}}
+            </p>
+            <p class="detail">
+              <span class="detail-title"># Caps:</span>
+              {{ info.personal_profile.total_caps || "0" }}
+            </p>
+            <a href="#" class="btn btn-bright">Biography</a>
+          </div>
+          <div id="playing-position-wrapper">
+            <p class="position-title">Playing position</p>
+            <p class="position-content">{{ info.personal_profile.playing_position }}</p>
+            <img class="img-fluid position-map" src="http://www.conceptdraw.com/solution-park/resource/images/solutions/soccer/Sport-Soccer-Football-Formation-4-4-1-1.png" />
+          </div>
         </div>
       </div>
     </div>
@@ -84,95 +83,55 @@
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
 .profile-item-container {
-  .top {
-    display: flex;
-    .avatar-wrapper{
-      height: 250px;
-      width: 250px;
-      overflow: hidden;
+  display: flex;
+  flex-direction: column;
 
-      .avatar {
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-    }
-    .info {
-      margin-top: 40px;
-      margin-left: 20px;
-      flex: 1 0 calc(100% - 320px);
-      .name {
-        color: $main-header-color;
-        text-transform: uppercase;
-      }
-      .role,
-      .club,
-      .detail {
-        color: $main-text-color;
-      }
-      .role {
-        font-size: 1.2em;
-      }
-      .detail-title {
-        color: $secondary-text-color;
-      }
-      .widget {
-        margin-top: 70px;
-        margin-bottom: 20px;
-        .widget-row {
-          display: flex;
-          align-items: center;
-        }
-        .btn {
-          margin-right: 5px;
-        }
-        .connection {
-          color: $secondary-text-color;
-          margin-bottom: 0;
-          margin-left: auto;
-          .number {
-            color: $main-text-color;
-            font-weight: bold;
-            font-size: 1.3em;
-          }
-        }
-      }
+  .flex-row {
+    display: flex;
+  }
+  // TODO: Consider moving to separate component
+  .avatar-wrapper {
+    height: 250px;
+    width: 250px;
+    overflow: hidden;
+
+    .avatar {
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
     }
   }
-  .bottom {
-    display: flex;
-    margin-top: 30px;
-    .summary {
-      flex: 1 0 55%;
-      .summary-title {
-        color: $secondary-text-color;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-      }
-      .name {
-        text-transform: capitalize;
-      }
-      .summary-field {
-        color: $main-text-color;
-        margin-bottom: 5px;
-      }
-      *:last-child {
-        margin-top: 30px;
-      }
-    }
-    .position {
-      flex: 1 0 45%;
+
+  .info {
+    margin-left: 20px;
+  }
+
+  .detail-title {
+    color: $secondary-text-color;
+  }
+
+  #summary-text-wrapper, #playing-position-wrapper {
+    width: 50%;
+  }
+
+  .widget {
+    margin-top: 70px;
+    margin-bottom: 20px;
+    .widget-row {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      .position-title {
-        color: $secondary-text-color;
-        font-size: 1.2em;
-        margin-bottom: 0;
-      }
-      .position-content {
+    }
+    .btn {
+      margin-right: 5px;
+    }
+    .connection {
+      color: $secondary-text-color;
+      margin-bottom: 0;
+      margin-left: auto;
+      .number {
         color: $main-text-color;
-        font-size: 1.2em;
+        font-weight: bold;
+        font-size: 1.3em;
       }
     }
   }
