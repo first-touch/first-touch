@@ -41,7 +41,7 @@
           </div>
         </div>
       </div>
-      <hr />
+      <hr class="horizontal-separator"/>
       <div id="summary">
         <h4 class="spaced-title upper-cased main-color">Summary</h4>
         <div class="flex-row">
@@ -115,7 +115,7 @@
   }
 
   .widget {
-    margin-top: 70px;
+    margin-top: 30px;
     margin-bottom: 20px;
     .widget-row {
       display: flex;
@@ -123,16 +123,6 @@
     }
     .btn {
       margin-right: 5px;
-    }
-    .connection {
-      color: $secondary-text-color;
-      margin-bottom: 0;
-      margin-left: auto;
-      .number {
-        color: $main-text-color;
-        font-weight: bold;
-        font-size: 1.3em;
-      }
     }
   }
 }
