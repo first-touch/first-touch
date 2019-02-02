@@ -19,6 +19,7 @@
     "vue-autonumeric": "latest",
     "vue-autosize": "latest",
     "vue-awesome": "latest",
+    "vue-dynamic-star-rating": "^1.0.7",
     "vue-flash-message": "^0.7.2",
     "vue-form-wizard": "^0.8.4",
     "vue-loader": "^13.5.0",
