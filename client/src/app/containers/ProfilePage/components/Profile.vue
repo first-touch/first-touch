@@ -2,22 +2,24 @@
   <timeline-item>
     <div class="profile-item-container" v-if="info">
       <div class="top">
-        <img class="img-fluid avatar" :src="info.personal_profile.avatar_url" />
+        <div class="avatar-wrapper">
+          <img class="img-fluid avatar" :src="info.personal_profile.avatar_url" />
+        </div>
         <div class="info">
           <h4 class="name">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
-          <p class="role">Football Player</p>
-          <p class="club">Real Madrid FC, Spain</p>
+          <p class="role">{{ role }}</p>
+          <p class="club"> {{ clubName }}</p>
           <p class="detail">
             <span class="detail-title">Date of birth</span>
-            {{ info.personal_profile.birthday }}
+            {{ birthday }}
           </p>
           <p class="detail">
-            <span class="detail-title">Nationality</span>
-            {{ info.personal_profile.nationality_country_code }}
+            <span class="detail-title">Nationality/Residency</span>
+            {{ nationalityResidency }}
           </p>
           <p class="detail">
             <span class="detail-title">Place of birth</span>
-            {{ info.personal_profile.place_of_birth }}
+            {{ birthplace }}
           </p>
           <div class="widget">
             <div class="widget-row">
@@ -57,7 +59,7 @@
           </p>
           <p class="summary-field">
             <span class="summary-field-title">Preferred Foot:</span>
-            {{ info.personal_profile.preferred_foot }}
+            {{ preferredFoot }}
           </p>
           <p class="summary-field">
             <span class="summary-field-title">Pro Status:</span>
@@ -84,9 +86,16 @@
 .profile-item-container {
   .top {
     display: flex;
-    .avatar {
-      height: 185px;
-      border-radius: 50%;
+    .avatar-wrapper{
+      height: 250px;
+      width: 250px;
+      overflow: hidden;
+
+      .avatar {
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
     }
     .info {
       margin-top: 40px;
@@ -171,6 +180,8 @@
 </style>
 
 <script>
+import countrydata from 'country-data';
+import moment from 'moment';
 import TimelineItem from 'app/components/TimelineItem';
 
 export default {
@@ -179,5 +190,44 @@ export default {
   components: {
     'timeline-item': TimelineItem,
   },
+  computed: {
+    role() {
+      if(!this.info) { return "Unknown"; }
+      return _.capitalize(this.info.role_name);
+    },
+    clubName() {
+      if(!this.info.current_club) { return "No club"; }
+      let countryInfo = countrydata.countries[this.info.current_club.country_code];
+      let countryName = countryInfo.name;
+      let countryFlag = countryInfo.emoji;
+      return `${this.info.current_club.name}, ${countryName} ${countryFlag}`;
+    },
+    birthday() {
+      if(!this.info.personal_profile) { return "Unknown"; }
+      let bday = moment(this.info.personal_profile.birthday, "YYYY-MM-dd");
+      let age = moment().diff(bday, 'years');
+      return `${bday.format("LL")} (age ${age})`;
+    },
+    nationalityResidency() {
+      if(!this.info.personal_profile) { return "Unknown"; }
+      let nationalityCountryInfo = countrydata.countries[this.info.personal_profile.nationality_country_code];
+      let nationalityCountryName = nationalityCountryInfo.name;
+      let nationalityCountryFlag = nationalityCountryInfo.emoji;
+
+      let residencyCountryInfo = countrydata.countries[this.info.personal_profile.residence_country_code];
+      let residencyCountryName = residencyCountryInfo.name;
+      let residencyCountryFlag = residencyCountryInfo.emoji;
+      return `${nationalityCountryName} ${nationalityCountryFlag} / ${residencyCountryName} ${residencyCountryFlag}`;
+    },
+    birthplace() {
+      if(!this.info.personal_profile) { return "Unknown"; }
+      let nationalityCountryInfo = countrydata.countries[this.info.personal_profile.nationality_country_code];
+      let nationalityCountryName = nationalityCountryInfo.name;
+      return `${this.info.personal_profile.place_of_birth}, ${nationalityCountryName}`;
+    },
+    preferredFoot() {
+      return _.capitalize(this.info.personal_profile.preferred_foot);
+    }
+  }
 };
 </script>
