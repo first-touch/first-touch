@@ -1,7 +1,7 @@
 module V1
-  module Club
+  module Country
     module Representer
-      class Countries < Representable::Decorator
+      class List < Representable::Decorator
         include Representable::JSON
 
         collection :to_a, as: :countries do
