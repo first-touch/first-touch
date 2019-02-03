@@ -3,11 +3,14 @@ module V1
     module Representer
       class Show < Representable::Decorator
         include Representable::JSON
+        # TODO: Consider extending the full representer that already
+        # includes this first block
         property :id
         property :name
         property :city
         property :country_code
         property :owner?, as: :has_owner, exec_context: :decorator
+        property :club_logo, exec_context: :decorator
 
         # TODO: This should move to a representer only available for
         # authenticated users
@@ -23,7 +26,6 @@ module V1
         property :home_kit_color
         property :away_kit_color
         property :third_kit_color
-        property :club_logo, exec_context: :decorator
         def owner?
           !represented.account_owner_id.nil?
         end
