@@ -8,6 +8,7 @@ module V1
         property :start_date
         property :end_date
         property :club, extend: ::V1::Club::Representer::Full
+        property :role
       end
     end
   end

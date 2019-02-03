@@ -23,41 +23,23 @@
     <div v-if="!isHidden" class="career-history-section">
       <h4 class="spaced-title upper-cased main-color">Career History</h4>
       <div class="section">
-        <h5 class="section-title">{{ player_profile }}</h5>
-        <div class="main-career-events" v-for="event in event_info">
+        <div class="main-career-events" v-for="careerEntry in careerHistory">
           <div class="career-events-left-logo">
-            <img class="logo" src="https://vignette4.wikia.nocookie.net/logopedia/images/a/a6/Real-Madrid.png/revision/20160711131706" />
+            <img class="logo" :src="careerEntry.club.club_logo" />
           </div>
           <div class="career-events-center">
-            <h5 class="career-events-one">{{ event.match }}</h5>
-            <h5 class="career-events-two">{{ event.state }}, {{ event.country }}</h5>
+            <h5 class="career-events-one">{{ careerEntry.club.name }}</h5>
+            <h5 class="career-events-two">{{ careerEntry.club.country_code }}</h5>
           </div>
           <div class="career-events_right">
-            <h5 class="career-events-one">{{ event.month }} {{ event.year }} - {{ event.tense }}</h5>
-            <h5 class="career-events-two">{{ event.teama }} {{ event.teama_score }} | {{ event.teamb }} {{ event.teamb_score }}</h5>
-          </div>
-        </div>
-        <div class="career-events-main-center">
-          <h5 class="section-title-cr">{{ player_profile }}</h5>
-          <div class="main-career-events-info" v-for="event in event_info">
-            <div class="career-events-hover">
-              <div class="career-events-left-logo">
-                <img class="logo" src="https://vignette4.wikia.nocookie.net/logopedia/images/a/a6/Real-Madrid.png/revision/20160711131706" />
-              </div>
-              <div class="career-events-center">
-                <b-btn v-b-toggle.collapse2 class="m-1 career-events-hover">PORTUGAL</b-btn>
-              </div>
-              <div class="career-events_right">
-                <h5 class="career-events-one">{{ event.month }} {{ event.year }} - {{ event.tense }}</h5>
-                <h5 class="career-events-two">{{ event.teama }} {{ event.teama_score }} | {{ event.teamb }} {{ event.teamb_score }}</h5>
-              </div>
-            </div>
+            <h5 class="career-events-one">{{ careerEntry.start_date }} - {{ careerEntry.end_date }}</h5>
+            <h5 class="career-events-two">Apps 200 | Scored 30</h5>
           </div>
         </div>
       </div>
       <div class="btn-holder">
-        <a v-on:click="csHidden = !csHidden; isHidden = true" class="btn btn-bright">CAREER STATISTICS</a>
-        <a class="btn btn-bright">MATCH STATISTICS</a>
+        <a v-on:click="csHidden = !csHidden; isHidden = true" class="btn btn-bright upper-cased">Career Statistics</a>
+        <a class="btn btn-bright upper-cased">Match Statistics</a>
       </div>
     </div>
   </timeline-item>
@@ -138,61 +120,12 @@ import TimelineItem from 'app/components/TimelineItem';
 
 export default {
   name: 'CareerEvents',
+  props: ['careerHistory'],
   data() {
     return {
       isHidden: false,
       csHidden: true,
       msHidden: true,
-      player_profile: 'FOOTBALL PLAYER',
-      event_info: [{
-          match: 'REAL MADRID FC',
-          state: 'Madrid',
-          country: 'Spain',
-          month: 'July',
-          year: '2009',
-          tense: 'present',
-          teama: 'Apss',
-          teama_score: '236',
-          teamb: 'Apss',
-          teamb_score: '220'
-        },
-        {
-          match: 'MANCHESTER UNITED',
-          state: 'Manchester',
-          country: 'England',
-          month: 'July',
-          year: '2009',
-          tense: 'present',
-          teama: 'Apss',
-          teama_score: '236',
-          teamb: 'Apss',
-          teamb_score: '220'
-        },
-        {
-          match: 'SPORTING CLUBE DE PORTUGAL',
-          state: 'Lisbon',
-          country: 'Portugal',
-          month: 'July',
-          year: '2019',
-          tense: 'present',
-          teama: 'Apss',
-          teama_score: '236',
-          teamb: 'Apss',
-          teamb_score: '220'
-        },
-        {
-          match: 'SPORTING CLUBE DE PORTUGAL B',
-          state: 'Madrid',
-          country: 'Spain',
-          month: 'July',
-          year: '2019',
-          tense: 'present',
-          teama: 'Apss',
-          teama_score: '236',
-          teamb: 'Apss',
-          teamb_score: '220'
-        },
-      ],
       fields: ['YEAR', 'CLUB', 'COUNTRY', 'COMPETITION', 'APPS', 'GLS'],
       items: [{
           isActive: true,

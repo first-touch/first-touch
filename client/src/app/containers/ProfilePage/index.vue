@@ -8,7 +8,7 @@
           :info="info"
           :follow="followUser"
           :connect="connectUser"/>
-         <career-events/>
+         <career-events :careerHistory="careerHistory" />
       </div>
     </div>
   </div>
@@ -53,6 +53,9 @@ export default {
       if (this.profile.status === ASYNC_SUCCESS) return this.profile.value;
       return null;
     },
+    careerHistory() {
+      return this.info.career_history || [];
+    }
   },
   methods: {
     ...mapActions([

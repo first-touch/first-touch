@@ -1,7 +1,7 @@
 <template>
   <div class="rating flex-row">
     <div class="rating-for"> {{ positionName }} </div>
-    <star-rating :rating="rating" :read-only="true" :show-rating="false" star-size="30" active-color="#a8cb5c"></star-rating>
+    <star-rating :rating="rating" :read-only="true" :show-rating="false" :star-size=30 active-color="#a8cb5c"></star-rating>
   </div>
 </template>
 
