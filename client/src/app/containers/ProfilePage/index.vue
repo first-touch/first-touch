@@ -54,6 +54,7 @@ export default {
       return null;
     },
     careerHistory() {
+      if(!this.info) { return [] }
       return this.info.career_history || [];
     }
   },
