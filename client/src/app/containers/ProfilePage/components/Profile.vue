@@ -71,8 +71,7 @@
           </div>
           <div id="playing-position-wrapper">
             <h5>Playing position</h5>
-            <p class="position-content">{{ info.personal_profile.playing_position }}</p>
-            <img class="img-fluid position-map" src="http://www.conceptdraw.com/solution-park/resource/images/solutions/soccer/Sport-Soccer-Football-Formation-4-4-1-1.png" />
+            <position-rating v-for="positionRating in playingPositions" :positionRating="positionRating"></position-rating>
           </div>
         </div>
       </div>
@@ -129,6 +128,7 @@
 </style>
 
 <script>
+import PositionRating from './PositionRating';
 import countrydata from 'country-data';
 import moment from 'moment';
 import TimelineItem from 'app/components/TimelineItem';
@@ -138,6 +138,7 @@ export default {
   props: ['mine', 'info', 'follow', 'connect'],
   components: {
     'timeline-item': TimelineItem,
+    'position-rating': PositionRating
   },
   computed: {
     role() {
