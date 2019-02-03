@@ -33,7 +33,7 @@ module Api
 
       def countries
         result = ::V1::Club::Countries.()
-        response = FirstTouch::Endpoint.(result, ::V1::Club::Representer::Countries)
+        response = FirstTouch::Endpoint.(result, ::V1::Country::Representer::List)
         render json: response[:data], status: response[:status]
       end
 
