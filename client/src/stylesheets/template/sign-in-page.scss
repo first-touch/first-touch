@@ -31,3 +31,9 @@
     }
   }
 }
+
+@media (max-width: $max-mobile-width) {
+  .tnc {
+    font-size: 1em;
+  }
+}

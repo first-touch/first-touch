@@ -7,15 +7,15 @@
       </div>
       <div class="col col-lg-5">
         <form @submit.prevent="handleSubmit">
-          <fieldset class="form-group col-lg-8">
+          <fieldset class="form-group col-lg-8 col-md-8">
             <label>Email</label>
             <input type="email" v-model="email" class="form-control m-field-input"  autocomplete="username" placeholder="Enter email..."/>
           </fieldset>
-          <fieldset class="form-group col-lg-8">
+          <fieldset class="form-group col-lg-8 col-md-8">
             <label>Password</label>
             <input type="password" v-model="password" class="form-control m-field-input" autocomplete="current-password" placeholder="Enter password..."/>
           </fieldset>
-          <div class="col-lg-8">
+          <div class="col-lg-8 col-md-8">
             <button v-if="loading"
               class="form-control a-bar-button center" type="button" disabled>Logging In...</button>
             <button v-else
@@ -26,10 +26,10 @@
               <em>{{ errorMessage }}</em>
             </div>
           </fieldset>
-          <div class="col-md-8">
+          <div class="col-md-10 suggestions-container">
             <div class="row d-flex justify-content-center">
               <div class="not-registered">
-                Not registered?
+                <p>Not registered?</p>
                 <span>
                   <router-link class="m-main-navigation-link" to="/users/sign_up"> Create your account </router-link>
                 </span>
@@ -37,7 +37,7 @@
             </div>
             <div class="row d-flex justify-content-center">
               <div class="forgot-password">
-                Forgot your password?
+                <p>Forgot your password?</p>
                 <span>
                   <router-link class="m-main-navigation-link" to="/users/reset_password"> Reset your password </router-link>
                 </span>
@@ -52,6 +52,7 @@
 
 <style lang="scss" scoped>
   @import '~stylesheets/pages/landing';
+  @import '~stylesheets/atoms/mobile-text';
 
   form {
     margin-top: 20px;
@@ -67,6 +68,11 @@
     font-size: 0.9rem;
     color: #fff;
   }
+
+  p {
+    display: inline-block;
+  }
+
 </style>
 
 <script>

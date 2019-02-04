@@ -1,0 +1,24 @@
+@media (max-width: $max-mobile-width) {
+  label, input, a, p, button, select {
+    font-size: 2em;
+  }
+
+  button, input, select, a {
+    height: 2em;
+  }
+
+  input[type=checkbox] {
+    transform: scale(3);
+  }
+
+  .logo {
+    margin-top: 10em;
+  }
+
+  .v-autocomplete {
+    .v-autocomplete-input {
+      height: 2em;
+      font-size: 2em;
+    }
+  }
+}

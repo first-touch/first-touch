@@ -8,6 +8,10 @@
 .full {
   background: $navbar-background-color;
 
+  .first-page-desc {
+    width: 30vw;
+  }
+
   .carousel {
     display: contents;
   }
@@ -556,6 +560,90 @@
   .full {
     .carousel-item {
       height: 50vh;
+    }
+  }
+}
+
+@media (max-width: $max-mobile-width) {
+  p {
+    font-size: 1.5em;
+     .main-description {
+      font-size: 0.8em;
+    }
+  }
+
+  li {
+    font-size: 1.8em;
+  }
+
+  .first-page-desc {
+    width: 70vw !important
+  }
+
+  .second-layer {
+    .carousel {
+      .carousel-inner {
+        height: 45vh;
+      }
+        .carousel-control-prev, .carousel-control-next {
+        padding-top: 1.5vh;
+      }
+    }
+  }
+
+  #third-page {
+    .polaroid {
+      height: 25vh;
+      width: 25vh;
+       .description {
+        width: 20vh;
+        margin-top: -1.8vh;
+      }
+       .img-fluid {
+        height: 12vh;
+        width: 22vh;
+      }
+       p {
+        font-size: 2em;
+      }
+    }
+     .carousel-inner {
+      height: 30vh;
+    }
+  }
+
+  #footer {
+    p, a {
+      font-size: 2.5em;
+    }
+
+    .cRight {
+      font-size: 1.8em;
+    }
+
+    .logo {
+      height: 5vh;
+      width: 15vh;
+      margin-bottom: 2vh;
+    }
+
+    .social {
+      height: 3.5vh;
+      width: 3.5vh;
+    }
+  }
+
+  .suggestions-container {
+    margin-top: 3em;
+  }
+
+  .typewriter {
+    width: 50vw !important
+  }
+
+  #transition-page {
+    .container-fluid {
+      min-height: 20vh;
     }
   }
 }
