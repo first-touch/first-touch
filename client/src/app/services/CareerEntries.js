@@ -1,16 +1,16 @@
 import store from 'app/store';
 
 export default {
-  endpoint: '/api/v1',
-  updateCareerEntries (formData) {
+  endpoint: '/api/v1/career_entries',
+  updateCareerEntries (data) {
     const token = store.state.token.value;
-    return fetch(`${this.endpoint}/career_entries`, {
+    return fetch(`${this.endpoint}`, {
       method: 'POST',
       headers: {
         Authorization: token,
         'Content-Type': 'application/json'
       },
-      body: formData
+      body: JSON.stringify(data)
     }).then(response => {
       if (response.ok) {
         return response.json();
