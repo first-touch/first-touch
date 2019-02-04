@@ -24,6 +24,7 @@
     "vue-loader": "^13.5.0",
     "vue-router": "latest",
     "vue-select": "latest",
+    "vue-star-rating": "^1.6.1",
     "vue-template-compiler": "latest",
     "vue2-dropzone": "latest",
     "vuejs-datepicker": "latest",

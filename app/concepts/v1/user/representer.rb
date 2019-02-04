@@ -5,7 +5,10 @@ module V1
         include Representable::JSON
 
         property :id
-        property :career_history
+        collection :career_entries,
+                   decorator: ::V1::CareerEntry::Representer::Full,
+                   as: :career_history
+
         property :personal_profile,
                  extend: V1::PersonalProfile::Representer::Simplified
 

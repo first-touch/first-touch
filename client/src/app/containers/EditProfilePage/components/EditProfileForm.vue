@@ -3,12 +3,12 @@
     <form @submit.prevent="updateProfilePic" enctype="multipart/form-data">
       <fieldset class="form-group">
         <label>Your Profile Picture</label>
-        <div class="row">
-          <div class="col-2">
+        <div class="flex-row">
+          <div class="avatar-wrapper">
             <input type="file" id="avatar" name="avatar" accept="image/*" @change="filePickerUpdated($event.target.files)" class="input-file">
-            <img data-v-8e1e5708="" :src="currentAvatar" class="rounded-circle img-fluid">
+            <img data-v-8e1e5708="" :src="currentAvatar" class="avatar rounded-circle img-fluid">
           </div>
-          <div class="col-4">
+          <div>
             <button type="submit" :disabled="noNewAvatar" class="form-control a-bar-button">Update my picture</button>
           </div>
         </div>
@@ -120,11 +120,22 @@
 
 .input-file {
   opacity: 0; /* invisible but it's there! */
-  width: 100%;
-  height: 100px;
+  width: 250px; /* should match the avatar-wrapper width */
+  height: 250px; /* should match the avatar-wrapper height */
   position: absolute;
   cursor: pointer;
-  margin-top: -32px;
+}
+
+.avatar-wrapper {
+  height: 250px;
+  width: 250px;
+  overflow: hidden;
+
+  .avatar {
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 }
 
 </style>

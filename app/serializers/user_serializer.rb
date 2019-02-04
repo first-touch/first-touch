@@ -1,3 +1,4 @@
+# TODO: Delete this file
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :career_history, :roles
   has_one :personal_profile

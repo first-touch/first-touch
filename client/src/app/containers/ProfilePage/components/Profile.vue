@@ -1,23 +1,25 @@
 <template>
   <timeline-item>
     <div class="profile-item-container" v-if="info">
-      <div class="top">
-        <img class="img-fluid avatar" :src="info.personal_profile.avatar_url" />
+      <div id="biography" class="flex-row">
+        <div class="avatar-wrapper">
+          <img class="img-fluid avatar" :src="info.personal_profile.avatar_url" />
+        </div>
         <div class="info">
-          <h4 class="name">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
-          <p class="role">Football Player</p>
-          <p class="club">Real Madrid FC, Spain</p>
+          <h4 class="main-header-color upper-cased">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
+          <h5 id="role">{{ role }}</h5>
+          <p id="club"> {{ clubName }}</p>
           <p class="detail">
             <span class="detail-title">Date of birth</span>
-            {{ info.personal_profile.birthday }}
+            {{ birthday }}
           </p>
           <p class="detail">
-            <span class="detail-title">Nationality</span>
-            {{ info.personal_profile.nationality_country_code }}
+            <span class="detail-title">Nationality/Residency</span>
+            {{ nationalityResidency }}
           </p>
           <p class="detail">
             <span class="detail-title">Place of birth</span>
-            {{ info.personal_profile.place_of_birth }}
+            {{ birthplace }}
           </p>
           <div class="widget">
             <div class="widget-row">
@@ -36,43 +38,41 @@
               </a>
               <router-link v-if="!mine" :to="`/messages/${info.id}`" class="btn btn-bright">Message</router-link>
             </div>
-            <div class="widget-row">
-              <p class="connection"><span class="number">467</span> Connections</p>
-            </div>
           </div>
         </div>
       </div>
-      <hr />
-      <div class="bottom">
-        <div class="summary">
-          <h5 class="summary-title">Summary</h5>
-          <p class="summary-field name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
-          <p class="summary-field">
-            <span class="summary-field-title">Height</span>
-            {{ info.personal_profile.height }} cm
-          </p>
-          <p class="summary-field">
-            <span class="summary-field-title">Weight</span>
-            {{ info.personal_profile.weight }} kg
-          </p>
-          <p class="summary-field">
-            <span class="summary-field-title">Preferred Foot:</span>
-            {{ info.personal_profile.preferred_foot }}
-          </p>
-          <p class="summary-field">
-            <span class="summary-field-title">Pro Status:</span>
-            {{ info.personal_profile.pro_status || "N/a"}}
-          </p>
-          <p class="summary-field">
-            <span class="summary-field-title"># Caps:</span>
-            {{ info.personal_profile.total_caps || "0" }}
-          </p>
-          <a href="#" class="btn btn-bright">Biography</a>
-        </div>
-        <div class="position">
-          <p class="position-title">Playing position</p>
-          <p class="position-content">{{ info.personal_profile.playing_position }}</p>
-          <img class="img-fluid position-map" src="http://www.conceptdraw.com/solution-park/resource/images/solutions/soccer/Sport-Soccer-Football-Formation-4-4-1-1.png" />
+      <hr class="horizontal-separator"/>
+      <div id="summary">
+        <h4 class="spaced-title upper-cased main-color">Summary</h4>
+        <div class="flex-row">
+          <div id="summary-text-wrapper">
+            <p class="detail name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
+            <p class="detail">
+              <span class="detail-title">Height</span>
+              {{ info.personal_profile.height }} cm
+            </p>
+            <p class="detail">
+              <span class="detail-title">Weight</span>
+              {{ info.personal_profile.weight }} kg
+            </p>
+            <p class="detail">
+              <span class="detail-title">Preferred Foot:</span>
+              {{ preferredFoot }}
+            </p>
+            <p class="detail">
+              <span class="detail-title">Pro Status:</span>
+              {{ info.personal_profile.pro_status || "N/a"}}
+            </p>
+            <p class="detail">
+              <span class="detail-title"># Caps:</span>
+              {{ info.personal_profile.total_caps || "0" }}
+            </p>
+            <a href="#" class="btn btn-bright">Biography</a>
+          </div>
+          <div id="playing-position-wrapper">
+            <h5>Playing position</h5>
+            <position-rating v-for="positionRating in playingPositions" :positionRating="positionRating"></position-rating>
+          </div>
         </div>
       </div>
     </div>
@@ -82,95 +82,55 @@
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
 .profile-item-container {
-  .top {
+  display: flex;
+  flex-direction: column;
+
+  .flex-row {
     display: flex;
+  }
+  // TODO: Consider moving to separate component
+  .avatar-wrapper {
+    height: 250px;
+    width: 250px;
+    overflow: hidden;
+
     .avatar {
-      height: 185px;
+      height: 100%;
       border-radius: 50%;
-    }
-    .info {
-      margin-top: 40px;
-      margin-left: 20px;
-      flex: 1 0 calc(100% - 320px);
-      .name {
-        color: $main-header-color;
-        text-transform: uppercase;
-      }
-      .role,
-      .club,
-      .detail {
-        color: $main-text-color;
-      }
-      .role {
-        font-size: 1.2em;
-      }
-      .detail-title {
-        color: $secondary-text-color;
-      }
-      .widget {
-        margin-top: 70px;
-        margin-bottom: 20px;
-        .widget-row {
-          display: flex;
-          align-items: center;
-        }
-        .btn {
-          margin-right: 5px;
-        }
-        .connection {
-          color: $secondary-text-color;
-          margin-bottom: 0;
-          margin-left: auto;
-          .number {
-            color: $main-text-color;
-            font-weight: bold;
-            font-size: 1.3em;
-          }
-        }
-      }
+      object-fit: cover;
     }
   }
-  .bottom {
-    display: flex;
+
+  .info {
+    margin-left: 20px;
+  }
+
+  .detail-title {
+    color: $secondary-text-color;
+  }
+
+  #summary-text-wrapper, #playing-position-wrapper {
+    width: 50%;
+  }
+
+  .widget {
     margin-top: 30px;
-    .summary {
-      flex: 1 0 55%;
-      .summary-title {
-        color: $secondary-text-color;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-      }
-      .name {
-        text-transform: capitalize;
-      }
-      .summary-field {
-        color: $main-text-color;
-        margin-bottom: 5px;
-      }
-      *:last-child {
-        margin-top: 30px;
-      }
-    }
-    .position {
-      flex: 1 0 45%;
+    margin-bottom: 20px;
+    .widget-row {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      .position-title {
-        color: $secondary-text-color;
-        font-size: 1.2em;
-        margin-bottom: 0;
-      }
-      .position-content {
-        color: $main-text-color;
-        font-size: 1.2em;
-      }
+    }
+    .btn {
+      margin-right: 5px;
     }
   }
 }
 </style>
 
 <script>
+import PositionRating from './PositionRating';
+import countrydata from 'country-data';
+import moment from 'moment';
 import TimelineItem from 'app/components/TimelineItem';
 
 export default {
@@ -178,6 +138,50 @@ export default {
   props: ['mine', 'info', 'follow', 'connect'],
   components: {
     'timeline-item': TimelineItem,
+    'position-rating': PositionRating
   },
+  computed: {
+    role() {
+      if(!this.info) { return "Unknown"; }
+      return _.capitalize(this.info.role_name);
+    },
+    clubName() {
+      if(!this.info.current_club) { return "No club"; }
+      let countryInfo = countrydata.countries[this.info.current_club.country_code];
+      let countryName = countryInfo.name;
+      let countryFlag = countryInfo.emoji;
+      return `${this.info.current_club.name}, ${countryName} ${countryFlag}`;
+    },
+    birthday() {
+      if(!this.info.personal_profile) { return "Unknown"; }
+      let bday = moment(this.info.personal_profile.birthday, "YYYY-MM-dd");
+      let age = moment().diff(bday, 'years');
+      return `${bday.format("LL")} (age ${age})`;
+    },
+    nationalityResidency() {
+      if(!this.info.personal_profile) { return "Unknown"; }
+      let nationalityCountryInfo = countrydata.countries[this.info.personal_profile.nationality_country_code];
+      let nationalityCountryName = nationalityCountryInfo.name;
+      let nationalityCountryFlag = nationalityCountryInfo.emoji;
+
+      let residencyCountryInfo = countrydata.countries[this.info.personal_profile.residence_country_code];
+      let residencyCountryName = residencyCountryInfo.name;
+      let residencyCountryFlag = residencyCountryInfo.emoji;
+      return `${nationalityCountryName} ${nationalityCountryFlag} / ${residencyCountryName} ${residencyCountryFlag}`;
+    },
+    birthplace() {
+      if(!this.info.personal_profile) { return "Unknown"; }
+      let nationalityCountryInfo = countrydata.countries[this.info.personal_profile.nationality_country_code];
+      let nationalityCountryName = nationalityCountryInfo.name;
+      return `${this.info.personal_profile.place_of_birth}, ${nationalityCountryName}`;
+    },
+    preferredFoot() {
+      return _.capitalize(this.info.personal_profile.preferred_foot);
+    },
+    playingPositions() {
+      if(!this.info.personal_profile) { return [] }
+      return this.info.personal_profile.playing_positions;
+    }
+  }
 };
 </script>

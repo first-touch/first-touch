@@ -8,7 +8,7 @@
           :info="info"
           :follow="followUser"
           :connect="connectUser"/>
-        <career-history v-if="info" :careerHistory="info.career_history"/>
+         <career-events :careerHistory="careerHistory" />
       </div>
     </div>
   </div>
@@ -36,7 +36,7 @@ import store from 'app/store';
 import { ASYNC_LOADING, ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 import NotificationSidebar from 'app/components/NotificationSidebar';
 import Profile from './components/Profile';
-import CareerHistory from './components/CareerHistory';
+import CareerEvents from './components/CareerEvents';
 
 export default {
   name: 'ProfilePage',
@@ -44,7 +44,7 @@ export default {
   components: {
     sidebar: NotificationSidebar,
     profile: Profile,
-    'career-history': CareerHistory,
+    'career-events':CareerEvents
   },
   computed: {
     ...mapGetters(['user', 'profile']),
@@ -53,6 +53,10 @@ export default {
       if (this.profile.status === ASYNC_SUCCESS) return this.profile.value;
       return null;
     },
+    careerHistory() {
+      if(!this.info) { return [] }
+      return this.info.career_history || [];
+    }
   },
   methods: {
     ...mapActions([
