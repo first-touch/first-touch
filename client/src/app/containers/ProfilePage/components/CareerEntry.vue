@@ -9,7 +9,7 @@
     </div>
     <div class="date-info-wrapper">
       <h5>{{ startDate }} - {{ endDate }}</h5>
-      <p> <span class="label">Apps</span> 200 | <span class="label">Scored</span> 30</p>
+      <p> Apps <span class="value">200</span> | Scored <span class="value">30</span></p>
     </div>
   </div>
 </template>
@@ -29,6 +29,12 @@
       .avatar {
         max-width: 50%;
         margin-left: 25%;
+      }
+    }
+
+    .date-info-wrapper {
+      .value {
+        font-weight: bold;
       }
     }
   }
