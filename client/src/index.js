@@ -9,6 +9,7 @@ import ResetPassword from 'app/containers/ResetPassword';
 import EditPassword from 'app/containers/EditPassword';
 import PreRegistration from 'app/containers/PreRegistrationPage';
 import UserLayout from 'app/components/UserLayout';
+import UserMobileLayout from 'app/components/UserMobileLayout';
 import SignupPage from 'app/containers/SignupPage';
 import LoginPage from 'app/containers/LoginPage';
 import FeedPage from 'app/containers/FeedPage';
@@ -117,6 +118,14 @@ export const router = new VueRouter({
     {
       path: '/users/new_password',
       component: EditPassword
+    },
+    {
+      path: '/new-nav',
+      component: UserMobileLayout,
+      beforeEnter: requireAuth,
+      children: [
+        { path: '', component: FeedPage }
+      ]
     },
     {
       path: '/',
