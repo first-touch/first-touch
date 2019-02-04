@@ -23,7 +23,7 @@
     <div v-if="!isHidden" class="career-history-section">
       <h4 class="spaced-title upper-cased main-color">Career History</h4>
       <div class="section">
-        <career-entry v-for="careerEntry in careerHistory" :careerEntry="careerEntry"></career-entry>
+        <career-entry class="career-entry" v-for="careerEntry in careerHistory" :careerEntry="careerEntry"></career-entry>
       </div>
       <div class="btn-holder">
         <a v-on:click="csHidden = !csHidden; isHidden = true" class="btn btn-bright upper-cased">Career Statistics</a>
@@ -44,7 +44,11 @@
       text-transform: uppercase;
       font-weight: 300;
     }
-}
+  }
+
+  .career-entry {
+    margin-bottom: 20px;
+  }
 </style>
 
 <script>
