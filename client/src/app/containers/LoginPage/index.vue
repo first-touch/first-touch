@@ -3,7 +3,7 @@
     <landing-navbar />
     <div class="container-fluid team-background">
       <div class="row justify-content-center">
-        <img src="/images/landing-page/ft-logo.png" alt="Ft Logo"  />
+        <img src="/images/landing-page/ft-logo.png" alt="Ft Logo" />
       </div>
       <div class="row justify-content-center">
         <div class="col col-lg-5">
