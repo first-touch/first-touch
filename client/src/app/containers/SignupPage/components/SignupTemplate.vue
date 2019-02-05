@@ -81,7 +81,7 @@
               </select>
             </fieldset>
             <fieldset class="form-group col-lg-8 col-md-12" v-if="this.role_name != 'director'">
-              <label>Your Club*</label>
+              <label>Your Club</label>
               <div class="row">
                 <div class="col">
                   <select v-model="club_country_code" class="form-control m-field-input">
