@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sidebar />
+    <!-- <sidebar /> -->
     <div class="container-fluid">
       <div class="ft-page edit-profile">
         <h4 class="spaced-title upper-cased main-color">Edit Profile</h4>

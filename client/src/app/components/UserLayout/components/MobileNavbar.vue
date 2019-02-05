@@ -7,43 +7,32 @@
       </div>
 
       <ul class="list-unstyled components">
-        <li class="active">
-          <a href="#home-submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-            <ul class="collapse list-unstyled" id="home-submenu">
-            <li>
-              <a href="#">Home 1</a>
-            </li>
-            <li>
-              <a href="#">Home 2</a>
-            </li>
-            <li>
-              <a href="#">Home 3</a>
-            </li>
-          </ul>
+        <li>
+          <router-link to="/" @click.native="closeSidebar">Home</router-link>
         </li>
         <li>
-          <a href="#">Profile</a>
+          <router-link to="/profile" @click.native="closeSidebar">Profile</router-link>
         </li>
         <li>
-          <a href="#">Messages</a>
+          <router-link to="/messages" @click.native="closeSidebar">Messages</router-link>
         </li>
         <li>
-          <a href="#">My Network</a>
+          <router-link to="/network" @click.native="closeSidebar">My Network</router-link>
         </li>
-        <li>
+        <li v-if="hasScoutRole">
           <a href="#scouting-submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Scouting</a>
           <ul class="collapse list-unstyled" id="scouting-submenu">
             <li>
-              <a href="#">Create Report</a>
+              <router-link :to="{ name: 'scoutReportCreate'}" @click.native="closeSidebar">Create Report</router-link>
             </li>
             <li>
-              <a href="#">Jobs List</a>
+              <router-link :to="{ name: 'scoutJobsList'}" @click.native="closeSidebar">Jobs List</router-link>
             </li>
             <li>
-              <a href="#">Jobs Bank</a>
+              <router-link :to="{ name: 'scoutJobsBank'}" @click.native="closeSidebar">Jobs Bank</router-link>
             </li>
             <li>
-              <a href="#">Payment Details</a>
+              <router-link :to="{ name: 'scoutPaymentDetailPage'}" @click.native="closeSidebar">Payment Details</router-link>
             </li>
           </ul>
         </li>
@@ -109,6 +98,7 @@
         padding: 10px;
         font-size: 1.1em;
         display: block;
+        text-transform: uppercase;
       }
 
       li a:hover {
@@ -117,7 +107,7 @@
         text-decoration: none;
       }
 
-      li.active > a, a[aria-expanded="true"] {
+      li a.router-link-exact-active.router-link-active, a[aria-expanded="true"] {
         color: $main-header-color;
       }
     }
@@ -151,6 +141,9 @@
 </style>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+import { ASYNC_LOADING, ASYNC_SUCCESS } from '../../../constants/AsyncStatus';
+
 export default {
   name: 'MobileNavbar',
   data() {
@@ -158,9 +151,26 @@ export default {
       isActive: false
     }
   },
+  computed: {
+    ...mapGetters(['user']),
+    role() {
+      if (this.user.status === ASYNC_SUCCESS) {
+        return this.user.value.role_name;
+      } else {
+        return '';
+      }
+    },
+    hasScoutRole() {
+      return this.role == 'scout';
+    }
+  },
   methods: {
     toggleSidebar() {
       this.isActive = !this.isActive;
+    },
+    closeSidebar() {
+      if(!this.isActive) { return; }
+      this.isActive = false;
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sidebar />
+    <!-- <sidebar /> -->
     <div class="container-fluid">
       <div class="ft-page">
         <actions v-if="page == 'index'" class="widget" v-on:update:val="page = $event" />
