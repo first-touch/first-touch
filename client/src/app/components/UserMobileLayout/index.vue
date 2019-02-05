@@ -1,8 +1,7 @@
 <template>
   <div class="wrapper">
     <mobile-navbar></mobile-navbar>
-    <!--  <search-bar :search="getSearchResults" :results="searchResult.value" :placeholder="placeholder" :action="action" /> -->
-    <router-view></router-view>
+    <router-view class="main-content-wrapper"></router-view>
   </div>
 </template>
 
@@ -11,6 +10,10 @@
     display: flex;
     width: 100%;
     align-items: stretch;
+  }
+  .main-content-wrapper {
+    flex-grow: 1;
+    overflow: hidden;
   }
 </style>
 

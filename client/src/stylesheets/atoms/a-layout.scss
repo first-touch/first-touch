@@ -1,5 +1,36 @@
 @import '../variables';
 
+.ft-page {
+  margin-top: 150px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    margin-top: -15px;
+    width: 3%;
+    border-top: 5px solid $main-header-color;
+  }
+
+  .timeline-widget-button {
+    span {
+      padding-left: 4px;
+      width: 49px;
+      height: 49px;
+      background-color: $main-header-color;
+      border: solid 1px #a8cb5c;
+    }
+
+    svg {
+      text-align: center;
+      font-size: 1.5em;
+      margin-left: 5px;
+      margin-top: 5px;
+    }
+  }
+
+  min-height: calc(100vh - 160px);
+}
+
 .item-container {
   background-color: $first-touch-white;
   border-radius: 5px;
@@ -14,4 +45,18 @@
 
 .flex-row {
   display: flex;
+}
+
+@media screen and (max-width: 768px) {
+  .ft-page {
+    margin-top: 80px;
+
+    &:before {
+      content: '';
+      position: absolute;
+      margin-top: -15px;
+      width: 15%;
+      border-top: 5px solid $main-header-color;
+    }
+  }
 }
