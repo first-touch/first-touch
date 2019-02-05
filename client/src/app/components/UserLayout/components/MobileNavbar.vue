@@ -56,6 +56,12 @@
             </li>
           </ul>
         </li>
+        <li>
+          <router-link to="/about" @click.native="closeSidebar">About</router-link>
+        </li>
+        <li>
+          <router-link to="#" @click.native="handleLogout">Logout</router-link>
+        </li>
       </ul>
     </nav>
     <button v-on:click="toggleSidebar" type="button" id="sidebar-collapse" class="a-bar-button d-sm-block d-md-none">
@@ -173,6 +179,7 @@ export default {
   },
   computed: {
     ...mapGetters(['user']),
+    ...mapActions(['logout']),
     role() {
       if (this.user.status === ASYNC_SUCCESS) {
         return this.user.value.role_name;
@@ -181,7 +188,6 @@ export default {
       }
     },
     hasScoutModule() {
-      console.log(this.role);
       return this.role == 'scout';
     },
     hasPartnerModule() {
@@ -198,6 +204,11 @@ export default {
     closeSidebar() {
       if(!this.isActive) { return; }
       this.isActive = false;
+    },
+    handleLogout() {
+      this.logout.then(() => {
+        this.$router.push('/users/sign_in');
+      });
     }
   }
 };
