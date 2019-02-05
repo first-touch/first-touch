@@ -50,7 +50,7 @@
         </li>
       </ul>
     </nav>
-    <button v-on:click="toggleSidebar" type="button" id="sidebarCollapse" class="btn btn-info">
+    <button v-on:click="toggleSidebar" type="button" id="sidebar-collapse" class="btn btn-info d-sm-block d-md-none">
       <i class="fas fa-align-left"></i>
       <span>Toggle Sidebar</span>
     </button>
@@ -64,7 +64,7 @@
     align-items: start;
   }
 
-  #sidebarCollapse {
+  #sidebar-collapse {
     position: relative;
     z-index: 1000;
     top: 10px;
@@ -138,7 +138,7 @@
     transform: translateY(-50%);
   }
 
-  @media(max-width: 768px) {
+  @media screen and (max-width: 768px) {
     #sidebar {
       margin-left: -250px;
     }
