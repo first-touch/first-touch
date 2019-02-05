@@ -23,7 +23,7 @@
           <router-link to="/notes" @click.native="closeSidebar">My Notes</router-link>
         </li>
         <li v-if="hasClubModule">
-          <router-link to="/notes" @click.native="closeSidebar">Club</router-link>
+          <router-link to="/club" @click.native="closeSidebar">Club</router-link>
         </li>
         <li v-if="hasScoutModule">
           <a href="#scouting-submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Scouting</a>
@@ -39,6 +39,20 @@
             </li>
             <li>
               <router-link :to="{ name: 'scoutPaymentDetailPage'}" @click.native="closeSidebar">Payment Details</router-link>
+            </li>
+          </ul>
+        </li>
+        <li v-if="hasPartnerModule">
+          <a href="#partners-submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Partners</a>
+          <ul class="collapse list-unstyled" id="partners-submenu">
+            <li>
+              <router-link to="/" @click.native="closeSidebar">Scouts</router-link>
+            </li>
+            <li>
+              <router-link to="/" @click.native="closeSidebar">Directors of Football</router-link>
+            </li>
+            <li>
+              <router-link to="/" @click.native="closeSidebar">Agents</router-link>
             </li>
           </ul>
         </li>
@@ -167,10 +181,14 @@ export default {
       }
     },
     hasScoutModule() {
+      console.log(this.role);
       return this.role == 'scout';
     },
+    hasPartnerModule() {
+      return this.role == 'scout' || this.role == 'agent' || this.role == 'director';
+    },
     hasClubModule() {
-      return this.role == 'player' || this.role == 'club_director';
+      return this.role == 'player' || this.role == 'director';
     }
   },
   methods: {
