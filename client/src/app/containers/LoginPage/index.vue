@@ -51,9 +51,6 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/pages/landing';
-  @import '~stylesheets/atoms/mobile-text';
-
   form {
     margin-top: 20px;
     display: flex;
@@ -72,7 +69,6 @@
   p {
     display: inline-block;
   }
-
 </style>
 
 <script>

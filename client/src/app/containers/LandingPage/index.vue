@@ -604,7 +604,6 @@
 
 <style lang="scss" scoped>
   @import '~stylesheets/pages/landing';
-  @import '~stylesheets/atoms/mobile-text';
 </style>
 
 <script>

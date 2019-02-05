@@ -112,11 +112,6 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~stylesheets/template/sign-in-page.scss';
-@import '~stylesheets/atoms/mobile-text';
-</style>
-
-<style lang="scss">
 @import '~stylesheets/molecules/auto-complete.scss';
 @import '~stylesheets/molecules/steps.scss';
 @import '~stylesheets/variables';
