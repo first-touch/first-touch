@@ -1,13 +1,12 @@
 <template>
-  <div id="first-touch-navbar">
+  <div v-bind:class="{ active: isActive }" id="first-touch-navbar">
     <!-- Sidebar -->
     <nav v-bind:class="{ active: isActive }" id="sidebar">
       <div class="sidebar-header">
-        <h3>Bootstrap Sidebar</h3>
+        <img class="img-fluid" src="/images/landing-page/ft-navbar-logo.png" alt="Ft Logo" />
       </div>
 
       <ul class="list-unstyled components">
-        <p>Dummy Heading</p>
         <li class="active">
           <a href="#home-submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
             <ul class="collapse list-unstyled" id="home-submenu">
@@ -50,18 +49,24 @@
         </li>
       </ul>
     </nav>
-    <button v-on:click="toggleSidebar" type="button" id="sidebar-collapse" class="btn btn-info d-sm-block d-md-none">
-      <i class="fas fa-align-left"></i>
-      <span>Toggle Sidebar</span>
+    <button v-on:click="toggleSidebar" type="button" id="sidebar-collapse" class="a-bar-button d-sm-block d-md-none">
+      <span class="navbar-toggler-icon"></span>
     </button>
   </div>
 </template>
 
 <style lang="scss" scoped>
+  @import '~stylesheets/variables';
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E")
+  }
+
   #first-touch-navbar {
     display: flex;
     flex-direction: row;
     align-items: start;
+    max-width: 250px;
   }
 
   #sidebar-collapse {
@@ -76,8 +81,8 @@
     max-width: 250px;
     min-height: 100vh;
 
-    background: #7386D5;
-    color: #fff;
+    background: $navbar-background-color;
+    color: $secondary-text-color;
     transition: all 0.3s;
 
     // TODO: Fix this class name as it means the exact opposite. If the sidebar
@@ -88,17 +93,15 @@
 
     .sidebar-header {
       padding: 20px;
-      background: #6d7fcc;
     }
 
     ul.components {
       padding: 20px 0;
-      border-bottom: 1px solid #47748b;
+      border-bottom: 1px solid $navbar-background-color-faded;
     }
 
     ul {
       p {
-        color: #fff;
         padding: 10px;
       }
 
@@ -109,13 +112,13 @@
       }
 
       li a:hover {
-        color: #7386D5;
-        background: #fff;
+        background: $nav-hover-background;
+        color: $secondary-text-color;
+        text-decoration: none;
       }
 
       li.active > a, a[aria-expanded="true"] {
-        color: #fff;
-        background: #6d7fcc;
+        color: $main-header-color;
       }
     }
   }
@@ -123,7 +126,6 @@
   ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
   }
 
   a[data-toggle="collapse"] {
