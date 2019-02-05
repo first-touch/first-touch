@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <mobile-navbar></mobile-navbar>
+    <flash-message outerClass="col-lg-4 m-feedback"></flash-message>
     <router-view class="main-content-wrapper"></router-view>
   </div>
 </template>

@@ -1,6 +1,7 @@
 <template>
   <div>
     <landing-navbar />
+    <flash-message outerClass="m-feedback"></flash-message>
     <div class="container-fluid team-background">
       <div class="row justify-content-center">
         <img src="/images/landing-page/ft-logo.png" alt="Ft Logo" />
@@ -117,12 +118,12 @@
                 </div>
               </div>
             </fieldset>
-            <!-- <button class="form-control a-bar-button col-md-8" type="submit">Sign Up</button>
-            <fieldset class="col-lg-8 col-md-8">
-              <div v-if="error" class="alert alert-danger">
-                <em>{{ error }}</em>
-              </div>
-            </fieldset> -->
+            <div class="col-lg-8 col-md-8">
+              <button v-if="loading"
+                class="form-control a-bar-button center" type="button" disabled>Signing Up...</button>
+              <button v-else
+                class="form-control a-bar-button center" type="submit">Sign Up</button>
+            </div>
           </form>
         </div>
       </div>
@@ -131,9 +132,6 @@
 </template>
 
 <style lang="scss" scoped>
-// @import '~stylesheets/molecules/auto-complete.scss';
-// @import '~stylesheets/molecules/steps.scss';
-// @import '~stylesheets/variables';
   form {
     margin-top: 20px;
     display: flex;
@@ -187,7 +185,6 @@ export default {
       template: ItemTemplate,
       item: null,
       searchText: '',
-      error: null,
       currentYear: new Date().getUTCFullYear(),
       validYears: (() => {
         const currentYear = new Date().getUTCFullYear();
@@ -198,32 +195,51 @@ export default {
 
         return rtv.reverse();
       })(),
+      loading: false
     };
   },
   methods: {
-    ...mapActions(['attemptLogIn']),
     nextPage() {
       this.$parent.$parent.nextTab()
     },
     handleSubmit() {
+      if (_.isEmpty(this.email)) {
+        this.flash('An email is needed', 'error', {
+          timeout: 3000,
+          important: true
+        });
+        return;
+      }
       if (this.password !== this.password_confirmation) {
-        return this.$set(this, 'error', "Passwords don't Match!");
+        this.flash("Passwords don't Match", 'error', {
+          timeout: 3000,
+          important: true
+        });
+        return;
       } else if (this.day.length === 0 || this.month.length === 0) {
-        return this.$set(this, 'error', 'Please Enter Date of Birth!');
+        this.flash('Please Enter Date of Birth', 'error', {
+          timeout: 3000,
+          important: true
+        });
+        return;
       } else if (!this.role_name) {
-        return this.$set(this, 'error', 'Please choose a role!');
+        this.flash('Please choose a role', 'error', {
+          timeout: 3000,
+          important: true
+        });
+        return;
       } else if (!this.tccheck) {
-        return this.$set(
-          this,
-          'error',
-          'Please agree to our Terms and Conditions',
-        );
+        this.flash('Please agree to our Terms and Conditions', 'error', {
+          timeout: 3000,
+          important: true
+        });
+        return;
       } else if (this.role_name !== "director" && !this.searchText) {
-        return this.$set(
-          this,
-          'error',
-          'Please choose an existing club or enter the name and country of your club!'
-        );
+        this.flash('Please choose an existing club or enter the name and country of your club', 'error', {
+          timeout: 3000,
+          important: true
+        });
+        return;
       }
       var clubId = undefined;
       if (this.item) {
@@ -241,7 +257,7 @@ export default {
         },
         role_name: this.role_name,
       };
-
+      this.loading = true;
       UserService.register(data).then(res => {
         if (res.status === 201) {
           if (this.role_name == "director") {
@@ -264,11 +280,18 @@ export default {
                 })
               })
             } else {
+              this.loading = false;
               this.$router.push({ path: '/users/sign_in' });
             }
           }
         } else {
-          res.json().then(r => this.$set(this, 'error', r.errors.join(", ")));
+          this.loading = false;
+          res.json().then(r => {
+            this.flash(r.errors.join(", "), 'error', {
+              timeout: 3000,
+              important: true
+            });
+          });
         }
       });
     },
@@ -282,21 +305,21 @@ export default {
       });
     },
     updateItems(text) {
-      this.$set(this, 'searchText', text);
-      if (!text) return this.$set(this, 'clubs', []);
+      this.searchText = text;
+      if (!text) return this.clubs = [];
       const params = {
         country: this.club_country_code,
         q: text
       }
       ClubService.searchClub(params).then(response => {
-        this.$set(this, 'clubs', response.clubs);
+        this.clubs = response.clubs;
       });
     },
     getLabel(item) {
       return item ? item.name : this.searchText;
     },
     itemSelected(item) {
-      this.$set(this, 'item', item);
+      this.item = item;
     },
     shouldCreateClub(clubId) {
       return Boolean(!clubId && this.searchText && this.club_country_code)
