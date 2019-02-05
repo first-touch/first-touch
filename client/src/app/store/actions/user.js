@@ -1,24 +1,17 @@
 import * as types from '../../constants/ActionTypes';
+import UserService from 'app/services/UserService';
 
-export const getUserInfo = (store, { token }) => {
-  console.warn('[Actions/User] Migrate to User service');
-  store.commit(types.USER_LOADING);
-  fetch('/api/v1/user', {
-    method: 'GET',
-    headers: { Authorization: token }
-  }).then(res => {
-    if (res.status === 200) {
-      res.json()
-        .then((r) => {
-          store.commit(types.USER_SUCCESS, r);
-        });
-    } else if (res.status === 401) {
+export const getUserInfo = (store) => {
+  return new Promise((resolve, reject) => {
+    store.commit(types.USER_LOADING);
+    UserService.getUser().then(res => {
+      store.commit(types.USER_SUCCESS, res);
+      resolve(res);
+    }).catch(err => {
+      console.log(err);
       store.commit(types.TOKEN_CLEAR);
-      Promise.reject(res);
-    } else {
-      res.json().then(console.log);
-      Promise.reject(res);
-    }
+      reject(err);
+    });
   });
 };
 

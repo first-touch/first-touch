@@ -67,9 +67,16 @@ window.JQuery = require('jquery');
 window._ = require('lodash');
 
 function requireAuth (to, from, next) {
+  debugger;
   if (!store.state.token || !store.state.token.value) {
     next({ path: '/welcome' });
-  } else next();
+  } else {
+    store.dispatch('getUserInfo').then(() => {
+      next();
+    }).catch(() => {
+      next({ path: '/welcome' });
+    });
+  }
 }
 
 function requireClub (to, from, next) {
