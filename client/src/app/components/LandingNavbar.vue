@@ -1,5 +1,5 @@
 <template>
-  <nav id="landing-navbar" class="navbar sticky-top">
+  <nav id="landing-navbar" class="navbar navbar-expand-md sticky-top">
     <a class="navbar-brand" href="/">
       <img src="/images/landing-page/ft-navbar-logo.png" alt="Ft logo">
     </a>
@@ -7,8 +7,9 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav" aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbar-nav">
-      <ul class="list-unstyled">
+      <ul class="navbar-nav ml-auto list-unstyled">
         <li>
           <router-link to="/about">About</router-link>
         </li>

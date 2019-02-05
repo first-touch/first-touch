@@ -1,8 +1,5 @@
 <template>
   <div id="legal-verticaltab">
-    <div class="d-block d-lg-none menu-btn">
-      <b-btn v-b-toggle.menu-contents>MENU</b-btn>
-    </div>
     <b-nav vertical>
       <b-collapse is-nav visible id="menu-contents" class="mt-2 d-lg-block">
         <div class="contents-vertical-tab d-block" id="navbar-contents">
@@ -77,7 +74,6 @@
       border-bottom: 1px solid $main-text-color;
     }
   }
-
 
   @media(max-width: 992px) {
     #legal-verticaltab {
