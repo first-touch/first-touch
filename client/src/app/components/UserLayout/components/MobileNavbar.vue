@@ -19,7 +19,13 @@
         <li>
           <router-link to="/network" @click.native="closeSidebar">My Network</router-link>
         </li>
-        <li v-if="hasScoutRole">
+        <li>
+          <router-link to="/notes" @click.native="closeSidebar">My Notes</router-link>
+        </li>
+        <li v-if="hasClubModule">
+          <router-link to="/notes" @click.native="closeSidebar">Club</router-link>
+        </li>
+        <li v-if="hasScoutModule">
           <a href="#scouting-submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Scouting</a>
           <ul class="collapse list-unstyled" id="scouting-submenu">
             <li>
@@ -160,8 +166,11 @@ export default {
         return '';
       }
     },
-    hasScoutRole() {
+    hasScoutModule() {
       return this.role == 'scout';
+    },
+    hasClubModule() {
+      return this.role == 'player' || this.role == 'club_director';
     }
   },
   methods: {
