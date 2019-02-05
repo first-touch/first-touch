@@ -1,5 +1,5 @@
 <template>
-  <nav id="landing-navbar" class="navbar navbar-expand-md sticky-top">
+  <nav id="landing-navbar" class="navbar navbar-expand-lg sticky-top">
     <a class="navbar-brand" href="/">
       <img src="/images/landing-page/ft-navbar-logo.png" alt="Ft logo">
     </a>

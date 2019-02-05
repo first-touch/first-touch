@@ -81,7 +81,7 @@
                 <option value="coach">Coach</option>
               </select>
             </fieldset>
-            <fieldset class="form-group col-lg-8 col-md-12" v-if="this.role_name != 'director'">
+            <fieldset class="form-group col-lg-8 col-md-8" v-if="this.role_name != 'director'">
               <label>Your Club</label>
               <div class="row">
                 <div class="col">
