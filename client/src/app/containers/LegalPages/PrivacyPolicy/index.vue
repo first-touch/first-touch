@@ -1,6 +1,6 @@
 <template>
   <div>
-    <landing-navbar sticky />
+    <landing-navbar />
     <div class="container-fluid">
       <div class="row">
         <div class="col-12 col-lg-2 no-padding">
