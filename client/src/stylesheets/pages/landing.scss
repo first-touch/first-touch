@@ -1,10 +1,6 @@
 @import '../variables';
 @import '~stylesheets/organisms/full-page';
 
-#content {
-  min-height: calc(100vh - 40px);
-}
-
 .full {
   background: $navbar-background-color;
 
