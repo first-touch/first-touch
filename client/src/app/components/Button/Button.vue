@@ -27,7 +27,6 @@
   }
 </style>
 
-
 <script>
 export default {
   props: {
