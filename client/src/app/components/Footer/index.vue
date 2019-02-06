@@ -83,11 +83,11 @@
 </template>
 
 <style lang="scss" scoped>
+  @import '~stylesheets/variables';
   .footer-separator {
-    background-color: #343434;
+    background-color: $background-color;
   }
 </style>
-
 
 <script>
 export default {
