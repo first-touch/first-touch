@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sidebar />
+    <!-- <sidebar /> -->
     <div class="container-fluid">
       <div class="ft-page">
         <div v-if="value != null" class="report-div">

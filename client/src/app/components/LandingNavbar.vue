@@ -1,27 +1,67 @@
 <template>
-  <b-navbar toggleable="md" variant="" type="" :sticky="sticky" id="landing-navbar">
-    <b-nav-toggle target="ft-nav-collapse" />
-      <a href="/welcome" class="navbar-brand">
-        <img src="/images/landing-page/ft-navbar-logo.png" alt="Ft logo">
-      </a>
-    <b-collapse isNav id="ft-nav-collapse">
-      <b-nav class="ml-auto navOptions">
-        <b-nav-item>
-          <router-link to="/">ABOUT</router-link>
-        </b-nav-item>
-        <form class="form-inline nav-link">
-          <router-link to="/users/sign_up" class="btn btn-outline-secondary">SIGN UP</router-link>
-        </form>
-         <b-nav-item>
-          <router-link to="/users/sign_in">LOG IN</router-link>
-        </b-nav-item>
-      </b-nav>
-    </b-collapse>
-  </b-navbar>
+  <nav id="landing-navbar" class="navbar navbar-expand-lg sticky-top">
+    <a class="navbar-brand" href="/">
+      <img src="/images/landing-page/ft-navbar-logo.png" alt="Ft logo">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav" aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar-nav">
+      <ul class="navbar-nav ml-auto list-unstyled">
+        <li>
+          <router-link to="/about">About</router-link>
+        </li>
+        <li>
+          <router-link to="/users/sign_up">Sign Up</router-link>
+        </li>
+        <li>
+          <router-link to="/users/sign_in">Login</router-link>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/molecules/m-navigation';
+  @import '~stylesheets/variables';
+
+  // TODO: Duplicated with Mobile Navbar. Find a way to share the style
+  #landing-navbar {
+    ul {
+      p {
+        padding: 10px;
+      }
+
+      li a {
+        padding: 10px;
+        font-size: 1.1em;
+        display: block;
+        text-transform: uppercase;
+      }
+
+      li a:hover {
+        background: $nav-hover-background;
+        color: $secondary-text-color;
+        text-decoration: none;
+      }
+
+      li a.router-link-exact-active.router-link-active, a[aria-expanded="true"] {
+        color: $main-header-color;
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    #landing-navbar {
+     .navbar-brand {
+      img {
+        height: 40px;
+        }
+      }
+    }
+  }
 </style>
 
 <script>

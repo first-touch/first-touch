@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sidebar />
+    <!-- <sidebar /> -->
     <div class="container-fluid">
       <div class="ft-page">
         <div class="widget-request ft-search-widget">

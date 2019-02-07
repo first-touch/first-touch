@@ -1,101 +1,63 @@
 <template>
-  <div class="searchbar-top">
-    <div class="input-group">
-      <input type="text" v-model="searchTerm"
-        @keyup.prevent="search({ searchTerm })"
-        class="form-control m-field-input" :placeholder="placeholder"
-      />
-      <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button">
-          <img class="img-fluid" src="https://d30y9cdsu7xlg0.cloudfront.net/png/15803-200.png" />
-        </button>
-      </span>
-      <div class="search-results-container">
-        <result v-for="result in results" :info="result" :key="result.id" :action="action" />
+  <form class="mx-2 my-auto d-inline w-50">
+    <input @blur="lostFocus" @focus="gainedFocus" class="form-control" v-model="searchTerm"
+      @keyup.prevent="getSearchResults({ searchTerm })"
+      type="search" placeholder="Search" aria-label="Search" />
+      <div class="position-absolute" v-if="displayResults" id="results-container" role="listbox">
+        <result v-for="result in results" :info="result" :key="result.id" />
       </div>
-    </div>
-  </div>
+  </form>
 </template>
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
 
-.searchbar-top {
-  position: fixed;
-  z-index: 2;
-  top: 0;
-  left: $navbar-width;
-  width: 62vw;
-  padding: $searchbar-padding;
-  background-color: $navbar-background-color-faded;
+#results-container {
+  top: 62px;
+  z-index: 1;
+}
 
-  .input-group {
-    flex-wrap: wrap;
-    .form-control {
-      flex: 1 0 80%;
-      // border-radius: 0;
-      border: none;
-      font-size: 0.85rem;
-      font-weight: 300;
-      &:focus {
-        border-color: #ccc;
-      }
-      &:hover,
-      &:focus {
-        border: none;
-        box-shadow: none;
-      }
-      &:focus ~ .search-results-container {
-        display: flex;
-      }
-      &::placeholder {
-        color: #bcbcbc;
-      }
-    }
-    .input-group-btn .btn {
-      flex: 1 0 20%;
-      border-radius: 0 0.25rem 0.25rem 0;
-      border: none;
-      background-color: #fff;
-      &:hover {
-        background-color: #fff;
-        border-color: #ccc;
-        border-left: none;
-      }
-      .img-fluid {
-        width: 20px;
-        height: 20px;
-      }
-    }
-  }
-  .search-results-container {
-    display: none;
-    flex-wrap: wrap;
-    position: absolute;
-    flex: 1 0 auto;
-    width: 100%;
-    margin-top: 34px;
-    &:hover {
-      display: flex;
-    }
+@media screen and (max-width: 768px) {
+  #results-container {
+    top: 140px;
   }
 }
 </style>
 
 <script>
+import { mapActions, mapGetters	} from 'vuex';
 import AutoComplete from 'v-autocomplete';
 import SearchResult from './components/SearchResult';
 
 export default {
   name: 'SearchBar',
-  props: ['search', 'results','placeholder','action'],
   components: {
     result: SearchResult
   },
   data() {
     return {
-      searchTerm: ''
+      searchTerm: '',
+      searchHasFocus: false
     };
+  },
+  methods: {
+    ...mapGetters(['searchResult']),
+    ...mapActions(['getSearchResults']),
+    gainedFocus() {
+      this.searchHasFocus = true;
+    },
+    lostFocus() {
+      this.searchHasFocus = false;
+    }
+  },
+  computed: {
+    displayResults() {
+      return this.searchHasFocus && this.results.length > 0;
+    },
+    results() {
+      if(!this.searchResult().value) { return []; }
+      return this.searchResult().value;
+    }
   }
 };
 </script>

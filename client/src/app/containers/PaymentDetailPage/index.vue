@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sidebar />
+    <!-- <sidebar /> -->
     <div class="container-fluid">
       <b-modal ref="metaModal" id="metaModal" size="lg" @hide="flushEdit()">
         <personalinformationpopup v-if="personalInformation" :submit="custonNewStripe" :stripeRequired="stripeRequiredFields" :stripe="stripe"

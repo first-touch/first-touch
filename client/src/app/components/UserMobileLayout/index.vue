@@ -1,0 +1,18 @@
+<template>
+  <div class="wrapper">
+    <mobile-navbar></mobile-navbar>
+    <flash-message outerClass="col-lg-4 m-feedback"></flash-message>
+    <router-view class="main-content-wrapper"></router-view>
+  </div>
+</template>
+
+<script>
+  import MobileNavbar from './components/MobileNavbar';
+
+  export default {
+    name: 'UserMobileLayout',
+    components: {
+      'mobile-navbar': MobileNavbar
+    }
+  };
+</script>

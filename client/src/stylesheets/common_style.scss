@@ -1,42 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,300);
-
-body {
-  background: $navbar-background-color;
-  min-height: 100%;
-  font-family: 'Ubuntu', sans-serif;
-  color: $first-touch-white;
-}
-
-.ft-page {
-  &:before {
-    content: '';
-    position: absolute;
-    margin-top: -15px;
-    width: 3%;
-    border-top: 5px solid $main-header-color;
-  }
-  .timeline-widget-button {
-    span {
-      padding-left: 4px;
-      width: 49px;
-      height: 49px;
-      background-color: $main-header-color;
-      border: solid 1px #a8cb5c;
-    }
-    svg {
-      text-align: center;
-      font-size: 1.5em;
-      margin-left: 5px;
-      margin-top: 5px;
-    }
-  }
-  margin: $searchbar-height 20vw 0 $navbar-width;
-  &~.ft-page {
-    margin-top: auto;
-  }
-  min-height: calc(100vh - 119px);
-  padding: 20px;
-}
+@import 'variables';
 
 .arrow {
   width: 0;
@@ -45,14 +7,6 @@ body {
   border-top: 7px solid transparent;
   border-bottom: 7px solid transparent;
   border-left: 7px solid;
-}
-
-.sidenav-right {
-  position: fixed;
-  z-index: 3;
-  right: 0;
-  top: 0;
-  width: 20vw;
 }
 
 .info-blk {

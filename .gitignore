@@ -27,9 +27,6 @@ config/secrets.yml
 .byebug_history
 .env
 
-# node packages
-node_modules
-
 *.log
 
 public/paperclip
@@ -41,7 +38,6 @@ public/paperclip
 config/secrets.yml.key
 /client/src/app/constants/StripeConstant.js
 /checkout.bat
-/client/package-lock.json
 /dump.rdb
 /marketplace-GlobalInput.bat
 /marketplace-bids-C02.bat
@@ -58,3 +54,7 @@ config/secrets.yml.key
 /public/bid/15/new 1.txt
 /zip.zip
 storage
+client/.tmp
+client/coverage
+client/dist
+client/node_modules

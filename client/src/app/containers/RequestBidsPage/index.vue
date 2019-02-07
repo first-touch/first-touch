@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sidebar />
+    <!-- <sidebar /> -->
     <div class="container-fluid">
       <div class="ft-page">
         <actions class="actions" v-if="request.value" :id="request.value.id" :status="request.value.status" :updateStatus="customUpdateRequest">

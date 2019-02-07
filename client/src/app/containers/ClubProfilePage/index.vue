@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sidebar />
+    <!-- <sidebar /> -->
     <div class="ft-page">
       <div class="profile">
         <h4 class="spaced-title upper-cased main-color">Club Profile</h4>

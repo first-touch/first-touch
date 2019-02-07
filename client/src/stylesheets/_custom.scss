@@ -5,8 +5,9 @@
 $font-family-base: Ubuntu;
 
 $theme-colors: (
-  "dark": #000,
-  "primary": #439042
+  "dark": $navbar-background-color,
+  "primary": $main-header-color,
+  "success": $link-color-hover
 );
 
 $carousel-indicator-active-bg: $main-header-color;

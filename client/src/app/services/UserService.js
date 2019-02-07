@@ -4,6 +4,21 @@ import store from 'app/store';
 export default {
   endpoint: '/api/v1/users',
 
+  getUser () {
+    const token = store.state.token.value;
+    return fetch('/api/v1/user', {
+      headers: {
+        Authorization: token
+      }
+    }).then(res => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        Promise.reject(res);
+      }
+    });
+  },
+
   update (attributes) {
     const token = store.state.token.value;
 

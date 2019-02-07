@@ -8,7 +8,7 @@ import ConfirmAccount from 'app/containers/ConfirmAccount';
 import ResetPassword from 'app/containers/ResetPassword';
 import EditPassword from 'app/containers/EditPassword';
 import PreRegistration from 'app/containers/PreRegistrationPage';
-import UserLayout from 'app/components/UserLayout';
+import UserMobileLayout from 'app/components/UserMobileLayout';
 import SignupPage from 'app/containers/SignupPage';
 import LoginPage from 'app/containers/LoginPage';
 import FeedPage from 'app/containers/FeedPage';
@@ -67,10 +67,15 @@ window.JQuery = require('jquery');
 window._ = require('lodash');
 
 function requireAuth (to, from, next) {
-  // if (!store.state.token) {
   if (!store.state.token || !store.state.token.value) {
     next({ path: '/welcome' });
-  } else next();
+  } else {
+    store.dispatch('getUserInfo').then(() => {
+      next();
+    }).catch(() => {
+      next({ path: '/welcome' });
+    });
+  }
 }
 
 function requireClub (to, from, next) {
@@ -120,7 +125,7 @@ export const router = new VueRouter({
     },
     {
       path: '/',
-      component: UserLayout,
+      component: UserMobileLayout,
       beforeEnter: requireAuth,
       children: [
         { path: 'notes', component: NotesPage },

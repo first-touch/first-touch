@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <landing-navbar sticky/>
+    <landing-navbar/>
     <div class="container">
       <div class="header">
         <div class="hero-container">
@@ -57,6 +57,7 @@
         </div>
       </div>
     </div>
+    <ft-footer />
   </div>
 </template>
 <style lang="scss" scoped>
@@ -143,10 +144,13 @@
 
 <script>
 import LandingNavbar from 'app/components/LandingNavbar';
+import Footer from 'app/components/Footer';
+
 export default {
   name: 'About',
   components: {
-    'landing-navbar': LandingNavbar
+    'landing-navbar': LandingNavbar,
+    'ft-footer': Footer
   }
 };
 </script>

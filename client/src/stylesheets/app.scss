@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu:400,300');
+@import url('https://use.fontawesome.com/releases/v5.7.1/css/all.css');
 @import 'custom';
 @import '~bootstrap/scss/bootstrap';
 @import 'atoms/a-layout';
@@ -7,7 +8,6 @@
 @import 'atoms/a-feedback';
 @import 'atoms/a-text';
 @import 'molecules/m-forms';
-@import 'molecules/m-navigation';
 @import 'molecules/m-messaging';
 @import 'molecules/m-user-elements';
 
@@ -18,4 +18,5 @@ body {
   min-height: 100%;
   font-family: 'Ubuntu', sans-serif;
   color: $first-touch-white;
+  background-color: $navbar-background-color;
 }

@@ -87,19 +87,6 @@
         </li>
       </ul>
     </div>
-    <div class="sidenav-right">
-      <div class="nav-list">
-        <div class="nav-item">
-          <a href="/about">About</a>
-        </div>
-        <div class="nav-item">
-          <a href="/settings">Settings</a>
-        </div>
-        <div class="nav-item">
-          <button @click="handleLogout">Logout</button>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
