@@ -11,7 +11,7 @@ const getters = Object.keys(state).reduce((v, k) => {
   return v;
 }, {
   userClubId: (state) => {
-    if (state.clubs.length > 0) {
+    if (state.clubs && state.clubs.length > 0) {
       return state.clubs[0].id;
     } else {
       return undefined;
