@@ -1,164 +1,80 @@
 <template>
-  <div v-bind:class="{ active: isActive }" id="first-touch-navbar">
-    <!-- Sidebar -->
-    <nav v-bind:class="{ active: isActive }" id="sidebar">
-      <div class="sidebar-header">
-        <img class="img-fluid" src="/images/landing-page/ft-navbar-logo.png" alt="Ft Logo" />
-      </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <router-link to="/" class="navbar-brand">
+      <img class="img-fluid" src="/images/landing-page/ft-navbar-logo.png" alt="Ft Logo" />
+    </router-link>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <ul class="list-unstyled">
-        <li>
-          <router-link to="/" @click.native="closeSidebar">Home</router-link>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <router-link class="nav-link" to="/profile">Profile</router-link>
         </li>
-        <li>
-          <router-link to="/profile" @click.native="closeSidebar">Profile</router-link>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/messages">Messages</router-link>
         </li>
-        <li>
-          <router-link to="/messages" @click.native="closeSidebar">Messages</router-link>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/network">My Network</router-link>
         </li>
-        <li>
-          <router-link to="/network" @click.native="closeSidebar">My Network</router-link>
-        </li>
-        <li>
-          <router-link to="/notes" @click.native="closeSidebar">My Notes</router-link>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/notes">My Notes</router-link>
         </li>
         <li v-if="hasClubModule">
-          <router-link to="/club" @click.native="closeSidebar">Club</router-link>
+          <router-link class="nav-link" to="/club">Club</router-link>
         </li>
         <li v-if="hasScoutModule">
           <a href="#scouting-submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Scouting</a>
           <ul class="collapse list-unstyled" id="scouting-submenu">
-            <li>
-              <router-link :to="{ name: 'scoutReportCreate'}" @click.native="closeSidebar">Create Report</router-link>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{ name: 'scoutReportCreate'}">Create Report</router-link>
             </li>
-            <li>
-              <router-link :to="{ name: 'scoutJobsList'}" @click.native="closeSidebar">Jobs List</router-link>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{ name: 'scoutJobsList'}">Jobs List</router-link>
             </li>
-            <li>
-              <router-link :to="{ name: 'scoutJobsBank'}" @click.native="closeSidebar">Jobs Bank</router-link>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{ name: 'scoutJobsBank'}">Jobs Bank</router-link>
             </li>
-            <li>
-              <router-link :to="{ name: 'scoutPaymentDetailPage'}" @click.native="closeSidebar">Payment Details</router-link>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{ name: 'scoutPaymentDetailPage'}">Payment Details</router-link>
             </li>
           </ul>
         </li>
         <li v-if="hasPartnerModule">
           <a href="#partners-submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Partners</a>
           <ul class="collapse list-unstyled" id="partners-submenu">
-            <li>
-              <router-link to="/" @click.native="closeSidebar">Scouts</router-link>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/">Scouts</router-link>
             </li>
-            <li>
-              <router-link to="/" @click.native="closeSidebar">Directors of Football</router-link>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/">Directors of Football</router-link>
             </li>
-            <li>
-              <router-link to="/" @click.native="closeSidebar">Agents</router-link>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/">Agents</router-link>
             </li>
           </ul>
         </li>
-        <li>
-          <router-link to="/about" @click.native="closeSidebar">About</router-link>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/about">About</router-link>
         </li>
-        <li>
-          <router-link to="#" @click.native="handleLogout">Logout</router-link>
+        <li class="nav-item">
+          <router-link class="nav-link" to="#" @click.native="handleLogout">Logout</router-link>
         </li>
       </ul>
-    </nav>
-    <button v-on:click="toggleSidebar" type="button" id="sidebar-collapse" class="a-bar-button d-sm-block d-md-none">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </div>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
 </template>
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
 
-  #first-touch-navbar {
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    max-width: 250px;
-  }
-
-  #sidebar-collapse {
-    position: relative;
-    z-index: 1000;
-    top: 10px;
-    left: 10px;
-  }
-
-  #sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    min-height: 100vh;
-
-    background: $navbar-background-color;
-    color: $secondary-text-color;
-    transition: all 0.3s;
-
-    // TODO: Fix this class name as it means the exact opposite. If the sidebar
-    // is active then currently its hidden
-    &.active {
-      margin-left: -250px;
-    }
-
-    .sidebar-header {
-      padding: 20px;
-    }
-
-    ul.components {
-      padding: 20px 0;
-      border-bottom: 1px solid $navbar-background-color-faded;
-    }
-
-    ul {
-      p {
-        padding: 10px;
-      }
-
-      li a {
-        padding: 10px;
-        font-size: 1.1em;
-        display: block;
-        text-transform: uppercase;
-      }
-
-      li a:hover {
-        background: $nav-hover-background;
-        color: $secondary-text-color;
-        text-decoration: none;
-      }
-
-      li a.router-link-exact-active.router-link-active, a[aria-expanded="true"] {
-        color: $main-header-color;
-      }
-    }
-  }
-
-  ul ul a {
-    font-size: 0.9em !important;
-    padding-left: 30px !important;
-  }
-
-  a[data-toggle="collapse"] {
-    position: relative;
-  }
-
-  .dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-  }
-
-  @media screen and (max-width: 768px) {
-    #sidebar {
-      margin-left: -250px;
-    }
-    #sidebar.active {
-      margin-left: 0;
-    }
+  li a.router-link-exact-active.router-link-active, a[aria-expanded="true"] {
+    color: $main-header-color;
   }
 </style>
 
@@ -168,11 +84,6 @@ import { ASYNC_LOADING, ASYNC_SUCCESS } from '../../../constants/AsyncStatus';
 
 export default {
   name: 'MobileNavbar',
-  data() {
-    return {
-      isActive: false
-    }
-  },
   computed: {
     ...mapGetters(['user']),
     ...mapActions(['logout']),
@@ -193,13 +104,13 @@ export default {
       return this.role == 'player' || this.role == 'director';
     }
   },
+  watch: {
+    '$route': 'closeSidebar'
+  },
   methods: {
-    toggleSidebar() {
-      this.isActive = !this.isActive;
-    },
     closeSidebar() {
-      if(!this.isActive) { return; }
-      this.isActive = false;
+      let navbar = $("#navbarSupportedContent");
+      navbar.collapse('hide');
     },
     handleLogout() {
       this.logout.then(() => {

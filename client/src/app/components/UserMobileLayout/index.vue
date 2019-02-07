@@ -6,18 +6,6 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-  .wrapper {
-    display: flex;
-    width: 100%;
-    align-items: stretch;
-  }
-  .main-content-wrapper {
-    flex-grow: 1;
-    overflow: hidden;
-  }
-</style>
-
 <script>
   import MobileNavbar from 'app/components/UserLayout/components/MobileNavbar';
   import SearchBar from '../SearchBar';
