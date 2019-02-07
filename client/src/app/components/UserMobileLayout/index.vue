@@ -8,13 +8,11 @@
 
 <script>
   import MobileNavbar from 'app/components/UserLayout/components/MobileNavbar';
-  import SearchBar from '../SearchBar';
 
   export default {
     name: 'UserMobileLayout',
     components: {
-      'mobile-navbar': MobileNavbar,
-      'search-bar': SearchBar
+      'mobile-navbar': MobileNavbar
     }
   };
 </script>
