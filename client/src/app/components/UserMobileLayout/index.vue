@@ -19,7 +19,6 @@
 </style>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
   import MobileNavbar from 'app/components/UserLayout/components/MobileNavbar';
   import SearchBar from '../SearchBar';
 
@@ -28,14 +27,6 @@
     components: {
       'mobile-navbar': MobileNavbar,
       'search-bar': SearchBar
-    },
-    data() {
-      return {
-        placeholder: 'Search for players, clubs, events'
-      }
-    },
-    computed: {
-      ...mapGetters(['searchResult']),
     }
   };
 </script>
