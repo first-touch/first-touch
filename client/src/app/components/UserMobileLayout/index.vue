@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import MobileNavbar from 'app/components/UserLayout/components/MobileNavbar';
+  import MobileNavbar from './components/MobileNavbar';
 
   export default {
     name: 'UserMobileLayout',

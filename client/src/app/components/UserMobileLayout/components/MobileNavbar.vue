@@ -8,7 +8,8 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
+      <search-bar />
+      <ul class="navbar-nav navbar-right ml-auto">
         <li class="nav-item">
           <router-link class="nav-link" to="/profile">Profile</router-link>
         </li>
@@ -62,7 +63,6 @@
           <router-link class="nav-link" to="#" @click.native="handleLogout">Logout</router-link>
         </li>
       </ul>
-      <search-bar />
     </div>
   </nav>
 </template>
