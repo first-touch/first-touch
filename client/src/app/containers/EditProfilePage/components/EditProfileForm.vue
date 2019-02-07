@@ -1,204 +1,206 @@
 <template>
-   <div class="profile-form">
-      <form @submit.prevent="updateProfilePic" enctype="multipart/form-data">
-         <fieldset class="form-group">
-            <label>Your Profile Picture</label>
-            <div class="row">
-               <div class="col-2">
-                  <input type="file" id="avatar" name="avatar" accept="image/*" @change="filePickerUpdated($event.target.files)" class="input-file">
-                  <img data-v-8e1e5708="" :src="currentAvatar" class="rounded-circle img-fluid">
-               </div>
-               <div class="col-4">
-                  <button type="submit" :disabled="noNewAvatar" class="form-control a-bar-button">Update my picture</button>
-               </div>
+  <div class="profile-form">
+    <form @submit.prevent="updateProfilePic" enctype="multipart/form-data">
+      <fieldset class="form-group">
+        <label>Your Profile Picture</label>
+          <div class="row">
+            <div class="col-2">
+              <input type="file" id="avatar" name="avatar" accept="image/*" @change="filePickerUpdated($event.target.files)" class="input-file">
+              <img data-v-8e1e5708="" :src="currentAvatar" class="rounded-circle img-fluid">
             </div>
-         </fieldset>
-      </form>
-      <form @submit.prevent="handleSubmit">
-         <fieldset class="form-group">
-            <label>Your Name</label>
-            <div class="row">
-               <div class="col">
-                  <input type="text" v-model="first_name" class="form-control m-field-input" placeholder="First Name" />
-               </div>
-               <div class="col">
-                  <input type="text" v-model="middle_name" class="form-control m-field-input" placeholder="Middle Name" />
-               </div>
-               <div class="col">
-                  <input type="text" v-model="last_name" class="form-control m-field-input" placeholder="Last Name" />
-               </div>
+            <div class="col-4">
+               <button type="submit" :disabled="noNewAvatar" class="form-control a-bar-button">Update my picture</button>
             </div>
-         </fieldset>
-         <fieldset class="form-group">
-            <label>Date Of Birth</label>
-            <div class="row">
-               <div class="col">
-                  <select v-model="bMonth" class="form-control m-field-input">
-                     <option disabled value="">Month</option>
-                     <option value="1">January</option>
-                     <option value="2">February</option>
-                     <option value="3">March</option>
-                     <option value="4">April</option>
-                     <option value="5">May</option>
-                     <option value="6">June</option>
-                     <option value="7">July</option>
-                     <option value="8">August</option>
-                     <option value="9">September</option>
-                     <option value="10">October</option>
-                     <option value="11">November</option>
-                     <option value="12">December</option>
-                  </select>
-               </div>
-               <div class="col">
-                  <select v-model="bDay" class="form-control m-field-input">
-                     <option disabled value="">Date</option>
-                     <option v-for="d in 31" :value="d">{{ d }}</option>
-                  </select>
-               </div>
-               <div class="col">
-                  <input type="number" v-model="bYear" class="form-control m-field-input" placeholder="Year" />
-               </div>
             </div>
-         </fieldset>
-         <fieldset class="form-group">
-            <label>Nationality</label>
-            <div class="row">
-               <div class="col">
-                  <select v-model="country_code"  class="form-control m-field-input">
-                     <option disabled value="" selected>Country of Birth</option>
-                     <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
-                  </select>
-               </div>
-               <div class="col">
-                  <input type="text" v-model="place_of_birth" class="form-control m-field-input" placeholder="Place of Birth" />
-               </div>
+      </fieldset>
+    </form>
+    <form @submit.prevent="handleSubmit">
+      <fieldset class="form-group">
+        <label>Your Name</label>
+        <div class="row">
+          <div class="col">
+            <input type="text" v-model="first_name" class="form-control m-field-input" placeholder="First Name" />
+          </div>
+          <div class="col">
+            <input type="text" v-model="middle_name" class="form-control m-field-input" placeholder="Middle Name" />
+          </div>
+          <div class="col">
+            <input type="text" v-model="last_name" class="form-control m-field-input" placeholder="Last Name" />
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Date Of Birth</label>
+        <div class="row">
+          <div class="col">
+            <select v-model="bMonth" class="form-control m-field-input">
+              <option disabled value="">Month</option>
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </div>
+          <div class="col">
+            <select v-model="bDay" class="form-control m-field-input">
+              <option disabled value="">Date</option>
+              <option v-for="d in 31" :value="d">{{ d }}</option>
+            </select>
+          </div>
+          <div class="col">
+            <input type="number" v-model="bYear" class="form-control m-field-input" placeholder="Year" />
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Nationality</label>
+        <div class="row">
+          <div class="col">
+            <select v-model="country_code"  class="form-control m-field-input">
+              <option disabled value="" selected>Country of Birth</option>
+              <option v-for="c in countries" :key="c.country_code" :value="c.country_code">{{ c.country_name }}</option>
+            </select>
+          </div>
+          <div class="col">
+            <input type="text" v-model="place_of_birth" class="form-control m-field-input" placeholder="Place of Birth" />
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Physique</label>
+        <div class="row">
+          <div class="col">
+            <div class="input-group mb-3">
+              <input type="number" v-model="weight" class="form-control m-field-input" placeholder="Weight" />
+              <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2">Kg</span>
+              </div>
             </div>
-         </fieldset>
-         <fieldset class="form-group">
-            <label>Physique</label>
-            <div class="row">
-               <div class="col">
-                  <div class="input-group mb-3">
-                     <input type="number" v-model="weight" class="form-control m-field-input" placeholder="Weight" />
-                     <div class="input-group-append">
-                        <span class="input-group-text" id="basic-addon2">Kg</span>
-                     </div>
-                  </div>
-               </div>
-               <div class="col">
-                  <div class="input-group mb-3">
-                     <input type="number" v-model="height" class="form-control m-field-input" placeholder="Height" />
-                     <div class="input-group-append">
-                        <span class="input-group-text" id="basic-addon2">cm</span>
-                     </div>
-                  </div>
-               </div>
-               <div class="col">
-                  <select v-model="preferred_foot" class="form-control m-field-input">
-                     <option disabled value="">Preferred Foot</option>
-                     <option value="R">Right</option>
-                     <option value="L">Left</option>
-                     <option value="B">Both</option>
-                  </select>
-               </div>
+          </div>
+          <div class="col">
+            <div class="input-group mb-3">
+              <input type="number" v-model="height" class="form-control m-field-input" placeholder="Height" />
+              <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2">cm</span>
+              </div>
             </div>
-         </fieldset>
-          <fieldset class="form-group">
-            <label>Career Entries</label>
-            <fieldset v-for= "career_history of career_histories" class="form-group col-md-12">
-               <div class="row">
-
-                   <div class="career_entries_fast"><h3>{{ career_history.id }}.</h3></div>
-                  <select name="country_code" id="country_code" v-model="career_history.club_country" class="form-control select-btn col" @change="handleChange">
-                     <option disabled value="" selected>Country</option>
-                     <option v-for="c in countries" :key="c.country_code" :value="c.country_code" v-bind:data-foo="c.country_code">{{ c.country_name }}</option>
-                  </select>
-                   <select name="club_name" id="club_name" class="form-control col" v-model="career_history.club_name">
-                    <option disabled value="">{{ career_history.club_name }}</option>
-                    <option v-for="club in todos.clubs" :key="club.id" :value="club.id">{{ club.name }}</option>
-
-                  </select>
-               </div>
-               <div class="row">
-                  <div class="col select-btn-two">
-                   <select name="your_role" id="your_role" v-model="career_history.your_role" class="form-control select-btn col">
-                      <option disabled value="" selected>Your Role</option>
-                       <option v-for="role in roles" :key="role.role_name" :value="role.role_name">{{ role.role_name }}</option>
-                    </select>
-                  </div>
-                  <div class="col select-btn-two">
-                     <input name="start_date" v-model="career_history.start_date" placeholder="Start Date" class="form-control m-field-input" type="text" onfocus="(this.type='date')"  id="date">
-                  </div>
-                  <div class="col select-btn-three">
-                      <input name="end_date" v-model="career_history.end_date"  placeholder="End Date" class="form-control m-field-input" type="text" onfocus="(this.type='date')"  id="date">
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col remove-space">
-                  <button class="button-Delete" type="button" name="dentry" value="Delete"> Delete </button>
-                  </div>
-               </div>
-            </fieldset>
-         </fieldset>
-         <fieldset class="form-group">
-            <button type="submit" class="form-control a-bar-button">Save</button>
-         </fieldset>
-      </form>
+          </div>
+          <div class="col">
+            <select v-model="preferred_foot" class="form-control m-field-input">
+              <option disabled value="">Preferred Foot</option>
+                <option value="R">Right</option>
+                <option value="L">Left</option>
+                <option value="B">Both</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Career Entries</label>
+        <fieldset v-for= "(career_event,index )  in career_histories" v-model="career_histories" class="form-group col-md-12">
+          <div class="row">
+            <div class="career-entries-fast"><h3>{{ index+1 }}</h3></div>
+            <select name="country_code" id="country_code" v-model="career_event.club.country_code" class="form-control select-btn col" @change="handleChange">
+              <option v-for="c in countries" :key="c.country_code" :value="c.country_code" v-bind:data-foo="c.country_code">{{ c.country_name }}</option>
+            </select>
+            <select name="club_name" v-model="career_event.club.name" id="club_name" class="form-control col" >
+              <option v-bind:value="career_event.club.name">{{ career_event.club.name}}</option>
+              <option v-for="club in searched_clubs.clubs" v-bind:value="career_event.club.name">{{ club.name}}</option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="col select-btn-two">
+              <select name="your_role" id="your_role" class="form-control select-btn col">
+                <option value="career_event.role" selected>{{ career_event.role }}</option>
+                <option v-for="role in roles" :key="role.role_name" :value="role.role_name">{{ role.role_name }}</option>
+              </select>
+            </div>
+            <div class="col select-btn-two">
+              <input v-bind:value="career_event.start_date" type="text" onfocus="(this.type='date')"  id="date" class="form-control m-field-input" >
+            </div>
+            <div class="col select-btn-three">
+              <input v-bind:value="career_event.end_date" type="text" onfocus="(this.type='date')"  id="date" class="form-control m-field-input" >
+            </div>
+          </div>
+          <div class="row">
+            <div v-if="!isHidden" id="parent" class="col remove-space">
+              <button class="button-delete" @click="deleteCareerEntry(career_event.id,index)" type="button" name="dentry" value="Delete"> Delete </button>
+            </div>
+          </div>
+        </fieldset>
+      </fieldset>
+      <fieldset class="form-group">
+        <button type="submit" class="form-control a-bar-button">Save</button>
+      </fieldset>
+    </form>
    </div>
 </template>
 
 <style lang="scss" scoped>
    @import '~stylesheets/variables';
-   .form-group {
-     label {
+    .form-group {
+      label {
         color: $main-text-color;
-     }
-   }
+      }
+    }
 
-   .input-file {
+    .input-file {
       opacity: 0; /* invisible but it's there! */
-       width: 100%;
-       height: 100px;
-       position: absolute;
-       cursor: pointer;
-       margin-top: -32px;
+      width: 100%;
+      height: 100px;
+      position: absolute;
+      cursor: pointer;
+      margin-top: -32px;
+
+    }
+
+    .select-btn {
+     width: 100%;
+     display: inline-block;
+     margin: 0 24px 24px 0px;
+
+    }
+
+   .select-btn-two,.select-btn-three {
+     padding: 0 0 0 24px;
+     margin: 0 0 10px 0px;
+
    }
 
-  .select-btn {
-    width: 36%;
-    display: inline-block;
-    margin: 0 24px 24px 0px;
-}
+    .button-delete {
+      color: #fff;
+      padding: 5px 14px 5px 15px;
+      background: grey;
 
-.select-btn-two,.select-btn-three {
-    padding: 0 0 0 24px;
-    margin: 0 0 10px 0px;
+    }
 
-}
+   .remove-space {
+     padding: 0 0 0 24px;
 
+    }
 
+   .career-entries-fast h3 {
+     color: #7f8081;
+     font-size: 18px;
+     padding-right: 10px;
 
-.button-Delete {
-    color: #fff;
-    padding: 5px 14px 5px 15px;
-    background: grey;
-}
+   }
 
-.remove-space {
-    padding: 0 0 0 24px;
-}
-
-.career_entries_fast h3 {
-    color: #7f8081;
-    font-size: 18px;
-    padding-right: 10px;
-}
 </style>
 
 <script>
    import ClubService from 'app/services/ClubService';
    import UserService from 'app/services/UserService';
    import CareerEntries from 'app/services/CareerEntries';
+
    import axios from 'axios';
     export default {
      name: 'EditProfileForm',
@@ -217,9 +219,12 @@
        'avatarUrl',
        'updateUserInfo',
        'clubId',
+       'careerHistory',
+
      ],
      data() {
        return {
+         isHidden: false,
          club_country_code: '',
          clubs: [],
          item: null,
@@ -244,11 +249,9 @@
          avatar: undefined,
          formData: {},
          roles: [ { role_name: 'player'},{role_name: 'manager'},{role_name: 'coach'},{role_name: 'scout'},{role_name: 'director'}],
-         career_histories: [
-           {id:'1', club_country: 'BE', club_name: 'AA Gent', your_role: 'player', start_date: '1998-01-20',end_date: '1999-01-20' },
-           {id:'2',  club_country: 'SG', club: 'B Club', your_role: 'manager', start_date: '1998-01-20',end_date: '1999-01-20' }
-         ],
-         todos:[],
+         career_histories: this.careerHistory || '',
+         searched_clubs:[],
+
        };
      },
      computed: {
@@ -275,21 +278,22 @@
        handleChange(e) {
          if(e.target.options.selectedIndex > -1) {
             var country_code = e.target.options[e.target.options.selectedIndex].dataset.foo;
-            axios.get('http://localhost:3001/api/v1/clubs/search?country='+country_code+'').then(response => {
-            this.todos = response.data
-             }).catch(error => {
+            ClubService.searchClubByCountry(country_code).then(response => {
+              this.searched_clubs = response
+            }).catch(response => {
               console.log(error);
-             })
-          }
+            })
+         }
        },
-       updateCareerEntry(careerInfo) {
-          CareerEntries.updateCareerEntries(careerInfo).then(response => {
-           this.flash('Updated successfully', 'success', {
+       deleteCareerEntry(id,index) {
+        this.$delete(this.career_histories, index)
+         CareerEntries.deleteCareerEntries(id).then(response => {
+           this.flash('Delete successfully', 'success', {
              timeout: 3000,
              important: true
            });
          }).catch(response => {
-           this.flash('Failed to update', 'error', {
+           this.flash('Failed to delete', 'error', {
              timeout: 3000,
              important: true
            });
@@ -326,11 +330,13 @@
            weight,
            height,
            preferred_foot,
+           career_histories,
          } = this;
          const nationality_country_code = this.country_code;
          const residence_country_code = this.country_code;
          const birthday = new Date(Date.UTC(bYear, bMonth, bDay));
          this.updateUserInfo({
+           career_histories,
            first_name,
            middle_name,
            last_name,
@@ -351,12 +357,9 @@
        fetchCountries() {
          ClubService.countriesForClubs().then(response => {
            this.$set(this, 'countries',
-                     response.countries.sort((a, b) => a.country_name > b.country_name))
-         });
-       },
-       fetchClubs() {
-
-
+             response.countries.sort((a, b) => a.country_name > b.country_name
+            ))
+         })
        },
        updateItems(text) {
          this.$set(this, 'searchText', text);

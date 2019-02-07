@@ -20,7 +20,9 @@
               :pHeight="height"
               :preferredFoot="preferredFoot"
               :avatarUrl="avatarUrl"
-              :updateUserInfo="updateUserInfo" />
+              :updateUserInfo="updateUserInfo"
+              :clubCountry="clubCountry"
+              :careerHistory="careerHistory" />
           </div>
         </div>
       </div>
@@ -100,29 +102,15 @@ export default {
           };
     },
     careerHistory() {
-     return this.user.status === ASYNC_SUCCESS
-       ? this.user.value.career_history
-       : {
-           club_id: null
-
-         };
-   },
-   clubId(){
-     return this.career_history.club_id || '';
-
-   },
-    careerHistory() {
-     return this.user.status === ASYNC_SUCCESS
-       ? this.user.value.career_history
-       : {
-           club_id: null
-
-         };
+      if(!this.user) { return [] }
+      return this.user.value.career_history|| [];
     },
-    clubId(){
-
-     return this.career_history.club_id || '';
-
+    clubs() {
+      if(!this.user) { return [] }
+      return this.careerHistory.club|| [];
+    },
+    clubCountry() {
+      return this.clubs.country_code ||'';
     },
     firstName() {
       return this.personalProfile.first_name || '';

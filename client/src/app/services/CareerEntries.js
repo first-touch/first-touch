@@ -18,5 +18,23 @@ export default {
         return Promise.reject(response);
       }
     });
+  },
+  deleteCareerEntries (data) {
+    const token = store.state.token.value;
+    console.log(token);
+    return fetch(`${this.endpoint}/` + data, {
+      method: 'DELETE',
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(response);
+      }
+    });
   }
 };
