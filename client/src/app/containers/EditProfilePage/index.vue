@@ -27,17 +27,6 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid">
-      <div class="ft-page edit-profile edit-profile-two">
-        <h4 class="spaced-title upper-cased main-color">Career Entries</h4>
-        <div class="profile-item">
-          <div class="arrow"></div>
-          <div class="form-container">
-              <new-career-entry/>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -68,7 +57,6 @@
 <script>
 import NotificationSidebar from 'app/components/NotificationSidebar';
 import EditProfileForm from './components/EditProfileForm';
-import NewCareerEntry from './components/NewCareerEntry';
 import { mapGetters, mapActions } from 'vuex';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 
@@ -77,7 +65,6 @@ export default {
   components: {
     sidebar: NotificationSidebar,
     'edit-form': EditProfileForm,
-    'new-career-entry': NewCareerEntry,
   },
   computed: {
     ...mapGetters(['user']),

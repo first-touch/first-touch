@@ -3,15 +3,15 @@
     <form @submit.prevent="updateProfilePic" enctype="multipart/form-data">
       <fieldset class="form-group">
         <label>Your Profile Picture</label>
-          <div class="row">
-            <div class="col-2">
-              <input type="file" id="avatar" name="avatar" accept="image/*" @change="filePickerUpdated($event.target.files)" class="input-file">
-              <img data-v-8e1e5708="" :src="currentAvatar" class="rounded-circle img-fluid">
-            </div>
-            <div class="col-4">
-               <button type="submit" :disabled="noNewAvatar" class="form-control a-bar-button">Update my picture</button>
-            </div>
-            </div>
+        <div class="row">
+          <div class="col-2">
+            <input type="file" id="avatar" name="avatar" accept="image/*" @change="filePickerUpdated($event.target.files)" class="input-file">
+            <img data-v-8e1e5708="" :src="currentAvatar" class="rounded-circle img-fluid">
+          </div>
+          <div class="col-4">
+            <button type="submit" :disabled="noNewAvatar" class="form-control a-bar-button">Update my picture</button>
+          </div>
+        </div>
       </fieldset>
     </form>
     <form @submit.prevent="handleSubmit">
@@ -96,43 +96,43 @@
           <div class="col">
             <select v-model="preferred_foot" class="form-control m-field-input">
               <option disabled value="">Preferred Foot</option>
-                <option value="R">Right</option>
-                <option value="L">Left</option>
-                <option value="B">Both</option>
+              <option value="R">Right</option>
+              <option value="L">Left</option>
+              <option value="B">Both</option>
             </select>
           </div>
         </div>
       </fieldset>
       <fieldset class="form-group">
         <label>Career Entries</label>
-        <fieldset v-for= "(career_event,index )  in career_histories" v-model="career_histories" class="form-group col-md-12">
+        <fieldset v-for= "(career_history,index )  in career_histories" v-model="career_histories" class="form-group col-md-12">
           <div class="row">
             <div class="career-entries-fast"><h3>{{ index+1 }}</h3></div>
-            <select name="country_code" id="country_code" v-model="career_event.club.country_code" class="form-control select-btn col" @change="handleChange">
+            <select name="country_code" id="country_code" v-model="career_history.club.country_code" class="form-control select-btn col" @change="handleChange">
               <option v-for="c in countries" :key="c.country_code" :value="c.country_code" v-bind:data-foo="c.country_code">{{ c.country_name }}</option>
             </select>
-            <select name="club_name" v-model="career_event.club.name" id="club_name" class="form-control col" >
-              <option v-bind:value="career_event.club.name">{{ career_event.club.name}}</option>
-              <option v-for="club in searched_clubs.clubs" v-bind:value="career_event.club.name">{{ club.name}}</option>
+            <select name="club_name" v-model="career_history.club.name" id="club_name" class="form-control col" >
+              <option v-bind:value="career_history.club.name">{{ career_history.club.name}}</option>
+              <option v-for="club in searched_clubs.clubs" v-bind:value="career_history.club.name">{{ club.name}}</option>
             </select>
           </div>
           <div class="row">
             <div class="col select-btn-two">
               <select name="your_role" id="your_role" class="form-control select-btn col">
-                <option value="career_event.role" selected>{{ career_event.role }}</option>
+                <option value="career_history.role" selected>{{ career_history.role }}</option>
                 <option v-for="role in roles" :key="role.role_name" :value="role.role_name">{{ role.role_name }}</option>
               </select>
             </div>
             <div class="col select-btn-two">
-              <input v-bind:value="career_event.start_date" type="text" onfocus="(this.type='date')"  id="date" class="form-control m-field-input" >
+              <input v-bind:value="career_history.start_date" type="text" onfocus="(this.type='date')"  id="date" class="form-control m-field-input" >
             </div>
             <div class="col select-btn-three">
-              <input v-bind:value="career_event.end_date" type="text" onfocus="(this.type='date')"  id="date" class="form-control m-field-input" >
+              <input v-bind:value="career_history.end_date" type="text" onfocus="(this.type='date')"  id="date" class="form-control m-field-input" >
             </div>
           </div>
           <div class="row">
             <div v-if="!isHidden" id="parent" class="col remove-space">
-              <button class="button-delete" @click="deleteCareerEntry(career_event.id,index)" type="button" name="dentry" value="Delete"> Delete </button>
+              <button class="button-delete" @click="deleteCareerEntry(career_history.id,index)" type="button" name="dentry" value="Delete"> Delete </button>
             </div>
           </div>
         </fieldset>
@@ -141,6 +141,10 @@
         <button type="submit" class="form-control a-bar-button">Save</button>
       </fieldset>
     </form>
+    <br>
+    <div class="seperation-box">
+      <h3>CAREER ENTRIES </h3>
+    </div>
     <fieldset class="form-group">
       <label>Enter New Career Entries</label>
       <fieldset class="form-group col-md-12">
@@ -203,19 +207,28 @@
       margin-top: -32px;
 
     }
+    .seperation-box{
+      border-top: 2px solid #7f8081;
+      padding: 10px 0;
+    }
+    .seperation-box h3{
+      color:#7f8081;
+      margin: 10px 0px;
+      font-size: large;
+    }
 
     .select-btn {
-     width: 100%;
-     display: inline-block;
-     margin: 0 24px 24px 0px;
+      width: 100%;
+      display: inline-block;
+      margin: 0 24px 24px 0px;
 
     }
 
-   .select-btn-two,.select-btn-three {
-     padding: 0 0 0 24px;
-     margin: 0 0 10px 0px;
+    .select-btn-two,.select-btn-three {
+      padding: 0 0 0 24px;
+      margin: 0 0 10px 0px;
 
-   }
+    }
 
     .button-delete {
       color: #fff;
@@ -224,25 +237,25 @@
 
     }
 
-   .remove-space {
-     padding: 0 0 0 24px;
+    .remove-space {
+      padding: 0 0 0 24px;
 
     }
 
-   .career-entries-fast h3 {
-     color: #7f8081;
-     font-size: 18px;
-     padding-right: 10px;
+    .career-entries-fast h3 {
+      color: #7f8081;
+      font-size: 18px;
+      padding-right: 10px;
 
-   }
-   .button-add {
+    }
+    .button-add {
       color: #fff;
       padding: 11px 32px;
       background: #3f8d42;
       margin: 24px 0 0 0;
     }
 
-   .remove-space-three {
+    .remove-space-three {
       padding: 0;
     }
 
@@ -340,9 +353,15 @@
             })
          }
        },
+       updateInfo() {
+         CareerEntries.returnUserInfo().then(response => {
+           this.career_histories =  response.career_history;
+         })
+       },
        addCareerEntry() {
          var careerInfo =  { "career_entry": {"club_id": this.club_id, "start_date": this.start_date, "end_date": this.end_date, "role": this.role }};
          CareerEntries.updateCareerEntries(careerInfo).then(response => {
+             this.updateInfo();
            this.flash('Added successfully', 'success', {
              timeout: 3000,
              important: true

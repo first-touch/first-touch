@@ -19,6 +19,22 @@ export default {
       }
     });
   },
+  returnUserInfo () {
+    const token = store.state.token.value;
+    return fetch('/api/v1/user', {
+      method: 'GET',
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(response);
+      }
+    });
+  },
   deleteCareerEntries (data) {
     const token = store.state.token.value;
     console.log(token);
