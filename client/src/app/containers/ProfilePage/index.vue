@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <sidebar /> -->
     <div class="ft-page">
       <div class="profile">
         <h4 class="spaced-title upper-cased main-color">{{ mine ? 'Your profile' : 'User Profile' }}</h4>
@@ -8,7 +7,7 @@
           :info="info"
           :follow="followUser"
           :connect="connectUser"/>
-         <career-events :careerHistory="careerHistory" />
+         <!-- <career-events :careerHistory="careerHistory" /> -->
       </div>
     </div>
   </div>

@@ -29,6 +29,7 @@
     "vue-template-compiler": "latest",
     "vue2-dropzone": "latest",
     "vuejs-datepicker": "latest",
+    "vuetify": "^1.5.0",
     "vuex": "latest"
   },
   "devDependencies": {

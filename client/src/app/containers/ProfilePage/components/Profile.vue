@@ -1,5 +1,14 @@
 <template>
-  <timeline-item>
+  <v-container>
+    <v-layout>
+      <v-flex xs-3>
+        <v-avatar size="140px">
+          <img :src="info.personal_profile.avatar_url" />
+        </v-avatar>
+      </v-flex>
+    </v-layout>
+  </v-container>
+  <!-- <timeline-item>
     <div class="profile-item-container" v-if="info">
       <div id="biography" class="flex-row">
         <div class="avatar-wrapper">
@@ -76,7 +85,7 @@
         </div>
       </div>
     </div>
-  </timeline-item>
+  </timeline-item> -->
 </template>
 
 <style lang="scss" scoped>
