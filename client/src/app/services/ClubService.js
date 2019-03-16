@@ -27,6 +27,17 @@ export default {
     });
   },
 
+  searchClubByCountry (params) {
+    const url = `${this.endpoint}/search?country=` + params;
+    return fetch(url).then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(response);
+      }
+    });
+  },
+
   create (data) {
     return fetch(this.endpoint, {
       method: 'POST',
