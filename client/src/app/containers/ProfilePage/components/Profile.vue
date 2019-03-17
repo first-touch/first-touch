@@ -12,15 +12,21 @@
       </div>
     </div>
 
-    <div class="row">
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Overview</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">History</a>
-        </li>
-      </ul>
+    <div class="row mt-2">
+      <div class="col-12">
+        <ul class="nav justify-content-center" id="profile-navbar" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">History</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="profile-navbar-content">
+          <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">Overview</div>
+          <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">History</div>
+        </div>
+      </div>
     </div>
   </div>
   <!-- <timeline-item>
