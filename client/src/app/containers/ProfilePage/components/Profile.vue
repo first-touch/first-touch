@@ -23,90 +23,46 @@
           </li>
         </ul>
         <div class="tab-content" id="profile-navbar-content">
-          <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">Overview</div>
+          <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+            <div id="summary">
+              <h4 class="spaced-title upper-cased main-color">Summary</h4>
+              <div class="flex-row">
+                <div id="summary-text-wrapper">
+                  <p class="detail name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
+                  <p class="detail">
+                    <span class="detail-title">Height</span>
+                    {{ info.personal_profile.height }} cm
+                  </p>
+                  <p class="detail">
+                    <span class="detail-title">Weight</span>
+                    {{ info.personal_profile.weight }} kg
+                  </p>
+                  <p class="detail">
+                    <span class="detail-title">Preferred Foot:</span>
+                    {{ preferredFoot }}
+                  </p>
+                  <p class="detail">
+                    <span class="detail-title">Pro Status:</span>
+                    {{ info.personal_profile.pro_status || "N/a"}}
+                  </p>
+                  <p class="detail">
+                    <span class="detail-title"># Caps:</span>
+                    {{ info.personal_profile.total_caps || "0" }}
+                  </p>
+                  <a href="#" class="btn btn-bright">Biography</a>
+                </div>
+                <div id="playing-position-wrapper">
+                  <h5>Playing position</h5>
+                  <position-rating v-for="positionRating in playingPositions" :positionRating="positionRating"></position-rating>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">History</div>
         </div>
       </div>
     </div>
   </div>
-  <!-- <timeline-item>
-    <div class="profile-item-container" v-if="info">
-      <div id="biography" class="flex-row">
-        <div class="avatar-wrapper">
-          <img class="img-fluid avatar" :src="info.personal_profile.avatar_url" />
-        </div>
-        <div class="info">
-          <h4 class="main-header-color upper-cased">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
-          <h5 id="role">{{ role }}</h5>
-          <p id="club"> {{ clubName }}</p>
-          <p class="detail">
-            <span class="detail-title">Date of birth</span>
-            {{ birthday }}
-          </p>
-          <p class="detail">
-            <span class="detail-title">Nationality/Residency</span>
-            {{ nationalityResidency }}
-          </p>
-          <p class="detail">
-            <span class="detail-title">Place of birth</span>
-            {{ birthplace }}
-          </p>
-          <div class="widget">
-            <div class="widget-row">
-              <router-link v-if="mine" to="/profile/edit" class="btn btn-bright">Edit Profile</router-link>
-              <a v-else-if="!info.following" @click.prevent="follow" href="#" class="btn btn-bright">+ Follow</a>
-              <a v-else-if="info.following" class="btn btn-dark">&#10003; Following</a>
-              <a v-if="!mine && info.connection_status === 'not_connected'"
-                @click.prevent="connect" class="btn btn-bright">
-                Connect
-              </a>
-              <a v-else-if="!mine && info.connection_status === 'pending'"
-                class="btn btn-dark">&sim; Pending
-              </a>
-              <a v-else-if="!mine && info.connection_status === 'connected'"
-                class="btn btn-dark">&#10003; Connected
-              </a>
-              <router-link v-if="!mine" :to="`/messages/${info.id}`" class="btn btn-bright">Message</router-link>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr class="horizontal-separator"/>
-      <div id="summary">
-        <h4 class="spaced-title upper-cased main-color">Summary</h4>
-        <div class="flex-row">
-          <div id="summary-text-wrapper">
-            <p class="detail name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
-            <p class="detail">
-              <span class="detail-title">Height</span>
-              {{ info.personal_profile.height }} cm
-            </p>
-            <p class="detail">
-              <span class="detail-title">Weight</span>
-              {{ info.personal_profile.weight }} kg
-            </p>
-            <p class="detail">
-              <span class="detail-title">Preferred Foot:</span>
-              {{ preferredFoot }}
-            </p>
-            <p class="detail">
-              <span class="detail-title">Pro Status:</span>
-              {{ info.personal_profile.pro_status || "N/a"}}
-            </p>
-            <p class="detail">
-              <span class="detail-title"># Caps:</span>
-              {{ info.personal_profile.total_caps || "0" }}
-            </p>
-            <a href="#" class="btn btn-bright">Biography</a>
-          </div>
-          <div id="playing-position-wrapper">
-            <h5>Playing position</h5>
-            <position-rating v-for="positionRating in playingPositions" :positionRating="positionRating"></position-rating>
-          </div>
-        </div>
-      </div>
-    </div>
-  </timeline-item> -->
 </template>
 
 <style lang="scss" scoped>
