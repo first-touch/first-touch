@@ -29,12 +29,28 @@
           <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
             <div class="row mt-1">
               <div id="summary" class="col-12">
-                <h4 class="spaced-title upper-cased main-color">Summary</h4>
+                <h4 class="spaced-title upper-cased main-color">Personal Details</h4>
               </div>
             </div>
             <div class="row mt-1">
               <div id="summary-contents" class="col-12">
                 <p class="detail name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
+                <p class="detail">
+                  <span class="detail-title">Date of birth</span>
+                  {{ birthday }}
+                </p>
+                <p class="detail">
+                  <span class="detail-title">Nationality</span>
+                  {{ nationality }}
+                </p>
+                <p class="detail">
+                  <span class="detail-title">Residency</span>
+                  {{ residency }}
+                </p>
+                <p class="detail">
+                  <span class="detail-title">Place of birth</span>
+                  {{ birthplace }}
+                </p>
                 <p class="detail">
                   <span class="detail-title">Height</span>
                   {{ info.personal_profile.height }} cm
@@ -128,16 +144,21 @@ export default {
       let age = moment().diff(bday, 'years');
       return `${bday.format("LL")} (age ${age})`;
     },
-    nationalityResidency() {
+    residency() {
+      if(!this.info.personal_profile) { return "Unknown"; }
+      let residencyCountryInfo = countrydata.countries[this.info.personal_profile.residence_country_code];
+      let residencyCountryName = residencyCountryInfo.name;
+      let residencyCountryFlag = residencyCountryInfo.emoji;
+
+      return `${residencyCountryName} ${residencyCountryFlag}`;
+    },
+    nationality() {
       if(!this.info.personal_profile) { return "Unknown"; }
       let nationalityCountryInfo = countrydata.countries[this.info.personal_profile.nationality_country_code];
       let nationalityCountryName = nationalityCountryInfo.name;
       let nationalityCountryFlag = nationalityCountryInfo.emoji;
 
-      let residencyCountryInfo = countrydata.countries[this.info.personal_profile.residence_country_code];
-      let residencyCountryName = residencyCountryInfo.name;
-      let residencyCountryFlag = residencyCountryInfo.emoji;
-      return `${nationalityCountryName} ${nationalityCountryFlag} / ${residencyCountryName} ${residencyCountryFlag}`;
+      return `${nationalityCountryName} ${nationalityCountryFlag}`;
     },
     birthplace() {
       if(!this.info.personal_profile) { return "Unknown"; }
