@@ -56,3 +56,13 @@ h4 {
 .small-sub-title {
   font-size: $main-text-size;
 }
+
+.nav-item .nav-link {
+  &:hover {
+    color: $main-text-color;
+  }
+
+  &.active {
+    color: $main-header-color;
+  }
+}

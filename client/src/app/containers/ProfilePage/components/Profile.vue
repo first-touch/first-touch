@@ -24,37 +24,46 @@
         </ul>
         <div class="tab-content" id="profile-navbar-content">
           <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
-            <div id="summary">
-              <h4 class="spaced-title upper-cased main-color">Summary</h4>
-              <div class="flex-row">
-                <div id="summary-text-wrapper">
-                  <p class="detail name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
-                  <p class="detail">
-                    <span class="detail-title">Height</span>
-                    {{ info.personal_profile.height }} cm
-                  </p>
-                  <p class="detail">
-                    <span class="detail-title">Weight</span>
-                    {{ info.personal_profile.weight }} kg
-                  </p>
-                  <p class="detail">
-                    <span class="detail-title">Preferred Foot:</span>
-                    {{ preferredFoot }}
-                  </p>
-                  <p class="detail">
-                    <span class="detail-title">Pro Status:</span>
-                    {{ info.personal_profile.pro_status || "N/a"}}
-                  </p>
-                  <p class="detail">
-                    <span class="detail-title"># Caps:</span>
-                    {{ info.personal_profile.total_caps || "0" }}
-                  </p>
-                  <a href="#" class="btn btn-bright">Biography</a>
-                </div>
-                <div id="playing-position-wrapper">
-                  <h5>Playing position</h5>
-                  <position-rating v-for="positionRating in playingPositions" :positionRating="positionRating"></position-rating>
-                </div>
+            <div class="row mt-1">
+              <div id="summary" class="col-12">
+                <h4 class="spaced-title upper-cased main-color">Summary</h4>
+              </div>
+            </div>
+            <div class="row mt-1">
+              <div id="summary-contents" class="col-12">
+                <p class="detail name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
+                <p class="detail">
+                  <span class="detail-title">Height</span>
+                  {{ info.personal_profile.height }} cm
+                </p>
+                <p class="detail">
+                  <span class="detail-title">Weight</span>
+                  {{ info.personal_profile.weight }} kg
+                </p>
+                <p class="detail">
+                  <span class="detail-title">Preferred Foot:</span>
+                  {{ preferredFoot }}
+                </p>
+                <p class="detail">
+                  <span class="detail-title">Pro Status:</span>
+                  {{ info.personal_profile.pro_status || "N/a"}}
+                </p>
+                <p class="detail">
+                  <span class="detail-title"># Caps:</span>
+                  {{ info.personal_profile.total_caps || "0" }}
+                </p>
+              </div>
+            </div>
+
+            <div class="row mt-1">
+              <div id="position" class="col-12">
+                <h4 class="spaced-title upper-cased main-color">Position</h4>
+              </div>
+            </div>
+
+            <div class="row mt-1">
+              <div id="position-contents" class="col-12">
+                <position-rating v-for="positionRating in playingPositions" :positionRating="positionRating"></position-rating>
               </div>
             </div>
           </div>
@@ -80,38 +89,8 @@
   width: 100%;
 }
 
-.profile-item-container {
-  display: flex;
-  flex-direction: column;
-
-  .flex-row {
-    display: flex;
-  }
-  // TODO: Consider moving to separate component
-
-  .info {
-    margin-left: 20px;
-  }
-
-  .detail-title {
-    color: $secondary-text-color;
-  }
-
-  #summary-text-wrapper, #playing-position-wrapper {
-    width: 50%;
-  }
-
-  .widget {
-    margin-top: 30px;
-    margin-bottom: 20px;
-    .widget-row {
-      display: flex;
-      align-items: center;
-    }
-    .btn {
-      margin-right: 5px;
-    }
-  }
+.detail-title {
+  color: $secondary-text-color;
 }
 </style>
 
