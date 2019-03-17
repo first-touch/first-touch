@@ -6,7 +6,6 @@
           :info="info"
           :follow="followUser"
           :connect="connectUser"/>
-         <!-- <career-events :careerHistory="careerHistory" /> -->
       </div>
     </div>
   </div>
@@ -34,15 +33,13 @@ import store from 'app/store';
 import { ASYNC_LOADING, ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 import NotificationSidebar from 'app/components/NotificationSidebar';
 import Profile from './components/Profile';
-import CareerEvents from './components/CareerEvents';
 
 export default {
   name: 'ProfilePage',
   props: ['mine'],
   components: {
     sidebar: NotificationSidebar,
-    profile: Profile,
-    'career-events':CareerEvents
+    profile: Profile
   },
   computed: {
     ...mapGetters(['user', 'profile']),
@@ -50,10 +47,6 @@ export default {
       if (!this.$route.params.id) return this.user.value;
       if (this.profile.status === ASYNC_SUCCESS) return this.profile.value;
       return null;
-    },
-    careerHistory() {
-      if(!this.info) { return [] }
-      return this.info.career_history || [];
     }
   },
   methods: {

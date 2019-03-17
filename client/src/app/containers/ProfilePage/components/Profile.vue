@@ -67,7 +67,11 @@
               </div>
             </div>
           </div>
-          <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">History</div>
+          <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+            <div class="row mt-2">
+              <career-events :careerHistory="careerHistory" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -99,13 +103,15 @@ import PositionRating from './PositionRating';
 import countrydata from 'country-data';
 import moment from 'moment';
 import TimelineItem from 'app/components/TimelineItem';
+import CareerEvents from './CareerEvents';
 
 export default {
   name: 'Profile',
   props: ['mine', 'info', 'follow', 'connect'],
   components: {
     'timeline-item': TimelineItem,
-    'position-rating': PositionRating
+    'position-rating': PositionRating,
+    'career-events': CareerEvents
   },
   computed: {
     role() {
@@ -148,6 +154,10 @@ export default {
     playingPositions() {
       if(!this.info.personal_profile) { return [] }
       return this.info.personal_profile.playing_positions;
+    },
+    careerHistory() {
+      if(!this.info) { return [] }
+      return this.info.career_history || [];
     }
   }
 };
