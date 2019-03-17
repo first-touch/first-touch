@@ -14,7 +14,7 @@ export default {
       if (res.ok) {
         return res.json();
       } else {
-        Promise.reject(res);
+        return Promise.reject(res);
       }
     });
   },

@@ -52,6 +52,7 @@ import VeeValidate from 'vee-validate';
 import './app/constants/filters';
 import VueFormWizard from 'vue-form-wizard';
 import VueFlashMessage from 'vue-flash-message';
+
 // TODO: Customize with FT color scheme and remove this
 require('vue-flash-message/dist/vue-flash-message.min.css');
 

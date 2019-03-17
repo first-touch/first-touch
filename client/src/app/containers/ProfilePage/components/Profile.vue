@@ -1,129 +1,97 @@
 <template>
-  <timeline-item>
-    <div class="profile-item-container" v-if="info">
-      <div id="biography" class="flex-row">
-        <div class="avatar-wrapper">
-          <img class="img-fluid avatar" :src="info.personal_profile.avatar_url" />
-        </div>
-        <div class="info">
-          <h4 class="main-header-color upper-cased">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
-          <h5 id="role">{{ role }}</h5>
-          <p id="club"> {{ clubName }}</p>
-          <p class="detail">
-            <span class="detail-title">Date of birth</span>
-            {{ birthday }}
-          </p>
-          <p class="detail">
-            <span class="detail-title">Nationality/Residency</span>
-            {{ nationalityResidency }}
-          </p>
-          <p class="detail">
-            <span class="detail-title">Place of birth</span>
-            {{ birthplace }}
-          </p>
-          <div class="widget">
-            <div class="widget-row">
-              <router-link v-if="mine" to="/profile/edit" class="btn btn-bright">Edit Profile</router-link>
-              <a v-else-if="!info.following" @click.prevent="follow" href="#" class="btn btn-bright">+ Follow</a>
-              <a v-else-if="info.following" class="btn btn-dark">&#10003; Following</a>
-              <a v-if="!mine && info.connection_status === 'not_connected'"
-                @click.prevent="connect" class="btn btn-bright">
-                Connect
-              </a>
-              <a v-else-if="!mine && info.connection_status === 'pending'"
-                class="btn btn-dark">&sim; Pending
-              </a>
-              <a v-else-if="!mine && info.connection_status === 'connected'"
-                class="btn btn-dark">&#10003; Connected
-              </a>
-              <router-link v-if="!mine" :to="`/messages/${info.id}`" class="btn btn-bright">Message</router-link>
+  <div class="container">
+    <div class="row">
+      <div class="col-4 avatar-wrapper">
+        <div class="avatar img-responsive img-circle" v-bind:style="{ 'background-image': 'url('+info.personal_profile.avatar_url+')' }"></div>
+      </div>
+
+      <div class="col-8">
+        <h4 class="main-header-color upper-cased">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
+        <h5 id="role">{{ role }}</h5>
+        <p id="club"> {{ clubName }}</p>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-12">
+        <ul class="nav justify-content-center" id="profile-navbar" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">History</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="stats-tab" data-toggle="tab" href="#stats" role="tab" aria-controls="stats" aria-selected="false">Stats</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="profile-navbar-content">
+          <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+            <div class="row mt-1">
+              <div id="summary" class="col-12">
+                <h4 class="spaced-title upper-cased main-color">Summary</h4>
+              </div>
+            </div>
+            <div class="row mt-1">
+              <div id="summary-contents" class="col-12">
+                <p class="detail name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
+                <p class="detail">
+                  <span class="detail-title">Height</span>
+                  {{ info.personal_profile.height }} cm
+                </p>
+                <p class="detail">
+                  <span class="detail-title">Weight</span>
+                  {{ info.personal_profile.weight }} kg
+                </p>
+                <p class="detail">
+                  <span class="detail-title">Preferred Foot:</span>
+                  {{ preferredFoot }}
+                </p>
+                <p class="detail">
+                  <span class="detail-title">Pro Status:</span>
+                  {{ info.personal_profile.pro_status || "N/a"}}
+                </p>
+                <p class="detail">
+                  <span class="detail-title"># Caps:</span>
+                  {{ info.personal_profile.total_caps || "0" }}
+                </p>
+              </div>
+            </div>
+
+            <div class="row mt-1">
+              <div id="position" class="col-12">
+                <h4 class="spaced-title upper-cased main-color">Position</h4>
+              </div>
+            </div>
+
+            <div class="row mt-1">
+              <div id="position-contents" class="col-12">
+                <position-rating v-for="positionRating in playingPositions" :positionRating="positionRating"></position-rating>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <hr class="horizontal-separator"/>
-      <div id="summary">
-        <h4 class="spaced-title upper-cased main-color">Summary</h4>
-        <div class="flex-row">
-          <div id="summary-text-wrapper">
-            <p class="detail name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
-            <p class="detail">
-              <span class="detail-title">Height</span>
-              {{ info.personal_profile.height }} cm
-            </p>
-            <p class="detail">
-              <span class="detail-title">Weight</span>
-              {{ info.personal_profile.weight }} kg
-            </p>
-            <p class="detail">
-              <span class="detail-title">Preferred Foot:</span>
-              {{ preferredFoot }}
-            </p>
-            <p class="detail">
-              <span class="detail-title">Pro Status:</span>
-              {{ info.personal_profile.pro_status || "N/a"}}
-            </p>
-            <p class="detail">
-              <span class="detail-title"># Caps:</span>
-              {{ info.personal_profile.total_caps || "0" }}
-            </p>
-            <a href="#" class="btn btn-bright">Biography</a>
+          <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+            <div class="row mt-1">
+              <div id="career-history-section" class="col-12">
+                <h4 class="spaced-title upper-cased main-color">Career History</h4>
+              </div>
+            </div>
+            <career-events :careerHistory="careerHistory" />
           </div>
-          <div id="playing-position-wrapper">
-            <h5>Playing position</h5>
-            <position-rating v-for="positionRating in playingPositions" :positionRating="positionRating"></position-rating>
+          <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+            STATS
           </div>
         </div>
       </div>
     </div>
-  </timeline-item>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
-.profile-item-container {
-  display: flex;
-  flex-direction: column;
 
-  .flex-row {
-    display: flex;
-  }
-  // TODO: Consider moving to separate component
-  .avatar-wrapper {
-    height: 250px;
-    width: 250px;
-    overflow: hidden;
-
-    .avatar {
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-  }
-
-  .info {
-    margin-left: 20px;
-  }
-
-  .detail-title {
-    color: $secondary-text-color;
-  }
-
-  #summary-text-wrapper, #playing-position-wrapper {
-    width: 50%;
-  }
-
-  .widget {
-    margin-top: 30px;
-    margin-bottom: 20px;
-    .widget-row {
-      display: flex;
-      align-items: center;
-    }
-    .btn {
-      margin-right: 5px;
-    }
-  }
+.detail-title {
+  color: $secondary-text-color;
 }
 </style>
 
@@ -132,13 +100,15 @@ import PositionRating from './PositionRating';
 import countrydata from 'country-data';
 import moment from 'moment';
 import TimelineItem from 'app/components/TimelineItem';
+import CareerEvents from './CareerEvents';
 
 export default {
   name: 'Profile',
   props: ['mine', 'info', 'follow', 'connect'],
   components: {
     'timeline-item': TimelineItem,
-    'position-rating': PositionRating
+    'position-rating': PositionRating,
+    'career-events': CareerEvents
   },
   computed: {
     role() {
@@ -181,6 +151,10 @@ export default {
     playingPositions() {
       if(!this.info.personal_profile) { return [] }
       return this.info.personal_profile.playing_positions;
+    },
+    careerHistory() {
+      if(!this.info) { return [] }
+      return this.info.career_history || [];
     }
   }
 };

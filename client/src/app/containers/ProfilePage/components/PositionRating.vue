@@ -1,7 +1,12 @@
 <template>
-  <div class="rating flex-row">
-    <div class="rating-for"> {{ positionName }} </div>
-    <star-rating :rating="rating" :read-only="true" :show-rating="false" :increment="0.5" :star-size=30 active-color="#a8cb5c"></star-rating>
+
+  <div class="rating row mt-2">
+    <div class="col-sm-12 col-md-6">
+      <div class="rating-for"> {{ positionName }} </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <star-rating :rating="rating" :read-only="true" :show-rating="false" :increment="0.5" :star-size=30 active-color="#a8cb5c"></star-rating>
+    </div>
   </div>
 </template>
 
