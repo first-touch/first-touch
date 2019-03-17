@@ -1,41 +1,28 @@
 <template>
-  <div class="career-entry-wrapper flex-row">
-    <div class="avatar-wrapper">
-      <img class="avatar" :src="careerEntry.club.club_logo" />
+  <div class="career-entry-wrapper row">
+    <div class="col-2 avatar-wrapper">
+      <div class="avatar img-responsive img-circle" v-bind:style="{ 'background-image': 'url('+careerEntry.club.club_logo+')' }"></div>
     </div>
-    <div class="club-info-wrapper">
-      <h5>{{ careerEntry.club.name }}</h5>
-      <p>{{ clubInfo }}</p>
+    <div class="club-info-wrapper col-5">
+      <p class="text-left text-truncate">
+        {{ careerEntry.club.name }} <br>
+        {{ clubInfo }}
+      </p>
     </div>
-    <div class="date-info-wrapper">
-      <h5>{{ startDate }} - {{ endDate }}</h5>
-      <p> Apps <span class="value">200</span> | Scored <span class="value">30</span></p>
+    <div class="date-info-wrapper col-5">
+      <p>
+        {{ startDate }} - {{ endDate }} <br>
+        A: <span class="value">200</span> | G: <span class="value">30</span>
+      </p>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
-  .career-entry-wrapper {
-    justify-content: space-between;
-
-    .avatar-wrapper, .club-info-wrapper, .date-info-wrapper {
-      width: 33%;
-      margin-bottom: auto;
-      margin-top: auto;
-    }
-
-    .avatar-wrapper {
-      .avatar {
-        max-width: 50%;
-        margin-left: 25%;
-      }
-    }
-
-    .date-info-wrapper {
-      .value {
-        font-weight: bold;
-      }
+  .date-info-wrapper {
+    .value {
+      font-weight: bold;
     }
   }
 </style>
@@ -49,11 +36,11 @@ export default {
   props: ['careerEntry'],
   computed: {
     startDate() {
-      return moment(this.careerEntry.start_date).format("MMM YYYY");
+      return moment(this.careerEntry.start_date).format("MMM YY");
     },
     endDate() {
       if (!this.careerEntry.end_date) { return "Present" };
-      return moment(this.careerEntry.end_date).format("MMM YYYY");
+      return moment(this.careerEntry.end_date).format("MMM YY");
     },
     clubInfo() {
       let clubCountry = countrydata.countries[this.careerEntry.club.country_code];

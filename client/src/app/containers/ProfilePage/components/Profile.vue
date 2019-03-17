@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-4">
+      <div class="col-4 avatar-wrapper">
         <div class="avatar img-responsive img-circle" v-bind:style="{ 'background-image': 'url('+info.personal_profile.avatar_url+')' }"></div>
       </div>
 
@@ -20,6 +20,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">History</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="stats-tab" data-toggle="tab" href="#stats" role="tab" aria-controls="stats" aria-selected="false">Stats</a>
           </li>
         </ul>
         <div class="tab-content" id="profile-navbar-content">
@@ -68,9 +71,15 @@
             </div>
           </div>
           <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
-            <div class="row mt-2">
-              <career-events :careerHistory="careerHistory" />
+            <div class="row mt-1">
+              <div id="career-history-section" class="col-12">
+                <h4 class="spaced-title upper-cased main-color">Career History</h4>
+              </div>
             </div>
+            <career-events :careerHistory="careerHistory" />
+          </div>
+          <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+            STATS
           </div>
         </div>
       </div>
@@ -80,18 +89,6 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
-
-.avatar {
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: 50%;
-
-  height: 0;
-  padding-bottom: 100%;
-  position: relative;
-  width: 100%;
-}
 
 .detail-title {
   color: $secondary-text-color;
