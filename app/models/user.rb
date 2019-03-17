@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_one :personal_profile
   accepts_nested_attributes_for :personal_profile
 
-  has_many :career_entries
+  has_many :career_entries, -> { order(start_date: :desc) }
   accepts_nested_attributes_for :career_entries
   has_many :active_relationships,
            class_name: 'Relationship',

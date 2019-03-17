@@ -84,6 +84,9 @@
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
+  .page-footer {
+    margin-top: 100px;
+  }
   .footer-separator {
     background-color: $background-color;
   }
