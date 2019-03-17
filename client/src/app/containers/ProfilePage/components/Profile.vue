@@ -1,13 +1,30 @@
 <template>
-  <v-container>
-    <v-layout>
-      <v-flex xs-3>
-        <v-avatar size="140px">
-          <img :src="info.personal_profile.avatar_url" />
-        </v-avatar>
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <div class="container">
+    <div class="row">
+      <div class="col-4">
+        <div class="avatar-wrapper">
+          <img class="img-fluid avatar" :src="info.personal_profile.avatar_url" />
+        </div>
+      </div>
+
+      <div class="col-8">
+        <h4 class="main-header-color upper-cased">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
+        <h5 id="role">{{ role }}</h5>
+        <p id="club"> {{ clubName }}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Overview</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">History</a>
+        </li>
+      </ul>
+    </div>
+  </div>
   <!-- <timeline-item>
     <div class="profile-item-container" v-if="info">
       <div id="biography" class="flex-row">

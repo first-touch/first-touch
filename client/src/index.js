@@ -52,7 +52,6 @@ import VeeValidate from 'vee-validate';
 import './app/constants/filters';
 import VueFormWizard from 'vue-form-wizard';
 import VueFlashMessage from 'vue-flash-message';
-import Vuetify from 'vuetify';
 
 // TODO: Customize with FT color scheme and remove this
 require('vue-flash-message/dist/vue-flash-message.min.css');
@@ -63,7 +62,6 @@ Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
 Vue.use(VueFlashMessage);
 Vue.use(VueFormWizard);
-Vue.use(Vuetify);
 
 window.$ = require('jquery');
 window.JQuery = require('jquery');
