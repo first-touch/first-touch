@@ -2,9 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-4">
-        <div class="avatar-wrapper">
-          <img class="img-fluid avatar" :src="info.personal_profile.avatar_url" />
-        </div>
+        <div class="avatar img-responsive img-circle" v-bind:style="{ 'background-image': 'url('+info.personal_profile.avatar_url+')' }"></div>
       </div>
 
       <div class="col-8">
@@ -107,6 +105,19 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
+
+.avatar {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+
+  height: 0;
+  padding-bottom: 100%;
+  position: relative;
+  width: 100%;
+}
+
 .profile-item-container {
   display: flex;
   flex-direction: column;
@@ -115,17 +126,6 @@
     display: flex;
   }
   // TODO: Consider moving to separate component
-  .avatar-wrapper {
-    height: 250px;
-    width: 250px;
-    overflow: hidden;
-
-    .avatar {
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-  }
 
   .info {
     margin-left: 20px;

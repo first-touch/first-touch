@@ -3,13 +3,13 @@
 .ft-page {
   margin-top: 150px;
 
-  &:before {
-    content: '';
-    position: absolute;
-    margin-top: -15px;
-    width: 3%;
-    border-top: 5px solid $main-header-color;
-  }
+  // &:before {
+  //   content: '';
+  //   position: absolute;
+  //   margin-top: -15px;
+  //   width: 3%;
+  //   border-top: 5px solid $main-header-color;
+  // }
 
   .timeline-widget-button {
     span {
@@ -51,12 +51,12 @@
   .ft-page {
     margin-top: 80px;
 
-    &:before {
-      content: '';
-      position: absolute;
-      margin-top: -15px;
-      width: 15%;
-      border-top: 5px solid $main-header-color;
-    }
+    // &:before {
+    //   content: '';
+    //   position: absolute;
+    //   margin-top: -15px;
+    //   width: 15%;
+    //   border-top: 5px solid $main-header-color;
+    // }
   }
 }
