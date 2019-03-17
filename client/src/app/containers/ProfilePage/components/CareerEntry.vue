@@ -1,19 +1,26 @@
 <template>
-  <div class="career-entry-wrapper row">
-    <div class="col-2 avatar-wrapper">
-      <div class="avatar img-responsive img-circle" v-bind:style="{ 'background-image': 'url('+careerEntry.club.club_logo+')' }"></div>
+  <div class="career-entry-wrapper">
+    <div class="row mt-2">
+      <div class="col-2 avatar-wrapper">
+        <div class="avatar img-responsive img-circle" v-bind:style="{ 'background-image': 'url('+careerEntry.club.club_logo+')' }"></div>
+      </div>
+      <div class="club-info-wrapper col-5">
+        <p class="text-left text-truncate">
+          {{ careerEntry.club.name }} <br>
+          {{ clubInfo }}
+        </p>
+      </div>
+      <div class="date-info-wrapper col-5">
+        <p class="text-right">
+          {{ startDate }} - {{ endDate }} <br>
+          A: <span class="value">200</span> | G: <span class="value">30</span>
+        </p>
+      </div>
     </div>
-    <div class="club-info-wrapper col-5">
-      <p class="text-left text-truncate">
-        {{ careerEntry.club.name }} <br>
-        {{ clubInfo }}
-      </p>
-    </div>
-    <div class="date-info-wrapper col-5">
-      <p>
-        {{ startDate }} - {{ endDate }} <br>
-        A: <span class="value">200</span> | G: <span class="value">30</span>
-      </p>
+    <div class="row mt-2 mb-2">
+      <div class="col-12">
+        <hr class="ft-hr" />
+      </div>
     </div>
   </div>
 </template>
