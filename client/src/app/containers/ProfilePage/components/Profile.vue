@@ -9,6 +9,34 @@
         <h4 class="main-header-color upper-cased">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
         <h5 id="role">{{ role }}</h5>
         <p id="club"> {{ clubName }}</p>
+
+        <div class="row mt-3 d-none d-md-block">
+          <div class="col-12">
+            <button type="button" class="btn btn-primary">Message</button>
+          </div>
+        </div>
+        <div class="row mt-3 d-none d-md-block">
+          <div class="col-12">
+            <button type="button" class="btn btn-primary">Connect</button>
+          </div>
+        </div>
+        <div class="row mt-3 d-none d-md-block">
+          <div class="col-12">
+            <button type="button" class="btn btn-primary">Share</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3 mx-auto d-md-none">
+      <div class="col-4">
+        <button type="button" class="btn btn-primary">Message</button>
+      </div>
+      <div class="col-4">
+        <button type="button" class="btn btn-primary">Connect</button>
+      </div>
+      <div class="col-4">
+        <button type="button" class="btn btn-primary">Share</button>
       </div>
     </div>
 
@@ -127,6 +155,9 @@ export default {
     'career-events': CareerEvents
   },
   computed: {
+    personalProfile() {
+      return this.info.personal_profile;
+    },
     role() {
       if(!this.info) { return "Unknown"; }
       return _.capitalize(this.info.role_name);
@@ -139,39 +170,38 @@ export default {
       return `${this.info.current_club.name}, ${countryName} ${countryFlag}`;
     },
     birthday() {
-      if(!this.info.personal_profile) { return "Unknown"; }
-      let bday = moment(this.info.personal_profile.birthday, "YYYY-MM-dd");
+      if(!this.personalProfile) { return "Unknown"; }
+      let bday = moment(this.personalProfile.birthday, "YYYY-MM-dd");
       let age = moment().diff(bday, 'years');
       return `${bday.format("LL")} (age ${age})`;
     },
     residency() {
-      if(!this.info.personal_profile) { return "Unknown"; }
-      let residencyCountryInfo = countrydata.countries[this.info.personal_profile.residence_country_code];
+      if(!this.personalProfile || !this.personalProfile.residence_country_code) { return "Unknown"; }
+      let residencyCountryInfo = countrydata.countries[this.personalProfile.residence_country_code];
       let residencyCountryName = residencyCountryInfo.name;
       let residencyCountryFlag = residencyCountryInfo.emoji;
 
       return `${residencyCountryName} ${residencyCountryFlag}`;
     },
+    nationalityCountryInfo() {
+      if(!this.personalProfile || !this.personalProfile.nationality_country_code) { return "Unknown"; }
+      return countrydata.countries[this.personalProfile.nationality_country_code];
+    },
     nationality() {
-      if(!this.info.personal_profile) { return "Unknown"; }
-      let nationalityCountryInfo = countrydata.countries[this.info.personal_profile.nationality_country_code];
-      let nationalityCountryName = nationalityCountryInfo.name;
-      let nationalityCountryFlag = nationalityCountryInfo.emoji;
+      if(!this.personalProfile || !this.personalProfile.nationality_country_code) { return "Unknown"; }
 
-      return `${nationalityCountryName} ${nationalityCountryFlag}`;
+      return `${this.nationalityCountryInfo.name} ${this.nationalityCountryInfo.emoji}`;
     },
     birthplace() {
-      if(!this.info.personal_profile) { return "Unknown"; }
-      let nationalityCountryInfo = countrydata.countries[this.info.personal_profile.nationality_country_code];
-      let nationalityCountryName = nationalityCountryInfo.name;
-      return `${this.info.personal_profile.place_of_birth}, ${nationalityCountryName}`;
+      if(!this.personalProfile) { return "Unknown"; }
+      return `${this.personalProfile.place_of_birth}, ${this.nationalityCountryInfo.name}`;
     },
     preferredFoot() {
-      return _.capitalize(this.info.personal_profile.preferred_foot);
+      return _.capitalize(this.personalProfile.preferred_foot);
     },
     playingPositions() {
-      if(!this.info.personal_profile) { return [] }
-      return this.info.personal_profile.playing_positions;
+      if(!this.personalProfile) { return [] }
+      return this.personalProfile.playing_positions;
     },
     careerHistory() {
       if(!this.info) { return [] }
