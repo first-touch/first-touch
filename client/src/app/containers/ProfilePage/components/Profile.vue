@@ -10,7 +10,7 @@
         <h5 id="role">{{ role }}</h5>
         <p id="club"> {{ clubName }}</p>
 
-        <div class="row mt-3 d-none d-md-block">
+        <div v-if="!mine" class="row mt-3 d-none d-md-block">
           <div class="col-12">
             <button type="button" class="btn btn-primary">Message</button>
           </div>
@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <div class="row mt-3 mx-auto d-md-none">
+    <div v-if="!mine" class="row mt-3 mx-auto d-md-none">
       <div class="col-4">
         <button type="button" class="btn btn-primary">Message</button>
       </div>
