@@ -48,14 +48,21 @@ export default {
     },
     lostFocus() {
       this.searchHasFocus = false;
+    },
+    clearSearchTerm() {
+      this.searchTerm = "";
+      this.searchHasFocus = false;
     }
+  },
+  watch: {
+    '$route': 'clearSearchTerm'
   },
   computed: {
     displayResults() {
       return this.searchHasFocus && this.results.length > 0;
     },
     results() {
-      if(!this.searchResult().value) { return []; }
+      if(_.isEmpty(this.searchTerm) || !this.searchResult().value) { return []; }
       return this.searchResult().value;
     }
   }
