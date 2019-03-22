@@ -192,7 +192,6 @@ export default {
   computed: {
     userId() {
       if(!this.info) { return ""; }
-      console.log(this.info);
       return this.info.id;
     },
     personalProfile() {
