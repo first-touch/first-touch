@@ -29,19 +29,16 @@
           </div>
         </div>
 
+        <!-- TODO: DRY ME!! Migrate these action buttons to a component and avoid the duplication -->
         <div v-if="!mine" class="contact-box-wrapper">
           <div class="row mt-3 d-none d-md-block">
-            <div class="col-12">
+            <div class="col-12 mt-md-3">
               <button type="button" class="btn btn-primary">Message</button>
             </div>
-          </div>
-          <div class="row mt-3 d-none d-md-block">
-            <div class="col-12">
+            <div class="col-12 mt-md-3">
               <button type="button" class="btn btn-primary">Connect</button>
             </div>
-          </div>
-          <div class="row mt-3 d-none d-md-block">
-            <div class="col-12">
+            <div class="col-12 mt-md-3">
               <button type="button" class="btn btn-primary" v-clipboard="() => urlToProfile" v-clipboard:success="clipboardSuccessHandler" v-clipboard:error="clipboardErrorHandler">Share</button>
             </div>
           </div>
@@ -51,7 +48,7 @@
 
     <div v-if="!mine" class="row mt-3 mx-auto d-md-none">
       <div class="col-4">
-        <button type="button" class="btn btn-primary">Message</button>
+        <router-link :to="'/messages/'+userId" class="btn btn-primary" tag="button">Messages</router-link>
       </div>
       <div class="col-4">
         <button type="button" class="btn btn-primary">Connect</button>
@@ -193,6 +190,11 @@ export default {
     }
   },
   computed: {
+    userId() {
+      if(!this.info) { return ""; }
+      console.log(this.info);
+      return this.info.id;
+    },
     personalProfile() {
       if(!this.info) { return {}; }
       return this.info.personal_profile;
