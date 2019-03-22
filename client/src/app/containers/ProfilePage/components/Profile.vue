@@ -2,13 +2,13 @@
   <div class="container">
     <div class="row">
       <div class="col-4 avatar-wrapper">
-        <div class="avatar img-responsive img-circle" v-bind:style="{ 'background-image': 'url('+info.personal_profile.avatar_url+')' }"></div>
+        <div class="avatar img-responsive img-circle" v-bind:style="{ 'background-image': 'url('+personalProfile.avatar_url+')' }"></div>
       </div>
 
       <div class="col-8">
         <div class="row">
           <div class="col-12">
-            <h5 class="main-header-color upper-cased">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h5>
+            <h5 class="main-header-color upper-cased">{{ personalProfile.first_name }} {{ personalProfile.last_name }}</h5>
           </div>
 
           <div class="col-12">
@@ -83,7 +83,7 @@
             </div>
             <div class="row mt-1">
               <div id="summary-contents" class="col-12">
-                <p class="detail name">{{ info.personal_profile.first_name }} {{ info.personal_profile.middle_name }} {{ info.personal_profile.last_name }}</p>
+                <p class="detail name">{{ personalProfile.first_name }} {{ personalProfile.middle_name }} {{ personalProfile.last_name }}</p>
                 <p class="detail">
                   <span class="detail-title">Date of birth</span>
                   {{ birthday }}
@@ -102,11 +102,11 @@
                 </p>
                 <p class="detail">
                   <span class="detail-title">Height</span>
-                  {{ info.personal_profile.height }} cm
+                  {{ personalProfile.height }} cm
                 </p>
                 <p class="detail">
                   <span class="detail-title">Weight</span>
-                  {{ info.personal_profile.weight }} kg
+                  {{ personalProfile.weight }} kg
                 </p>
                 <p class="detail">
                   <span class="detail-title">Preferred Foot:</span>
@@ -114,11 +114,11 @@
                 </p>
                 <p class="detail">
                   <span class="detail-title">Pro Status:</span>
-                  {{ info.personal_profile.pro_status || "N/a"}}
+                  {{ personalProfile.pro_status || "N/a"}}
                 </p>
                 <p class="detail">
                   <span class="detail-title"># Caps:</span>
-                  {{ info.personal_profile.total_caps || "0" }}
+                  {{ personalProfile.total_caps || "0" }}
                 </p>
               </div>
             </div>
@@ -177,18 +177,23 @@ export default {
   },
   computed: {
     personalProfile() {
+      if(!this.info) { return {}; }
       return this.info.personal_profile;
     },
     role() {
       if(!this.info) { return "Unknown"; }
       return _.capitalize(this.info.role_name);
     },
+    currentClub() {
+      if(!this.info || !this.info.current_club) { return {}; }
+      return this.info.current_club;
+    },
     clubAvatar() {
-      return this.info.current_club.club_logo;
+      return this.currentClub.club_logo;
     },
     clubName() {
-      if(!this.info.current_club) { return "No club"; }
-      let countryInfo = countrydata.countries[this.info.current_club.country_code];
+      if(!this.currentClub || !this.currentClub.country_code) { return "No club"; }
+      let countryInfo = countrydata.countries[this.currentClub.country_code];
       let countryName = countryInfo.name;
       let countryFlag = countryInfo.emoji;
       return `${this.info.current_club.name}, ${countryName} ${countryFlag}`;
