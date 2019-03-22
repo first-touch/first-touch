@@ -6,23 +6,44 @@
       </div>
 
       <div class="col-8">
-        <h4 class="main-header-color upper-cased">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h4>
-        <h5 id="role">{{ role }}</h5>
-        <p id="club"> {{ clubName }}</p>
+        <div class="row">
+          <div class="col-12">
+            <h5 class="main-header-color upper-cased">{{ info.personal_profile.first_name }} {{ info.personal_profile.last_name }}</h5>
+          </div>
 
-        <div v-if="!mine" class="row mt-3 d-none d-md-block">
           <div class="col-12">
-            <button type="button" class="btn btn-primary">Message</button>
+            <p id="role">{{ role }}</p>
           </div>
         </div>
-        <div class="row mt-3 d-none d-md-block">
+
+        <div class="club-info-wrapper row">
           <div class="col-12">
-            <button type="button" class="btn btn-primary">Connect</button>
+            <h5 class="spaced-title upper-cased main-color">Club Info</h5>
+          </div>
+          <div class="col-1">
+            <div class="avatar img-responsive img-circle" v-bind:style="{ 'background-image': 'url('+clubAvatar+')' }"></div>
+          </div>
+
+          <div class="col-11">
+            <p id="club"> {{ clubName }}</p>
           </div>
         </div>
-        <div class="row mt-3 d-none d-md-block">
-          <div class="col-12">
-            <button type="button" class="btn btn-primary">Share</button>
+
+        <div v-if="!mine" class="contact-box-wrapper">
+          <div class="row mt-3 d-none d-md-block">
+            <div class="col-12">
+              <button type="button" class="btn btn-primary">Message</button>
+            </div>
+          </div>
+          <div class="row mt-3 d-none d-md-block">
+            <div class="col-12">
+              <button type="button" class="btn btn-primary">Connect</button>
+            </div>
+          </div>
+          <div class="row mt-3 d-none d-md-block">
+            <div class="col-12">
+              <button type="button" class="btn btn-primary">Share</button>
+            </div>
           </div>
         </div>
       </div>
@@ -57,7 +78,7 @@
           <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
             <div class="row mt-1">
               <div id="summary" class="col-12">
-                <h4 class="spaced-title upper-cased main-color">Personal Details</h4>
+                <h5 class="spaced-title upper-cased main-color">Personal Details</h5>
               </div>
             </div>
             <div class="row mt-1">
@@ -104,7 +125,7 @@
 
             <div class="row mt-1">
               <div id="position" class="col-12">
-                <h4 class="spaced-title upper-cased main-color">Position</h4>
+                <h5 class="spaced-title upper-cased main-color">Position</h5>
               </div>
             </div>
 
@@ -117,7 +138,7 @@
           <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
             <div class="row mt-1">
               <div id="career-history-section" class="col-12">
-                <h4 class="spaced-title upper-cased main-color">Career History</h4>
+                <h5 class="spaced-title upper-cased main-color">Career History</h5>
               </div>
             </div>
             <career-events :careerHistory="careerHistory" />
@@ -161,6 +182,9 @@ export default {
     role() {
       if(!this.info) { return "Unknown"; }
       return _.capitalize(this.info.role_name);
+    },
+    clubAvatar() {
+      return this.info.current_club.club_logo;
     },
     clubName() {
       if(!this.info.current_club) { return "No club"; }
