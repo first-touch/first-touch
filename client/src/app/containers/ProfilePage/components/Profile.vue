@@ -33,7 +33,7 @@
         <div v-if="!mine" class="contact-box-wrapper">
           <div class="row mt-3 d-none d-md-block">
             <div class="col-12 mt-md-3">
-              <button type="button" class="btn btn-primary">Message</button>
+              <router-link :to="'/messages/'+userId" class="btn btn-primary" tag="button">Messages</router-link>
             </div>
             <div class="col-12 mt-md-3">
               <button type="button" class="btn btn-primary">Connect</button>

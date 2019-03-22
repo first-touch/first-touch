@@ -4,7 +4,6 @@
       <div class="profile">
         <profile :mine="mine"
           :info="info"
-          :follow="followUser"
           :connect="connectUser"/>
       </div>
     </div>
@@ -51,12 +50,9 @@ export default {
   },
   methods: {
     ...mapActions([
-      'follow',
-      'unfollow',
       'fetchUserInfo',
       'connect',
     ]),
-    followUser() {},
     connectUser() {},
     onRouteChange() {
       if (
