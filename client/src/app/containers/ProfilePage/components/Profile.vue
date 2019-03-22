@@ -42,7 +42,7 @@
           </div>
           <div class="row mt-3 d-none d-md-block">
             <div class="col-12">
-              <button type="button" class="btn btn-primary">Share</button>
+              <button type="button" class="btn btn-primary" v-clipboard="() => urlToProfile" v-clipboard:success="clipboardSuccessHandler" v-clipboard:error="clipboardErrorHandler">Share</button>
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@
         <button type="button" class="btn btn-primary">Connect</button>
       </div>
       <div class="col-4">
-        <button type="button" class="btn btn-primary">Share</button>
+        <button type="button" class="btn btn-primary" v-clipboard="() => urlToProfile" v-clipboard:success="clipboardSuccessHandler" v-clipboard:error="clipboardErrorHandler">Share</button>
       </div>
     </div>
 
@@ -174,6 +174,23 @@ export default {
     'timeline-item': TimelineItem,
     'position-rating': PositionRating,
     'career-events': CareerEvents
+  },
+  data() {
+    return {
+      urlToProfile: "google.com"
+    }
+  },
+  methods: {
+    clipboardSuccessHandler ({ value, event }) {
+      this.flash('Profile link copied', 'success', {
+        timeout: 2000,
+        important: true
+      });
+    },
+
+    clipboardErrorHandler ({ value, event }) {
+      console.log('error', value)
+    }
   },
   computed: {
     personalProfile() {

@@ -14,6 +14,7 @@
     "tocbot": "latest",
     "url-loader": "latest",
     "v-autocomplete": "latest",
+    "v-clipboard": "^2.2.1",
     "vee-validate": "latest",
     "vue": "latest",
     "vue-autonumeric": "latest",
