@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="ft-page">
-      <component v-bind:is="userRoleProfile" :user="userProfile" class="profile"></component>
+      <component v-bind:is="userRoleProfile" :user="userProfile" :mine="mine" class="profile"></component>
     </div>
   </div>
 </template>
