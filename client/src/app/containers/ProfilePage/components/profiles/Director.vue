@@ -60,18 +60,7 @@
 
     <div class="row mt-2">
       <div class="col-12">
-        <ul class="nav justify-content-center" id="profile-navbar" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">History</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="stats-tab" data-toggle="tab" href="#stats" role="tab" aria-controls="stats" aria-selected="false">Stats</a>
-          </li>
-        </ul>
-        <div class="tab-content" id="profile-navbar-content">
+        <div class="tab-content" id="summary-navbar-content">
           <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
             <div class="row mt-1">
               <div id="summary" class="col-12">
@@ -89,59 +78,20 @@
                   <span class="detail-title">Nationality</span>
                   {{ nationality }}
                 </p>
-                <p class="detail">
-                  <span class="detail-title">Residency</span>
-                  {{ residency }}
-                </p>
-                <p class="detail">
-                  <span class="detail-title">Place of birth</span>
-                  {{ birthplace }}
-                </p>
-                <p class="detail">
-                  <span class="detail-title">Height</span>
-                  {{ personalProfile.height }} cm
-                </p>
-                <p class="detail">
-                  <span class="detail-title">Weight</span>
-                  {{ personalProfile.weight }} kg
-                </p>
-                <p class="detail">
-                  <span class="detail-title">Preferred Foot:</span>
-                  {{ preferredFoot }}
-                </p>
-                <p class="detail">
-                  <span class="detail-title">Pro Status:</span>
-                  {{ personalProfile.pro_status || "N/a"}}
-                </p>
-                <p class="detail">
-                  <span class="detail-title"># Caps:</span>
-                  {{ personalProfile.total_caps || "0" }}
-                </p>
               </div>
             </div>
 
             <div class="row mt-1">
-              <div id="position" class="col-12">
-                <h5 class="spaced-title upper-cased main-color">Position</h5>
+              <div id="biography" class="col-12">
+                <h5 class="spaced-title upper-cased main-color">Biography</h5>
               </div>
             </div>
 
             <div class="row mt-1">
-              <div id="position-contents" class="col-12">
-                <position-rating v-for="positionRating in playingPositions" :positionRating="positionRating"></position-rating>
+              <div id="biographt-contents" class="col-12">
+                <p> {{biography}} </p>
               </div>
             </div>
-          </div>
-          <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
-            <div class="row mt-1">
-              <div id="career-history-section" class="col-12">
-                <h5 class="spaced-title upper-cased main-color">Career History</h5>
-              </div>
-            </div>
-            <career-events :careerHistory="careerHistory" />
-          </div>
-          <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">
-            STATS
           </div>
         </div>
       </div>
@@ -158,11 +108,11 @@
 </style>
 
 <script>
-import PositionRating from './PositionRating';
+import PositionRating from '../PositionRating';
 import countrydata from 'country-data';
 import moment from 'moment';
 import TimelineItem from 'app/components/TimelineItem';
-import CareerEvents from './CareerEvents';
+import CareerEvents from '../CareerEvents';
 
 export default {
   name: 'PlayerProfile',
@@ -222,14 +172,6 @@ export default {
       let age = moment().diff(bday, 'years');
       return `${bday.format("LL")} (age ${age})`;
     },
-    residency() {
-      if(!this.personalProfile || !this.personalProfile.residence_country_code) { return "Unknown"; }
-      let residencyCountryInfo = countrydata.countries[this.personalProfile.residence_country_code];
-      let residencyCountryName = residencyCountryInfo.name;
-      let residencyCountryFlag = residencyCountryInfo.emoji;
-
-      return `${residencyCountryName} ${residencyCountryFlag}`;
-    },
     nationalityCountryInfo() {
       if(!this.personalProfile || !this.personalProfile.nationality_country_code) { return "Unknown"; }
       return countrydata.countries[this.personalProfile.nationality_country_code];
@@ -243,16 +185,9 @@ export default {
       if(!this.personalProfile) { return "Unknown"; }
       return `${this.personalProfile.place_of_birth}, ${this.nationalityCountryInfo.name}`;
     },
-    preferredFoot() {
-      return _.capitalize(this.personalProfile.preferred_foot);
-    },
-    playingPositions() {
-      if(!this.personalProfile) { return [] }
-      return this.personalProfile.playing_positions;
-    },
-    careerHistory() {
-      if(!this.user) { return [] }
-      return this.user.career_history || [];
+    biography() {
+      if(!this.personalProfile || !this.personalProfile.biography) { return "This user has not written anything yet"; }
+      return this.personalProfile.biography;
     }
   }
 };

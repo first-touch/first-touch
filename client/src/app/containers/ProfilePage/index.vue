@@ -27,14 +27,16 @@ import { mapGetters, mapActions } from 'vuex';
 import store from 'app/store';
 import { ASYNC_LOADING, ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 import NotificationSidebar from 'app/components/NotificationSidebar';
-import PlayerProfile from './components/PlayerProfile';
+import PlayerProfile from './components/profiles/Player';
+import DirectorProfile from './components/profiles/Director';
 
 export default {
   name: 'ProfilePage',
   props: ['mine'],
   components: {
     sidebar: NotificationSidebar,
-    'player-profile': PlayerProfile
+    'player-profile': PlayerProfile,
+    'director-profile': DirectorProfile
   },
   computed: {
     ...mapGetters(['user', 'profile']),
