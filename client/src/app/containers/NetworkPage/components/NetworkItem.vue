@@ -6,7 +6,7 @@
     <div class="col-6 mt-auto mb-auto">
       <div class="row">
         <div class="col-12">
-          <h4 class="name">{{ displayName }}</h4>
+          <router-link :to="profileUrl" class="a-link dark large-sub-title"> {{ displayName }}</router-link>
         </div>
         <div class="col-12">
           <h5 class="role">{{ role }}</h5>
@@ -30,6 +30,9 @@ export default {
     },
     avatarUrl() {
       return this.info.avatar_url;
+    },
+    profileUrl() {
+      return `users/${this.userId}/profile`;
     },
     userId() {
       return this.info.id;
