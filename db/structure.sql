@@ -8,20 +8,6 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -731,7 +717,11 @@ CREATE TABLE public.personal_profiles (
     pro_status character varying,
     total_caps integer,
     playing_positions jsonb,
-    biography text
+    biography text,
+    qualifications text,
+    affiliations text,
+    scouting_badges text,
+    scope_of_operation character varying[] DEFAULT '{}'::character varying[]
 );
 
 
@@ -1157,7 +1147,8 @@ CREATE TABLE public.team_users (
     team_id integer,
     user_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    role character varying
 );
 
 
@@ -2613,6 +2604,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180813134639'),
 ('20180819153521'),
 ('20180822042653'),
-('20181106043309');
+('20181106043309'),
+('20181220114646'),
+('20190324080856');
 
 
