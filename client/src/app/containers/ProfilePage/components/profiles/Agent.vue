@@ -82,13 +82,36 @@
             </div>
 
             <div class="row mt-1">
+              <div id="agent-summary" class="col-12">
+                <h5 class="spaced-title upper-cased main-color">Summary</h5>
+              </div>
+            </div>
+
+            <div class="row mt-1">
+              <div id="agent-summary-contents" class="col-12">
+                <p class="detail">
+                  <span class="detail-title">Qualifications</span>
+                  {{ qualifications }}
+                </p>
+                <p class="detail">
+                  <span class="detail-title">Scope of Operations</span>
+                  {{ scopeOfOperations }}
+                </p>
+                <p class="detail">
+                  <span class="detail-title">Affiliations</span>
+                  {{ affiliations }}
+                </p>
+              </div>
+            </div>
+
+            <div class="row mt-1">
               <div id="biography" class="col-12">
                 <h5 class="spaced-title upper-cased main-color">Biography</h5>
               </div>
             </div>
 
             <div class="row mt-1">
-              <div id="biographt-contents" class="col-12">
+              <div id="biography-contents" class="col-12">
                 <p> {{biography}} </p>
               </div>
             </div>
@@ -181,13 +204,21 @@ export default {
 
       return `${this.nationalityCountryInfo.name} ${this.nationalityCountryInfo.emoji}`;
     },
-    birthplace() {
-      if(!this.personalProfile) { return "Unknown"; }
-      return `${this.personalProfile.place_of_birth}, ${this.nationalityCountryInfo.name}`;
-    },
     biography() {
       if(!this.personalProfile || !this.personalProfile.biography) { return "This user has not written anything yet"; }
       return this.personalProfile.biography;
+    },
+    scopeOfOperations() {
+      if(!this.personalProfile || !this.personalProfile.scope_of_operations) { return "This scout has not defined the operation range yet"; }
+      return _.join(this.personalProfile.scope_of_operations, ", ");
+    },
+    qualifications() {
+      if(!this.personalProfile || !this.personalProfile.qualifications) { return "N/a"; }
+      return this.personalProfile.qualifications;
+    },
+    affiliations() {
+      if(!this.personalProfile || !this.personalProfile.affiliations) { return "N/a"; }
+      return this.personalProfile.affiliations;
     }
   }
 };

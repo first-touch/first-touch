@@ -139,7 +139,7 @@
             </div>
 
             <div class="row mt-1">
-              <div id="biographt-contents" class="col-12">
+              <div id="biography-contents" class="col-12">
                 <p> {{biography}} </p>
               </div>
             </div>

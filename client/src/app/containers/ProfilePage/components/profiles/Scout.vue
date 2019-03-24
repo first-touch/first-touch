@@ -82,13 +82,32 @@
             </div>
 
             <div class="row mt-1">
+              <div id="scout-summary" class="col-12">
+                <h5 class="spaced-title upper-cased main-color">Summary</h5>
+              </div>
+            </div>
+
+            <div class="row mt-1">
+              <div id="scout-summary-contents" class="col-12">
+                <p class="detail">
+                  <span class="detail-title">Scouting Badges</span>
+                  {{ scoutingBadges }}
+                </p>
+                <p class="detail">
+                  <span class="detail-title">Scope of Operations</span>
+                  {{ scopeOfOperations }}
+                </p>
+              </div>
+            </div>
+
+            <div class="row mt-1">
               <div id="biography" class="col-12">
                 <h5 class="spaced-title upper-cased main-color">Biography</h5>
               </div>
             </div>
 
             <div class="row mt-1">
-              <div id="biographt-contents" class="col-12">
+              <div id="biography-contents" class="col-12">
                 <p> {{biography}} </p>
               </div>
             </div>
@@ -181,13 +200,17 @@ export default {
 
       return `${this.nationalityCountryInfo.name} ${this.nationalityCountryInfo.emoji}`;
     },
-    birthplace() {
-      if(!this.personalProfile) { return "Unknown"; }
-      return `${this.personalProfile.place_of_birth}, ${this.nationalityCountryInfo.name}`;
-    },
     biography() {
       if(!this.personalProfile || !this.personalProfile.biography) { return "This user has not written anything yet"; }
       return this.personalProfile.biography;
+    },
+    scoutingBadges() {
+      if(!this.personalProfile || !this.personalProfile.scouting_badges) { return "This scout has not defined any scouting badge yet"; }
+      return this.personalProfile.scouting_badges;
+    },
+    scopeOfOperations() {
+      if(!this.personalProfile || !this.personalProfile.scope_of_operations) { return "This scout has not defined the operation range yet"; }
+      return _.join(this.personalProfile.scope_of_operations, ", ");
     }
   }
 };
