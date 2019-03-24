@@ -165,8 +165,8 @@ import TimelineItem from 'app/components/TimelineItem';
 import CareerEvents from './CareerEvents';
 
 export default {
-  name: 'Profile',
-  props: ['mine', 'info', 'follow', 'connect'],
+  name: 'PlayerProfile',
+  props: ['mine', 'user'],
   components: {
     'timeline-item': TimelineItem,
     'position-rating': PositionRating,
@@ -191,20 +191,20 @@ export default {
   },
   computed: {
     userId() {
-      if(!this.info) { return ""; }
-      return this.info.id;
+      if(!this.user) { return ""; }
+      return this.user.id;
     },
     personalProfile() {
-      if(!this.info) { return {}; }
-      return this.info.personal_profile;
+      if(!this.user) { return {}; }
+      return this.user.personal_profile;
     },
     role() {
-      if(!this.info) { return "Unknown"; }
-      return _.capitalize(this.info.role_name);
+      if(!this.user) { return "Unknown"; }
+      return _.capitalize(this.user.role_name);
     },
     currentClub() {
-      if(!this.info || !this.info.current_club) { return {}; }
-      return this.info.current_club;
+      if(!this.user || !this.user.current_club) { return {}; }
+      return this.user.current_club;
     },
     clubAvatar() {
       return this.currentClub.club_logo;
@@ -214,7 +214,7 @@ export default {
       let countryInfo = countrydata.countries[this.currentClub.country_code];
       let countryName = countryInfo.name;
       let countryFlag = countryInfo.emoji;
-      return `${this.info.current_club.name}, ${countryName} ${countryFlag}`;
+      return `${this.user.current_club.name}, ${countryName} ${countryFlag}`;
     },
     birthday() {
       if(!this.personalProfile) { return "Unknown"; }
@@ -251,8 +251,8 @@ export default {
       return this.personalProfile.playing_positions;
     },
     careerHistory() {
-      if(!this.info) { return [] }
-      return this.info.career_history || [];
+      if(!this.user) { return [] }
+      return this.user.career_history || [];
     }
   }
 };
