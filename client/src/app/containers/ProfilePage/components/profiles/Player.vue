@@ -33,7 +33,7 @@
         <div v-if="!mine" class="contact-box-wrapper">
           <div class="row mt-3 d-none d-md-block">
             <div class="col-12 mt-md-3">
-              <router-link :to="'/messages/'+userId" class="btn btn-primary" tag="button">Messages</router-link>
+              <router-link :to="'/messages/'+userId" class="btn btn-primary" tag="button">Message</router-link>
             </div>
             <div class="col-12 mt-md-3">
               <button type="button" class="btn btn-primary">Connect</button>
@@ -48,7 +48,7 @@
 
     <div v-if="!mine" class="row mt-3 mx-auto d-md-none">
       <div class="col-4">
-        <router-link :to="'/messages/'+userId" class="btn btn-primary" tag="button">Messages</router-link>
+        <router-link :to="'/messages/'+userId" class="btn btn-primary" tag="button">Message</router-link>
       </div>
       <div class="col-4">
         <button type="button" class="btn btn-primary">Connect</button>
