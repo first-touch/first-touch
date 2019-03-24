@@ -1,60 +1,40 @@
 <template>
   <div>
     <!-- <sidebar /> -->
-    <div class="container-fluid">
-      <div class="ft-page network">
-        <h4 class="spaced-title upper-cased main-color">My network</h4>
-        <div class="network-widget">
-          <select class="network-widget-sort">
-            <option disabled selected value>Sort by</option>
-            <option value="name">Name</option>
-            <option value="club">Club</option>
-          </select>
-          <input type="text" class="network-widget-search" placeholder="Type a name" />
+    <div class="container-fluid ft-page">
+      <div class="row justify-content-center mb-4">
+        <div class="col-xs-12">
+          <h4 class="spaced-title upper-cased main-color">My network</h4>
         </div>
-        <div class="network-container">
-          <div v-if="loading">
-            <h4 class="text-center">Loading...</h4>
-          </div>
+      </div>
+      <div class="row network-filters justify-content-center mb-4">
+        <div class="col-xs-6 ml-auto mr-auto">
+          <select class="form-control network-widget-sort">
+            <option disabled selected value>Filter by role</option>
+            <option value="agent">Agent</option>
+            <option value="director">Director</option>
+            <option value="player">Player</option>
+            <option value="scout">Scout</option>
+          </select>
+        </div>
+        <div class="col-xs-6 ml-auto mr-auto">
+          <input type="text" class="form-control network-widget-search" placeholder="Type a name" />
+        </div>
+      </div>
+      <div class="row network-container justify-content-center">
+        <div class="col-xs-12" v-if="loading">
+          <h4 class="text-center">Loading...</h4>
+        </div>
+        <div class="col-xs-12">
           <network-item v-for="item in items"
-            :info="item"
-            :unfollow="unfollow.bind(this, { token: token.value, id: item.id })"
-            :key="item.id"
-            />
+              :info="item"
+              :unfollow="unfollow.bind(this, { token: token.value, id: item.id })"
+              :key="item.id" />
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-@import '~stylesheets/variables';
-@import '~stylesheets/common_style';
-
-.network {
-  .network-widget {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    .network-widget-sort,
-    .network-widget-search {
-      flex: 0 0 48%;
-      border: 1px solid $main-text-color;
-      background-color: $navbar-background-color;
-      color: $main-text-color;
-      padding: 2px 7px;
-    }
-    .network-widget-search {
-      border-radius: 4px;
-    }
-  }
-  .network-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-}
-</style>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
