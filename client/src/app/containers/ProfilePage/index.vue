@@ -29,6 +29,8 @@ import { ASYNC_LOADING, ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 import NotificationSidebar from 'app/components/NotificationSidebar';
 import PlayerProfile from './components/profiles/Player';
 import DirectorProfile from './components/profiles/Director';
+import ScoutProfile from './components/profiles/Scout';
+import AgentProfile from './components/profiles/Agent';
 
 export default {
   name: 'ProfilePage',
@@ -36,7 +38,9 @@ export default {
   components: {
     sidebar: NotificationSidebar,
     'player-profile': PlayerProfile,
-    'director-profile': DirectorProfile
+    'scout-profile': ScoutProfile,
+    'director-profile': DirectorProfile,
+    'agent-profile': AgentProfile
   },
   computed: {
     ...mapGetters(['user', 'profile']),
