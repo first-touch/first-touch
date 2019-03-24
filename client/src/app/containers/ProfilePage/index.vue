@@ -1,12 +1,7 @@
 <template>
   <div>
     <div class="ft-page">
-      <div class="profile">
-        <profile :mine="mine"
-          :info="info"
-          :follow="followUser"
-          :connect="connectUser"/>
-      </div>
+      <component v-bind:is="userRoleProfile" :user="userProfile" :mine="mine" class="profile"></component>
     </div>
   </div>
 </template>
@@ -32,63 +27,51 @@ import { mapGetters, mapActions } from 'vuex';
 import store from 'app/store';
 import { ASYNC_LOADING, ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 import NotificationSidebar from 'app/components/NotificationSidebar';
-import Profile from './components/Profile';
+import PlayerProfile from './components/profiles/Player';
+import DirectorProfile from './components/profiles/Director';
+import ScoutProfile from './components/profiles/Scout';
+import AgentProfile from './components/profiles/Agent';
 
 export default {
   name: 'ProfilePage',
   props: ['mine'],
   components: {
     sidebar: NotificationSidebar,
-    profile: Profile
+    'player-profile': PlayerProfile,
+    'scout-profile': ScoutProfile,
+    'director-profile': DirectorProfile,
+    'agent-profile': AgentProfile
   },
   computed: {
     ...mapGetters(['user', 'profile']),
-    info() {
+    userRoleProfile() {
+      if (!this.userProfile) { return undefined; }
+      return this.userProfile.role_name + '-profile';
+    },
+    userProfile() {
       if (!this.$route.params.id) return this.user.value;
       if (this.profile.status === ASYNC_SUCCESS) return this.profile.value;
-      return null;
-    }
+      return undefined;
+    },
   },
   methods: {
     ...mapActions([
-      'follow',
-      'unfollow',
-      'fetchUserInfo',
-      'connect',
+      'fetchUserInfo'
     ]),
-    followUser() {},
-    connectUser() {},
-    onRouteChange() {
-      if (
-        this.user.status === ASYNC_SUCCESS &&
-        parseInt(this.$route.params.id) === this.user.value.id
-      ) {
+    setUserProfile() {
+      if (this.user.status === ASYNC_SUCCESS && parseInt(this.$route.params.id) === this.user.value.id) {
         return this.$router.push({ path: '/profile' });
       }
       if (this.$route.params.id) {
         this.fetchUserInfo({ id: this.$route.params.id });
-        this.followUser = this.follow.bind(this, { id: this.$route.params.id });
-        this.connectUser = this.connect.bind(this, {
-          id: this.$route.params.id,
-        });
       }
-    },
-  },
-  watch: {
-    $route: 'onRouteChange',
+    }
   },
   mounted() {
-    store.watch(
-      () => this.user.status,
-      () => {
-        if (
-          this.user.value &&
-          this.user.value.id.toString() === this.$route.params.id
-        )
-          this.$router.push({ path: '/profile' });
-      },
-    );
-    this.onRouteChange();
+    this.setUserProfile()
   },
+  watch: {
+    $route: 'setUserProfile',
+  }
 };
 </script>

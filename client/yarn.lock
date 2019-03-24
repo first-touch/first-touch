@@ -6835,6 +6835,11 @@ v-autocomplete@latest:
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/v-autocomplete/-/v-autocomplete-1.8.2.tgz#966c7b3eda2c74dd683911114a20284cd096961f"
 
+v-clipboard@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/v-clipboard/-/v-clipboard-2.2.1.tgz#00519943312fe692acfda7cb4da11928db489c10"
+  integrity sha512-at0rawb+VbNrTIblpzKK6iDtHad0c8VvjG8aFBnEL5BSB7e/pdtWJZhpgXYaxcHW9soHlH/i7pI/sjackZHA0g==
+
 v8-compile-cache@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.0.2.tgz#a428b28bb26790734c4fc8bc9fa106fccebf6a6c"

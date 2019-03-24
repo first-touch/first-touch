@@ -4,7 +4,7 @@ module V1
     class UserTwin < Disposable::Twin
       property :id
       property :roles
-      property :career_history
+      property :career_entries
       property :clubs
       property :personal_profile
       property :following, virtual: true

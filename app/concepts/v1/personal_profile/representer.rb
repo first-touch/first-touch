@@ -22,6 +22,10 @@ module V1
         property :total_caps
         property :biography
         property :avatar_url, exec_context: :decorator
+        property :qualifications
+        property :affiliations
+        property :scouting_badges
+        property :scope_of_operation
 
         def avatar_url
           if represented.avatar.attached?
