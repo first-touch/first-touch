@@ -1,6 +1,6 @@
 module V1
   module Connection
-    class DoubleCreate < Trailblazer::Operation
+    class DoubleCreate < FirstTouch::Operation
       step :create_connections!
       step :build_response!
       step :notify_user!
