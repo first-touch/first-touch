@@ -74,11 +74,10 @@
               <label>Your Role</label>
               <select v-model="role_name" class="form-control m-field-input">
                 <option disabled value="">Role</option>
+                <option value="agent">Agent</option>
+                <option value="director">Director of Football</option>
                 <option value="player">Player</option>
                 <option value="scout">Scout</option>
-                <option value="director">Director</option>
-                <option value="manager">Manager</option>
-                <option value="coach">Coach</option>
               </select>
             </fieldset>
             <fieldset class="form-group col-lg-8 col-md-8" v-if="this.role_name != 'director'">
