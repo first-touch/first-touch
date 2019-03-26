@@ -2,7 +2,11 @@ module Api
   module V1
     class NetworkController < Api::V1::BaseController
       def index
-        render json: { message: 'Deprecated' }, status: :ok
+        op = ::V1::Network::Index.(params: params, current_user: @current_user)
+        response = FirstTouch::Endpoint.(op, ::V1::Network::Representer::Index)
+        render json: response[:data], status: response[:status]
+
+        # render json: { message: 'Deprecated' }, status: :ok
         # TODO: Needs improvement as network grows
         # will probably be impossible to build the whole graph at once
         # network_attrs = {

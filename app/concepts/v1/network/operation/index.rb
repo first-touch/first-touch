@@ -5,8 +5,8 @@ module V1
 
       private
 
-      def build_network(options, params:, current_user:, **)
-        options[:connections] = ::Connection.where(user_id: current_user.id)
+      def build_network(options, current_user:, **)
+        options[:models] = ::Connection.where(user_id: current_user.id)
       end
     end
   end
