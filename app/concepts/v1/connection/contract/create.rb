@@ -12,12 +12,6 @@ module V1
                   :connected_to_id,
                   :status,
                   presence: true
-
-        validates :status,
-                  inclusion: {
-                    in: [::Connection::PENDING, ::Connection::ACCEPTED],
-                    message: 'should be pending or accepted'
-                  }
       end
     end
   end
