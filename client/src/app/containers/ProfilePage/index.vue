@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="ft-page">
-      <component v-bind:is="userRoleProfile" :user="userProfile" :mine="mine" class="profile"></component>
+      <component v-bind:is="userRoleProfile" :user="userProfile" :mine="mine" :connectionStatus="connectionStatus" class="profile"></component>
     </div>
   </div>
 </template>
@@ -53,6 +53,10 @@ export default {
       if (this.profile.status === ASYNC_SUCCESS) return this.profile.value;
       return undefined;
     },
+    connectionStatus() {
+      if (!this.userProfile) { return undefined; }
+      return this.userProfile.connection_status;
+    }
   },
   methods: {
     ...mapActions([

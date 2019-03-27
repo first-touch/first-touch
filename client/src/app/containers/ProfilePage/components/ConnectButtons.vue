@@ -4,7 +4,7 @@
       <router-link :to="'/messages/'+userId" class="btn btn-primary" tag="button">Message</router-link>
     </div>
     <div class="col-4 col-md-12 mt-md-3">
-      <button type="button" class="btn btn-primary">Connect</button>
+      <button type="button" class="btn btn-primary">{{connectButton}}</button>
     </div>
     <div class="col-4 col-md-12 mt-md-3">
       <button type="button" class="btn btn-primary" v-clipboard="() => urlToProfile" v-clipboard:success="clipboardSuccessHandler" v-clipboard:error="clipboardErrorHandler">Share</button>
@@ -15,10 +15,21 @@
 <script>
 export default {
   name: 'ConnectButtons',
-  props: ['userId'],
+  props: ['userId', 'connectionStatus'],
   data() {
     return {
-      urlToProfile: "google.com"
+      urlToProfile: 'google.com'
+    }
+  },
+  computed: {
+    connectButton (){
+      if (this.connectionStatus == 'none') {
+        return 'Connect';
+      } else if (this.connectionStatus == 'requested') {
+        return 'Invitation sent';
+      } else if (this.connectionStatus == 'pending') {
+        return 'Accept connection'
+      }
     }
   },
   methods: {

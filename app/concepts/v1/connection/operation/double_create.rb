@@ -7,6 +7,8 @@ module V1
       failure :error_creating_connection, fail_fast: true
       step :notify_user
 
+      # NOTE: requested status means that the user has requested a connection
+      # but it has not yet been accepted by the other user
       def create_user_one_connection(options, params:, current_user:, **)
         conn_params = {
           user_id: current_user.id,
@@ -19,6 +21,8 @@ module V1
         options[:user].success?
       end
 
+      # NOTE: pending status means that the user has received a connection
+      # request that is yet pending to be accepted
       def create_user_two_connection(options, params:, current_user:, **)
         conn_params = {
           user_id: params[:connected_to_id],

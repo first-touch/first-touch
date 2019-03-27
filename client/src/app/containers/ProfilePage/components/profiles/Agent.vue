@@ -30,13 +30,13 @@
         </div>
 
         <div v-if="!mine" class="d-none d-md-block">
-          <connect-buttons :userId="userId"></connect-buttons>
+          <connect-buttons :userId="userId" :connectionStatus="connectionStatus"></connect-buttons>
         </div>
       </div>
     </div>
 
     <div v-if="!mine" class="d-md-none">
-      <connect-buttons :userId="userId"></connect-buttons>
+      <connect-buttons :userId="userId" :connectionStatus="connectionStatus"></connect-buttons>
     </div>
 
     <div class="row mt-2">
@@ -119,8 +119,8 @@ import TimelineItem from 'app/components/TimelineItem';
 import CareerEvents from '../CareerEvents';
 
 export default {
-  name: 'PlayerProfile',
-  props: ['mine', 'user'],
+  name: 'AgentProfile',
+  props: ['mine', 'user', 'connectionStatus'],
   components: {
     'timeline-item': TimelineItem,
     'position-rating': PositionRating,
