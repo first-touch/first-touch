@@ -1,5 +1,9 @@
+require_relative '../concerns/transactional'
+
 module FirstTouch
   class BaseOperation < Trailblazer::Operation
+    include Concerns::Transactional
+
     def model_not_found!(options, **)
       model_name = options['model.class'].name.titlecase
       error_message = I18n.t('models.not_found', model: model_name, id: options[:id])
