@@ -3,8 +3,7 @@ import NetworkService from 'app/services/NetworkService';
 
 export const getNetwork = (store, params = {}) => {
   store.commit(types.NETWORK_LOADING);
-  const role = params.role;
-  NetworkService.index(role).then(r => {
+  NetworkService.index(params).then(r => {
     store.commit(types.NETWORK_SUCCESS, r.network);
   }).catch(response => {
     if (response.status === 401) {

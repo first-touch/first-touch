@@ -4,8 +4,7 @@ import store from 'app/store';
 export default {
   endpoint: 'api/v1/network',
 
-  index (role) {
-    const params = { role: role };
+  index (params) {
     const endpoint = `${this.endpoint}?${$.param(params)}`;
     const token = store.state.token.value;
 

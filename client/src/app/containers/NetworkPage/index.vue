@@ -18,7 +18,7 @@
           </select>
         </div>
         <div class="col-xl-6 ml-auto mr-auto">
-          <input type="text" class="form-control network-widget-search" placeholder="Type a name" />
+          <input type="text" class="form-control network-widget-search" placeholder="Type a name" v-model="searchTerm"/>
         </div>
       </div>
       <div class="row network-container justify-content-center">
@@ -50,7 +50,8 @@ export default {
   },
   data() {
     return {
-      role: ''
+      role: '',
+      searchTerm: ''
     };
   },
   computed: {
@@ -64,13 +65,19 @@ export default {
   },
   methods: {
     ...mapActions(['getNetwork', 'unfollow']),
+    filterNetwork() {
+      this.getNetwork({
+        name: this.searchTerm,
+        role: this.role
+      })
+    }
   },
   mounted() {
-    this.getNetwork();
+    this.filterNetwork();
   },
   watch: {
-    role: function(newRole) {
-      this.getNetwork({ role: newRole });
+    role: function() {
+      this.filterNetwork();
     }
   }
 };

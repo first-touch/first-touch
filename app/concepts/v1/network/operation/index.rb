@@ -3,6 +3,7 @@ module V1
     class Index < FirstTouch::Operation
       step :build_network
       step :filter_by_role
+      step :filter_by_name
       step :build_results
 
       private
@@ -17,6 +18,14 @@ module V1
 
         options[:network] = options[:network].includes(connected_to: :roles)
                                              .where(roles: { name: params[:role] })
+      end
+
+      def filter_by_name(options, params:, **)
+        return true unless params[:name].present?
+
+        options[:network] = options[:network].joins(:connected_to).where(
+          'users.search_string iLIKE ?', "%#{params[:name]}%"
+        )
       end
 
       def build_results(options, **)
