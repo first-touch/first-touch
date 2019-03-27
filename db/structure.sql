@@ -8,6 +8,19 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
 
+--
+-- Name: status; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.status AS ENUM (
+    'requested',
+    'pending',
+    'accepted',
+    'rejected',
+    'blocked'
+);
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -420,9 +433,9 @@ CREATE TABLE public.connections (
     id bigint NOT NULL,
     user_id integer,
     connected_to_id integer,
-    status character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    status public.status
 );
 
 
@@ -2606,6 +2619,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180822042653'),
 ('20181106043309'),
 ('20181220114646'),
-('20190324080856');
+('20190324080856'),
+('20190327025131');
 
 

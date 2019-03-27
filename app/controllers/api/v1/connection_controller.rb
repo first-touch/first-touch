@@ -4,13 +4,8 @@ module Api
       def create
         result = ::V1::Connection::DoubleCreate.(params: params,
                                                  current_user: current_user)
-        if result.failure?
-          messages = result['contract.default'].errors.full_messages
-          render json: { error: messages },
-                 status: :unprocessable_entity
-        else
-          render json: result[:model], status: :ok
-        end
+        response = FirstTouch::Endpoint.(result)
+        render json: response[:data], status: response[:status]
       end
 
       def index
