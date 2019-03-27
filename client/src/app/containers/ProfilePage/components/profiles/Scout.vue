@@ -113,6 +113,7 @@ import countrydata from 'country-data';
 import moment from 'moment';
 import TimelineItem from 'app/components/TimelineItem';
 import CareerEvents from '../CareerEvents';
+import ConnectButtons from '../ConnectButtons';
 
 export default {
   name: 'ScoutProfile',
@@ -120,7 +121,8 @@ export default {
   components: {
     'timeline-item': TimelineItem,
     'position-rating': PositionRating,
-    'career-events': CareerEvents
+    'career-events': CareerEvents,
+    'connect-buttons': ConnectButtons
   },
   computed: {
     userId() {
