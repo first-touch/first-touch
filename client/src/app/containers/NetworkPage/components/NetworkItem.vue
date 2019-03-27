@@ -1,100 +1,46 @@
 <template>
-  <div class="network-item">
-    <img class="network-item-img" src="https://unsplash.it/300/300" />
-    <div class="network-item-info">
-      <h4 class="name">{{ info.display_name }}</h4>
-      <p class="role">Football Player</p>
-      <p class="club">Barca, Spain</p>
+  <div class="network-item row">
+    <div class="col-2 avatar-wrapper">
+      <div class="avatar img-responsive img-circle" v-bind:style="{ 'background-image': 'url('+avatarUrl+')' }"></div>
     </div>
-    <button @click="toggleUnfollow" class="network-item-option-trigger"></button>
-    <div v-if="unfollowOpen" class="network-item-options">
-      <button @click="this.unfollow">Unfollow</button>
+    <div class="col-6 mt-auto mb-auto">
+      <div class="row">
+        <div class="col-12">
+          <router-link :to="profileUrl" class="a-link dark large-sub-title"> {{ displayName }}</router-link>
+        </div>
+        <div class="col-12">
+          <h5 class="role">{{ role }}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-4 mt-auto mb-auto">
+      <router-link :to="'/messages/'+userId" class="btn btn-primary" tag="button">Message</router-link>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
-@import '~stylesheets/variables';
-
-
-.network-item {
-  margin-top: 20px;
-  background-color: #fff;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  padding: 20px;
-  flex: 0 0 48%;
-  height: 150px;
-  .network-item-img {
-    max-height: 100%;
-    border-radius: 50%;
-  }
-  .network-item-info {
-    margin-left: 20px;
-    .name,
-    .club,
-    .role {
-      font-weight: 300;
-      margin-bottom: 2px;
-    }
-    .name {
-      color: $main-header-color;
-      text-transform: uppercase;
-    }
-    .club,
-    .role {
-      color: $main-text-color;
-    }
-  }
-  .network-item-option-trigger {
-    height: 20px;
-    width: 20px;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: url('https://d30y9cdsu7xlg0.cloudfront.net/png/61783-200.png')
-      no-repeat center center;
-    background-size: cover;
-    border: none;
-  }
-  .network-item-options {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    top: 140px;
-    left: calc(100% - 30px);
-    z-index: 4;
-    &:hover {
-      display: flex;
-    }
-    button {
-      background: #fff;
-      border: 1px solid #000;
-      border-top: none;
-      height: 30px;
-    }
-    button:first-child {
-      border-top: 1px solid #000;
-    }
-  }
-}
-</style>
 
 <script>
 export default {
   name: 'NetworkItem',
   props: ['info', 'unfollow'],
-  data() {
-    return {
-      unfollowOpen: false,
-    };
-  },
-  methods: {
-    toggleUnfollow() {
-      this.$set(this, 'unfollowOpen', !this.unfollowOpen);
+  computed: {
+    displayName() {
+      return this.info.display_name;
     },
-  },
+    avatarUrl() {
+      return this.info.avatar_url;
+    },
+    profileUrl() {
+      return `users/${this.userId}/profile`;
+    },
+    userId() {
+      return this.info.id;
+    },
+    role() {
+      if(!this.info) { return "Unknown"; }
+      return _.capitalize(this.info.role_name);
+    }
+  }
 };
 </script>

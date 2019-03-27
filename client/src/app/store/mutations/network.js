@@ -17,7 +17,7 @@ export default {
   [ActionTypes.NETWORK_SUCCESS] (state, network) {
     state.network = Object.assign({}, state.network, {
       status: ASYNC_SUCCESS,
-      value: [...network.following]
+      value: network
     });
   },
   [ActionTypes.NETWORK_UNFOLLOW] (state, id) {

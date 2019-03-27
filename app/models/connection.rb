@@ -1,7 +1,10 @@
 class Connection < ApplicationRecord
-  PENDING = 'pending'.freeze
-  ACCEPTED = 'accepted'.freeze
-  REJECTED = 'rejected'.freeze
+  enum status: array_to_enum_hash(ConnectionStatus::STATUSES), _prefix: true
 
-  STATUS = [PENDING, ACCEPTED, REJECTED].freeze
+  belongs_to :user, class_name: 'User'
+  belongs_to :connected_to, class_name: 'User'
+
+  def status
+    @status ||= ConnectionStatus.new(read_attribute(:status))
+  end
 end

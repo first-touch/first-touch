@@ -47,7 +47,9 @@ export default {
       this.searchHasFocus = true;
     },
     lostFocus() {
-      this.searchHasFocus = false;
+      setTimeout(() => {
+        this.searchHasFocus = false;
+      }, 500);
     },
     clearSearchTerm() {
       this.searchTerm = "";

@@ -1,7 +1,7 @@
 <template>
   <router-link class="search-results-item" :to="`/users/${info.id}/profile`">
     <div class="arrow"></div>
-    <img class="img-fluid" src="https://unsplash.it/100/100" />
+    <img class="img-fluid" :src="info.avatar_url" />
     <p class="search-results-item-name">{{ info.display_name }}</p>
   </router-link>
 </template>

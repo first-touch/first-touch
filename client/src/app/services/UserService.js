@@ -76,5 +76,26 @@ export default {
       },
       body: JSON.stringify(data)
     });
+  },
+
+  // TODO: Think if it makes more sense to create a connection service
+  connect (connectToUserId) {
+    const token = store.state.token.value;
+    return fetch('/api/v1/connect', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token
+      },
+      body: JSON.stringify({
+        connected_to_id: connectToUserId // eslint-disable-line camelcase
+      })
+    }).then(res => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(res);
+      }
+    });
   }
 };

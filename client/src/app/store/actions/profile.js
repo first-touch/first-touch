@@ -1,5 +1,6 @@
 import * as types from '../../constants/ActionTypes';
 import { getNetwork } from './network';
+import UserService from 'app/services/UserService';
 
 export const fetchUserInfo = (store, { id }) => {
   store.commit(types.PROFILE_LOADING);
@@ -54,20 +55,14 @@ export const follow = (store, { id }) => {
 };
 
 export const connect = (store, { id }) => {
-  fetch('/api/v1/connect', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: store.state.token.value
-    },
-    body: JSON.stringify({ connected_to_id: id }) // eslint-disable-line camelcase
-  }).then(res => {
-    if (res.status === 200) {
-      store.commit(types.PROFILE_CONNECT);
-    } else if (res.status === 403) {
+  return new Promise((resolve, reject) => {
+    // TODO: Store commits?
+    UserService.connect(id).then(res => {
+      resolve(res);
+    }).catch(err => {
+      console.log(err);
       store.commit(types.TOKEN_CLEAR);
-    } else {
-      res.json().then(console.log);
-    }
+      reject(err);
+    });
   });
 };
