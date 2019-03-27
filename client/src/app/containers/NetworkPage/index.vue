@@ -9,7 +9,7 @@
       </div>
       <div class="row network-filters justify-content-center mb-4">
         <div class="col-xl-6 ml-auto mr-auto">
-          <select class="form-control network-widget-sort">
+          <select class="form-control network-widget-sort" v-model="role">
             <option value="">All Roles</option>
             <option value="agent">Agent</option>
             <option value="director">Director</option>
@@ -28,7 +28,6 @@
         <div class="col-xl-12">
           <network-item v-for="item in items"
               :info="item"
-              :unfollow="unfollow.bind(this, { token: token.value, id: item.id })"
               :key="item.id" />
         </div>
       </div>
@@ -49,6 +48,11 @@ export default {
     sidebar: NotificationSidebar,
     'network-item': NetworkItem,
   },
+  data() {
+    return {
+      role: ''
+    };
+  },
   computed: {
     ...mapGetters(['network']),
     loading() {
@@ -64,5 +68,10 @@ export default {
   mounted() {
     this.getNetwork();
   },
+  watch: {
+    role: function(newRole) {
+      this.getNetwork({ role: newRole });
+    }
+  }
 };
 </script>

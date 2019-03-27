@@ -7,7 +7,11 @@ export const getNetwork = (store, params = {}) => {
   NetworkService.index(role).then(r => {
     store.commit(types.NETWORK_SUCCESS, r.network);
   }).catch(response => {
-    console.log(response);
+    if (response.status === 401) {
+      store.commit(types.TOKEN_CLEAR);
+    } else {
+      console.log(response);
+    }
   });
 };
 
