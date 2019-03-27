@@ -9,7 +9,7 @@
       </div>
       <div class="row network-filters justify-content-center mb-4">
         <div class="col-xl-6 ml-auto mr-auto">
-          <select class="form-control network-widget-sort">
+          <select class="form-control network-widget-sort" v-model="role">
             <option value="">All Roles</option>
             <option value="agent">Agent</option>
             <option value="director">Director</option>
@@ -18,7 +18,7 @@
           </select>
         </div>
         <div class="col-xl-6 ml-auto mr-auto">
-          <input type="text" class="form-control network-widget-search" placeholder="Type a name" />
+          <input type="text" class="form-control network-widget-search" placeholder="Type a name" v-model="searchTerm" @keyup.prevent="filterNetwork()" />
         </div>
       </div>
       <div class="row network-container justify-content-center">
@@ -28,7 +28,6 @@
         <div class="col-xl-12">
           <network-item v-for="item in items"
               :info="item"
-              :unfollow="unfollow.bind(this, { token: token.value, id: item.id })"
               :key="item.id" />
         </div>
       </div>
@@ -49,8 +48,14 @@ export default {
     sidebar: NotificationSidebar,
     'network-item': NetworkItem,
   },
+  data() {
+    return {
+      role: '',
+      searchTerm: ''
+    };
+  },
   computed: {
-    ...mapGetters(['token', 'network']),
+    ...mapGetters(['network']),
     loading() {
       return this.network.status === ASYNC_LOADING;
     },
@@ -60,9 +65,20 @@ export default {
   },
   methods: {
     ...mapActions(['getNetwork', 'unfollow']),
+    filterNetwork() {
+      this.getNetwork({
+        name: this.searchTerm,
+        role: this.role
+      })
+    }
   },
   mounted() {
-    this.getNetwork({ token: this.token.value });
+    this.filterNetwork();
   },
+  watch: {
+    role: function() {
+      this.filterNetwork();
+    }
+  }
 };
 </script>
