@@ -18,7 +18,7 @@
           </select>
         </div>
         <div class="col-xl-6 ml-auto mr-auto">
-          <input type="text" class="form-control network-widget-search" placeholder="Type a name" v-model="searchTerm"/>
+          <input type="text" class="form-control network-widget-search" placeholder="Type a name" v-model="searchTerm" @keyup.prevent="filterNetwork()" />
         </div>
       </div>
       <div class="row network-container justify-content-center">
