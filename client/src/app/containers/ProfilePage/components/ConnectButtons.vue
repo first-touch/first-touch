@@ -31,6 +31,8 @@ export default {
         return 'Invitation sent';
       } else if (this.connectionStatus == 'pending') {
         return 'Accept connection'
+      } else if (this.connectionStatus == 'accepted') {
+        return 'Disconnect';
       }
     }
   },
