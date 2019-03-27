@@ -8,6 +8,7 @@ module V1
       def build_network(options, current_user:, **)
         options[:models] = ::Connection.status_accepted
                                        .where(user_id: current_user.id)
+                                       .map(&:connected_to)
       end
     end
   end
