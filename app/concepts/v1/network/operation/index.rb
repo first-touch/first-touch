@@ -6,7 +6,8 @@ module V1
       private
 
       def build_network(options, current_user:, **)
-        options[:models] = ::Connection.where(user_id: current_user.id)
+        options[:models] = ::Connection.status_accepted
+                                       .where(user_id: current_user.id)
       end
     end
   end
