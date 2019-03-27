@@ -50,7 +50,7 @@ export default {
     'network-item': NetworkItem,
   },
   computed: {
-    ...mapGetters(['token', 'network']),
+    ...mapGetters(['network']),
     loading() {
       return this.network.status === ASYNC_LOADING;
     },
@@ -62,7 +62,7 @@ export default {
     ...mapActions(['getNetwork', 'unfollow']),
   },
   mounted() {
-    this.getNetwork({ token: this.token.value });
+    this.getNetwork();
   },
 };
 </script>

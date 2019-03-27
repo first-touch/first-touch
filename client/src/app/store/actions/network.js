@@ -1,20 +1,13 @@
 import * as types from '../../constants/ActionTypes';
+import NetworkService from 'app/services/NetworkService';
 
-export const getNetwork = (store, { token }) => {
+export const getNetwork = (store, params = {}) => {
   store.commit(types.NETWORK_LOADING);
-  fetch('/api/v1/network', {
-    method: 'GET',
-    headers: { Authorization: token }
-  }).then(res => {
-    if (res.status === 200) {
-      res.json().then(r => {
-        store.commit(types.NETWORK_SUCCESS, r.network);
-      });
-    } else if (res.status === 401) {
-      store.commit(types.TOKEN_CLEAR);
-    } else {
-      res.json().then(console.log);
-    }
+  const role = params.role;
+  NetworkService.index(role).then(r => {
+    store.commit(types.NETWORK_SUCCESS, r.network);
+  }).catch(response => {
+    console.log(response);
   });
 };
 
