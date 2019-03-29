@@ -66,8 +66,8 @@ module V1
         NotificationCenter.send_notification(
           'connection-requested',
           {
-            name: current_user.display_name,
-            requestor_name: options[:connecting_to].display_name
+            name: options[:connecting_to].display_name,
+            requestor_name: current_user.display_name
           },
           params[:connected_to_id]
         )
