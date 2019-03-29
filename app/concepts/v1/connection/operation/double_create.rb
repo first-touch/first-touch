@@ -2,7 +2,7 @@ module V1
   module Connection
     class DoubleCreate < FirstTouch::Operation
       step Rescue(handler: :rollback!) {
-        step Wrap ->(ctx, *, &block) { ActiveRecord::Base.transaction do block.call end } {
+        step Wrap ->((_ctx), *, &block) { ActiveRecord::Base.transaction do block.call end } {
           step :create_user_one_connection
           failure :error_creating_connection, fail_fast: true
           step :create_user_two_connection
@@ -12,7 +12,7 @@ module V1
       }
 
       def rollback!(exception, options)
-        debugger
+        options[:errors] = exception.message
       end
 
       # NOTE: requested status means that the user has requested a connection
