@@ -46,3 +46,7 @@ en:
     balance_not_empty: 'Your balance is not empty, please wait few days and try again'
     delete_bid_accepted: 'Please cancel your bid before'
     scout_stripe_not_found: 'This report can not be buy yet'
+  club:
+    roster:
+      import:
+        unsupported_file: 'The roster file must either be a CSV or a XLSX file'
