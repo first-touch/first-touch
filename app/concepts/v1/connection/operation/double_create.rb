@@ -53,7 +53,7 @@ module V1
 
       def notify_user(_opts, params:, current_user:, **)
         NotificationCenter.send_notification(
-          'connection_requested',
+          'connection-requested',
           { user_name: current_user.display_name },
           params[:connected_to_id]
         )
