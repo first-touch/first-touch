@@ -4,7 +4,8 @@ module NotificationCenter
     {
       template: AppNotificationTemplate,
       messenger: SystemAppNotificationService
-    }
+    },
+    { template: EmailTemplate, messenger: SystemMailer }
   ].freeze
 
   def self.send_notification(ref, data, user_id)

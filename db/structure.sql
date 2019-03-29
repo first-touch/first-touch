@@ -459,6 +459,41 @@ ALTER SEQUENCE public.connections_id_seq OWNED BY public.connections.id;
 
 
 --
+-- Name: email_templates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.email_templates (
+    id bigint NOT NULL,
+    ref character varying,
+    reply_to character varying,
+    robot character varying,
+    subject character varying,
+    body text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: email_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.email_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: email_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.email_templates_id_seq OWNED BY public.email_templates.id;
+
+
+--
 -- Name: events; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1426,6 +1461,13 @@ ALTER TABLE ONLY public.connections ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: email_templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.email_templates ALTER COLUMN id SET DEFAULT nextval('public.email_templates_id_seq'::regclass);
+
+
+--
 -- Name: events id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1695,6 +1737,14 @@ ALTER TABLE ONLY public.competitions
 
 ALTER TABLE ONLY public.connections
     ADD CONSTRAINT connections_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: email_templates email_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.email_templates
+    ADD CONSTRAINT email_templates_pkey PRIMARY KEY (id);
 
 
 --
@@ -2007,6 +2057,13 @@ CREATE INDEX index_connections_on_user_id ON public.connections USING btree (use
 --
 
 CREATE UNIQUE INDEX index_connections_on_user_id_and_connected_to_id ON public.connections USING btree (user_id, connected_to_id);
+
+
+--
+-- Name: index_email_templates_on_ref; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_email_templates_on_ref ON public.email_templates USING btree (ref);
 
 
 --
@@ -2620,6 +2677,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181106043309'),
 ('20181220114646'),
 ('20190324080856'),
-('20190327025131');
+('20190327025131'),
+('20190329112834');
 
 
