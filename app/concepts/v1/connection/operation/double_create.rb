@@ -1,10 +1,10 @@
 module V1
   module Connection
     class DoubleCreate < FirstTouch::Operation
-      step :find_connecting_to
-      failure :connecting_to_not_found, fail_fast: true
       step Rescue(handler: :rollback!) {
         step Wrap ->((_ctx), *, &block) { ActiveRecord::Base.transaction do block.call end } {
+          step :find_connecting_to
+          failure :connecting_to_not_found, fail_fast: true
           step :create_user_one_connection
           failure :error_creating_connection, fail_fast: true
           step :create_user_two_connection
@@ -18,12 +18,12 @@ module V1
       end
 
       def find_connecting_to(options, params:, **)
-        options[:connecting_to] = ::User.find_by(id: params[:connected_to_id])
+        options[:connecting_to] = ::User.find_by(id: params['connected_to_id'])
         !options[:connecting_to].nil?
       end
 
       def connecting_to_not_found(options, params:, **)
-        options[:errors] = I18n.t('models.not_found', model: 'User', id: options[:connected_to_id])
+        options[:errors] = I18n.t('models.not_found', model: 'User', id: params['connected_to_id'])
       end
 
       # NOTE: requested status means that the user has requested a connection
@@ -66,8 +66,8 @@ module V1
         NotificationCenter.send_notification(
           'connection-requested',
           {
-            name: options[:connecting_to].display_name,
-            requestor_name: current_user.display_name
+            requestor_id: current_user.id,
+            connection_id: options[:friend][:model].id
           },
           params[:connected_to_id]
         )

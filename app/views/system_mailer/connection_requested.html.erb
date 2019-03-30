@@ -1,0 +1,7 @@
+<p>Hello <%= @user.display_name %>!</p>
+
+<p><%= @requestor.display_name %> invited you to connect in FirstTouch</p>
+
+<p><%= link_to 'Accept invitation', accept_invitation(@connection_id) %></p>
+
+<p>If you don't want to connect, ignore this email.</p>
