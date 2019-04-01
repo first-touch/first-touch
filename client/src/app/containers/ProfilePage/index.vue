@@ -34,7 +34,7 @@ import AgentProfile from './components/profiles/Agent';
 
 export default {
   name: 'ProfilePage',
-  props: ['mine'],
+  props: ['mine', 'accept_invitation', 'id'],
   components: {
     sidebar: NotificationSidebar,
     'player-profile': PlayerProfile,
@@ -49,7 +49,7 @@ export default {
       return this.userProfile.role_name + '-profile';
     },
     userProfile() {
-      if (!this.$route.params.id) return this.user.value;
+      if (!this.id) return this.user.value;
       if (this.profile.status === ASYNC_SUCCESS) return this.profile.value;
       return undefined;
     },
@@ -60,19 +60,23 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetchUserInfo'
+      'fetchUserInfo',
+      'acceptInvitation'
     ]),
     setUserProfile() {
-      if (this.user.status === ASYNC_SUCCESS && parseInt(this.$route.params.id) === this.user.value.id) {
+      if (this.user.status === ASYNC_SUCCESS && parseInt(this.id) === this.user.value.id) {
         return this.$router.push({ path: '/profile' });
       }
-      if (this.$route.params.id) {
-        this.fetchUserInfo({ id: this.$route.params.id });
+      if (this.id) {
+        this.fetchUserInfo({ id: this.id });
       }
     }
   },
   mounted() {
     this.setUserProfile()
+    if(this.accept_invitation) {
+      this.acceptInvitation({ id: this.accept_invitation });
+    }
   },
   watch: {
     $route: 'setUserProfile',

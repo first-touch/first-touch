@@ -8,6 +8,13 @@ module Api
         render json: response[:data], status: response[:status]
       end
 
+      def accept
+        result = ::V1::Connection::Accept.(params: params,
+                                           current_user: current_user)
+        response = FirstTouch::Endpoint.(result)
+        render json: response[:data], status: response[:status]
+      end
+
       def index
         op = ::V1::Network::Index.(params: params, current_user: @current_user)
         response = FirstTouch::Endpoint.(op, ::V1::Network::Representer::Index)

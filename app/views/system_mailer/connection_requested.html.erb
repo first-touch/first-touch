@@ -2,6 +2,6 @@
 
 <p><%= @requestor.display_name %> invited you to connect in FirstTouch</p>
 
-<p><%= link_to 'Accept invitation', accept_invitation(@connection_id) %></p>
+<p><%= link_to 'Accept invitation', accept_invitation(@requestor.id, @connection_id) %></p>
 
 <p>If you don't want to connect, ignore this email.</p>

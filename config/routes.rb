@@ -63,6 +63,7 @@ Rails.application.routes.draw do
 
       resources :events, only: %i[index create show]
       post 'connect', controller: :connection, action: :create
+      put 'connect/:connection_id/accept', controller: :connection, action: :accept
       post 'reports/refund/:report_id', controller: :orders, action: :refund
       resources :reports
       get 'reports/list/purchased', controller: :reports, action: :purchased
