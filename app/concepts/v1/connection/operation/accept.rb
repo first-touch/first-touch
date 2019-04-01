@@ -20,7 +20,7 @@ module V1
       # but it has not yet been accepted by the other user
       def update_user_one_connection(options, params:, current_user:, **)
         conn_params = {
-          id: params[:id],
+          id: params['connection_id'],
           status: 'accepted'
         }
         options[:user] = Update.(
@@ -39,7 +39,7 @@ module V1
       end
 
       def matching_connection_not_found(options, **)
-        options[:errors] = 'Matching connection not found'
+        options[:errors] = ['Matching connection not found']
       end
 
       # NOTE: pending status means that the user has received a connection
@@ -56,11 +56,11 @@ module V1
       end
 
       def error_updating_connection(options, **)
-        options['contract.default'] = if options[:user].failure?
-                                        options[:user].errors
-                                      else
-                                        options[:friend].errors
-                                      end
+        options[:errors] = if options[:user].failure?
+                             options[:user].errors
+                           else
+                             options[:friend].errors
+                           end
       end
     end
   end
