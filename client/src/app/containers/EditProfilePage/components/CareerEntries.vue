@@ -1,78 +1,31 @@
 <template>
-<div>
+<div class="career-entries-list">
   <fieldset
-    v-for="(career_history,index )  in career_histories"
-    :key="career_history.id"
+    v-for="(entry,index )  in career_histories"
+    :key="entry.id"
     class="form-group col-md-12">
     <div class="row">
-      <div class="career-entries-fast">
+      <div class="col-1 career-entries-fast">
         <h3>{{ index+1 }}</h3>
       </div>
-      <select
-        name="country_code"
-        class="form-control select-btn col"
-        @change="handleChange"
-      >
-        <option
-          v-for="c in countries"
-          :key="c.country_code"
-          :value="c.country_code"
-          :selected="c.country_code == career_history.club.country_code"
-          v-bind:data-foo="c.country_code"
-        >{{ c.country_name }}</option>
-      </select>
-
-      <select
-        name="club_name"
-        class="form-control col"
-      >
-        <option v-bind:value="career_history.club.name">{{ career_history.club.name}}</option>
-        <option
-          v-for="club in searched_clubs.clubs"
-          :key="club.id"
-          :value="club.name"
-        >{{ club.name}}</option>
-      </select>
+      <div class="col">
+        <div class="row capitalize">{{ getRoleName(entry.role) }}</div>
+        <div class="row">From {{ formatDate(entry.start_date) }} to {{ formatDate(entry.end_date) }}</div>
+        <div class="row">{{ getCountryName(entry.club.country_code) }} - {{ entry.club.name }}</div>
     </div>
-    <div class="row">
-      <div class="col select-btn-two">
-        <select name="your_role" class="form-control select-btn col">
-          <option value="career_history.role" selected>{{ career_history.role }}</option>
-          <option
-            v-for="role in roles"
-            :key="role.role_name"
-            :value="role.role_name"
-          >{{ role.role_name }}</option>
-        </select>
-      </div>
-      <div class="col select-btn-two">
-        <input
-          v-bind:value="career_history.start_date"
-          type="text"
-          onfocus="(this.type='date')"
-          id="date"
-          class="form-control m-field-input"
-        >
-      </div>
-      <div class="col select-btn-three">
-        <input
-          v-bind:value="career_history.end_date"
-          type="text"
-          onfocus="(this.type='date')"
-          id="date"
-          class="form-control m-field-input"
-        >
-      </div>
-    </div>
-    <div class="row">
-      <div class="col remove-space">
+    <div class="col-2">
         <button
           class="button-delete"
-          @click="deleteCareerEntry(career_history.id,index)"
+          @click="deleteEntry(entry.id,index)"
           type="button"
           name="dentry"
           value="Delete"
         >Delete</button>
+        <button class="button-edit"
+                @click="editEntry(entry.id,index)"
+                type="button"
+                name="edit-entry">
+                Edit</button>
       </div>
     </div>
   </fieldset>
@@ -90,21 +43,23 @@ export default {
     searched_clubs: {},
   }},
   methods: {
-    handleChange(e) {
-      if (e.target.options.selectedIndex > -1) {
-        var country_code =
-          e.target.options[e.target.options.selectedIndex].dataset.foo;
-        ClubService.searchClubByCountry(country_code)
-          .then(response => {
-            this.searched_clubs = response;
-          })
-          .catch(response => {
-            console.log(error);
-          });
-      }
+    formatDate(date_str){
+      let time = Date.parse(date_str);
+      return this.$options.filters.moment(time);
     },
-    deleteCareerEntry(id, index){
+    getRoleName(role_id){
+      return role_id;
+    },
+    getCountryName(country_code){
+      console.log(country_code);
+      let country = this.countries.find((c) => c.country_code == country_code);
+      return country != null ? country.country_name : "Unknown";
+    },
+    deleteEntry(id, index){
       this.$emit("delete", id, index);
+    },
+    editEntry(id, index){
+      this.$emit('edit', id, index);
     }
   }
 }

@@ -158,9 +158,11 @@
         <button type="submit" class="form-control a-bar-button">Save</button>
       </fieldset>
       
+      <hr class="section-separator" />
+
       <fieldset class="form-group">
         <div class="mb-2 clearfix">
-          <div class="button fr">+ New Entry</div>
+          <div class="button fr" @click="showCareerForm = true">+ New Entry</div>
           <h4 >Career Entries</h4>
         </div>
         <career-entries 
@@ -168,21 +170,23 @@
           :countries="countries" 
           :searched_clubs="searched_clubs"
           :roles="roles"
-          @delete="deleteCareerEntry" />
+          @delete="deleteCareerEntry"
+          @edit="editCareerEntry" />
       </fieldset>
-      
       
     </form>
-    <br>
-    <div class="seperation-box">
-      <h3>CAREER ENTRIES</h3>
-    </div>
-    <fieldset class="form-group">
-      <label>Enter New Career Entries</label>
-      <fieldset class="form-group col-md-12">
-        <career-entry-form :countries="countries" @save="addCareerEntry" />
-      </fieldset>
-    </fieldset>
+
+    <ft-dialog :visible.sync="showCareerForm">
+      <div slot="title">
+        <span v-if="selectedCareerEntry != null">Edit entry</span>
+        <span>Create new entry</span>
+      </div>
+      <career-entry-form 
+        :entry="selectedCareerEntry" 
+        :countries="countries" 
+        @save="saveCareerEntry" 
+        @close="showCareerForm = false"/>
+    </ft-dialog>
   </div>
 </template>
 
@@ -200,14 +204,6 @@
     width: 100%;
     display: inline-block;
     margin: 0 24px 24px 0px;
-  }
-
-  .remove-space {
-    padding: 0 0 0 24px;
-  }
-
-  .remove-space-three {
-    padding: 0;
   }
 }
 </style>
@@ -253,13 +249,15 @@ import UserService from "app/services/UserService";
 import CareerEntriesService from "app/services/CareerEntries";
 import CareerEntries from "./CareerEntries";
 import CareerEntryForm from "./CareerEntryForm";
+import FtDialog from "app/components/FtDialog";
 
 import axios from "axios";
 export default {
   name: "EditProfileForm",
   components: {
     CareerEntries,
-    CareerEntryForm
+    CareerEntryForm,
+    FtDialog
   },
   props: [
     "firstName",
@@ -311,7 +309,9 @@ export default {
       ],
       career_histories: this.careerHistory || "",
       searched_clubs: [],
-      get_clubs: []
+      get_clubs: [],
+      showCareerForm: false,
+      selectedCareerEntry: null
     };
   },
   computed: {
@@ -341,26 +341,45 @@ export default {
         this.career_histories = response.career_history;
       });
     },
-    addCareerEntry({ club_id, start_date, end_date, role}) {
+
+    editCareerEntry(id, index){
+      let entry = this.career_histories[index];
+      let { role, start_date, end_date, club } = entry;
+      this.selectedCareerEntry = {
+        role, start_date, end_date,
+        id: entry.id,
+        club_id: club.id, 
+        club_name: club.name,
+        country_code: club.country_code
+      };
+      this.showCareerForm = true;
+    },
+
+    async saveCareerEntry({ id, club_id, start_date, end_date, role}) {
+      let entry = this.career_histories.find((e)=>e.id==id);
+      const isUpdate = entry != null;
+
       var careerInfo = {
         career_entry: {
           club_id, start_date, end_date, role
         }
       };
-      CareerEntriesService.updateCareerEntries(careerInfo)
-        .then(response => {
-          this.updateInfo();
-          this.flash("Added successfully", "success", {
-            timeout: 3000,
-            important: true
-          });
-        })
-        .catch(response => {
-          this.flash("Failed to add", "error", {
-            timeout: 3000,
-            important: true
-          });
-        });
+      
+      try {
+        let request;
+        if (isUpdate){
+          await CareerEntriesService.update(entry.id, careerInfo);
+        } else {
+          await awaitCareerEntriesService.create(careerInfo);
+        }
+    
+        this.updateInfo();
+        let msg = isUpdate ? 'Updated entry successfully' : 'Added new entry successfully';
+        this.flash(msg, "success", { timeout: 3000, important: true });
+        this.showCareerForm = false;
+      } catch(err){
+        this.flash("Failed to add", "error", { timeout: 3000, important: true });
+      } 
     },
     
     deleteCareerEntry(id, index) {
@@ -379,6 +398,7 @@ export default {
           });
         });
     },
+    
     updateProfilePic() {
       if (this.avatar == undefined) {
         return;

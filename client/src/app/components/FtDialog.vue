@@ -158,6 +158,7 @@
   margin: 0 auto 50px;
 
   .ft-dialog__header {
+    position: relative;
     padding: $dialog-padding-primary;
     padding-bottom: 10px;
 

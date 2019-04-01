@@ -21,7 +21,7 @@
               :preferredFoot="preferredFoot"
               :avatarUrl="avatarUrl"
               :updateUserInfo="updateUserInfo"
-              :save="updateUser"
+              @save="updateUser"
               :clubCountry="clubCountry"
               :careerHistory="careerHistory" />
           </div>
@@ -37,6 +37,9 @@
   display: flex;
   border-left: 7px solid $main-header-color;
   margin-top: 20px;
+
+  color: $main-text-color;
+  
   .arrow {
     margin-top: 18px;
     border-left-color: $main-header-color;
