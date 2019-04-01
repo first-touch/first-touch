@@ -86,3 +86,11 @@ $input-border-focus-shadow: rgba(168, 203, 92, 0.25);
 $form-control-read-only: #e9ecef;
 
 $max-mobile-width: 1000px;
+
+// dialog
+$dialog-background-color: $main-text-color !default;
+$dialog-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !default;
+$dialog-close-hover-color: $link-color-hover !default;
+$dialog-title-font-size: $important-size !default;
+$dialog-font-size: 14px !default;
+$dialog-padding-primary: 20px;
