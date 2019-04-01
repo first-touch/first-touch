@@ -25,36 +25,26 @@
         <li v-if="hasClubModule">
           <router-link class="nav-link" to="/club">Club</router-link>
         </li>
-        <li v-if="hasScoutModule">
-          <a href="#scouting-submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Scouting</a>
-          <ul class="collapse list-unstyled" id="scouting-submenu">
-            <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'scoutReportCreate'}">Create Report</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'scoutJobsList'}">Jobs List</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'scoutJobsBank'}">Jobs Bank</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'scoutPaymentDetailPage'}">Payment Details</router-link>
-            </li>
-          </ul>
+        <li v-if="hasScoutModule" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="scouting-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Scouting
+          </a>
+          <div class="dropdown-menu" aria-labelledby="scouting-dropdown">
+            <router-link class="dropdown-item" :to="{ name: 'scoutReportCreate'}">Create Report</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutJobsList'}">Jobs List</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutJobsBank'}">Jobs Bank</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutPaymentDetailPage'}">Payment Details</router-link>
+          </div>
         </li>
-        <li v-if="hasPartnerModule">
-          <a href="#partners-submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Partners</a>
-          <ul class="collapse list-unstyled" id="partners-submenu">
-            <li class="nav-item">
-              <router-link class="nav-link" to="/">Scouts</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/">Directors of Football</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/">Agents</router-link>
-            </li>
-          </ul>
+        <li v-if="hasPartnerModule" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="partners-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Partners
+          </a>
+          <div class="dropdown-menu" aria-labelledby="scouting-dropdown">
+            <router-link class="dropdown-item" to="/">Scouts</router-link>
+            <router-link class="dropdown-item" to="/">Directors of Football</router-link>
+            <router-link class="dropdown-item" to="/">Agents</router-link>
+          </div>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/about">About</router-link>
@@ -99,7 +89,8 @@ export default {
       return this.role == 'scout';
     },
     hasPartnerModule() {
-      return this.role == 'scout' || this.role == 'agent' || this.role == 'director';
+      return false;
+      // return this.role == 'scout' || this.role == 'agent' || this.role == 'director';
     },
     hasClubModule() {
       return this.role == 'player' || this.role == 'director';
