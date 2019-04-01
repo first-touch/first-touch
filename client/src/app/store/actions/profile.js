@@ -66,3 +66,16 @@ export const connect = (store, { id }) => {
     });
   });
 };
+
+export const acceptInvitation = (store, { id }) => {
+  return new Promise((resolve, reject) => {
+    // TODO: Store commits?
+    UserService.acceptInvitation(id).then(res => {
+      resolve(res);
+    }).catch(err => {
+      console.log(err);
+      store.commit(types.TOKEN_CLEAR);
+      reject(err);
+    });
+  });
+};

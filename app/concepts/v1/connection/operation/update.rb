@@ -1,7 +1,7 @@
 module V1
   module Connection
-    class Create < FirstTouch::Operation
-      step Model(::Connection, :new)
+    class Update < FirstTouch::Operation
+      step Model(::Connection, :find_by)
       step Trailblazer::Operation::Contract::Build(
         constant: Connection::Contract::Create
       )

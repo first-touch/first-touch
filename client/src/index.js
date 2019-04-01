@@ -152,13 +152,11 @@ export const router = new VueRouter({
         {
           path: '/users/:id/profile',
           component: ProfilePage,
-          name: 'userProfilePage',
-          props: {
+          props: (route) => ({
+            id: route.params.id,
+            accept_invitation: route.query.accept_invitation, // eslint-disable-line camelcase
             mine: false
-          },
-          meta: {
-            reuse: false
-          }
+          })
         },
         {
           path: 'network',

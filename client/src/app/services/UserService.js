@@ -97,5 +97,24 @@ export default {
         return Promise.reject(res);
       }
     });
+  },
+
+  // TODO: Think if it makes more sense to create a connection service
+  acceptInvitation (invitationId) {
+    const token = store.state.token.value;
+    const endpoint = `/api/v1/connect/${invitationId}/accept`;
+    return fetch(endpoint, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token
+      }
+    }).then(res => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(res);
+      }
+    });
   }
 };
