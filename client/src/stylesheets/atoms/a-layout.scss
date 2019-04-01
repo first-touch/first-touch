@@ -55,3 +55,37 @@
     // }
   }
 }
+
+
+.fl { float: left; }
+.fr { float: right; }
+.align-left { text-align: left; }
+.align-right { text-align: right; }
+.align-center { text-align: center; }
+
+$spacings: 0, 0.25, 0.5, 1, 1.5, 2, 2.5, 3;
+@for $i from 1 through length($spacings) {
+  $n:$i;
+  $idx:$i - 1;
+  .p-#{$idx} { padding: #{nth($spacings, $n)}rem; }
+  .py-#{$idx},
+  .pt-#{$idx} { padding-top: #{nth($spacings, $n)}rem; }
+  .py-#{$idx},
+  .pb-#{$idx} { padding-bottom: #{nth($spacings, $n)}rem; }
+
+  .px-#{$idx},
+  .pl-#{$idx} { padding-left: #{nth($spacings, $n)}rem; }
+  .px-#{$idx},
+  .pr-#{$idx} { padding-right: #{nth($spacings, $n)}rem; }
+
+  .m-#{$idx} { margin: #{nth($spacings, $n)}rem; }
+  .my-#{$idx},
+  .mt-#{$idx} { margin-top: #{nth($spacings, $n)}rem; }
+  .my-#{$idx},
+  .mb-#{$idx} { margin-bottom: #{nth($spacings, $n)}rem; }
+
+  .mx-#{$idx},
+  .ml-#{$idx} { margin-left: #{nth($spacings, $n)}rem; }
+  .mx-#{$idx},
+  .mr-#{$idx} { margin-right: #{nth($spacings, $n)}rem; }
+}

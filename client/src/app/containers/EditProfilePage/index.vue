@@ -21,6 +21,7 @@
               :preferredFoot="preferredFoot"
               :avatarUrl="avatarUrl"
               :updateUserInfo="updateUserInfo"
+              :save="updateUser"
               :clubCountry="clubCountry"
               :careerHistory="careerHistory" />
           </div>
@@ -147,6 +148,14 @@ export default {
   },
   methods: {
     ...mapActions(['updateUserInfo']),
+    updateUser(info) {
+      this.updateUserInfo(info).then(() => {
+        this.flash("Updated successfully", "success", {
+          timeout: 3000,
+          important: true
+        });
+      })
+    }
   },
 };
 </script>

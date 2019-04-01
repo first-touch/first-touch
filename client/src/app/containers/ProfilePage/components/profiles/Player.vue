@@ -29,6 +29,10 @@
           </div>
         </div>
 
+        <div class="profile-actions" >
+          <router-link class="a-link" to="/profile/edit">Edit Profile</router-link>
+        </div>
+
         <div v-if="!mine" class="d-none d-md-block">
           <connect-buttons :userId="userId" :connectionStatus="connectionStatus"></connect-buttons>
         </div>
@@ -144,6 +148,7 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
+@import '~stylesheets/button';
 
 .detail-title {
   color: $secondary-text-color;

@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="ft-page">
-      <component v-bind:is="userRoleProfile" :user="userProfile" :mine="mine" :connectionStatus="connectionStatus" class="profile"></component>
+      <component
+          :is="userRoleProfile"
+          :user="userProfile"
+          :mine="mine"
+          :connectionStatus="connectionStatus"
+          class="profile" />
     </div>
   </div>
 </template>
