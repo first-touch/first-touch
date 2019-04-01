@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <router-link to="/" class="navbar-brand">
       <img class="img-fluid" src="/images/landing-page/ft-navbar-logo.png" alt="Ft Logo" />
     </router-link>
