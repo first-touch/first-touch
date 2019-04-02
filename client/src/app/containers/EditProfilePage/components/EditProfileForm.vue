@@ -32,7 +32,7 @@
           <div class="col">
             <input
               type="text"
-              v-model="first_name"
+              v-model="profile_form.first_name"
               class="form-control m-field-input"
               placeholder="First Name"
             >
@@ -40,7 +40,7 @@
           <div class="col">
             <input
               type="text"
-              v-model="middle_name"
+              v-model="profile_form.middle_name"
               class="form-control m-field-input"
               placeholder="Middle Name"
             >
@@ -48,7 +48,7 @@
           <div class="col">
             <input
               type="text"
-              v-model="last_name"
+              v-model="profile_form.last_name"
               class="form-control m-field-input"
               placeholder="Last Name"
             >
@@ -95,7 +95,7 @@
         <label>Nationality</label>
         <div class="row">
           <div class="col">
-            <select v-model="country_code" class="form-control m-field-input">
+            <select v-model="profile_form.nationality_country_code" class="form-control m-field-input">
               <option disabled value selected>Country of Birth</option>
               <option
                 v-for="c in countries"
@@ -107,21 +107,21 @@
           <div class="col">
             <input
               type="text"
-              v-model="place_of_birth"
+              v-model="profile_form.place_of_birth"
               class="form-control m-field-input"
               placeholder="Place of Birth"
             >
           </div>
         </div>
       </fieldset>
-      <fieldset class="form-group">
+      <fieldset class="form-group" v-if="isPlayer">
         <label>Physique</label>
         <div class="row">
           <div class="col">
             <div class="input-group mb-3">
               <input
                 type="number"
-                v-model="weight"
+                v-model="profile_form.weight"
                 class="form-control m-field-input"
                 placeholder="Weight"
               >
@@ -134,7 +134,7 @@
             <div class="input-group mb-3">
               <input
                 type="number"
-                v-model="height"
+                v-model="profile_form.height"
                 class="form-control m-field-input"
                 placeholder="Height"
               >
@@ -144,7 +144,7 @@
             </div>
           </div>
           <div class="col">
-            <select v-model="preferred_foot" class="form-control m-field-input">
+            <select v-model="profile_form.preferred_foot" class="form-control m-field-input">
               <option disabled value>Preferred Foot</option>
               <option value="R">Right</option>
               <option value="L">Left</option>
@@ -152,6 +152,31 @@
             </select>
           </div>
         </div>
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label for="qualifications">Biography</label>
+        <textarea class="form-control" id="biography" rows="4" v-model="profile_form.biography"></textarea>
+      </fieldset>
+
+      <fieldset class="form-group" v-if="isAgent">
+        <label for="qualifications">Qualifications</label>
+        <textarea class="form-control" id="qualifications" rows="4" v-model="profile_form.qualifications"></textarea>
+      </fieldset>
+
+      <fieldset class="form-group" v-if="isAgent">
+        <label for="affiliations">Affiliations</label>
+        <textarea class="form-control" id="affiliations" rows="4" v-model="profile_form.affiliations"></textarea>
+      </fieldset>
+
+      <fieldset class="form-group" v-if="isAgent && isScout">
+        <label for="scope_of_operations">Scope of Operations</label>
+        <textarea class="form-control" id="scope_of_operations" rows="4" v-model="profile_form.scope_of_operations"></textarea>
+      </fieldset>
+
+      <fieldset class="form-group" v-if="isScout">
+        <label for="scouting_badges">Scouting Badges</label>
+        <textarea class="form-control" id="scouting_badges" rows="4" v-model="profile_form.scouting_badges"></textarea>
       </fieldset>
 
       <fieldset class="form-group">
@@ -168,7 +193,6 @@
         <career-entries 
           :career_histories="career_histories" 
           :countries="countries" 
-          :searched_clubs="searched_clubs"
           :roles="roles"
           @delete="deleteCareerEntry"
           @edit="editCareerEntry" />
@@ -260,6 +284,8 @@ export default {
     FtDialog
   },
   props: [
+    "profile",
+    "role",
     "firstName",
     "middleName",
     "lastName",
@@ -272,13 +298,30 @@ export default {
     "pHeight",
     "preferredFoot",
     "avatarUrl",
-    "updateUserInfo",
     "clubId",
     "careerHistory"
   ],
   data() {
     return {
       isHidden: false,
+      profile_form: {
+        avatar_url: "",
+        first_name: "",
+        middle_name: "",
+        last_name: "",
+        birthday: "",
+        nationality_country_code: "",
+        residence_country_code: "",
+        place_of_birth: "",
+        weight: 0,
+        height: 0,
+        preferred_foot: "",
+        biography: "",
+        qualifications: "",
+        affiliations: "",
+        scouting_badges: "",
+        scope_of_operations: ""
+      },
       club_country_code: "",
       clubs: [],
       item: null,
@@ -302,19 +345,21 @@ export default {
       formData: {},
       roles: [
         { role_name: "player" },
-        { role_name: "manager" },
-        { role_name: "coach" },
+        { role_name: "agent" },
         { role_name: "scout" },
         { role_name: "director" }
       ],
       career_histories: this.careerHistory || "",
-      searched_clubs: [],
-      get_clubs: [],
       showCareerForm: false,
       selectedCareerEntry: null
     };
   },
   computed: {
+    isPlayer(){ return this.role  == "player"; },
+    isAgent(){ return this.role  == "agent"; },
+    isScout(){ return this.role  == "scout"; },
+    isDirector(){ return this.role  == "director"; },
+
     currentAvatar() {
       if (this.avatar) {
         return this.avatar.url;
@@ -324,6 +369,14 @@ export default {
     },
     noNewAvatar() {
       return !this.avatar;
+    }
+  },
+  watch: {
+    profile: {
+      immediate: true,
+      handler: function(to){
+        this.profile_form = to;
+      }
     }
   },
   methods: {
@@ -429,32 +482,24 @@ export default {
         bDay,
         bYear,
         place_of_birth,
+        nationality_country_code,
         weight,
         height,
         preferred_foot,
         career_histories
-      } = this;
-      const nationality_country_code = this.country_code;
-      const residence_country_code = this.country_code;
+      } = this.profile_form;
+      const residence_country_code = nationality_country_code;
       const birthday = new Date(Date.UTC(bYear, bMonth, bDay));
 
       const profile_update = {
-        career_histories,
-        first_name,
-        middle_name,
-        last_name,
+        ...this.profile_form,
+        //career_histories,
         birthday,
         nationality_country_code,
         residence_country_code,
-        place_of_birth,
-        weight,
-        height,
-        preferred_foot
       }
-      this.$emit("save", profile_update);
 
-      /*this.updateUserInfo().then(response => {
-      });*/
+      this.$emit("save", profile_update);
     },
     fetchCountries() {
       ClubService.countriesForClubs().then(response => {

@@ -51,7 +51,6 @@ export default {
       return role_id;
     },
     getCountryName(country_code){
-      console.log(country_code);
       let country = this.countries.find((c) => c.country_code == country_code);
       return country != null ? country.country_name : "Unknown";
     },

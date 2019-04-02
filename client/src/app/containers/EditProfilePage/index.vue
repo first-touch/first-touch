@@ -6,8 +6,13 @@
         <h4 class="spaced-title upper-cased main-color">Edit Profile</h4>
         <div class="profile-item">
           <div class="arrow"></div>
+
           <div class="form-container">
             <edit-form v-if="loaded"
+              :profile="personalProfile"
+              :role="role"
+              @save="updateUser"
+
               :firstName="firstName"
               :middleName="middleName"
               :lastName="lastName"
@@ -21,7 +26,6 @@
               :preferredFoot="preferredFoot"
               :avatarUrl="avatarUrl"
               :updateUserInfo="updateUserInfo"
-              @save="updateUser"
               :clubCountry="clubCountry"
               :careerHistory="careerHistory" />
           </div>
@@ -91,6 +95,9 @@ export default {
             preferred_foot: null,
             weight: null,
           };
+    },
+    role() {
+      return "agent";//this.user.value.role_name || '';
     },
     careerHistory() {
       if(!this.user) { return [] }
