@@ -67,8 +67,14 @@
   </div>
   <div class="row">
     <div class="col">
-      <button type="button" class="button-cancel" name="save-entry" value="add" @click="cancelEntry">Cancel</button>
-      <button type="button" class="button-add" name="save-entry" value="add" @click="saveEntry">add</button>
+      <button type="button" class="button-delete" @click="deleteEntry" v-if="isEdit">Delete</button>
+    </div>
+    <div class="col">
+      <button type="button" class="button-cancel" @click="cancelEntry">Cancel</button>
+      <button type="button" class="button-add" name="save-entry" value="add" @click="saveEntry">
+        <span v-if="isEdit">Save</span>
+        <span v-else>Add</span>
+      </button>
     </div>
   </div>
 </div> 
@@ -142,6 +148,9 @@ export default {
     },
     cancelEntry(){
       this.$emit('close');
+    },
+    deleteEntry(){
+      this.$emit('delete', { id: this.form.id })
     }
   }
 }

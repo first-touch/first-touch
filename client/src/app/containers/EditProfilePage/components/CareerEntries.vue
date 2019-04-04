@@ -3,7 +3,7 @@
   <fieldset
     v-for="(entry,index )  in career_histories"
     :key="entry.id"
-    class="form-group col-md-12">
+    class="form-group col-md-12 carrer-entry">
     <div class="row">
       <div class="col-1 career-entries-fast">
         <h3>{{ index+1 }}</h3>
@@ -14,18 +14,20 @@
         <div class="row">{{ getCountryName(entry.club.country_code) }} - {{ entry.club.name }}</div>
     </div>
     <div class="col-2">
-        <button
+        
+        <!--<button
           class="button-delete"
           @click="deleteEntry(entry.id,index)"
           type="button"
           name="dentry"
           value="Delete"
-        >Delete</button>
+        ><v-icon name="pencil-alt" /></button>-->
         <button class="button-edit"
                 @click="editEntry(entry.id,index)"
                 type="button"
                 name="edit-entry">
-                Edit</button>
+                <v-icon name="pencil-alt" scale="1"/>
+          </button>
       </div>
     </div>
   </fieldset>
@@ -34,8 +36,13 @@
 
 <script>
 import ClubService from "app/services/ClubService";
+import 'vue-awesome/icons/pencil-alt';
+import VIcon from 'vue-awesome/components/Icon'
 
 export default {
+  components: {
+    VIcon
+  },
   props: [  "career_histories", 
             "countries",
             "roles"],
@@ -80,9 +87,18 @@ export default {
 }
 
 
+.button-edit,
 .button-delete {
-  color: #fff;
-  padding: 5px 14px 5px 15px;
-  background: grey;
+  display: none;
+  //color: #fff;
+  //padding: 5px 14px 5px 15px;
+  //background: grey;
+  cursor: pointer;
+  border: 0;
+}
+
+.carrer-entry:hover .button-edit,
+.carrer-entry:hover .button-delete {
+  display: block;
 }
 </style>
