@@ -13,7 +13,7 @@
               @change="filePickerUpdated($event.target.files)"
               class="input-file"
             >
-            <img data-v-8e1e5708 :src="currentAvatar" class="rounded-circle img-fluid">
+            <img :src="currentAvatar" class="rounded-circle img-fluid">
           </div>
           <div class="col-4">
             <button
@@ -56,9 +56,9 @@
         </div>
       </fieldset>
       <fieldset class="form-group">
-        <label>Date Of Birth</label>
+        <label>Date Of Birth -- {{bMonth}} -- {{bDay}} -- {{bYear}} -- {{ profile_form.birthday }}</label>
         <div class="row">
-          <div class="col">
+          <div class="col"> 
             <select v-model="bMonth" class="form-control m-field-input">
               <option disabled value>Month</option>
               <option value="1">January</option>
@@ -78,7 +78,7 @@
           <div class="col">
             <select v-model="bDay" class="form-control m-field-input">
               <option disabled value>Date</option>
-              <option v-for="d in 31" :value="d">{{ d }}</option>
+              <option v-for="d in 31" :key="d" :value="d">{{ d }}</option>
             </select>
           </div>
           <div class="col">
@@ -169,14 +169,15 @@
         <textarea class="form-control" id="affiliations" rows="4" v-model="profile_form.affiliations"></textarea>
       </fieldset>
 
-      <fieldset class="form-group" v-if="isAgent && isScout">
-        <label for="scope_of_operations">Scope of Operations</label>
-        <textarea class="form-control" id="scope_of_operations" rows="4" v-model="profile_form.scope_of_operations"></textarea>
-      </fieldset>
-
       <fieldset class="form-group" v-if="isScout">
         <label for="scouting_badges">Scouting Badges</label>
         <textarea class="form-control" id="scouting_badges" rows="4" v-model="profile_form.scouting_badges"></textarea>
+      </fieldset>
+      
+      <fieldset class="form-group" v-if="isAgent || isScout">
+        <label for="scope_of_operations">Scope of Operations</label>
+        <input-list v-model="profile_form.scope_of_operation" />
+        <!--<textarea class="form-control" id="scope_of_operations" rows="4" v-model="profile_form.scope_of_operation"></textarea>-->
       </fieldset>
 
       <fieldset class="form-group">
@@ -187,7 +188,7 @@
 
       <fieldset class="form-group">
         <div class="mb-2 clearfix">
-          <div class="button fr" @click="showCareerForm = true">+ New Entry</div>
+          <div class="button fr" @click="selectedCareerEntry=null; showCareerForm = true">+ New Entry</div>
           <h4 >Career Entries</h4>
         </div>
         <career-entries 
@@ -208,7 +209,8 @@
       <career-entry-form 
         :entry="selectedCareerEntry" 
         :countries="countries" 
-        @save="saveCareerEntry" 
+        @save="saveCareerEntry"
+        @delete="deleteCareerEntry" 
         @close="showCareerForm = false"/>
     </ft-dialog>
   </div>
@@ -237,7 +239,7 @@
 .input-file {
   opacity: 0; /* invisible but it's there! */
   width: 100%;
-  height: 100px;
+  padding-top: 100%;
   position: absolute;
   cursor: pointer;
   margin-top: -32px;
@@ -274,6 +276,7 @@ import CareerEntriesService from "app/services/CareerEntries";
 import CareerEntries from "./CareerEntries";
 import CareerEntryForm from "./CareerEntryForm";
 import FtDialog from "app/components/FtDialog";
+import InputList from "./InputList";
 
 import axios from "axios";
 export default {
@@ -281,21 +284,12 @@ export default {
   components: {
     CareerEntries,
     CareerEntryForm,
-    FtDialog
+    FtDialog,
+    InputList
   },
   props: [
     "profile",
     "role",
-    "firstName",
-    "middleName",
-    "lastName",
-    "month",
-    "day",
-    "year",
-    "countryCode",
-    "placeOfBirth",
-    "pWeight",
-    "pHeight",
     "preferredFoot",
     "avatarUrl",
     "clubId",
@@ -324,21 +318,10 @@ export default {
       },
       club_country_code: "",
       clubs: [],
-      item: null,
       searchText: "",
-      error: null,
-      role_name: this.role,
-      first_name: this.firstName || "",
-      middle_name: this.middleName || "",
-      last_name: this.lastName || "",
-      bMonth: this.month || "",
-      bDay: this.day || "",
-      bYear: this.year || "",
-      country_code: this.countryCode || "",
-      place_of_birth: this.placeOfBirth || "",
-      weight: this.pWeight || "",
-      height: this.pHeight || "",
-      preferred_foot: this.preferredFoot || "",
+      bMonth:  "",
+      bDay: "",
+      bYear: "",
       countries: [],
       avatar_url: this.avatarUrl,
       avatar: undefined,
@@ -376,6 +359,13 @@ export default {
       immediate: true,
       handler: function(to){
         this.profile_form = to;
+
+        if (this.profile_form.birthday){
+          let dob = new Date(this.profile_form.birthday);
+          this.bYear = dob.getUTCFullYear();
+          this.bMonth = dob.getMonth() + 1;
+          this.bDay = dob.getDate();
+        }
       }
     }
   },
@@ -423,7 +413,7 @@ export default {
         if (isUpdate){
           await CareerEntriesService.update(entry.id, careerInfo);
         } else {
-          await awaitCareerEntriesService.create(careerInfo);
+          await CareerEntriesService.create(careerInfo);
         }
     
         this.updateInfo();
@@ -431,18 +421,24 @@ export default {
         this.flash(msg, "success", { timeout: 3000, important: true });
         this.showCareerForm = false;
       } catch(err){
+        console.error(err);
         this.flash("Failed to add", "error", { timeout: 3000, important: true });
       } 
     },
     
-    deleteCareerEntry(id, index) {
-      this.$delete(this.career_histories, index);
+    deleteCareerEntry({ id }) {
+      let index = this.career_histories.findIndex((c)=>c.id == id);
+      if (index == -1) return;
+
+      this.showCareerForm = false;
+
       CareerEntriesService.deleteCareerEntries(id)
         .then(response => {
           this.flash("Delete successfully", "success", {
             timeout: 3000,
             important: true
           });
+          this.$delete(this.career_histories, index);
         })
         .catch(response => {
           this.flash("Failed to delete", "error", {
@@ -478,9 +474,6 @@ export default {
         first_name,
         last_name,
         middle_name,
-        bMonth,
-        bDay,
-        bYear,
         place_of_birth,
         nationality_country_code,
         weight,
@@ -489,7 +482,7 @@ export default {
         career_histories
       } = this.profile_form;
       const residence_country_code = nationality_country_code;
-      const birthday = new Date(Date.UTC(bYear, bMonth, bDay));
+      const birthday = new Date(Date.UTC(this.bYear, this.bMonth-1, this.bDay));
 
       const profile_update = {
         ...this.profile_form,

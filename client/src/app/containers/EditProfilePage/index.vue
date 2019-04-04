@@ -13,19 +13,7 @@
               :role="role"
               @save="updateUser"
 
-              :firstName="firstName"
-              :middleName="middleName"
-              :lastName="lastName"
-              :month="month"
-              :day="day"
-              :year="year"
-              :countryCode="countryCode"
-              :placeOfBirth="placeOfBirth"
-              :pWeight="weight"
-              :pHeight="height"
-              :preferredFoot="preferredFoot"
               :avatarUrl="avatarUrl"
-              :updateUserInfo="updateUserInfo"
               :clubCountry="clubCountry"
               :careerHistory="careerHistory" />
           </div>
@@ -97,7 +85,7 @@ export default {
           };
     },
     role() {
-      return "agent";//this.user.value.role_name || '';
+      return this.user.value.role_name || '';
     },
     careerHistory() {
       if(!this.user) { return [] }
@@ -109,30 +97,6 @@ export default {
     },
     clubCountry() {
       return this.clubs.country_code ||'';
-    },
-    firstName() {
-      return this.personalProfile.first_name || '';
-    },
-    middleName() {
-      return this.personalProfile.middle_name || '';
-    },
-    lastName() {
-      return this.personalProfile.last_name || '';
-    },
-    month() {
-      return this.personalProfile.birthday
-        ? new Date(this.personalProfile.birthday).getMonth()
-        : '';
-    },
-    day() {
-      return this.personalProfile.birthday
-        ? new Date(this.personalProfile.birthday).getDate()
-        : '';
-    },
-    year() {
-      return this.personalProfile.birthday
-        ? new Date(this.personalProfile.birthday).getUTCFullYear()
-        : '';
     },
     countryCode() {
       return (
@@ -159,7 +123,9 @@ export default {
   methods: {
     ...mapActions(['updateUserInfo']),
     updateUser(info) {
-      this.updateUserInfo(info).then(() => {
+      debugger;
+      this.updateUserInfo(info).then((r) => {
+
         this.flash("Updated successfully", "success", {
           timeout: 3000,
           important: true
