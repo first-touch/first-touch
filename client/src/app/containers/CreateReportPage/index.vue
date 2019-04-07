@@ -1,26 +1,7 @@
 <template>
   <div class="ft-page">
-    <div v-if="request">
-      <h4 class="spaced-title upper-cased main-color">Request</h4>
-      <timeline-item>
-        <request :key="request.id" :request="request" :viewSummary="viewSummary" class="onlyone"></request>
-        <b-modal id="metaModal" size="lg" ref="metaModal">
-          <div>
-            <playerrequestpopup v-if="request.type_request == 'player' " :request="request" :closeAction="closeAction" />
-            <teamrequestpopup v-if="request.type_request == 'team' " :request="request" :closeAction="closeAction" />
-            <positionrequestpopup v-if="request.type_request == 'position' " :request="request" :closeAction="closeAction" />
-          </div>
-        </b-modal>
-      </timeline-item>
-    </div>
-    <div v-if="playerInfo || clubInfo || search">
-      <h4 class="header" v-if="report_type == 'player'">Player</h4>
-      <h4 class="header" v-if="report_type == 'team'">Team</h4>
-      <playerresume v-if="report_type == 'player'" :player="playerInfo" :clubInfo="clubInfo" :search="search"></playerresume>
-      <clubresume v-if="report_type == 'team'" :clubInfo="clubInfo" :search="search"></clubresume>
-    </div>
-    <h4 class="spaced-title upper-cased main-color">Report</h4>
-    <timeline-item>
+    <div class="container">
+      <h4 class="spaced-title upper-cased main-color">Report</h4>
       <div class="form-container">
         <status :status="status" />
         <ul class="error" v-if="report.errors">
@@ -29,11 +10,6 @@
             <span class="error-field" v-for="reason in error" :key="reason.id">{{ reason }}</span>
           </li>
         </ul>
-        <div class="warm warm-link alert alert-warning" v-if="!hasBankAccount" @click="toPaymentPage">
-          <p>
-            Click here to register a bank account and get money from your report
-          </p>
-        </div>
 
         <basicform class="report-type-form" v-if="!showForm" :prepareReport="prepareReport" />
         <div v-if="showForm">
@@ -45,7 +21,7 @@
           </keep-alive>
         </div>
       </div>
-    </timeline-item>
+    </div>
   </div>
 </template>
 
