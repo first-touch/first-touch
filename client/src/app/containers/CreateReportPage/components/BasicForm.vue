@@ -18,21 +18,21 @@
         <vselect placeholder="Search for the club" v-model="club" :disabled="missingLeague" :onSearch="searchClubs" label="team_name" :options="options.clubs" :searchable="true" :clearable="true" :taggable="true"/>
       </div>
     </div>
-    <!-- <div class="form-group row" v-if="type == 'player'">
-      <label class="col-lg-3 col-form-label" :class="type == 'player' ? 'required' : ''">Select a Player</label>
-      <inputsearch class="col-lg-6" v-if="team_id != ''" placeholder="Player is" :taggable="true" :onkeyup="getSearchResultsRole"
-        :searchResult="searchResult" type="player" label="display_name" v-on:update:val="player_id = $event" v-on:update:search="search.player = $event"
-      />
-    </div> -->
+    <div class="form-group row" v-if="isPlayerReport">
+      <label class="col-lg-3 col-form-label">Select a Player</label>
+      <div class="col-lg-6">
+        <vselect placeholder="Search for the player" v-model="player" :disabled="missingClub" :onSearch="searchPlayers" label="display_name" :options="options.players" :searchable="true" :clearable="true" :taggable="true"/>
+      </div>
+    </div>
     <div class="form-group row" v-if="isTeamReport">
       <label class="col-lg-3 col-form-label">Select a Team</label>
       <div class="col-lg-6">
-        <team-select v-model="team" :disabled="missingLeague" placeholder="Choose a team"></team-select>
+        <team-select v-model="team" :disabled="missingClub" placeholder="Choose a team"></team-select>
       </div>
     </div>
     <div class="buttons-inner row">
       <button class="btn btn-danger col-lg-1">Cancel</button>
-      <button v-if="isPlayerReport" class="btn btn-primary ml-1 col-lg-3" :disabled="!player_id == ''" @click="startReport">Create Report for a player</button>
+      <button v-if="isPlayerReport" class="btn btn-primary ml-1 col-lg-3" :disabled="!player == ''" @click="startReport">Create Report for a player</button>
       <button v-if="isTeamReport" class="btn btn-primary ml-1 col-lg-3" :disabled="!team" @click="startReport">Create Report for a team</button>
     </div>
   </form>
@@ -81,7 +81,7 @@
         club: {},
         competition: {},
         team: '',
-        player_id: '',
+        player: {},
         search: {
           player: '',
           league: '',
@@ -91,7 +91,8 @@
         options: {
           reportType: ['Player', 'Team'],
           competitions: [],
-          clubs: []
+          clubs: [],
+          players: []
         }
       };
     },
@@ -105,6 +106,9 @@
       },
       missingLeague() {
         return !(this.competition && this.competition.id);
+      },
+      missingClub() {
+        return !(this.club && this.club.id);
       },
       league_id() {
         console.log("remove this reference");
@@ -121,12 +125,6 @@
         'getSearchResultsTeams',
         'getSearchResultsCompetition',
       ]),
-      setPlayer(player_id) {
-        if (this.player_id != player_id) {
-          this.player_id = player_id;
-          if (this.player_id > 0) this.search.player = ''
-        }
-      },
       searchCompetitions(searchTerm, loading) {
         loading(true);
         this.getSearchResultsCompetition({searchTerm}).then(res => {
@@ -144,27 +142,16 @@
           loading(false);
         });
       },
-      getSearchResultsRole(role, searchTerm) {
-        switch (role) {
-          case 'team':
-            this.getSearchResultsTeams({
-              searchTerm,
-              league: this.league_id
-            });
-            break;
-          case 'competition':
-            this.getSearchResultsCompetition({
-              searchTerm
-            });
-            break;
-          default:
-            this.getSearchResults({
-              searchTerm,
-              role,
-              team: this.team_id
-            });
-            break;
-        }
+      searchPlayers(searchTerm, loading) {
+        loading(true);
+        this.getSearchResults({
+          searchTerm,
+          role: "player",
+          team: this.club.id
+        }).then(res => {
+          this.options.players = res;
+          loading(false);
+        });
       },
       startReport() {
         var ids = {
