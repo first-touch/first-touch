@@ -3,19 +3,19 @@
     <div class="form-group row">
       <label class="col-lg-3 col-form-label">Select report type</label>
       <div class="col-lg-6">
-        <vselect v-model="chosenReportType" :options="options.reportType" :searchable="false" :clearable="false" />
+        <vselect placeholder="Choose the report type" v-model="reportType" :options="options.reportType" :searchable="false" :clearable="false" />
       </div>
     </div>
     <div class="form-group row">
       <label class="col-lg-3 col-form-label">Select a League</label>
       <div class="col-lg-6">
-        <vselect v-model="competition" :onSearch="searchCompetitions" label="name" :options="options.competitions" :searchable="true" :clearable="true" />
+        <vselect placeholder="Search for the competition" v-model="competition" :onSearch="searchCompetitions" label="name" :options="options.competitions" :searchable="true" :clearable="true" />
       </div>
     </div>
     <div class="form-group row">
       <label class="col-lg-3 col-form-label">Select a Club</label>
       <div class="col-lg-6">
-        <vselect v-model="club" :onSearch="searchClubs" label="team_name" :options="options.clubs" :searchable="true" :clearable="true" :taggable="true"/>
+        <vselect placeholder="Search for the club" v-model="club" :disabled="missingLeague" :onSearch="searchClubs" label="team_name" :options="options.clubs" :searchable="true" :clearable="true" :taggable="true"/>
       </div>
     </div>
     <!-- <div class="form-group row" v-if="type == 'player'">
@@ -27,13 +27,13 @@
     <div class="form-group row" v-if="isTeamReport">
       <label class="col-lg-3 col-form-label">Select a Team</label>
       <div class="col-lg-6">
-        <team-select v-on:update:val="category = $event" placeholder="Team is"></team-select>
+        <team-select v-model="team" :disabled="missingLeague" placeholder="Choose a team"></team-select>
       </div>
     </div>
-    <div class="buttons-inner col-lg-12 row">
-      <button class="bar-button ft-button">Cancel</button>
-      <button v-if="isPlayerReport" class="ft-button" :disabled="player_id == ''" @click="startReport">Create Report for a player</button>
-      <button v-if="isTeamReport" class=" ft-button" :disabled="team_id == '' || category == ''" @click="startReport">Create Report for a team</button>
+    <div class="buttons-inner row">
+      <button class="btn btn-danger col-lg-1">Cancel</button>
+      <button v-if="isPlayerReport" class="btn btn-primary ml-1 col-lg-3" :disabled="!player_id == ''" @click="startReport">Create Report for a player</button>
+      <button v-if="isTeamReport" class="btn btn-primary ml-1 col-lg-3" :disabled="!team" @click="startReport">Create Report for a team</button>
     </div>
   </form>
 </template>
@@ -78,21 +78,18 @@
         player_report: false,
         team_report: false,
         job_type: 'independent',
-        category: '',
         club: {},
         competition: {},
+        team: '',
         player_id: '',
         search: {
           player: '',
           league: '',
           club: ''
         },
-        chosenReportType: '',
+        reportType: '',
         options: {
-          reportType: [
-            { label: 'Player', value: 'player' },
-            { label: 'Team', value: 'team' }
-          ],
+          reportType: ['Player', 'Team'],
           competitions: [],
           clubs: []
         }
@@ -100,16 +97,14 @@
     },
     computed: {
       ...mapGetters(['searchResult']),
-      reportType() {
-        if (this.chosenReportType)
-          return this.chosenReportType.value;
-        return '';
-      },
       isTeamReport() {
-        return this.reportType == "team";
+        return this.reportType == "Team";
       },
       isPlayerReport() {
-        return this.reportType == "player";
+        return this.reportType == "Player";
+      },
+      missingLeague() {
+        return !(this.competition && this.competition.id);
       },
       league_id() {
         console.log("remove this reference");
@@ -145,7 +140,7 @@
           searchTerm,
           league: this.competition.id
         }).then(res => {
-          this.options.teams = res;
+          this.options.clubs = res;
           loading(false);
         });
       },
@@ -176,7 +171,6 @@
           player: this.player_id > 0 ? this.player_id : '',
           team: this.team_id > 0 ? this.team_id : '',
           league: this.league_id > 0 ? this.league_id : '',
-          category: this.category
         }
         this.prepareReport(this.reportType, ids, this.search);
       }

@@ -1,23 +1,17 @@
 <template>
-  <vselect :disabled="readonly" v-model="model" :on-change="update" :options="options" class="ft-input form-control" :class="[ {'empty' : model == null} , {'form-control-read-only' : readonly }]"
-    :placeholder="placeholder" />
+  <vselect v-model="value" :options="options" :disabled="disabled" :on-change="updateValue" :placeholder="placeholder" />
 </template>
 <script>
   import vSelect from 'vue-select';
 
   export default {
     name: 'TeamSelect',
-    props: ['value', 'readonly', 'placeholder'],
+    props: ['value', 'placeholder', 'disabled'],
     components: {
       vselect: vSelect
     },
-    mounted: function () {
-      const index = this.$options.filters.searchInObj(this.options, option => option.value === this.value)
-      this.model = this.options[index];
-    },
     data() {
       return {
-        model: null,
         options: [{
             label: 'Senior',
             value: 'senior'
@@ -62,14 +56,8 @@
       };
     },
     methods: {
-      update(val) {
-        if (val && val.value) {
-          this.model = val
-          this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
-        } else {
-          this.$emit('update:val', null);
-
-        }
+      updateValue(value) {
+        this.$emit('input', value);
       }
     }
   };
