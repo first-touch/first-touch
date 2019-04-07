@@ -3,7 +3,7 @@
     <div class="form-group row">
       <label class="col-lg-3 col-form-label required">Select report type</label>
       <vselect v-model="vselect_type" class="col-lg-6 form-control" :options="options.type_report" :class="type == '' ? 'empty' : '' "
-        :searchable="false" clearable="false" />
+        :searchable="false" :clearable="false" />
     </div>
     <div class="form-group row">
       <label class="col-lg-3 col-form-label">Select a League</label>
