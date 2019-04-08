@@ -93,29 +93,12 @@ export default {
     },
     clubs() {
       if(!this.user) { return [] }
-      return this.careerHistory.club|| [];
+      return this.careerHistory.club || [];
     },
     clubCountry() {
       return this.clubs.country_code ||'';
     },
-    countryCode() {
-      return (
-        this.personalProfile.nationality_country_code ||
-        this.personalProfile.residence_country_code
-      );
-    },
-    placeOfBirth() {
-      return this.personalProfile.place_of_birth || '';
-    },
-    weight() {
-      return this.personalProfile.weight;
-    },
-    height() {
-      return this.personalProfile.height;
-    },
-    preferredFoot() {
-      return this.personalProfile.preferred_foot || '';
-    },
+    
     avatarUrl() {
       return this.personalProfile.avatar_url;
     }
@@ -123,7 +106,6 @@ export default {
   methods: {
     ...mapActions(['updateUserInfo']),
     updateUser(info) {
-      debugger;
       this.updateUserInfo(info).then((r) => {
 
         this.flash("Updated successfully", "success", {
