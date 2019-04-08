@@ -13,15 +13,17 @@
       :style="style"
     >
       <header class="ft-dialog__header">
-        <slot name="title">
-          <span class="ft-dialog__title">{{ title }}</span>
-        </slot>
+        <div class="ft-dialog__title">
+          <slot name="title" >
+            <span >{{ title }}</span>
+          </slot>
+        </div>
         <button
           type="button"
           class="btn-close"
           @click="handleClose"
           aria-label="Close">
-        x
+        <v-icon name="regular/times-circle" scale="1"/>
         </button>
       </header>
       <section class="ft-dialog__body container">
@@ -37,9 +39,14 @@
 
 <script>
   import Vue from 'vue';
+  import 'vue-awesome/icons/regular/times-circle';
+  import VIcon from 'vue-awesome/components/Icon'
   
   export default {
     name: 'FTDialog',
+    components:{
+      VIcon
+    },
     props: {
       visible: { type:Boolean, default: false },
       title: { type:String, default: ''},
@@ -58,7 +65,7 @@
     computed: {
       style(){
         let style = {};
-        style.marginTop = this.top;
+        //style.marginTop = this.top;
         if (this.width){
           style.width = this.width;
         }
@@ -137,6 +144,7 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
+@import '~bootstrap/scss/bootstrap';
 
 .ft-dialog__wrapper {
   position: fixed;
@@ -148,23 +156,32 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 }
 
 .ft-dialog {
   background: #FFFFFF;
-  box-shadow: $dialog-box-shadow;
   border-radius: 0;
-  width: 50%;
-  margin: 0 auto 50px;
+  width: 100%;
+  margin: 0;
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
 
   .ft-dialog__header {
     position: relative;
     padding: $dialog-padding-primary;
     padding-bottom: 10px;
+    background-color: $dialog-title-bg-color;
 
-    .title {
+    .title,
+    .ft-dialog__title {
       font-size: $dialog-title-font-size;
-      color: $main-text-color;
+      //color: $main-text-color;
+      color: $dialog-title-text-color;
     }
   }
 
@@ -190,6 +207,21 @@
     outline: none;
     cursor: pointer;
     font-size: 20px;
+    color: $dialog-title-text-color;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .ft-dialog {
+    box-shadow: $dialog-box-shadow;
+    width: 50%;
+    margin: 0 auto 50px;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: relative;
   }
 }
 

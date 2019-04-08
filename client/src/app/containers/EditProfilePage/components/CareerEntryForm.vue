@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="cointainer-fluid">
   <div class="row">
     <div class="col">
       <select
@@ -17,7 +17,11 @@
       </select>
     </div>
     <div class="col">
-      <select name="club_name" id="club_name" class="form-control col" v-model="form.club_id">
+      <select   name="club_name" 
+                id="club_name" 
+                class="form-control col"
+                placeholder="Select Club"
+                v-model="form.club_id">
         <option v-if="!isEdit" disabled>Select Club</option>
         <option v-else :value="form.initial_club_id">{{ form.club_name }}</option>
         <option v-for="club in clubs"
@@ -65,13 +69,13 @@
       >
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <button type="button" class="button-delete" @click="deleteEntry" v-if="isEdit">Delete</button>
+  <div class="row mt-3">
+    <div class="col align-self-center">
+      <button type="button" class="a-button button-delete" @click="deleteEntry" v-if="isEdit">Delete</button>
     </div>
-    <div class="col">
-      <button type="button" class="button-cancel" @click="cancelEntry">Cancel</button>
-      <button type="button" class="button-add" name="save-entry" value="add" @click="saveEntry">
+    <div class="col-8 align-self-center text-right">
+      <button type="button" class="a-button button-cancel" @click="cancelEntry">Cancel</button>
+      <button type="button" class="a-button a-success button-add" name="save-entry" value="add" @click="saveEntry">
         <span v-if="isEdit">Save</span>
         <span v-else>Add</span>
       </button>
@@ -159,8 +163,7 @@ export default {
 <style lang="scss" scoped>
 .button-add {
   color: #fff;
-  padding: 11px 32px;
-  background: #3f8d42;
-  margin: 24px 0 0 0;
+  padding-left: 32px;
+  padding-right: 32px;
 }
 </style>

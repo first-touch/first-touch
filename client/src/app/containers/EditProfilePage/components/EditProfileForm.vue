@@ -4,7 +4,7 @@
       <fieldset class="form-group">
         <label>Your Profile Picture</label>
         <div class="row">
-          <div class="col-2">
+          <div class="col-4">
             <input
               type="file"
               id="avatar"
@@ -15,7 +15,7 @@
             >
             <img :src="currentAvatar" class="rounded-circle img-fluid">
           </div>
-          <div class="col-4">
+          <div class="col-8">
             <button
               type="submit"
               :disabled="noNewAvatar"
@@ -56,7 +56,7 @@
         </div>
       </fieldset>
       <fieldset class="form-group">
-        <label>Date Of Birth -- {{bMonth}} -- {{bDay}} -- {{bYear}} -- {{ profile_form.birthday }}</label>
+        <label>Date Of Birth</label>
         <div class="row">
           <div class="col"> 
             <select v-model="bMonth" class="form-control m-field-input">
@@ -188,7 +188,7 @@
 
       <fieldset class="form-group">
         <div class="mb-2 clearfix">
-          <div class="button fr" @click="selectedCareerEntry=null; showCareerForm = true">+ New Entry</div>
+          <div class="a-button fr" @click="selectedCareerEntry=null; showCareerForm = true">+ New Entry</div>
           <h4 >Career Entries</h4>
         </div>
         <career-entries 
@@ -201,10 +201,10 @@
       
     </form>
 
-    <ft-dialog :visible.sync="showCareerForm">
+    <ft-dialog :visible.sync="showCareerForm" >
       <div slot="title">
         <span v-if="selectedCareerEntry != null">Edit entry</span>
-        <span>Create new entry</span>
+        <span v-else>Create new entry</span>
       </div>
       <career-entry-form 
         :entry="selectedCareerEntry" 
@@ -254,19 +254,6 @@
   font-size: large;
 }
 
-.button {
-  display: inline-block;
-  padding: 0.3em;
-  margin: 0.25em;
-  border: 1px solid grey;
-  color: grey;
-  cursor: pointer;
-
-  &:hover {
-    color: white;
-    background-color: grey;
-  }
-}
 </style>
 
 <script>

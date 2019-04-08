@@ -3,7 +3,7 @@
   <fieldset
     v-for="(entry,index )  in career_histories"
     :key="entry.id"
-    class="form-group col-md-12 carrer-entry">
+    class="form-group col-md-12 career-entry">
     <div class="row">
       <div class="col-1 career-entries-fast">
         <h3>{{ index+1 }}</h3>
@@ -15,18 +15,11 @@
     </div>
     <div class="col-2">
         
-        <!--<button
-          class="button-delete"
-          @click="deleteEntry(entry.id,index)"
-          type="button"
-          name="dentry"
-          value="Delete"
-        ><v-icon name="pencil-alt" /></button>-->
         <button class="button-edit"
                 @click="editEntry(entry.id,index)"
                 type="button"
                 name="edit-entry">
-                <v-icon name="pencil-alt" scale="1"/>
+                <v-icon name="pencil-alt" scale="0.9"/>
           </button>
       </div>
     </div>
@@ -72,7 +65,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@import '~bootstrap/scss/bootstrap';
 
 .select-btn-two,
 .select-btn-three {
@@ -87,18 +80,22 @@ export default {
 }
 
 
-.button-edit,
-.button-delete {
-  display: none;
-  //color: #fff;
-  //padding: 5px 14px 5px 15px;
-  //background: grey;
+.button-edit {
+  display: block;
   cursor: pointer;
+  background: transparent;
   border: 0;
 }
 
-.carrer-entry:hover .button-edit,
-.carrer-entry:hover .button-delete {
-  display: block;
+.career-entry:hover .button-edit {
+    display: block;
+}
+
+@include media-breakpoint-up(md) {
+  .career-entry {
+    .button-edit {
+      display: none;  
+    }
+  }
 }
 </style>
