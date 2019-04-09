@@ -37,10 +37,10 @@ export default {
   props: ['mine', 'accept_invitation', 'id'],
   components: {
     sidebar: NotificationSidebar,
-    'player-profile': PlayerProfile,
-    'scout-profile': ScoutProfile,
-    'director-profile': DirectorProfile,
-    'agent-profile': AgentProfile
+    PlayerProfile,
+    ScoutProfile,
+    DirectorProfile,
+    AgentProfile
   },
   computed: {
     ...mapGetters(['user', 'profile']),
