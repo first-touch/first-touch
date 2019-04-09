@@ -3,7 +3,7 @@
     <div class="form-group row">
       <label class="col-lg-3 col-form-label">Select report type</label>
       <div class="col-lg-6">
-        <vselect placeholder="Choose the report type" v-model="reportType" :options="options.reportType" :searchable="false" :clearable="false" />
+        <vselect placeholder="Choose the report type" v-model="reportType" :options="options.reportType" :searchable="true" :clearable="true" />
       </div>
     </div>
     <div class="form-group row">
@@ -31,9 +31,13 @@
       </div>
     </div>
     <div class="buttons-inner row">
-      <button class="btn btn-danger col-lg-1">Cancel</button>
-      <button v-if="isPlayerReport" class="btn btn-primary ml-1 col-lg-3" :disabled="!player == ''" @click="startReport">Create Report for a player</button>
-      <button v-if="isTeamReport" class="btn btn-primary ml-1 col-lg-3" :disabled="!team" @click="startReport">Create Report for a team</button>
+      <div class="col-sm-1 m-1">
+        <button class="btn btn-danger">Cancel</button>
+      </div>
+      <div class="col-sm-3 m-1">
+        <button v-if="isPlayerReport" class="btn btn-primary" :disabled="missingPlayer" @click="startReport">Create Report for a player</button>
+        <button v-if="isTeamReport" class="btn btn-primary" :disabled="!team" @click="startReport">Create Report for a team</button>
+      </div>
     </div>
   </form>
 </template>
@@ -87,7 +91,7 @@
           league: '',
           club: ''
         },
-        reportType: '',
+        reportType: undefined,
         options: {
           reportType: ['Player', 'Team'],
           competitions: [],
@@ -104,19 +108,14 @@
       isPlayerReport() {
         return this.reportType == "Player";
       },
+      missingPlayer() {
+        return _.isEmpty(this.player);
+      },
       missingLeague() {
         return !(this.competition && this.competition.id);
       },
       missingClub() {
         return !(this.club && this.club.id);
-      },
-      league_id() {
-        console.log("remove this reference");
-        return this.competition.id;
-      },
-      team_id() {
-        console.log("remove this reference");
-        return this.team.id;
       }
     },
     methods: {
@@ -154,12 +153,15 @@
         });
       },
       startReport() {
-        var ids = {
-          player: this.player_id > 0 ? this.player_id : '',
-          team: this.team_id > 0 ? this.team_id : '',
-          league: this.league_id > 0 ? this.league_id : '',
-        }
-        this.prepareReport(this.reportType, ids, this.search);
+        // TODO: Start report on an existing player
+        // Start report on a non existing player -> Backend to create an
+        // unclaimed account
+        // var ids = {
+        //   player: this.player_id > 0 ? this.player_id : '',
+        //   team: this.team_id > 0 ? this.team_id : '',
+        //   league: this.league_id > 0 ? this.league_id : '',
+        // }
+        // this.prepareReport(this.reportType, ids, this.search);
       }
     }
   };
