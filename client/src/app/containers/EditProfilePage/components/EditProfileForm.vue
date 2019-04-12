@@ -177,11 +177,10 @@
       <fieldset class="form-group" v-if="isAgent || isScout">
         <label for="scope_of_operations">Scope of Operations</label>
         <input-list v-model="profile_form.scope_of_operation" />
-        <!--<textarea class="form-control" id="scope_of_operations" rows="4" v-model="profile_form.scope_of_operation"></textarea>-->
       </fieldset>
 
       <fieldset class="form-group">
-        <button type="submit" class="form-control a-bar-button">Save</button>
+        <button type="submit" class="col-2 float-right form-control a-bar-button">Save</button>
       </fieldset>
       
       <hr class="section-separator" />
