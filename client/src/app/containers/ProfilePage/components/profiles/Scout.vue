@@ -29,6 +29,15 @@
           </div>
         </div>
 
+        <div class="profile-actions" >
+          <router-link  v-if="mine"
+                        class="a-link" 
+                        to="/profile/edit">
+                        <v-icon name="pencil-alt" scale="0.9"/>
+                        Edit Profile
+          </router-link>
+        </div>
+
         <div v-if="!mine" class="d-none d-md-block">
           <connect-buttons :userId="userId" :connectionStatus="connectionStatus"></connect-buttons>
         </div>
