@@ -9,16 +9,18 @@
         <h3>{{ index+1 }}</h3>
       </div>
       <div class="col">
-        <div class="row capitalize">{{ getRoleName(entry.role) }}</div>
-        <div class="row">From {{ formatDate(entry.start_date) }} to {{ formatDate(entry.end_date) }}</div>
-        <div class="row">{{ getCountryName(entry.club.country_code) }} - {{ entry.club.name }}</div>
+        <div class="row capitalize font-weight-bold">{{ getRoleName(entry.role) }}</div>
+        <div  class="row" >
+          {{ formatDate(entry.start_date) }} &minus; {{ formatDate(entry.end_date, 'Present') }}
+          &middot; {{ dateDiff(entry.start_date, entry.end_date )}}
+        </div>
+        <div class="row font-weight-light">{{ getCountryName(entry.club.country_code) }} &middot; {{ entry.club.name }}</div>
     </div>
     <div class="col-2 text-right">
         
         <button class="button-edit"
                 @click="editEntry(entry.id,index)"
-                type="button"
-                name="edit-entry">
+                type="button">
                 <v-icon name="pencil-alt" scale="1" class="icon"/>
         </button>
 
@@ -50,9 +52,14 @@ export default {
     searched_clubs: {},
   }},
   methods: {
-    formatDate(date_str){
-      let time = Date.parse(date_str);
-      return this.$options.filters.moment(time);
+    dateDiff(from,to){
+      return this.$options.filters.timeDiff(from, to);
+    },
+    formatDate(date_str, default_value){
+      if (date_str == null){
+        return default_value;
+      }
+      return this.$options.filters.formatDate(date_str, 'MMM YYYY');
     },
     getRoleName(role_id){
       return role_id;
