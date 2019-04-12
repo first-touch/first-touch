@@ -264,7 +264,6 @@ import CareerEntryForm from "./CareerEntryForm";
 import FtDialog from "app/components/FtDialog";
 import InputList from "./InputList";
 
-import axios from "axios";
 export default {
   name: "EditProfileForm",
   components: {
