@@ -1,9 +1,9 @@
 <template>
-<div class="career-entries-list">
+<div class="career-entries-list no-gutters">
   <fieldset
     v-for="(entry,index )  in career_histories"
     :key="entry.id"
-    class="form-group col-md-12 career-entry">
+    class="form-group col-md-12 career-entry no-gutters">
     <div class="row">
       <div class="col-1 career-entries-fast">
         <h3>{{ index+1 }}</h3>

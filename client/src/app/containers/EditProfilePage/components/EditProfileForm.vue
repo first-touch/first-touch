@@ -180,15 +180,14 @@
       </fieldset>
 
       <fieldset class="form-group">
-        <button type="submit" class="col-2 float-right form-control a-bar-button">Save</button>
+        <button type="submit" class="col-2 float-right form-control btn btn-primary">Save</button>
       </fieldset>
       
       <hr class="section-separator" />
 
       <fieldset class="form-group">
         <div class="mb-2 clearfix">
-          <div class="a-button fr" @click="selectedCareerEntry=null; showCareerForm = true">+ New Entry</div>
-          <h4 >Career Entries</h4>
+          <h4>Career Entries</h4>
         </div>
         <career-entries 
           :career_histories="career_histories" 
@@ -196,6 +195,10 @@
           :roles="roles"
           @delete="deleteCareerEntry"
           @edit="editCareerEntry" />
+
+        <button type="button" class="btn btn-outline-secondary btn-block btn-new" @click="selectedCareerEntry=null; showCareerForm = true">
+            + New Entry
+          </button>
       </fieldset>
       
     </form>
@@ -251,6 +254,10 @@
   color: #7f8081;
   margin: 10px 0px;
   font-size: large;
+}
+
+.btn-new {
+  border-style: dashed;
 }
 
 </style>

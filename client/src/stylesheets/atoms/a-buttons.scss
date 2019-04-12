@@ -37,14 +37,6 @@
     color: white;
     background-color: grey;
   }
-
-  &.a-success {
-    background: #3f8d42;
-    border: #3f8d42;
-    &:hover {
-      background: lighten(#3f8d42, 8%);
-    }
-  }
 }
 
 

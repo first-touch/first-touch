@@ -71,13 +71,13 @@
   </div>
   <div class="row mt-3">
     <div class="col align-self-center">
-      <button type="button" class="a-button button-delete" @click="deleteEntry" v-if="isEdit">Delete</button>
+      <button type="button" class="btn btn-danger btn-outline-danger" @click="deleteEntry" v-if="isEdit">Delete</button>
     </div>
     <div class="col-8 align-self-center text-right">
-      <button type="button" class="a-button button-cancel" @click="cancelEntry">Cancel</button>
-      <button type="button" class="a-button a-success button-add" name="save-entry" value="add" @click="saveEntry">
-        <span v-if="isEdit">Save</span>
-        <span v-else>Add</span>
+      <button type="button" class="btn btn-outline-secondary button-cancel" @click="cancelEntry">Cancel</button>
+      <button type="button" class="btn btn-primary button-add" name="save-entry" value="add" @click="saveEntry">
+        <span v-if="isEdit">Update</span>
+        <span v-else>Create</span>
       </button>
     </div>
   </div>
@@ -160,10 +160,3 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.button-add {
-  color: #fff;
-  padding-left: 32px;
-  padding-right: 32px;
-}
-</style>
