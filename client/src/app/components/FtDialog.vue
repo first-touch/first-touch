@@ -160,7 +160,7 @@
 }
 
 .ft-dialog {
-  background: #FFFFFF;
+  background: $first-touch-white;
   border-radius: 0;
   width: 100%;
   margin: 0;
