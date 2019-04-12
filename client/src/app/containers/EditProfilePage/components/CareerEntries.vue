@@ -20,6 +20,11 @@
                 type="button"
                 name="edit-entry">
                 <v-icon name="pencil-alt" scale="0.9"/>
+
+        <button class="button-delete"
+                @click="deleteEntry(entry.id,index)"
+                type="button" >
+                <v-icon name="trash-alt" scale="1" class="icon"/>
           </button>
       </div>
     </div>
@@ -30,6 +35,7 @@
 <script>
 import ClubService from "app/services/ClubService";
 import 'vue-awesome/icons/pencil-alt';
+import 'vue-awesome/icons/trash-alt';
 import VIcon from 'vue-awesome/components/Icon'
 
 export default {
@@ -55,7 +61,9 @@ export default {
       return country != null ? country.country_name : "Unknown";
     },
     deleteEntry(id, index){
-      this.$emit("delete", id, index);
+      if (confirm("Are you sure you want to delete this entry?")){
+        this.$emit("delete", { id });
+      }
     },
     editEntry(id, index){
       this.$emit('edit', id, index);
