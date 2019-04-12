@@ -62,9 +62,9 @@
     "style-loader": "^0.23.0",
     "webpack": "^3.8.1",
     "webpack-cli": "^3.1.1",
-    "webpack-dev-middleware": "^3.4.0",
-    "webpack-dev-server": "^3.1.9",
-    "yarn": "latest"
+    "webpack-dev-server": "^2.11.5",
+    "yarn": "latest",
+    "progress-bar-webpack-plugin": "1.12.1"
   },
   "scripts": {
     "build": "gulp",

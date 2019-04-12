@@ -6,6 +6,7 @@ const webpackConf = require('../conf/webpack.conf');
 const webpackDistConf = require('../conf/webpack-dist.conf');
 const gulpConf = require('../conf/gulp.conf');
 const browsersync = require('browser-sync');
+const WebpackDevServer = require('webpack-dev-server');
 
 gulp.task('webpack:dev', done => {
   webpackWrapper(false, webpackConf, done);
@@ -19,6 +20,36 @@ gulp.task('webpack:dist', done => {
   process.env.NODE_ENV = 'production';
   webpackWrapper(false, webpackDistConf, done);
 });
+
+gulp.task('webpack-dev-server', function(callback){
+  var devConf = webpackConf;
+  devConf.devtool = 'eval';
+  
+  const options = {
+    publicPath: '/',
+    stats: {
+      color: true
+    },
+    contentBase: gulpConf.paths.src,
+    proxy: {
+      '/api/**': { target: 'http://localhost:3000', secure: false },
+      '/rails': { target: 'http://localhost:3000', secure: false }
+    },
+    host: 'localhost',
+    hot: true,
+    hotOnly: false,
+    inline: true,
+    historyApiFallback: true
+  }
+  WebpackDevServer.addDevServerEntrypoints(devConf, options)
+
+  const server = new WebpackDevServer(webpack(devConf), options)
+  
+  server.listen(8080, 'localhost', (err) => {
+    if(err) throw new gutil.PluginError('webpack-dev-server', err);
+    gutil.log('[webpack-dev-server]', 'http://localhost:8080');
+  })
+})
 
 function webpackWrapper (watch, conf, done) {
   const webpackBundler = webpack(conf);
