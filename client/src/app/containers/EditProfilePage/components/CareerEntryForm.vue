@@ -1,5 +1,5 @@
 <template>
-<div class="cointainer-fluid">
+<div>
   <div class="row">
     <div class="col">
       <select
