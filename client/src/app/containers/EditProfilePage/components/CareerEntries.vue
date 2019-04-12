@@ -13,13 +13,14 @@
         <div class="row">From {{ formatDate(entry.start_date) }} to {{ formatDate(entry.end_date) }}</div>
         <div class="row">{{ getCountryName(entry.club.country_code) }} - {{ entry.club.name }}</div>
     </div>
-    <div class="col-2">
+    <div class="col-2 text-right">
         
         <button class="button-edit"
                 @click="editEntry(entry.id,index)"
                 type="button"
                 name="edit-entry">
-                <v-icon name="pencil-alt" scale="0.9"/>
+                <v-icon name="pencil-alt" scale="1" class="icon"/>
+        </button>
 
         <button class="button-delete"
                 @click="deleteEntry(entry.id,index)"
@@ -75,35 +76,42 @@ export default {
 <style lang="scss" scoped>
 @import '~bootstrap/scss/bootstrap';
 
-.select-btn-two,
-.select-btn-three {
-  padding: 0 0 0 24px;
-  margin: 0 0 10px 0px;
-}
-
 .career-entries-fast h3 {
   color: #7f8081;
   font-size: 18px;
   padding-right: 10px;
 }
 
-
+.button-delete,
 .button-edit {
-  display: block;
+  display: inline-block;
   cursor: pointer;
   background: transparent;
   border: 0;
 }
 
-.career-entry:hover .button-edit {
-    display: block;
-}
-
-@include media-breakpoint-up(md) {
-  .career-entry {
-    .button-edit {
-      display: none;  
+.button-edit {
+  .icon {
+    fill: lighten(#000, 50%)
+  }
+  
+  &:hover {
+    .icon {
+      fill: #000;
     }
   }
 }
+
+.button-delete {
+  .icon {
+    fill: #F7D1D5;
+  }
+
+  &:hover {
+    .icon {
+      fill: #ff96a2;
+    }
+  }
+}
+
 </style>
