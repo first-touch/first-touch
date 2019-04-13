@@ -4,6 +4,7 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const NODE_MDL = path.resolve('node_modules');
 const SRC_DIR = path.resolve('src');
@@ -19,18 +20,19 @@ module.exports = {
   },
   module: {
     loaders: [
-      {
+      /*{
         test: /.js$/,
         exclude: /node_modules/,
         loader: 'eslint-loader',
         enforce: 'pre'
-      },
+      },*/
       {
         test: /\.(css|scss)$/,
         loaders: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader']
       },
       {
         test: /\.js$/,
+        include: SRC_DIR,
         exclude: /node_modules/,
         loaders: ['babel-loader']
       },
@@ -45,6 +47,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
@@ -55,7 +58,9 @@ module.exports = {
         postcss: () => [autoprefixer]
       },
       debug: true
-    })
+    }),
+    new ProgressBarPlugin(),
+    
   ],
   output: {
     path: path.join(process.cwd(), conf.paths.tmp),

@@ -9,6 +9,7 @@ Vue.filter('moment', str => {
   }
   return '';
 });
+
 Vue.filter('age', str => {
   var date = moment(str);
   if (date.isValid()) {
@@ -16,6 +17,31 @@ Vue.filter('age', str => {
   }
   return '';
 });
+
+Vue.filter('formatDate', (date, format) => {
+  var date = moment(date);
+  if (date.isValid()) {
+    return date.format(format)
+  }
+  return '';
+})
+
+Vue.filter('timeDiff', (startDate, endDate) => {
+  let start = new moment(startDate);
+  let end = new moment(endDate);
+  
+  let years = end.diff(start, 'years')
+  let months = end.diff(start, 'months')
+
+  let mStr = `${months}mo` + (months > 1 ? 's' : '');
+  let yStr = `${years}yr` + (years > 1 ? 's' : '');
+  if (years > 0){
+    return `${yStr} ${mStr}`
+  } else {
+    return `${mStr}`
+  }
+});
+
 Vue.filter('railsdate', str => {
   if (str == null) {
     return '';

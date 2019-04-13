@@ -29,6 +29,15 @@
           </div>
         </div>
 
+        <div class="profile-actions" >
+          <router-link  v-if="mine"
+                        class="a-link" 
+                        to="/profile/edit">
+                        <v-icon name="pencil-alt" scale="0.9"/>
+                        Edit Profile
+          </router-link>
+        </div>
+
         <div v-if="!mine" class="d-none d-md-block">
           <connect-buttons :userId="userId" :connectionStatus="connectionStatus"></connect-buttons>
         </div>
@@ -144,6 +153,7 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
+@import '~stylesheets/button';
 
 .detail-title {
   color: $secondary-text-color;
@@ -157,15 +167,18 @@ import moment from 'moment';
 import TimelineItem from 'app/components/TimelineItem';
 import CareerEvents from '../CareerEvents';
 import ConnectButtons from '../ConnectButtons';
+import 'vue-awesome/icons/pencil-alt';
+import VIcon from 'vue-awesome/components/Icon'
 
 export default {
   name: 'PlayerProfile',
   props: ['mine', 'user', 'connectionStatus'],
   components: {
-    'timeline-item': TimelineItem,
-    'position-rating': PositionRating,
-    'career-events': CareerEvents,
-    'connect-buttons': ConnectButtons
+    TimelineItem,
+    PositionRating,
+    CareerEvents,
+    ConnectButtons,
+    VIcon
   },
   computed: {
     userId() {

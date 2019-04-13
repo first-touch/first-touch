@@ -1,26 +1,19 @@
 <template>
   <div>
     <!-- <sidebar /> -->
-    <div class="container-fluid">
+    <div class="container">
       <div class="ft-page edit-profile">
         <h4 class="spaced-title upper-cased main-color">Edit Profile</h4>
         <div class="profile-item">
           <div class="arrow"></div>
+
           <div class="form-container">
             <edit-form v-if="loaded"
-              :firstName="firstName"
-              :middleName="middleName"
-              :lastName="lastName"
-              :month="month"
-              :day="day"
-              :year="year"
-              :countryCode="countryCode"
-              :placeOfBirth="placeOfBirth"
-              :pWeight="weight"
-              :pHeight="height"
-              :preferredFoot="preferredFoot"
+              :profile="personalProfile"
+              :role="role"
+              @save="updateUser"
+
               :avatarUrl="avatarUrl"
-              :updateUserInfo="updateUserInfo"
               :clubCountry="clubCountry"
               :careerHistory="careerHistory" />
           </div>
@@ -36,6 +29,9 @@
   display: flex;
   border-left: 7px solid $main-header-color;
   margin-top: 20px;
+
+  color: $main-text-color;
+  
   .arrow {
     margin-top: 18px;
     border-left-color: $main-header-color;
@@ -88,65 +84,36 @@ export default {
             weight: null,
           };
     },
+    role() {
+      return this.user.value.role_name || '';
+    },
     careerHistory() {
       if(!this.user) { return [] }
       return this.user.value.career_history|| [];
     },
     clubs() {
       if(!this.user) { return [] }
-      return this.careerHistory.club|| [];
+      return this.careerHistory.club || [];
     },
     clubCountry() {
       return this.clubs.country_code ||'';
     },
-    firstName() {
-      return this.personalProfile.first_name || '';
-    },
-    middleName() {
-      return this.personalProfile.middle_name || '';
-    },
-    lastName() {
-      return this.personalProfile.last_name || '';
-    },
-    month() {
-      return this.personalProfile.birthday
-        ? new Date(this.personalProfile.birthday).getMonth()
-        : '';
-    },
-    day() {
-      return this.personalProfile.birthday
-        ? new Date(this.personalProfile.birthday).getDate()
-        : '';
-    },
-    year() {
-      return this.personalProfile.birthday
-        ? new Date(this.personalProfile.birthday).getUTCFullYear()
-        : '';
-    },
-    countryCode() {
-      return (
-        this.personalProfile.nationality_country_code ||
-        this.personalProfile.residence_country_code
-      );
-    },
-    placeOfBirth() {
-      return this.personalProfile.place_of_birth || '';
-    },
-    weight() {
-      return this.personalProfile.weight;
-    },
-    height() {
-      return this.personalProfile.height;
-    },
-    preferredFoot() {
-      return this.personalProfile.preferred_foot || '';
-    },
+    
     avatarUrl() {
       return this.personalProfile.avatar_url;
     }
   },
   methods: {
     ...mapActions(['updateUserInfo']),
+    updateUser(info) {
+      this.updateUserInfo(info).then((r) => {
+
+        this.flash("Updated successfully", "success", {
+          timeout: 3000,
+          important: true
+        });
+      })
+    }
   },
 };
 </script>

@@ -17,7 +17,7 @@ export const getUserInfo = (store) => {
 
 export const updateUserInfo = (store, userInfo) => {
   console.warn('[Actions/User] Migrate to User service');
-  fetch('/api/v1/user', {
+  return fetch('/api/v1/user', {
     method: 'PUT',
     headers: {
       Authorization: store.state.token.value,

@@ -18,6 +18,14 @@ module V1
         property :pro_status
         property :biography
 
+        property :qualifications
+        property :affiliations
+
+        property :scope_of_operation
+
+        property :scouting_badges
+
+
         validates :first_name,
                   :last_name,
                   :birthday,

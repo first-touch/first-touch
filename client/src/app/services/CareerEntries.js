@@ -2,10 +2,27 @@ import store from 'app/store';
 
 export default {
   endpoint: '/api/v1/career_entries',
-  updateCareerEntries (data) {
+  create (data) {
     const token = store.state.token.value;
     return fetch(`${this.endpoint}`, {
       method: 'POST',
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(response);
+      }
+    });
+  },
+  update (entryId, data) {
+    const token = store.state.token.value;
+    return fetch(`${this.endpoint}/${entryId}`, {
+      method: 'PUT',
       headers: {
         Authorization: token,
         'Content-Type': 'application/json'
