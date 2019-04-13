@@ -2,24 +2,18 @@
   <div class="profile-form">
     <form @submit.prevent="updateProfilePic" enctype="multipart/form-data">
       <fieldset class="form-group">
-        <label>Your Profile Picture</label>
-        <div class="row">
+        <div class="row justify-content-center">
           <div class="col-4">
-            <input
-              type="file"
-              id="avatar"
-              name="avatar"
-              accept="image/*"
-              @change="filePickerUpdated($event.target.files)"
-              class="input-file"
-            >
-            <img :src="currentAvatar" class="rounded-circle img-fluid">
+            <user-avatar :src="currentAvatar" :is-editor="true" @upload="filePickerUpdated" />
           </div>
-          <div class="col-8">
+        </div>
+        <div class="row justify-content-center mt-2">
+          <div class="col-4">
             <button
               type="submit"
               :disabled="noNewAvatar"
-              class="form-control a-bar-button"
+              class="form-control btn"
+              :class="{ 'btn-outline-light': noNewAvatar, 'btn-success': !noNewAvatar}"
             >Update my picture</button>
           </div>
         </div>
@@ -270,6 +264,7 @@ import CareerEntries from "./CareerEntries";
 import CareerEntryForm from "./CareerEntryForm";
 import FtDialog from "app/components/FtDialog";
 import InputList from "./InputList";
+import UserAvatar from "app/components/UserAvatar";
 
 export default {
   name: "EditProfileForm",
@@ -277,7 +272,8 @@ export default {
     CareerEntries,
     CareerEntryForm,
     FtDialog,
-    InputList
+    InputList,
+    UserAvatar
   },
   props: [
     "profile",
@@ -448,13 +444,15 @@ export default {
       this.formData.append("avatar", this.avatar);
       UserService.updateProfilePicture(this.formData)
         .then(response => {
-          this.flash("Updated successfully", "success", {
+          this.flash("Profile picture updated successfully", "success", {
             timeout: 3000,
             important: true
           });
+          this.avatar_url = this.avatar.url;
+          this.avatar = null;
         })
         .catch(response => {
-          this.flash("Failed to update", "error", {
+          this.flash("Failed to update profile picture", "error", {
             timeout: 3000,
             important: true
           });
