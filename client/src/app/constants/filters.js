@@ -19,26 +19,26 @@ Vue.filter('age', str => {
 });
 
 Vue.filter('formatDate', (date, format) => {
-  var date = moment(date);
-  if (date.isValid()) {
-    return date.format(format)
+  var dateMoment = moment(date);
+  if (dateMoment.isValid()) {
+    return dateMoment.format(format);
   }
   return '';
-})
+});
 
 Vue.filter('timeDiff', (startDate, endDate) => {
-  let start = new moment(startDate);
-  let end = new moment(endDate);
-  
-  let years = end.diff(start, 'years')
-  let months = end.diff(start, 'months')
+  const start = new moment(startDate);
+  const end = new moment(endDate);
 
-  let mStr = `${months}mo` + (months > 1 ? 's' : '');
-  let yStr = `${years}yr` + (years > 1 ? 's' : '');
-  if (years > 0){
-    return `${yStr} ${mStr}`
+  const years = end.diff(start, 'years');
+  const months = end.diff(start, 'months');
+
+  const mStr = `${months}mo` + (months > 1 ? 's' : '');
+  const yStr = `${years}yr` + (years > 1 ? 's' : '');
+  if (years > 0) {
+    return `${yStr} ${mStr}`;
   } else {
-    return `${mStr}`
+    return `${mStr}`;
   }
 });
 
