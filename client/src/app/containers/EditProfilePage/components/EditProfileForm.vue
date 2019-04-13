@@ -190,9 +190,9 @@
           @delete="deleteCareerEntry"
           @edit="editCareerEntry" />
 
-        <button type="button" class="btn btn-outline-secondary btn-block btn-new" @click="selectedCareerEntry=null; showCareerForm = true">
+        <button type="button" class="btn btn-outline-secondary btn-block btn-new" @click="addNewEntry">
             + New Entry
-          </button>
+        </button>
       </fieldset>
       
     </form>
@@ -202,7 +202,8 @@
         <span v-if="selectedCareerEntry != null">Edit entry</span>
         <span v-else>Create new entry</span>
       </div>
-      <career-entry-form 
+      <career-entry-form
+        ref="entry-form"
         :entry="selectedCareerEntry" 
         :countries="countries" 
         @save="saveCareerEntry"
@@ -371,6 +372,12 @@ export default {
       CareerEntriesService.returnUserInfo().then(response => {
         this.career_histories = response.career_history;
       });
+    },
+
+    addNewEntry(){
+      this.selectedCareerEntry=null;
+      this.$refs['entry-form'].reset();
+      this.showCareerForm = true
     },
 
     editCareerEntry(id, index){

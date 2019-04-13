@@ -49,23 +49,19 @@
     <div class="col">
       <input
         name="start_date"
-        v-model="form.start_date"
+        v-model="startDate"
         placeholder="Start Date"
         class="form-control m-field-input"
-        type="text"
-        onfocus="(this.type='date')"
-        id="date"
+        type="date"
       >
     </div>
     <div class="col">
       <input
         name="end_date"
-        v-model="form.end_date"
+        v-model="endDate"
         placeholder="End Date"
         class="form-control m-field-input"
-        type="text"
-        onfocus="(this.type='date')"
-        id="date"
+        type="date"
       >
     </div>
   </div>
@@ -106,6 +102,8 @@ export default {
   data() { 
     return {
       form: Object.assign({}, emptyForm),
+      startDate: '',
+      endDate: '',
       clubs: [],
       isEdit: false
     }
@@ -114,14 +112,21 @@ export default {
     entry: { 
       immediate: true,
       handler: function(val){
+        this.reset();
+
         if (val){
           this.isEdit = true;
           this.form = val;
           this.form.initial_club_id = this.form.club_id;
           this.fetchClubs(this.form.country_code);
+          if (this.form.start_date != null){
+            this.startDate = this.$options.filters.formatDate(this.form.start_date, 'YYYY-MM-DD');
+          }
+          if (this.form.end_date != null){
+            this.endDate = this.$options.filters.formatDate(this.form.end_date, 'YYYY-MM-DD');
+          }
         } else {
           this.isEdit = false;
-          this.reset();
         }
       }
     },
@@ -134,6 +139,8 @@ export default {
   methods: {
     reset(){
       this.form = Object.assign({}, emptyForm);
+      this.startDate = "";
+      this.endDate = "";
     },
     fetchClubs(country_code){
       ClubService.searchClubByCountry(country_code)
@@ -148,6 +155,8 @@ export default {
     },
     saveEntry() {
       const params = this.form;
+      params.end_date = this.endDate;
+      params.start_date = this.startDate;
       this.$emit('save', params);
     },
     cancelEntry(){

@@ -78,7 +78,7 @@
           if (this._opening) return;
           if (!this.rendered){
             this.rendered = true;
-            this.nextTick(() => {
+            this.$nextTick(() => {
               this.open();
             });
           } else {
