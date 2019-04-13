@@ -71,9 +71,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.input-list__element {
-
-}
 
 .input-list__btn-delete {
   display: inline-block;

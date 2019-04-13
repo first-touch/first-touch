@@ -38,7 +38,6 @@
 </template>
 
 <script>
-  import Vue from 'vue';
   import 'vue-awesome/icons/regular/times-circle';
   import VIcon from 'vue-awesome/components/Icon'
   
@@ -79,7 +78,7 @@
           if (this._opening) return;
           if (!this.rendered){
             this.rendered = true;
-            Vue.nextTick(() => {
+            this.nextTick(() => {
               this.open();
             });
           } else {
