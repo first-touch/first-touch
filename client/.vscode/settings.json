@@ -1,0 +1,17 @@
+{
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": true,
+  "cSpell.words": [
+    "container",
+    "convo",
+    "dist",
+    "left",
+    "page",
+    "sidenav",
+    "signup",
+    "submenu",
+    "tocbot",
+    "unfollow"
+  ]
+}
