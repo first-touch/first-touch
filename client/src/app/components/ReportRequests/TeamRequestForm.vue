@@ -1,10 +1,7 @@
 <template>
-  <div>
-    <h4 v-if="!edit" class="header">Creating Team ASSIGNMENT</h4>
-    <h4 v-if="edit" class="header">Editing Team ASSIGNMENT</h4>
-    <timeline-item>
+  <div class="container">
       <div class="form-group buttons-inner row">
-        <button id="cancel" name="cancel" class="ft-button ft-button-right" @click="cancelAction">CANCEL</button>
+        <button id="cancel" name="cancel" class="ft-button ft-button-right" @click="handleCancel">CANCEL</button>
       </div>
       <form @submit.prevent class="team-request ft-form">
         <div class="content">
@@ -20,14 +17,14 @@
           <h5 class="row" v-if="!edit">The Scouting Target</h5>
           <div class="row" v-if="!edit">
             <div class="col-lg-6 form-group required-before">
-              <inputsearch class="col-lg-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
+              <input-search class="col-lg-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
                 v-on:update:val="setLeague($event)" v-on:update:search="meta_data.search.league = $event" ref="team_search"
                 placeholder="Select a league" label="name" />
               <input type="text" class="hide" name="league" v-model="league_id" v-validate="'required'" />
               <span class="validate-errors">{{ errors.first('league') }}</span>
             </div>
             <div class="col-lg-6 form-group required-before">
-              <inputsearch :edit="team_search" :readonly="league_id == ''" class="col-lg-12" :taggable="true" :onkeyup="getSearchResultsRole"
+              <input-search :edit="team_search" :readonly="league_id == ''" class="col-lg-12" :taggable="true" :onkeyup="getSearchResultsRole"
                 placeholder="Select a club" ref="team_search" v-on:update:search="meta_data.search.club = $event" :searchResult="searchResult"
                 type="team" v-on:update:obj="setClub($event)" :required="true" label="team_name" />
               <input type="text" class="hide" name="club" v-model="team_id" v-validate="'required'" />
@@ -85,7 +82,6 @@
           </div>
         </div>
       </form>
-    </timeline-item>
   </div>
 </template>
 
@@ -117,11 +113,10 @@
     mapGetters,
     mapActions
   } from 'vuex';
-  import inputSearch from 'app/components/Input/InputSearch';
+  import InputSearch from 'app/components/Input/InputSearch';
   import vSelect from 'vue-select';
   import CurrencyInput from 'app/components/Input/CurrencyInput';
   import TeamSelect from 'app/components/Input/TeamSelect';
-  import TimelineItem from 'app/components/TimelineItem';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import Icon from 'vue-awesome/components/Icon';
   import 'vue-awesome/icons/question-circle';
@@ -129,19 +124,16 @@
     name: 'PlayerJobRequest',
     props: ['submit', 'serverErrors', 'edit', 'cancelAction'],
     components: {
-      inputsearch: inputSearch,
+      InputSearch,
       vselect: vSelect,
       currencyinput: CurrencyInput,
-      'timeline-item': TimelineItem,
       ftdatepicker: FtDatepicker,
-      'team-select': TeamSelect,
-      icon: Icon,
+      TeamSelect,
+      Icon,
     },
     data() {
       return {
-        disabled: {
-          to: new Date()
-        },
+        disabled: false,
         team_id: '',
         league_id: '',
         team_search: '',
@@ -246,7 +238,7 @@
             if (status == null) {
               status = this.edit ? this.edit.status : 'private';
             }
-            this.submit({
+            this.$emit('submit', {
               meta_data: this.meta_data,
               deadline: this.deadline,
               team_id: this.team_id,
@@ -259,6 +251,10 @@
         }).catch(() => {
 
         });
+      },
+
+      handleCancel() {
+        this.$emit('cancel');
       }
     }
   };

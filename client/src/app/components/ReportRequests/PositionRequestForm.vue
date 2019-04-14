@@ -1,10 +1,7 @@
 <template>
-  <div>
-    <h4 v-if="!edit" class="header">Creating Position ASSIGNMENT</h4>
-    <h4 v-if="edit" class="header">Editing Position ASSIGNMENT</h4>
-    <timeline-item>
+  <div class="container">
       <div class="form-group buttons-inner row">
-        <button id="cancel" name="cancel" class="ft-button ft-button-right" @click="cancelAction">CANCEL</button>
+        <button id="cancel" name="cancel" class="ft-button ft-button-right" @click="handleCancel">CANCEL</button>
       </div>
       <form @submit.prevent class="position-request ft-form">
         <div class="content">
@@ -129,7 +126,6 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
         </div>
 
       </form>
-    </timeline-item>
   </div>
 </template>
 <style lang="scss">
@@ -182,14 +178,13 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
   import PreferredFoot from 'app/components/Input/PreferredFoot';
   import FtCheckbox from 'app/components/Input/FtCheckbox';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
-  import TimelineItem from 'app/components/TimelineItem';
   import CurrencyInput from 'app/components/Input/CurrencyInput';
   import Icon from 'vue-awesome/components/Icon';
   import 'vue-awesome/icons/question-circle';
 
   export default {
-    name: 'PlayerJobRequest',
-    props: ['submit', 'serverErrors', 'edit', 'cancelAction'],
+    name: 'position-request-form',
+    props: ['submit', 'serverErrors', 'edit'],
     components: {
       inputsearch: inputSearch,
       playerposition: PlayerPosition,
@@ -198,16 +193,13 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
       preferredfoot: PreferredFoot,
       ftdatepicker: FtDatepicker,
       ftcheckbox: FtCheckbox,
-      'timeline-item': TimelineItem,
       currencyinput: CurrencyInput,
       icon: Icon,
 
     },
     data() {
       return {
-        disabled: {
-          to: new Date()
-        },
+        disabled: false,
         meta_data: {
           playing_position: [],
           languages: [],
@@ -264,16 +256,23 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
             if (status == null) {
               status = this.edit ? this.edit.status : 'private';
             }
-            this.submit({
+
+            const request = {
               meta_data: this.meta_data,
               deadline: this.deadline,
               price: this.price,
               type_request: 'position',
               status
-            });
+            };
+
+            this.$emit('submit', request);
           }
         }).catch(() => {
         });
+      },
+
+      handleCancel(){
+        this.$emit('cancel');
       }
     }
   };

@@ -161,7 +161,7 @@
   import Icon from 'vue-awesome/components/Icon';
   import 'vue-awesome/icons/question-circle';
   export default {
-    name: 'PlayerJobRequest',
+    name: 'player-request-form',
     props: ['edit'],
     components: {
       inputsearch: inputSearch,
@@ -173,7 +173,6 @@
       currencyinput: CurrencyInput,
       ftdatepicker: FtDatepicker,
       icon: Icon,
-
     },
     data() {
       return {
@@ -327,7 +326,6 @@
 
       handleCancel(){
         this.$emit('cancel');
-        this.cancelAction();
       }
     }
   };
