@@ -31,7 +31,7 @@
 
         <div class="profile-actions" >
           <router-link  v-if="mine"
-                        class="a-link" 
+                        class="a-link"
                         to="/profile/edit">
                         <v-icon name="pencil-alt" scale="0.9"/>
                         Edit Profile
@@ -127,15 +127,18 @@ import moment from 'moment';
 import TimelineItem from 'app/components/TimelineItem';
 import CareerEvents from '../CareerEvents';
 import ConnectButtons from '../ConnectButtons';
+import 'vue-awesome/icons/pencil-alt';
+import VIcon from 'vue-awesome/components/Icon'
 
 export default {
   name: 'AgentProfile',
   props: ['mine', 'user', 'connectionStatus'],
   components: {
-    'timeline-item': TimelineItem,
-    'position-rating': PositionRating,
-    'career-events': CareerEvents,
-    'connect-buttons': ConnectButtons
+    TimelineItem,
+    PositionRating,
+    CareerEvents,
+    ConnectButtons,
+    VIcon
   },
   computed: {
     userId() {
