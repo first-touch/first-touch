@@ -45,7 +45,7 @@
     color: $secondary-text-color;
   }
   .table-responsive-lg{
-    overflow: auto;
+    overflow: unset;
   }
   color: $main-text-color;
   .buttons-inner {

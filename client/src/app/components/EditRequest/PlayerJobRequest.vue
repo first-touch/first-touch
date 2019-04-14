@@ -4,7 +4,7 @@
     <h4 v-if="edit" class="header">Editing Player ASSIGNMENT</h4>
     <timeline-item>
       <div class="form-group buttons-inner row">
-        <button id="cancel" name="cancel" class="ft-button ft-button-right" @click="cancelAction">CANCEL</button>
+        <button id="cancel" name="cancel" class="ft-button ft-button-right" @click="handleCancel">CANCEL</button>
       </div>
       <form @submit.prevent class="player-request ft-form">
         <ul class="error" v-if="errors">
@@ -326,6 +326,12 @@
 
         });
 
+      },
+
+
+      handleCancel(){
+        this.$emit('cancel');
+        this.cancelAction();
       }
     }
   };

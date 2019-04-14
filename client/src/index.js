@@ -45,6 +45,10 @@ import ClubPaymentDetails from 'app/containers/ClubPaymentDetailsPage';
 import ProposedPlayer from 'app/containers/ProposedPlayerPage';
 import JobsBankPage from 'app/containers/JobsBankPage';
 import JobBidPage from 'app/containers/JobBidPage';
+
+import ReportsPage from 'app/containers/RequestsPage';
+
+
 import store from 'app/store';
 import VueAutosize from 'vue-autosize';
 import VueRouter from 'vue-router';
@@ -54,9 +58,12 @@ import VueFormWizard from 'vue-form-wizard';
 import VueFlashMessage from 'vue-flash-message';
 import Clipboard from 'v-clipboard';
 
+import FtComponents from "app/components/FtComponents"
+
 // TODO: Customize with FT color scheme and remove this
 require('vue-flash-message/dist/vue-flash-message.min.css');
 
+Vue.use(FtComponents);
 Vue.use(VueAutosize);
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
@@ -211,6 +218,16 @@ export const router = new VueRouter({
               component: ConvoContainer
             }
           ]
+        }
+      ]
+    },
+    {
+      path: '/requests',
+      component: UserMobileLayout,
+      children: [
+        {
+          path: '',
+          component: ReportsPage
         }
       ]
     },

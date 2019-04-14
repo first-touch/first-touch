@@ -1,10 +1,10 @@
 <template>
-<transition 
+<transition
   name="dialog-fade"
   @after-enter="afterEnter"
   @after-leave="afterLeave">
   <div class="ft-dialog__wrapper" v-show="visible" @click.self="handleWrapperClick">
-    <div 
+    <div
       ref="dialog"
       class="ft-dialog"
       role="dialog"
@@ -26,8 +26,10 @@
         <v-icon name="regular/times-circle" scale="1"/>
         </button>
       </header>
-      <section class="ft-dialog__body container">
-        <slot></slot>
+      <section class="ft-dialog__body">
+        <div class="ft-dialog__body-inner">
+          <slot></slot>
+        </div>
       </section>
       <footer class="ft-dialog__footer" v-if="$slots.footer">
         <slot name="footer"></slot>
@@ -40,9 +42,9 @@
 <script>
   import 'vue-awesome/icons/regular/times-circle';
   import VIcon from 'vue-awesome/components/Icon'
-  
+
   export default {
-    name: 'FTDialog',
+    name: 'FtDialog',
     components:{
       VIcon
     },
@@ -191,9 +193,15 @@
     box-sizing: border-box;
   }
 
-  .ft-dialog__body { 
-    padding: 20px 10px;
+  .ft-dialog__body {
     font-size: $dialog-font-size;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+
+    .ft-dialog__body--iner{
+      padding: 20px 10px;
+    }
+
   }
 
   .btn-close {

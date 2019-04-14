@@ -17,7 +17,7 @@
               />
             </fieldset>
             <fieldset class="col-lg-3">
-              <vselect v-model="vselect_type"  class="form-control m-field-input" :class="params.type_request == '' ? 'empty' : '' " :options="options.type_request" :searchable="false" clearable="false" />
+              <vselect v-model="vselect_type"  class="form-control m-field-input" :class="params.type_request == '' ? 'empty' : '' " :options="options.type_request" :searchable="false" :clearable="false" />
             </fieldset>
             <fieldset class="col-lg-2">
               <vselect v-model="vselect_status"  class="form-control m-field-input"  :class="params.status == '' ? 'empty' : '' " :options="options.status" :searchable="false" />
