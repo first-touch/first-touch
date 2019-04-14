@@ -1,5 +1,8 @@
 class Request < ApplicationRecord
-  belongs_to :club
+  #belongs_to :club
+  belongs_to :user
+
+  belongs_to :club, optional: true
   has_many :request_bids
   belongs_to :player, class_name: 'User'
   belongs_to :team, optional: true

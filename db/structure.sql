@@ -918,7 +918,8 @@ CREATE TABLE public.requests (
     player_id integer,
     team_id integer,
     league_id integer,
-    club_id bigint
+    club_id bigint,
+    user_id bigint
 );
 
 
@@ -2129,6 +2130,13 @@ CREATE INDEX index_requests_on_club_id ON public.requests USING btree (club_id);
 
 
 --
+-- Name: index_requests_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_requests_on_user_id ON public.requests USING btree (user_id);
+
+
+--
 -- Name: index_roles_on_name_and_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2430,6 +2438,14 @@ ALTER TABLE ONLY public.team_users
 
 
 --
+-- Name: requests fk_rails_8ead8b1e6b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.requests
+    ADD CONSTRAINT fk_rails_8ead8b1e6b FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: awards fk_rails_930e992601; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2620,6 +2636,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181106043309'),
 ('20181220114646'),
 ('20190324080856'),
-('20190327025131');
+('20190327025131'),
+('20190414162724');
 
 
