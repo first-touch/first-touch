@@ -46,7 +46,7 @@ import ProposedPlayer from 'app/containers/ProposedPlayerPage';
 import JobsBankPage from 'app/containers/JobsBankPage';
 import JobBidPage from 'app/containers/JobBidPage';
 
-import ReportsPage from 'app/containers/RequestsPage';
+import RequestsPage from 'app/containers/RequestsPage';
 
 
 import store from 'app/store';
@@ -227,8 +227,13 @@ export const router = new VueRouter({
       children: [
         {
           path: '',
-          component: ReportsPage
-        }
+          component: RequestsPage
+        },
+        {
+          path: ':id/bids',
+          component: RequestBidsPage,
+          name: 'requestBids'
+        },
       ]
     },
     {
