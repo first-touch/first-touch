@@ -1,10 +1,10 @@
 <template>
-<transition 
+<transition
   name="dialog-fade"
   @after-enter="afterEnter"
   @after-leave="afterLeave">
   <div class="ft-dialog__wrapper" v-show="visible" @click.self="handleWrapperClick">
-    <div 
+    <div
       ref="dialog"
       class="ft-dialog"
       role="dialog"
@@ -40,7 +40,7 @@
 <script>
   import 'vue-awesome/icons/regular/times-circle';
   import VIcon from 'vue-awesome/components/Icon'
-  
+
   export default {
     name: 'FTDialog',
     components:{
@@ -191,7 +191,7 @@
     box-sizing: border-box;
   }
 
-  .ft-dialog__body { 
+  .ft-dialog__body {
     padding: 20px 10px;
     font-size: $dialog-font-size;
   }
@@ -214,6 +214,7 @@
   .ft-dialog {
     box-shadow: $dialog-box-shadow;
     width: 50%;
+    min-width: 570px;
     margin: 0 auto 50px;
 
     top: 0;

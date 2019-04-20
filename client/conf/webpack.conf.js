@@ -20,12 +20,12 @@ module.exports = {
   },
   module: {
     loaders: [
-      /*{
+      {
         test: /.js$/,
         exclude: /node_modules/,
         loader: 'eslint-loader',
         enforce: 'pre'
-      },*/
+      },
       {
         test: /\.(css|scss)$/,
         loaders: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader']

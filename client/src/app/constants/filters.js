@@ -1,9 +1,9 @@
 import Vue from 'vue';
-import moment from 'moment';
+import Moment from 'moment';
 import countrydata from 'country-data';
 
 Vue.filter('moment', str => {
-  var date = moment(str);
+  var date = Moment(str);
   if (date.isValid()) {
     return date.format('DD-MMM-YYYY').toUpperCase();
   }
@@ -11,15 +11,15 @@ Vue.filter('moment', str => {
 });
 
 Vue.filter('age', str => {
-  var date = moment(str);
+  var date = Moment(str);
   if (date.isValid()) {
-    return moment().diff(date, 'years');
+    return Moment().diff(date, 'years');
   }
   return '';
 });
 
 Vue.filter('formatDate', (date, format) => {
-  var dateMoment = moment(date);
+  var dateMoment = Moment(date);
   if (dateMoment.isValid()) {
     return dateMoment.format(format);
   }
@@ -27,8 +27,8 @@ Vue.filter('formatDate', (date, format) => {
 });
 
 Vue.filter('timeDiff', (startDate, endDate) => {
-  const start = new moment(startDate);
-  const end = new moment(endDate);
+  const start = new Moment(startDate);
+  const end = new Moment(endDate);
 
   const years = end.diff(start, 'years');
   const months = end.diff(start, 'months');
@@ -46,7 +46,7 @@ Vue.filter('railsdate', str => {
   if (str == null) {
     return '';
   }
-  var date = moment(str);
+  var date = Moment(str);
   if (date.isValid()) {
     return date.format('YYYY-MM-DD');
   }
