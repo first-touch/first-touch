@@ -156,12 +156,12 @@
         // TODO: Start report on an existing player
         // Start report on a non existing player -> Backend to create an
         // unclaimed account
-        // var ids = {
-        //   player: this.player_id > 0 ? this.player_id : '',
-        //   team: this.team_id > 0 ? this.team_id : '',
-        //   league: this.league_id > 0 ? this.league_id : '',
-        // }
-        // this.prepareReport(this.reportType, ids, this.search);
+        var ids = {
+          player: this.player_id > 0 ? this.player_id : '',
+          team: this.team_id > 0 ? this.team_id : '',
+          league: this.league_id > 0 ? this.league_id : '',
+        }
+        this.prepareReport(this.reportType, ids, this.search);
       }
     }
   };

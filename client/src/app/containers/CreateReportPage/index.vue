@@ -14,9 +14,9 @@
         <basicform class="report-type-form" v-if="!showForm" :prepareReport="prepareReport" />
         <div v-if="showForm">
           <keep-alive>
-            <playerreportform v-if="report_type == 'player' && status == '' " :hasBankAccount="hasBankAccount" :submitReport="customCreateReport"
+            <playerreportform v-if="report_type == 'Player' && status == '' " :hasBankAccount="hasBankAccount" :submitReport="customCreateReport"
               :playerId="player_id" :request="request" :cancelAction="cancel" />
-            <teamreportform v-if="report_type == 'team' && status == '' " :category="category" :hasBankAccount="hasBankAccount" :submitReport="customCreateReport"
+            <teamreportform v-if="report_type == 'Team' && status == '' " :category="category" :hasBankAccount="hasBankAccount" :submitReport="customCreateReport"
               :team_id="team_id" :cancelAction="cancel" :request="request" />
           </keep-alive>
         </div>

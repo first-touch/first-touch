@@ -1,23 +1,22 @@
 <template>
-  <span class="contents">
-    <vselect :disabled="readonly" v-if="!readonly" ref="vSelect" v-model="model" :onChange="update" multiple :options="options"
-      class="ft-input form-control multiple" :class="{'empty' : model.length == 0}" :placeholder="placeholder" />
-    <div v-if="readonly" class="read">
-      <span v-if="readonly" class="list" v-for="pos in model" :key="pos.id" :title="pos.label">{{pos.label}}</span>
-    </div>
-  </span>
+  <vselect :disabled="readonly" ref="vSelect" v-model="model" :onChange="update" multiple :options="options" :placeholder="placeholder" :clearable="true" />
 </template>
-<style lang="scss" scoped>
-  .contents {
-    display: contents;
-  }
 
-  .list {
-    &:not(:last-child):after {
-      content: ', ';
-    }
-  }
+<style lang="scss" scoped>
+.v-select {
+  background: #fff;
+  border-radius: 0.25rem;
+}
+
+.v-select.single.open .selected-tag {
+  position: relative;
+}
+
+.v-select.open .dropdown-toggle {
+  border-color: #a8cb5c
+}
 </style>
+
 
 <script>
   import vSelect from 'vue-select';
