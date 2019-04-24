@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent class="report-form ft-form">
+  <form @submit.prevent class="report-form">
     <div class="form-group row report-name">
       <div class="col-lg-12 required-before">
         <input type="text" class="col-lg-12 form-control" v-model="headline" placeholder="Report name" name="name" v-validate="'required'">
@@ -23,7 +23,7 @@
       <div class="form-group form-inner">
         <transition name="fade">
           <div class="form-group player-summary" v-if="playersummary">
-            <div class="row">
+            <div class="row mt-2 mb-2">
               <div class="col-lg-4 required-before">
                 <input type="number" class="col-lg-12 form-control" v-model.number="meta_data.player_info.age" :placeholder="agePlaceHolder" name="age" v-validate="'required|between:16,40'">
                 <span class="validate-errors">{{ errors.first('age') }}</span>
@@ -37,17 +37,16 @@
                 <span class="validate-errors">{{ errors.first('weight') }}</span>
               </div>
             </div>
-            <div class="row">
+            <div class="row mt-2 mb-2">
               <div class="col-lg-6">
-                <playerposition :value="meta_data.player_info.playing_position" v-on:update:val="meta_data.player_info.playing_position = $event"
-                  placeholder="Positions in" />
+                <playerposition :value="meta_data.player_info.playing_position" v-on:update:val="meta_data.player_info.playing_position = $event" placeholder="Positions in" />
               </div>
               <div class="col-lg-6">
                 <preferredfoot :value="meta_data.player_info.preferred_foot" v-on:update:val="meta_data.player_info.preferred_foot = $event"
                   placeholder="Preferred foot is" />
               </div>
             </div>
-            <div class="row">
+            <div class="row mt-2 mb-2">
               <div class="col-lg-6">
                 <countryselect :value="meta_data.player_info.nationality_country_code" v-on:update:val="meta_data.player_info.nationality_country_code = $event"
                   placeholder="Nationality is" /> </div>
@@ -56,10 +55,9 @@
                   placeholder="Based in" />
               </div>
             </div>
-            <div class="row">
+            <div class="row mt-2 mb-2">
               <div class="col-lg-12">
-                <language :value="meta_data.player_info.languages" v-on:update:val="meta_data.player_info.languages = $event" placeholder="Speaking languages are"
-                />
+                <language :value="meta_data.player_info.languages" v-on:update:val="meta_data.player_info.languages = $event" placeholder="Speaking languages are"/>
               </div>
             </div>
           </div>
@@ -67,7 +65,8 @@
       </div>
     </div>
     <h5 class="menu" @click="transfersummary = !transfersummary" :class="transfersummary ? 'active' : ''">
-      <i class="sub-menu-arrow" :class="transfersummary ? 'active' : ''"></i> Transfer Summary </h5>
+      <i class="sub-menu-arrow" :class="transfersummary ? 'active' : ''"></i> Transfer Summary
+    </h5>
     <div class="form-group form-inner">
       <transition name="fade">
         <div class="form-group" v-if="transfersummary">
@@ -78,16 +77,14 @@
           </div>
           <div class="row">
             <div class="col-lg-12">
-              <label class="col-lg-12 ftcheckbox-inner col-form-label" :class="meta_data.transfer_sum.transfer_interested == 'yes' ? 'active' : ''">
-                <span class="title">Interested in Transfer ?</span>
-                <i class="sub-menu-arrow" :class="meta_data.transfer_sum.transfer_interested == 'yes' ? 'active' : ''"></i>
-                <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.transfer_interested" v-on:update:val="meta_data.transfer_sum.transfer_interested = $event"
-                />
+              <label :class="meta_data.transfer_sum.transfer_interested == 'yes' ? 'active' : ''">
+                <span class="title">Interested in Transfer?</span>
               </label>
+              <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.transfer_interested" v-on:update:val="meta_data.transfer_sum.transfer_interested = $event" />
               <transition name="fade">
-                <div class="transfer-value col-lg-12 row" v-if="meta_data.transfer_sum.transfer_interested === 'yes'">
+                <div class="transfer-value row" v-if="meta_data.transfer_sum.transfer_interested === 'yes'">
                   <div class="col-lg-6">
-                    <ftdatepicker class="col-lg-12 form-control" placeholder="Availability for transfer" :value="meta_data.transfer_sum.transfer_availability"
+                    <ftdatepicker class="form-control" placeholder="Availability for transfer" :value="meta_data.transfer_sum.transfer_availability"
                       v-on:update:val="meta_data.transfer_sum.transfer_availability = $event" />
                   </div>
                   <div class="col-lg-6">
@@ -99,21 +96,18 @@
           </div>
           <div class="row">
             <div class="col-lg-12">
-              <label class="col-lg-12 ftcheckbox-inner col-form-label" :class="meta_data.transfer_sum.loan_interested == 'yes' ? 'active' : ''">
-                <span class="title">Interested in Loan ?</span>
-                <i class="sub-menu-arrow" :class="meta_data.transfer_sum.loan_interested == 'yes' ? 'active' : ''"></i>
-                <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.loan_interested" v-on:update:val="meta_data.transfer_sum.loan_interested = $event"
-                />
+              <label :class="meta_data.transfer_sum.loan_interested == 'yes' ? 'active' : ''">
+                <span class="title">Interested in Loan?</span>
               </label>
+              <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.loan_interested" v-on:update:val="meta_data.transfer_sum.loan_interested = $event" />
               <transition name="fade">
-                <div class="transfer-value col-lg-12 row" v-if="meta_data.transfer_sum.loan_interested === 'yes'">
+                <div class="transfer-value row" v-if="meta_data.transfer_sum.loan_interested === 'yes'">
                   <div class="col-lg-6">
-                    <ftdatepicker class="col-lg-12 form-control" placeholder="Availability for Loan" :value="meta_data.transfer_sum.loan_availability"
+                    <ftdatepicker class="form-control" placeholder="Availability for Loan" :value="meta_data.transfer_sum.loan_availability"
                       v-on:update:val="meta_data.transfer_sum.loan_availability = $event" />
                   </div>
                   <div class="col-lg-6">
-                    <ftdatepicker class="col-lg-12 form-control" placeholder="End of Contract" :value="meta_data.transfer_sum.contract_end" v-on:update:val="meta_data.transfer_sum.contract_end = $event"
-                    />
+                    <ftdatepicker class="form-control" placeholder="End of Contract" :value="meta_data.transfer_sum.contract_end" v-on:update:val="meta_data.transfer_sum.contract_end = $event" />
                   </div>
                 </div>
               </transition>
@@ -181,11 +175,11 @@
       </div>
     </div>
 
-    <div class="form-group buttons-inner row">
-      <button v-if="!report && !request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
-      <button v-if="report" id="submit" class="ft-button ft-button-success" @click="handleSubmit(report.status)">Update</button>
-      <button v-if="!report && request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('private')">Send Report</button>
-      <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default ft-button">Cancel</button>
+    <div class="row float-right">
+      <button v-if="!report && !request" id="submit" class="btn btn-primary mr-1" @click="handleSubmit('publish')">Publish</button>
+      <button v-if="report" id="submit" class="btn btn-primary mr-1" @click="handleSubmit(report.status)">Update</button>
+      <button v-if="!report && request" id="submit" class="btn btn-primary mr-1" @click="handleSubmit('private')">Send Report</button>
+      <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-danger">Cancel</button>
     </div>
   </form>
 </template>
@@ -348,7 +342,6 @@
     },
     methods: {
       handleSubmit(status) {
-
         this.$validator.validateAll().then(() => {
           if (this.errors.items.length == 0) {
             var report = {
@@ -359,18 +352,16 @@
               status,
               files: this.files
             };
+            debugger
             this.submitReport(report);
           }
         }).catch(() => {
+          setTimeout( () => {
+            var error = $('.validate-errors:not(:empty):first');
+            var y = error.offset() ? error.offset().top - 200 : 0;
+            $('html, body').animate({ scrollTop: y }, 200);
+          }, 200);
         });
-        setTimeout(function(){  var error = $('.validate-errors:not(:empty):first')
-        var y = error.offset() ? error.offset().top - 200 : 0;
-                    $('html, body').animate({
-                scrollTop: y
-              },
-              200
-            ); }, 200);
-
       }
     }
   };

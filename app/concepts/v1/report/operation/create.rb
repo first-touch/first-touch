@@ -19,6 +19,10 @@ module V1
       step :persist_bid
 
       def model!(options, params:,  **)
+        # TODO: Need to find out what is this logic all about.
+        # This operation is supposed to create a report in the database. It
+        # might be associated with a job or not. Seems that the same
+        # operation is being called for an update (based on the report.find_by....)
         model = nil
         if !params[:job_id].blank?
           request = ::Request.find(params[:job_id])
@@ -49,7 +53,7 @@ module V1
           if stripe_ft.nil? || stripe_ft.preferred_account.nil?
             options[:model].price = {
               value: 0,
-              currency: 0
+              currency: 'USD'
             }
           end
         end
@@ -62,13 +66,15 @@ module V1
       end
 
       def stripe(options, params:, **)
-        success = true
-        unless params[:job_id].blank?
-          stripe_ft = options[:current_user].stripe_ft
-          success = false if stripe_ft.nil? || stripe_ft.preferred_account.nil?
-        end
-        options['stripe.errors'] = I18n.t 'no_bank_account' unless success
-        success
+        return true if params[:job_id].blank?
+
+        # NOTE: This is intending to check that a user that is writing a report
+        # for a job, has a stripe account to be used for the payment.
+        stripe_ft = options[:current_user].stripe_ft
+        return true unless stripe_ft.nil? || stripe_ft.preferred_account.nil?
+
+        options['stripe.errors'] = I18n.t 'no_bank_account'
+        false
       end
 
       def is_a_bid?(options, params:, **)
@@ -110,7 +116,7 @@ module V1
         true
       end
 
-      def persist_files!(options, params:,  **)
+      def persist_files!(options, params:, **)
         return true if params[:files].blank?
         params[:files].each do |file|
           file_params = { url: file[:url], filename: file[:filename], report: model }

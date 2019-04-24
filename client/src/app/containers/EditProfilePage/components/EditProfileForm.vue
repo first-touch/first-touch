@@ -52,7 +52,7 @@
       <fieldset class="form-group">
         <label>Date Of Birth</label>
         <div class="row">
-          <div class="col"> 
+          <div class="col">
             <select v-model="bMonth" class="form-control m-field-input">
               <option disabled value>Month</option>
               <option value="1">January</option>
@@ -167,7 +167,7 @@
         <label for="scouting_badges">Scouting Badges</label>
         <textarea class="form-control" id="scouting_badges" rows="4" v-model="profile_form.scouting_badges"></textarea>
       </fieldset>
-      
+
       <fieldset class="form-group" v-if="isAgent || isScout">
         <label for="scope_of_operations">Scope of Operations</label>
         <input-list v-model="profile_form.scope_of_operation" />
@@ -176,25 +176,25 @@
       <fieldset class="form-group">
         <button type="submit" class="col-2 float-right form-control btn btn-primary">Save</button>
       </fieldset>
-      
+
       <hr class="section-separator" />
 
       <fieldset class="form-group">
         <div class="mb-2 clearfix">
           <h4>Career Entries</h4>
         </div>
-        <career-entries 
-          :career_histories="career_histories" 
-          :countries="countries" 
+        <career-entries
+          :career_histories="career_histories"
+          :countries="countries"
           :roles="roles"
           @delete="deleteCareerEntry"
           @edit="editCareerEntry" />
 
         <button type="button" class="btn btn-outline-secondary btn-block btn-new" @click="addNewEntry">
-            + New Entry
+          + New Entry
         </button>
       </fieldset>
-      
+
     </form>
 
     <ft-dialog :visible.sync="showCareerForm" >
@@ -204,10 +204,10 @@
       </div>
       <career-entry-form
         ref="entry-form"
-        :entry="selectedCareerEntry" 
-        :countries="countries" 
+        :entry="selectedCareerEntry"
+        :countries="countries"
         @save="saveCareerEntry"
-        @delete="deleteCareerEntry" 
+        @delete="deleteCareerEntry"
         @close="showCareerForm = false"/>
     </ft-dialog>
   </div>
@@ -367,7 +367,7 @@ export default {
         this.avatar.url = URL.createObjectURL(this.avatar);
       }
     },
-    
+
     updateInfo() {
       CareerEntriesService.returnUserInfo().then(response => {
         this.career_histories = response.career_history;
@@ -386,7 +386,7 @@ export default {
       this.selectedCareerEntry = {
         role, start_date, end_date,
         id: entry.id,
-        club_id: club.id, 
+        club_id: club.id,
         club_name: club.name,
         country_code: club.country_code
       };
@@ -402,7 +402,7 @@ export default {
           club_id, start_date, end_date, role
         }
       };
-      
+
       try {
         let request;
         if (isUpdate){
@@ -410,7 +410,7 @@ export default {
         } else {
           await CareerEntriesService.create(careerInfo);
         }
-    
+
         this.updateInfo();
         let msg = isUpdate ? 'Updated entry successfully' : 'Added new entry successfully';
         this.flash(msg, "success", { timeout: 3000, important: true });
@@ -418,9 +418,9 @@ export default {
       } catch(err){
         console.error(err);
         this.flash("Failed to add", "error", { timeout: 3000, important: true });
-      } 
+      }
     },
-    
+
     deleteCareerEntry({ id }) {
       let index = this.career_histories.findIndex((c)=>c.id == id);
       if (index == -1) return;
@@ -442,7 +442,7 @@ export default {
           });
         });
     },
-    
+
     updateProfilePic() {
       if (this.avatar == undefined) {
         return;
