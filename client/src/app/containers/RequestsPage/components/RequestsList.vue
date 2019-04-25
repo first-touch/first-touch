@@ -42,6 +42,13 @@
         <table class="table table-search">
           <thead>
             <tr>
+              <th scope="col" class="shortable" @click="setOrder('status')">
+                <p>Status</p>
+                <span v-if="params.order == 'status'">
+                  <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
+                  <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                </span>
+              </th>
               <th scope="col" class="shortable" @click="setOrder('type_request')">
                 <p>Job Type </p>
                 <span v-if="params.order == 'type_request'">
@@ -71,10 +78,10 @@
                 v-for="request in requestList"
                 :key="request.id"
                 :request="request"
-                :update="updateStatus"
+                @update-status="updateStatus"
                 :own="true"
                 mode="table"
-                :widgets="['type','created_at','bids','action']" />
+                :widgets="['status','type','created_at','bids','action']" />
           </tbody>
         </table>
       </div>

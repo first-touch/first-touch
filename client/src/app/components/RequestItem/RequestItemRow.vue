@@ -12,6 +12,14 @@
     <span v-if="field == 'created_at'" class="contents">
       {{ request.created_at | moment }}
     </span>
+    <span v-if="field == 'status'" class="contents">
+      <span v-if="request.status == 'publish'" class="published">
+        Published
+      </span>
+      <span v-else class="private">
+        Unpublished
+      </span>
+    </span>
     <span v-if="field == 'club'" class="contents">
       {{ request.club.name }}
     </span>
@@ -35,8 +43,8 @@
       {{request.request_bids_count}}
     </span>
     <span v-if="field == 'action'" class="contents">
-      <div class="table-action row">
-        <div class="col first-action buttons-inner">
+      <div class="table-action">
+        <div class="first-action buttons-inner">
           <router-link v-if="canAction(own && !position, 'view_bids', true)" :to="{ name: 'clubRequestBids', params: { id: request.id }}"
             class="ft-action">
             <button class="btn-round">View Bids</button>
@@ -77,7 +85,7 @@
             <button class="btn-round"> Edit</button>
           </router-link>
         </div>
-        <div class="col" v-if="listAction">
+        <div class="" v-if="listAction">
           <div class="more">
             <icon name="ellipsis-v"></icon>
             <div class="action">
@@ -91,13 +99,13 @@
                 <a v-if="canAction(!own, 'view_details', false)" @click="viewSummary(request)">
                   View Details
                 </a>
-                <a v-if="canAction(request.status == 'publish' && own, 'unpublish', false)" @click="update(request.id, 'private')">
+                <a v-if="canAction(request.status == 'publish' && own, 'unpublish', false)" @click="unpublishItem(request.id)">
                   Unpublish
                 </a>
-                <a v-if="canAction(request.status == 'private' && own, 'publish', false)" @click="update(request.id, 'publish')">
+                <a v-if="canAction(request.status == 'private' && own, 'publish', false)" @click="publishItem(request.id)">
                   Publish
                 </a>
-                <a v-if="canAction(own, 'delete', false)" @click="update(request.id, 'deleted')">
+                <a v-if="canAction(own, 'delete', false)" @click="deleteItem(request.id)">
                   Delete
                 </a>
                 <router-link v-if="canAction(own, 'edit', false)" :to="{ name: 'clubRequest', params: { id: request.id }}">
@@ -138,6 +146,10 @@ export default Vue.extend({
   }
 
   .table-action {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
     .col {
       &.first-action {
         float: left;
