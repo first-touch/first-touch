@@ -74,23 +74,22 @@ export const getRequests = async (store, params) => {
   return [];
 };
 
-export const updateRequest = (store, { id, request }) => {
+export const updateRequest = async (store, { id, request }) => {
   store.commit(ActionTypes.UPLOADING_REQUEST_LOADING);
-  fetch('/api/v1/requests/' + id, {
-    method: 'PUT',
-    headers: {
-      Authorization: store.state.token.value,
-      ClubAuthorization: store.state.token.clubs[0].token,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(request)
-  }).then(res => {
-    if (res.status >= 200 && res.status < 400) {
-      res.json().then(r => store.commit(ActionTypes.UPLOADING_REQUEST_SUCCESS, r));
-    } else if (res.status === 401) {
-      store.commit(ActionTypes.TOKEN_CLEAR);
+
+  try {
+    const res = await apiRequest(store, 'PUT', '/api/v1/requests/' + id, request);
+
+    let data = await res.json()
+    if (res.status >= 200 && res.status < 400){
+      store.commit(ActionTypes.SEARCH_REQUEST_SUCCESS, data);
+      return data;
     } else {
-      res.json().then(r => store.commit(ActionTypes.UPLOADING_REQUEST_FAILURE, r));
+        store.commit(ActionTypes.UPLOADING_REQUEST_FAILURE, data);
+        return false
     }
-  });
+
+  } catch(err){
+    console.error("Failed to update request", err);
+  }
 };

@@ -96,5 +96,17 @@ export default {
       }
       return false;
     },
+
+    unpublishItem(id){
+      this.$emit('update-status', id, 'private');
+    },
+
+    publishItem(id){
+      this.$emit('update-status', id, 'publish')
+    },
+
+    deleteItem(id){
+      this.$emit('update-status', id, 'deleted');
+    }
   }
 }

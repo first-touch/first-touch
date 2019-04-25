@@ -245,9 +245,17 @@ export default {
       this.search();
     },
     updateStatus(id, status) {
-      this.updateRequest(id, {
+      let request = {
         status
-      });
+      }
+      this.updateRequest({ id, request }).then((result)=>{
+        if (!result) return;
+
+        let request = this.requestList.find((r)=>{ return r.id == id});
+        if (request){
+          request.status = status;
+        }
+      })
     }
   }
 };

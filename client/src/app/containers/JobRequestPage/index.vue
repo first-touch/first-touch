@@ -89,7 +89,7 @@
       },
       customUpdateRequest(id, request) {
         this.updateRequest({
-          id: id,
+          id,
           request
         });
       },
