@@ -74,19 +74,15 @@
         </div>
       </div>
 
-      <div class="form-group buttons-inner row">
-        <button v-if="!report && !request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
-        <button v-if="report" id="submit" class="ft-button ft-button-success" @click="handleSubmit(report.status)">Update</button>
-        <button v-if="!report && request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('private')">Send Report</button>
-        <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default ft-button">Cancel</button>
+      <div class="row float-right">
+        <button v-if="!report && !request" id="submit" class="btn btn-primary mr-1" @click="handleSubmit('publish')">Publish</button>
+        <button v-if="report" id="submit" class="btn btn-primary mr-1" @click="handleSubmit(report.status)">Update</button>
+        <button v-if="!report && request" id="submit" class="btn btn-primary mr-1" @click="handleSubmit('private')">Send Report</button>
+        <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-danger">Cancel</button>
       </div>
     </form>
   </div>
 </template>
-<style lang="scss">
-  @import '~stylesheets/form';
-</style>
-
 
 <script>
   import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';

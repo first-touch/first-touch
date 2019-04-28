@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <sidebar /> -->
     <div class="container-fluid">
       <div class="ft-page">
         <actions class="widget"/>

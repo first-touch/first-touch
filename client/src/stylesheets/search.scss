@@ -81,9 +81,6 @@
       &.calendar-container {
         padding: 3px 10px;
       }
-      &.v-select {
-        padding: 0 5px;
-      }
       border-radius: 10px;
       border-color: #ced4da;
       color: $main-text-color;
@@ -110,9 +107,6 @@
     input {
       height: 100%;
     }
-    .v-select {
-      color: $main-text-color;
-    }
     &.calendar-filter {
       .col {
         display: inline-block;
@@ -136,25 +130,6 @@
     }
     .datepicker {
       float: left;
-    }
-  }
-  .v-select {
-    border: 1px solid $secondary-text-color;
-    border-radius: 10px;
-    padding: 10px 5px;
-    .clearfix {
-      border: 0;
-    }
-    .dropdown-toggle {
-      max-height: 35px;
-      border: 0px;
-    }
-    .selected-tag {
-      color: $secondary-text-color;
-      font-family: 'Ubuntu', sans-serif;
-    }
-    .clear {
-      display: none;
     }
   }
   .list-title {

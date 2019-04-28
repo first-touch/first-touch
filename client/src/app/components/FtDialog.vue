@@ -222,6 +222,7 @@
   .ft-dialog {
     box-shadow: $dialog-box-shadow;
     width: 50%;
+    min-width: 570px;
     margin: 0 auto 50px;
 
     top: 0;

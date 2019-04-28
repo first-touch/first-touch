@@ -132,7 +132,6 @@
       }
     },
     methods: {
-      ...mapActions(['flushSearchResults']),
       setvalue(index) {
         var info = (this.selected = this.searchResult.value[index]);
         this.id = info.id;
@@ -150,7 +149,6 @@
         this.selected = null;
       },
       blur() {
-        this.flushSearchResults();
         if (this.search === '') {
           this.clear();
         }

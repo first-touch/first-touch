@@ -8,8 +8,8 @@
       <span class="input-list__btn-delete" @click="removeElement(index)"> x </span>
   </div>
   <div class="input-list__add">
-    <button ref="entrybtn" type="button" 
-            class="input-list__btn-add"
+    <button ref="entrybtn" type="button"
+            class="input-list__btn-add btn btn-secondary"
             v-show="!editMode"
             @click="enableInput"> + New Entry</button>
     <div class="input-list__add-input" v-show="editMode">
@@ -47,7 +47,7 @@ export default {
     },
     enableInput(){
       this.editMode = true;
-      
+
       this.$nextTick(() => {
         this.$refs.inputbox.focus();
       })
@@ -88,4 +88,3 @@ export default {
   }
 }
 </style>
-

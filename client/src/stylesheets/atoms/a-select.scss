@@ -1,0 +1,12 @@
+.v-select {
+  background: #fff;
+  border-radius: 0.25rem;
+}
+
+.v-select.single.open .selected-tag {
+  position: relative;
+}
+
+.v-select.open .dropdown-toggle {
+  border-color: #a8cb5c
+}

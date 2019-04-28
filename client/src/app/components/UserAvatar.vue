@@ -20,7 +20,7 @@
 <script>
 import 'vue-awesome/icons/camera';
 import 'vue-awesome/icons/user-circle';
-import VIcon from 'vue-awesome/components/Icon'
+import VIcon from 'vue-awesome/components/Icon';
 
 export default {
   name:"user-avatar",
@@ -107,4 +107,3 @@ export default {
 }
 
 </style>
-

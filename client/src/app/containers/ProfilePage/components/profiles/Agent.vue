@@ -121,6 +121,8 @@
 </style>
 
 <script>
+import 'vue-awesome/icons/pencil-alt';
+import VIcon from 'vue-awesome/components/Icon';
 import PositionRating from '../PositionRating';
 import countrydata from 'country-data';
 import moment from 'moment';
