@@ -1,5 +1,5 @@
 <template>
-  <div class="analyzed_matches">
+  <div class="analyzed-matches">
     <div class="row header" :class="type">
       <div class="remove" v-if="!readonly"></div>
       <div class="col"> Date </div>
@@ -9,13 +9,13 @@
         Result
       </div>
       <div class="col" v-if="type == 'player'">
-        Training Observed
+        Observation Type
       </div>
       <div class="col" v-if="type == 'player'">
         Comment
       </div>
     </div>
-    <div class="row mt-1 mb-1" v-for="(match, index) in analyzed_matches" v-bind:key="match.id">
+    <div class="row mt-2 mb-2" v-for="(match, index) in analyzed_matches" v-bind:key="match.id">
       <div class="remove" v-if="!readonly && analyzed_matches.length > 1" @click="removeRowMatches(index)">
         <icon name='trash'></icon>
       </div>
@@ -35,22 +35,23 @@
       <div class="col" v-if="type == 'team'" :title="match.result">
         <input type="text" class="form-control m-field-input" :readonly="readonly" v-model="match.result" />
       </div>
-      <div class="col" v-if="type == 'player'" :title="match.training">
-        <vselect v-if="!readonly" ref="vSelect" v-model="match.training" :options="['Yes','No']" :clearable="true" />
-        <span class="read" v-if="readonly">{{match.training}}</span>
+      <div class="col" v-if="type == 'player'" :title="match.observation_type">
+        <vselect v-if="!readonly" ref="vSelect" v-model="match.observation_type" :options="['Match','Training']" />
+        <span class="read" v-if="readonly">{{match.observation_type}}</span>
       </div>
       <div class="col" v-if="type == 'player'" :title="match.comment">
         <input type="text" class="form-control m-field-input" :readonly="readonly" v-model="match.comment" />
       </div>
     </div>
     <div class="row">
-      <button v-if="!readonly" class="btn btn-secondary col-2" @click="addRowMatches">Add Match</button>
+      <div class="col-2">
+        <button v-if="!readonly" class="btn btn-secondary" @click="addRowMatches">Add Match</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-  import Datepicker from 'vuejs-datepicker';
   import vSelect from 'vue-select';
   import 'vue-awesome/icons/trash';
   import 'vue-awesome/icons/calendar-alt';
@@ -68,11 +69,9 @@
       };
     },
     components: {
-      datepicker: Datepicker,
       vselect: vSelect,
       icon: Icon,
       ftdatepicker: FtDatepicker
-
     },
     methods: {
       removeRowMatches: function (index) {
@@ -84,12 +83,9 @@
           opponent: '',
           venue: '',
           comment: '',
-          training: 'No'
+          observation_type: ''
         });
       },
-      showCalendar: function (index) {
-        this.$refs.datepicker[index].showCalendar();
-      }
     }
   };
 </script>

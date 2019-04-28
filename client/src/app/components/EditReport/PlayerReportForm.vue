@@ -2,7 +2,7 @@
   <form @submit.prevent class="report-form">
     <div class="form-group row report-name">
       <div class="col-lg-12 required-before">
-        <input type="text" class="col-lg-12 form-control" v-model="headline" placeholder="Report name" name="name" v-validate="'required'">
+        <input type="text" class="form-control" v-model="headline" placeholder="Report name" name="name" v-validate="'required'">
         <span class="validate-errors">{{ errors.first('name') }}</span>
       </div>
     </div>
@@ -18,22 +18,47 @@
       </div>
     </div>
     <div v-if="playerEditable">
-      <h5 class="menu" @click="playersummary = !playersummary" :class="playersummary ? 'active' : ''">
-        <i class="sub-menu-arrow" :class="playersummary ? 'active' : ''"></i> Player Summary </h5>
+      <h5 class="menu"> Player Summary </h5>
       <div class="form-group form-inner">
         <transition name="fade">
-          <div class="form-group player-summary" v-if="playersummary">
+          <div class="form-group player-summary">
             <div class="row mt-2 mb-2">
               <div class="col-lg-4 required-before">
-                <input type="number" class="col-lg-12 form-control" v-model.number="meta_data.player_info.age" :placeholder="agePlaceHolder" name="age" v-validate="'required|between:16,40'">
+                <input type="number" class="form-control" v-model.number="meta_data.player_info.age" :placeholder="agePlaceHolder" name="age" v-validate="'required|between:16,40'">
                 <span class="validate-errors">{{ errors.first('age') }}</span>
               </div>
               <div class="col-lg-4 required-before">
-                <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.player_info.height" :placeholder="heightPlaceHolder" name="height" v-validate="'required|between:150,210'">
+                <div class="input-group">
+                  <input
+                    type="number"
+                    min="0"
+                    v-model.number="meta_data.player_info.height"
+                    :placeholder="heightPlaceHolder"
+                    class="form-control m-field-input"
+                    name="weight"
+                    v-validate="'required|between:150,250'"
+                  >
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">cm</span>
+                  </div>
+                </div>
                 <span class="validate-errors">{{ errors.first('height') }}</span>
               </div>
               <div class="col-lg-4 required-before">
-                <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.player_info.weight" :placeholder="weightPlaceHolder" name="weight" v-validate="'required|between:50,100'">
+                <div class="input-group">
+                  <input
+                    type="number"
+                    min="0"
+                    v-model.number="meta_data.player_info.weight"
+                    :placeholder="weightPlaceHolder"
+                    class="form-control m-field-input"
+                    name="weight"
+                    v-validate="'required|between:50,150'"
+                  >
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">Kg</span>
+                  </div>
+                </div>
                 <span class="validate-errors">{{ errors.first('weight') }}</span>
               </div>
             </div>
@@ -64,108 +89,68 @@
         </transition>
       </div>
     </div>
-    <h5 class="menu" @click="transfersummary = !transfersummary" :class="transfersummary ? 'active' : ''">
-      <i class="sub-menu-arrow" :class="transfersummary ? 'active' : ''"></i> Transfer Summary
-    </h5>
-    <div class="form-group form-inner">
-      <transition name="fade">
-        <div class="form-group" v-if="transfersummary">
-          <div class="row">
-            <div class="col-lg-11">
-              <currencyinput :value="meta_data.transfer_sum.wage" placeholder="Wage salary" />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <label :class="meta_data.transfer_sum.transfer_interested == 'yes' ? 'active' : ''">
-                <span class="title">Interested in Transfer?</span>
-              </label>
-              <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.transfer_interested" v-on:update:val="meta_data.transfer_sum.transfer_interested = $event" />
-              <transition name="fade">
-                <div class="transfer-value row" v-if="meta_data.transfer_sum.transfer_interested === 'yes'">
-                  <div class="col-lg-6">
-                    <ftdatepicker class="form-control" placeholder="Availability for transfer" :value="meta_data.transfer_sum.transfer_availability"
-                      v-on:update:val="meta_data.transfer_sum.transfer_availability = $event" />
-                  </div>
-                  <div class="col-lg-6">
-                    <currencyinput :value="meta_data.transfer_sum.transfer_budget" placeholder="Transfer budget" />
-                  </div>
-                </div>
-              </transition>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <label :class="meta_data.transfer_sum.loan_interested == 'yes' ? 'active' : ''">
-                <span class="title">Interested in Loan?</span>
-              </label>
-              <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.loan_interested" v-on:update:val="meta_data.transfer_sum.loan_interested = $event" />
-              <transition name="fade">
-                <div class="transfer-value row" v-if="meta_data.transfer_sum.loan_interested === 'yes'">
-                  <div class="col-lg-6">
-                    <ftdatepicker class="form-control" placeholder="Availability for Loan" :value="meta_data.transfer_sum.loan_availability"
-                      v-on:update:val="meta_data.transfer_sum.loan_availability = $event" />
-                  </div>
-                  <div class="col-lg-6">
-                    <ftdatepicker class="form-control" placeholder="End of Contract" :value="meta_data.transfer_sum.contract_end" v-on:update:val="meta_data.transfer_sum.contract_end = $event" />
-                  </div>
-                </div>
-              </transition>
-            </div>
-          </div>
-        </div>
-      </transition>
-    </div>
+    <h5> Transfer Summary </h5>
     <div class="form-group">
-      <label class="col-lg-12">Analysis of Trainings/Matches</label>
-      <matchanalyzed class="col-lg-12" :analyzed_matches="meta_data.analyzed_matches" type="player" />
-    </div>
-    <div class="form-group row">
-      <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.overview" v-autosize="meta_data.overview" placeholder="Current Ability Overview"
-        />
+      <div class="row">
+        <div class="col-lg-6">
+          <label :class="meta_data.transfer_sum.transfer_interested == 'yes' ? 'active' : ''">
+            <span class="title">Interested in Transfer?</span>
+          </label>
+          <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.transfer_interested" v-on:update:val="meta_data.transfer_sum.transfer_interested = $event" />
+        </div>
+
+        <div class="col-lg-6">
+          <label :class="meta_data.transfer_sum.loan_interested == 'yes' ? 'active' : ''">
+            <span class="title">Interested in Loan?</span>
+          </label>
+          <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.loan_interested" v-on:update:val="meta_data.transfer_sum.loan_interested = $event" />
+        </div>
       </div>
     </div>
-    <div class="form-group row">
-      <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.physical_attributes" v-autosize="meta_data.physical_attributes"
-          placeholder="Physical Attribute(s)" />
+    <h5> Analysis of Trainings/Matches </h5>
+    <div class="form-group">
+      <div class="row">
+        <matchanalyzed class="col-lg-12" :analyzed_matches="meta_data.analyzed_matches" type="player" />
       </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.mental_attributes" v-autosize="meta_data.mental_attributes" placeholder="Mental Attribute(s)"
-        />
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea class="form-control" v-model="meta_data.overview" v-autosize="meta_data.overview" placeholder="Current Ability Overview" />
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.technical_attributes" v-autosize="meta_data.technical_attributes"
-          placeholder="Technical Attribute(s)" />
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea class="form-control" v-model="meta_data.physical_attributes" v-autosize="meta_data.physical_attributes" placeholder="Physical Attribute(s)" />
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-lg-12">
-        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.personality" v-autosize="meta_data.personality" placeholder="Personality"
-        />
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea class="form-control" v-model="meta_data.mental_attributes" v-autosize="meta_data.mental_attributes" placeholder="Mental Attribute(s)" />
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-lg-12">
-        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.potential" v-autosize="meta_data.potential" placeholder="Potential"
-        />
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea class="form-control" v-model="meta_data.technical_attributes" v-autosize="meta_data.technical_attributes" placeholder="Technical Attribute(s)" />
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-lg-12 ">
-        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.observations" v-autosize="meta_data.observations"
-          placeholder="Other Observations & Viewpoints To Note" />
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea type="text" class="form-control" v-model="meta_data.personality" v-autosize="meta_data.personality" placeholder="Personality" />
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.conclusion" v-autosize="meta_data.conclusion" placeholder="Conclusion"
-        />
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea type="text" class="form-control" v-model="meta_data.potential" v-autosize="meta_data.potential" placeholder="Potential" />
+        </div>
+      </div>
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea type="text" class="form-control" v-model="meta_data.observations" v-autosize="meta_data.observations" placeholder="Other Observations & Viewpoints To Note" />
+        </div>
+      </div>
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea class="form-control" v-model="meta_data.conclusion" v-autosize="meta_data.conclusion" placeholder="Conclusion" />
+        </div>
       </div>
     </div>
     <div class="form-group">
@@ -214,8 +199,6 @@
     props: ['playerId', 'submitReport', 'report', 'cancelAction', 'request', 'hasBankAccount'],
     data() {
       return {
-        playersummary: true,
-        transfersummary: true,
         meta_data: {
           player_info: {
             nationality_country_code: '',
