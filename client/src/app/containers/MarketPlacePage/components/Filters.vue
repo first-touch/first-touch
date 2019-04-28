@@ -18,28 +18,8 @@
   </div>
 </template>
 
-<style lang="scss">
-  @import '~stylesheets/search';
-
-  .inline-form {
-    .inline {
-      .form-control {
-        &.v-select {}
-        .ftdatepicker {
-          background: transparent;
-          height: 35px;
-          padding: 3px 8px;
-
-          input {
-            background: transparent;
-            padding: 1px .25em;
-          }
-        }
-      }
-    }
-  }
-</style>
 <style lang="scss" scoped>
+  @import '~stylesheets/search';
   @import '~stylesheets/variables';
 
   .inline-form {

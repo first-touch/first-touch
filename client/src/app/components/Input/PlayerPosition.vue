@@ -2,22 +2,6 @@
   <vselect :disabled="readonly" ref="vSelect" v-model="model" :onChange="update" multiple :options="options" :placeholder="placeholder" :clearable="true" />
 </template>
 
-<style lang="scss" scoped>
-.v-select {
-  background: #fff;
-  border-radius: 0.25rem;
-}
-
-.v-select.single.open .selected-tag {
-  position: relative;
-}
-
-.v-select.open .dropdown-toggle {
-  border-color: #a8cb5c
-}
-</style>
-
-
 <script>
   import vSelect from 'vue-select';
 

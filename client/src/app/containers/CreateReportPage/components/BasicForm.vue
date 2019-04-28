@@ -42,24 +42,6 @@
   </form>
 </template>
 
-<style lang="scss">
-// NOTE: This will move to the main scss once we clean up the
-// use of v-select
-.v-select {
-  background: #fff;
-  border-radius: 0.25rem;
-}
-
-.v-select.single.open .selected-tag {
-  position: relative;
-}
-
-.v-select.open .dropdown-toggle {
-  border-color: #a8cb5c
-}
-</style>
-
-
 <script>
   import {
     mapGetters,
