@@ -31,7 +31,7 @@
 
         <div class="profile-actions" >
           <router-link  v-if="mine"
-                        class="a-link" 
+                        class="a-link"
                         to="/profile/edit">
                         <v-icon name="pencil-alt" scale="0.9"/>
                         Edit Profile
@@ -117,6 +117,8 @@
 </style>
 
 <script>
+import 'vue-awesome/icons/pencil-alt';
+import VIcon from 'vue-awesome/components/Icon';
 import PositionRating from '../PositionRating';
 import countrydata from 'country-data';
 import moment from 'moment';
@@ -124,14 +126,16 @@ import TimelineItem from 'app/components/TimelineItem';
 import CareerEvents from '../CareerEvents';
 import ConnectButtons from '../ConnectButtons';
 
+
 export default {
   name: 'ScoutProfile',
   props: ['mine', 'user', 'connectionStatus'],
   components: {
-    'timeline-item': TimelineItem,
-    'position-rating': PositionRating,
-    'career-events': CareerEvents,
-    'connect-buttons': ConnectButtons
+    TimelineItem,
+    PositionRating,
+    CareerEvents,
+    ConnectButtons,
+    VIcon
   },
   computed: {
     userId() {
