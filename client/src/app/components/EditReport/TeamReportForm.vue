@@ -83,10 +83,6 @@
     </form>
   </div>
 </template>
-<style lang="scss">
-  @import '~stylesheets/form';
-</style>
-
 
 <script>
   import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';

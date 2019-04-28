@@ -1,8 +1,6 @@
 <template>
-  <vselect ref="vSelect" :disabled="readonly" v-model="model" multiple :onChange="update" :options="languages" class="ft-input form-control multiple" :class="{'empty' : model.length == 0}" :placeholder="placeholder"
-  />
+  <vselect :disabled="readonly" ref="vSelect" v-model="model" :onChange="update" multiple :options="languages" :placeholder="placeholder" :clearable="true" />
 </template>
-
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables';

@@ -1,53 +1,64 @@
 <template>
-  <form class="report-type-form ft-form" @submit.prevent>
+  <form class="report-type-form" @submit.prevent>
     <div class="form-group row">
-      <label class="col-lg-3 col-form-label required">Select report type</label>
-      <vselect v-model="vselect_type" class="col-lg-6 form-control" :options="options.type_report" :class="type == '' ? 'empty' : '' "
-        :searchable="false" clearable="false" />
+      <label class="col-lg-3 col-form-label">Select report type</label>
+      <div class="col-lg-6">
+        <vselect placeholder="Choose the report type" v-model="reportType" :options="options.reportType" :searchable="true" :clearable="true" />
+      </div>
     </div>
     <div class="form-group row">
       <label class="col-lg-3 col-form-label">Select a League</label>
-      <inputsearch class="col-lg-6" :onkeyup="getSearchResultsRole" placeholder="League is" :required="team_id == -1" :searchResult="searchResult"
-        type="competition" v-on:update:val="setLeague($event)" ref="league_search" :taggable="true" label="name" v-on:update:search="search.league = $event"
-      />
+      <div class="col-lg-6">
+        <vselect placeholder="Search for the competition" v-model="competition" :onSearch="searchCompetitions" label="name" :options="options.competitions" :searchable="true" :clearable="true" />
+      </div>
     </div>
     <div class="form-group row">
-      <label class="col-lg-3 col-form-label" :class="type == 'team' ? 'required' : ''">Select a Club</label>
-      <inputsearch class="col-lg-6" v-if="league_id != ''" placeholder="Club is" :onkeyup="getSearchResultsRole" :searchResult="searchResult"
-        type="team" ref="team_search" :taggable="true" v-on:update:obj="setTeam($event)" label="team_name" v-on:update:search="search.club = $event"
-      />
+      <label class="col-lg-3 col-form-label">Select a Club</label>
+      <div class="col-lg-6">
+        <vselect placeholder="Search for the club" v-model="club" :disabled="missingLeague" :onSearch="searchClubs" label="team_name" :options="options.clubs" :searchable="true" :clearable="true" :taggable="true"/>
+      </div>
     </div>
-    <div class="form-group row" v-if="type == 'player'">
-      <label class="col-lg-3 col-form-label" :class="type == 'player' ? 'required' : ''">Select a Player</label>
-      <inputsearch class="col-lg-6" v-if="team_id != ''" placeholder="Player is" :taggable="true" :onkeyup="getSearchResultsRole"
-        :searchResult="searchResult" type="player" label="display_name" v-on:update:val="player_id = $event" v-on:update:search="search.player = $event"
-      />
+    <div class="form-group row" v-if="isPlayerReport">
+      <label class="col-lg-3 col-form-label">Select a Player</label>
+      <div class="col-lg-6">
+        <vselect placeholder="Search for the player" v-model="player" :disabled="missingClub" :onSearch="searchPlayers" label="display_name" :options="options.players" :searchable="true" :clearable="true" :taggable="true"/>
+      </div>
     </div>
-    <div class="form-group row" v-if="team_id != '' && type == 'team'">
-      <label class="col-lg-3 col-form-label" >Select a Team</label>
-      <team-select class="col-lg-6" v-on:update:val="category = $event" placeholder="Team is"></team-select>
+    <div class="form-group row" v-if="isTeamReport">
+      <label class="col-lg-3 col-form-label">Select a Team</label>
+      <div class="col-lg-6">
+        <team-select v-model="team" :disabled="missingClub" placeholder="Choose a team"></team-select>
+      </div>
     </div>
-    <div class="buttons-inner col-lg-12 row">
-      <button class="bar-button ft-button">Cancel</button>
-      <button v-if="type == 'player'" class="ft-button" :disabled="player_id == ''" @click="startReport">Create Report for a player</button>
-      <button v-if="type == 'team'" class=" ft-button" :disabled="team_id == '' || category == ''" @click="startReport">Create Report for a team</button>
+    <div class="buttons-inner row">
+      <div class="col-sm-1 m-1">
+        <button class="btn btn-danger">Cancel</button>
+      </div>
+      <div class="col-sm-3 m-1">
+        <button v-if="isPlayerReport" class="btn btn-primary" :disabled="missingPlayer" @click="startReport">Create Report for a player</button>
+        <button v-if="isTeamReport" class="btn btn-primary" :disabled="!team" @click="startReport">Create Report for a team</button>
+      </div>
     </div>
   </form>
 </template>
-<style lang="scss">
-  @import '~stylesheets/variables';
-  @import '~stylesheets/form';
 
-  .report-type-form {
-    .buttons-inner {
-      display: flex;
-      flex-direction: row-reverse;
-      .ft-button {
-        margin-right: 5%;
-      }
-    }
-  }
+<style lang="scss">
+// NOTE: This will move to the main scss once we clean up the
+// use of v-select
+.v-select {
+  background: #fff;
+  border-radius: 0.25rem;
+}
+
+.v-select.single.open .selected-tag {
+  position: relative;
+}
+
+.v-select.open .dropdown-toggle {
+  border-color: #a8cb5c
+}
 </style>
+
 
 <script>
   import {
@@ -71,39 +82,40 @@
         player_report: false,
         team_report: false,
         job_type: 'independent',
-        category: '',
-        team_id: '',
-        league_id: '',
-        player_id: '',
+        club: {},
+        competition: {},
+        team: '',
+        player: {},
         search: {
           player: '',
           league: '',
           club: ''
         },
-        vselect_type: {
-          label: 'Select a report type',
-          value: ''
-        },
+        reportType: undefined,
         options: {
-          type_report: [
-            {
-              label: 'Player',
-              value: 'player'
-            },
-            {
-              label: 'Team',
-              value: 'team'
-            }
-          ]
+          reportType: ['Player', 'Team'],
+          competitions: [],
+          clubs: [],
+          players: []
         }
       };
     },
     computed: {
       ...mapGetters(['searchResult']),
-      type() {
-        if (this.vselect_type)
-          return this.vselect_type.value;
-        return '';
+      isTeamReport() {
+        return this.reportType == "Team";
+      },
+      isPlayerReport() {
+        return this.reportType == "Player";
+      },
+      missingPlayer() {
+        return _.isEmpty(this.player);
+      },
+      missingLeague() {
+        return !(this.competition && this.competition.id);
+      },
+      missingClub() {
+        return !(this.club && this.club.id);
       }
     },
     methods: {
@@ -111,63 +123,45 @@
         'getSearchResults',
         'getSearchResultsTeams',
         'getSearchResultsCompetition',
-        'flushSearchResults'
       ]),
-      setLeague(league_id) {
-        if (this.league_id != league_id) {
-          this.league_id = league_id;
-          this.team_id = '';
-          if (this.$refs.team_search) this.$refs.team_search.clear();
-          if (this.league_id > 0) this.search.league = ''
-        }
+      searchCompetitions(searchTerm, loading) {
+        loading(true);
+        this.getSearchResultsCompetition({searchTerm}).then(res => {
+          this.options.competitions = res;
+          loading(false);
+        });
       },
-      setTeam(team) {
-        if (team != null) {
-          this.team_id = team.id;
-          if (team.id == -1) {} else {
-            this.league_id = team.competition_id;
-            this.$refs.league_search.search = team.competition_name;
-            this.search.club = ''
-          }
-        }
+      searchClubs(searchTerm, loading) {
+        loading(true);
+        this.getSearchResultsTeams({
+          searchTerm,
+          league: this.competition.id
+        }).then(res => {
+          this.options.clubs = res;
+          loading(false);
+        });
       },
-      setPlayer(player_id) {
-        if (this.player_id != player_id) {
-          this.player_id = player_id;
-          if (this.player_id > 0) this.search.player = ''
-        }
-      },
-      getSearchResultsRole(role, searchTerm) {
-        this.flushSearchResults();
-        switch (role) {
-          case 'team':
-            this.getSearchResultsTeams({
-              searchTerm,
-              league: this.league_id
-            });
-            break;
-          case 'competition':
-            this.getSearchResultsCompetition({
-              searchTerm
-            });
-            break;
-          default:
-            this.getSearchResults({
-              searchTerm,
-              role,
-              team: this.team_id
-            });
-            break;
-        }
+      searchPlayers(searchTerm, loading) {
+        loading(true);
+        this.getSearchResults({
+          searchTerm,
+          role: "player",
+          team: this.club.id
+        }).then(res => {
+          this.options.players = res;
+          loading(false);
+        });
       },
       startReport() {
+        // TODO: Start report on an existing player
+        // Start report on a non existing player -> Backend to create an
+        // unclaimed account
         var ids = {
           player: this.player_id > 0 ? this.player_id : '',
           team: this.team_id > 0 ? this.team_id : '',
           league: this.league_id > 0 ? this.league_id : '',
-          category: this.category
         }
-        this.prepareReport(this.type, ids, this.search);
+        this.prepareReport(this.reportType, ids, this.search);
       }
     }
   };

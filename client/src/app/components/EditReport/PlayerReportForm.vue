@@ -1,8 +1,8 @@
 <template>
-  <form @submit.prevent class="report-form ft-form">
+  <form @submit.prevent class="report-form">
     <div class="form-group row report-name">
       <div class="col-lg-12 required-before">
-        <input type="text" class="col-lg-12 form-control" v-model="headline" placeholder="Report name" name="name" v-validate="'required'">
+        <input type="text" class="form-control" v-model="headline" placeholder="Report name" name="name" v-validate="'required'">
         <span class="validate-errors">{{ errors.first('name') }}</span>
       </div>
     </div>
@@ -18,36 +18,60 @@
       </div>
     </div>
     <div v-if="playerEditable">
-      <h5 class="menu" @click="playersummary = !playersummary" :class="playersummary ? 'active' : ''">
-        <i class="sub-menu-arrow" :class="playersummary ? 'active' : ''"></i> Player Summary </h5>
+      <h5 class="menu"> Player Summary </h5>
       <div class="form-group form-inner">
         <transition name="fade">
-          <div class="form-group player-summary" v-if="playersummary">
-            <div class="row">
+          <div class="form-group player-summary">
+            <div class="row mt-2 mb-2">
               <div class="col-lg-4 required-before">
-                <input type="number" class="col-lg-12 form-control" v-model.number="meta_data.player_info.age" :placeholder="agePlaceHolder" name="age" v-validate="'required|between:16,40'">
+                <input type="number" class="form-control" v-model.number="meta_data.player_info.age" :placeholder="agePlaceHolder" name="age" v-validate="'required|between:16,40'">
                 <span class="validate-errors">{{ errors.first('age') }}</span>
               </div>
               <div class="col-lg-4 required-before">
-                <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.player_info.height" :placeholder="heightPlaceHolder" name="height" v-validate="'required|between:150,210'">
+                <div class="input-group">
+                  <input
+                    type="number"
+                    min="0"
+                    v-model.number="meta_data.player_info.height"
+                    :placeholder="heightPlaceHolder"
+                    class="form-control m-field-input"
+                    name="height"
+                    v-validate="'required|between:150,250'"
+                  >
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">cm</span>
+                  </div>
+                </div>
                 <span class="validate-errors">{{ errors.first('height') }}</span>
               </div>
               <div class="col-lg-4 required-before">
-                <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.player_info.weight" :placeholder="weightPlaceHolder" name="weight" v-validate="'required|between:50,100'">
+                <div class="input-group">
+                  <input
+                    type="number"
+                    min="0"
+                    v-model.number="meta_data.player_info.weight"
+                    :placeholder="weightPlaceHolder"
+                    class="form-control m-field-input"
+                    name="weight"
+                    v-validate="'required|between:50,150'"
+                  >
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">Kg</span>
+                  </div>
+                </div>
                 <span class="validate-errors">{{ errors.first('weight') }}</span>
               </div>
             </div>
-            <div class="row">
+            <div class="row mt-2 mb-2">
               <div class="col-lg-6">
-                <playerposition :value="meta_data.player_info.playing_position" v-on:update:val="meta_data.player_info.playing_position = $event"
-                  placeholder="Positions in" />
+                <playerposition :value="meta_data.player_info.playing_position" v-on:update:val="meta_data.player_info.playing_position = $event" placeholder="Positions in" />
               </div>
               <div class="col-lg-6">
                 <preferredfoot :value="meta_data.player_info.preferred_foot" v-on:update:val="meta_data.player_info.preferred_foot = $event"
                   placeholder="Preferred foot is" />
               </div>
             </div>
-            <div class="row">
+            <div class="row mt-2 mb-2">
               <div class="col-lg-6">
                 <countryselect :value="meta_data.player_info.nationality_country_code" v-on:update:val="meta_data.player_info.nationality_country_code = $event"
                   placeholder="Nationality is" /> </div>
@@ -56,122 +80,77 @@
                   placeholder="Based in" />
               </div>
             </div>
-            <div class="row">
+            <div class="row mt-2 mb-2">
               <div class="col-lg-12">
-                <language :value="meta_data.player_info.languages" v-on:update:val="meta_data.player_info.languages = $event" placeholder="Speaking languages are"
-                />
+                <language :value="meta_data.player_info.languages" v-on:update:val="meta_data.player_info.languages = $event" placeholder="Speaking languages are"/>
               </div>
             </div>
           </div>
         </transition>
       </div>
     </div>
-    <h5 class="menu" @click="transfersummary = !transfersummary" :class="transfersummary ? 'active' : ''">
-      <i class="sub-menu-arrow" :class="transfersummary ? 'active' : ''"></i> Transfer Summary </h5>
-    <div class="form-group form-inner">
-      <transition name="fade">
-        <div class="form-group" v-if="transfersummary">
-          <div class="row">
-            <div class="col-lg-11">
-              <currencyinput :value="meta_data.transfer_sum.wage" placeholder="Wage salary" />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <label class="col-lg-12 ftcheckbox-inner col-form-label" :class="meta_data.transfer_sum.transfer_interested == 'yes' ? 'active' : ''">
-                <span class="title">Interested in Transfer ?</span>
-                <i class="sub-menu-arrow" :class="meta_data.transfer_sum.transfer_interested == 'yes' ? 'active' : ''"></i>
-                <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.transfer_interested" v-on:update:val="meta_data.transfer_sum.transfer_interested = $event"
-                />
-              </label>
-              <transition name="fade">
-                <div class="transfer-value col-lg-12 row" v-if="meta_data.transfer_sum.transfer_interested === 'yes'">
-                  <div class="col-lg-6">
-                    <ftdatepicker class="col-lg-12 form-control" placeholder="Availability for transfer" :value="meta_data.transfer_sum.transfer_availability"
-                      v-on:update:val="meta_data.transfer_sum.transfer_availability = $event" />
-                  </div>
-                  <div class="col-lg-6">
-                    <currencyinput :value="meta_data.transfer_sum.transfer_budget" placeholder="Transfer budget" />
-                  </div>
-                </div>
-              </transition>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <label class="col-lg-12 ftcheckbox-inner col-form-label" :class="meta_data.transfer_sum.loan_interested == 'yes' ? 'active' : ''">
-                <span class="title">Interested in Loan ?</span>
-                <i class="sub-menu-arrow" :class="meta_data.transfer_sum.loan_interested == 'yes' ? 'active' : ''"></i>
-                <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.loan_interested" v-on:update:val="meta_data.transfer_sum.loan_interested = $event"
-                />
-              </label>
-              <transition name="fade">
-                <div class="transfer-value col-lg-12 row" v-if="meta_data.transfer_sum.loan_interested === 'yes'">
-                  <div class="col-lg-6">
-                    <ftdatepicker class="col-lg-12 form-control" placeholder="Availability for Loan" :value="meta_data.transfer_sum.loan_availability"
-                      v-on:update:val="meta_data.transfer_sum.loan_availability = $event" />
-                  </div>
-                  <div class="col-lg-6">
-                    <ftdatepicker class="col-lg-12 form-control" placeholder="End of Contract" :value="meta_data.transfer_sum.contract_end" v-on:update:val="meta_data.transfer_sum.contract_end = $event"
-                    />
-                  </div>
-                </div>
-              </transition>
-            </div>
-          </div>
-        </div>
-      </transition>
-    </div>
+    <h5> Transfer Summary </h5>
     <div class="form-group">
-      <label class="col-lg-12">Analysis of Trainings/Matches</label>
-      <matchanalyzed class="col-lg-12" :analyzed_matches="meta_data.analyzed_matches" type="player" />
-    </div>
-    <div class="form-group row">
-      <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.overview" v-autosize="meta_data.overview" placeholder="Current Ability Overview"
-        />
+      <div class="row">
+        <div class="col-lg-6">
+          <label :class="meta_data.transfer_sum.transfer_interested == 'yes' ? 'active' : ''">
+            <span class="title">Interested in Transfer?</span>
+          </label>
+          <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.transfer_interested" v-on:update:val="meta_data.transfer_sum.transfer_interested = $event" />
+        </div>
+
+        <div class="col-lg-6">
+          <label :class="meta_data.transfer_sum.loan_interested == 'yes' ? 'active' : ''">
+            <span class="title">Interested in Loan?</span>
+          </label>
+          <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.loan_interested" v-on:update:val="meta_data.transfer_sum.loan_interested = $event" />
+        </div>
       </div>
     </div>
-    <div class="form-group row">
-      <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.physical_attributes" v-autosize="meta_data.physical_attributes"
-          placeholder="Physical Attribute(s)" />
+    <h5> Analysis of Trainings/Matches </h5>
+    <div class="form-group">
+      <div class="row">
+        <matchanalyzed class="col-lg-12" :analyzed_matches="meta_data.analyzed_matches" type="player" />
       </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.mental_attributes" v-autosize="meta_data.mental_attributes" placeholder="Mental Attribute(s)"
-        />
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea class="form-control" v-model="meta_data.overview" v-autosize="meta_data.overview" placeholder="Current Ability Overview" />
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.technical_attributes" v-autosize="meta_data.technical_attributes"
-          placeholder="Technical Attribute(s)" />
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea class="form-control" v-model="meta_data.physical_attributes" v-autosize="meta_data.physical_attributes" placeholder="Physical Attribute(s)" />
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-lg-12">
-        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.personality" v-autosize="meta_data.personality" placeholder="Personality"
-        />
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea class="form-control" v-model="meta_data.mental_attributes" v-autosize="meta_data.mental_attributes" placeholder="Mental Attribute(s)" />
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-lg-12">
-        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.potential" v-autosize="meta_data.potential" placeholder="Potential"
-        />
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea class="form-control" v-model="meta_data.technical_attributes" v-autosize="meta_data.technical_attributes" placeholder="Technical Attribute(s)" />
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-lg-12 ">
-        <textarea type="text" class="col-lg-12 form-control" v-model="meta_data.observations" v-autosize="meta_data.observations"
-          placeholder="Other Observations & Viewpoints To Note" />
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea type="text" class="form-control" v-model="meta_data.personality" v-autosize="meta_data.personality" placeholder="Personality" />
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-lg-12">
-        <textarea class="col-lg-12 form-control" v-model="meta_data.conclusion" v-autosize="meta_data.conclusion" placeholder="Conclusion"
-        />
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea type="text" class="form-control" v-model="meta_data.potential" v-autosize="meta_data.potential" placeholder="Potential" />
+        </div>
+      </div>
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea type="text" class="form-control" v-model="meta_data.observations" v-autosize="meta_data.observations" placeholder="Other Observations & Viewpoints To Note" />
+        </div>
+      </div>
+      <div class="row mb-2 mt-2">
+        <div class="col-md-12">
+          <textarea class="form-control" v-model="meta_data.conclusion" v-autosize="meta_data.conclusion" placeholder="Conclusion" />
+        </div>
       </div>
     </div>
     <div class="form-group">
@@ -181,97 +160,14 @@
       </div>
     </div>
 
-    <div class="form-group buttons-inner row">
-      <button v-if="!report && !request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
-      <button v-if="report" id="submit" class="ft-button ft-button-success" @click="handleSubmit(report.status)">Update</button>
-      <button v-if="!report && request" id="submit" class="ft-button ft-button-success" @click="handleSubmit('private')">Send Report</button>
-      <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-default ft-button">Cancel</button>
+    <div class="row float-right">
+      <button v-if="!report && !request" id="submit" class="btn btn-primary mr-1" @click="handleSubmit('publish')">Publish</button>
+      <button v-if="report" id="submit" class="btn btn-primary mr-1" @click="handleSubmit(report.status)">Update</button>
+      <button v-if="!report && request" id="submit" class="btn btn-primary mr-1" @click="handleSubmit('private')">Send Report</button>
+      <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-danger">Cancel</button>
     </div>
   </form>
 </template>
-
-<style lang="scss">
-  @import '~stylesheets/form';
-</style>
-<style lang="scss" scoped>
-  @import '~stylesheets/variables';
-
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: all 0.75s;
-    max-height: 500px;
-  }
-
-  .fade-enter,
-  .fade-leave-to {
-    opacity: 0.1;
-    max-height: 0px;
-  }
-
-  .report-form {
-    .radio-group {
-      label {
-        width: 10%;
-      }
-    }
-    .player-summary {
-      .row {
-        margin-bottom: 20px;
-      }
-    }
-    .transfer-value {
-      padding: 0 30px;
-      div {
-        height: 100%;
-      }
-    }
-    h5 {
-      &.menu {
-        cursor: pointer;
-      }
-    }
-
-    .sub-menu-arrow {
-      &::before {
-        margin-top: 3px;
-        border-color: rgba(60, 60, 60, 0.5);
-        border-style: solid;
-        border-width: 3px 3px 0 0;
-        content: '';
-        height: 10px;
-        vertical-align: top;
-        transform: rotate(45deg);
-        box-sizing: inherit;
-        display: inline-block;
-        transition: all 0.15s cubic-bezier(1, -0.115, 0.975, 0.855);
-        transition-timing-function: cubic-bezier(1, -0.115, 0.975, 0.855);
-        width: 10px;
-      }
-      &.active::before {
-        transform: rotate(133deg);
-      }
-    }
-    h5 {
-      color: $main-text-color;
-      font-size: 15px;
-      font-weight: 700;
-    }
-    .form-inner {
-      margin-left: 20px;
-      .form-group {
-        padding: 10px;
-      }
-    }
-    .report-name {
-      label {
-        margin-right: 20px;
-      }
-    }
-    .label-price {
-      margin-top: 8px;
-    }
-  }
-</style>
 
 <script>
   import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
@@ -303,8 +199,6 @@
     props: ['playerId', 'submitReport', 'report', 'cancelAction', 'request', 'hasBankAccount'],
     data() {
       return {
-        playersummary: true,
-        transfersummary: true,
         meta_data: {
           player_info: {
             nationality_country_code: '',
@@ -314,25 +208,14 @@
           },
           transfer_sum: {
             loan_interested: 'No',
-            transfer_interested: 'No',
-            free_agent: 'No',
-            wage: {
-              value: 0,
-              currency: 'USD'
-            },
-            loan_availability: '',
-            transfer_budget: {
-              value: 0,
-              currency: 'USD'
-            },
-            transfer_availability: ''
+            transfer_interested: 'No'
           },
           analyzed_matches: [{
             date: '',
             opponent: '',
             venue: '',
             comment: '',
-            training: 'No'
+            observation_type: ''
           }]
         },
         price: {
@@ -431,7 +314,6 @@
     },
     methods: {
       handleSubmit(status) {
-
         this.$validator.validateAll().then(() => {
           if (this.errors.items.length == 0) {
             var report = {
@@ -443,17 +325,17 @@
               files: this.files
             };
             this.submitReport(report);
+          } else {
+            this.scrollToTop();
           }
-        }).catch(() => {
-        });
-        setTimeout(function(){  var error = $('.validate-errors:not(:empty):first')
-        var y = error.offset() ? error.offset().top - 200 : 0;
-                    $('html, body').animate({
-                scrollTop: y
-              },
-              200
-            ); }, 200);
-
+        }).catch(this.scrollToTop);
+      },
+      scrollToTop() {
+        setTimeout( () => {
+          var error = $('.validate-errors:not(:empty):first');
+          var y = error.offset() ? error.offset().top - 200 : 0;
+          $('html, body').animate({ scrollTop: y }, 200);
+        }, 200);
       }
     }
   };

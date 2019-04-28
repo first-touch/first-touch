@@ -6,9 +6,7 @@ module V1
       def setup_model!(options, params:, **)
         user_list = ::User.all
         query_params = params[:q]
-
         if query_params
-          left_joins = 'LEFT JOIN teams ON teams.id = archives.person_id'
           user_list = user_list.joins(:teams).where('teams.id = ?', params[:team].to_i) unless params[:team].blank?
           user_list = user_list.where(
             'search_string ILIKE ?', "%#{query_params}%"

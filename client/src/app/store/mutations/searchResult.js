@@ -13,19 +13,14 @@ export const searchResult = {
 export default {
   [ActionTypes.SEARCH_RESULT_LOADING] (state) {
     state.searchResult = Object.assign({}, state.searchResult, {
-      status: ASYNC_LOADING
+      status: ASYNC_LOADING,
+      value: []
     });
   },
   [ActionTypes.SEARCH_RESULT_SUCCESS] (state, payload) {
     state.searchResult = Object.assign({}, state.searchResult, {
       status: ASYNC_SUCCESS,
       value: payload
-    });
-  },
-  [ActionTypes.SEARCH_RESULT_FLUSH] (state) {
-    state.searchResult = Object.assign({}, state.searchResult, {
-      status: ASYNC_NONE,
-      value: []
     });
   }
 };
