@@ -8,13 +8,15 @@ module V1
 
       private
 
-      def find_model!(options, params:,  current_club:, **)
+      def find_model!(options, params:,  current_club:, current_user:, **)
         requestId = params[:request_id]
         models = nil
         if options[:current_user].scout?
           models = ::RequestBid.find_by(request_id: requestId, user: options[:current_user])
-        elsif !current_club.nil?
-          models = current_club.requests.find(requestId).request_bids.where status: 'pending'
+        #elsif !current_club.nil?
+        #  models = current_club.requests.find(requestId).request_bids.where status: 'pending'
+        elsif !current_user.nil?
+          models = current_user.requests.find(requestId).request_bids.where status: 'pending'
         end
         options[:models] = models
         options['model.class'] = ::RequestBid

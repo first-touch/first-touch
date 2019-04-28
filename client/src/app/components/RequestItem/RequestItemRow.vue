@@ -45,7 +45,7 @@
     <span v-if="field == 'action'" class="contents">
       <div class="table-action">
         <div class="first-action buttons-inner">
-          <router-link v-if="canAction(own && !position, 'view_bids', true)" :to="{ name: 'clubRequestBids', params: { id: request.id }}"
+          <router-link v-if="canAction(own && !position, 'view_bids', true)" :to="{ name: 'requestBids', params: { id: request.id }}"
             class="ft-action">
             <button class="btn-round">View Bids</button>
           </router-link>

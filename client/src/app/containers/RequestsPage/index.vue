@@ -2,7 +2,7 @@
 <div class="ft-page">
   <div class="container">
     <h3 class="spaced-title upper-cased main-color page-title mb-5">
-      <span>Reports</span>
+      <span>Report Requests</span>
     </h3>
 
     <actions @select="handleActionSelection" />

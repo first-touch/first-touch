@@ -227,7 +227,8 @@ export const router = new VueRouter({
       children: [
         {
           path: '',
-          component: RequestsPage
+          component: RequestsPage,
+          name: 'requestList'
         },
         {
           path: ':id/bids',
