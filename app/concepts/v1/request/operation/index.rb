@@ -12,9 +12,11 @@ module V1
         if options[:current_user].is_a?(::User)
           if options[:current_user].scout?
             stripe_ft = options[:current_user].stripe_ft
-            models = if !stripe_ft.nil? && !stripe_ft.preferred_account.nil?
-                      scout(current_user: options[:current_user])
-                    end
+
+            if (!stripe_ft.nil? && !stripe_ft.preferred_account.nil?)
+              models = getRequestsForScout(current_user: options[:current_user])
+            end
+
           elsif options[:current_user].director? || options[:current_user].agent?
             models = getRequestsByUser(user: options[:current_user])
           end
@@ -27,7 +29,7 @@ module V1
         options[:models] = models
       end
 
-      def scout(options, **)
+      def getRequestsForScout(options, **)
         models = ::Request.all
         joins = "LEFT OUTER JOIN request_bids ON request_bids.request_id = requests.id AND request_bids.user_id = #{options[:current_user].id} AND request_bids.status != 'canceled' "
         models = models.joins(joins)
