@@ -2,9 +2,9 @@
   <div>
     <div class="ft-page">
       <div class="container">
-        <actions class="widget"/>
-        <bids-list class="widget" />
-        <report-list class="widget" />
+        <actions class="mt-2 mb-2"/>
+        <!-- <bids-list class="widget" /> -->
+        <report-list class="mt-2 mb-2" />
       </div>
     </div>
   </div>
