@@ -14,11 +14,11 @@ module V1
             stripe_ft = options[:current_user].stripe_ft
 
             if (!stripe_ft.nil? && !stripe_ft.preferred_account.nil?)
-              models = getRequestsForScout(current_user: options[:current_user])
+              models = get_requests_for_scout(current_user: options[:current_user])
             end
 
           elsif options[:current_user].director? || options[:current_user].agent?
-            models = getRequestsByUser(user: options[:current_user])
+            models = get_requests_by_user(user: options[:current_user])
           end
         end
         #elsif !current_club.nil?
@@ -29,7 +29,7 @@ module V1
         options[:models] = models
       end
 
-      def getRequestsForScout(options, **)
+      def get_requests_for_scout(options, **)
         models = ::Request.all
         joins = "LEFT OUTER JOIN request_bids ON request_bids.request_id = requests.id AND request_bids.user_id = #{options[:current_user].id} AND request_bids.status != 'canceled' "
         models = models.joins(joins)
@@ -37,7 +37,7 @@ module V1
         models = models.select('requests.*, request_bids.status as bid_status, request_bids.price as bid_price, request_bids.report_id as report_id')
       end
 
-      def getRequestsByUser(user:)
+      def get_requests_by_user(user:)
         models = user.requests.where.not(status:'deleted')
         joins = "LEFT OUTER JOIN request_bids ON request_bids.request_id = requests.id AND request_bids.status = 'pending'"
         models = models.joins(joins)
