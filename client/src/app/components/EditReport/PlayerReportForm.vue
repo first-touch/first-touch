@@ -35,7 +35,7 @@
                     v-model.number="meta_data.player_info.height"
                     :placeholder="heightPlaceHolder"
                     class="form-control m-field-input"
-                    name="weight"
+                    name="height"
                     v-validate="'required|between:150,250'"
                   >
                   <div class="input-group-append">
@@ -208,25 +208,14 @@
           },
           transfer_sum: {
             loan_interested: 'No',
-            transfer_interested: 'No',
-            free_agent: 'No',
-            wage: {
-              value: 0,
-              currency: 'USD'
-            },
-            loan_availability: '',
-            transfer_budget: {
-              value: 0,
-              currency: 'USD'
-            },
-            transfer_availability: ''
+            transfer_interested: 'No'
           },
           analyzed_matches: [{
             date: '',
             opponent: '',
             venue: '',
             comment: '',
-            training: 'No'
+            observation_type: ''
           }]
         },
         price: {
@@ -335,16 +324,18 @@
               status,
               files: this.files
             };
-            debugger
             this.submitReport(report);
+          } else {
+            this.scrollToTop();
           }
-        }).catch(() => {
-          setTimeout( () => {
-            var error = $('.validate-errors:not(:empty):first');
-            var y = error.offset() ? error.offset().top - 200 : 0;
-            $('html, body').animate({ scrollTop: y }, 200);
-          }, 200);
-        });
+        }).catch(this.scrollToTop);
+      },
+      scrollToTop() {
+        setTimeout( () => {
+          var error = $('.validate-errors:not(:empty):first');
+          var y = error.offset() ? error.offset().top - 200 : 0;
+          $('html, body').animate({ scrollTop: y }, 200);
+        }, 200);
       }
     }
   };
