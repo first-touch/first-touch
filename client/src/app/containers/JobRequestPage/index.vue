@@ -1,16 +1,18 @@
 <template>
-  <div>
-    <!-- <sidebar /> -->
-    <div class="container-fluid">
-      <div class="ft-page">
-        <actions v-if="page == 'index'" class="widget" v-on:update:val="page = $event" />
-        <jobrequestwidget v-if="page == 'index'" :listRequest="listRequest" :getRequests="search" :update="customUpdateRequest" />
-        <playerjobrequest v-if="page == 'player'" :submit="customCreateRequest" :serverErrors="serverErrors" :cancelAction="cancel" />
-        <positionjobrequest v-if="page == 'position'" :submit="customCreateRequest" :serverErrors="serverErrors" :cancelAction="cancel" />
-        <teamjobrequest v-if="page == 'team'" :submit="customCreateRequest" :serverErrors="serverErrors" :cancelAction="cancel" />
-      </div>
-    </div>
+<div class="ft-page">
+  <div class="container">
+    <h3 class="spaced-title upper-cased main-color page-title mb-5">
+      <span>Reports</span>
+    </h3>
+
+
+    <actions v-if="page == 'index'" class="widget" v-on:update:val="page = $event" />
+    <jobrequestwidget v-if="page == 'index'" :listRequest="listRequest" :getRequests="search" :update="customUpdateRequest" />
+    <playerjobrequest v-if="page == 'player'" :submit="customCreateRequest" :serverErrors="serverErrors" :cancelAction="cancel" />
+    <positionjobrequest v-if="page == 'position'" :submit="customCreateRequest" :serverErrors="serverErrors" :cancelAction="cancel" />
+    <teamjobrequest v-if="page == 'team'" :submit="customCreateRequest" :serverErrors="serverErrors" :cancelAction="cancel" />
   </div>
+</div>
 </template>
 
 <style lang="scss" scoped>
@@ -87,7 +89,7 @@
       },
       customUpdateRequest(id, request) {
         this.updateRequest({
-          id: id,
+          id,
           request
         });
       },

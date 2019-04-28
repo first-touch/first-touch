@@ -26,8 +26,10 @@
         <v-icon name="regular/times-circle" scale="1"/>
         </button>
       </header>
-      <section class="ft-dialog__body container">
-        <slot></slot>
+      <section class="ft-dialog__body">
+        <div class="ft-dialog__body-inner">
+          <slot></slot>
+        </div>
       </section>
       <footer class="ft-dialog__footer" v-if="$slots.footer">
         <slot name="footer"></slot>
@@ -42,7 +44,7 @@
   import VIcon from 'vue-awesome/components/Icon'
 
   export default {
-    name: 'FTDialog',
+    name: 'FtDialog',
     components:{
       VIcon
     },
@@ -192,8 +194,14 @@
   }
 
   .ft-dialog__body {
-    padding: 20px 10px;
     font-size: $dialog-font-size;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+
+    .ft-dialog__body--iner{
+      padding: 20px 10px;
+    }
+
   }
 
   .btn-close {

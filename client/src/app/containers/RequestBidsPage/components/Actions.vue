@@ -20,7 +20,6 @@ import 'vue-awesome/icons/arrow-left';
 
 export default {
   name: 'Actions',
-  props:['id','status','updateStatus'],
   components: {
     'action-item': ActionsItem,
     icon: Icon
@@ -28,7 +27,7 @@ export default {
   methods:{
     toAssignments(){
       this.$router.push({
-        name: 'clubRequestList'
+        name: 'requestList'
       })
     }
   }

@@ -46,6 +46,7 @@ class User < ApplicationRecord
   has_many :notes
   has_many :reports
   has_many :orders
+  has_many :requests
 
   before_save :downcase_email, if: :email_changed?
   has_many :request_bids
@@ -159,6 +160,14 @@ class User < ApplicationRecord
 
   def scout?
     !roles.find_by(name: 'scout').blank?
+  end
+
+  def director?
+    !roles.find_by(name: 'director').blank?
+  end
+
+  def agent?
+    !roles.find_by(name: 'agent').blank?
   end
 
   def note_tags
