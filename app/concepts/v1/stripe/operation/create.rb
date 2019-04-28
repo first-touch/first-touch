@@ -58,7 +58,7 @@ module V1
               type: 'custom',
               account_token: token
             )
-            account.transfer_schedule.interval = 'manual'
+            #account.transfer_schedule.interval = 'manual'
             account.save
             options['stripe_id'] = account.id
             options[:model] = account
@@ -99,9 +99,12 @@ module V1
         stripe_ft = options[:current_user].stripe_ft
         pf = stripe_ft.preferred_account
         found = false
-        account.external_accounts.data.each do |item|
-          found = true if pf == item.id
+        if (not account.external_accounts.nil?)
+          account.external_accounts.data.each do |item|
+            found = true if pf == item.id
+          end
         end
+
         unless found
           unless account.external_accounts.data.empty?
             stripe_ft.preferred_account = account.external_accounts.data[0].id

@@ -1,18 +1,27 @@
 <template>
   <div>
-    <!-- <sidebar /> -->
-    <div class="container-fluid">
+    <div class="container">
       <b-modal ref="metaModal" id="metaModal" size="lg" @hide="flushEdit()">
-        <personalinformationpopup v-if="personalInformation" :submit="custonNewStripe" :stripeRequired="stripeRequiredFields" :stripe="stripe"
-          :stripeFtouch="stripeFtouch" :closeAction="closeAction" :getCountryInfo="getStripeRequiredInfo" :deleteAccount="deleteAccount"/>
+        <personal-information-popup
+          v-if="personalInformation"
+          :submit="custonNewStripe"
+          :stripeRequired="stripeRequiredFields"
+          :stripe="stripe"
+          :stripeFtouch="stripeFtouch"
+          :closeAction="closeAction"
+          :getCountryInfo="getStripeRequiredInfo"
+          :deleteAccount="deleteAccount"
+        />
         <bankaccountpopup v-if="bank" :PersonalInformationAction="PersonalInformation" :closeAction="closeAction" :stripeRequired="stripeRequiredFields"
           :stripe="stripe" :stripeFtouch="stripeFtouch" :submit="custonNewStripe" :getCountryInfo="getStripeRequiredInfo" />
       </b-modal>
+
       <b-modal class="ft-modal" ref="DeleteBankModal" size="md" @hide="flushDelete()">
         <confirmdelete v-if="selectedBankAccount" :bankAccount="selectedBankAccount" :stripeFtouch="stripeFtouch"
          :deleteAction="deleteBankAccountAction" :deleteAccount="deleteAccount" :isDeleteAccount="isDeleteAccount"
           :closeAction="closeAction" />
       </b-modal>
+
       <div class="ft-page">
         <h4 class="spaced-title upper-cased main-color">Payment Details</h4>
         <actions class="widget" :hasStripe="hasStripe" :PersonalInformation="PersonalInformation" :AddPayment="AddPayment"  />
@@ -49,10 +58,10 @@ import ConfirmDelete from './components/ConfirmDelete';
 export default {
   name: 'PaymentDetailPage',
   components: {
-    sidebar: NotificationSidebar,
-    actions: Actions,
-    'timeline-item': TimelineItem,
-    personalinformationpopup: PersonalInformationPopup,
+    NotificationSidebar,
+    Actions,
+    TimelineItem,
+    PersonalInformationPopup,
     bankaccountpopup: BankAccountPopup,
     bankaccountlist: BankAccountList,
     confirmdelete: ConfirmDelete
@@ -148,7 +157,8 @@ export default {
     ...mapGetters(['stripe', 'stripeFtouch', 'stripeRequiredFields', 'stripeDelete','user']),
     hasStripe(){
       if (this.stripeFtouch.status == ASYNC_SUCCESS){
-        return this.stripeFtouch.value.legal_entity
+        let profile = this.stripeFtouch.value.profile
+        return profile && (profile.company || profile.individual)
       }
       return false;
     }

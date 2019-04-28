@@ -30,7 +30,7 @@
         <div class="row col-lg-12" v-if="bankNeed">
           <div class="row col-lg-6">
             <label class="col-lg-12 required">Account holder name</label>
-            <input type="text" class="col-lg-12 form-control" required v-model="bankInfo.account_holder_name" placeholder="Mike eagels">
+            <input type="text" class="col-lg-12 form-control" required v-model="bankInfo.account_holder_name">
           </div>
           <div class="row col-lg-6">
             <label class="col-lg-12 required">Account holder type</label>
@@ -265,11 +265,8 @@ export default {
     },
     prepare() {
       if (!this.loading) {
-        if (!this.info || !this.info.legal_entity) this.PersonalInformationAction();
-        else {
-          if (!this.stripeRequired.value) {
-            this.getCountryInfo(this.info.country);
-          }
+        if (!this.stripeRequired.value) {
+          this.getCountryInfo(this.info.country);
         }
       }
     }
