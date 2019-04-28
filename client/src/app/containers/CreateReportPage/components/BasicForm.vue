@@ -24,19 +24,13 @@
         <vselect placeholder="Search for the player" v-model="player" :disabled="missingClub" :onSearch="searchPlayers" label="display_name" :options="options.players" :searchable="true" :clearable="true" :taggable="true"/>
       </div>
     </div>
-    <div class="form-group row" v-if="isTeamReport">
-      <label class="col-lg-3 col-form-label">Select a Team</label>
-      <div class="col-lg-6">
-        <team-select v-model="team" :disabled="missingClub" placeholder="Choose a team"></team-select>
-      </div>
-    </div>
     <div class="buttons-inner row">
       <div class="col-sm-1 m-1">
         <button class="btn btn-danger">Cancel</button>
       </div>
       <div class="col-sm-3 m-1">
         <button v-if="isPlayerReport" class="btn btn-primary" :disabled="missingPlayer" @click="startReport">Create Report for a player</button>
-        <button v-if="isTeamReport" class="btn btn-primary" :disabled="!team" @click="startReport">Create Report for a team</button>
+        <button v-if="isTeamReport" class="btn btn-primary" :disabled="missingClub" @click="startReport">Create Report for a team</button>
       </div>
     </div>
   </form>
@@ -139,9 +133,9 @@
         // Start report on a non existing player -> Backend to create an
         // unclaimed account
         var ids = {
-          player: this.player_id > 0 ? this.player_id : '',
-          team: this.team_id > 0 ? this.team_id : '',
-          league: this.league_id > 0 ? this.league_id : '',
+          player: this.player.id > 0 ? this.player.id : '',
+          team: this.club.id > 0 ? this.club.id : '',
+          league: this.competition.id > 0 ? this.competition.id : '',
         }
         this.prepareReport(this.reportType, ids, this.search);
       }
