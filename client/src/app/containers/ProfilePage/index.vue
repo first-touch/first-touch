@@ -7,11 +7,11 @@
       </h4>
 
       <component
-          :is="userRoleProfile"
-          :user="userProfile"
-          :mine="mine"
-          :connectionStatus="connectionStatus"
-          class="profile" />
+        :is="userRoleProfile"
+        :user="userProfile"
+        :mine="mine"
+        :connectionStatus="connectionStatus"
+        class="profile" />
     </div>
   </div>
 </template>
