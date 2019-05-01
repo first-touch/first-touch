@@ -58,8 +58,7 @@
             </tr>
           </thead>
           <tbody>
-            <report v-for="report in listReport" :report="report" :key="report.id" :UpdateReport="customUpdateReport" :own="true" :viewAction="viewAction"
-              mode="table" :widgets="['id','headline','submitted','action']" />
+            <report-row v-for="report in listReport" :report="report" :key="report.id" :UpdateReport="customUpdateReport" :own="true" :viewAction="viewAction" :widgets="['id','headline','submitted','action']" />
           </tbody>
         </table>
       </div>
@@ -81,7 +80,8 @@
     ASYNC_SUCCESS
   } from 'app/constants/AsyncStatus';
   import TimelineItem from 'app/components/TimelineItem';
-  import ReportItem from 'app/components/ReportItem';
+  // import ReportItem from 'app/components/ReportItem';
+  import ReportRow from './ReportRow';
   import vSelect from 'vue-select';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import 'vue-awesome/icons/arrow-alt-circle-up';
@@ -93,7 +93,7 @@
     components: {
       ftdatepicker: FtDatepicker,
       TimelineItem,
-      report: ReportItem,
+      ReportRow,
       vselect: vSelect,
       icon: Icon
     },
