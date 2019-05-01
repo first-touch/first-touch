@@ -39,8 +39,8 @@ export const getBids = (store, { id, params }) => {
   fetch(`/api/v1/requests/bids/${id}?${params}`, {
     method: 'GET',
     headers: {
-      Authorization: store.state.token.value,
-      //ClubAuthorization: store.state.token.clubs[0] ? store.state.token.clubs[0].token : null
+      Authorization: store.state.token.value
+      // ClubAuthorization: store.state.token.clubs[0] ? store.state.token.clubs[0].token : null
     }
   }).then(res => {
     if (res.status >= 200 && res.status < 400) {
@@ -57,7 +57,7 @@ export const acceptBid = (store, { id, params }) => {
     method: 'POST',
     headers: {
       Authorization: store.state.token.value,
-      //ClubAuthorization: store.state.token.clubs[0] ? store.state.token.clubs[0].token : null,
+      // ClubAuthorization: store.state.token.clubs[0] ? store.state.token.clubs[0].token : null,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(params)
