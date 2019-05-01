@@ -104,7 +104,7 @@
 
 <style lang="scss">
 @import '~stylesheets/form';
-@import '~stylesheets/search';
+
 @import '~stylesheets/modal';
 </style>
 

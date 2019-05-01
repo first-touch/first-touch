@@ -92,7 +92,7 @@
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
-  @import '~stylesheets/search';
+
   .ft-search-widget {
     color: $secondary-text-color;
     .search-count {

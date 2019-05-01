@@ -34,27 +34,27 @@
           <thead>
             <tr>
               <th scope="col" class="sortable" @click="setOrder('id')">
-                <p>Report ID</p>
+                Report ID
                 <span v-if="params.order == 'id'">
                   <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                   <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                 </span>
               </th>
               <th scope="col" class="sortable" @click="setOrder('headline')">
-                <p>Report name</p>
+                Report name
                 <span v-if="params.order == 'headline'">
                   <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                   <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                 </span>
               </th>
               <th scope="col" class="sortable" @click="setOrder('created_at')">
-                <p>Created On</p>
+                Created On
                 <span v-if="params.order == 'created_at'">
                   <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                   <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                 </span>
               </th>
-              <th scope="col" class="sortable">Actions</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -67,7 +67,6 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/search';
   @import '~stylesheets/form';
 </style>
 
@@ -80,7 +79,6 @@
     ASYNC_SUCCESS
   } from 'app/constants/AsyncStatus';
   import TimelineItem from 'app/components/TimelineItem';
-  // import ReportItem from 'app/components/ReportItem';
   import ReportRow from './ReportRow';
   import vSelect from 'vue-select';
   import FtDatepicker from 'app/components/Input/FtDatepicker';

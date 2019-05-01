@@ -111,7 +111,7 @@
 <style lang="scss">
   @import '~stylesheets/variables';
   @import '~stylesheets/modal';
-  @import '~stylesheets/search';
+
   .ft-form {
     padding: 0 !important;
   }

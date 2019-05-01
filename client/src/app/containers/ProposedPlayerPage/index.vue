@@ -85,7 +85,7 @@
 <style lang="scss">
   @import '~stylesheets/form';
   @import '~stylesheets/modal';
-  @import '~stylesheets/search';
+
 </style>
 
 <style lang="scss" scoped>

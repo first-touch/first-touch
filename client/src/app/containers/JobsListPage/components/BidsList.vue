@@ -96,7 +96,7 @@
 <style lang="scss">
   @import '~stylesheets/variables';
   @import '~stylesheets/modal';
-  @import '~stylesheets/search';
+
 </style>
 <script>
   import {

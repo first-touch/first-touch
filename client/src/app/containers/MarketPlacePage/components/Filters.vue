@@ -19,7 +19,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~stylesheets/search';
+
   @import '~stylesheets/variables';
 
   .inline-form {
