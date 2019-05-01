@@ -36,6 +36,7 @@ import EditReportPage from 'app/containers/EditReportPage';
 import ReportPage from 'app/containers/ReportPage';
 import MarketPlacePage from 'app/containers/MarketPlacePage';
 import JobsListPage from 'app/containers/JobsListPage';
+import MyReportsPage from 'app/containers/MyReportsPage';
 import MyPurchasedReportsPage from 'app/containers/MyPurchasedReportsPage';
 import JobRequestPage from 'app/containers/JobRequestPage';
 import RequestPage from 'app/containers/RequestPage';
@@ -183,6 +184,11 @@ export const router = new VueRouter({
           path: '/scouting/report/edit/:id',
           component: EditReportPage,
           name: 'scoutReportEdit'
+        },
+        {
+          path: '/scouting/my-reports',
+          component: MyReportsPage,
+          name: 'scoutReports'
         },
         {
           path: '/scouting/jobs/list',
