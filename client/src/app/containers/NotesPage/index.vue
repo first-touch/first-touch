@@ -21,8 +21,8 @@
 
 <script>
 import TimelineItem from 'app/components/TimelineItem';
-import NoteWidgets from 'app/containers/ClubNotesPage/components/NoteWidgets';
-import Note from 'app/containers/ClubNotesPage/components/Note';
+import NoteWidgets from 'app/components/Notes/NoteWidgets';
+import Note from 'app/components/Notes/Note';
 import { mapGetters, mapActions } from 'vuex';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
 
