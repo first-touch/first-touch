@@ -1,6 +1,5 @@
 <template>
   <div class="widget-request ft-search-widget">
-    <h4 class="spaced-title upper-cased main-color">Available Assignments</h4>
     <timeline-item>
       <div class="widget-content col col-lg-12">
         <div class="row align-items-start">
@@ -20,14 +19,14 @@
               <input type="text" class="col-lg-12 form-control" v-model="params.club" placeholder="Requested by" @keyup="search()" />
             </fieldset>
             <fieldset class="col-lg-3">
-              <vselect v-model="vselect_type" class="form-control m-field-input" :options="options.type_request" :class="params.type_request == '' ? 'empty' : '' "
-                :searchable="false" clearable="false" />
+              <v-select v-model="vselect_type" class="form-control m-field-input" :options="options.type_request" :class="params.type_request == '' ? 'empty' : '' "
+                :searchable="false" :clearable="false" />
             </fieldset>
             <fieldset class="col-lg-12 calendar-filter">
-              <ftdatepicker class="col col-lg-5 form-control" ref="deadlineFrom" :value="params.deadline_from" :clearable="false" placeholder="Deadline from"
+              <ft-datepicker class="col col-lg-5 form-control" ref="deadlineFrom" :value="params.deadline_from" :clearable="false" placeholder="Deadline from"
                 v-on:update:val="params.deadline_from = $event; search()" />
               <p class="col col-lg-1">-</p>
-              <ftdatepicker class="col col-lg-5 form-control" ref="deadlineTo" :value="params.deadline_to" :clearable="false" placeholder="Deadline to"
+              <ft-datepicker class="col col-lg-5 form-control" ref="deadlineTo" :value="params.deadline_to" :clearable="false" placeholder="Deadline to"
                 v-on:update:val="params.deadline_to = $event; search()" />
             </fieldset>
           </form>
@@ -35,11 +34,11 @@
       </div>
       <b-modal id="metaModal" :size="bid? 'md' : 'lg'" ref="metaModal" :class="bid? 'successModal' : 'formModal' ">
         <div v-if="!bid">
-          <playerrequestpopup v-if="selected && selected.type_request == 'player' " :request="selected" :closeAction="closeAction"
+          <player-request-popup v-if="selected && selected.type_request == 'player' " :request="selected" :closeAction="closeAction"
             :bid="wantbid" :newBid="newBid" />
-          <teamrequestpopup v-if="selected && selected.type_request == 'team' " :request="selected" :closeAction="closeAction" :bid="wantbid"
+          <team-request-popup v-if="selected && selected.type_request == 'team' " :request="selected" :closeAction="closeAction" :bid="wantbid"
             :newBid="newBid" />
-          <positionrequestpopup v-if="selected && selected.type_request == 'position' " :request="selected" :closeAction="closeAction"
+          <position-request-popup v-if="selected && selected.type_request == 'position' " :request="selected" :closeAction="closeAction"
             :bid="wantbid" :newBid="newBid" />
         </div>
         <div v-if="bid" class="divSuccess row">
@@ -53,7 +52,7 @@
         </div>
       </b-modal>
       <b-modal id="metaModal" size="md" ref="bidModal" :class="bid? 'successModal' : 'formModal' ">
-        <bidpopup v-if="selected" :request="selected" :newBid="newBid" :close="closeBid" />
+        <bid-popup v-if="selected" :request="selected" :newBid="newBid" :close="closeBid" />
       </b-modal>
       <div v-if="!hasBankAccount" @click="toPaymentPage">
         <p class="error">Click here to add a bank account and start to browse job request</p>
@@ -64,30 +63,14 @@
   </div>
 </template>
 
-
-<style lang="scss">
-  @import '~stylesheets/variables';
-  @import '~stylesheets/modal';
-
-  @import '~stylesheets/form';
-</style>
-<style lang="scss" scoped>
-  .error {
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-</style>
 <script>
-  import Datepicker from 'vuejs-datepicker';
   import RequestItem from 'app/components/RequestItem';
   import TimelineItem from 'app/components/TimelineItem';
   import {
     ASYNC_SUCCESS,
     ASYNC_LOADING
   } from 'app/constants/AsyncStatus';
-  import vSelect from 'vue-select';
+  import VSelect from 'vue-select';
   import BidPopup from './BidPopup';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
@@ -98,15 +81,14 @@
     name: 'JobRequestWidget',
     props: ['listRequest', 'getRequests', 'update', 'bid', 'createBid', 'updateBid', 'clearBid', 'user'],
     components: {
-      datepicker: Datepicker,
-      'timeline-item': TimelineItem,
-      bidpopup: BidPopup,
+      TimelineItem,
+      BidPopup,
       request: RequestItem,
-      vselect: vSelect,
-      ftdatepicker: FtDatepicker,
-      teamrequestpopup: TeamRequestPopup,
-      playerrequestpopup: PlayerRequestPopup,
-      positionrequestpopup: PositionRequestPopup
+      VSelect,
+      FtDatepicker,
+      TeamRequestPopup,
+      PlayerRequestPopup,
+      PositionRequestPopup
     },
     data() {
       return {
@@ -211,16 +193,6 @@
           return true;
         }
         return false;
-      },
-      url() {
-        var params = this.params;
-        params.deadline_from = this.$options.filters.railsdate(params.deadline_from)
-        params.deadline_to = this.$options.filters.railsdate(params.deadline_to)
-        return Object.keys(params)
-          .map(function (k) {
-            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-          })
-          .join('&');
       }
     },
     watch: {
@@ -239,7 +211,8 @@
     },
     methods: {
       search() {
-        this.getRequests(this.url);
+        const params = _.pickBy(self.params, (value) => { return value != ''; })
+        this.getRequests(params);
       },
       toPaymentPage() {
         this.$router.push({
