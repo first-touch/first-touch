@@ -88,16 +88,6 @@
 
 </style>
 
-<style lang="scss" scoped>
-  @import '~stylesheets/variables';
-
-  th.sortable {
-    font-size: 13px;
-    padding: 0;
-    width: 16.6%;
-  }
-</style>
-
 <script>
   import {
     mapGetters,

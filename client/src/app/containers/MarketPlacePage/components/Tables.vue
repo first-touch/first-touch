@@ -65,7 +65,7 @@
             <icon name='arrow-alt-circle-down' v-if="!params.order_asc"></icon>
           </span>
         </th>
-                <th scope="col" class="sortable" @click="setOrder('price')">
+        <th scope="col" class="sortable" @click="setOrder('price')">
           <p>Action/Price</p>
           <span v-if="params.order == 'price'">
             <icon name='arrow-alt-circle-up' v-if="params.order_asc"></icon>
