@@ -1,28 +1,37 @@
 <template>
   <div>
-    <!-- <sidebar /> -->
-    <div class="container-fluid">
-      <div class="ft-page notes">
-        <h4 class="spaced-title upper-cased main-color">Notes</h4>
+    <div class="ft-page container">
+      <h4 class="spaced-title upper-cased main-color page-title mb-5">Notes</h4>
+      <note-widgets></note-widgets>
+      <timeline-item>
         <div class="row" v-if="{loaded}">
-          <note v-for="note in notebook" :info="note" :noteFn="getNotesByTag" :key="note.id"/>
+          <div v-if="hasNotes" class="col-12">
+            <note v-for="note in notebook" :note="note" :key="note.id"/>
+          </div>
+          <div v-else>
+            <div class="col-12">
+              You have no notes taken. Start by writing your first note here.
+            </div>
+          </div>
         </div>
-      </div>
+      </timeline-item>
     </div>
   </div>
 </template>
 
 <script>
+import TimelineItem from 'app/components/TimelineItem';
+import NoteWidgets from 'app/components/Notes/NoteWidgets';
+import Note from 'app/components/Notes/Note';
 import { mapGetters, mapActions } from 'vuex';
-import NotificationSidebar from 'app/components/NotificationSidebar';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import Note from './components/Note';
 
 export default {
   name: 'NotesPage',
   components: {
-    sidebar: NotificationSidebar,
-    note: Note,
+    NoteWidgets,
+    Note,
+    TimelineItem
   },
   computed: {
     ...mapGetters(['token', 'note']),
@@ -31,13 +40,13 @@ export default {
     },
     notebook() {
       return this.note.value;
+    },
+    hasNotes() {
+      return this.notebook.length > 0;
     }
   },
   methods: {
-    ...mapActions(['getNotes']),
-    getNotesByTag(tag){
-      this.$router.push(`/notes/tags/${tag}`);
-    }
+    ...mapActions(['getNotes'])
   },
   mounted() {
     this.getNotes({ token: this.token.value });

@@ -1,12 +1,7 @@
 <template>
-  <div>
-    <!-- <sidebar /> -->
-    <div class="container-fluid ft-page">
-      <div class="row justify-content-center mb-4">
-        <div class="col-xl-12">
-          <h4 class="spaced-title upper-cased main-color">My network</h4>
-        </div>
-      </div>
+  <div class="container ft-page">
+    <h4 class="spaced-title upper-cased main-color page-title mb-5">My network</h4>
+    <timeline-item>
       <div class="row network-filters justify-content-center mb-4">
         <div class="col-xl-6 ml-auto mr-auto">
           <select class="form-control network-widget-sort" v-model="role">
@@ -31,22 +26,21 @@
               :key="item.id" />
         </div>
       </div>
-    </div>
+    </timeline-item>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { ASYNC_LOADING, ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-
-import NotificationSidebar from 'app/components/NotificationSidebar';
+import TimelineItem from 'app/components/TimelineItem';
 import NetworkItem from './components/NetworkItem';
 
 export default {
   name: 'Network',
   components: {
-    sidebar: NotificationSidebar,
-    'network-item': NetworkItem,
+    TimelineItem,
+    NetworkItem
   },
   data() {
     return {

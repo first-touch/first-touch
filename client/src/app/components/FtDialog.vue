@@ -23,7 +23,7 @@
           class="btn-close"
           @click="handleClose"
           aria-label="Close">
-        <v-icon name="regular/times-circle" scale="1"/>
+          <v-icon name="regular/times-circle" scale="1"/>
         </button>
       </header>
       <section class="ft-dialog__body">

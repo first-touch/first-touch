@@ -1,18 +1,18 @@
 <template>
   <div>
-    <div class="ft-page">
-      <div class="container">
-        <h3 class="spaced-title upper-cased main-color page-title mb-5">
-          <span v-if="mine">Your Profile</span>
-          <span v-else>Profile</span>
-        </h3>
-      </div>
-      <component
+    <div class="ft-page container">
+      <h4 class="spaced-title upper-cased main-color page-title mb-5">
+        <span v-if="mine">Your Profile</span>
+        <span v-else>Profile</span>
+      </h4>
+      <timeline-item>
+        <component
           :is="userRoleProfile"
           :user="userProfile"
           :mine="mine"
           :connectionStatus="connectionStatus"
           class="profile" />
+      </timeline-item>
     </div>
   </div>
 </template>
@@ -37,7 +37,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import store from 'app/store';
 import { ASYNC_LOADING, ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import NotificationSidebar from 'app/components/NotificationSidebar';
+import TimelineItem from 'app/components/TimelineItem';
 import PlayerProfile from './components/profiles/Player';
 import DirectorProfile from './components/profiles/Director';
 import ScoutProfile from './components/profiles/Scout';
@@ -47,11 +47,11 @@ export default {
   name: 'ProfilePage',
   props: ['mine', 'accept_invitation', 'id'],
   components: {
-    sidebar: NotificationSidebar,
     PlayerProfile,
     ScoutProfile,
     DirectorProfile,
-    AgentProfile
+    AgentProfile,
+    TimelineItem
   },
   computed: {
     ...mapGetters(['user', 'profile']),
