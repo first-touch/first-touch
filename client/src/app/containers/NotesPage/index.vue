@@ -2,6 +2,7 @@
   <div>
     <div class="ft-page container">
       <h4 class="spaced-title upper-cased main-color page-title mb-5">Notes</h4>
+      <note-widgets></note-widgets>
       <div class="row" v-if="{loaded}">
         <div v-if="hasNotes">
           <note v-for="note in notebook" :info="note" :noteFn="getNotesByTag" :key="note.id"/>
@@ -17,16 +18,16 @@
 </template>
 
 <script>
+import NoteWidgets from 'app/containers/ClubNotesPage/components/NoteWidgets';
+import Note from 'app/containers/ClubNotesPage/components/Note';
 import { mapGetters, mapActions } from 'vuex';
-import NotificationSidebar from 'app/components/NotificationSidebar';
 import { ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import Note from './components/Note';
 
 export default {
   name: 'NotesPage',
   components: {
-    sidebar: NotificationSidebar,
-    note: Note,
+    NoteWidgets,
+    Note
   },
   computed: {
     ...mapGetters(['token', 'note']),

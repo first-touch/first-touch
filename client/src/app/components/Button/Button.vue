@@ -1,7 +1,7 @@
 <template>
 <button @click="onClick" class="a-button header-button">
   <div class="icon-wrapper">
-    <div :class="['ft-icon', icon]"></div>
+    <v-icon :name="icon" scale="1" class="round-icon"/>
   </div>
   <slot>
     Button
@@ -12,11 +12,24 @@
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
 
+  button {
+    &:hover {
+      .icon-wrapper {
+        background-color: lighten($secondary-header-color, 10%);
+      }
+
+      color: $first-touch-white;
+    }
+  }
+
   .icon-wrapper {
-    background-color: $button-background-color;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background-color: $secondary-header-color;
+    color: $first-touch-white;
+    border-radius: 50%;
     display: inline-block;
-    padding: 7px 10px;
-    border-radius: 20px;
   }
 
   .header-button {
@@ -28,16 +41,23 @@
 </style>
 
 <script>
-export default {
-  props: {
-    onClick: {
-      type: Function,
-      required: true
+  import 'vue-awesome/icons';
+  import VIcon from 'vue-awesome/components/Icon'
+
+  export default {
+    name: 'FtButton',
+    components:{
+      VIcon
     },
-    icon: {
-      type: String,
-      default: 'ft-notes'
+    props: {
+      onClick: {
+        type: Function,
+        required: true
+      },
+      icon: {
+        type: String,
+        default: 'clipboard'
+      }
     }
   }
-}
 </script>
