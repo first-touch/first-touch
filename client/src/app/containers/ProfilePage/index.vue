@@ -1,12 +1,11 @@
 <template>
   <div>
-    <div class="ft-page">
-      <div class="container">
-        <h3 class="spaced-title upper-cased main-color page-title mb-5">
-          <span v-if="mine">Your Profile</span>
-          <span v-else>Profile</span>
-        </h3>
-      </div>
+    <div class="ft-page container">
+      <h4 class="spaced-title upper-cased main-color page-title mb-5">
+        <span v-if="mine">Your Profile</span>
+        <span v-else>Profile</span>
+      </h4>
+
       <component
           :is="userRoleProfile"
           :user="userProfile"

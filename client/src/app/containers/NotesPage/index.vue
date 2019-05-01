@@ -1,11 +1,15 @@
 <template>
   <div>
-    <!-- <sidebar /> -->
-    <div class="container-fluid">
-      <div class="ft-page notes">
-        <h4 class="spaced-title upper-cased main-color">Notes</h4>
-        <div class="row" v-if="{loaded}">
+    <div class="ft-page container">
+      <h4 class="spaced-title upper-cased main-color page-title mb-5">Notes</h4>
+      <div class="row" v-if="{loaded}">
+        <div v-if="hasNotes">
           <note v-for="note in notebook" :info="note" :noteFn="getNotesByTag" :key="note.id"/>
+        </div>
+        <div v-else>
+          <div class="col-12">
+            You have no notes taken. Start by writing your first note here.
+          </div>
         </div>
       </div>
     </div>
@@ -31,6 +35,9 @@ export default {
     },
     notebook() {
       return this.note.value;
+    },
+    hasNotes() {
+      return this.notebook.length > 0;
     }
   },
   methods: {
