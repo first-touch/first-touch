@@ -1,5 +1,13 @@
 <template>
-  <datepicker class="ft-datepicker" @opened="toggle" :disabled="disabled" ref="datepicker" :required="true" v-model="model" @closed="update" format="dd-MMM-yyyy" :placeholder="placeholder"></datepicker>
+  <datepicker class="ft-datepicker"
+      @opened="toggle"
+      :disabled-dates="disabled"
+      ref="datepicker"
+      :required="true"
+      v-model="model"
+      @closed="update"
+      format="dd-MMM-yyyy"
+      :placeholder="placeholder" />
 </template>
 
 <style lang="scss">

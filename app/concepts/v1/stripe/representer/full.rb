@@ -4,7 +4,15 @@ module V1
       class Full < Representable::Decorator
         include Representable::JSON
 
-        property :legal_entity
+        property :business_type, as: :type
+
+        nested :profile do
+          property :individual,
+          getter: ->(represented:, **){ represented.respond_to?(:individual) ? represented[:individual] : nil }
+          property :company,
+            getter: ->(represented:, **){ represented.respond_to?(:company) ? represented[:company] : nil }
+        end
+
         property :country
         property :default_currency
         property :preferred_account, getter: lambda { |represented:, **|
