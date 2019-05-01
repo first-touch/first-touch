@@ -92,7 +92,6 @@
 
 <style lang="scss">
   @import '~stylesheets/variables';
-  @import '~stylesheets/search';
   @import '~stylesheets/form';
 
 </style>

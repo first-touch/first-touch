@@ -107,7 +107,6 @@ import TimelineItem from 'app/components/TimelineItem';
 import CareerEvents from '../CareerEvents';
 import ConnectButtons from '../ConnectButtons';
 import 'vue-awesome/icons/pencil-alt';
-import VIcon from 'vue-awesome/components/Icon'
 
 export default {
   name: 'DirectorProfile',

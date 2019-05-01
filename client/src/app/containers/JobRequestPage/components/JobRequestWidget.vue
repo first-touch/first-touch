@@ -41,21 +41,21 @@
       <table class="table table-search table-responsive-lg">
         <thead>
           <tr>
-            <th scope="col" class="shortable" @click="setOrder('type_request')">
+            <th scope="col" class="sortable" @click="setOrder('type_request')">
               <p>Job Type </p>
               <span v-if="params.order == 'type_request'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                 <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
               </span>
             </th>
-            <th scope="col" class="shortable" @click="setOrder('created_at')">
+            <th scope="col" class="sortable" @click="setOrder('created_at')">
               <p>Created On</p>
               <span v-if="params.order == 'created_at'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                 <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
               </span>
             </th>
-            <th scope="col" class="shortable" @click="setOrder('bids')">
+            <th scope="col" class="sortable" @click="setOrder('bids')">
               <p>No of bids</p>
               <span v-if="params.order == 'bids'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
@@ -77,7 +77,7 @@
 
 <style lang="scss">
   @import '~stylesheets/variables';
-  @import '~stylesheets/search';
+
   @import '~stylesheets/form';
 
 </style>

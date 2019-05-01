@@ -1,6 +1,6 @@
 <template>
   <div class="widget-request ft-search-widget">
-    <h4 class="spaced-title upper-cased main-color">My Jobs List</h4>
+    <h4 class="spaced-title upper-cased main-color">My Assignments</h4>
     <timeline-item>
       <div class="widget-content col col-lg-12">
         <div class="row align-items-start">
@@ -20,7 +20,7 @@
               <input type="text" class="col-lg-12 form-control" v-model="params.club" placeholder="Requested by" @keyup="search()" />
             </fieldset>
             <fieldset class="col-lg-4">
-              <vselect v-model="vselect_type" class="form-control m-field-input" :options="options.type_request" :class="params.type_request == '' ? 'empty' : '' " :searchable="false" clearable="false" />
+              <vselect v-model="vselect_type" class="form-control m-field-input" :options="options.type_request" :class="params.type_request == '' ? 'empty' : '' " :searchable="false" :clearable="false" />
             </fieldset>
             <fieldset class="col-lg-12 calendar-filter">
               <ftdatepicker class="col-lg-5 col form-control" :model="params.deadline_from" ref="deadlineFrom" :value="params.deadline_from"
@@ -52,28 +52,28 @@
       <table class="table table-search table-responsive-lg">
         <thead>
           <tr>
-            <th scope="col" class="shortable" @click="setOrder('id')">
+            <th scope="col" class="sortable" @click="setOrder('id')">
               <p>Job Request ID</p>
               <span v-if="params.order == 'id'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                 <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
               </span>
             </th>
-            <th scope="col" class="shortable" @click="setOrder('club')">
+            <th scope="col" class="sortable" @click="setOrder('club')">
               <p>Requested by </p>
               <span v-if="params.order == 'club'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                 <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
               </span>
             </th>
-            <th scope="col" class="shortable" @click="setOrder('type_request')">
+            <th scope="col" class="sortable" @click="setOrder('type_request')">
               <p>Job Request Type </p>
               <span v-if="params.order == 'type_request'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                 <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
               </span>
             </th>
-            <th scope="col" class="shortable" @click="setOrder('deadline')">
+            <th scope="col" class="sortable" @click="setOrder('deadline')">
               <p>Submission Deadline</p>
               <span v-if="params.order == 'deadline'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
@@ -96,7 +96,7 @@
 <style lang="scss">
   @import '~stylesheets/variables';
   @import '~stylesheets/modal';
-  @import '~stylesheets/search';
+
 </style>
 <script>
   import {

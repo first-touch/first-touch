@@ -48,7 +48,6 @@ import JobBidPage from 'app/containers/JobBidPage';
 
 import RequestsPage from 'app/containers/RequestsPage';
 
-
 import store from 'app/store';
 import VueAutosize from 'vue-autosize';
 import VueRouter from 'vue-router';
@@ -58,7 +57,7 @@ import VueFormWizard from 'vue-form-wizard';
 import VueFlashMessage from 'vue-flash-message';
 import Clipboard from 'v-clipboard';
 
-import FtComponents from "app/components/FtComponents"
+import FtComponents from 'app/components/FtComponents';
 
 // TODO: Customize with FT color scheme and remove this
 require('vue-flash-message/dist/vue-flash-message.min.css');
@@ -234,7 +233,7 @@ export const router = new VueRouter({
           path: ':id/bids',
           component: RequestBidsPage,
           name: 'requestBids'
-        },
+        }
       ]
     },
     {

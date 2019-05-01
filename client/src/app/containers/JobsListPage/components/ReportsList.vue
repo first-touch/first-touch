@@ -1,95 +1,75 @@
 <template>
   <div>
-    <h4 class="spaced-title upper-cased main-color">My independent reports</h4>
+    <h4 class="spaced-title upper-cased main-color">My reports</h4>
     <timeline-item>
       <div class="widget-reports ft-search-widget col col-lg-12">
         <div class="row">
-          <div class="col-lg-2 row">
-            <h6 class="list-title col-lg-12 ">Reports Count</h6>
-            <h1 class="list-count col-lg-12 ">{{listReport.length}}</h1>
-            <fieldset class="col-lg-12 col-md-2 buttons-inner" v-if="nbFilters">
-              <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
-            </fieldset>
+          <div class="col-lg-2">
+            <div class="row">
+              <h6 class="list-title col-lg-12 ">Reports Count</h6>
+              <h1 class="list-count col-lg-12 ">{{listReport.length}}</h1>
+              <fieldset class="col-lg-12 col-md-2 buttons-inner" v-if="nbFilters">
+                <button class="btn btn-outline-dark" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
+              </fieldset>
+            </div>
           </div>
           <form @submit.prevent="search" class="col-lg-10">
-            <div class="row">
-              <fieldset class="col-lg-3">
-                <input class="col-lg-12 form-control" v-model="params.id" type="number" min="0" placeholder="Report id" @keyup="search()"
-                />
-              </fieldset>
-              <fieldset class="col-lg-3">
-                <input class="col-lg-12 form-control" v-model="params.headline" type="text" placeholder="Headline" @keyup="search()" />
-              </fieldset>
-              <fieldset class="col-lg-12 calendar-filter">
-                <ftdatepicker class="col-lg-5 col form-control" ref="createdFrom" :model="params.created_date_from" :clearable="false" placeholder="Created from"
-                  v-on:update:val="params.created_date_from = $event; search()" />
-                <p class="col-lg-1 col">-</p>
-                <ftdatepicker class="col-lg-5 col form-control" ref="createdTo" :model="params.created_date_to" :clearable="false" placeholder="Created to"
-                  v-on:update:val="params.created_date_to = $event; search()" />
-              </fieldset>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="filter-by-id">Filter by Report Id</label>
+                <input id="filter-by-id" class="form-control" v-model="params.id" type="number" min="0" placeholder="Report id" @keyup="search()" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="filter-by-title">Filter by Report Title</label>
+                <input id="filter-by-title" class="form-control" v-model="params.headline" type="text" placeholder="Title" @keyup="search()" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="filter-by-daterange">Filter by Date</label>
+                <div id="filter-by-daterange" class="input-group">
+                  <ftdatepicker class="form-control" ref="createdFrom" :model="params.created_date_from" :clearable="false" placeholder="Created from" v-on:update:val="params.created_date_from = $event; search()" />
+                  <ftdatepicker class="form-control" ref="createdTo" :model="params.created_date_to" :clearable="false" placeholder="Created to" v-on:update:val="params.created_date_to = $event; search()" />
+                </div>
+              </div>
             </div>
           </form>
         </div>
-        <table class="table table-search table-responsive-lg">
+        <table class="table table-striped table-responsive-lg">
           <thead>
             <tr>
-              <th scope="col" class="shortable" @click="setOrder('id')">
-                <p>Report ID</p>
+              <th scope="col" class="sortable" @click="setOrder('id')">
+                Report ID
                 <span v-if="params.order == 'id'">
                   <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                   <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                 </span>
               </th>
-              <th scope="col" class="shortable" @click="setOrder('headline')">
-                <p>Report name</p>
+              <th scope="col" class="sortable" @click="setOrder('headline')">
+                Report name
                 <span v-if="params.order == 'headline'">
                   <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                   <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                 </span>
               </th>
-              <th scope="col" class="shortable" @click="setOrder('created_at')">
-                <p>Created On</p>
+              <th scope="col" class="sortable" @click="setOrder('created_at')">
+                Created On
                 <span v-if="params.order == 'created_at'">
                   <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                   <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                 </span>
               </th>
-              <th scope="col" class="shortable">Actions</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <report v-for="report in listReport" :report="report" :key="report.id" :UpdateReport="customUpdateReport" :own="true" :viewAction="viewAction"
-              mode="table" :widgets="['id','headline','submitted','action']" />
+            <report-row v-for="report in listReport" :report="report" :key="report.id" :updateReport="customUpdateReport" :viewAction="viewAction" />
           </tbody>
         </table>
       </div>
     </timeline-item>
   </div>
 </template>
-<style lang="scss">
-  @import '~stylesheets/variables';
-  @import '~stylesheets/form';
-  @import '~stylesheets/search';
-
-  .widget-reports {
-    .datepicker {
-      padding: 0;
-      input.input-date {
-        cursor: pointer;
-        min-height: 2em;
-        border: 0px;
-      }
-    }
-    .dropdown-toggle {
-      max-height: 35px;
-      border: 0px;
-    }
-  }
-</style>
-
-<style lang="scss" scoped>
-  @import '~stylesheets/variables';
-</style>
 
 <script>
   import {
@@ -100,7 +80,7 @@
     ASYNC_SUCCESS
   } from 'app/constants/AsyncStatus';
   import TimelineItem from 'app/components/TimelineItem';
-  import ReportItem from 'app/components/ReportItem';
+  import ReportRow from './ReportRow';
   import vSelect from 'vue-select';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import 'vue-awesome/icons/arrow-alt-circle-up';
@@ -111,8 +91,8 @@
     name: 'ReportsList',
     components: {
       ftdatepicker: FtDatepicker,
-      'timeline-item': TimelineItem,
-      report: ReportItem,
+      TimelineItem,
+      ReportRow,
       vselect: vSelect,
       icon: Icon
     },

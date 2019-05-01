@@ -66,6 +66,9 @@
           <p>
             <router-link class="a-link dark" to="/contact_us">Contact Us</router-link>
           </p>
+          <p>
+            <router-link class="a-link dark" to="/about">About</router-link>
+          </p>
         </div>
         <!-- Grid column -->
       </div>

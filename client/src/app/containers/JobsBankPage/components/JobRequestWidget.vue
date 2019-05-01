@@ -1,6 +1,6 @@
 <template>
   <div class="widget-request ft-search-widget">
-    <h4 class="spaced-title upper-cased main-color">Jobs Bank</h4>
+    <h4 class="spaced-title upper-cased main-color">Available Assignments</h4>
     <timeline-item>
       <div class="widget-content col col-lg-12">
         <div class="row align-items-start">
@@ -68,7 +68,7 @@
 <style lang="scss">
   @import '~stylesheets/variables';
   @import '~stylesheets/modal';
-  @import '~stylesheets/search';
+
   @import '~stylesheets/form';
 </style>
 <style lang="scss" scoped>
