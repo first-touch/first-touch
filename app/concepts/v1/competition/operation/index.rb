@@ -4,15 +4,14 @@ module V1
       step :setup_model!
 
       def setup_model!(options, params:, **)
-        competition_list = ::Competition.all.limit(7)
+        competitions = ::Competition.limit(7)
         query_params = params[:q]
-        options[:models] = nil
         if query_params
-          competition_list = competition_list.where(
+          competitions = competitions.where(
             'name ILIKE ?', "%#{query_params}%"
           )
-          options[:models] = competition_list
         end
+        options[:models] = competitions
       end
     end
   end

@@ -4,6 +4,7 @@ module V1
       class Simplified < Representable::Decorator
         include Representable::JSON
 
+        property :id
         property :name
         property :nation
       end
