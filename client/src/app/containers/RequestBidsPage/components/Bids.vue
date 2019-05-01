@@ -44,21 +44,21 @@
       <table class="table table-search table-responsive-lg">
         <thead>
           <tr>
-            <th scope="col" class="shortable" @click="setOrder('scout_name')">
+            <th scope="col" class="sortable" @click="setOrder('scout_name')">
               <p>Scout </p>
               <span v-if="params.order == 'scout_name'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                 <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
               </span>
             </th>
-            <th scope="col" class="shortable" @click="setOrder('created_at')">
+            <th scope="col" class="sortable" @click="setOrder('created_at')">
               <p>Submitted on</p>
               <span v-if="params.order == 'created_at'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                 <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
               </span>
             </th>
-            <th scope="col" class="shortable" @click="setOrder('price')">
+            <th scope="col" class="sortable" @click="setOrder('price')">
               <p>Bid ({{price.currency}})</p>
               <span v-if="params.order == 'price'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>

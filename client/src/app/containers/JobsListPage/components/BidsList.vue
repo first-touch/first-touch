@@ -52,28 +52,28 @@
       <table class="table table-search table-responsive-lg">
         <thead>
           <tr>
-            <th scope="col" class="shortable" @click="setOrder('id')">
+            <th scope="col" class="sortable" @click="setOrder('id')">
               <p>Job Request ID</p>
               <span v-if="params.order == 'id'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                 <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
               </span>
             </th>
-            <th scope="col" class="shortable" @click="setOrder('club')">
+            <th scope="col" class="sortable" @click="setOrder('club')">
               <p>Requested by </p>
               <span v-if="params.order == 'club'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                 <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
               </span>
             </th>
-            <th scope="col" class="shortable" @click="setOrder('type_request')">
+            <th scope="col" class="sortable" @click="setOrder('type_request')">
               <p>Job Request Type </p>
               <span v-if="params.order == 'type_request'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                 <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
               </span>
             </th>
-            <th scope="col" class="shortable" @click="setOrder('deadline')">
+            <th scope="col" class="sortable" @click="setOrder('deadline')">
               <p>Submission Deadline</p>
               <span v-if="params.order == 'deadline'">
                 <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>

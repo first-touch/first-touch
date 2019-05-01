@@ -37,35 +37,35 @@
             <table class="table table-search table-responsive-lg">
               <thead>
                 <tr>
-                  <th scope="col" class="shortable" @click="setOrder('id')">
+                  <th scope="col" class="sortable" @click="setOrder('id')">
                     <p>Report ID</p>
                     <span v-if="params.order == 'id'">
                       <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                       <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                     </span>
                   </th>
-                  <th scope="col" class="shortable" @click="setOrder('scout_name')">
+                  <th scope="col" class="sortable" @click="setOrder('scout_name')">
                     <p>SCOUT'S Name</p>
                     <span v-if="params.order == 'scout_name'">
                       <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                       <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                     </span>
                   </th>
-                  <th scope="col" class="shortable" @click="setOrder('price')">
+                  <th scope="col" class="sortable" @click="setOrder('price')">
                     <p>Report price</p>
                     <span v-if="params.order == 'price'">
                       <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                       <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                     </span>
                   </th>
-                  <th scope="col" class="shortable" @click="setOrder('completion_status')">
+                  <th scope="col" class="sortable" @click="setOrder('completion_status')">
                     <p>Status</p>
                     <span v-if="params.order == 'completion_status'">
                       <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                       <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                     </span>
                   </th>
-                  <th scope="col" class="shortable">Actions</th>
+                  <th scope="col" class="sortable">Actions</th>
                 </tr>
               </thead>
               <tbody>
