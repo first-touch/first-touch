@@ -4,29 +4,34 @@
     <timeline-item>
       <div class="widget-reports ft-search-widget col col-lg-12">
         <div class="row">
-          <div class="col-lg-2 row">
-            <h6 class="list-title col-lg-12 ">Reports Count</h6>
-            <h1 class="list-count col-lg-12 ">{{listReport.length}}</h1>
-            <fieldset class="col-lg-12 col-md-2 buttons-inner" v-if="nbFilters">
-              <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
-            </fieldset>
+          <div class="col-lg-2">
+            <div class="row">
+              <h6 class="list-title col-lg-12 ">Reports Count</h6>
+              <h1 class="list-count col-lg-12 ">{{listReport.length}}</h1>
+              <fieldset class="col-lg-12 col-md-2 buttons-inner" v-if="nbFilters">
+                <button class="btn btn-outline-dark" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
+              </fieldset>
+            </div>
           </div>
           <form @submit.prevent="search" class="col-lg-10">
-            <div class="row">
-              <fieldset class="col-lg-3">
-                <input class="col-lg-12 form-control" v-model="params.id" type="number" min="0" placeholder="Report id" @keyup="search()"
-                />
-              </fieldset>
-              <fieldset class="col-lg-3">
-                <input class="col-lg-12 form-control" v-model="params.headline" type="text" placeholder="Headline" @keyup="search()" />
-              </fieldset>
-              <fieldset class="col-lg-12 calendar-filter">
-                <ftdatepicker class="col-lg-5 col form-control" ref="createdFrom" :model="params.created_date_from" :clearable="false" placeholder="Created from"
-                  v-on:update:val="params.created_date_from = $event; search()" />
-                <p class="col-lg-1 col">-</p>
-                <ftdatepicker class="col-lg-5 col form-control" ref="createdTo" :model="params.created_date_to" :clearable="false" placeholder="Created to"
-                  v-on:update:val="params.created_date_to = $event; search()" />
-              </fieldset>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="filter-by-id">Filter by Report Id</label>
+                <input id="filter-by-id" class="form-control" v-model="params.id" type="number" min="0" placeholder="Report id" @keyup="search()" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="filter-by-title">Filter by Report Title</label>
+                <input id="filter-by-title" class="form-control" v-model="params.headline" type="text" placeholder="Title" @keyup="search()" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="filter-by-daterange">Filter by Date</label>
+                <div id="filter-by-daterange" class="input-group">
+                  <ftdatepicker class="form-control" ref="createdFrom" :model="params.created_date_from" :clearable="false" placeholder="Created from" v-on:update:val="params.created_date_from = $event; search()" />
+                  <ftdatepicker class="form-control" ref="createdTo" :model="params.created_date_to" :clearable="false" placeholder="Created to" v-on:update:val="params.created_date_to = $event; search()" />
+                </div>
+              </div>
             </div>
           </form>
         </div>
@@ -65,10 +70,6 @@
     </timeline-item>
   </div>
 </template>
-
-<style lang="scss" scoped>
-  @import '~stylesheets/form';
-</style>
 
 <script>
   import {
