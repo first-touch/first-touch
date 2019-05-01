@@ -18,8 +18,7 @@
               </span>
               <span class="field row" v-if="!own">
                 <span class="col-lg-4">Requested by:</span>
-                <span class="col-lg-6"> {{request.club.name}}
-                </span>
+                <span class="col-lg-6"> TBA </span>
               </span>
 
               <span class="field row">
@@ -77,8 +76,7 @@
               </span>
               <span class="field row" v-if="!own">
                 <span class="col-lg-4">Requested by:</span>
-                <span class="col-lg-6"> {{request.club.name}}
-                </span>
+                <span class="col-lg-6"> TBA </span>
               </span>
               <span class="field row">
                 <span class="col-lg-4">Job request type</span>
@@ -130,8 +128,7 @@
               </span>
               <span class="field row" v-if="!own">
                 <span class="col-lg-4">Requested by:</span>
-                <span class="col-lg-6"> {{request.club.name}}
-                </span>
+                <span class="col-lg-6"> TBA </span>
               </span>
               <span class="field row">
                 <span class="col-lg-4">Job request type</span>

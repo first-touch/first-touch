@@ -2,31 +2,32 @@ module V1
   module Request
     class Index < FirstTouch::Operation
       step :find_model!
-      failure :model_not_found!, fail_fast: true
-      step :filters!
-      step :orders!
+      # failure :model_not_found!, fail_fast: true
+      # step :filters!
+      # step :orders!
 
       private
 
-      def find_model!(options, current_club:, **)
-        if options[:current_user].is_a?(::User)
-          if options[:current_user].scout?
-            stripe_ft = options[:current_user].stripe_ft
+      def find_model!(options, **)
+        options[:models] = ::Request.all
+        # if options[:current_user].is_a?(::User)
+        #   if options[:current_user].scout?
+        #     stripe_ft = options[:current_user].stripe_ft
 
-            if (!stripe_ft.nil? && !stripe_ft.preferred_account.nil?)
-              models = get_requests_for_scout(current_user: options[:current_user])
-            end
+        #     if (!stripe_ft.nil? && !stripe_ft.preferred_account.nil?)
+        #       models = get_requests_for_scout(current_user: options[:current_user])
+        #     end
 
-          elsif options[:current_user].director? || options[:current_user].agent?
-            models = get_requests_by_user(user: options[:current_user])
-          end
-        end
-        #elsif !current_club.nil?
-        #  models = club(current_club: current_club)
-        #end
-        options['result.model'] = result = Result.new(!models.nil?, {})
-        options['model.class'] = ::Request
-        options[:models] = models
+        #   elsif options[:current_user].director? || options[:current_user].agent?
+        #     models = get_requests_by_user(user: options[:current_user])
+        #   end
+        # end
+        # #elsif !current_club.nil?
+        # #  models = club(current_club: current_club)
+        # #end
+        # options['result.model'] = result = Result.new(!models.nil?, {})
+        # options['model.class'] = ::Request
+        # options[:models] = models
       end
 
       def get_requests_for_scout(options, **)

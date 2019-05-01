@@ -36,7 +36,7 @@ export default {
   watch: {
     searchRequest() {
       if (this.searchRequest.status === ASYNC_SUCCESS) {
-        this.listRequest = this.searchRequest.value.request;
+        this.listRequest = this.searchRequest.value;
       }
     },
     request() {
