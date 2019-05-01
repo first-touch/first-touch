@@ -30,7 +30,7 @@
             </div>
           </form>
         </div>
-        <table class="table table-search table-responsive-lg">
+        <table class="table table-striped table-responsive-lg">
           <thead>
             <tr>
               <th scope="col" class="sortable" @click="setOrder('id')">
@@ -58,7 +58,7 @@
             </tr>
           </thead>
           <tbody>
-            <report-row v-for="report in listReport" :report="report" :key="report.id" :UpdateReport="customUpdateReport" :own="true" :viewAction="viewAction" :widgets="['id','headline','submitted','action']" />
+            <report-row v-for="report in listReport" :report="report" :key="report.id" :updateReport="customUpdateReport" :viewAction="viewAction" />
           </tbody>
         </table>
       </div>
