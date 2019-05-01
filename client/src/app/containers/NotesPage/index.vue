@@ -3,21 +3,24 @@
     <div class="ft-page container">
       <h4 class="spaced-title upper-cased main-color page-title mb-5">Notes</h4>
       <note-widgets></note-widgets>
-      <div class="row" v-if="{loaded}">
-        <div v-if="hasNotes">
-          <note v-for="note in notebook" :info="note" :noteFn="getNotesByTag" :key="note.id"/>
-        </div>
-        <div v-else>
-          <div class="col-12">
-            You have no notes taken. Start by writing your first note here.
+      <timeline-item>
+        <div class="row" v-if="{loaded}">
+          <div v-if="hasNotes" class="col-12">
+            <note v-for="note in notebook" :note="note" :key="note.id"/>
+          </div>
+          <div v-else>
+            <div class="col-12">
+              You have no notes taken. Start by writing your first note here.
+            </div>
           </div>
         </div>
-      </div>
+      </timeline-item>
     </div>
   </div>
 </template>
 
 <script>
+import TimelineItem from 'app/components/TimelineItem';
 import NoteWidgets from 'app/containers/ClubNotesPage/components/NoteWidgets';
 import Note from 'app/containers/ClubNotesPage/components/Note';
 import { mapGetters, mapActions } from 'vuex';
@@ -27,7 +30,8 @@ export default {
   name: 'NotesPage',
   components: {
     NoteWidgets,
-    Note
+    Note,
+    TimelineItem
   },
   computed: {
     ...mapGetters(['token', 'note']),
@@ -42,10 +46,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getNotes']),
-    getNotesByTag(tag){
-      this.$router.push(`/notes/tags/${tag}`);
-    }
+    ...mapActions(['getNotes'])
   },
   mounted() {
     this.getNotes({ token: this.token.value });

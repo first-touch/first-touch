@@ -5,13 +5,14 @@
         <span v-if="mine">Your Profile</span>
         <span v-else>Profile</span>
       </h4>
-
-      <component
-        :is="userRoleProfile"
-        :user="userProfile"
-        :mine="mine"
-        :connectionStatus="connectionStatus"
-        class="profile" />
+      <timeline-item>
+        <component
+          :is="userRoleProfile"
+          :user="userProfile"
+          :mine="mine"
+          :connectionStatus="connectionStatus"
+          class="profile" />
+      </timeline-item>
     </div>
   </div>
 </template>
@@ -36,7 +37,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import store from 'app/store';
 import { ASYNC_LOADING, ASYNC_SUCCESS } from 'app/constants/AsyncStatus';
-import NotificationSidebar from 'app/components/NotificationSidebar';
+import TimelineItem from 'app/components/TimelineItem';
 import PlayerProfile from './components/profiles/Player';
 import DirectorProfile from './components/profiles/Director';
 import ScoutProfile from './components/profiles/Scout';
@@ -46,11 +47,11 @@ export default {
   name: 'ProfilePage',
   props: ['mine', 'accept_invitation', 'id'],
   components: {
-    sidebar: NotificationSidebar,
     PlayerProfile,
     ScoutProfile,
     DirectorProfile,
-    AgentProfile
+    AgentProfile,
+    TimelineItem
   },
   computed: {
     ...mapGetters(['user', 'profile']),
