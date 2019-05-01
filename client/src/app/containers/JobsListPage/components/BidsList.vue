@@ -188,20 +188,10 @@
       },
       listRequest() {
         if (this.searchRequest.status === ASYNC_SUCCESS) {
-          return this.searchRequest.value.request;
+          return this.searchRequest.value;
         }
         return [];
       },
-      url() {
-        var params = this.params;
-        params.deadline_from = this.$options.filters.railsdate(params.deadline_from)
-        params.deadline_to = this.$options.filters.railsdate(params.deadline_to)
-        return Object.keys(params)
-          .map(function (k) {
-            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-          })
-          .join('&');
-      }
     },
     watch: {
       vselect_type: function () {
@@ -217,7 +207,7 @@
       }
     },
     methods: {
-      ...mapActions(['getRequests', 'createBid', 'clearBid', 'updateBid', 'cancelBid', 'uploadFiles']),
+      ...mapActions(['getRequestBids', 'createBid', 'clearBid', 'updateBid', 'cancelBid', 'uploadFiles']),
       clearsFilter() {
         this.params = {
           id: '',
@@ -227,7 +217,7 @@
           deadline_to: '',
           order_asc: true,
           type_request: '',
-          bids_status: 'accepted,joblist'
+          bids_status: ['accepted']
         };
         this.$refs.deadlineFrom.model = null;
         this.$refs.deadlineTo.model = null;
@@ -240,7 +230,8 @@
         var self = this
         clearTimeout(this.timer);
         this.timer = setTimeout(function () {
-          self.getRequests(self.url);
+          const params = _.pickBy(self.params, (value) => { return value != ''; })
+          self.getRequestBids(params);
         }, 500);
       },
       cancelReportPopup(request) {

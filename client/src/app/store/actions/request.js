@@ -1,4 +1,5 @@
 import * as ActionTypes from '../../constants/ActionTypes';
+import $ from 'jquery';
 
 const apiRequest = function (store, method, endpoint, body) {
   const params = {
@@ -57,7 +58,7 @@ export const getRequest = (store, id) => {
 
 export const getRequests = async (store, params) => {
   try {
-    const res = await apiRequest(store, 'GET', '/api/v1/requests?' + params);
+    const res = await apiRequest(store, 'GET', `/api/v1/requests?${$.param(params)}`);
 
     const data = await res.json();
     if (res.status === 200) {
@@ -69,6 +70,28 @@ export const getRequests = async (store, params) => {
   }
 
   return [];
+};
+
+// TODO: This should be re-thought on where to put it
+// At the moment this is being used to fetch the request bids
+// of a specific user. In theory only scouts can make a bid on a request
+// but this might change in the future. This is used to show the scout
+// which bids have been accepted and which are still being
+// analyzed (status: pending). The returned value is expected to have a
+// structure with the request bids data and along with it the request itself.
+export const getRequestBids = async (store, params) => {
+  try {
+    const res = await apiRequest(store, 'GET', `/api/v1/request_bids?${$.param(params)}`);
+
+    const data = await res.json();
+    if (res.status === 200) {
+      store.commit(ActionTypes.SEARCH_REQUEST_SUCCESS, data.request_bids);
+      return data.request_bids;
+    }
+  } catch (err) {
+    console.error('failed to get requests', err);
+    return [];
+  }
 };
 
 export const updateRequest = async (store, { id, request }) => {
