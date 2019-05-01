@@ -87,12 +87,12 @@
 </style>
 
 <script>
-import Button from 'app/components/Button/Button';
+import FtButton from 'app/components/Button/Button';
 
 export default {
   name: 'NoteWidget',
   components: {
-    'ft-button': Button
+    FtButton
   },
   data(){
     return {
