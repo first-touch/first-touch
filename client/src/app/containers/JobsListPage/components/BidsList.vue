@@ -176,7 +176,7 @@
       this.search();
     },
     computed: {
-      ...mapGetters(['searchRequest', 'bid', 'filesUpload']),
+      ...mapGetters(['searchRequestBids', 'bid', 'filesUpload']),
       nbFilters() {
         var i = 0;
         var params = this.params;
@@ -187,8 +187,8 @@
         return i;
       },
       listRequest() {
-        if (this.searchRequest.status === ASYNC_SUCCESS) {
-          return this.searchRequest.value;
+        if (this.searchRequestBids.status === ASYNC_SUCCESS) {
+          return this.searchRequestBids.value;
         }
         return [];
       },

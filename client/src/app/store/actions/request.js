@@ -85,7 +85,7 @@ export const getRequestBids = async (store, params) => {
 
     const data = await res.json();
     if (res.status === 200) {
-      store.commit(ActionTypes.SEARCH_REQUEST_SUCCESS, data.request_bids);
+      store.commit(ActionTypes.SEARCH_REQUEST_BIDS_SUCCESS, data.request_bids);
       return data.request_bids;
     }
   } catch (err) {

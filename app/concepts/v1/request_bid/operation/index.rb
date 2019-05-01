@@ -8,7 +8,7 @@ module V1
 
       private
 
-      def setup_models!(options, params:, current_user:, **)
+      def setup_models!(options, current_user:, **)
         options[:models] = current_user.request_bids
         # requestId = params[:request_id]
         # models = nil
