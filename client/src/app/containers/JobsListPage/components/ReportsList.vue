@@ -95,10 +95,6 @@
     },
     data() {
       return {
-        vselect_type: {
-          label: 'Report Type',
-          value: ''
-        },
         timer: null,
         params: {
           id: '',
@@ -147,7 +143,6 @@
         var params = this.params;
         params.created_date_from = this.$options.filters.railsdate(params.created_date_from)
         params.created_date_to = this.$options.filters.railsdate(params.created_date_to)
-        params.report_type = this.vselect_type.value;
         var url = Object.keys(params)
           .map(function (k) {
             return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
