@@ -143,7 +143,7 @@
       this.search();
     },
     computed: {
-      ...mapGetters(['searchRequestBids', 'bid', 'filesUpload']),
+      ...mapGetters(['searchRequestBids']),
       nbFilters() {
         var i = 0;
         var params = this.params;
@@ -166,16 +166,12 @@
         this.params.type_request = this.requestType.value;
         this.search();
       },
-      vselect_status: function () {
-        this.params.status = this.vselect_status.value;
-        this.search();
-      },
       bid() {
         if (this.bid.status == ASYNC_SUCCESS) this.search();
       }
     },
     methods: {
-      ...mapActions(['getRequestBids', 'createBid', 'clearBid', 'updateBid', 'cancelBid', 'uploadFiles']),
+      ...mapActions(['getRequestBids']),
       clearsFilter() {
         this.params = {
           id: '',
@@ -201,36 +197,6 @@
           const params = _.pickBy(self.params, (value) => { return value != ''; })
           self.getRequestBids(params);
         }, 500);
-      },
-      cancelReportPopup(request) {
-        this.wantbid = false;
-        this.cancel = true;
-        this.selected = request;
-        this.$refs.metaModal.show();
-      },
-      cancelReport(data) {
-        var obj = {
-          id: this.selected.id,
-          params: data
-        };
-        this.cancelBid(obj);
-      },
-      createReport(request) {
-        this.$router.push({
-          name: 'scoutReportCreate',
-          params: {
-            request: request
-          }
-        });
-      },
-      closeAction(request) {
-        this.$refs.metaModal.hide();
-        this.cancel = false;
-      },
-      viewSummary(request) {
-        this.wantbid = false;
-        this.selected = request;
-        this.$refs.metaModal.show();
       },
       setOrder(order) {
         if (this.params.order == order)
