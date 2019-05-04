@@ -38,30 +38,52 @@
         </form>
       </div>
     </div>
-    <!-- <b-modal id="metaModal" :size="bid? 'md' : 'lg'" ref="metaModal" :class="bid? 'successModal' : 'formModal' ">
-      <div v-if="!bid">
-        <player-request-popup v-if="selected && selected.type_request == 'player' " :request="selected" :closeAction="closeAction"
-          :bid="wantbid" :newBid="newBid" />
-        <team-request-popup v-if="selected && selected.type_request == 'team' " :request="selected" :closeAction="closeAction" :bid="wantbid"
-          :newBid="newBid" />
-        <position-request-popup v-if="selected && selected.type_request == 'position' " :request="selected" :closeAction="closeAction"
-          :bid="wantbid" :newBid="newBid" />
-      </div>
-      <div v-if="bid" class="divSuccess row">
-        <div class="col-lg-12">
-          <h3 class="success" v-if="bidPosition">Added to job !</h3>
-          <h3 class="success" v-if="!bidPosition">Bid submitted !</h3>
-        </div>
-        <div class="col-lg-12 buttons-inner">
-          <button class="ft-button-right ft-button-success" @click="closeAction()">✓ Close</button>
-        </div>
-      </div>
-    </b-modal>
-    <b-modal id="metaModal" size="md" ref="bidModal" :class="bid? 'successModal' : 'formModal' ">
-      <bid-popup v-if="selected" :request="selected" :newBid="newBid" :close="closeBid" />
-    </b-modal> -->
-    <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :addBid="addBid"
-      :viewReport="viewReport" :createReport="createReport" />
+    <table class="table table-striped table-responsive-lg">
+      <thead>
+        <tr>
+          <th scope="col" class="sortable" @click="setOrder('id')">
+            Request ID
+            <span v-if="params.order == 'id'">
+              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+            </span>
+          </th>
+          <th scope="col" class="sortable" @click="setOrder('requested_by')">
+            Requested By
+            <span v-if="params.order == 'requested_by'">
+              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+            </span>
+          </th>
+          <th scope="col" class="sortable" @click="setOrder('request_type')">
+            Job Request Type
+            <span v-if="params.order == 'request_type'">
+              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+            </span>
+          </th>
+          <th scope="col" class="sortable" @click="setOrder('price_range')">
+            Price Range
+            <span v-if="params.order == 'price_range'">
+              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+            </span>
+          </th>
+          <th scope="col" class="sortable" @click="setOrder('deadline')">
+            Deadline
+            <span v-if="params.order == 'deadline'">
+              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+            </span>
+          </th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <request-item v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :addBid="addBid" :viewReport="viewReport" :createReport="createReport" /> -->
+        <request-row v-for="request in listRequest" :key="request.id" :request="request" />
+      </tbody>
+    </table>
   </timeline-item>
 </template>
 
@@ -73,24 +95,18 @@
     ASYNC_LOADING
   } from 'app/constants/AsyncStatus';
   import VSelect from 'vue-select';
-  import BidPopup from './BidPopup';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
-  import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
-  import PositionRequestPopup from 'app/components/RequestPopup/PositionRequestPopup';
-  import TeamRequestPopup from 'app/components/RequestPopup//TeamRequestPopup';
+  import RequestRow from './RequestRow';
 
   export default {
     name: 'JobRequestWidget',
     props: ['listRequest', 'getRequests', 'update', 'bid', 'createBid', 'updateBid', 'clearBid', 'user'],
     components: {
       TimelineItem,
-      BidPopup,
-      request: RequestItem,
       VSelect,
       FtDatepicker,
-      TeamRequestPopup,
-      PlayerRequestPopup,
-      PositionRequestPopup
+      RequestRow,
+      RequestItem
     },
     data() {
       return {
