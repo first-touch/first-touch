@@ -4,7 +4,7 @@
     <div class="a-side-indicator primary">
       <div class="arrow"></div>
       <ft-button :linkTo="{ name: 'scoutJobsBank'}" icon="file-contract">Find Work</ft-button>
-      <ft-button :linkTo="{ name: 'scoutJobsBank'}" icon="file-contract">My Pending Bids</ft-button>
+      <ft-button :linkTo="{ name: 'scoutJobBidPage'}" icon="file-contract">My Pending Bids</ft-button>
     </div>
     <bids-list class="mt-2 mb-2" />
   </div>

@@ -4,7 +4,7 @@
     <div class="a-side-indicator primary">
       <div class="arrow"></div>
       <ft-button :linkTo="{ name: 'scoutReportCreate' }" icon="regular/edit">Create Report</ft-button>
-      <ft-button :linkTo="{ name: 'ScoutJobBidPage' }" icon="regular/handshake">My Bids</ft-button>
+      <ft-button :linkTo="{ name: 'scoutJobsList' }" icon="regular/handshake">My Assignments</ft-button>
     </div>
     <report-list class="mt-2 mb-2" />
   </div>

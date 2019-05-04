@@ -197,7 +197,7 @@
           <router-link v-if="bidStatus == 'C' && position && createReport" :to="{ name: 'scoutJobsList' }" class="ft-action">
             <button class="btn-round">See jobs list</button>
           </router-link>
-          <router-link v-if="!own && !position && addBid && bidStatus == 'U'" :to="{ name: 'ScoutJobBidPage' }" class="ft-action">
+          <router-link v-if="!own && !position && addBid && bidStatus == 'U'" :to="{ name: 'scoutJobBidPage' }" class="ft-action">
             <button class="btn-round">See my bids</button>
           </router-link>
           <a v-if="!own && !haveBid && position && addBid" @click="addBid(request)" class="ft-action">

@@ -198,7 +198,7 @@ export const router = new VueRouter({
         {
           path: '/scouting/jobs/pending',
           component: JobBidPage,
-          name: 'ScoutJobBidPage'
+          name: 'scoutJobBidPage'
         },
         {
           path: '/scouting/jobs/bank',
