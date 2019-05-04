@@ -1,31 +1,23 @@
 <template>
-<div class="ft-page">
-  <div class="container">
-    <h3 class="spaced-title upper-cased main-color page-title mb-5">
-      <span>Report Requests</span>
-    </h3>
-
+  <div class="ft-page container">
+    <h4 class="spaced-title upper-cased main-color page-title mb-5">Report Requests</h4>
     <actions @select="handleActionSelection" />
-
     <requests-list />
 
+    <ft-dialog :visible.sync="requestDialogVisible" width="80vw">
+      <div slot="title">
+        <span>Request <span class="capitalize">{{ reportType }}</span> Report</span>
+      </div>
+
+      <div v-if="reportType != ''">
+        <component
+          :is="reportTypeComponent"
+          @submit="handleFormSubmit"
+          @cancel="handleFormCancel"
+        ></component>
+      </div>
+    </ft-dialog>
   </div>
-
-  <ft-dialog :visible.sync="requestDialogVisible" width="80vw">
-    <div slot="title">
-      <span>Request <span class="capitalize">{{ reportType }}</span> Report</span>
-    </div>
-
-    <div v-if="reportType != ''">
-      <component
-        :is="reportTypeComponent"
-        @submit="handleFormSubmit"
-        @cancel="handleFormCancel"
-
-      ></component>
-    </div>
-  </ft-dialog>
-</div>
 </template>
 
 <script>
