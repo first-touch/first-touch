@@ -38,7 +38,7 @@
         </form>
       </div>
     </div>
-    <b-modal id="metaModal" :size="bid? 'md' : 'lg'" ref="metaModal" :class="bid? 'successModal' : 'formModal' ">
+    <!-- <b-modal id="metaModal" :size="bid? 'md' : 'lg'" ref="metaModal" :class="bid? 'successModal' : 'formModal' ">
       <div v-if="!bid">
         <player-request-popup v-if="selected && selected.type_request == 'player' " :request="selected" :closeAction="closeAction"
           :bid="wantbid" :newBid="newBid" />
@@ -59,10 +59,7 @@
     </b-modal>
     <b-modal id="metaModal" size="md" ref="bidModal" :class="bid? 'successModal' : 'formModal' ">
       <bid-popup v-if="selected" :request="selected" :newBid="newBid" :close="closeBid" />
-    </b-modal>
-    <div v-if="!hasBankAccount" @click="toPaymentPage">
-      <p class="error">Click here to add a bank account and start to browse job request</p>
-    </div>
+    </b-modal> -->
     <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :addBid="addBid"
       :viewReport="viewReport" :createReport="createReport" />
   </timeline-item>

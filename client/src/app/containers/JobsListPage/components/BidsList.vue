@@ -89,7 +89,7 @@
   import VIcon from 'vue-awesome/components/Icon';
 
   export default {
-    name: 'JobRequestWidget',
+    name: 'BidsList',
     components: {
       TimelineItem,
       VSelect,
