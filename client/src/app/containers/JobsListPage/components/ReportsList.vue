@@ -1,73 +1,71 @@
 <template>
-  <div>
-    <timeline-item>
-      <div class="widget-reports ft-search-widget col col-lg-12">
-        <div class="row">
-          <div class="col-lg-2">
-            <div class="row">
-              <h6 class="list-title col-lg-12 ">Reports Count</h6>
-              <h1 class="list-count col-lg-12 ">{{listReport.length}}</h1>
-              <fieldset class="col-lg-12 col-md-2 buttons-inner" v-if="nbFilters">
-                <button class="btn btn-outline-dark" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
-              </fieldset>
+  <timeline-item>
+    <div class="widget-reports ft-search-widget col col-lg-12">
+      <div class="row">
+        <div class="col-lg-2">
+          <div class="row">
+            <h6 class="list-title col-lg-12 ">Reports Count</h6>
+            <h1 class="list-count col-lg-12 ">{{listReport.length}}</h1>
+            <fieldset class="col-lg-12 col-md-2 buttons-inner" v-if="nbFilters">
+              <button class="btn btn-outline-dark" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
+            </fieldset>
+          </div>
+        </div>
+        <form @submit.prevent="search" class="col-lg-10">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="filter-by-id">Filter by Report Id</label>
+              <input id="filter-by-id" class="form-control" v-model="params.id" type="number" min="0" placeholder="Report id" @keyup="search()" />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="filter-by-title">Filter by Report Title</label>
+              <input id="filter-by-title" class="form-control" v-model="params.headline" type="text" placeholder="Title" @keyup="search()" />
             </div>
           </div>
-          <form @submit.prevent="search" class="col-lg-10">
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="filter-by-id">Filter by Report Id</label>
-                <input id="filter-by-id" class="form-control" v-model="params.id" type="number" min="0" placeholder="Report id" @keyup="search()" />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="filter-by-title">Filter by Report Title</label>
-                <input id="filter-by-title" class="form-control" v-model="params.headline" type="text" placeholder="Title" @keyup="search()" />
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="filter-by-daterange">Filter by Date</label>
+              <div id="filter-by-daterange" class="input-group">
+                <ft-datepicker class="form-control" ref="createdFrom" :model="params.created_date_from" :clearable="false" placeholder="Created from" v-on:update:val="params.created_date_from = $event; search()" />
+                <ft-datepicker class="form-control" ref="createdTo" :model="params.created_date_to" :clearable="false" placeholder="Created to" v-on:update:val="params.created_date_to = $event; search()" />
               </div>
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-12">
-                <label for="filter-by-daterange">Filter by Date</label>
-                <div id="filter-by-daterange" class="input-group">
-                  <ftdatepicker class="form-control" ref="createdFrom" :model="params.created_date_from" :clearable="false" placeholder="Created from" v-on:update:val="params.created_date_from = $event; search()" />
-                  <ftdatepicker class="form-control" ref="createdTo" :model="params.created_date_to" :clearable="false" placeholder="Created to" v-on:update:val="params.created_date_to = $event; search()" />
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-        <table class="table table-striped table-responsive-lg">
-          <thead>
-            <tr>
-              <th scope="col" class="sortable" @click="setOrder('id')">
-                Report ID
-                <span v-if="params.order == 'id'">
-                  <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                  <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-                </span>
-              </th>
-              <th scope="col" class="sortable" @click="setOrder('headline')">
-                Report name
-                <span v-if="params.order == 'headline'">
-                  <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                  <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-                </span>
-              </th>
-              <th scope="col" class="sortable" @click="setOrder('created_at')">
-                Created On
-                <span v-if="params.order == 'created_at'">
-                  <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                  <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-                </span>
-              </th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <report-row v-for="report in listReport" :report="report" :key="report.id" :updateReport="customUpdateReport" :viewAction="viewAction" />
-          </tbody>
-        </table>
+          </div>
+        </form>
       </div>
-    </timeline-item>
-  </div>
+      <table class="table table-striped table-responsive-lg">
+        <thead>
+          <tr>
+            <th scope="col" class="sortable" @click="setOrder('id')">
+              Report ID
+              <span v-if="params.order == 'id'">
+                <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+                <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+              </span>
+            </th>
+            <th scope="col" class="sortable" @click="setOrder('headline')">
+              Report name
+              <span v-if="params.order == 'headline'">
+                <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+                <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+              </span>
+            </th>
+            <th scope="col" class="sortable" @click="setOrder('created_at')">
+              Created On
+              <span v-if="params.order == 'created_at'">
+                <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+                <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+              </span>
+            </th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <report-row v-for="report in listReport" :report="report" :key="report.id" :updateReport="customUpdateReport" :viewAction="viewAction" />
+        </tbody>
+      </table>
+    </div>
+  </timeline-item>
 </template>
 
 <script>
@@ -80,20 +78,20 @@
   } from 'app/constants/AsyncStatus';
   import TimelineItem from 'app/components/TimelineItem';
   import ReportRow from './ReportRow';
-  import vSelect from 'vue-select';
+  import VSelect from 'vue-select';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import 'vue-awesome/icons/arrow-alt-circle-up';
   import 'vue-awesome/icons/arrow-alt-circle-down';
-  import Icon from 'vue-awesome/components/Icon';
+  import VIcon from 'vue-awesome/components/Icon';
 
   export default {
     name: 'ReportsList',
     components: {
-      ftdatepicker: FtDatepicker,
+      FtDatepicker,
       TimelineItem,
       ReportRow,
-      vselect: vSelect,
-      icon: Icon
+      VSelect,
+      VIcon
     },
     data() {
       return {

@@ -1,66 +1,71 @@
 <template>
-  <div class="widget-request ft-search-widget">
-    <timeline-item>
-      <div class="widget-content col col-lg-12">
-        <div class="row align-items-start">
-          <div class="col-lg-2 row">
+  <timeline-item>
+    <div class="widget-reports ft-search-widget col col-lg-12">
+      <div class="row">
+        <div class="col-lg-2">
+          <div class="row">
             <h6 class="list-title col-lg-12">Request Count</h6>
             <h1 class="list-count col-lg-12">{{listRequest.length}}</h1>
             <fieldset class="col-lg-12 col-md-12 buttons-inner" v-if="nbFilters">
               <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
             </fieldset>
           </div>
-          <form @submit.prevent="search" class="col-lg-10 row">
-            <fieldset class="col-lg-4">
-              <input type="number" min="0" class="col-lg-12 form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()"
-              />
-            </fieldset>
-            <fieldset class="col-lg-4">
-              <input type="text" class="col-lg-12 form-control" v-model="params.club" placeholder="Requested by" @keyup="search()" />
-            </fieldset>
-            <fieldset class="col-lg-3">
-              <v-select v-model="vselect_type" class="form-control m-field-input" :options="options.type_request" :class="params.type_request == '' ? 'empty' : '' "
-                :searchable="false" :clearable="false" />
-            </fieldset>
-            <fieldset class="col-lg-12 calendar-filter">
-              <ft-datepicker class="col col-lg-5 form-control" ref="deadlineFrom" :value="params.deadline_from" :clearable="false" placeholder="Deadline from"
-                v-on:update:val="params.deadline_from = $event; search()" />
-              <p class="col col-lg-1">-</p>
-              <ft-datepicker class="col col-lg-5 form-control" ref="deadlineTo" :value="params.deadline_to" :clearable="false" placeholder="Deadline to"
-                v-on:update:val="params.deadline_to = $event; search()" />
-            </fieldset>
-          </form>
+        </div>
+        <form @submit.prevent="search" class="col-lg-10">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="filter-by-id">Filter by Report Id</label>
+              <input id="filter-by-id" class="form-control" v-model="params.id" type="number" min="0" placeholder="Report id" @keyup="search()" />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="filter-by-requestor">Requested By</label>
+              <input id="filter-by-requestor" class="form-control" v-model="params.club" type="text" placeholder="Requested by" @keyup="search()" />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="filter-by-requestor">Request Type</label>
+              <v-select v-model="requestType" :options="options.type_request" :searchable="false" :clearable="false" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="filter-by-daterange">Filter by Date</label>
+              <div id="filter-by-daterange" class="input-group">
+                <ft-datepicker class="form-control" ref="deadlineFrom" :value="params.deadline_from" :clearable="false" placeholder="Deadline from" v-on:update:val="params.deadline_from = $event; search()" />
+                <ft-datepicker class="form-control" ref="deadlineTo" :value="params.deadline_to" :clearable="false" placeholder="Deadline to" v-on:update:val="params.deadline_to = $event; search()" />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <b-modal id="metaModal" :size="bid? 'md' : 'lg'" ref="metaModal" :class="bid? 'successModal' : 'formModal' ">
+      <div v-if="!bid">
+        <player-request-popup v-if="selected && selected.type_request == 'player' " :request="selected" :closeAction="closeAction"
+          :bid="wantbid" :newBid="newBid" />
+        <team-request-popup v-if="selected && selected.type_request == 'team' " :request="selected" :closeAction="closeAction" :bid="wantbid"
+          :newBid="newBid" />
+        <position-request-popup v-if="selected && selected.type_request == 'position' " :request="selected" :closeAction="closeAction"
+          :bid="wantbid" :newBid="newBid" />
+      </div>
+      <div v-if="bid" class="divSuccess row">
+        <div class="col-lg-12">
+          <h3 class="success" v-if="bidPosition">Added to job !</h3>
+          <h3 class="success" v-if="!bidPosition">Bid submitted !</h3>
+        </div>
+        <div class="col-lg-12 buttons-inner">
+          <button class="ft-button-right ft-button-success" @click="closeAction()">✓ Close</button>
         </div>
       </div>
-      <b-modal id="metaModal" :size="bid? 'md' : 'lg'" ref="metaModal" :class="bid? 'successModal' : 'formModal' ">
-        <div v-if="!bid">
-          <player-request-popup v-if="selected && selected.type_request == 'player' " :request="selected" :closeAction="closeAction"
-            :bid="wantbid" :newBid="newBid" />
-          <team-request-popup v-if="selected && selected.type_request == 'team' " :request="selected" :closeAction="closeAction" :bid="wantbid"
-            :newBid="newBid" />
-          <position-request-popup v-if="selected && selected.type_request == 'position' " :request="selected" :closeAction="closeAction"
-            :bid="wantbid" :newBid="newBid" />
-        </div>
-        <div v-if="bid" class="divSuccess row">
-          <div class="col-lg-12">
-            <h3 class="success" v-if="bidPosition">Added to job !</h3>
-            <h3 class="success" v-if="!bidPosition">Bid submitted !</h3>
-          </div>
-          <div class="col-lg-12 buttons-inner">
-            <button class="ft-button-right ft-button-success" @click="closeAction()">✓ Close</button>
-          </div>
-        </div>
-      </b-modal>
-      <b-modal id="metaModal" size="md" ref="bidModal" :class="bid? 'successModal' : 'formModal' ">
-        <bid-popup v-if="selected" :request="selected" :newBid="newBid" :close="closeBid" />
-      </b-modal>
-      <div v-if="!hasBankAccount" @click="toPaymentPage">
-        <p class="error">Click here to add a bank account and start to browse job request</p>
-      </div>
-      <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :addBid="addBid"
-        :viewReport="viewReport" :createReport="createReport" />
-    </timeline-item>
-  </div>
+    </b-modal>
+    <b-modal id="metaModal" size="md" ref="bidModal" :class="bid? 'successModal' : 'formModal' ">
+      <bid-popup v-if="selected" :request="selected" :newBid="newBid" :close="closeBid" />
+    </b-modal>
+    <div v-if="!hasBankAccount" @click="toPaymentPage">
+      <p class="error">Click here to add a bank account and start to browse job request</p>
+    </div>
+    <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :addBid="addBid"
+      :viewReport="viewReport" :createReport="createReport" />
+  </timeline-item>
 </template>
 
 <script>
@@ -105,7 +110,7 @@
           deadline_from: '',
           deadline_to: ''
         },
-        vselect_type: {
+        requestType: {
           label: 'Request Type',
           value: ''
         },
@@ -196,8 +201,8 @@
       }
     },
     watch: {
-      vselect_type: function () {
-        this.params.type_request = this.vselect_type.value;
+      requestType: function () {
+        this.params.type_request = this.requestType.value;
         this.search();
       },
       vselect_status: function () {
@@ -232,7 +237,7 @@
         }
         this.$refs.deadlineFrom.model = null;
         this.$refs.deadlineTo.model = null;
-        this.vselect_type = {
+        this.requestType = {
           label: 'Request Type',
           value: ''
         };
