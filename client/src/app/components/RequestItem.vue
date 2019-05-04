@@ -151,7 +151,7 @@
                   {{request.meta_data.search.league}}
                 </span>
                 <span class="col-lg-6" v-if="request.team">
-                  <span class="list" v-for="cp in request.team.competitions.competitions" :key="cp.id">{{cp.name}} </span>
+                  <span class="list" v-for="cp in request.team.competitions.competitions" :key="cp.id"> TBA </span>
                 </span>
               </span>
               <span class="field row">
@@ -229,7 +229,7 @@
           {{ request.created_at | moment }}
         </span>
         <span v-if="field == 'club'" class="contents">
-          {{ request.club.name }}
+          TBA
         </span>
         <span v-if="field == 'deadline'" class="contents">
           {{ request.deadline | moment }}
