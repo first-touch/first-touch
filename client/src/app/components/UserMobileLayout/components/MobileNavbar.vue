@@ -32,7 +32,7 @@
           <div class="dropdown-menu" aria-labelledby="scouting-dropdown">
             <router-link class="dropdown-item" :to="{ name: 'scoutJobsBank'}">Find Work</router-link>
             <router-link class="dropdown-item" :to="{ name: 'scoutJobsList'}">My Assignments</router-link>
-            <router-link class="dropdown-item" :to="{ name: 'scoutJobsList'}">My Reports</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutReports'}">My Reports</router-link>
             <router-link class="dropdown-item" :to="{ name: 'scoutReportCreate'}">Create Report</router-link>
             <router-link class="dropdown-item" :to="{ name: 'scoutPaymentDetailPage'}">Payment Details</router-link>
           </div>

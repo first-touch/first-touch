@@ -75,12 +75,11 @@ Rails.application.routes.draw do
       put 'stripe', controller: :stripe, action: :update
 
       get 'stripe/required', controller: :stripe, action: :required
-
+      resources :request_bids, only: [:index]
       get 'requests/bids/:request_id', controller: :bids, action: :requestbids
       post 'requests/bids/:request_id', controller: :bids, action: :acceptbid
       resource :club_stripes, :path => "club/stripe"
       resources :files, only: [:show, :new]
-
     end
   end
 end

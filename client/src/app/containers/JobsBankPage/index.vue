@@ -1,32 +1,19 @@
 <template>
-  <div>
-    <div class="container-fluid">
-      <div class="ft-page">
-        <jobrequestwidget v-if="page == 'index'" :user="user" :listRequest="listRequest" :getRequests="search" :createBid="createBid" :bid="bidSuccess" :clearBid="clearBid"
-        :updateBid="updateBid"
-        />
-      </div>
-    </div>
+  <div class="ft-page container">
+    <h4 class="spaced-title upper-cased main-color page-title mb-5">Available Assignments</h4>
+    <job-request-widget class="mt-2 mb-2" v-if="page == 'index'" :user="user" :listRequest="listRequest" :getRequests="search" :createBid="createBid" :bid="bidSuccess" :clearBid="clearBid" :updateBid="updateBid" />
   </div>
 </template>
 
-<style lang="scss" scoped>
-@import '~stylesheets/variables';
-.widget {
-  margin-bottom: 20px;
-}
-</style>
 <script>
-import NotificationSidebar from 'app/components/NotificationSidebar';
 import { mapGetters, mapActions } from 'vuex';
 import { ASYNC_SUCCESS, ASYNC_FAIL, ASYNC_LOADING } from 'app/constants/AsyncStatus';
 import JobRequestWidget from './components/JobRequestWidget';
 
 export default {
-  name: 'MyPurchasedReports',
+  name: 'JobsBank',
   components: {
-    sidebar: NotificationSidebar,
-    jobrequestwidget: JobRequestWidget
+    JobRequestWidget
   },
   data() {
     return {
@@ -49,7 +36,7 @@ export default {
   watch: {
     searchRequest() {
       if (this.searchRequest.status === ASYNC_SUCCESS) {
-        this.listRequest = this.searchRequest.value.request;
+        this.listRequest = this.searchRequest.value;
       }
     },
     request() {

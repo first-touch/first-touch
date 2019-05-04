@@ -13,6 +13,12 @@ export const searchRequest = {
   errors: null
 };
 
+export const searchRequestBids = {
+  status: ASYNC_NONE,
+  value: null,
+  errors: null
+};
+
 export default {
   [ActionTypes.UPLOADING_REQUEST_FAILURE] (state, errors) {
     state.request = Object.assign({}, state.request, {
@@ -44,6 +50,23 @@ export default {
   },
   [ActionTypes.SEARCH_REQUEST_SUCCESS] (state, payload) {
     state.searchRequest = Object.assign({}, state.searchRequest, {
+      status: ASYNC_SUCCESS,
+      value: payload
+    });
+  },
+  [ActionTypes.SEARCH_REQUEST_BIDS_FAILURE] (state, errors) {
+    state.searchRequestBids = Object.assign({}, state.searchRequestBids, {
+      status: ASYNC_FAIL,
+      errors: errors
+    });
+  },
+  [ActionTypes.SEARCH_REQUEST_BIDS_LOADING] (state, errors) {
+    state.searchRequestBids = Object.assign({}, state.searchRequestBids, {
+      status: ASYNC_LOADING
+    });
+  },
+  [ActionTypes.SEARCH_REQUEST_BIDS_SUCCESS] (state, payload) {
+    state.searchRequestBids = Object.assign({}, state.searchRequestBids, {
       status: ASYNC_SUCCESS,
       value: payload
     });
