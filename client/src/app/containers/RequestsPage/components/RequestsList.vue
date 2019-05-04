@@ -17,13 +17,13 @@
               />
             </fieldset>
             <fieldset class="col-lg-3">
-              <vselect v-model="vselect_type"  class="form-control m-field-input" :class="params.type_request == '' ? 'empty' : '' " :options="options.type_request" :searchable="false" :clearable="false" />
+              <v-select v-model="vselect_type"  class="form-control m-field-input" :class="params.type_request == '' ? 'empty' : '' " :options="options.type_request" :searchable="false" :clearable="false" />
             </fieldset>
             <fieldset class="col-lg-2">
-              <vselect v-model="vselect_status"  class="form-control m-field-input"  :class="params.status == '' ? 'empty' : '' " :options="options.status" :searchable="false" />
+              <v-select v-model="vselect_status"  class="form-control m-field-input"  :class="params.status == '' ? 'empty' : '' " :options="options.status" :searchable="false" />
             </fieldset>
             <fieldset class="col-lg-3 calendar-filter">
-              <ftdatepicker class="col-lg-12 form-control" ref="createdDate" :value="params.created_date" :clearable="false" placeholder="Created date"
+              <ft-datepicker class="col-lg-12 form-control" ref="createdDate" :value="params.created_date" :clearable="false" placeholder="Created date"
                 v-on:update:val="params.created_date = $event; search()" />
             </fieldset>
 
@@ -45,29 +45,29 @@
               <th scope="col" class="shortable" @click="setOrder('status')">
                 <p>Status</p>
                 <span v-if="params.order == 'status'">
-                  <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                  <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                  <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+                  <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
                 </span>
               </th>
               <th scope="col" class="shortable" @click="setOrder('type_request')">
                 <p>Job Type </p>
                 <span v-if="params.order == 'type_request'">
-                  <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                  <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                  <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+                  <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
                 </span>
               </th>
               <th scope="col" class="shortable" @click="setOrder('created_at')">
                 <p>Created On</p>
                 <span v-if="params.order == 'created_at'">
-                  <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                  <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                  <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+                  <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
                 </span>
               </th>
               <th scope="col" class="shortable" @click="setOrder('bids')">
                 <p>No of bids</p>
                 <span v-if="params.order == 'bids'">
-                  <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                  <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
+                  <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+                  <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
                 </span>
               </th>
               <th scope="col">Actions</th>
@@ -102,7 +102,6 @@ import {
     mapActions
 } from 'vuex';
 
-import Datepicker from 'vuejs-datepicker';
 import RequestItemRow from 'app/components/RequestItem/RequestItemRow.vue';
 import TimelineItem from 'app/components/TimelineItem';
 import 'vue-awesome/icons/trash';
@@ -111,19 +110,18 @@ import 'vue-awesome/icons/calendar-check';
 import 'vue-awesome/icons/times';
 import 'vue-awesome/icons/arrow-alt-circle-up';
 import 'vue-awesome/icons/arrow-alt-circle-down';
-import Icon from 'vue-awesome/components/Icon';
-import vSelect from 'vue-select';
+import VIcon from 'vue-awesome/components/Icon';
+import VSelect from 'vue-select';
 import FtDatepicker from 'app/components/Input/FtDatepicker';
 export default {
   name: 'reports-request-list',
   props: [ ],
   components: {
-    datepicker: Datepicker,
-    'timeline-item': TimelineItem,
+    TimelineItem,
     RequestItemRow,
-    Icon,
-    vselect: vSelect,
-    ftdatepicker: FtDatepicker
+    VIcon,
+    VSelect,
+    FtDatepicker
   },
   data() {
     return {
