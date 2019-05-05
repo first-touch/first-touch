@@ -1,13 +1,13 @@
 <template>
-  <div class="autonumeric input-group" v-on:blur="blur()">
-    <div class="input-group-append">
+  <div class="input-group mb-2" v-on:blur="blur()">
+    <div class="input-group-prepend">
       <select :disabled="lock" v-if="!currency" class="input-group-text" v-model="model.currency">
         <option value="USD" data-placeholder="0.00">USD</option>
         <option value="EUR" data-placeholder="0.00">EUR</option>
         <option value="GBP" data-placeholder="0.00">GBP</option>
         <option value="SGD" data-placeholder="0.00">SGD</option>
       </select>
-      <span class="currency" v-if="currency">{{currency}}</span>
+      <span class="input-group-text" v-if="currency">{{currency}}</span>
     </div>
     <v-autonumeric @blur.native="blurMin()" :disabled="lock" class="form-control " :class="max ? 'col-lg-5 input-1 ': ''" v-model="model.value"
       :placeholder="placeholder" :options="{
