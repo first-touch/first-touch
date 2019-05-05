@@ -88,7 +88,11 @@
       </thead>
       <tbody>
         <!-- <request-item v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :addBid="addBid" :viewReport="viewReport" :createReport="createReport" /> -->
-        <request-row v-for="request in listRequest" :key="request.id" :request="request" v-on:make-bid="makeBid" />
+        <request-row v-for="request in listRequest"
+                     :key="request.id"
+                     :request="request"
+                     v-on:make-bid="makeBid"
+        />
       </tbody>
     </table>
 
@@ -97,7 +101,10 @@
         <span v-if="bidForRequest != null">Edit bid</span>
         <span v-else>Make your bid</span>
       </div>
-      <bid-popup :request="bidingOn" :currentBid="bidForRequest" />
+      <bid-popup :request="bidingOn"
+                 :currentBid="bidForRequest"
+                 v-on:submit-bid="submitBid"
+      />
     </ft-dialog>
   </timeline-item>
 </template>
@@ -256,16 +263,16 @@
           value: ''
         };
       },
-      newBid(request, price) {
-        if (request.bid_status) {
+      submitBid(price) {
+        debugger
+        if (this.bidForRequest) {
           this.updateBid({
-            requestId: request.id,
-            id: request.request_bids.id,
+            id: bidForRequest.id,
             price
           });
         } else {
           this.createBid({
-            id: request.id,
+            request_id: this.bidingOn.id,
             price
           });
         }
