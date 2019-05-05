@@ -88,9 +88,17 @@
       </thead>
       <tbody>
         <!-- <request-item v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :addBid="addBid" :viewReport="viewReport" :createReport="createReport" /> -->
-        <request-row v-for="request in listRequest" :key="request.id" :request="request" />
+        <request-row v-for="request in listRequest" :key="request.id" :request="request" v-on:make-bid="makeBid" />
       </tbody>
     </table>
+
+    <ft-dialog :visible.sync="isBidding" v-on:closed="unsetBidingOn">
+      <div slot="title">
+        <span v-if="bidForRequest != null">Edit bid</span>
+        <span v-else>Make your bid</span>
+      </div>
+      <bid-popup :request="bidingOn" :currentBid="bidForRequest" />
+    </ft-dialog>
   </timeline-item>
 </template>
 
@@ -102,6 +110,7 @@
     ASYNC_LOADING
   } from 'app/constants/AsyncStatus';
   import VSelect from 'vue-select';
+  import BidPopup from './BidPopup';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import RequestRow from './RequestRow';
 
@@ -113,13 +122,13 @@
       VSelect,
       FtDatepicker,
       RequestRow,
-      RequestItem
+      RequestItem,
+      BidPopup
     },
     data() {
       return {
-        selected: null,
-        bidPosition: false,
-        wantbid: false,
+        bidingOn: null,
+        isBidding: false,
         params: {
           id: '',
           created_date: '',
@@ -210,39 +219,20 @@
         }
         return i;
       },
-      hasBankAccount() {
-        if (this.user.status === ASYNC_SUCCESS) {
-          return (this.user.value.has_bank_account)
-        }
-        if (this.user.status === ASYNC_LOADING) {
-          return true;
-        }
-        return false;
+      bidForRequest() {
+        return this.bidingOn && this.bidingOn.user_bid;
       }
     },
     watch: {
       requestType: function () {
         this.params.type_request = this.requestType.value;
         this.search();
-      },
-      vselect_status: function () {
-        this.params.status = this.vselect_status.value;
-        this.search();
-      },
-      bid() {
-        if (this.bid)
-          this.$refs.metaModal.show();
       }
     },
     methods: {
       search() {
         const params = _.pickBy(self.params, (value) => { return value != ''; })
         this.getRequests(params);
-      },
-      toPaymentPage() {
-        this.$router.push({
-          name: 'scoutPaymentDetailPage',
-        });
       },
       clearsFilter() {
         this.params = {
@@ -280,50 +270,12 @@
           });
         }
       },
-      closeAction(request) {
-        this.$refs.metaModal.hide();
-        this.wantbid = false;
-        this.selected = null;
-        this.bidPosition = false;
-        this.clearBid();
-        this.search();
+      makeBid(request) {
+        this.bidingOn = request;
+        this.isBidding = true;
       },
-      closeBid() {
-        this.$refs.bidModal.hide();
-      },
-      viewSummary(request) {
-        this.wantbid = false;
-        this.selected = request;
-        this.$refs.metaModal.show();
-      },
-      viewReport(id) {
-        this.$router.push({
-          name: 'scoutReportView',
-          params: {
-            id
-          }
-        });
-      },
-      createReport(request) {
-        this.$router.push({
-          name: 'scoutReportCreate',
-          params: {
-            request: request
-          }
-        });
-      },
-      addBid(request) {
-        if (request.type_request == 'position') {
-          this.createBid({
-            id: request.id,
-            price: 0
-          });
-          this.bidPosition = true;
-        } else {
-          this.wantbid = true;
-          this.selected = request;
-          this.$refs.bidModal.show();
-        }
+      unsetBidingOn() {
+        this.bidingOn = null;
       }
     }
   };

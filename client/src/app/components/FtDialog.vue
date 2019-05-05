@@ -15,7 +15,7 @@
       <header class="ft-dialog__header">
         <div class="ft-dialog__title">
           <slot name="title" >
-            <span >{{ title }}</span>
+            <span>{{ title }}</span>
           </slot>
         </div>
         <button

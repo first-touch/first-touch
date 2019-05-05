@@ -1,20 +1,16 @@
 <template>
   <div class="bid col-lg-12">
-
     <span class="field row">
-      <p>Bid between {{request.price.value}} and {{request.price.max}} {{request.price.currency }}</p>
+      <p>Bid between {{ minBidValue }} and {{ maxBidValue }} {{ bidCurrency }}</p>
     </span>
     <span class="field row">
-      <currencyinput :value="price" :currency="request.price.currency" />
-      <input type="text" class="d-none" name="price" v-model="price.value" v-validate="`required|between:${request.price.value},${request.price.max}` "
-      />
-      <span class="text-danger">{{ errors.first('price') }}</span>
-
+      <currencyinput :value="price" :currency="bidCurrency" />
+      <input type="text" class="hide" name="price" v-model="price.value" v-validate="`required|between:${minBidValue},${maxBidValue}` "/>
+      <span class="validate-errors">{{ errors.first('price') }}</span>
     </span>
     <span class="footer-modal buttons-inner col-md-12 row">
-      <button class="ft-button ft-button-success ft-button-right" v-if="!this.request.bid_status" @click="submit">Send Bid</button>
-      <button class="ft-button ft-button-success ft-button-right" v-if="this.request.bid_status" @click="submit">Update Bid</button>
-      <button class="ft-button" @click="close(request)">Close</button>
+      <button class="ft-button ft-button-success ft-button-right" v-if="!this.currentBid" @click="submit">Send Bid</button>
+      <button class="ft-button ft-button-success ft-button-right" v-if="this.currentBid" @click="submit">Update Bid</button>
     </span>
   </div>
 </template>
@@ -23,8 +19,8 @@
   import CurrencyInput from 'app/components/Input/CurrencyInput';
 
   export default {
-    name: 'PaymentPopup',
-    props: ['request', 'newBid', 'close'],
+    name: 'BidPopup',
+    props: ['request', 'currentBid'],
     components: {
       currencyinput: CurrencyInput
     },
@@ -44,14 +40,43 @@
         this.prepare();
       }
     },
+    computed: {
+      requestPrice() {
+        if (this.request != null) {
+          return this.request.price;
+        } else {
+          return null;
+        }
+      },
+      minBidValue() {
+        if(this.requestPrice != null) {
+          return this.requestPrice.value;
+        } else {
+          return 0;
+        }
+      },
+      maxBidValue() {
+        if(this.requestPrice != null) {
+          return this.requestPrice.max;
+        } else {
+          return 0;
+        }
+      },
+      bidCurrency() {
+        if(this.requestPrice != null) {
+          return this.requestPrice.currency;
+        } else {
+          return 'N/A';
+        }
+      },
+    },
     methods: {
       submit() {
         this.$validator.validateAll().then(() => {
           if (this.errors.items.length == 0) {
-            this.newBid(this.request, this.price)
+            this.$emit('submit-bid', this.price);
+            // this.newBid(this.request, this.price)
           }
-        }).catch(() => {
-
         });
       },
       prepare() {
@@ -59,8 +84,8 @@
           this.price.value = this.request.price.value;
           if (this.request.price.currency)
             this.price.currency = this.request.price.currency;
-          if (this.request.bid_status)
-            this.price = this.request.bid_price
+          if (this.currentBid)
+            this.price = this.currentBid.price;
         }
       }
     }

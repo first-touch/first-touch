@@ -17,8 +17,8 @@
       </select>
     </div>
     <div class="col">
-      <select   name="club_name" 
-                id="club_name" 
+      <select   name="club_name"
+                id="club_name"
                 class="form-control col"
                 placeholder="Select Club"
                 v-model="form.club_id">
@@ -77,7 +77,7 @@
       </button>
     </div>
   </div>
-</div> 
+</div>
 </template>
 
 <script>
@@ -99,7 +99,7 @@ export default {
     countries: { type: Array },
     entry: { type: Object }
   },
-  data() { 
+  data() {
     return {
       form: Object.assign({}, emptyForm),
       startDate: '',
@@ -109,7 +109,7 @@ export default {
     }
   },
   watch: {
-    entry: { 
+    entry: {
       immediate: true,
       handler: function(val){
         this.reset();
@@ -168,4 +168,3 @@ export default {
   }
 }
 </script>
-

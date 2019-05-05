@@ -26,7 +26,7 @@
         console.log('request details!');
       },
       makeBid() {
-        console.log('make bid');
+        this.$emit('make-bid', this.request);
       },
       updateBid() {
         console.log('update bid');
