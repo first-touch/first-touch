@@ -8,7 +8,7 @@
       <currencyinput :value="price" :currency="request.price.currency" />
       <input type="text" class="hide" name="price" v-model="price.value" v-validate="`required|between:${request.price.value},${request.price.max}` "
       />
-      <span class="validate-errors">{{ errors.first('price') }}</span>
+      <span class="text-danger">{{ errors.first('price') }}</span>
 
     </span>
     <span class="footer-modal buttons-inner col-md-12 row">
@@ -24,10 +24,6 @@
   @import '~stylesheets/form';
   .hide {
     display: none;
-  }
-
-  .validate-errors {
-    color: red;
   }
 </style>
 

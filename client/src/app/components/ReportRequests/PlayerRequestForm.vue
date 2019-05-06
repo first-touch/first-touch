@@ -21,21 +21,21 @@
             ref="league_search" :taggable="true" label="name" v-on:update:search="meta_data.search.league = $event" placeholder="Choose a league..."
           />
           <input type="text" class="hide" name="league" v-model="league_id" v-validate="'required'" />
-          <span class="validate-errors">{{ errors.first('league') }}</span>
+          <span class="text-danger">{{ errors.first('league') }}</span>
         </div>
         <div class="col col-lg-12 form-group required-before">
           <inputsearch :readonly="league_id == ''" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" ref="team_search"
             :taggable="true" v-on:update:obj="setTeam($event)" label="team_name" v-on:update:search="meta_data.search.club = $event"
             placeholder="Choose a team..." />
           <input type="text" class="hide" name="team" v-model="team_id" v-validate="'required'" />
-          <span class="validate-errors">{{ errors.first('team') }}</span>
+          <span class="text-danger">{{ errors.first('team') }}</span>
         </div>
         <div class="col col-lg-12 form-group required-before">
           <inputsearch :readonly="team_id == ''" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="player"
             label="display_name" v-on:update:val="setPlayer($event)" v-on:update:search="meta_data.search.player = $event"
             placeholder="Choose a player..." :required="true" />
           <input type="text" class="hide" name="player" v-model="player_id" v-validate="'required'" />
-          <span class="validate-errors">{{ errors.first('player') }}</span>
+          <span class="text-danger">{{ errors.first('player') }}</span>
         </div>
       </div>
       <div class="player-summary" v-if="player_id == -1">
@@ -75,7 +75,7 @@
         <div class="col-lg-12 form-group required-before">
           <input type="number" min="0" class="col-lg-12 form-control" v-validate="'required|max_value:9'" v-model.number="meta_data.min_matches"
             name="min_match" placeholder="Select number of matches to be observed">
-          <span class="validate-errors">{{ errors.first('min_match') }}</span>
+          <span class="text-danger">{{ errors.first('min_match') }}</span>
 
         </div>
 
@@ -89,7 +89,7 @@
           <ftdatepicker class="col-lg-12 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" ref="deadline"
             placeholder="Select a deadline" />
           <input type="text" class="hide" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
-          <span class="validate-errors">{{ errors.first('deadline') }}</span>
+          <span class="text-danger">{{ errors.first('deadline') }}</span>
         </div>
         <div class="col-lg-12 form-group required-before">
           <div class="row bid-range col-lg-12">
@@ -100,7 +100,7 @@
             <input type="text" class="hide" name="price" v-model="price.value" v-validate="'required'" />
             <input type="text" class="hide" name="price" v-model="price.max" v-validate="'required'" />
           </div>
-          <span class="validate-errors">{{ errors.first('price') }}</span>
+          <span class="text-danger">{{ errors.first('price') }}</span>
         </div>
       </div>
       <h5 class="row">Other Details</h5>
