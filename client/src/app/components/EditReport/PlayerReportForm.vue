@@ -10,7 +10,7 @@
       <div class="col-lg-12">
         <div class="price-input">
           <currencyinput :value="price" placeholder="Price" />
-          <input type="text" class="hide" name="price" v-model="price.value" v-validate="'required'" maxValue="999999" />
+          <input type="text" class="d-none" name="price" v-model="price.value" v-validate="'required'" maxValue="999999" />
           <span class="text-danger">{{ errors.first('price') }}</span>
           <p v-if="price.value == 0" class="info">The report will be free</p>
           <p v-if="request" class="info">Price between {{request.price.value}} and {{request.price.max}} {{request.price.currency}} </p>

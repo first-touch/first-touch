@@ -20,19 +20,19 @@
               <input-search class="col-lg-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
                 v-on:update:val="setLeague($event)" v-on:update:search="meta_data.search.league = $event" ref="team_search"
                 placeholder="Select a league" label="name" />
-              <input type="text" class="hide" name="league" v-model="league_id" v-validate="'required'" />
+              <input type="text" class="d-none" name="league" v-model="league_id" v-validate="'required'" />
               <span class="text-danger">{{ errors.first('league') }}</span>
             </div>
             <div class="col-lg-6 form-group required-before">
               <input-search :edit="team_search" :readonly="league_id == ''" class="col-lg-12" :taggable="true" :onkeyup="getSearchResultsRole"
                 placeholder="Select a club" ref="team_search" v-on:update:search="meta_data.search.club = $event" :searchResult="searchResult"
                 type="team" v-on:update:obj="setClub($event)" :required="true" label="team_name" />
-              <input type="text" class="hide" name="club" v-model="team_id" v-validate="'required'" />
+              <input type="text" class="d-none" name="club" v-model="team_id" v-validate="'required'" />
               <span class="text-danger">{{ errors.first('club') }}</span>
             </div>
             <div class="col-lg-6 form-group required-before">
               <team-select v-on:update:val="meta_data.team = $event" :readonly="team_id == '' " placeholder="Select a team"></team-select>
-              <input type="text" class="hide" name="team" v-model="meta_data.team" v-validate="'required'" />
+              <input type="text" class="d-none" name="team" v-model="meta_data.team" v-validate="'required'" />
               <span class="text-danger">{{ errors.first('team') }}</span>
             </div>
           </div>
@@ -54,7 +54,7 @@
             <div class="col-lg-12 form-group required-before">
               <ftdatepicker class="col-lg-12 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" placeholder="Select a deadline"
               />
-              <input type="text" class="hide" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
+              <input type="text" class="d-none" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
               <span class="text-danger">{{ errors.first('deadline') }}</span>
             </div>
           </div>
@@ -64,8 +64,8 @@
               <span class="bid-range-icon-inner" v-b-tooltip.hover placement="topleft" title="Bid level reflects your appetite to spend on reports and is for reference only. Scouts determine their own rates, so the actual rate you pay is up to you and the Scout.">
                 <icon name='question-circle'></icon>
               </span>
-              <input type="text" class="hide" name="price" v-model="price.value" v-validate="'required'" />
-              <input type="text" class="hide" name="price" v-model="price.max" v-validate="'required'" />
+              <input type="text" class="d-none" name="price" v-model="price.value" v-validate="'required'" />
+              <input type="text" class="d-none" name="price" v-model="price.max" v-validate="'required'" />
             </div>
             <span class="text-danger row">{{ errors.first('price') }}</span>
 

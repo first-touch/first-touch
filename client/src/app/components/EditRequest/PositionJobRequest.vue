@@ -28,7 +28,7 @@
             <div class="col-lg-6 form-group required-before">
               <playerposition class="col-lg-12 select-positions" :value="meta_data.playing_position" v-on:update:val="meta_data.playing_position = $event"
                 placeholder="Select position(s)" />
-              <input type="text" class="hide" name="position" v-model="meta_data.playing_position" v-validate="'required'" />
+              <input type="text" class="d-none" name="position" v-model="meta_data.playing_position" v-validate="'required'" />
               <span class="text-danger">{{ errors.first('position') }}</span>
             </div>
             <div class="col-lg-6 form-group">
@@ -103,7 +103,7 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
         <div class="row col-lg-12 form-group required-before">
           <ftdatepicker class="col-lg-12 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" placeholder="Select a deadline"
           />
-          <input type="text" class="hide" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
+          <input type="text" class="d-none" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
           <span class="text-danger">{{ errors.first('deadline') }}</span>
         </div>
         <div class="col-lg-12 form-group row required-before">
@@ -112,8 +112,8 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
             <span class="bid-range-icon-inner" v-b-tooltip.hover placement="topleft" title="Bid level reflects your appetite to spend on reports and is for reference only. Scouts determine their own rates, so the actual rate you pay is up to you and the Scout.">
               <icon name='question-circle'></icon>
             </span>
-            <input type="text" class="hide" name="price" v-model="price.value" v-validate="'required'" />
-            <input type="text" class="hide" name="price" v-model="price.max" v-validate="'required'" />
+            <input type="text" class="d-none" name="price" v-model="price.value" v-validate="'required'" />
+            <input type="text" class="d-none" name="price" v-model="price.max" v-validate="'required'" />
           </div>
           <span class="text-danger row">{{ errors.first('price') }}</span>
         </div>

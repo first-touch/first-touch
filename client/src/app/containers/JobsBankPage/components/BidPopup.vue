@@ -6,7 +6,7 @@
     </span>
     <span class="field row">
       <currencyinput :value="price" :currency="request.price.currency" />
-      <input type="text" class="hide" name="price" v-model="price.value" v-validate="`required|between:${request.price.value},${request.price.max}` "
+      <input type="text" class="d-none" name="price" v-model="price.value" v-validate="`required|between:${request.price.value},${request.price.max}` "
       />
       <span class="text-danger">{{ errors.first('price') }}</span>
 
@@ -18,14 +18,6 @@
     </span>
   </div>
 </template>
-
-<style lang="scss" scoped>
-  @import '~stylesheets/variables';
-  @import '~stylesheets/form';
-  .hide {
-    display: none;
-  }
-</style>
 
 <script>
   import CurrencyInput from 'app/components/Input/CurrencyInput';
