@@ -277,7 +277,9 @@
           });
         }
         submitRequest.then(res => {
-          console.log(res);
+          const msg = "Bid placed successfully."
+          this.flash(msg, "success", { timeout: 3000, important: true });
+          this.unsetBidingOn()
         })
       },
       makeBid(request) {
@@ -286,6 +288,7 @@
       },
       unsetBidingOn() {
         this.bidingOn = null;
+        this.isBidding = false;
       }
     }
   };

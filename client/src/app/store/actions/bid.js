@@ -1,29 +1,21 @@
 import * as ActionTypes from '../../constants/ActionTypes';
+import RequestBidService from 'app/services/RequestBidService';
 
 export const clearBid = store => store.commit(ActionTypes.BID_CLEAR);
-export const createBid = (store, bids) => {
-  store.commit(ActionTypes.BID_LOADING);
-  return fetch('/api/v1/request_bids', {
-    method: 'POST',
-    headers: {
-      Authorization: store.state.token.value,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(bids)
-  }).then(res => {
-    if (res.ok) {
-      return res.json().then(r => {
-        store.commit(ActionTypes.BID_SUCCESS, r);
-        return r;
-      });
-    } else {
-      return res.json().then(r => {
-        store.commit(ActionTypes.BID_FAILURE, r);
-        return r;
-      });
-    }
+export const createBid = (store, bid) => {
+  return new Promise((resolve, reject) => {
+    store.commit(ActionTypes.BID_LOADING);
+    RequestBidService.create(bid).then(res => {
+      store.commit(ActionTypes.BID_SUCCESS, res);
+      resolve(res);
+    }).catch(err => {
+      console.log(err);
+      store.commit(ActionTypes.BID_FAILURE, err);
+      reject(err);
+    });
   });
 };
+
 export const updateBid = (store, { requestId, id, price }) => {
   store.commit(ActionTypes.BID_LOADING);
   return fetch('/api/v1/bids/' + id, {
