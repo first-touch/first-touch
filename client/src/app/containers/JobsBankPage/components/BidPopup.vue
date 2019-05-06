@@ -4,13 +4,17 @@
       <p>Bid between {{ minBidValue }} and {{ maxBidValue }} {{ bidCurrency }}</p>
     </span>
     <span class="field row">
-      <currencyinput :value="price" :currency="bidCurrency" />
-      <input type="text" class="hide" name="price" v-model="price.value" v-validate="`required|between:${minBidValue},${maxBidValue}` "/>
-      <span class="validate-errors">{{ errors.first('price') }}</span>
+      <currencyinput v-model="price" :currency="price.currency" />
+      <input type="text" class="d-none" name="price" v-model="price.value" v-validate="`required|between:${minBidValue},${maxBidValue}` "/>
+      <span class="text-danger">{{ errors.first('price') }}</span>
     </span>
-    <span class="footer-modal buttons-inner col-md-12 row">
-      <button class="ft-button ft-button-success ft-button-right" v-if="!this.currentBid" @click="submit">Send Bid</button>
-      <button class="ft-button ft-button-success ft-button-right" v-if="this.currentBid" @click="submit">Update Bid</button>
+    <span class="footer-modal row">
+      <div class="col" v-if="!this.currentBid">
+        <button class="btn btn-primary float-right" @click="submit">Send Bid</button>
+      </div>
+      <div class="col" v-if="this.currentBid">
+        <button class="btn btn-primary float-right" @click="submit">Update Bid</button>
+      </div>
     </span>
   </div>
 </template>

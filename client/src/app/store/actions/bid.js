@@ -3,7 +3,7 @@ import * as ActionTypes from '../../constants/ActionTypes';
 export const clearBid = store => store.commit(ActionTypes.BID_CLEAR);
 export const createBid = (store, bids) => {
   store.commit(ActionTypes.BID_LOADING);
-  fetch('/api/v1/bids', {
+  return fetch('/api/v1/request_bids', {
     method: 'POST',
     headers: {
       Authorization: store.state.token.value,
@@ -11,16 +11,22 @@ export const createBid = (store, bids) => {
     },
     body: JSON.stringify(bids)
   }).then(res => {
-    if (res.status >= 200 && res.status < 400) {
-      res.json().then(r => store.commit(ActionTypes.BID_SUCCESS, r));
+    if (res.ok) {
+      return res.json().then(r => {
+        store.commit(ActionTypes.BID_SUCCESS, r);
+        return r;
+      });
     } else {
-      res.json().then(r => store.commit(ActionTypes.BID_FAILURE, r));
+      return res.json().then(r => {
+        store.commit(ActionTypes.BID_FAILURE, r);
+        return r;
+      });
     }
   });
 };
 export const updateBid = (store, { requestId, id, price }) => {
   store.commit(ActionTypes.BID_LOADING);
-  fetch('/api/v1/bids/' + id, {
+  return fetch('/api/v1/bids/' + id, {
     method: 'PUT',
     headers: {
       Authorization: store.state.token.value,
@@ -29,9 +35,9 @@ export const updateBid = (store, { requestId, id, price }) => {
     body: JSON.stringify({ requestId, price })
   }).then(res => {
     if (res.status >= 200 && res.status < 400) {
-      res.json().then(r => store.commit(ActionTypes.BID_SUCCESS, r));
+      return res.json().then(r => store.commit(ActionTypes.BID_SUCCESS, r));
     } else {
-      res.json().then(r => store.commit(ActionTypes.BID_FAILURE, r));
+      return res.json().then(r => store.commit(ActionTypes.BID_FAILURE, r));
     }
   });
 };

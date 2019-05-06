@@ -8,7 +8,7 @@ module Api
       end
 
       def create
-        result = ::V1::Request::AddBids.(params: params, current_user: current_user, current_club: @current_club)
+        result = ::V1::Request::AddBids.(params: params, current_user: current_user)
         response = FirstTouch::Endpoint.(result, ::V1::RequestBid::Representer::Full)
         render json: response[:data], status: response[:status]
       end

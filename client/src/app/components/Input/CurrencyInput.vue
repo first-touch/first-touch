@@ -2,10 +2,10 @@
   <div class="input-group mb-2" v-on:blur="blur()">
     <div class="input-group-prepend">
       <select :disabled="lock" v-if="!currency" class="input-group-text" v-model="model.currency">
-        <option value="USD" data-placeholder="0.00">USD</option>
-        <option value="EUR" data-placeholder="0.00">EUR</option>
-        <option value="GBP" data-placeholder="0.00">GBP</option>
-        <option value="SGD" data-placeholder="0.00">SGD</option>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <option value="SGD">SGD</option>
       </select>
       <span class="input-group-text" v-if="currency">{{currency}}</span>
     </div>

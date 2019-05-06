@@ -69,13 +69,14 @@ Rails.application.routes.draw do
       get 'reports/list/purchased', controller: :reports, action: :purchased
       resources :orders
       resources :requests
-      resources :bids
       resources :stripe, only: %i[index create]
       delete 'stripe', controller: :stripe, action: :destroy
       put 'stripe', controller: :stripe, action: :update
 
       get 'stripe/required', controller: :stripe, action: :required
-      resources :request_bids, only: [:index]
+      # TODO: Bids should be request bids
+      resources :bids, except: %i[index create]
+      resources :request_bids, only: %i[index create]
       get 'requests/bids/:request_id', controller: :bids, action: :requestbids
       post 'requests/bids/:request_id', controller: :bids, action: :acceptbid
       resource :club_stripes, :path => "club/stripe"

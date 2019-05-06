@@ -264,18 +264,21 @@
         };
       },
       submitBid(price) {
-        debugger
+        let submitRequest;
         if (this.bidForRequest) {
-          this.updateBid({
+          submitRequest = this.updateBid({
             id: bidForRequest.id,
             price
           });
         } else {
-          this.createBid({
+          submitRequest = this.createBid({
             request_id: this.bidingOn.id,
             price
           });
         }
+        submitRequest.then(res => {
+          console.log(res);
+        })
       },
       makeBid(request) {
         this.bidingOn = request;
