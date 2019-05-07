@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-2">
           <div class="row">
-            <h6 class="list-title col-lg-12">Request Count</h6>
+            <h6 class="list-title col-lg-12">Assignment Count</h6>
             <h1 class="list-count col-lg-12">{{listRequest.length}}</h1>
             <fieldset class="col-lg-12 col-md-12 buttons-inner" v-if="nbFilters">
               <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
@@ -14,15 +14,11 @@
         <form @submit.prevent="search" class="col-lg-10">
           <div class="form-row">
             <div class="form-group col-md-4">
-              <label for="filter-by-id">Filter by Report Id</label>
-              <input id="filter-by-id" class="form-control" v-model="params.id" type="number" min="0" placeholder="Report id" @keyup="search()" />
-            </div>
-            <div class="form-group col-md-4">
-              <label for="filter-by-requestor">Requested By</label>
+              <label for="filter-by-requestor">Requestor</label>
               <input id="filter-by-requestor" class="form-control" v-model="params.club" type="text" placeholder="Requested by" @keyup="search()" />
             </div>
             <div class="form-group col-md-4">
-              <label for="filter-by-requestor">Request Type</label>
+              <label for="filter-by-requestor">Type</label>
               <v-select v-model="requestType" :options="options.type_request" :searchable="false" :clearable="false" />
             </div>
           </div>
@@ -41,30 +37,16 @@
     <table class="table table-striped table-responsive-lg">
       <thead>
         <tr>
-          <th scope="col" class="sortable" @click="setOrder('id')">
-            Request ID
-            <span v-if="params.order == 'id'">
-              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
-              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
-            </span>
-          </th>
           <th scope="col" class="sortable" @click="setOrder('requested_by')">
-            Requested By
+            Requestor
             <span v-if="params.order == 'requested_by'">
               <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
               <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
             </span>
           </th>
           <th scope="col" class="sortable" @click="setOrder('request_type')">
-            Job Request Type
+            Type
             <span v-if="params.order == 'request_type'">
-              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
-              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
-            </span>
-          </th>
-          <th scope="col" class="sortable" @click="setOrder('price_range')">
-            Price Range
-            <span v-if="params.order == 'price_range'">
               <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
               <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
             </span>
@@ -147,7 +129,7 @@
           deadline_to: ''
         },
         requestType: {
-          label: 'Request Type',
+          label: 'Type',
           value: ''
         },
         vselect_sort: {
@@ -156,7 +138,7 @@
         },
         options: {
           type_request: [{
-              label: 'Request Type',
+              label: 'Type',
               value: ''
             },
             {

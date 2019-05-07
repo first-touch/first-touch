@@ -1,9 +1,7 @@
 <template>
   <tr>
-    <td> {{request.id | requestId(request.type_request) }} </td>
     <td> TBA </td>
-    <td> {{ request.type_request }} job request </td>
-    <td> {{request.price.value}} to {{request.price.max}} {{request.price.currency | currency}} </td>
+    <td> {{ request.type_request }} </td>
     <td> {{request.deadline | moment}} </td>
     <td> {{country}} </td>
     <td>

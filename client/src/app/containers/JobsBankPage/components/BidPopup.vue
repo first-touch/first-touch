@@ -1,11 +1,11 @@
 <template>
   <div class="bid col-lg-12">
     <span class="field row">
-      <p>Bid between {{ minBidValue }} and {{ maxBidValue }} {{ bidCurrency }}</p>
+      <p>The club is willing to pay up to {{ maxBidValue }} {{ bidCurrency }}</p>
     </span>
     <span class="field row">
       <currencyinput v-model="price" :currency="price.currency" />
-      <input type="text" class="d-none" name="price" v-model="price.value" v-validate="`required|between:${minBidValue},${maxBidValue}` "/>
+      <input type="text" class="d-none" name="price" v-model="price.value" v-validate="`required|max_value:${maxBidValue}` "/>
       <span class="text-danger">{{ errors.first('price') }}</span>
     </span>
     <span class="footer-modal row">
