@@ -21,14 +21,9 @@
               <label for="filter-by-requestor">Type</label>
               <v-select v-model="requestType" :options="options.type_request" :searchable="false" :clearable="false" />
             </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <label for="filter-by-daterange">Filter by Date</label>
-              <div id="filter-by-daterange" class="input-group">
-                <ft-datepicker class="form-control" ref="deadlineFrom" :value="params.deadline_from" :clearable="false" placeholder="Deadline from" v-on:update:val="params.deadline_from = $event; search()" />
-                <ft-datepicker class="form-control" ref="deadlineTo" :value="params.deadline_to" :clearable="false" placeholder="Deadline to" v-on:update:val="params.deadline_to = $event; search()" />
-              </div>
+            <div class="form-group col-md-4">
+              <label for="filter-by-date">Filter by Date</label>
+              <ft-datepicker id="filter-by-date" class="form-control" ref="deadlineTo" :value="params.deadline_to" :clearable="false" placeholder="Deadline to" v-on:update:val="params.deadline_to = $event; search()" />
             </div>
           </div>
         </form>
@@ -52,7 +47,7 @@
             </span>
           </th>
           <th scope="col" class="sortable" @click="setOrder('deadline')">
-            Deadline
+            Submission Deadline
             <span v-if="params.order == 'deadline'">
               <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
               <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
@@ -125,7 +120,6 @@
           club: '',
           status: '',
           type_request: '',
-          deadline_from: '',
           deadline_to: ''
         },
         requestType: {
@@ -230,7 +224,6 @@
           order: '',
           status: '',
           type_request: '',
-          deadline_from: '',
           deadline_to: '',
           club: ''
         }

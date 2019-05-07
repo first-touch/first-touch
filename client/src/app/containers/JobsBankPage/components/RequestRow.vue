@@ -52,6 +52,9 @@
       requestType() {
         return this.request.type_request;
       }
+    },
+    mounted() {
+      debugger;
     }
   };
 </script>

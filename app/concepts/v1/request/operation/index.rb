@@ -9,7 +9,8 @@ module V1
       private
 
       def find_model!(options, **)
-        options[:models] = ::Request.all
+        # TODO: Only send request bids that belong to the current user
+        options[:models] = ::Request.all.includes(:request_bids)
         # if options[:current_user].is_a?(::User)
         #   if options[:current_user].scout?
         #     stripe_ft = options[:current_user].stripe_ft
