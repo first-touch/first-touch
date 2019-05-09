@@ -1,3 +1,4 @@
+// TODO: Consider deleting this file moving forward
 <template>
   <div class="item-container">
     <div class="ft-item" v-if="!mode || mode == 'widget'">

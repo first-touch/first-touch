@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <sidebar /> -->
     <div class="container-fluid">
       <div class="ft-page">
         <div class="widget-request ft-search-widget">
@@ -95,9 +94,9 @@
                 </tr>
               </thead>
               <tbody>
-                <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :createReport="createReport"
+                <!-- <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :createReport="createReport"
                   mode="table" :cancelReport="cancelReportPopup" :widgets="['id','club','type','bid_price','bid_status','deadline','action']"
-                />
+                /> -->
               </tbody>
             </table>
           </timeline-item>
@@ -180,7 +179,7 @@
     ASYNC_SUCCESS
   } from 'app/constants/AsyncStatus';
   import Datepicker from 'vuejs-datepicker';
-  import RequestItem from 'app/components/RequestItem';
+  // import RequestItem from 'app/components/RequestItem';
   import TimelineItem from 'app/components/TimelineItem';
   import vSelect from 'vue-select';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
@@ -191,15 +190,13 @@
   import 'vue-awesome/icons/arrow-alt-circle-up';
   import 'vue-awesome/icons/arrow-alt-circle-down';
   import Icon from 'vue-awesome/components/Icon';
-  import NotificationSidebar from 'app/components/NotificationSidebar';
 
   export default {
     name: 'JobBidPage',
     components: {
-      sidebar: NotificationSidebar,
       datepicker: Datepicker,
-      'timeline-item': TimelineItem,
-      request: RequestItem,
+      TimelineItem,
+      // request: RequestItem,
       vselect: vSelect,
       icon: Icon,
       ftdatepicker: FtDatepicker,

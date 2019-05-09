@@ -9,18 +9,19 @@
             <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
           </fieldset>
         </div>
-        <form @submit.prevent="search" class="col-lg-10 row">
-          <fieldset class="col-lg-3">
-            <input type="number" min="0" class="col-lg-12 form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()" />
-          </fieldset>
-          <fieldset class="col-lg-3">
-            <input type="text" class="col-lg-12 form-control" v-model="params.club" placeholder="Requested by" @keyup="search()" />
-          </fieldset>
-          <fieldset class="col-lg-4">
-            <v-select v-model="requestType" :options="options.type_request" :searchable="false" :clearable="false" />
-          </fieldset>
+        <form @submit.prevent="search" class="col-lg-10">
           <div class="form-row">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-4">
+              <label for="filter-by-requestor"> Requestor </label>
+              <input id="filter-by-requestor" type="text" class="form-control" v-model="params.club" placeholder="Requested by" @keyup="search()" />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="filter-by-requestor">Type</label>
+              <v-select v-model="requestType" :options="options.type_request" :searchable="false" :clearable="false" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-8">
               <label for="filter-by-daterange">Filter by Date</label>
               <div id="filter-by-daterange" class="input-group">
                 <ft-datepicker class="form-control" ref="deadlineFrom" :model="params.deadline_from" :value="params.deadline_from" :clearable="false" placeholder="Deadline from" v-on:update:val="params.deadline_from = $event; search()" />
@@ -31,16 +32,9 @@
         </form>
       </div>
     </div>
-    <table class="table table-search table-responsive-lg">
+    <table class="table table-striped table-responsive-lg">
       <thead>
         <tr>
-          <th scope="col" class="sortable" @click="setOrder('id')">
-            Job Request ID
-            <span v-if="params.order == 'id'">
-              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
-              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
-            </span>
-          </th>
           <th scope="col" class="sortable" @click="setOrder('club')">
             Requested by
             <span v-if="params.order == 'club'">
@@ -89,7 +83,7 @@
   import VIcon from 'vue-awesome/components/Icon';
 
   export default {
-    name: 'JobRequestWidget',
+    name: 'BidsList',
     components: {
       TimelineItem,
       VSelect,

@@ -2,6 +2,7 @@ module V1
   module RequestBid
     class Index < FirstTouch::Operation
       step :setup_models!
+      step :apply_filters!
       # failure :model_not_found!, fail_fast: true
       # step :filters!
       # step :orders!
@@ -22,6 +23,11 @@ module V1
         # options[:models] = models
         # options['model.class'] = ::RequestBid
         # models
+      end
+
+      def apply_filters!(options, params:, models:, **)
+        options[:models] = models.where(request_id: params[:request_id]) if params[:request_id]
+        true
       end
 
       def filters!(options, params:, **)
