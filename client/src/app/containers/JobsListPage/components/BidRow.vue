@@ -1,6 +1,5 @@
 <template>
   <tr>
-    <td> {{request.id | requestId(request.type_request) }} </td>
     <td> TBA </td>
     <td> {{ request.type_request }} job request </td>
     <td> {{ request.deadline | moment }} </td>

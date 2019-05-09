@@ -5,10 +5,9 @@
     <td> {{request.deadline | moment}} </td>
     <td> {{country}} </td>
     <td>
-      <button class="btn btn-primary" @click="viewRequestDetails">View request details</button>
+      <button class="btn btn-primary" @click="viewRequestDetails">View details</button>
       <button class="btn btn-primary" @click="makeBid">Make a Bid</button>
-      <button class="btn btn-primary" @click="updateBid">Update your Bid</button>
-      <button class="btn btn-primary" @click="cancelBid">Cancel Bid</button>
+      <button class="btn btn-primary" @click="updateBid">Update Bid</button>
     </td>
   </tr>
 </template>
@@ -29,9 +28,6 @@
       updateBid() {
         console.log('update bid');
       },
-      cancelBid() {
-        console.log('cancel bid');
-      }
     },
     computed: {
       country() {
