@@ -7,23 +7,8 @@ module V1
         property :id
         property :club
         property :player, representer: ::V1::User::Representer::PublicProfile
-
-        property :team, getter: lambda { |represented:, **|
-          if represented.team
-            ::V1::Team::Representer::Simplified.new(
-              represented.team
-            )
-          end
-        }
-
-        property :league, getter: lambda { |represented:, **|
-          if represented.league
-            ::V1::Competition::Representer::Simplified.new(
-              represented.league
-            )
-          end
-        }
-
+        property :team, representer: ::V1::Team::Representer::Simplified
+        property :league, representer: ::V1::Competition::Representer::Simplified
         property :meta_data
         property :price
         property :type_request

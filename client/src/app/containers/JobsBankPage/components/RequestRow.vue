@@ -34,10 +34,8 @@
     },
     computed: {
       country() {
-        if (this.isPlayerRequest) {
-          return this.request.team.competitions[0].nation;
-        } else if (this.isTeamRequest) {
-          return this.request.team.competitions[0].nation;
+        if (this.isPlayerRequest || this.isTeamRequest) {
+          return `${this.request.league.name}, ${this.request.league.nation}`;
         } else {
           return 'N/A';
         }

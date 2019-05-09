@@ -54,7 +54,7 @@
             </span>
           </th>
           <th scope="col" class="sortable" @click="setOrder('country')">
-            Country
+            League
             <span v-if="params.order == 'country'">
               <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
               <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
