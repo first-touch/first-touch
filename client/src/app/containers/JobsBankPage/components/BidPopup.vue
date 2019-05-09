@@ -36,12 +36,14 @@
         }
       }
     },
-    mounted() {
-      this.prepare();
-    },
     watch: {
       request() {
-        this.prepare();
+        if (this.request == null) return;
+        this.price.currency = this.request.price.currency;
+      },
+      currentBid() {
+        if (this.currentBid == null) return;
+        this.price = this.currentBid.price;
       }
     },
     computed: {
@@ -82,15 +84,6 @@
             // this.newBid(this.request, this.price)
           }
         });
-      },
-      prepare() {
-        if (this.request) {
-          this.price.value = this.request.price.value;
-          if (this.request.price.currency)
-            this.price.currency = this.request.price.currency;
-          if (this.currentBid)
-            this.price = this.currentBid.price;
-        }
       }
     }
   };

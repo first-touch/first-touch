@@ -75,11 +75,11 @@
 
     <ft-dialog :visible.sync="isBidding" v-on:closed="unsetBidingOn">
       <div slot="title">
-        <span v-if="bidForRequest != null">Edit bid</span>
+        <span v-if="requestBid != null">Edit bid</span>
         <span v-else>Make your bid</span>
       </div>
       <bid-popup :request="bidingOn"
-                 :currentBid="bidForRequest"
+                 :currentBid="requestBid"
                  v-on:submit-bid="submitBid"
       />
     </ft-dialog>
@@ -112,6 +112,7 @@
     data() {
       return {
         bidingOn: null,
+        requestBid: null,
         isBidding: false,
         params: {
           id: '',
@@ -124,10 +125,6 @@
         },
         requestType: {
           label: 'Type',
-          value: ''
-        },
-        vselect_sort: {
-          label: 'Sort by',
           value: ''
         },
         options: {
@@ -201,9 +198,6 @@
             i = params[key] != '' ? i + 1 : i;
         }
         return i;
-      },
-      bidForRequest() {
-        return this.bidingOn && this.bidingOn.user_bid;
       }
     },
     watch: {
@@ -233,16 +227,12 @@
           label: 'Request Type',
           value: ''
         };
-        this.vselect_sort = {
-          label: 'Sort by',
-          value: ''
-        };
       },
       submitBid(price) {
         let submitRequest;
-        if (this.bidForRequest) {
+        if (this.requestBid) {
           submitRequest = this.updateBid({
-            id: bidForRequest.id,
+            id: this.requestBid.id,
             price
           });
         } else {
@@ -257,8 +247,9 @@
           this.unsetBidingOn()
         })
       },
-      makeBid(request) {
+      makeBid({request, bid}) {
         this.bidingOn = request;
+        this.requestBid = bid;
         this.isBidding = true;
       },
       unsetBidingOn() {
