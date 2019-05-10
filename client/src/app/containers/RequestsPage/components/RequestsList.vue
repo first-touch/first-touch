@@ -176,14 +176,6 @@
             i = params[key] != '' ? i + 1 : i;
         }
         return i;
-      },
-      url() {
-        var params = this.params;
-        return Object.keys(params)
-          .map(function (k) {
-            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-          })
-          .join('&');
       }
     },
     watch: {
@@ -223,7 +215,7 @@
         this.timer = setTimeout(this.fetchRequests, 500);
       },
       async fetchRequests() {
-        const requests = await this.getRequests(this.url);
+        const requests = await this.getRequests(this.params);
         this.requestList = requests;
       },
       setOrder(order) {

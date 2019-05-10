@@ -58,7 +58,8 @@ export const getRequest = (store, id) => {
 
 export const getRequests = async (store, params) => {
   try {
-    const res = await apiRequest(store, 'GET', `/api/v1/requests?${$.param(params)}`);
+    const queryParams = $.param(params);
+    const res = await apiRequest(store, 'GET', `/api/v1/requests?${queryParams}`);
 
     const data = await res.json();
     if (res.status === 200) {
