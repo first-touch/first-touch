@@ -1,26 +1,34 @@
 module V1
   module RequestBid
     class Index < FirstTouch::Operation
-      step :find_model!
-      failure :model_not_found!, fail_fast: true
-      step :filters!
-      step :orders!
+      step :setup_models!
+      step :apply_filters!
+      # failure :model_not_found!, fail_fast: true
+      # step :filters!
+      # step :orders!
 
       private
 
-      def find_model!(options, params:,  current_club:, current_user:, **)
-        requestId = params[:request_id]
-        models = nil
-        if options[:current_user].scout?
-          models = ::RequestBid.find_by(request_id: requestId, user: options[:current_user])
-        #elsif !current_club.nil?
-        #  models = current_club.requests.find(requestId).request_bids.where status: 'pending'
-        elsif !current_user.nil?
-          models = current_user.requests.find(requestId).request_bids.where status: 'pending'
-        end
-        options[:models] = models
-        options['model.class'] = ::RequestBid
-        models
+
+      def setup_models!(options, current_user:, **)
+        options[:models] = current_user.request_bids
+        # requestId = params[:request_id]
+        # models = nil
+        # if options[:current_user].scout?
+        #   models = ::RequestBid.find_by(request_id: requestId, user: options[:current_user])
+        # #elsif !current_club.nil?
+        # #  models = current_club.requests.find(requestId).request_bids.where status: 'pending'
+        # elsif !current_user.nil?
+        #   models = current_user.requests.find(requestId).request_bids.where status: 'pending'
+        # end
+        # options[:models] = models
+        # options['model.class'] = ::RequestBid
+        # models
+      end
+
+      def apply_filters!(options, params:, models:, **)
+        options[:models] = models.where(request_id: params[:request_id]) if params[:request_id]
+        true
       end
 
       def filters!(options, params:, **)

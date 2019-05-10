@@ -1,27 +1,27 @@
 <template>
-  <div class="autonumeric input-group" v-on:blur="blur()">
-    <div class="input-group-append">
+  <div class="input-group mb-2" v-on:blur="blur()">
+    <div class="input-group-prepend">
       <select :disabled="lock" v-if="!currency" class="input-group-text" v-model="model.currency">
-        <option value="USD" data-placeholder="0.00">USD</option>
-        <option value="EUR" data-placeholder="0.00">EUR</option>
-        <option value="GBP" data-placeholder="0.00">GBP</option>
-        <option value="SGD" data-placeholder="0.00">SGD</option>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <option value="SGD">SGD</option>
       </select>
-      <span class="currency" v-if="currency">{{currency}}</span>
+      <span class="input-group-text" v-if="currency">{{currency}}</span>
     </div>
-    <autonumeric @blur.native="blurMin()" :disabled="lock" class="form-control " :class="max ? 'col-lg-5 input-1 ': ''" v-model="model.value"
+    <v-autonumeric @blur.native="blurMin()" :disabled="lock" class="form-control " :class="max ? 'col-lg-5 input-1 ': ''" v-model="model.value"
       :placeholder="placeholder" :options="{
          digitGroupSeparator: ',',
          decimalCharacter: '.',
          decimalCharacterAlternative: '.',
          roundingMethod: 'U',
          minimumValue: '0'
-     }"></autonumeric>
+     }"></v-autonumeric>
     <slot />
     <span v-if="max && !noHyphen" class="separator col-lg-1 col-md-1">-</span>
     <span v-if="max && noHyphen" class="separator col-lg-1 col-md-1"></span>
 
-    <autonumeric @blur.native="blurMax()" :disabled="lock" class="form-control input-2 col-lg-5" v-if="max" v-model="model.max" ref="max"
+    <v-autonumeric @blur.native="blurMax()" :disabled="lock" class="form-control input-2 col-lg-5" v-if="max" v-model="model.max" ref="max"
       :placeholder="placeholder1" :options="{
          digitGroupSeparator: ',',
          decimalCharacter: '.',
@@ -36,12 +36,12 @@
 </template>
 
 <script>
-  import VueAutonumeric from 'vue-autonumeric/src/components/VueAutonumeric';
+  import VAutonumeric from 'vue-autonumeric/src/components/VueAutonumeric';
 
   export default {
     name: 'CurrencyInput',
     components: {
-      autonumeric: VueAutonumeric
+      VAutonumeric
     },
     props: ['value', 'max', 'currency', 'lock', 'placeholder', 'placeholder1', 'maxValue', 'noHyphen'],
     data() {
@@ -70,7 +70,7 @@
     watch: {
       model: {
         handler: function (val, oldVal) {
-            this.$emit('update');
+          this.$emit('update');
         },
         deep: true
       },

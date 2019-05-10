@@ -1,3 +1,4 @@
+// TODO: Consider deleting this file moving forward
 <template>
   <div class="item-container">
     <div class="ft-item" v-if="!mode || mode == 'widget'">
@@ -18,8 +19,7 @@
               </span>
               <span class="field row" v-if="!own">
                 <span class="col-lg-4">Requested by:</span>
-                <span class="col-lg-6"> {{request.club.name}}
-                </span>
+                <span class="col-lg-6"> TBA </span>
               </span>
 
               <span class="field row">
@@ -77,8 +77,7 @@
               </span>
               <span class="field row" v-if="!own">
                 <span class="col-lg-4">Requested by:</span>
-                <span class="col-lg-6"> {{request.club.name}}
-                </span>
+                <span class="col-lg-6"> TBA </span>
               </span>
               <span class="field row">
                 <span class="col-lg-4">Job request type</span>
@@ -130,8 +129,7 @@
               </span>
               <span class="field row" v-if="!own">
                 <span class="col-lg-4">Requested by:</span>
-                <span class="col-lg-6"> {{request.club.name}}
-                </span>
+                <span class="col-lg-6"> TBA </span>
               </span>
               <span class="field row">
                 <span class="col-lg-4">Job request type</span>
@@ -154,7 +152,7 @@
                   {{request.meta_data.search.league}}
                 </span>
                 <span class="col-lg-6" v-if="request.team">
-                  <span class="list" v-for="cp in request.team.competitions.competitions" :key="cp.id">{{cp.name}} </span>
+                  <span class="list" v-for="cp in request.team.competitions.competitions" :key="cp.id"> TBA </span>
                 </span>
               </span>
               <span class="field row">
@@ -200,7 +198,7 @@
           <router-link v-if="bidStatus == 'C' && position && createReport" :to="{ name: 'scoutJobsList' }" class="ft-action">
             <button class="btn-round">See jobs list</button>
           </router-link>
-          <router-link v-if="!own && !position && addBid && bidStatus == 'U'" :to="{ name: 'ScoutJobBidPage' }" class="ft-action">
+          <router-link v-if="!own && !position && addBid && bidStatus == 'U'" :to="{ name: 'scoutJobBidPage' }" class="ft-action">
             <button class="btn-round">See my bids</button>
           </router-link>
           <a v-if="!own && !haveBid && position && addBid" @click="addBid(request)" class="ft-action">
@@ -232,7 +230,7 @@
           {{ request.created_at | moment }}
         </span>
         <span v-if="field == 'club'" class="contents">
-          {{ request.club.name }}
+          TBA
         </span>
         <span v-if="field == 'deadline'" class="contents">
           {{ request.deadline | moment }}

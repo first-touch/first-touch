@@ -30,9 +30,10 @@
             Scouting
           </a>
           <div class="dropdown-menu" aria-labelledby="scouting-dropdown">
+            <router-link class="dropdown-item" :to="{ name: 'scoutJobsBank'}">Find Work</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutJobsList'}">My Assignments</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutReports'}">My Reports</router-link>
             <router-link class="dropdown-item" :to="{ name: 'scoutReportCreate'}">Create Report</router-link>
-            <router-link class="dropdown-item" :to="{ name: 'scoutJobsList'}">Jobs List</router-link>
-            <router-link class="dropdown-item" :to="{ name: 'scoutJobsBank'}">Jobs Bank</router-link>
             <router-link class="dropdown-item" :to="{ name: 'scoutPaymentDetailPage'}">Payment Details</router-link>
           </div>
         </li>
@@ -45,9 +46,6 @@
             <router-link class="dropdown-item" to="/">Directors of Football</router-link>
             <router-link class="dropdown-item" to="/">Agents</router-link>
           </div>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/about">About</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="#" @click.native="handleLogout">Logout</router-link>

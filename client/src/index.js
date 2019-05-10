@@ -36,6 +36,7 @@ import EditReportPage from 'app/containers/EditReportPage';
 import ReportPage from 'app/containers/ReportPage';
 import MarketPlacePage from 'app/containers/MarketPlacePage';
 import JobsListPage from 'app/containers/JobsListPage';
+import MyReportsPage from 'app/containers/MyReportsPage';
 import MyPurchasedReportsPage from 'app/containers/MyPurchasedReportsPage';
 import JobRequestPage from 'app/containers/JobRequestPage';
 import RequestPage from 'app/containers/RequestPage';
@@ -47,8 +48,6 @@ import JobsBankPage from 'app/containers/JobsBankPage';
 import JobBidPage from 'app/containers/JobBidPage';
 
 import RequestsPage from 'app/containers/RequestsPage';
-
-
 import store from 'app/store';
 import VueAutosize from 'vue-autosize';
 import VueRouter from 'vue-router';
@@ -58,7 +57,7 @@ import VueFormWizard from 'vue-form-wizard';
 import VueFlashMessage from 'vue-flash-message';
 import Clipboard from 'v-clipboard';
 
-import FtComponents from "app/components/FtComponents"
+import FtComponents from 'app/components/FtComponents';
 
 // TODO: Customize with FT color scheme and remove this
 require('vue-flash-message/dist/vue-flash-message.min.css');
@@ -186,6 +185,11 @@ export const router = new VueRouter({
           name: 'scoutReportEdit'
         },
         {
+          path: '/scouting/my-reports',
+          component: MyReportsPage,
+          name: 'scoutReports'
+        },
+        {
           path: '/scouting/jobs/list',
           component: JobsListPage,
           name: 'scoutJobsList'
@@ -193,7 +197,7 @@ export const router = new VueRouter({
         {
           path: '/scouting/jobs/pending',
           component: JobBidPage,
-          name: 'ScoutJobBidPage'
+          name: 'scoutJobBidPage'
         },
         {
           path: '/scouting/jobs/bank',
@@ -234,7 +238,7 @@ export const router = new VueRouter({
           path: ':id/bids',
           component: RequestBidsPage,
           name: 'requestBids'
-        },
+        }
       ]
     },
     {

@@ -1,0 +1,7 @@
+th.sortable {
+  cursor: pointer;
+
+  &:hover {
+    color: $main-header-color;
+  }
+}

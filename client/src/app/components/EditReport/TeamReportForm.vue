@@ -4,7 +4,7 @@
       <div class="form-group row report-name">
         <div class="col-lg-12 required-before">
           <input type="text" class="col-lg-12 form-control" v-model="headline" placeholder="Report name" name="name" v-validate="'required'">
-          <span class="validate-errors">{{ errors.first('name') }}</span>
+          <span class="text-danger">{{ errors.first('name') }}</span>
         </div>
       </div>
       <div class="form-group" v-if="!request && hasBankAccount">
@@ -141,7 +141,7 @@
           }
         }).catch(() => {});
         setTimeout(function () {
-          var error = $('.validate-errors:not(:empty):first')
+          var error = $('.text-danger:not(:empty):first')
           var y = error.offset() ? error.offset().top - 200 : 0;
           $('html, body').animate({
               scrollTop: y

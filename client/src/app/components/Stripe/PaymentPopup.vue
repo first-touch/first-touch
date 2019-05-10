@@ -6,7 +6,7 @@
         <slot name="header"></slot>
         <vselect v-model="cardSelect" v-if="!newCard" @input="cardToken = cardSelect.value" :options="cards" :searchable="false"
         />
-        <div class="card-input" :class="!newCard? 'hide' : ''">
+        <div class="card-input" :class="!newCard? 'd-none' : ''">
           <div ref="card" class="form-control m-field-input"></div>
         </div>
         <div class="error" v-if="serverErrors">
@@ -17,7 +17,7 @@
         <div class="img-container col-lg-4">
           <img class="img-fluid" src="/images/stripe/secure-stripe-payment-logo.png" alt="Stripe secure" />
         </div>
-        <div :class="!newCard? 'hide' : ''" class="col-lg-12">
+        <div :class="!newCard? 'd-none' : ''" class="col-lg-12">
           <label class="col-lg-12 ftcheckbox-inner col-form-label" :class="saveCard? 'active' : ''">
             <span class="title" v-if="saveCard"> Save the card for further use</span>
             <span class="not" v-if="!saveCard"> Do not save the card for further use</span>
@@ -61,10 +61,6 @@
     iframe {
       height: auto;
     }
-  }
-
-  .hide {
-    display: none;
   }
 </style>
 

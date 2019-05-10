@@ -12,7 +12,6 @@ module Api
       end
 
       def show
-        puts @current_user.inspect
         render json: ::V1::User::Representer::SelfProfile.new(@current_user)
       end
 
@@ -34,7 +33,6 @@ module Api
 
       def avatar
         result = ::V1::User::Update.(params: params, current_user: current_user)
-        puts result.inspect
         response = FirstTouch::Endpoint.(result, ::V1::User::Representer::SelfProfile)
         render json: response[:data], status: response[:status]
       end

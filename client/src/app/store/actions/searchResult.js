@@ -25,8 +25,8 @@ export const getSearchResultsTeams = (store, { searchTerm, league = '' }) => {
   }).then(res => {
     if (res.status === 200) {
       return res.json().then(searchResults => {
-        store.commit(types.SEARCH_RESULT_SUCCESS, searchResults);
-        return searchResults;
+        store.commit(types.SEARCH_RESULT_SUCCESS, searchResults.teams);
+        return searchResults.teams;
       });
     } else {
       res.json().then(console.log);
@@ -42,8 +42,8 @@ export const getSearchResultsCompetition = (store, { searchTerm }) => {
   }).then(res => {
     if (res.status === 200) {
       return res.json().then(searchResults => {
-        store.commit(types.SEARCH_RESULT_SUCCESS, searchResults);
-        return searchResults;
+        store.commit(types.SEARCH_RESULT_SUCCESS, searchResults.competitions);
+        return searchResults.competitions;
       });
     } else {
       return [];

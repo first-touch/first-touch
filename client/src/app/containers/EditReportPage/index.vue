@@ -1,12 +1,11 @@
 <template>
   <div>
-    <!-- <sidebar /> -->
     <div class="container-fluid">
       <div class="ft-page ">
         <div v-if="request">
           <h4 class="spaced-title upper-cased main-color">Request</h4>
           <timeline-item>
-            <request :key="request.id" :request="request" :viewSummary="viewSummary" class="onlyone"></request>
+            <!-- <request :key="request.id" :request="request" :viewSummary="viewSummary" class="onlyone"></request> -->
             <b-modal id="metaModal" class="ft-modal" size="lg" ref="metaModal">
               <div>
                 <playerrequestpopup v-if="request.type_request == 'player' " :request="request" :closeAction="closeAction" />
@@ -223,7 +222,6 @@
     ASYNC_SUCCESS,
     ASYNC_LOADING
   } from 'app/constants/AsyncStatus';
-  import NotificationSidebar from 'app/components/NotificationSidebar';
   import PlayerReportForm from 'app/components/EditReport/PlayerReportForm';
   import TeamReportForm from 'app/components/EditReport/TeamReportForm';
   import 'vue-awesome/icons/edit';
@@ -235,14 +233,13 @@
   import ActionsItem from 'app/components/ActionsItem';
   import PlayerResume from 'app/components/ProfileResume/PlayerResume';
   import ClubResume from 'app/components/ProfileResume/ClubResume';
-  import RequestItem from 'app/components/RequestItem';
+  // import RequestItem from 'app/components/RequestItem';
   import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
   import PositionRequestPopup from 'app/components/RequestPopup/PositionRequestPopup';
   import TeamRequestPopup from 'app/components/RequestPopup/TeamRequestPopup';
   export default {
     name: 'EditReportPage',
     components: {
-      sidebar: NotificationSidebar,
       playerreportform: PlayerReportForm,
       teamreportform: TeamReportForm,
       icon: Icon,
@@ -250,7 +247,7 @@
       'timeline-item': TimelineItem,
       clubresume: ClubResume,
       playerresume: PlayerResume,
-      request: RequestItem,
+      // request: RequestItem,
       teamrequestpopup: TeamRequestPopup,
       playerrequestpopup: PlayerRequestPopup,
       positionrequestpopup: PositionRequestPopup

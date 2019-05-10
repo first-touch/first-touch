@@ -6,11 +6,8 @@ module V1
 
         property :id
         property :status
-        property :user, getter: lambda { |represented:, **|
-          ::V1::PersonalProfile::Representer::Simplified.new(
-            represented.user.personal_profile
-          )
-        }
+        property :user, representer: ::V1::User::Representer::PublicProfile
+        property :request, representer: ::V1::Request::Representer::Full
         property :price
         property :created_at
       end

@@ -11,7 +11,7 @@ import searchResultReducer, { searchResult } from './searchResult';
 import noteReducer, { note } from './note';
 import reportReducer, { report, searchReport, filesUpload } from './report';
 import orderReducer, { order, refund } from './order';
-import requestReducer, { request, searchRequest } from './request';
+import requestReducer, { request, searchRequest, searchRequestBids } from './request';
 import bidReducer, { bid, bids } from './bid';
 import stripeReducer, { stripe, stripeFtouch, stripeRequiredFields, stripeDelete, stripeJs } from './stripe';
 import stripePaymentReducer, { stripePayment } from './stripePayment';
@@ -38,6 +38,7 @@ export const initialState = {
   order,
   request,
   searchRequest,
+  searchRequestBids,
   bid,
   bids,
   stripe,

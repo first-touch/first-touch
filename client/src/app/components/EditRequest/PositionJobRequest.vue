@@ -21,15 +21,15 @@
           <div class="row col-lg-12 required-before">
             <textarea class="col-lg-12 form-control" v-model="meta_data.headline" name="headline" v-validate="'required|min:10'" v-autosize="meta_data.headline"
               placeholder="Give your assignment a descriptive and eye-catching headline" />
-            <span class="validate-errors">{{ errors.first('headline') }}</span>
+            <span class="text-danger">{{ errors.first('headline') }}</span>
           </div>
           <h5 class="row request-section">Playing Criteria</h5>
           <div class="row">
             <div class="col-lg-6 form-group required-before">
               <playerposition class="col-lg-12 select-positions" :value="meta_data.playing_position" v-on:update:val="meta_data.playing_position = $event"
                 placeholder="Select position(s)" />
-              <input type="text" class="hide" name="position" v-model="meta_data.playing_position" v-validate="'required'" />
-              <span class="validate-errors">{{ errors.first('position') }}</span>
+              <input type="text" class="d-none" name="position" v-model="meta_data.playing_position" v-validate="'required'" />
+              <span class="text-danger">{{ errors.first('position') }}</span>
             </div>
             <div class="col-lg-6 form-group">
               <preferredfoot class="col-lg-12" :value="meta_data.preferred_foot" v-on:update:val="meta_data.preferred_foot = $event" placeholder="Select preferred foot…"
@@ -47,10 +47,10 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
         </div>
         <h5 class="row request-section">Non-Playing Criteria</h5>
         <div class="col-md-12">
-          <ul class="validate-errors-list">
-            <li class="validate-errors">{{ errors.first('age') }}</li>
-            <li class="validate-errors">{{ errors.first('height') }}</li>
-            <li class="validate-errors">{{ errors.first('weight') }}</li>
+          <ul class="text-danger-list">
+            <li class="text-danger">{{ errors.first('age') }}</li>
+            <li class="text-danger">{{ errors.first('height') }}</li>
+            <li class="text-danger">{{ errors.first('weight') }}</li>
           </ul>
           <div class="row">
             <div class="col-lg-4 row form-group">
@@ -103,8 +103,8 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
         <div class="row col-lg-12 form-group required-before">
           <ftdatepicker class="col-lg-12 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" placeholder="Select a deadline"
           />
-          <input type="text" class="hide" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
-          <span class="validate-errors">{{ errors.first('deadline') }}</span>
+          <input type="text" class="d-none" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
+          <span class="text-danger">{{ errors.first('deadline') }}</span>
         </div>
         <div class="col-lg-12 form-group row required-before">
           <div class="row col-lg-12 bid-range">
@@ -112,10 +112,10 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
             <span class="bid-range-icon-inner" v-b-tooltip.hover placement="topleft" title="Bid level reflects your appetite to spend on reports and is for reference only. Scouts determine their own rates, so the actual rate you pay is up to you and the Scout.">
               <icon name='question-circle'></icon>
             </span>
-            <input type="text" class="hide" name="price" v-model="price.value" v-validate="'required'" />
-            <input type="text" class="hide" name="price" v-model="price.max" v-validate="'required'" />
+            <input type="text" class="d-none" name="price" v-model="price.value" v-validate="'required'" />
+            <input type="text" class="d-none" name="price" v-model="price.max" v-validate="'required'" />
           </div>
-          <span class="validate-errors row">{{ errors.first('price') }}</span>
+          <span class="text-danger row">{{ errors.first('price') }}</span>
         </div>
         <h5 class="row section request-section">Other Details</h5>
         <div class="row">

@@ -15,7 +15,7 @@
       <header class="ft-dialog__header">
         <div class="ft-dialog__title">
           <slot name="title" >
-            <span >{{ title }}</span>
+            <span>{{ title }}</span>
           </slot>
         </div>
         <button
@@ -23,7 +23,7 @@
           class="btn-close"
           @click="handleClose"
           aria-label="Close">
-        <v-icon name="regular/times-circle" scale="1"/>
+          <v-icon name="regular/times-circle" scale="1"/>
         </button>
       </header>
       <section class="ft-dialog__body">
@@ -198,7 +198,7 @@
     max-height: calc(100vh - 150px);
     overflow-y: auto;
 
-    .ft-dialog__body--iner{
+    .ft-dialog__body-inner{
       padding: 20px 10px;
     }
 

@@ -1,39 +1,37 @@
 <template>
-<div class="wrapper">
-  <div class="header-wrapper">
-    <div class="header">
-      <div class="img-container">
-        <img class="img-fluid" src="https://static1.squarespace.com/static/543ecc8de4b0a4f2ae6d3908/t/543efb25e4b0faf717591299/1413413671222/"/>
+  <div class="wrapper">
+    <div class="header-wrapper">
+      <div class="header">
+        <div class="img-container">
+          <img class="img-fluid" src="https://static1.squarespace.com/static/543ecc8de4b0a4f2ae6d3908/t/543efb25e4b0faf717591299/1413413671222/"/>
+        </div>
+        <div class="info">
+          <h2 class="title"> {{ note.name }} </h2>
+          <p class="extra">
+            <span class="author">{{ note.author }}</span> {{ note.updated_at }}
+          </p>
+        </div>
       </div>
-      <div class="info">
-        <h2 class="title"> {{ note.name }} </h2>
-        <p class="extra">
-          <span class="author">{{ note.author }}</span> {{ note.updated_at }}
-        </p>
+      <div class="widget">
+        <button class="form-control a-bar-button reverse" @click="toggleView">View</button>
       </div>
     </div>
-    <div class="widget">
-      <button class="form-control a-bar-button reverse" @click="toggleView" >View</button>
-    </div>
-  </div>
-  <div class="body" v-if="show">
-    <p class="content">
-      {{ note.content }}
-    </p>
-    <div class="widget row">
-      <div class="col-lg-4">
-        <button class="form-control a-bar-button">Edit</button>
-      </div>
-      <div class="col-lg-4">
-        <button class="form-control a-bar-button reverse">Delete</button>
-      </div>
-      <div class="col-lg-4">
-        <button class="form-control a-bar-button reverse">Close</button>
+    <div class="body" v-if="show">
+      <p class="content">
+        {{ note.content }}
+      </p>
+      <div class="widget row">
+        <div class="col-lg-4">
+          <button class="form-control a-bar-button">Edit</button>
+        </div>
+        <div class="col-lg-4">
+          <button class="form-control a-bar-button reverse">Delete</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
+
 <style lang="scss" scoped>
 @import '~stylesheets/variables';
 .wrapper {
@@ -89,6 +87,7 @@
   }
 }
 </style>
+
 <script>
 export default {
   name: 'Note',

@@ -7,12 +7,6 @@ module Api
         render json: response[:data], status: response[:status]
       end
 
-      def create
-        result = ::V1::Request::AddBids.(params: params, current_user: current_user, current_club: @current_club)
-        response = FirstTouch::Endpoint.(result, ::V1::RequestBid::Representer::Full)
-        render json: response[:data], status: response[:status]
-      end
-
       def destroy
         result = ::V1::RequestBid::Cancel.(params: params, current_user: current_user, current_club: @current_club)
         response = FirstTouch::Endpoint.(result, ::V1::Order::Representer::Empty)

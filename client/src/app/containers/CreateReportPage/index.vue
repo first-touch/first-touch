@@ -34,13 +34,12 @@
     ASYNC_SUCCESS,
     ASYNC_LOADING
   } from 'app/constants/AsyncStatus';
-  import NotificationSidebar from 'app/components/NotificationSidebar';
+
   import PlayerReportForm from 'app/components/EditReport/PlayerReportForm';
   import TeamReportForm from 'app/components/EditReport/TeamReportForm';
   import Status from './components/Status';
   import BasicForm from './components/BasicForm';
   import TimelineItem from 'app/components/TimelineItem';
-  import RequestItem from 'app/components/RequestItem';
   import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
   import PositionRequestPopup from 'app/components/RequestPopup/PositionRequestPopup';
   import TeamRequestPopup from 'app/components/RequestPopup/TeamRequestPopup';
@@ -51,13 +50,11 @@
     name: 'CreateReportPage',
     props: ['request'],
     components: {
-      sidebar: NotificationSidebar,
       playerreportform: PlayerReportForm,
       teamreportform: TeamReportForm,
       status: Status,
       basicform: BasicForm,
-      'timeline-item': TimelineItem,
-      request: RequestItem,
+      TimelineItem,
       teamrequestpopup: TeamRequestPopup,
       playerrequestpopup: PlayerRequestPopup,
       positionrequestpopup: PositionRequestPopup,

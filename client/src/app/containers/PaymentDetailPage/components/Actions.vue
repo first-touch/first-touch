@@ -6,7 +6,7 @@
       </span>
       <a>Add New Payment Method</a>
     </button>
-    <button class="timeline-widget-button" :class="hasStripe? 'button-right' : ''" @click="PersonalInformation">
+    <button class="timeline-widget-button" :class="{ 'button-right': hasStripe }" @click="PersonalInformation">
       <span>
         <icon name='edit' scale="1.5"></icon>
       </span>

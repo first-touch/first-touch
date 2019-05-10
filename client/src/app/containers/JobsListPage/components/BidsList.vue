@@ -1,103 +1,71 @@
 <template>
-  <div class="widget-request ft-search-widget">
-    <h4 class="spaced-title upper-cased main-color">My Jobs List</h4>
-    <timeline-item>
-      <div class="widget-content col col-lg-12">
-        <div class="row align-items-start">
-          <div class="col-lg-2 row">
-            <h6 class="list-title col-lg-12">Request Count</h6>
-            <h1 class="list-count col-lg-12">{{listRequest.length}}</h1>
-            <fieldset class="col-lg-12 col-md-12 buttons-inner" v-if="nbFilters">
-              <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
-            </fieldset>
+  <timeline-item>
+    <div class="widget-content col col-lg-12">
+      <div class="row align-items-start">
+        <div class="col-lg-2 row">
+          <h6 class="list-title col-lg-12">Request Count</h6>
+          <h1 class="list-count col-lg-12">{{listRequest.length}}</h1>
+          <fieldset class="col-lg-12 col-md-12 buttons-inner" v-if="nbFilters">
+            <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
+          </fieldset>
+        </div>
+        <form @submit.prevent="search" class="col-lg-10">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="filter-by-requestor"> Requestor </label>
+              <input id="filter-by-requestor" type="text" class="form-control" v-model="params.club" placeholder="Requested by" @keyup="search()" />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="filter-by-requestor">Type</label>
+              <v-select v-model="requestType" :options="options.type_request" :searchable="false" :clearable="false" />
+            </div>
           </div>
-          <form @submit.prevent="search" class="col-lg-10 row">
-            <fieldset class="col-lg-3">
-              <input type="number" min="0" class="col-lg-12 form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()"
-              />
-            </fieldset>
-            <fieldset class="col-lg-3">
-              <input type="text" class="col-lg-12 form-control" v-model="params.club" placeholder="Requested by" @keyup="search()" />
-            </fieldset>
-            <fieldset class="col-lg-4">
-              <vselect v-model="vselect_type" class="form-control m-field-input" :options="options.type_request" :class="params.type_request == '' ? 'empty' : '' " :searchable="false" clearable="false" />
-            </fieldset>
-            <fieldset class="col-lg-12 calendar-filter">
-              <ftdatepicker class="col-lg-5 col form-control" :model="params.deadline_from" ref="deadlineFrom" :value="params.deadline_from"
-                :clearable="false" placeholder="Deadline from" v-on:update:val="params.deadline_from = $event; search()" />
-              <p class="col-lg-1 col">-</p>
-              <ftdatepicker class="col-lg-5 col form-control" :model="params.deadline_to" ref="deadlineTo" :clearable="false" placeholder="Deadline to"
-                v-on:update:val="params.deadline_to = $event; search()" />
-            </fieldset>
-          </form>
-        </div>
+          <div class="form-row">
+            <div class="form-group col-md-8">
+              <label for="filter-by-daterange">Filter by Date</label>
+              <div id="filter-by-daterange" class="input-group">
+                <ft-datepicker class="form-control" ref="deadlineFrom" :model="params.deadline_from" :value="params.deadline_from" :clearable="false" placeholder="Deadline from" v-on:update:val="params.deadline_from = $event; search()" />
+                <ft-datepicker class="form-control" ref="deadlineTo" :model="params.deadline_to" :clearable="false" placeholder="Deadline to" v-on:update:val="params.deadline_to = $event; search()" />
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
-      <b-modal id="metaModal" size="lg" ref="metaModal">
-        <div v-if="!cancel && selected">
-          <playerrequestpopup v-if="selected.type_request == 'player' " :request="selected" :closeAction="closeAction" />
-          <teamrequestpopup v-if="selected.type_request == 'team' " :request="selected" :closeAction="closeAction" />
-          <positionrequestpopup v-if="selected.type_request == 'position' " :request="selected" :closeAction="closeAction" />
-        </div>
-        <div v-if="cancel && selected">
-          <cancelrequestpopup :request="selected" :closeAction="closeAction" :cancelReport="cancelReport" :filesUpload="filesUpload"
-            :uploadFiles="uploadFiles" :bid="bid" />
-        </div>
-      </b-modal>
-
-      <b-modal id="metaModal" size="sm" ref="infoModal">
-        <div>
-          <h4>Bid has been Canceled</h4>
-        </div>
-      </b-modal>
-      <table class="table table-search table-responsive-lg">
-        <thead>
-          <tr>
-            <th scope="col" class="shortable" @click="setOrder('id')">
-              <p>Job Request ID</p>
-              <span v-if="params.order == 'id'">
-                <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-              </span>
-            </th>
-            <th scope="col" class="shortable" @click="setOrder('club')">
-              <p>Requested by </p>
-              <span v-if="params.order == 'club'">
-                <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-              </span>
-            </th>
-            <th scope="col" class="shortable" @click="setOrder('type_request')">
-              <p>Job Request Type </p>
-              <span v-if="params.order == 'type_request'">
-                <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-              </span>
-            </th>
-            <th scope="col" class="shortable" @click="setOrder('deadline')">
-              <p>Submission Deadline</p>
-              <span v-if="params.order == 'deadline'">
-                <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
-                <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
-              </span>
-            </th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :createReport="createReport"
-            mode="table" :cancelReport="cancelReportPopup" :widgets="['id','club','type','deadline','action']" />
-        </tbody>
-      </table>
-    </timeline-item>
-  </div>
+    </div>
+    <table class="table table-striped table-responsive-lg">
+      <thead>
+        <tr>
+          <th scope="col" class="sortable" @click="setOrder('club')">
+            Requested by
+            <span v-if="params.order == 'club'">
+              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+            </span>
+          </th>
+          <th scope="col" class="sortable" @click="setOrder('type_request')">
+            Job Request Type
+            <span v-if="params.order == 'type_request'">
+              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+            </span>
+          </th>
+          <th scope="col" class="sortable" @click="setOrder('deadline')">
+            Submission Deadline
+            <span v-if="params.order == 'deadline'">
+              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+            </span>
+          </th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <bid-row v-for="request in listRequest" :key="request.id" :request="request" />
+      </tbody>
+    </table>
+  </timeline-item>
 </template>
 
-
-<style lang="scss">
-  @import '~stylesheets/variables';
-  @import '~stylesheets/modal';
-  @import '~stylesheets/search';
-</style>
 <script>
   import {
     mapGetters,
@@ -106,32 +74,22 @@
   import {
     ASYNC_SUCCESS
   } from 'app/constants/AsyncStatus';
-  import Datepicker from 'vuejs-datepicker';
-  import RequestItem from 'app/components/RequestItem';
   import TimelineItem from 'app/components/TimelineItem';
-  import vSelect from 'vue-select';
+  import BidRow from './BidRow';
+  import VSelect from 'vue-select';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
-  import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
-  import PositionRequestPopup from 'app/components/RequestPopup/PositionRequestPopup';
-  import TeamRequestPopup from 'app/components/RequestPopup/TeamRequestPopup';
-  import CancelRequestPopup from 'app/components/RequestPopup/CancelRequestPopup';
   import 'vue-awesome/icons/arrow-alt-circle-up';
   import 'vue-awesome/icons/arrow-alt-circle-down';
-  import Icon from 'vue-awesome/components/Icon';
+  import VIcon from 'vue-awesome/components/Icon';
 
   export default {
-    name: 'JobRequestWidget',
+    name: 'BidsList',
     components: {
-      datepicker: Datepicker,
-      'timeline-item': TimelineItem,
-      request: RequestItem,
-      vselect: vSelect,
-      icon: Icon,
-      ftdatepicker: FtDatepicker,
-      teamrequestpopup: TeamRequestPopup,
-      playerrequestpopup: PlayerRequestPopup,
-      positionrequestpopup: PositionRequestPopup,
-      cancelrequestpopup: CancelRequestPopup
+      TimelineItem,
+      VSelect,
+      VIcon,
+      FtDatepicker,
+      BidRow
     },
     data() {
       return {
@@ -147,9 +105,9 @@
           deadline_to: '',
           order_asc: true,
           type_request: '',
-          bids_status: 'accepted,joblist'
+          bids_status: 'accepted'
         },
-        vselect_type: {
+        requestType: {
           label: 'Request Type',
           value: ''
         },
@@ -179,7 +137,7 @@
       this.search();
     },
     computed: {
-      ...mapGetters(['searchRequest', 'bid', 'filesUpload']),
+      ...mapGetters(['searchRequestBids']),
       nbFilters() {
         var i = 0;
         var params = this.params;
@@ -190,29 +148,16 @@
         return i;
       },
       listRequest() {
-        if (this.searchRequest.status === ASYNC_SUCCESS) {
-          return this.searchRequest.value.request;
+        if (this.searchRequestBids.status === ASYNC_SUCCESS) {
+          let requestBids = this.searchRequestBids.value;
+          return _.map(requestBids, "request");
         }
         return [];
       },
-      url() {
-        var params = this.params;
-        params.deadline_from = this.$options.filters.railsdate(params.deadline_from)
-        params.deadline_to = this.$options.filters.railsdate(params.deadline_to)
-        return Object.keys(params)
-          .map(function (k) {
-            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-          })
-          .join('&');
-      }
     },
     watch: {
-      vselect_type: function () {
-        this.params.type_request = this.vselect_type.value;
-        this.search();
-      },
-      vselect_status: function () {
-        this.params.status = this.vselect_status.value;
+      requestType: function () {
+        this.params.type_request = this.requestType.value;
         this.search();
       },
       bid() {
@@ -220,7 +165,7 @@
       }
     },
     methods: {
-      ...mapActions(['getRequests', 'createBid', 'clearBid', 'updateBid', 'cancelBid', 'uploadFiles']),
+      ...mapActions(['getRequestBids']),
       clearsFilter() {
         this.params = {
           id: '',
@@ -230,11 +175,11 @@
           deadline_to: '',
           order_asc: true,
           type_request: '',
-          bids_status: 'accepted,joblist'
+          bids_status: ['accepted']
         };
         this.$refs.deadlineFrom.model = null;
         this.$refs.deadlineTo.model = null;
-        this.vselect_type = {
+        this.requestType = {
           label: 'Request Type',
           value: ''
         };
@@ -243,38 +188,9 @@
         var self = this
         clearTimeout(this.timer);
         this.timer = setTimeout(function () {
-          self.getRequests(self.url);
+          const params = _.pickBy(self.params, (value) => { return value != ''; })
+          self.getRequestBids(params);
         }, 500);
-      },
-      cancelReportPopup(request) {
-        this.wantbid = false;
-        this.cancel = true;
-        this.selected = request;
-        this.$refs.metaModal.show();
-      },
-      cancelReport(data) {
-        var obj = {
-          id: this.selected.id,
-          params: data
-        };
-        this.cancelBid(obj);
-      },
-      createReport(request) {
-        this.$router.push({
-          name: 'scoutReportCreate',
-          params: {
-            request: request
-          }
-        });
-      },
-      closeAction(request) {
-        this.$refs.metaModal.hide();
-        this.cancel = false;
-      },
-      viewSummary(request) {
-        this.wantbid = false;
-        this.selected = request;
-        this.$refs.metaModal.show();
       },
       setOrder(order) {
         if (this.params.order == order)

@@ -1,118 +1,119 @@
 <template>
-  <div class="widget-request ft-search-widget">
-    <h4 class="spaced-title upper-cased main-color">Jobs Bank</h4>
-    <timeline-item>
-      <div class="widget-content col col-lg-12">
-        <div class="row align-items-start">
-          <div class="col-lg-2 row">
-            <h6 class="list-title col-lg-12">Request Count</h6>
+  <timeline-item>
+    <div class="widget-reports ft-search-widget col col-lg-12">
+      <div class="row">
+        <div class="col-lg-2">
+          <div class="row">
+            <h6 class="list-title col-lg-12">Assignment Count</h6>
             <h1 class="list-count col-lg-12">{{listRequest.length}}</h1>
             <fieldset class="col-lg-12 col-md-12 buttons-inner" v-if="nbFilters">
               <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
             </fieldset>
           </div>
-          <form @submit.prevent="search" class="col-lg-10 row">
-            <fieldset class="col-lg-4">
-              <input type="number" min="0" class="col-lg-12 form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()"
-              />
-            </fieldset>
-            <fieldset class="col-lg-4">
-              <input type="text" class="col-lg-12 form-control" v-model="params.club" placeholder="Requested by" @keyup="search()" />
-            </fieldset>
-            <fieldset class="col-lg-3">
-              <vselect v-model="vselect_type" class="form-control m-field-input" :options="options.type_request" :class="params.type_request == '' ? 'empty' : '' "
-                :searchable="false" clearable="false" />
-            </fieldset>
-            <fieldset class="col-lg-12 calendar-filter">
-              <ftdatepicker class="col col-lg-5 form-control" ref="deadlineFrom" :value="params.deadline_from" :clearable="false" placeholder="Deadline from"
-                v-on:update:val="params.deadline_from = $event; search()" />
-              <p class="col col-lg-1">-</p>
-              <ftdatepicker class="col col-lg-5 form-control" ref="deadlineTo" :value="params.deadline_to" :clearable="false" placeholder="Deadline to"
-                v-on:update:val="params.deadline_to = $event; search()" />
-            </fieldset>
-          </form>
         </div>
-      </div>
-      <b-modal id="metaModal" :size="bid? 'md' : 'lg'" ref="metaModal" :class="bid? 'successModal' : 'formModal' ">
-        <div v-if="!bid">
-          <playerrequestpopup v-if="selected && selected.type_request == 'player' " :request="selected" :closeAction="closeAction"
-            :bid="wantbid" :newBid="newBid" />
-          <teamrequestpopup v-if="selected && selected.type_request == 'team' " :request="selected" :closeAction="closeAction" :bid="wantbid"
-            :newBid="newBid" />
-          <positionrequestpopup v-if="selected && selected.type_request == 'position' " :request="selected" :closeAction="closeAction"
-            :bid="wantbid" :newBid="newBid" />
-        </div>
-        <div v-if="bid" class="divSuccess row">
-          <div class="col-lg-12">
-            <h3 class="success" v-if="bidPosition">Added to job !</h3>
-            <h3 class="success" v-if="!bidPosition">Bid submitted !</h3>
+        <form @submit.prevent="search" class="col-lg-10">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="filter-by-requestor">Requestor</label>
+              <input id="filter-by-requestor" class="form-control" v-model="params.club" type="text" placeholder="Requested by" @keyup="search()" />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="filter-by-requestor">Type</label>
+              <v-select v-model="requestType" :options="options.type_request" :searchable="false" :clearable="false" />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="filter-by-date">Filter by Date</label>
+              <ft-datepicker id="filter-by-date" class="form-control" ref="deadlineTo" :value="params.deadline_to" :clearable="false" placeholder="Deadline to" v-on:update:val="params.deadline_to = $event; search()" />
+            </div>
           </div>
-          <div class="col-lg-12 buttons-inner">
-            <button class="ft-button-right ft-button-success" @click="closeAction()">✓ Close</button>
-          </div>
-        </div>
-      </b-modal>
-      <b-modal id="metaModal" size="md" ref="bidModal" :class="bid? 'successModal' : 'formModal' ">
-        <bidpopup v-if="selected" :request="selected" :newBid="newBid" :close="closeBid" />
-      </b-modal>
-      <div v-if="!hasBankAccount" @click="toPaymentPage">
-        <p class="error">Click here to add a bank account and start to browse job request</p>
+        </form>
       </div>
-      <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :addBid="addBid"
-        :viewReport="viewReport" :createReport="createReport" />
-    </timeline-item>
-  </div>
+    </div>
+    <table class="table table-striped table-responsive-lg">
+      <thead>
+        <tr>
+          <th scope="col" class="sortable" @click="setOrder('requested_by')">
+            Requestor
+            <span v-if="params.order == 'requested_by'">
+              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+            </span>
+          </th>
+          <th scope="col" class="sortable" @click="setOrder('request_type')">
+            Type
+            <span v-if="params.order == 'request_type'">
+              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+            </span>
+          </th>
+          <th scope="col" class="sortable" @click="setOrder('deadline')">
+            Submission Deadline
+            <span v-if="params.order == 'deadline'">
+              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+            </span>
+          </th>
+          <th scope="col" class="sortable" @click="setOrder('country')">
+            League
+            <span v-if="params.order == 'country'">
+              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+            </span>
+          </th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <request-item v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :addBid="addBid" :viewReport="viewReport" :createReport="createReport" /> -->
+        <request-row v-for="request in listRequest"
+                     :key="request.id"
+                     :request="request"
+                     v-on:make-bid="makeBid"
+        />
+      </tbody>
+    </table>
+
+    <ft-dialog :visible.sync="isBidding" v-on:closed="unsetBidingOn">
+      <div slot="title">
+        <span v-if="requestBid != null">Edit bid</span>
+        <span v-else>Make your bid</span>
+      </div>
+      <bid-popup :request="bidingOn"
+                 :currentBid="requestBid"
+                 v-on:submit-bid="submitBid"
+      />
+    </ft-dialog>
+  </timeline-item>
 </template>
 
-
-<style lang="scss">
-  @import '~stylesheets/variables';
-  @import '~stylesheets/modal';
-  @import '~stylesheets/search';
-  @import '~stylesheets/form';
-</style>
-<style lang="scss" scoped>
-  .error {
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-</style>
 <script>
-  import Datepicker from 'vuejs-datepicker';
   import RequestItem from 'app/components/RequestItem';
   import TimelineItem from 'app/components/TimelineItem';
   import {
     ASYNC_SUCCESS,
     ASYNC_LOADING
   } from 'app/constants/AsyncStatus';
-  import vSelect from 'vue-select';
+  import VSelect from 'vue-select';
   import BidPopup from './BidPopup';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
-  import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
-  import PositionRequestPopup from 'app/components/RequestPopup/PositionRequestPopup';
-  import TeamRequestPopup from 'app/components/RequestPopup//TeamRequestPopup';
+  import RequestRow from './RequestRow';
 
   export default {
     name: 'JobRequestWidget',
     props: ['listRequest', 'getRequests', 'update', 'bid', 'createBid', 'updateBid', 'clearBid', 'user'],
     components: {
-      datepicker: Datepicker,
-      'timeline-item': TimelineItem,
-      bidpopup: BidPopup,
-      request: RequestItem,
-      vselect: vSelect,
-      ftdatepicker: FtDatepicker,
-      teamrequestpopup: TeamRequestPopup,
-      playerrequestpopup: PlayerRequestPopup,
-      positionrequestpopup: PositionRequestPopup
+      TimelineItem,
+      VSelect,
+      FtDatepicker,
+      RequestRow,
+      RequestItem,
+      BidPopup
     },
     data() {
       return {
-        selected: null,
-        bidPosition: false,
-        wantbid: false,
+        bidingOn: null,
+        requestBid: null,
+        isBidding: false,
         params: {
           id: '',
           created_date: '',
@@ -120,20 +121,15 @@
           club: '',
           status: '',
           type_request: '',
-          deadline_from: '',
           deadline_to: ''
         },
-        vselect_type: {
-          label: 'Request Type',
-          value: ''
-        },
-        vselect_sort: {
-          label: 'Sort by',
+        requestType: {
+          label: 'Type',
           value: ''
         },
         options: {
           type_request: [{
-              label: 'Request Type',
+              label: 'Type',
               value: ''
             },
             {
@@ -202,49 +198,18 @@
             i = params[key] != '' ? i + 1 : i;
         }
         return i;
-      },
-      hasBankAccount() {
-        if (this.user.status === ASYNC_SUCCESS) {
-          return (this.user.value.has_bank_account)
-        }
-        if (this.user.status === ASYNC_LOADING) {
-          return true;
-        }
-        return false;
-      },
-      url() {
-        var params = this.params;
-        params.deadline_from = this.$options.filters.railsdate(params.deadline_from)
-        params.deadline_to = this.$options.filters.railsdate(params.deadline_to)
-        return Object.keys(params)
-          .map(function (k) {
-            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-          })
-          .join('&');
       }
     },
     watch: {
-      vselect_type: function () {
-        this.params.type_request = this.vselect_type.value;
+      requestType: function () {
+        this.params.type_request = this.requestType.value;
         this.search();
-      },
-      vselect_status: function () {
-        this.params.status = this.vselect_status.value;
-        this.search();
-      },
-      bid() {
-        if (this.bid)
-          this.$refs.metaModal.show();
       }
     },
     methods: {
       search() {
-        this.getRequests(this.url);
-      },
-      toPaymentPage() {
-        this.$router.push({
-          name: 'scoutPaymentDetailPage',
-        });
+        const params = _.pickBy(self.params, (value) => { return value != ''; })
+        this.getRequests(params);
       },
       clearsFilter() {
         this.params = {
@@ -253,79 +218,43 @@
           order: '',
           status: '',
           type_request: '',
-          deadline_from: '',
           deadline_to: '',
           club: ''
         }
         this.$refs.deadlineFrom.model = null;
         this.$refs.deadlineTo.model = null;
-        this.vselect_type = {
+        this.requestType = {
           label: 'Request Type',
           value: ''
         };
-        this.vselect_sort = {
-          label: 'Sort by',
-          value: ''
-        };
       },
-      newBid(request, price) {
-        if (request.bid_status) {
-          this.updateBid({
-            requestId: request.id,
-            id: request.request_bids.id,
+      submitBid(price) {
+        let submitRequest;
+        if (this.requestBid) {
+          submitRequest = this.updateBid({
+            id: this.requestBid.id,
             price
           });
         } else {
-          this.createBid({
-            id: request.id,
+          submitRequest = this.createBid({
+            request_id: this.bidingOn.id,
             price
           });
         }
+        submitRequest.then(res => {
+          const msg = "Bid placed successfully."
+          this.flash(msg, "success", { timeout: 3000, important: true });
+          this.unsetBidingOn()
+        })
       },
-      closeAction(request) {
-        this.$refs.metaModal.hide();
-        this.wantbid = false;
-        this.selected = null;
-        this.bidPosition = false;
-        this.clearBid();
-        this.search();
+      makeBid({request, bid}) {
+        this.bidingOn = request;
+        this.requestBid = bid;
+        this.isBidding = true;
       },
-      closeBid() {
-        this.$refs.bidModal.hide();
-      },
-      viewSummary(request) {
-        this.wantbid = false;
-        this.selected = request;
-        this.$refs.metaModal.show();
-      },
-      viewReport(id) {
-        this.$router.push({
-          name: 'scoutReportView',
-          params: {
-            id
-          }
-        });
-      },
-      createReport(request) {
-        this.$router.push({
-          name: 'scoutReportCreate',
-          params: {
-            request: request
-          }
-        });
-      },
-      addBid(request) {
-        if (request.type_request == 'position') {
-          this.createBid({
-            id: request.id,
-            price: 0
-          });
-          this.bidPosition = true;
-        } else {
-          this.wantbid = true;
-          this.selected = request;
-          this.$refs.bidModal.show();
-        }
+      unsetBidingOn() {
+        this.bidingOn = null;
+        this.isBidding = false;
       }
     }
   };

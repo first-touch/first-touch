@@ -2,8 +2,8 @@
   <div>
     <div class="a-side-indicator primary">
       <div class="arrow"></div>
-      <ft-button :on-click="openAddNoteModal" icon="ft-notes">Add Note</ft-button>
-      <ft-button :on-click="createCategory" icon="ft-notes">Create a Category</ft-button>
+      <ft-button :on-click="openAddNoteModal" icon="regular/clipboard">Add Note</ft-button>
+      <ft-button :on-click="createCategory" icon="regular/bookmark">Create a Category</ft-button>
     </div>
     <b-modal ref="newNoteModal" id="add-modal" size="lg" hide-footer hide-header centered>
       <div class="row">
@@ -87,12 +87,12 @@
 </style>
 
 <script>
-import Button from 'app/components/Button/Button';
+import FtButton from 'app/components/Button/Button';
 
 export default {
   name: 'NoteWidget',
   components: {
-    'ft-button': Button
+    FtButton
   },
   data(){
     return {

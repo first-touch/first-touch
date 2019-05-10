@@ -3,15 +3,15 @@
     <div class="form-group row report-name">
       <div class="col-lg-12 required-before">
         <input type="text" class="form-control" v-model="headline" placeholder="Report name" name="name" v-validate="'required'">
-        <span class="validate-errors">{{ errors.first('name') }}</span>
+        <span class="text-danger">{{ errors.first('name') }}</span>
       </div>
     </div>
     <div class="row form-group" v-if="priceEdit">
       <div class="col-lg-12">
         <div class="price-input">
           <currencyinput :value="price" placeholder="Price" />
-          <input type="text" class="hide" name="price" v-model="price.value" v-validate="'required'" maxValue="999999" />
-          <span class="validate-errors">{{ errors.first('price') }}</span>
+          <input type="text" class="d-none" name="price" v-model="price.value" v-validate="'required'" maxValue="999999" />
+          <span class="text-danger">{{ errors.first('price') }}</span>
           <p v-if="price.value == 0" class="info">The report will be free</p>
           <p v-if="request" class="info">Price between {{request.price.value}} and {{request.price.max}} {{request.price.currency}} </p>
         </div>
@@ -25,7 +25,7 @@
             <div class="row mt-2 mb-2">
               <div class="col-lg-4 required-before">
                 <input type="number" class="form-control" v-model.number="meta_data.player_info.age" :placeholder="agePlaceHolder" name="age" v-validate="'required|between:16,40'">
-                <span class="validate-errors">{{ errors.first('age') }}</span>
+                <span class="text-danger">{{ errors.first('age') }}</span>
               </div>
               <div class="col-lg-4 required-before">
                 <div class="input-group">
@@ -42,7 +42,7 @@
                     <span class="input-group-text" id="basic-addon2">cm</span>
                   </div>
                 </div>
-                <span class="validate-errors">{{ errors.first('height') }}</span>
+                <span class="text-danger">{{ errors.first('height') }}</span>
               </div>
               <div class="col-lg-4 required-before">
                 <div class="input-group">
@@ -59,7 +59,7 @@
                     <span class="input-group-text" id="basic-addon2">Kg</span>
                   </div>
                 </div>
-                <span class="validate-errors">{{ errors.first('weight') }}</span>
+                <span class="text-danger">{{ errors.first('weight') }}</span>
               </div>
             </div>
             <div class="row mt-2 mb-2">
@@ -332,7 +332,7 @@
       },
       scrollToTop() {
         setTimeout( () => {
-          var error = $('.validate-errors:not(:empty):first');
+          var error = $('.text-danger:not(:empty):first');
           var y = error.offset() ? error.offset().top - 200 : 0;
           $('html, body').animate({ scrollTop: y }, 200);
         }, 200);

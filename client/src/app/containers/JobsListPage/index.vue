@@ -1,41 +1,24 @@
 <template>
-  <div>
-    <div class="container-fluid">
-      <div class="ft-page">
-        <actions class="widget"/>
-          <bidslist class="widget" />
-          <reportlist class="widget" />
-      </div>
+  <div class="ft-page container">
+    <h4 class="spaced-title upper-cased main-color page-title mb-5">My Assignments</h4>
+    <div class="a-side-indicator primary">
+      <div class="arrow"></div>
+      <ft-button :linkTo="{ name: 'scoutJobsBank'}" icon="file-contract">Find Work</ft-button>
+      <ft-button :linkTo="{ name: 'scoutJobBidPage'}" icon="file-contract">My Pending Bids</ft-button>
     </div>
+    <bids-list class="mt-2 mb-2" />
   </div>
 </template>
 
-<style lang="scss" scoped>
-@import '~stylesheets/variables';
-.widget {
-  margin-bottom: 20px;
-}
-</style>
-
 <script>
-import NotificationSidebar from 'app/components/NotificationSidebar';
-import ReportList from './components/ReportsList';
 import BidsList from './components/BidsList';
-import Actions from './components/Actions';
+import FtButton from 'app/components/Button/Button';
 
 export default {
   name: 'JobList',
   components: {
-    sidebar: NotificationSidebar,
-    actions: Actions,
-    reportlist: ReportList,
-    bidslist: BidsList
-  },
-  data() {
-    return {
-      reportSelected: null
-    };
-  },
-  methods: {}
+    BidsList,
+    FtButton
+  }
 };
 </script>

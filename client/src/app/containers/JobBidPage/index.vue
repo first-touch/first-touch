@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <sidebar /> -->
     <div class="container-fluid">
       <div class="ft-page">
         <div class="widget-request ft-search-widget">
@@ -48,28 +47,28 @@
             <table class="table table-search table-responsive-lg">
               <thead>
                 <tr>
-                  <th scope="col" class="shortable" @click="setOrder('id')">
+                  <th scope="col" class="sortable" @click="setOrder('id')">
                     <p>Job Request ID</p>
                     <span v-if="params.order == 'id'">
                       <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                       <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                     </span>
                   </th>
-                  <th scope="col" class="shortable" @click="setOrder('club')">
+                  <th scope="col" class="sortable" @click="setOrder('club')">
                     <p>Requested by </p>
                     <span v-if="params.order == 'club'">
                       <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                       <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                     </span>
                   </th>
-                  <th scope="col" class="shortable" @click="setOrder('type_request')">
+                  <th scope="col" class="sortable" @click="setOrder('type_request')">
                     <p>Job Request Type </p>
                     <span v-if="params.order == 'type_request'">
                       <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                       <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                     </span>
                   </th>
-                  <th scope="col" class="shortable" @click="setOrder('bid_price')">
+                  <th scope="col" class="sortable" @click="setOrder('bid_price')">
                     <p>Bid price</p>
                     <span v-if="params.order == 'bid_price'">
                       <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
@@ -77,14 +76,14 @@
                     </span>
                   </th>
 
-                  <th scope="col" class="shortable" @click="setOrder('bid_status')">
+                  <th scope="col" class="sortable" @click="setOrder('bid_status')">
                     <p>Bid Status</p>
                     <span v-if="params.order == 'bid_status'">
                       <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
                       <icon name='arrow-alt-circle-down' v-if="params.order_asc"></icon>
                     </span>
                   </th>
-                  <th scope="col" class="shortable" @click="setOrder('deadline')">
+                  <th scope="col" class="sortable" @click="setOrder('deadline')">
                     <p>Deadline</p>
                     <span v-if="params.order == 'deadline'">
                       <icon name='arrow-alt-circle-up' v-if="!params.order_asc"></icon>
@@ -95,9 +94,9 @@
                 </tr>
               </thead>
               <tbody>
-                <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :createReport="createReport"
+                <!-- <request v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :createReport="createReport"
                   mode="table" :cancelReport="cancelReportPopup" :widgets="['id','club','type','bid_price','bid_status','deadline','action']"
-                />
+                /> -->
               </tbody>
             </table>
           </timeline-item>
@@ -111,7 +110,7 @@
 <style lang="scss">
   @import '~stylesheets/variables';
   @import '~stylesheets/modal';
-  @import '~stylesheets/search';
+
   .ft-form {
     padding: 0 !important;
   }
@@ -180,7 +179,7 @@
     ASYNC_SUCCESS
   } from 'app/constants/AsyncStatus';
   import Datepicker from 'vuejs-datepicker';
-  import RequestItem from 'app/components/RequestItem';
+  // import RequestItem from 'app/components/RequestItem';
   import TimelineItem from 'app/components/TimelineItem';
   import vSelect from 'vue-select';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
@@ -191,15 +190,13 @@
   import 'vue-awesome/icons/arrow-alt-circle-up';
   import 'vue-awesome/icons/arrow-alt-circle-down';
   import Icon from 'vue-awesome/components/Icon';
-  import NotificationSidebar from 'app/components/NotificationSidebar';
 
   export default {
     name: 'JobBidPage',
     components: {
-      sidebar: NotificationSidebar,
       datepicker: Datepicker,
-      'timeline-item': TimelineItem,
-      request: RequestItem,
+      TimelineItem,
+      // request: RequestItem,
       vselect: vSelect,
       icon: Icon,
       ftdatepicker: FtDatepicker,
