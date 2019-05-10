@@ -8,7 +8,7 @@ module V1
 
       private
 
-      def find_model!(options, current_club:, **)
+      def find_model!(options, **)
         options[:models] = ::Request.all
         #if options[:current_user].is_a?(::User)
         #  if options[:current_user].scout?
