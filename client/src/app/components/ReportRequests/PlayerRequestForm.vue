@@ -241,12 +241,10 @@
     methods: {
       ...mapActions([
         'getSearchResults',
-        'flushSearchResults',
         'getSearchResultsTeams',
         'getSearchResultsCompetition'
       ]),
       getSearchResultsRole(role, searchTerm) {
-        this.flushSearchResults();
         switch (role) {
           case 'team':
             this.getSearchResultsTeams({
