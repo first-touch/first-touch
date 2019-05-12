@@ -45,6 +45,7 @@ h4 {
 </style>
 
 <script>
+import { mapActions } from 'vuex';
 import vSelect from 'vue-select';
 import UserService from 'app/services/UserService'
 import MessageService from 'app/services/MessageService'
@@ -64,6 +65,7 @@ export default {
     }
   },
   methods: {
+     ...mapActions(['reloadInbox']),
     fetchUsers() {
       UserService.search({}).then(response => {
         this.usersList = response.users
@@ -88,6 +90,9 @@ export default {
           if (res.status === 201) {
             this.closeModal()
             this.updateSuccessMessage()
+            this.reloadInbox({
+              token: this.$store.state.token.value
+            });
           } else {
             return this.$set(this, 'error', "There was an error sending the message");
           }
