@@ -43,7 +43,7 @@ export default {
       }
     }).then(response => {
       if (response.ok) {
-        return response.json();
+        return response.clone().json();
       } else {
         return Promise.reject(response);
       }
