@@ -2,6 +2,7 @@ import Vue from 'vue';
 import 'bootstrap';
 import './stylesheets/app.scss';
 import BootstrapVue from 'bootstrap-vue';
+import VueI18n from 'vue-i18n';
 
 import LandingPage from 'app/containers/LandingPage';
 import ConfirmAccount from 'app/containers/ConfirmAccount';
@@ -71,6 +72,9 @@ Vue.use(VeeValidate);
 Vue.use(VueFlashMessage);
 Vue.use(VueFormWizard);
 Vue.use(Clipboard);
+// When using with a module system, you must explicitly install the vue-i18n via Vue.use():
+// You don 't need to do this when using global script tags.
+Vue.use(VueI18n);
 
 window.$ = require('jquery');
 window.JQuery = require('jquery');
