@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-      <div class="form-group buttons-inner row">
-        <button id="cancel" name="cancel" class="ft-button ft-button-right" @click="handleCancel">CANCEL</button>
+      <div class="float-right">
+        <button id="cancel" name="cancel" class="btn btn-secondary" @click="handleCancel">Cancel</button>
       </div>
       <form @submit.prevent class="team-request ft-form">
         <div class="content">
@@ -75,19 +75,15 @@
             <textarea class="col-lg-12 form-control" v-model="meta_data.comments" v-autosize="meta_data.comments" placeholder="Add comments"
             />
           </div>
-          <div class="form-group buttons-inner row">
-            <button v-if="!edit" id="submit" class="ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
-            <button v-if="edit" id="submit" class="ft-button ft-button-success"  @click="handleSubmit(null)">UPDATE</button>
-            <button v-if="!edit" id="submit" class="ft-button ft-button-success" @click="handleSubmit(null)">Save & Exit</button>
+          <div class="form-group float-right">
+            <button v-if="!edit" id="submit" class="btn btn-success" @click="handleSubmit('publish')">Publish</button>
+            <button v-if="edit" id="submit" class="btn btn-success" @click="handleSubmit(null)">Update</button>
+            <button v-if="!edit" id="submit" class="btn btn-secondary" @click="handleSubmit(null)">Save & Exit</button>
           </div>
         </div>
       </form>
   </div>
 </template>
-
-<style lang="scss">
-  @import '~stylesheets/form';
-</style>
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
