@@ -102,15 +102,11 @@ function requireClub (to, from, next) {
 }
 
 function checkIfLoggedIn (to, from, next) {
-  const lang = 'pt';
-  import("@/lang/${lang}.json").then((msgs) => {
-    console.log(msgs);
-    if (store.state.token && store.state.token.value) {
-      next({
-        path: '/'
-      });
-    } else next();
-  })
+  if (store.state.token && store.state.token.value) {
+    next({
+      path: '/'
+    });
+  } else next();
 }
 
 export const router = new VueRouter({
