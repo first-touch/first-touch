@@ -11,30 +11,30 @@
       <search-bar />
       <ul class="navbar-nav navbar-right ml-auto">
         <li class="nav-item">
-          <router-link class="nav-link" to="/profile">Profile</router-link>
+          <router-link class="nav-link" to="/profile"> {{ $t("navbar.profile") }} </router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/messages">Messages</router-link>
+          <router-link class="nav-link" to="/messages"> {{ $t("navbar.messages") }} </router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/network">My Network</router-link>
+          <router-link class="nav-link" to="/network"> {{ $t("navbar.my_network") }} </router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/notes">My Notes</router-link>
+          <router-link class="nav-link" to="/notes"> {{ $t("navbar.notes") }} </router-link>
         </li>
         <li v-if="hasClubModule">
-          <router-link class="nav-link" to="/club">Club</router-link>
+          <router-link class="nav-link" to="/club"> {{ $t("navbar.club") }} </router-link>
         </li>
         <li v-if="hasScoutModule" class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="scouting-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Scouting
+             {{ $t("navbar.scouting.main") }}
           </a>
           <div class="dropdown-menu" aria-labelledby="scouting-dropdown">
-            <router-link class="dropdown-item" :to="{ name: 'scoutJobsBank'}">Find Work</router-link>
-            <router-link class="dropdown-item" :to="{ name: 'scoutJobsList'}">My Assignments</router-link>
-            <router-link class="dropdown-item" :to="{ name: 'scoutReports'}">My Reports</router-link>
-            <router-link class="dropdown-item" :to="{ name: 'scoutReportCreate'}">Create Report</router-link>
-            <router-link class="dropdown-item" :to="{ name: 'scoutPaymentDetailPage'}">Payment Details</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutJobsBank'}"> {{ $t("navbar.scouting.find_work") }} </router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutJobsList'}"> {{ $t("navbar.scouting.my_assignments") }} </router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutReports'}"> {{ $t("navbar.scouting.my_reports") }} </router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutReportCreate'}"> {{ $t("navbar.scouting.create_report") }} </router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutPaymentDetailPage'}"> {{ $t("navbar.scouting.payment_details") }} </router-link>
           </div>
         </li>
         <li v-if="hasPartnerModule" class="nav-item dropdown">
@@ -48,7 +48,7 @@
           </div>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="#" @click.native="handleLogout">Logout</router-link>
+          <router-link class="nav-link" to="#" @click.native="handleLogout"> {{ $t("navbar.logout") }} </router-link>
         </li>
         <language-switcher />
       </ul>

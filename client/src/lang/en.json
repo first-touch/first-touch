@@ -1,3 +1,18 @@
 {
-  "hello": "hello"
+  "navbar": {
+    "search": "Search",
+    "profile": "Profile",
+    "messages": "Messages",
+    "my_network": "My Network",
+    "notes": "My Notes",
+    "scouting": {
+      "main": "Scouting",
+      "find_work": "Find Work",
+      "my_assignments": "My Assignments",
+      "my_reports": "My Reports",
+      "create_report": "Create Report",
+      "payment_details": "Payment Details"
+    },
+    "logout": "Logout"
+  }
 }
