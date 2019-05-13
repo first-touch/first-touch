@@ -2,7 +2,6 @@ import Vue from 'vue';
 import 'bootstrap';
 import './stylesheets/app.scss';
 import BootstrapVue from 'bootstrap-vue';
-import VueI18n from 'vue-i18n';
 
 import LandingPage from 'app/containers/LandingPage';
 import ConfirmAccount from 'app/containers/ConfirmAccount';
@@ -61,6 +60,8 @@ import Clipboard from 'v-clipboard';
 
 import FtComponents from 'app/components/FtComponents';
 
+import { i18n } from 'app/plugins/i18n';
+
 // TODO: Customize with FT color scheme and remove this
 require('vue-flash-message/dist/vue-flash-message.min.css');
 
@@ -72,9 +73,6 @@ Vue.use(VeeValidate);
 Vue.use(VueFlashMessage);
 Vue.use(VueFormWizard);
 Vue.use(Clipboard);
-// When using with a module system, you must explicitly install the vue-i18n via Vue.use():
-// You don 't need to do this when using global script tags.
-Vue.use(VueI18n);
 
 window.$ = require('jquery');
 window.JQuery = require('jquery');
@@ -104,9 +102,15 @@ function requireClub (to, from, next) {
 }
 
 function checkIfLoggedIn (to, from, next) {
-  if (store.state.token && store.state.token.value) {
-    next({ path: '/' });
-  } else next();
+  const lang = 'pt';
+  import('@/lang/${lang}.json').then((msgs) => {
+    console.log(msgs);
+    if (store.state.token && store.state.token.value) {
+      next({
+        path: '/'
+      });
+    } else next();
+  })
 }
 
 export const router = new VueRouter({
@@ -348,5 +352,6 @@ export default new Vue({
   el: '#root',
   store,
   router,
+  i18n,
   render: h => h('router-view')
 });

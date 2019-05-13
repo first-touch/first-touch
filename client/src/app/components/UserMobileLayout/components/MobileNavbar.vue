@@ -50,6 +50,7 @@
         <li class="nav-item">
           <router-link class="nav-link" to="#" @click.native="handleLogout">Logout</router-link>
         </li>
+        <language-switcher />
       </ul>
     </div>
   </nav>
@@ -67,11 +68,13 @@
 import { mapGetters, mapActions } from 'vuex';
 import { ASYNC_LOADING, ASYNC_SUCCESS } from '../../../constants/AsyncStatus';
 import SearchBar from '../../SearchBar';
+import LanguageSwitcher from 'app/components/LanguageSwitcher';
 
 export default {
   name: 'MobileNavbar',
   components: {
-    'search-bar': SearchBar
+    SearchBar,
+    LanguageSwitcher
   },
   computed: {
     ...mapGetters(['user']),
