@@ -15,7 +15,7 @@ export default {
       if (!this.languages.includes(lang)) lang = 'en';
       if (lang == this.$i18n.locale) return;
 
-      import('@/lang/${lang}.json').then((msgs) => {
+      import(/* webpackChunkName: "lang-[request]" */ `lang/${lang}.json`).then((msgs) => {
         this.$i18n.setLocaleMessage(lang, msgs.default || msgs);
         this.$i18n.locale = lang;
       });
