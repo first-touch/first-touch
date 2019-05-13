@@ -1,12 +1,16 @@
 {
+  "parser": "babel-eslint",
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "jasmine": true
   },
-  "extends": "vue",
+  "extends": [
+    "vue"
+  ],
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": 6
+    "allowImportExportEverywhere": true
   },
   "rules": {
     "indent": [
