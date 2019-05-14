@@ -60,7 +60,6 @@ module.exports = {
       debug: true
     }),
     new ProgressBarPlugin(),
-    
   ],
   output: {
     path: path.join(process.cwd(), conf.paths.tmp),

@@ -1,0 +1,18 @@
+{
+  "navbar": {
+    "search": "Procurar",
+    "profile": "Perfil",
+    "messages": "Mensagens",
+    "my_network": "Minha Rede",
+    "notes": "Notas",
+    "scouting": {
+      "main": "Scouting",
+      "find_work": "Encontrar Trabalho",
+      "my_assignments": "Trabalhos Aceites",
+      "my_reports": "Relatórios",
+      "create_report": "Criar Relatório",
+      "payment_details": "Detalhes de Pagamento"
+    },
+    "logout": "Sair"
+  }
+}

@@ -60,6 +60,8 @@ import Clipboard from 'v-clipboard';
 
 import FtComponents from 'app/components/FtComponents';
 
+import { i18n } from 'app/plugins/i18n';
+
 // TODO: Customize with FT color scheme and remove this
 require('vue-flash-message/dist/vue-flash-message.min.css');
 
@@ -101,7 +103,9 @@ function requireClub (to, from, next) {
 
 function checkIfLoggedIn (to, from, next) {
   if (store.state.token && store.state.token.value) {
-    next({ path: '/' });
+    next({
+      path: '/'
+    });
   } else next();
 }
 
@@ -344,5 +348,6 @@ export default new Vue({
   el: '#root',
   store,
   router,
+  i18n,
   render: h => h('router-view')
 });
