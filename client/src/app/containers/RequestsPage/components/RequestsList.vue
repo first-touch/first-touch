@@ -1,32 +1,35 @@
 <template>
   <timeline-item>
-    <div class="widget-content col col-lg-12">
-      <div class="row align-items-start">
-        <div class="col-lg-2 row">
-          <h6 class="list-title col-lg-12 ">Request Count</h6>
-          <h1 class="list-count col-lg-12 ">{{requestList.length}}</h1>
-          <fieldset class="col-lg-12 col-md-2 buttons-inner" v-if="nbFilters">
-            <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
-          </fieldset>
+    <div class="widget-reports ft-search-widget col col-lg-12">
+      <div class="row">
+        <div class="col-lg-2">
+          <div class="row">
+            <h6 class="list-title col-lg-12 ">Request Count</h6>
+            <h1 class="list-count col-lg-12 ">{{requestList.length}}</h1>
+            <fieldset class="col-lg-12 col-md-2 buttons-inner" v-if="nbFilters">
+              <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
+            </fieldset>
+          </div>
         </div>
-        <form @submit.prevent="search" class="col-lg-10 row">
-          <fieldset class="col-lg-3">
-            <input type="number" min="0" class="col-lg-12  form-control" v-model="params.id" placeholder="Job Request Id" @keyup="search()" />
-          </fieldset>
-          <fieldset class="col-lg-3">
-            <v-select v-model="requestType" :options="options.type_request" :searchable="false" :clearable="false" />
-          </fieldset>
-          <fieldset class="col-lg-3">
-            <v-select v-model="requestStatus" :options="options.status" :searchable="false" :clearable="false" />
-          </fieldset>
-          <fieldset class="col-lg-3">
-            <ft-datepicker class="col-lg-12 form-control" ref="createdDate" :value="params.created_date" :clearable="false" placeholder="Created date"
-              v-on:update:val="params.created_date = $event; search()" />
-          </fieldset>
+        <form @submit.prevent="search" class="col-lg-10">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="filter-by-type">Type</label>
+              <v-select v-model="requestType" :options="options.type_request" :searchable="false" :clearable="false" />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="filter-by-type">Status</label>
+              <v-select v-model="requestStatus" :options="options.status" :searchable="false" :clearable="false" />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="filter-by-date">Filter by Date</label>
+              <ft-datepicker class="col-lg-12 form-control" ref="createdDate" :value="params.created_date" :clearable="false" placeholder="Created date" v-on:update:val="params.created_date = $event; search()" />
+            </div>
+          </div>
           <div class="form-row">
             <div class="form-group col-md-12">
-              <label for="filter-by-daterange">Filter by Bid Range</label>
-              <div id="filter-by-daterange" class="input-group">
+              <label for="filter-by-bidrange">Filter by Bid Range</label>
+              <div id="filter-by-bidrange" class="input-group">
                 <input type="number" min="0" class="col-lg-12 form-control" v-model="params.min_bids" placeholder="Minimum bids" @keyup="search" />
                 <input type="number" min="0" class="col-lg-12 form-control" v-model="params.max_bids" placeholder="Maximum bids" @keyup="search" />
               </div>
@@ -35,32 +38,32 @@
         </form>
       </div>
     </div>
-    <table class="table table-search table-responsive-lg">
+    <table class="table table-striped table-responsive-lg">
       <thead>
         <tr>
-          <th scope="col" class="shortable" @click="setOrder('status')">
-            <p>Status</p>
+          <th scope="col" class="sortable" @click="setOrder('status')">
+            Status
             <span v-if="params.order == 'status'">
               <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
               <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
             </span>
           </th>
-          <th scope="col" class="shortable" @click="setOrder('type_request')">
-            <p>Job Type </p>
+          <th scope="col" class="sortable" @click="setOrder('type_request')">
+            Job Type
             <span v-if="params.order == 'type_request'">
               <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
               <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
             </span>
           </th>
-          <th scope="col" class="shortable" @click="setOrder('created_at')">
-            <p>Created On</p>
+          <th scope="col" class="sortable" @click="setOrder('created_at')">
+            Created On
             <span v-if="params.order == 'created_at'">
               <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
               <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
             </span>
           </th>
-          <th scope="col" class="shortable" @click="setOrder('bids')">
-            <p>No of bids</p>
+          <th scope="col" class="sortable" @click="setOrder('bids')">
+            No of bids
             <span v-if="params.order == 'bids'">
               <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
               <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
@@ -70,14 +73,20 @@
         </tr>
       </thead>
       <tbody>
-        <request-item-row
+        <request-row v-for="request in requestList"
+                     :key="request.id"
+                     :request="request"
+                     v-on:update-status="updateStatus"
+        />
+
+        <!-- <request-item-row
             v-for="request in requestList"
             :key="request.id"
             :request="request"
             @update-status="updateStatus"
             :own="true"
             mode="table"
-            :widgets="['status','type','created_at','bids','action']" />
+            :widgets="['status','type','created_at','bids','action']" /> -->
       </tbody>
     </table>
   </timeline-item>
@@ -91,21 +100,18 @@
 
   import RequestItemRow from 'app/components/RequestItem/RequestItemRow.vue';
   import TimelineItem from 'app/components/TimelineItem';
-  import 'vue-awesome/icons/trash';
-  import 'vue-awesome/icons/calendar-alt';
-  import 'vue-awesome/icons/calendar-check';
-  import 'vue-awesome/icons/times';
-  import 'vue-awesome/icons/arrow-alt-circle-up';
-  import 'vue-awesome/icons/arrow-alt-circle-down';
   import VIcon from 'vue-awesome/components/Icon';
   import VSelect from 'vue-select';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
+  import RequestRow from './RequestRow';
+
   export default {
     name: 'reports-request-list',
     props: [ ],
     components: {
       TimelineItem,
       RequestItemRow,
+      RequestRow,
       VIcon,
       VSelect,
       FtDatepicker
