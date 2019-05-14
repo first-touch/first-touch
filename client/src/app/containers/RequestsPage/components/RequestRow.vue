@@ -1,12 +1,14 @@
 <template>
   <tr>
-    <td> TBA </td>
+    <td> {{ request.status }} </td>
     <td> {{ request.type_request }} </td>
-    <td> {{request.deadline | moment}} </td>
-    <td> {{country}} </td>
+    <td> {{ request.created_at | moment }} </td>
+    <td> {{ bidCount }} </td>
     <td>
-      <button class="btn btn-primary" @click="viewRequestDetails">View details</button>
-      <button class="btn btn-primary" @click="makeBid">{{ makeOrUpdateBid }}</button>
+      <button class="btn btn-primary" @click="updateStatus"> Publish/Unpublish </button>
+      <button class="btn btn-primary" @click="editRequest"> Edit </button>
+      <button class="btn btn-primary" @click="viewAssociatedBids">View Bids</button>
+      <button class="btn btn-primary" @click="viewAssociatedReports">View Reports</button>
     </td>
   </tr>
 </template>
@@ -25,40 +27,23 @@
     },
     methods: {
       ...mapActions(['getRequestBids']),
-      viewRequestDetails() {
-        console.log('request details!');
+      updateStatus() {
+        this.$emit('update-status', { request: this.request, newStatus: 'publish' })
       },
-      makeBid() {
-        this.$emit('make-bid', { request: this.request, bid: this.latestBid });
+      editRequest() {
+        this.$emit('edit-request', { request: this.request })
+      },
+      viewAssociatedBids() {
+        this.$emit('view-bids', { request: this.request });
+      },
+      viewAssociatedReports() {
+        this.$emit('view-reports', { request: this.request });
       },
     },
     computed: {
-      country() {
-        if (this.isPlayerRequest || this.isTeamRequest) {
-          return `${this.request.league.name}, ${this.request.league.nation}`;
-        } else {
-          return 'N/A';
-        }
+      bidCount() {
+        return 0;
       },
-      isPlayerRequest() {
-        return this.requestType == "player";
-      },
-      isTeamRequest() {
-        return this.requestType == "team";
-      },
-      requestType() {
-        return this.request.type_request;
-      },
-      requestHasBid() {
-        return this.latestBid != null;
-      },
-      makeOrUpdateBid() {
-        if (this.requestHasBid) {
-          return "Update Bid";
-        } else {
-          return "Make a Bid";
-        }
-      }
     },
     mounted() {
       const params = { request_id: this.request.id };

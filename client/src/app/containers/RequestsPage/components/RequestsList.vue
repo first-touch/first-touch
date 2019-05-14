@@ -242,16 +242,12 @@
         this.search();
       },
       updateStatus(id, status) {
-        let request = {
-          status
-        }
-        this.updateRequest({ id, request }).then((result)=>{
+        let requestParams = { status }
+        this.updateRequest({ id, requestParams }).then((result)=>{
           if (!result) return;
 
           let request = this.requestList.find((r)=>{ return r.id == id});
-          if (request){
-            request.status = status;
-          }
+          if (request) request.status = status;
         })
       }
     }
