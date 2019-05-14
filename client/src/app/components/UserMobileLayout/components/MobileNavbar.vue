@@ -42,9 +42,9 @@
             Partners
           </a>
           <div class="dropdown-menu" aria-labelledby="scouting-dropdown">
-            <router-link class="dropdown-item" to="/">Scouts</router-link>
-            <router-link class="dropdown-item" to="/">Directors of Football</router-link>
-            <router-link class="dropdown-item" to="/">Agents</router-link>
+            <router-link class="dropdown-item" to="/">{{ $t("navbar.scouting.scouts") }}</router-link>
+            <router-link class="dropdown-item" to="/"> {{ $t("navbar.scouting.directors") }} </router-link>
+            <router-link class="dropdown-item" to="/"> {{ $t("navbar.scouting.agents") }} </router-link>
           </div>
         </li>
         <li class="nav-item">

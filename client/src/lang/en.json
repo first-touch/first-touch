@@ -4,6 +4,7 @@
     "profile": "Profile",
     "messages": "Messages",
     "my_network": "My Network",
+    "club": "Club",
     "notes": "My Notes",
     "scouting": {
       "main": "Scouting",
@@ -12,6 +13,12 @@
       "my_reports": "My Reports",
       "create_report": "Create Report",
       "payment_details": "Payment Details"
+    },
+    "partners": {
+      "main": "Partners",
+      "scouts": "Scouts",
+      "directors": "Directors of Football",
+      "agents": "Agents"
     },
     "logout": "Logout"
   }
