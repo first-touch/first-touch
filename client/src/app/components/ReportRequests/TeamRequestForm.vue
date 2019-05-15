@@ -31,7 +31,7 @@
             <span class="text-danger">{{ errors.first('club') }}</span>
           </div>
           <div class="col-lg-6 form-group required-before">
-            <team-select v-on:update:val="meta_data.team = $event" :readonly="team_id == '' " placeholder="Select a team"></team-select>
+            <team-select @input="meta_data.team = $event.value" :readonly="team_id == ''" placeholder="Select a team" />
             <input type="text" class="d-none" name="team" v-model="meta_data.team" v-validate="'required'" />
             <span class="text-danger">{{ errors.first('team') }}</span>
           </div>
@@ -217,11 +217,11 @@
           if (this.league_id > 0) this.meta_data.search.league = '';
         }
       },
-      setClub(team) {
+      setClub(club) {
         this.team_id = ''
-        if (team != null) {
-          this.team_id = team.id;
-          if (team.id == -1) {} else {
+        if (club != null) {
+          this.team_id = club.id;
+          if (club.id == -1) {} else {
             this.meta_data.search.club = '';
           }
         }
