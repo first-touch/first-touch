@@ -28,7 +28,9 @@
             Scouting
           </a>
           <div class="dropdown-menu" aria-labelledby="scouting-dropdown-club">
-            <router-link class="dropdown-item" :to="{ name: 'requestList'}">My Requests</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'requestList'}">Assignments</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutJobsList'}">Find Reports</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutReports'}">My Reports</router-link>
             <router-link class="dropdown-item" :to="{ name: 'scoutPaymentDetailPage'}">Payment Details</router-link>
           </div>
         </li>

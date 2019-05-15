@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-2">
           <div class="row">
-            <h6 class="list-title col-lg-12 ">Request Count</h6>
+            <h6 class="list-title col-lg-12 ">Count</h6>
             <h1 class="list-count col-lg-12 ">{{requestList.length}}</h1>
             <fieldset class="col-lg-12 col-md-2 buttons-inner" v-if="nbFilters">
               <button class="ft-button" @click="clearsFilter">Clear {{nbFilters}} Filters</button>
