@@ -33,7 +33,7 @@ export default {
   },
 
   search (params) {
-    const endpoint = `api/v1/search${$.param(params)}`;
+    const endpoint = `/api/v1/users/search${$.param(params)}`;
     const token = store.state.token.value;
 
     return fetch(endpoint, {
@@ -43,7 +43,8 @@ export default {
       }
     }).then(response => {
       if (response.ok) {
-        return response.clone().json();
+        debugger;
+        return response.json();
       } else {
         return Promise.reject(response);
       }
