@@ -89,6 +89,7 @@ export default {
         MessageService.create(messageData).then(res => {
           if (res.status === 201) {
             this.closeModal()
+            this.resetFields()
             this.updateSuccessMessage()
             this.reloadInbox({
               token: this.$store.state.token.value
@@ -104,6 +105,11 @@ export default {
     },
     updateSuccessMessage() {
       this.$emit('updateSuccessMessage', true)
+    },
+    resetFields() {
+      this.body = undefined
+      this.subject = undefined
+      this.chosenUsers = []
     }
   },
   mounted() {
