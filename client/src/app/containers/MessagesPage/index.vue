@@ -13,10 +13,10 @@
         <b-modal ref="newMessageModal" id="new-message-modal" size="lg" hide-footer hide-header centered>
           <new-message-popup @closeModal="closeNewMessageModal" @updateSuccessMessage="updateSuccessMessage"/>
         </b-modal>
+        <messages-sidebar :currentChatWith="currentChatWith" />
         <router-view></router-view>
       </div>
     </div>
-    <messages-sidebar :currentChatWith="currentChatWith" />
   </div>
 </template>
 

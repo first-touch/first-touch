@@ -20,7 +20,7 @@
           </span>
         </div>
 
-        <div class="row">
+        <div class="top-row">
         <b-collapse is-nav visible id="menu-contents" class="d-lg-block">
           <b-card>
             <div class="row">
@@ -56,9 +56,8 @@
 
 <style lang="scss" scoped>
   .sidenav-right {
-    margin-top: 119px;
-    padding-top: 5px;
-    height: calc(100vh - 119px);
+    width: 30%;
+    display: inline-block;
     box-shadow: -2px 2px 2px #555;
   }
   .bar {
@@ -66,6 +65,10 @@
     border-top: 1px solid white;
     width: 15px;
     margin: 3px;
+  }
+
+  .top-row {
+    margin-bottom: 0px;
   }
 
   .btn-secondary,
@@ -103,7 +106,6 @@
     }
   }
   .inbox {
-    margin-top: 20px;
     height: 420px;
     overflow-y: scroll;
     .inbox-entry:last-child {
