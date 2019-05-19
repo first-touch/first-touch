@@ -1,5 +1,5 @@
 <template>
-  <timeline-item>
+  <timeline-item class="timeline-item">
     <div class="sub-container">
       <div class="header">
         <img v-if="!newMessage" class="avatar" :src="avatar"  />
@@ -35,10 +35,16 @@
 <style lang="scss" scoped>
 @import '~stylesheets/variables.scss';
 
+.timeline-item {
+  width: 65%;
+  display: inline-block;
+  margin-top: 0px;
+}
+
 .body {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 420px);
+  height: 50vh;
   min-height: 150px;
   overflow-y: scroll;
 }
