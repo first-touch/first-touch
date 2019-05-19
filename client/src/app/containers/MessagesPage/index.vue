@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="container-fluid">
+    <div class="container">
       <div class="ft-page messages">
-        <h4 class="spaced-title upper-cased main-color">Messages</h4>
+        <h4 class="spaced-title upper-cased main-color page-title mb-5">Messages</h4>
         <div class="a-side-indicator primary">
           <div class="arrow"></div>
           <ft-button :on-click="openNewMessageModal" icon="regular/edit">Write Message</ft-button>
