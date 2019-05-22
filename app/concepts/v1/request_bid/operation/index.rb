@@ -10,7 +10,13 @@ module V1
       private
 
       def setup_models!(options, current_user:, **)
-        options[:models] = current_user.request_bids
+        options[:models] = if current_user.scout?
+                             current_user.request_bids
+                           else
+                             ::RequestBid.joins(:request)
+                                         .where(requests: { user_id: current_user.id })
+                           end
+
         # requestId = params[:request_id]
         # models = nil
         # if options[:current_user].scout?

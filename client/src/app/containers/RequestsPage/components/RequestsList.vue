@@ -77,6 +77,7 @@
                      :key="request.id"
                      :request="request"
                      v-on:update-status="updateStatus"
+                     v-on:view-bids="viewBids"
         />
 
         <!-- <request-item-row
@@ -89,6 +90,15 @@
             :widgets="['status','type','created_at','bids','action']" /> -->
       </tbody>
     </table>
+
+    <ft-dialog>
+      <div slot="title">
+        <span> Request Bids </span>
+      </div>
+      <div>
+        <h1> Hello </h1>
+      </div>
+    </ft-dialog>
   </timeline-item>
 </template>
 
@@ -104,6 +114,7 @@
   import VSelect from 'vue-select';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import RequestRow from './RequestRow';
+  import FtDialog from "app/components/FtDialog";
 
   export default {
     name: 'reports-request-list',
@@ -114,11 +125,13 @@
       RequestRow,
       VIcon,
       VSelect,
-      FtDatepicker
+      FtDatepicker,
+      FtDialog
     },
     data() {
       return {
         requestList: [],
+        showBidsList: false,
         params: {
           id: '',
           created_date: '',
@@ -207,14 +220,14 @@
 
       clearsFilter() {
         this.params = {
-            id: '',
-            created_date: '',
-            order: '',
-            order_asc: true,
-            status: '',
-            type_request: ''
-          },
-          this.$refs.createdDate.model = null;
+          id: '',
+          created_date: '',
+          order: '',
+          order_asc: true,
+          status: '',
+          type_request: ''
+        };
+        this.$refs.createdDate.model = null;
         this.requestType = {
           label: 'Request Type',
           value: ''
@@ -249,6 +262,9 @@
           let request = this.requestList.find((r)=>{ return r.id == id});
           if (request) request.status = status;
         })
+      },
+      viewBids({request}) {
+
       }
     }
   };

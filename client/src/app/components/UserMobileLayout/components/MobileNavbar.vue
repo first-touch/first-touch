@@ -25,13 +25,13 @@
         <li v-if="hasClubModule" class="nav-item dropdown">
           <!-- <router-link class="nav-link" to="/club">Club</router-link> -->
           <a class="nav-link dropdown-toggle" href="#" id="scouting-dropdown-club" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Scouting
+            {{ $t("navbar.scouting.main") }}
           </a>
           <div class="dropdown-menu" aria-labelledby="scouting-dropdown-club">
-            <router-link class="dropdown-item" :to="{ name: 'requestList'}">Assignments</router-link>
-            <router-link class="dropdown-item" :to="{ name: 'scoutJobsList'}">Find Reports</router-link>
-            <router-link class="dropdown-item" :to="{ name: 'scoutReports'}">My Reports</router-link>
-            <router-link class="dropdown-item" :to="{ name: 'scoutPaymentDetailPage'}">Payment Details</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'requestList'}">{{ $t("navbar.scouting.assignments") }}</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutJobsList'}">{{ $t("navbar.scouting.find_reports") }}</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutReports'}">{{ $t("navbar.scouting.my_reports") }}</router-link>
+            <router-link class="dropdown-item" :to="{ name: 'scoutPaymentDetailPage'}">{{ $t("navbar.scouting.payment_details") }}</router-link>
           </div>
         </li>
         <li v-if="hasScoutModule" class="nav-item dropdown">

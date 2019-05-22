@@ -22,7 +22,8 @@
     ],
     data() {
       return {
-        latestBid: null
+        bidCount: 0,
+        bids: []
       }
     },
     methods: {
@@ -40,18 +41,13 @@
         this.$emit('view-reports', { request: this.request });
       },
     },
-    computed: {
-      bidCount() {
-        return 0;
-      },
-    },
     mounted() {
-      const params = { request_id: this.request.id };
-      this.getRequestBids(params).then(res => {
-        if (res.length > 0) {
-          this.latestBid = res[0];
-        }
-      });
+      this.bidCount = this.request.request_bids.length;
+      // const params = { request_id: this.request.id };
+      // this.getRequestBids(params).then(res => {
+      //   this.bids = res;
+      //   this.bidCount = res.length;
+      // });
     }
   };
 </script>
