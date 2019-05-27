@@ -16,6 +16,9 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/messages">Messages</router-link>
         </li>
+        <li class="nav-item" v-if="isDirector">
+          <router-link class="nav-link" to="/requests">Reports</router-link>
+        </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/network">My Network</router-link>
         </li>
@@ -83,6 +86,7 @@ export default {
         return '';
       }
     },
+    isDirector(){ return this.role == 'director'},
     hasScoutModule() {
       return this.role == 'scout';
     },
