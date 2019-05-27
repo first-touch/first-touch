@@ -44,9 +44,9 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
       <h5 class="row request-section">Non-Playing Criteria</h5>
       <div class="col-md-12">
         <ul class="text-danger-list">
-          <li class="text-danger">{{ errors.first('age') }}</li>
-          <li class="text-danger">{{ errors.first('height') }}</li>
-          <li class="text-danger">{{ errors.first('weight') }}</li>
+          <li class="text-danger" v-if="errors.first('age')">{{ errors.first('age') }}</li>
+          <li class="text-danger" v-if="errors.first('height')">{{ errors.first('height') }}</li>
+          <li class="text-danger" v-if="errors.first('weight')">{{ errors.first('weight') }}</li>
         </ul>
         <div class="row">
           <div class="col-lg-4 row form-group">
