@@ -16,7 +16,7 @@
     "url-loader": "latest",
     "v-autocomplete": "latest",
     "v-clipboard": "^2.2.1",
-    "vee-validate": "latest",
+    "vee-validate": "^2.2.8",
     "vue": "^2.6.10",
     "vue-autonumeric": "latest",
     "vue-autosize": "latest",
