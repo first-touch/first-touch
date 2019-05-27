@@ -4,7 +4,7 @@
     <actions @select="handleActionSelection" />
     <requests-list />
 
-    <ft-dialog :visible.sync="requestDialogVisible" width="80vw">
+    <ft-dialog :visible.sync="requestDialogVisible" class="request-dlg">
       <div slot="title">
         <span>Request <span class="capitalize">{{ reportType }}</span> Report</span>
       </div>
@@ -75,3 +75,17 @@ export default {
   }
 }
 </script>
+
+
+<style lang="scss">
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import '~stylesheets/variables';
+@import "~bootstrap/scss/mixins/_breakpoints";
+
+@include media-breakpoint-up(md) {
+  .request-dlg .ft-dialog {
+    width: 80vw !important;
+  }
+}
+</style>
