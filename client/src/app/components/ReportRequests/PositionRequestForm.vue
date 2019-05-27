@@ -23,13 +23,13 @@
         <h5 class="row request-section">Playing Criteria</h5>
         <div class="row">
           <div class="col-lg-6 form-group required-before">
-            <playerposition class="col-lg-12 select-positions" :value="meta_data.playing_position" v-on:update:val="meta_data.playing_position = $event"
+            <player-position class="col-lg-12 select-positions" :value="meta_data.playing_position" v-on:update:val="meta_data.playing_position = $event"
               placeholder="Select position(s)" />
             <input type="text" class="d-none" name="position" v-model="meta_data.playing_position" v-validate="'required'" />
             <span class="text-danger">{{ errors.first('position') }}</span>
           </div>
           <div class="col-lg-6 form-group">
-            <preferredfoot class="col-lg-12" :value="meta_data.preferred_foot" v-on:update:val="meta_data.preferred_foot = $event" placeholder="Select preferred foot…" />
+            <preferred-foot class="col-lg-12" :value="meta_data.preferred_foot" v-on:update:val="meta_data.preferred_foot = $event" placeholder="Select preferred foot…" />
           </div>
         </div>
         <div class="row">
@@ -82,20 +82,20 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
 
         <div class="col-lg-12 form-group player-value-group">
           <label class="col-md-12">Select an approximate player value…</label>
-          <currencyinput :value="meta_data.value" max="true" />
+          <currency-input :value="meta_data.value" max="true" />
         </div>
       </div>
 
       <h5 class="row request-section">Your Scouting Requirements</h5>
 
       <div class="row col-lg-12 form-group required-before">
-        <ftdatepicker class="col-lg-12 form-control" :disabled="disabledDates" :value="deadline" v-on:update:val="deadline = $event" placeholder="Select a deadline" />
+        <ft-datepicker class="col-lg-12 form-control" :disabled="disabledDates" :value="deadline" v-on:update:val="deadline = $event" placeholder="Select a deadline" />
         <input type="text" class="d-none" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
         <span class="text-danger">{{ errors.first('deadline') }}</span>
       </div>
       <div class="col-lg-12 form-group row required-before">
         <div class="row col-lg-12 bid-range">
-          <currencyinput :value="price" max="true" maxValue="999999" :noHyphen="true" placeholder="Desired bid range" class="col" />
+          <currency-input :value="price" max="true" maxValue="999999" :noHyphen="true" placeholder="Desired bid range" class="col" />
           <span class="bid-range-icon-inner" v-b-tooltip.hover placement="topleft" title="Bid level reflects your appetite to spend on reports and is for reference only. Scouts determine their own rates, so the actual rate you pay is up to you and the Scout.">
             <icon name='question-circle'></icon>
           </span>
@@ -156,12 +156,9 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
 </style>
 
 <script>
-  import inputSearch from 'app/components/Input/InputSearch';
   import PlayerPosition from 'app/components/Input/PlayerPosition';
-  import Nationality from 'app/components/Input/Nationality';
   import Language from 'app/components/Input/Language';
   import PreferredFoot from 'app/components/Input/PreferredFoot';
-  import FtCheckbox from 'app/components/Input/FtCheckbox';
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import CurrencyInput from 'app/components/Input/CurrencyInput';
   import Icon from 'vue-awesome/components/Icon';
@@ -171,16 +168,12 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
     name: 'position-request-form',
     props: ['submit', 'serverErrors', 'edit'],
     components: {
-      inputsearch: inputSearch,
-      playerposition: PlayerPosition,
-      countryselect: Nationality,
-      language: Language,
-      preferredfoot: PreferredFoot,
-      ftdatepicker: FtDatepicker,
-      ftcheckbox: FtCheckbox,
-      currencyinput: CurrencyInput,
-      icon: Icon,
-
+      PlayerPosition,
+      Language,
+      PreferredFoot,
+      FtDatepicker,
+      CurrencyInput,
+      Icon,
     },
     data() {
       return {
