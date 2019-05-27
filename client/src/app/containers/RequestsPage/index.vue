@@ -2,7 +2,7 @@
   <div class="ft-page container">
     <h4 class="spaced-title upper-cased main-color page-title mb-5">Report Requests</h4>
     <actions @select="handleActionSelection" />
-    <requests-list />
+    <requests-list ref="requestList"/>
 
     <ft-dialog :visible.sync="requestDialogVisible" class="request-dlg">
       <div slot="title">
@@ -67,6 +67,8 @@ export default {
 
       if (result != null){
         this.requestDialogVisible = false;
+
+        this.$refs.requestList.search();
       }
     },
     handleFormCancel(){
