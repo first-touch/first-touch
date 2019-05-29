@@ -9,8 +9,7 @@ module V1
       private
 
       def find_model!(options, **)
-        options[:models] = ::Request.all
-        #if options[:current_user].is_a?(::User)
+        if options[:current_user].is_a?(::User)
         #  if options[:current_user].scout?
         #    stripe_ft = options[:current_user].stripe_ft
 #
@@ -18,9 +17,13 @@ module V1
         #      models = get_requests_for_scout(current_user: options[:current_user])
         #    end
 #
-        #  elsif options[:current_user].director? || options[:current_user].agent?
-        #    models = get_requests_by_user(user: options[:current_user])
-        #  end
+          if options[:current_user].director? || options[:current_user].agent?
+            models = get_requests_by_user(user: options[:current_user])
+            options[:models] = models
+          end
+        else
+          options[:models] = ::Request.all
+        end
         #end
         ##elsif !current_club.nil?
         ##  models = club(current_club: current_club)
@@ -38,13 +41,13 @@ module V1
       #  models = models.select('requests.*, request_bids.status as bid_status, request_bids.price as bid_price, request_bids.report_id as report_id')
       #end
 
-      #def get_requests_by_user(user:)
-      #  models = user.requests.where.not(status:'deleted')
-      #  joins = "LEFT OUTER JOIN request_bids ON request_bids.request_id = requests.id AND request_bids.status = 'pending'"
-      #  models = models.joins(joins)
-      #  models = models.select('requests.*, COUNT(request_bids.id) as request_bids_count')
-      #  models = models.group('requests.id')
-      #end
+      def get_requests_by_user(user:)
+        models = user.requests.where.not(status:'deleted')
+        joins = "LEFT OUTER JOIN request_bids ON request_bids.request_id = requests.id AND request_bids.status = 'pending'"
+        models = models.joins(joins)
+        models = models.select('requests.*, COUNT(request_bids.id) as request_bids_count')
+        models = models.group('requests.id')
+      end
 
       #def club(current_club:)
       #  models = current_club.requests.where.not(status: 'deleted')
