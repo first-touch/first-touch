@@ -45,7 +45,8 @@ export default {
   data() {
     return {
       requestDialogVisible: false,
-      reportType: ""
+      reportType: "",
+      requestModel: null
     }
   },
   computed:{
@@ -54,7 +55,7 @@ export default {
     },
   },
   methods:{
-    ...mapActions(['getRequests', 'createRequest', 'updateRequest']),
+    ...mapActions(['getRequest','getRequests', 'createRequest', 'updateRequest']),
 
     handleActionSelection(action_name){
       this.reportType = action_name;
@@ -73,7 +74,25 @@ export default {
     },
     handleFormCancel(){
       this.requestDialogVisible = false;
+    },
+    async loadRequest(request_id){
+      if (!request_id) return;
+
+      this.requestModel = await this.getRequest(request_id);
+      console.log(this.requestModel);
+      debugger;
     }
+  },
+  watch: {
+    $route: {
+        immediate: true,
+        handler: function(to, from){
+          console.log(to);
+          if (to.name == "editRequest"){
+            this.loadRequest(to.params.id);
+          }
+        }
+      }
   }
 }
 </script>

@@ -235,6 +235,11 @@ export const router = new VueRouter({
           name: 'requestList'
         },
         {
+          path: ':id/edit',
+          component: RequestsPage,
+          name: 'editRequest'
+        },
+        {
           path: ':id/bids',
           component: RequestBidsPage,
           name: 'requestBids'

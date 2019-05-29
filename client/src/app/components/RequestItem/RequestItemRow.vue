@@ -108,7 +108,7 @@
                 <a v-if="canAction(own, 'delete', false)" @click="deleteItem(request.id)">
                   Delete
                 </a>
-                <router-link v-if="canAction(own, 'edit', false)" :to="{ name: 'clubRequest', params: { id: request.id }}">
+                <router-link v-if="canAction(own, 'edit', false)" :to="{ name: 'editRequest', params: { id: request.id }}">
                   Edit
                 </router-link>
               </div>
