@@ -6,9 +6,9 @@ module V1
 
         property :id
         property :club
-        property :player, representer: ::V1::User::Representer::PublicProfile
-        property :team, representer: ::V1::Team::Representer::Simplified
-        property :league, representer: ::V1::Competition::Representer::Simplified
+        property :player, decorator: ::V1::User::Representer::Simplified
+        property :team, decorator: ::V1::Team::Representer::Simplified
+        property :league, decorator: ::V1::Competition::Representer::Simplified
         property :meta_data
         property :price
         property :type_request
