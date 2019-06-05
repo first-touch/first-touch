@@ -33,7 +33,7 @@ module.exports = {
         test: /\.(css|scss)$/,
         loaders: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader?sass-loader!postcss-loader'
+          use: 'css-loader?minimize!sass-loader!postcss-loader'
         })
       },
       {
@@ -58,11 +58,7 @@ module.exports = {
     }),
     new ExtractTextPlugin('index-[contenthash].css'),
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss: () => [autoprefixer]
-      }
-    })
+    new webpack.LoaderOptionsPlugin()
   ],
   output: {
     path: path.join(process.cwd(), conf.paths.dist),
