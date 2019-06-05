@@ -32,7 +32,7 @@
       'stripeJs',
     ],
     components: {
-      loading: Loading
+      Loading
     },
     data() {
       return {

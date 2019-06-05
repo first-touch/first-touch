@@ -4,14 +4,18 @@
     <actions @select="handleActionSelection" />
     <requests-list ref="requestList"/>
 
-    <ft-dialog :visible.sync="requestDialogVisible" class="request-dlg">
+    <ft-dialog :visible.sync="dialogVisible" class="request-dlg">
       <div slot="title">
         <span>Request <span class="capitalize">{{ reportType }}</span> Report</span>
       </div>
 
+      <ft-loading size="small" v-if="loadingRequest" class="mx-auto" />
+
       <div v-if="reportType != ''">
+
         <component
           :is="reportTypeComponent"
+          :edit="request.value"
           @submit="handleFormSubmit"
           @cancel="handleFormCancel"
         ></component>
@@ -33,6 +37,9 @@ import PlayerRequestForm from 'app/components/ReportRequests/PlayerRequestForm.v
 import PositionRequestForm from 'app/components/ReportRequests/PositionRequestForm.vue';
 import TeamRequestForm from 'app/components/ReportRequests/TeamRequestForm.vue';
 
+import FtLoading from 'app/components/Loading';
+import { ASYNC_LOADING } from '../../constants/AsyncStatus';
+
 export default {
   name: 'reports-page',
   components: {
@@ -40,59 +47,86 @@ export default {
     Actions,
     PlayerRequestForm,
     PositionRequestForm,
-    TeamRequestForm
+    TeamRequestForm,
+    FtLoading
   },
   data() {
     return {
-      requestDialogVisible: false,
-      reportType: "",
+      dialogVisible: false,
       requestModel: null
     }
   },
   computed:{
+    ...mapGetters(['request']),
+
+    loadingRequest() {
+      return this.request.status == ASYNC_LOADING
+    },
+    reportType() {
+      if (this.requestModel && this.requestModel.type_request){
+        return this.requestModel.type_request;
+      }
+      return "";
+    },
     reportTypeComponent() {
       return this.reportType + "-request-form";
     },
-  },
-  methods:{
-    ...mapActions(['getRequest','getRequests', 'createRequest', 'updateRequest']),
-
-    handleActionSelection(action_name){
-      this.reportType = action_name;
-      this.requestDialogVisible = true;
-    },
-
-    async handleFormSubmit(request){
-      console.log(request);
-      const result = await this.createRequest(request);
-
-      if (result != null){
-        this.requestDialogVisible = false;
-
-        this.$refs.requestList.search();
-      }
-    },
-    handleFormCancel(){
-      this.requestDialogVisible = false;
-    },
-    async loadRequest(request_id){
-      if (!request_id) return;
-
-      this.requestModel = await this.getRequest(request_id);
-      console.log(this.requestModel);
-      debugger;
-    }
   },
   watch: {
     $route: {
         immediate: true,
         handler: function(to, from){
-          console.log(to);
           if (to.name == "editRequest"){
             this.loadRequest(to.params.id);
           }
         }
+      },
+    dialogVisible: function(to, from){
+      if (!to && to != from){
+        this.gotoRequestList();
       }
+    }
+  },
+  methods:{
+    ...mapActions(['getRequest','getRequests', 'createRequest', 'updateRequest']),
+
+    handleActionSelection(action_name){
+      this.requestModel = { request_type: action_name }
+      this.dialogVisible = true;
+    },
+    async handleFormSubmit(request){
+      console.log(request);
+      var result;
+      if (request.id != null){
+        result = await this.updateRequest({ id: request.id, request });
+      } else {
+        result = await this.createRequest(request);
+      }
+
+      if (result != null){
+        this.dialogVisible = false;
+        this.$refs.requestList.search();
+        this.gotoRequestList();
+      }
+    },
+    handleFormCancel(){
+      this.dialogVisible = false;
+      this.gotoRequestList();
+    },
+    async loadRequest(request_id){
+      if (!request_id) return;
+
+      this.requestModel = null;
+      this.$nextTick(() => {
+        this.dialogVisible = true;
+      })
+
+      await this.getRequest(request_id);
+      this.requestModel = this.request.value;
+    },
+    gotoRequestList(){
+      this.$router.push({ name: "requestList" });
+    }
   }
 }
 </script>

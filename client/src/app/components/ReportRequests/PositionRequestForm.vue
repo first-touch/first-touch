@@ -245,6 +245,8 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
               status
             };
 
+            if (this.edit){ request.id = this.edit.id; }
+
             this.$emit('submit', request);
           }
         }).catch(() => {

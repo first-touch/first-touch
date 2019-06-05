@@ -11,7 +11,7 @@ module V1
 
       private
 
-      def find_model!(options, params:, current_club:, current_user:, **)
+      def find_model!(options, params:, current_user:, **)
 
         model = current_user.requests.find_by(id: params[:id])
         options[:model] = model

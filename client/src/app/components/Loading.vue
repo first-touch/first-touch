@@ -1,5 +1,5 @@
 <template>
-  <div class="loader"></div>
+  <div class="loader" :class="classList"></div>
 </template>
 
 <style lang="scss" scoped>
@@ -10,6 +10,24 @@
   width: 120px;
   height: 120px;
   animation: spin 2s linear infinite;
+
+  &.size-large {
+
+  }
+
+  &.size-medium {
+    width: 60px;
+    height: 60px;
+    border-width: 2px;
+    border-top-width: 2px;
+  }
+
+  &.size-small {
+    width: 30px;
+    height: 30px;
+    border-width: 2px;
+    border-top-width: 2px;
+  }
 }
 
 @keyframes spin {
@@ -20,6 +38,16 @@
 
 <script>
 export default {
-  name: 'FTLoading'
+  props: {
+    size: { type: String, default: 'large' }
+  },
+  name: 'FTLoading',
+  computed: {
+    classList(){
+      var classes =  {};
+      classes[`size-${this.size}`] = true;
+      return classes;
+    }
+  }
 }
 </script>

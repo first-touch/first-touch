@@ -37,23 +37,18 @@ export const createRequest = async (store, request) => {
   return null;
 };
 
-export const getRequest = (store, id) => {
+export const getRequest = async (store, id) => {
   store.commit(ActionTypes.UPLOADING_REQUEST_LOADING);
-  return fetch('/api/v1/requests/' + id, {
-    method: 'GET',
-    headers: {
-      Authorization: store.state.token.value
-      // ClubAuthorization: store.state.token.clubs[0] ? store.state.token.clubs[0].token : null
-    }
-  }).then(res => {
-    if (res.status >= 200 && res.status < 400) {
-      res.json().then(r => store.commit(ActionTypes.UPLOADING_REQUEST_SUCCESS, r));
-    } else if (res.status === 401) {
-      store.commit(ActionTypes.TOKEN_CLEAR);
-    } else {
-      res.json().then(r => store.commit(ActionTypes.UPLOADING_REQUEST_FAILURE, r));
-    }
-  });
+  const res = await apiRequest(store, 'GET', `/api/v1/requests/${id}`);
+
+  if (res.status >= 200 && res.status < 400) {
+    const data = await res.json();
+    store.commit(ActionTypes.UPLOADING_REQUEST_SUCCESS, data);
+  } else if (res.status === 401) {
+    store.commit(ActionTypes.TOKEN_CLEAR);
+  } else {
+    res.json().then(r => store.commit(ActionTypes.UPLOADING_REQUEST_FAILURE, r));
+  }
 };
 
 export const getRequests = async (store, params) => {
