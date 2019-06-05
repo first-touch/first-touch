@@ -10,12 +10,12 @@
             {{ error }}
           </li>
         </ul>
-        <div class="row created_at" v-if="edit">
+        <div class="row created_at" v-if="isEdit">
           <label class="col-lg-3">Request created on</label>
           <p class="col-lg-9">{{edit.created_at | moment}}</p>
         </div>
-        <h5 class="row" v-if="!edit">The Scouting Target</h5>
-        <div class="row" v-if="!edit">
+        <h5 class="row" v-if="!isEdit">The Scouting Target</h5>
+        <div class="row" v-if="!isEdit">
           <div class="col-lg-6 form-group required-before">
             <input-search class="col-lg-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
               v-on:update:val="setLeague($event)" v-on:update:search="meta_data.search.league = $event" ref="team_search"
@@ -54,7 +54,7 @@
           <div class="col-lg-12 form-group required-before">
             <ftdatepicker class="col-lg-12 form-control" :disabled="disabledDates" :value="deadline" v-on:update:val="deadline = $event" placeholder="Select a deadline"
             />
-            <input type="text" class="d-none" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
+            <input type="text" class="d-none" name="deadline" v-model="deadline" v-validate="'required|date_format:yyyy-MM-dd'" />
             <span class="text-danger">{{ errors.first('deadline') }}</span>
           </div>
         </div>
@@ -76,9 +76,9 @@
           />
         </div>
         <div class="form-group float-right">
-          <button v-if="!edit" id="submit" class="btn btn-success" @click="handleSubmit('publish')">Publish</button>
-          <button v-if="edit" id="submit" class="btn btn-success" @click="handleSubmit(null)">Update</button>
-          <button v-if="!edit" id="submit" class="btn btn-secondary" @click="handleSubmit(null)">Save & Exit</button>
+          <button v-if="!isEdit" id="submit" class="btn btn-success" @click="handleSubmit('publish')">Publish</button>
+          <button v-if="isEdit" id="submit" class="btn btn-success" @click="handleSubmit(null)">Update</button>
+          <button v-if="!isEdit" id="submit" class="btn btn-secondary" @click="handleSubmit(null)">Save & Exit</button>
         </div>
       </div>
     </form>
@@ -175,10 +175,14 @@
       };
     },
     computed: {
-      ...mapGetters(['searchResult'])
+      ...mapGetters(['searchResult']),
+
+      isEdit(){
+        return (this.edit && 'id' in this.edit);
+      }
     },
     created() {
-      if (this.edit) {
+      if (this.edit && "id" in this.edit) {
         this.meta_data = this.edit.meta_data;
         this.deadline = this.edit.deadline;
         this.price = this.edit.price;
@@ -190,6 +194,10 @@
           this.training_report_select = this.options.required[index];
       }
       this.$validator.localize(this.dictionary);
+
+      console.log("team request - ");
+      console.log(this.edit);
+      console.log(this.meta_data);
 
     },
     methods: {
@@ -235,7 +243,8 @@
             if (status == null) {
               status = this.edit ? this.edit.status : 'private';
             }
-            this.$emit('submit', {
+
+            const request = {
               meta_data: this.meta_data,
               deadline: this.deadline,
               team_id: this.team_id,
@@ -243,7 +252,11 @@
               price: this.price,
               type_request: 'team',
               status
-            });
+            }
+
+            if (this.edit){ request.id = this.edit.id; }
+
+            this.$emit('submit', request);
           }
         }).catch(() => {
 

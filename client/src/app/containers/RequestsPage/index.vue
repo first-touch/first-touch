@@ -15,7 +15,7 @@
 
         <component
           :is="reportTypeComponent"
-          :edit="request.value"
+          :edit="requestModel"
           @submit="handleFormSubmit"
           @cancel="handleFormCancel"
         ></component>
@@ -91,12 +91,17 @@ export default {
     ...mapActions(['getRequest','getRequests', 'createRequest', 'updateRequest']),
 
     handleActionSelection(action_name){
-      this.requestModel = { request_type: action_name }
-      this.dialogVisible = true;
+      this.requestModel = null;
+
+      this.$nextTick(() => {
+        this.requestModel = { type_request: action_name }
+        this.dialogVisible = true;
+      })
     },
     async handleFormSubmit(request){
       console.log(request);
       var result;
+
       if (request.id != null){
         result = await this.updateRequest({ id: request.id, request });
       } else {
@@ -126,6 +131,7 @@ export default {
     },
     gotoRequestList(){
       this.$router.push({ name: "requestList" });
+
     }
   }
 }

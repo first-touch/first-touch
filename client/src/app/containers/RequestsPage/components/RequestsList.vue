@@ -234,9 +234,14 @@
         this.updateRequest({ id, request }).then((result)=>{
           if (!result) return;
 
-          let request = this.requestList.find((r)=>{ return r.id == id});
-          if (request){
+          let requestIdx= this.requestList.findIndex((r)=>{ return r.id == id});
+          if (requestIdx != -1){
+            let request= this.requestList[requestIdx];
             request.status = status;
+
+            if (request.status == "deleted"){
+              this.requestList.splice(requestIdx, 1);
+            }
           }
         })
       }

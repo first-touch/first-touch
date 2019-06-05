@@ -10,7 +10,7 @@
             {{ error }}
           </li>
         </ul>
-        <div class="row created_at" v-if="edit">
+        <div class="row created_at" v-if="isEdit">
           <label class="col-lg-3">Request created on</label>
           <p class="col-lg-9">{{edit.created_at | moment}}</p>
         </div>
@@ -109,9 +109,9 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
         <textarea class="col-lg-12 form-control" v-model="meta_data.comments" v-autosize="meta_data.comments" placeholder="Add comments" />
       </div>
       <div class="form-group float-right">
-        <button v-if="!edit" id="submit" class="btn btn-success" @click="handleSubmit('publish')">Publish</button>
-        <button v-if="edit" id="submit" class="btn btn-success" @click="handleSubmit(null)">Update</button>
-        <button v-if="!edit" id="submit" class="btn btn-secondary" @click="handleSubmit(null)">Save & Exit</button>
+        <button v-if="!isEdit" id="submit" class="btn btn-success" @click="handleSubmit('publish')">Publish</button>
+        <button v-if="isEdit" id="submit" class="btn btn-success" @click="handleSubmit(null)">Update</button>
+        <button v-if="!isEdit" id="submit" class="btn btn-secondary" @click="handleSubmit(null)">Save & Exit</button>
       </div>
     </form>
   </div>
@@ -209,8 +209,13 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
         }
       };
     },
+    computed: {
+      isEdit(){
+        return (this.edit && 'id' in this.edit);
+      }
+    },
     created() {
-      if (this.edit) {
+      if (this.edit && "id" in this.edit) {
         this.meta_data = this.edit.meta_data;
         this.deadline = this.edit.deadline;
         this.price = this.edit.price;
