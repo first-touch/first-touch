@@ -1,11 +1,18 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "jasmine": true
   },
-  "extends": "vue",
+  "extends": [
+    "vue"
+  ],
   "parserOptions": {
-    "sourceType": "module"
+    "sourceType": "module",
+    "allowImportExportEverywhere": true,
+    "ecmaFeatures": {
+      "globalReturn": true
+    }
   },
   "rules": {
     "indent": [
