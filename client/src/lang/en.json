@@ -12,7 +12,9 @@
       "my_assignments": "My Assignments",
       "my_reports": "My Reports",
       "create_report": "Create Report",
-      "payment_details": "Payment Details"
+      "payment_details": "Payment Details",
+      "assignments": "Assignments",
+      "find_reports": "Find Reports"
     },
     "partners": {
       "main": "Partners",

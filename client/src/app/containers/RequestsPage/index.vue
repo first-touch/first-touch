@@ -1,6 +1,6 @@
 <template>
   <div class="ft-page container">
-    <h4 class="spaced-title upper-cased main-color page-title mb-5">Report Requests</h4>
+    <h4 class="spaced-title upper-cased main-color page-title mb-5">Assignments</h4>
     <actions @select="handleActionSelection" />
     <requests-list ref="requestList"/>
 

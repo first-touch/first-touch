@@ -231,6 +231,7 @@ export const router = new VueRouter({
     },
     {
       path: '/requests',
+      beforeEnter: requireAuth,
       component: UserMobileLayout,
       children: [
         {

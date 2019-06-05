@@ -18,7 +18,7 @@
               <input id="filter-by-requestor" class="form-control" v-model="params.club" type="text" placeholder="Requested by" @keyup="search()" />
             </div>
             <div class="form-group col-md-4">
-              <label for="filter-by-requestor">Type</label>
+              <label for="filter-by-type">Type</label>
               <v-select v-model="requestType" :options="options.type_request" :searchable="false" :clearable="false" />
             </div>
             <div class="form-group col-md-4">
@@ -87,7 +87,7 @@
 </template>
 
 <script>
-  import RequestItem from 'app/components/RequestItem';
+  // import RequestItem from 'app/components/RequestItem';
   import TimelineItem from 'app/components/TimelineItem';
   import {
     ASYNC_SUCCESS,
@@ -106,7 +106,7 @@
       VSelect,
       FtDatepicker,
       RequestRow,
-      RequestItem,
+      // RequestItem,
       BidPopup
     },
     data() {
