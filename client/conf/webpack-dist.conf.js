@@ -58,7 +58,11 @@ module.exports = {
     }),
     new ExtractTextPlugin('index-[contenthash].css'),
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
-    new webpack.LoaderOptionsPlugin()
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss: () => [autoprefixer]
+      }
+    })
   ],
   output: {
     path: path.join(process.cwd(), conf.paths.dist),
