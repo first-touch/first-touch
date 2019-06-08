@@ -79,16 +79,20 @@ export default {
       this.$set(this, 'successMessage', 'Message was successfully sent to all recipients');
     },
     showInboxOnMobile() {
-      $('.back-button').css('display', 'none')
-      $('.current-chat').css('display', 'block')
-      $('.conversation-box').css('display', 'none')
-      $('.sidenav-right').css('display', 'block')
+      if (window.innerWidth < 1000) {
+        $('.back-button').css('display', 'none')
+        $('.current-chat').css('display', 'block')
+        $('.conversation-box').css('display', 'none')
+        $('.sidenav-right').css('display', 'block')
+      }
     },
     showCurrentChatOnMobile() {
-      $('.back-button').css('display', 'block')
-      $('.current-chat').css('display', 'none')
-      $('.conversation-box').css('display', 'block')
-      $('.sidenav-right').css('display', 'none')
+      if (window.innerWidth < 1000) {
+        $('.back-button').css('display', 'block')
+        $('.current-chat').css('display', 'none')
+        $('.conversation-box').css('display', 'block')
+        $('.sidenav-right').css('display', 'none')
+      }
     }
   }
 };
