@@ -165,7 +165,7 @@
         if (this.currentChatWith && window.innerWidth < 1000) {
           this.$parent.showCurrentChatOnMobile()
         }
-        id === parseInt(this.currentChatWith);
+        return id === parseInt(this.currentChatWith);
       }
     },
     mounted() {
