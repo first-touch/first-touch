@@ -43,7 +43,6 @@ export default {
       }
     }).then(response => {
       if (response.ok) {
-        debugger;
         return response.json();
       } else {
         return Promise.reject(response);

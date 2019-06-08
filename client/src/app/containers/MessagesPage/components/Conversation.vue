@@ -1,5 +1,5 @@
 <template>
-  <timeline-item class="timeline-item">
+  <timeline-item class="conversation-box">
     <div class="sub-container">
       <div class="header">
         <img v-if="!newMessage" class="avatar" :src="avatar"  />
@@ -34,8 +34,16 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables.scss';
+@import '~stylesheets/atoms/mobile-text';
 
-.timeline-item {
+@media (max-width: $max-mobile-width) {
+  .conversation-box {
+    // display: none !important;
+    width: 100% !important;
+  }
+}
+
+.conversation-box {
   width: 65%;
   display: inline-block;
   margin-top: 0px;
