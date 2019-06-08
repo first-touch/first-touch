@@ -13,12 +13,29 @@
         <b-modal ref="newMessageModal" id="new-message-modal" size="lg" hide-footer hide-header centered>
           <new-message-popup @closeModal="closeNewMessageModal" @updateSuccessMessage="updateSuccessMessage"/>
         </b-modal>
-        <messages-sidebar :currentChatWith="currentChatWith" />
+        <button class="back-button" v-on:click="showInboxOnMobile">Back to inbox</button>
+        <button class="current-chat" v-on:click="showCurrentChatOnMobile">See current chat</button>
+        <messages-sidebar :currentChatWith="currentChatWith"/>
         <router-view></router-view>
       </div>
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+  @import '~stylesheets/variables.scss';
+
+  @media (max-width: $max-mobile-width) {
+    .back-button, .current-chat {
+      display: block;
+      color: white;
+    }
+  }
+
+  .back-button, .current-chat {
+    display: none;
+  }
+</style>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
@@ -60,6 +77,18 @@ export default {
     },
     updateSuccessMessage() {
       this.$set(this, 'successMessage', 'Message was successfully sent to all recipients');
+    },
+    showInboxOnMobile() {
+      $('.back-button').css('display', 'none')
+      $('.current-chat').css('display', 'block')
+      $('.conversation-box').css('display', 'none')
+      $('.sidenav-right').css('display', 'block')
+    },
+    showCurrentChatOnMobile() {
+      $('.back-button').css('display', 'block')
+      $('.current-chat').css('display', 'none')
+      $('.conversation-box').css('display', 'block')
+      $('.sidenav-right').css('display', 'none')
     }
   }
 };

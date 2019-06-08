@@ -46,8 +46,7 @@
         </div>
 
         <div class="inbox">
-          <inbox-entry v-for="chat in chats" :chat="chat" :active="active(chat.chat_with.id)" :id="chat.chat_with.id" :key="chat.id"
-          />
+          <inbox-entry v-for="chat in chats" :chat="chat" :active="active(chat.chat_with.id)" :id="chat.chat_with.id" :key="chat.id"/>
         </div>
       </div>
     </div>
@@ -55,6 +54,14 @@
 </template>
 
 <style lang="scss" scoped>
+  @import '~stylesheets/variables.scss';
+  // @import '~stylesheets/atoms/mobile-text';
+
+  @media (max-width: $max-mobile-width) {
+    .sidenav-right {
+      width: 100% !important;
+    }
+  }
   .sidenav-right {
     width: 30%;
     display: inline-block;
@@ -156,8 +163,14 @@
     methods: {
       ...mapActions(['getInbox', 'getConversation']),
       active(id) {
+        if (this.currentChatWith && window.innerWidth < 1000) {
+          $('.back-button').css('display', 'block');
+          $('.current-chat').css('display', 'none');
+          $('.conversation-box').css('display', 'block');
+          $('.sidenav-right').css('display', 'none');
+        }
         return id === parseInt(this.currentChatWith);
-      },
+      }
     },
     mounted() {
       this.getInbox({
