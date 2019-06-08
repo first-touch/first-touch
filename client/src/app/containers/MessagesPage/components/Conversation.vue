@@ -38,8 +38,11 @@
 
 @media (max-width: $max-mobile-width) {
   .conversation-box {
-    // display: none !important;
     width: 100% !important;
+  }
+
+  .form-input {
+    font-size: 15px;
   }
 }
 

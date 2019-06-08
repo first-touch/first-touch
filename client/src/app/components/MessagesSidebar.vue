@@ -55,7 +55,6 @@
 
 <style lang="scss" scoped>
   @import '~stylesheets/variables.scss';
-  // @import '~stylesheets/atoms/mobile-text';
 
   @media (max-width: $max-mobile-width) {
     .sidenav-right {
@@ -164,12 +163,9 @@
       ...mapActions(['getInbox', 'getConversation']),
       active(id) {
         if (this.currentChatWith && window.innerWidth < 1000) {
-          $('.back-button').css('display', 'block');
-          $('.current-chat').css('display', 'none');
-          $('.conversation-box').css('display', 'block');
-          $('.sidenav-right').css('display', 'none');
+          this.$parent.showCurrentChatOnMobile()
         }
-        return id === parseInt(this.currentChatWith);
+        id === parseInt(this.currentChatWith);
       }
     },
     mounted() {
