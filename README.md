@@ -134,9 +134,9 @@ installed in your computer as well.
 $ brew install imagemagick
 ```
 
-### In Ubuntu (untested)
+### In Ubuntu
 ```
-$ wget http://www.imagemagick.org/download/ImageMagick.tar.gz
+$ wget https://www.imagemagick.org/download/ImageMagick.tar.gz
 $ tar -xvf ImageMagick.tar.gz
 $ cd ImageMagick-7.*
 $ ./configure
