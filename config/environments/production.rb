@@ -52,7 +52,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
-  # config.active_job.queue_adapter     = :resque
+  config.active_job.queue_adapter = :sidekiq
   # config.active_job.queue_name_prefix = "ninja_dribble_#{Rails.env}"
 
   config.action_mailer.raise_delivery_errors = true
@@ -63,6 +63,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   # config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
   config.action_mailer.default_url_options = { host: 'firsttouch.io' }
+  Rails.application.routes.default_url_options[:host] = 'firsttouch.io'
 
   config.action_mailer.smtp_settings = {
     address: Rails.application.secrets.SMTP_ADDRESS,
