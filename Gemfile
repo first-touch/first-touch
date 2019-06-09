@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'activerecord_json_validator'
 gem 'active_model_serializers'
+gem 'activerecord_json_validator'
 # tags
 gem 'acts-as-taggable-on', '~> 5.0'
 gem 'aws-sdk-s3', '~> 1'
@@ -13,10 +13,9 @@ gem 'iso_country_codes'
 gem 'jwt'
 gem 'mini_magick'
 gem 'multi_json'
+gem 'paper_trail'
 gem 'pg', '< 1.0'
 gem 'puma'
-gem 'stripe'
-gem 'paper_trail'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails'
 # pubsub
@@ -29,6 +28,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'
 gem 'simple_command'
 gem 'simple_token_authentication'
+gem 'stripe'
 gem 'terrapin', require: false
 gem 'trailblazer-rails', '~> 2.1'
 
