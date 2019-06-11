@@ -186,6 +186,16 @@
 .ft-thumbnail {
   max-width: 250px;
 }
+
+.dropzone {
+  border: 2px solid $main-header-color;
+  color: $main-text-color;
+}
+
+.vue-dropzone:hover {
+  background-color: $main-header-color-faded;
+  color: $first-touch-white;
+}
 </style>
 
 <script>
@@ -198,7 +208,7 @@ import ConnectButtons from '../ConnectButtons';
 import 'vue-awesome/icons/pencil-alt';
 import VIcon from 'vue-awesome/components/Icon'
 import vue2Dropzone from 'vue2-dropzone'
-import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 
 export default {
   name: 'PlayerProfile',
