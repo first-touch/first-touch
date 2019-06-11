@@ -162,7 +162,6 @@
                   :awss3="awss3"
                   v-on:vdropzone-s3-upload-error="s3UploadError"
                   v-on:vdropzone-s3-upload-success="s3UploadSuccess"
-                  v-on:vdropzone-files-added="filesAdded"
                   >
                 </vue-dropzone>
               </div>
@@ -293,28 +292,6 @@ export default {
     }
   },
   methods: {
-    filesAdded(files) {
-      _.each(files, (file) => {
-        let data = {
-          blob: {
-            filename: file.name,
-            content_type: file.type,
-            byte_size: file.size,
-            checksum: file.checksum
-          }
-        }
-        fetch(`/api/v1/direct_upload`, {
-          method: 'POST',
-          headers: {
-            Authorization: this.$store.state.token.value,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        }).then(res => {
-          console.log(res);
-        })
-      })
-    },
     s3UploadError(errorMessage) {
       console.error(errorMessage);
     },
