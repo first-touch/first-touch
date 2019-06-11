@@ -166,7 +166,14 @@
                 </vue-dropzone>
               </div>
               <div id="existing-media" class="col-12">
-                <img v-for="mediaUrl in media" :src="mediaUrl" v-bind:key="mediaUrl" class="ft-thumbnail img-thumbnail" />
+                <div class="row mt-2">
+                  <div class="col-4" v-for="medium in media" v-bind:key="medium.id">
+                    <div v-on:click="deleteMedium(medium.id)">
+                      <v-icon class="text-white bg-danger delete-icon" name="times"/>
+                    </div>
+                    <img :src="medium.url" class="img-thumbnail" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -183,9 +190,6 @@
 .detail-title {
   color: $secondary-text-color;
 }
-.ft-thumbnail {
-  max-width: 250px;
-}
 
 .dropzone {
   border: 2px solid $main-header-color;
@@ -195,6 +199,10 @@
 .vue-dropzone:hover {
   background-color: $main-header-color-faded;
   color: $first-touch-white;
+}
+
+.delete-icon {
+  position: absolute;
 }
 </style>
 
@@ -312,6 +320,20 @@ export default {
     }
   },
   methods: {
+    deleteMedium(mediumId) {
+      fetch(`/api/v1/users/${this.$store.state.user.value.id}/media/${mediumId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: this.$store.state.token.value,
+          'Content-Type': 'application/json'
+        }
+      }).then(res => {
+        let idx = this.media.findIndex(elm => {
+          if(elm.id == mediumId) { return true }
+        });
+        this.media.splice(idx, 1);
+      })
+    },
     s3UploadError(errorMessage) {
       console.error(errorMessage);
     },

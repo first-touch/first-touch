@@ -45,7 +45,7 @@ module V1
         def media
           if represented.media.count.positive?
             represented.media.map do |medium|
-              rails_blob_path(medium)
+              { id: medium.id, url: rails_blob_path(medium) }
             end
           else
             []

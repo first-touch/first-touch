@@ -10,6 +10,14 @@ module Api
         u.media.attach(io: downloaded_image, filename: File.basename(uri.path))
         render json: {}, status: :ok
       end
+
+      def destroy
+        u = User.find_by(id: params['user_id'])
+        media_id = params['id']
+        media = u.media.find media_id
+        media.purge
+        render json: {}, status: :ok
+      end
     end
   end
 end
