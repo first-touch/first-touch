@@ -154,6 +154,19 @@
                 <h5 class="spaced-title upper-cased main-color">{{ $t("profile.media_tab.main") }}</h5>
               </div>
             </div>
+            <div class="row mt-1">
+              <div id="add-media" class="col-12">
+                <vue-dropzone
+                  id="media-uploader"
+                  :options="dropzoneOptions"
+                  :awss3="awss3"
+                  v-on:vdropzone-s3-upload-error="s3UploadError"
+                  v-on:vdropzone-s3-upload-success="s3UploadSuccess"
+                  v-on:vdropzone-files-added="filesAdded"
+                  >
+                </vue-dropzone>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -179,6 +192,8 @@ import CareerEvents from '../CareerEvents';
 import ConnectButtons from '../ConnectButtons';
 import 'vue-awesome/icons/pencil-alt';
 import VIcon from 'vue-awesome/components/Icon'
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 export default {
   name: 'PlayerProfile',
@@ -188,7 +203,24 @@ export default {
     PositionRating,
     CareerEvents,
     ConnectButtons,
-    VIcon
+    VIcon,
+    vueDropzone: vue2Dropzone
+  },
+  data () {
+    return {
+      awss3: {
+        signingURL: 'api/v1/direct_upload/signed_request',
+        headers: {
+          Authorization: this.$store.state.token.value
+        },
+        params : {},
+        sendFileToServer : false,
+        withCredentials: false
+      },
+      dropzoneOptions: {
+        thumbnailWidth: 150
+      }
+    }
   },
   computed: {
     userId() {
@@ -258,6 +290,45 @@ export default {
     biography() {
       if(!this.personalProfile || !this.personalProfile.biography) { return "This user has not written anything yet"; }
       return this.personalProfile.biography;
+    }
+  },
+  methods: {
+    filesAdded(files) {
+      _.each(files, (file) => {
+        let data = {
+          blob: {
+            filename: file.name,
+            content_type: file.type,
+            byte_size: file.size,
+            checksum: file.checksum
+          }
+        }
+        fetch(`/api/v1/direct_upload`, {
+          method: 'POST',
+          headers: {
+            Authorization: this.$store.state.token.value,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        }).then(res => {
+          console.log(res);
+        })
+      })
+    },
+    s3UploadError(errorMessage) {
+      console.error(errorMessage);
+    },
+    s3UploadSuccess(s3ObjectLocation, response) {
+      console.info(s3ObjectLocation);
+      const data = { media_url: s3ObjectLocation };
+      fetch(`/api/v1/users/${this.$store.state.user.value.id}/media`, {
+        method: 'POST',
+        headers: {
+          Authorization: this.$store.state.token.value,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
     }
   }
 };

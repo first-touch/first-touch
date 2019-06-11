@@ -18,19 +18,30 @@ Rails.application.routes.draw do
              controller: :relationships,
              action: :destroy
 
+      # TODO: Make routes more restful. Migrate this to resources :users
       # Public profile of user
       get 'users/:id/profile', controller: :users, action: :public_profile
 
       # Authenticated user actions: profile get and update
       resource :user, only: %i[show update]
+
+      # TODO: Make routes more restful. Migrate this to resources :users
       post 'users/:id/avatar', controller: :users, action: :avatar
 
       post 'users/register', to: 'users#register', as: :register
       post 'users/import', to: 'users#import', as: :import
 
       get 'users/:id/follows', controller: :users, action: :follows
+      # TODO: For making this app fully restful we should migrate this
+      # to create the route users/<id>/posts and then on create, validate
+      # that the requestor has permission to create a post on behalf of the
+      # user
       resource :users, except: [:show] do
         resources :posts, only: %i[index create], controller: 'users/posts'
+      end
+
+      resources :users, only: [] do
+        resources :media, only: %i[create destroy]
       end
       resources :career_entries, only: %i[create update destroy]
 
@@ -59,7 +70,10 @@ Rails.application.routes.draw do
         get 'tag/:tag', on: :collection, action: :index_by_tag
         get 'field_types', on: :collection, action: :field_types
       end
+
+      post 'direct_upload', to: 'direct_upload#create'
       post 'direct_upload/signed_url', to: 'direct_upload#signed_url'
+      post 'direct_upload/signed_request', to: 'direct_upload#signed_request'
 
       resources :events, only: %i[index create show]
       post 'connect', controller: :connection, action: :create
@@ -79,8 +93,8 @@ Rails.application.routes.draw do
       resources :request_bids, only: %i[index create]
       get 'requests/bids/:request_id', controller: :bids, action: :requestbids
       post 'requests/bids/:request_id', controller: :bids, action: :acceptbid
-      resource :club_stripes, :path => "club/stripe"
-      resources :files, only: [:show, :new]
+      resource :club_stripes, path: 'club/stripe'
+      resources :files, only: %i[show new]
     end
   end
 end
