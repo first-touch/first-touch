@@ -3,6 +3,7 @@ module V1
     module Representer
       class SelfProfile < Representable::Decorator
         include Representable::JSON
+        include Rails.application.routes.url_helpers
 
         property :id
         collection :career_entries,
@@ -11,6 +12,8 @@ module V1
 
         property :personal_profile,
                  extend: V1::PersonalProfile::Representer::Simplified
+
+        property :media, exec_context: :decorator
 
         property :stripe?, as: 'has_stripe', exec_context: :decorator
         property :bank_account?, as: 'has_bank_account', exec_context: :decorator
@@ -37,6 +40,16 @@ module V1
 
         def role_name
           represented.roles.first.name
+        end
+
+        def media
+          if represented.media.count.positive?
+            represented.media.map do |medium|
+              rails_blob_path(medium)
+            end
+          else
+            []
+          end
         end
       end
 

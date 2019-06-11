@@ -165,6 +165,9 @@
                   >
                 </vue-dropzone>
               </div>
+              <div id="existing-media" class="col-12">
+                <img v-for="mediaUrl in media" :src="mediaUrl" v-bind:key="mediaUrl" class="ft-thumbnail img-thumbnail" />
+              </div>
             </div>
           </div>
         </div>
@@ -179,6 +182,9 @@
 
 .detail-title {
   color: $secondary-text-color;
+}
+.ft-thumbnail {
+  max-width: 250px;
 }
 </style>
 
@@ -289,6 +295,10 @@ export default {
     biography() {
       if(!this.personalProfile || !this.personalProfile.biography) { return "This user has not written anything yet"; }
       return this.personalProfile.biography;
+    },
+    media() {
+      if(!this.user) { return [] }
+      return this.user.media || [];
     }
   },
   methods: {
