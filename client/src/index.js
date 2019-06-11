@@ -81,6 +81,8 @@ window._ = require('lodash');
 function requireAuth (to, from, next) {
   if (!store.state.token || !store.state.token.value) {
     // next({ path: '/welcome' });
+    console.log(process.env);
+    debugger;
     window.location.href = 'https://home.firsttouch.io';
   } else {
     store.dispatch('getUserInfo').then(() => {
