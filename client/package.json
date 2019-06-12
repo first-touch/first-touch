@@ -10,7 +10,6 @@
     "dropzone": "latest",
     "file-loader": "latest",
     "jquery": "latest",
-    "js-sha1": "^0.6.0",
     "moment": "latest",
     "popper.js": "^1.14.4",
     "tocbot": "latest",
