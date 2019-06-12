@@ -55,6 +55,8 @@ class User < ApplicationRecord
   has_many :competitions, through: :teams
   before_save :update_search_string, if: -> { email_changed? }
 
+  has_many_attached :media
+
   def follow(user)
     active_relationships.create followed_id: user.id
   end

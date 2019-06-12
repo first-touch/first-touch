@@ -1,4 +1,37 @@
 {
+  "profile": {
+    "club_info": "Club Info",
+    "edit": "Edit Profile",
+    "overview": "Overview",
+    "history": "History",
+    "stats": "Stats",
+    "media": "Media",
+    "personal_details": {
+      "main": "Personal Details",
+      "date_of_birth": "Date of birth",
+      "nationality": "Nationality",
+      "residency": "Residency",
+      "place_of_birth": "Place of birth",
+      "height": "Height",
+      "weight": "Weight",
+      "preferred_foot": "Preferred Foot",
+      "pro_status": "Pro Status",
+      "no_of_caps": "# Caps"
+    },
+    "position": {
+      "main": "Position"
+    },
+    "biography": "Biography",
+    "career_history": {
+      "main": "Career History"
+    },
+    "stats_tab": {
+      "main": "Stats"
+    },
+    "media_tab": {
+      "main": "Media"
+    }
+  },
   "navbar": {
     "search": "Search",
     "profile": "Profile",

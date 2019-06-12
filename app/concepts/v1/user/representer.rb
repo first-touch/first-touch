@@ -12,6 +12,8 @@ module V1
         property :personal_profile,
                  extend: V1::PersonalProfile::Representer::Simplified
 
+        collection :media, decorator: ::V1::Medium::Representer::Show
+
         property :stripe?, as: 'has_stripe', exec_context: :decorator
         property :bank_account?, as: 'has_bank_account', exec_context: :decorator
 

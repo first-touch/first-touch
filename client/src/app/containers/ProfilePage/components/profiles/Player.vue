@@ -18,7 +18,7 @@
 
         <div class="club-info-wrapper row">
           <div class="col-12">
-            <h5 class="spaced-title upper-cased main-color">Club Info</h5>
+            <h5 class="spaced-title upper-cased main-color"> {{ $t("profile.club_info") }} </h5>
           </div>
           <div class="col-1">
             <div class="avatar img-responsive img-circle" v-bind:style="{ 'background-image': 'url('+clubAvatar+')' }"></div>
@@ -31,10 +31,10 @@
 
         <div class="profile-actions" >
           <router-link  v-if="mine"
-                        class="a-link" 
+                        class="a-link"
                         to="/profile/edit">
                         <v-icon name="pencil-alt" scale="0.9"/>
-                        Edit Profile
+                        {{ $t("profile.edit") }}
           </router-link>
         </div>
 
@@ -52,59 +52,62 @@
       <div class="col-12">
         <ul class="nav justify-content-center" id="profile-navbar" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+            <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">{{ $t("profile.overview") }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">History</a>
+            <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">{{ $t("profile.history") }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="stats-tab" data-toggle="tab" href="#stats" role="tab" aria-controls="stats" aria-selected="false">Stats</a>
+            <a class="nav-link" id="stats-tab" data-toggle="tab" href="#stats" role="tab" aria-controls="stats" aria-selected="false">{{ $t("profile.stats") }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="media-tab" data-toggle="tab" href="#media" role="tab" aria-controls="stats" aria-selected="false">{{ $t("profile.media") }}</a>
           </li>
         </ul>
         <div class="tab-content" id="profile-navbar-content">
           <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
             <div class="row mt-1">
               <div id="summary" class="col-12">
-                <h5 class="spaced-title upper-cased main-color">Personal Details</h5>
+                <h5 class="spaced-title upper-cased main-color">{{ $t("profile.personal_details.main") }}</h5>
               </div>
             </div>
             <div class="row mt-1">
               <div id="summary-contents" class="col-12">
                 <p class="detail name">{{ personalProfile.first_name }} {{ personalProfile.middle_name }} {{ personalProfile.last_name }}</p>
                 <p class="detail">
-                  <span class="detail-title">Date of birth</span>
+                  <span class="detail-title">{{ $t("profile.personal_details.date_of_birth") }}</span>
                   {{ birthday }}
                 </p>
                 <p class="detail">
-                  <span class="detail-title">Nationality</span>
+                  <span class="detail-title">{{ $t("profile.personal_details.nationality") }}</span>
                   {{ nationality }}
                 </p>
                 <p class="detail">
-                  <span class="detail-title">Residency</span>
+                  <span class="detail-title">{{ $t("profile.personal_details.residency") }}</span>
                   {{ residency }}
                 </p>
                 <p class="detail">
-                  <span class="detail-title">Place of birth</span>
+                  <span class="detail-title">{{ $t("profile.personal_details.place_of_birth") }}</span>
                   {{ birthplace }}
                 </p>
                 <p class="detail">
-                  <span class="detail-title">Height</span>
+                  <span class="detail-title">{{ $t("profile.personal_details.height") }}</span>
                   {{ personalProfile.height }} cm
                 </p>
                 <p class="detail">
-                  <span class="detail-title">Weight</span>
+                  <span class="detail-title">{{ $t("profile.personal_details.weight") }}</span>
                   {{ personalProfile.weight }} kg
                 </p>
                 <p class="detail">
-                  <span class="detail-title">Preferred Foot:</span>
+                  <span class="detail-title">{{ $t("profile.personal_details.preferred_foot") }}</span>
                   {{ preferredFoot }}
                 </p>
                 <p class="detail">
-                  <span class="detail-title">Pro Status:</span>
+                  <span class="detail-title">{{ $t("profile.personal_details.pro_status") }}</span>
                   {{ personalProfile.pro_status || "N/a"}}
                 </p>
                 <p class="detail">
-                  <span class="detail-title"># Caps:</span>
+                  <span class="detail-title">{{ $t("profile.personal_details.no_of_caps") }}</span>
                   {{ personalProfile.total_caps || "0" }}
                 </p>
               </div>
@@ -112,7 +115,7 @@
 
             <div class="row mt-1">
               <div id="position" class="col-12">
-                <h5 class="spaced-title upper-cased main-color">Position</h5>
+                <h5 class="spaced-title upper-cased main-color">{{ $t("profile.position.main") }}</h5>
               </div>
             </div>
 
@@ -124,7 +127,7 @@
 
             <div class="row mt-1">
               <div id="biography" class="col-12">
-                <h5 class="spaced-title upper-cased main-color">Biography</h5>
+                <h5 class="spaced-title upper-cased main-color">{{ $t("profile.biography") }}</h5>
               </div>
             </div>
 
@@ -137,13 +140,42 @@
           <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
             <div class="row mt-1">
               <div id="career-history-section" class="col-12">
-                <h5 class="spaced-title upper-cased main-color">Career History</h5>
+                <h5 class="spaced-title upper-cased main-color">{{ $t("profile.career_history.main") }}</h5>
               </div>
             </div>
             <career-events :careerHistory="careerHistory" />
           </div>
           <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">
-            STATS
+            {{ $t("profile.stats_tab.main") }}
+          </div>
+          <div class="tab-pane fade" id="media" role="tabpanel" aria-labelledby="media-tab">
+            <div class="row mt-1">
+              <div id="media-section" class="col-12">
+                <h5 class="spaced-title upper-cased main-color">{{ $t("profile.media_tab.main") }}</h5>
+              </div>
+            </div>
+            <div class="row mt-1">
+              <div id="add-media" class="col-12">
+                <vue-dropzone
+                  id="media-uploader"
+                  :options="dropzoneOptions"
+                  :awss3="awss3"
+                  v-on:vdropzone-s3-upload-error="s3UploadError"
+                  v-on:vdropzone-s3-upload-success="s3UploadSuccess"
+                  >
+                </vue-dropzone>
+              </div>
+              <div id="existing-media" class="col-12">
+                <div class="row mt-2">
+                  <div class="col-4" v-for="medium in media" v-bind:key="medium.id">
+                    <div v-on:click="deleteMedium(medium.id)">
+                      <v-icon class="text-white bg-danger delete-icon" name="times"/>
+                    </div>
+                    <img :src="medium.url" class="img-thumbnail" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -158,6 +190,20 @@
 .detail-title {
   color: $secondary-text-color;
 }
+
+.dropzone {
+  border: 2px solid $main-header-color;
+  color: $main-text-color;
+}
+
+.vue-dropzone:hover {
+  background-color: $main-header-color-faded;
+  color: $first-touch-white;
+}
+
+.delete-icon {
+  position: absolute;
+}
 </style>
 
 <script>
@@ -169,6 +215,9 @@ import CareerEvents from '../CareerEvents';
 import ConnectButtons from '../ConnectButtons';
 import 'vue-awesome/icons/pencil-alt';
 import VIcon from 'vue-awesome/components/Icon'
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css';
+import UserMediaService from 'app/services/UserMediaService'
 
 export default {
   name: 'PlayerProfile',
@@ -178,7 +227,24 @@ export default {
     PositionRating,
     CareerEvents,
     ConnectButtons,
-    VIcon
+    VIcon,
+    vueDropzone: vue2Dropzone
+  },
+  data () {
+    return {
+      awss3: {
+        signingURL: 'api/v1/direct_upload/signed_request',
+        headers: {
+          Authorization: this.$store.state.token.value
+        },
+        params : {},
+        sendFileToServer : false,
+        withCredentials: false
+      },
+      dropzoneOptions: {
+        thumbnailWidth: 150
+      }
+    }
   },
   computed: {
     userId() {
@@ -248,6 +314,30 @@ export default {
     biography() {
       if(!this.personalProfile || !this.personalProfile.biography) { return "This user has not written anything yet"; }
       return this.personalProfile.biography;
+    },
+    media() {
+      if(!this.user) { return [] }
+      return this.user.media || [];
+    }
+  },
+  methods: {
+    deleteMedium(mediumId) {
+      UserMediaService.delete(mediumId).then(response =>{
+        let idx = this.media.findIndex(elm => {
+          if(elm.id == mediumId) { return true }
+        });
+        this.media.splice(idx, 1);
+      });
+    },
+    s3UploadError(errorMessage) {
+      console.error(errorMessage);
+    },
+    s3UploadSuccess(s3ObjectLocation, response) {
+      console.info(s3ObjectLocation);
+      const data = { media_url: s3ObjectLocation };
+      // TODO: After successful upload to the rails side, add the image to the
+      // media list.
+      UserMediaService.upload(data);
     }
   }
 };

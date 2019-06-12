@@ -1,4 +1,28 @@
 {
+  "profile": {
+    "club_info": "Info do Clube",
+    "edit": "Editar Perfil",
+    "overview": "Info Geral",
+    "history": "Carreira",
+    "stats": "Estatísticas",
+    "media": "Media",
+    "personal_details": {
+      "main": "Detalhes Pessoais",
+      "date_of_birth": "Data de nascimento",
+      "nationality": "Nacionalidade",
+      "residency": "Residência",
+      "place_of_birth": "Lugar de nascimento",
+      "height": "Altura",
+      "weight": "Peso",
+      "preferred_foot": "Pé Preferido",
+      "pro_status": "Estado Profissional",
+      "no_of_caps": "# Internacionalizações"
+    },
+    "position": {
+      "main": "Posiçāo"
+    },
+    "biography": "Biografia"
+  },
   "navbar": {
     "search": "Procurar",
     "profile": "Perfil",

@@ -7,7 +7,7 @@ module V1
       private
 
       def init_s3!(options, **)
-        options['s3_bucket'] = S3_BUCKET
+        options[:s3_bucket] = S3_BUCKET
       end
 
       def build_signed_url!(options, s3_bucket:, **)
