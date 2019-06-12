@@ -8,7 +8,7 @@ module V1
       step :attach_image_to_user
 
       def validate_user(_options, current_user:, params:, **)
-        current_user.id == params[:user_id]
+        current_user.id == params[:user_id].to_i
       end
 
       def prepare_file_metadata(options, params:, **)
@@ -16,12 +16,15 @@ module V1
         options[:filename] = File.basename(uri.path)
       end
 
-      def download_image(options, **)
-        options[:image] = open(url)
+      def download_image(options, params:, **)
+        options[:image] = open(params[:media_url])
       end
 
-      def attach_image_to_user(options, **)
-        current_user.media.attach(io: options[:image], filename: options[:filename])
+      def attach_image_to_user(options, current_user:, **)
+        options[:model] = current_user.media.attach(
+          io: options[:image],
+          filename: options[:filename]
+        )[0]
       end
     end
   end
