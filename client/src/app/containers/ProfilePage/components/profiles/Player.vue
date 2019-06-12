@@ -217,6 +217,7 @@ import 'vue-awesome/icons/pencil-alt';
 import VIcon from 'vue-awesome/components/Icon'
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css';
+import UserMediaService from 'app/services/UserMediaService'
 
 export default {
   name: 'PlayerProfile',
@@ -321,18 +322,12 @@ export default {
   },
   methods: {
     deleteMedium(mediumId) {
-      fetch(`/api/v1/users/${this.$store.state.user.value.id}/media/${mediumId}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: this.$store.state.token.value,
-          'Content-Type': 'application/json'
-        }
-      }).then(res => {
+      UserMediaService.delete(mediumId).then(response =>{
         let idx = this.media.findIndex(elm => {
           if(elm.id == mediumId) { return true }
         });
         this.media.splice(idx, 1);
-      })
+      });
     },
     s3UploadError(errorMessage) {
       console.error(errorMessage);
@@ -340,14 +335,9 @@ export default {
     s3UploadSuccess(s3ObjectLocation, response) {
       console.info(s3ObjectLocation);
       const data = { media_url: s3ObjectLocation };
-      fetch(`/api/v1/users/${this.$store.state.user.value.id}/media`, {
-        method: 'POST',
-        headers: {
-          Authorization: this.$store.state.token.value,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
+      // TODO: After successful upload to the rails side, add the image to the
+      // media list.
+      UserMediaService.upload(data);
     }
   }
 };
