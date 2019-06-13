@@ -14,6 +14,16 @@ class Request < ApplicationRecord
   validates :meta_data, presence: true, json: { schema: TEAM_SCHEMA }, if: :is_team_request
   validates :meta_data, presence: true, json: { schema: POSITION_SCHEMA }, if: :is_position_request
 
+  # TODO: Make status an enum
+  # Possible status are:
+  # - Draft - User created, saved it but not published yet
+  #   - Actions avail in UI should be publish and edit
+  # - Published - User created and published
+  #   - Actions avail in UI should be close and edit
+  # - Closed - User closed it
+  #   - Actions avail in UI should be re-open (takes the user to the edit form)
+  # - Expired - Date of submission has passed
+  #   - Actions avail in UI should be re-open (takes the user to the edit form)
   scope :not_hided, -> { where.not(status: %w[pending deleted]) }
 
   def is_player_request

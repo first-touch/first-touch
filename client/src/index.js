@@ -48,7 +48,6 @@ import JobsBankPage from 'app/containers/JobsBankPage';
 import JobBidPage from 'app/containers/JobBidPage';
 
 import RequestsPage from 'app/containers/RequestsPage';
-
 import store from 'app/store';
 import VueAutosize from 'vue-autosize';
 import VueRouter from 'vue-router';
@@ -232,12 +231,18 @@ export const router = new VueRouter({
     },
     {
       path: '/requests',
+      beforeEnter: requireAuth,
       component: UserMobileLayout,
       children: [
         {
           path: '',
           component: RequestsPage,
           name: 'requestList'
+        },
+        {
+          path: ':id/edit',
+          component: RequestsPage,
+          name: 'editRequest'
         },
         {
           path: ':id/bids',

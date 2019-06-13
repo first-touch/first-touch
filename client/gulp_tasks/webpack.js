@@ -24,7 +24,7 @@ gulp.task('webpack:dist', done => {
 gulp.task('webpack-dev-server', function(callback){
   var devConf = webpackConf;
   devConf.devtool = 'eval';
-  
+
   const options = {
     publicPath: '/',
     stats: {
@@ -35,7 +35,7 @@ gulp.task('webpack-dev-server', function(callback){
       '/api/**': { target: 'http://localhost:3000', secure: false },
       '/rails': { target: 'http://localhost:3000', secure: false }
     },
-    host: 'localhost',
+    host: '0.0.0.0',
     hot: true,
     hotOnly: false,
     inline: true,
@@ -44,8 +44,8 @@ gulp.task('webpack-dev-server', function(callback){
   WebpackDevServer.addDevServerEntrypoints(devConf, options)
 
   const server = new WebpackDevServer(webpack(devConf), options)
-  
-  server.listen(8080, 'localhost', (err) => {
+
+  server.listen(8080, '0.0.0.0', (err) => {
     if(err) throw new gutil.PluginError('webpack-dev-server', err);
     gutil.log('[webpack-dev-server]', 'http://localhost:8080');
   })

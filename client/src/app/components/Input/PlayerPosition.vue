@@ -1,5 +1,12 @@
 <template>
-  <vselect :disabled="readonly" ref="vSelect" v-model="model" :onChange="update" multiple :options="options" :placeholder="placeholder" :clearable="true" />
+  <vselect  ref="vSelect"
+            :disabled="readonly"
+            v-model="model"
+            :onChange="update"
+            multiple
+            :options="options"
+            :placeholder="placeholder"
+            :clearable="true" />
 </template>
 
 <script>
@@ -12,7 +19,7 @@
       vselect: vSelect
     },
     mounted() {
-      this.model = [];
+      //this.model = [];
       if (this.value.constructor == Array)
         for (var val in this.value) {
           const index = this.$options.filters.searchInObj(
@@ -26,7 +33,7 @@
     },
     data() {
       return {
-        model: this.value,
+        model: [],
         options: [{
             label: 'Goalkeeper',
             value: 'goalkeeper'
@@ -88,9 +95,17 @@
         ]
       };
     },
+    watch: {
+      model: {
+        deep: true,
+        handler: function(to, from){
+          if (to) this.$emit('update:val', this.$options.filters.vueSelect2Val(to));
+        }
+      }
+    },
     methods: {
       update(val) {
-        if (val) this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
+        //if (val) this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
       }
     }
   };

@@ -1,7 +1,7 @@
 <template>
-<div class="container">
-    <div class="form-group buttons-inner row">
-      <button id="cancel" name="cancel" class="ft-button ft-button-right" @click="handleCancel">CANCEL</button>
+  <div class="container">
+    <div class="float-right">
+      <button id="cancel" name="cancel" class="btn btn-secondary" @click="handleCancel">Cancel</button>
     </div>
     <form @submit.prevent class="player-request ft-form">
       <ul class="error" v-if="errors">
@@ -9,13 +9,13 @@
           {{ error }}
         </li>
       </ul>
-      <div class="row created_at" v-if="edit">
+      <div class="row created_at" v-if="isEdit">
         <label class="col-lg-3">Request created on</label>
         <p class="col-lg-9">{{edit.created_at | moment}}</p>
       </div>
 
-      <h5 class="row" v-if="!edit">The Scouting Target</h5>
-      <div class="row" v-if="!edit">
+      <h5 class="row" v-if="!isEdit">The Scouting Target</h5>
+      <div class="row" v-if="!isEdit">
         <div class="col col-lg-12 form-group required-before">
           <inputsearch :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition" v-on:update:val="setLeague($event)"
             ref="league_search" :taggable="true" label="name" v-on:update:search="meta_data.search.league = $event" placeholder="Choose a league..."
@@ -80,15 +80,18 @@
         </div>
 
         <div class="col-lg-12 form-group">
-          <vselect v-model="training_report_select" class="col-lg-12 form-control" @input="meta_data.training_report = training_report_select.value"
-            :options="options.required" placeholder="Select whether the report should include training observations" :searchable="false"
+          <vselect v-model="training_report_select"
+                   @input="meta_data.training_report = training_report_select.value"
+                   :options="options.required"
+                   placeholder="Select whether the report should include training observations"
+                   :searchable="false"
           />
         </div>
 
         <div class="col-lg-12 form-group required-before">
           <ftdatepicker class="col-lg-12 form-control" :disabled="disabledDates" :value="deadline" v-on:update:val="deadline = $event" ref="deadline"
             placeholder="Select a deadline" />
-          <input type="text" class="d-none" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
+          <input type="text" class="d-none" name="deadline" v-model="deadline" v-validate="'required|date_format:yyyy-MM-dd'" />
           <span class="text-danger">{{ errors.first('deadline') }}</span>
         </div>
         <div class="col-lg-12 form-group required-before">
@@ -108,17 +111,14 @@
         <textarea class="col-lg-12 form-control" v-model="meta_data.comments" v-autosize="meta_data.comments" placeholder="Add comments"
         />
       </div>
-      <div class="form-group buttons-inner row">
-        <button v-if="!edit" id="submit" class="ft-button ft-button-success" @click="handleSubmit('publish')">Publish</button>
-        <button v-if="edit" id="submit" class="ft-button ft-button-success"  @click="handleSubmit(null)">UPDATE</button>
-        <button v-if="!edit" id="submit" class="ft-button ft-button-success" @click="handleSubmit(null)">Save & Exit</button>
+      <div class="form-group float-right">
+        <button v-if="!isEdit" id="submit" class="btn btn-success" @click="handleSubmit('publish')">Publish</button>
+        <button v-if="isEdit" id="submit" class="btn btn-success" @click="handleSubmit(null)">Update</button>
+        <button v-if="!isEdit" id="submit" class="btn btn-secondary" @click="handleSubmit(null)">Save & Exit</button>
       </div>
     </form>
-</div>
+  </div>
 </template>
-<style lang="scss">
-  @import '~stylesheets/form';
-</style>
 <style lang="scss" scoped>
   @import '~stylesheets/variables';
 
@@ -145,37 +145,8 @@
 </style>
 
 <script>
-  import {
-    mapGetters,
-    mapActions
-  } from 'vuex';
-  import inputSearch from 'app/components/Input/InputSearch';
-  import PlayerPosition from 'app/components/Input/PlayerPosition';
-  import Nationality from 'app/components/Input/Nationality';
-  import Language from 'app/components/Input/Language';
-  import PreferredFoot from 'app/components/Input/PreferredFoot';
-  import TimelineItem from 'app/components/TimelineItem';
-  import vSelect from 'vue-select';
-  import CurrencyInput from 'app/components/Input/CurrencyInput';
-  import FtDatepicker from 'app/components/Input/FtDatepicker';
-  import Icon from 'vue-awesome/components/Icon';
-  import 'vue-awesome/icons/question-circle';
-  export default {
-    name: 'player-request-form',
-    props: ['edit'],
-    components: {
-      inputsearch: inputSearch,
-      playerposition: PlayerPosition,
-      countryselect: Nationality,
-      language: Language,
-      preferredfoot: PreferredFoot,
-      vselect: vSelect,
-      currencyinput: CurrencyInput,
-      ftdatepicker: FtDatepicker,
-      icon: Icon,
-    },
-    data() {
-      return {
+  const initialState = () => {
+    return {
         player: {},
         league_id: '',
         team_id: '',
@@ -223,12 +194,48 @@
           }
         }
       };
+  }
+  import {
+    mapGetters,
+    mapActions
+  } from 'vuex';
+  import inputSearch from 'app/components/Input/InputSearch';
+  import PlayerPosition from 'app/components/Input/PlayerPosition';
+  import Nationality from 'app/components/Input/Nationality';
+  import Language from 'app/components/Input/Language';
+  import PreferredFoot from 'app/components/Input/PreferredFoot';
+  import TimelineItem from 'app/components/TimelineItem';
+  import vSelect from 'vue-select';
+  import CurrencyInput from 'app/components/Input/CurrencyInput';
+  import FtDatepicker from 'app/components/Input/FtDatepicker';
+  import Icon from 'vue-awesome/components/Icon';
+  import 'vue-awesome/icons/question-circle';
+  export default {
+    name: 'player-request-form',
+    props: ['edit'],
+    components: {
+      inputsearch: inputSearch,
+      playerposition: PlayerPosition,
+      countryselect: Nationality,
+      language: Language,
+      preferredfoot: PreferredFoot,
+      vselect: vSelect,
+      currencyinput: CurrencyInput,
+      ftdatepicker: FtDatepicker,
+      icon: Icon,
+    },
+    data() {
+      return initialState();
     },
     computed: {
-      ...mapGetters(['searchResult'])
+      ...mapGetters(['searchResult']),
+      isEdit(){
+        return (this.edit && 'id' in this.edit);
+      }
     },
     created() {
-      if (this.edit) {
+
+      if (this.edit && this.edit.id != null) {
         this.meta_data = this.edit.meta_data;
         this.deadline = new Date(this.edit.deadline);
         this.price = this.edit.price;
@@ -237,16 +244,17 @@
       }
       this.$validator.localize(this.dictionary);
 
+      console.log(this.edit);
+      console.log(this.meta_data);
+
     },
     methods: {
       ...mapActions([
         'getSearchResults',
-        'flushSearchResults',
         'getSearchResultsTeams',
         'getSearchResultsCompetition'
       ]),
       getSearchResultsRole(role, searchTerm) {
-        this.flushSearchResults();
         switch (role) {
           case 'team':
             this.getSearchResultsTeams({
@@ -307,6 +315,9 @@
               type_request: 'player',
               status
             }
+
+            if (this.edit){ request.id = this.edit.id; }
+
             if (!this.edit) {
               request = Object.assign(request, {
                 player_id: this.player_id,
@@ -322,8 +333,6 @@
         });
 
       },
-
-
       handleCancel(){
         this.$emit('cancel');
       }

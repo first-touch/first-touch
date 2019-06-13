@@ -1,17 +1,21 @@
 <template>
   <div class="ft-page container">
-    <h4 class="spaced-title upper-cased main-color page-title mb-5">Report Requests</h4>
+    <h4 class="spaced-title upper-cased main-color page-title mb-5">Assignments</h4>
     <actions @select="handleActionSelection" />
-    <requests-list />
+    <requests-list ref="requestList"/>
 
-    <ft-dialog :visible.sync="requestDialogVisible" width="80vw">
+    <ft-dialog :visible.sync="dialogVisible" class="request-dlg">
       <div slot="title">
         <span>Request <span class="capitalize">{{ reportType }}</span> Report</span>
       </div>
 
+      <ft-loading size="small" v-if="loadingRequest" class="mx-auto" />
+
       <div v-if="reportType != ''">
+
         <component
           :is="reportTypeComponent"
+          :edit="requestModel"
           @submit="handleFormSubmit"
           @cancel="handleFormCancel"
         ></component>
@@ -33,6 +37,9 @@ import PlayerRequestForm from 'app/components/ReportRequests/PlayerRequestForm.v
 import PositionRequestForm from 'app/components/ReportRequests/PositionRequestForm.vue';
 import TeamRequestForm from 'app/components/ReportRequests/TeamRequestForm.vue';
 
+import FtLoading from 'app/components/Loading';
+import { ASYNC_LOADING } from '../../constants/AsyncStatus';
+
 export default {
   name: 'reports-page',
   components: {
@@ -40,38 +47,106 @@ export default {
     Actions,
     PlayerRequestForm,
     PositionRequestForm,
-    TeamRequestForm
+    TeamRequestForm,
+    FtLoading
   },
   data() {
     return {
-      requestDialogVisible: false,
-      reportType: ""
+      dialogVisible: false,
+      requestModel: null
     }
   },
   computed:{
+    ...mapGetters(['request']),
+
+    loadingRequest() {
+      return this.request.status == ASYNC_LOADING
+    },
+    reportType() {
+      if (this.requestModel && this.requestModel.type_request){
+        return this.requestModel.type_request;
+      }
+      return "";
+    },
     reportTypeComponent() {
       return this.reportType + "-request-form";
     },
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler: function(to, from){
+          if (to.name == "editRequest"){
+            this.loadRequest(to.params.id);
+          }
+        }
+      },
+    dialogVisible: function(to, from){
+      if (!to && to != from){
+        this.gotoRequestList();
+      }
+    }
+  },
   methods:{
-    ...mapActions(['getRequests', 'createRequest', 'updateRequest']),
+    ...mapActions(['getRequest','getRequests', 'createRequest', 'updateRequest']),
 
     handleActionSelection(action_name){
-      this.reportType = action_name;
-      this.requestDialogVisible = true;
-    },
+      this.requestModel = null;
 
+      this.$nextTick(() => {
+        this.requestModel = { type_request: action_name }
+        this.dialogVisible = true;
+      })
+    },
     async handleFormSubmit(request){
       console.log(request);
-      const result = await this.createRequest(request);
+      var result;
+
+      if (request.id != null){
+        result = await this.updateRequest({ id: request.id, request });
+      } else {
+        result = await this.createRequest(request);
+      }
 
       if (result != null){
-        this.requestDialogVisible = false;
+        this.dialogVisible = false;
+        this.$refs.requestList.search();
+        this.gotoRequestList();
       }
     },
     handleFormCancel(){
-      this.requestDialogVisible = false;
+      this.dialogVisible = false;
+      this.gotoRequestList();
+    },
+    async loadRequest(request_id){
+      if (!request_id) return;
+
+      this.requestModel = null;
+      this.$nextTick(() => {
+        this.dialogVisible = true;
+      })
+
+      await this.getRequest(request_id);
+      this.requestModel = this.request.value;
+    },
+    gotoRequestList(){
+      this.$router.push({ name: "requestList" });
+
     }
   }
 }
 </script>
+
+
+<style lang="scss">
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import '~stylesheets/variables';
+@import "~bootstrap/scss/mixins/_breakpoints";
+
+@include media-breakpoint-up(md) {
+  .request-dlg .ft-dialog {
+    width: 80vw !important;
+  }
+}
+</style>
