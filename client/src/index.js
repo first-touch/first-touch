@@ -51,6 +51,7 @@ import RequestsPage from 'app/containers/RequestsPage';
 import store from 'app/store';
 import VueAutosize from 'vue-autosize';
 import VueRouter from 'vue-router';
+import multiguard from 'vue-router-multiguard';
 import VeeValidate from 'vee-validate';
 import './app/constants/filters';
 import VueFormWizard from 'vue-form-wizard';
@@ -106,6 +107,14 @@ function checkIfLoggedIn (to, from, next) {
       path: '/'
     });
   } else next();
+}
+
+function hasAccessToScouting (to, from, next) {
+  const role = store.state.user.value.role_name || '';
+  if (role === 'scout' || role === 'director') {
+    next();
+  }
+  next({ path: '/' });
 }
 
 export const router = new VueRouter({
@@ -231,7 +240,7 @@ export const router = new VueRouter({
     },
     {
       path: '/requests',
-      beforeEnter: requireAuth,
+      beforeEnter: multiguard([requireAuth, hasAccessToScouting]),
       component: UserMobileLayout,
       children: [
         {

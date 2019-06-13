@@ -7707,6 +7707,11 @@ vue-loader@^13.5.0:
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.6.0"
 
+vue-router-multiguard@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/vue-router-multiguard/-/vue-router-multiguard-1.0.3.tgz#f700991719b40642fb22d5dd0baed6777cfecfaa"
+  integrity sha512-56r7WpUUY0QuCfvezdggV5ubtxG0SuCw6RO0SSioq6ec7iAakMt3XLzxHrZARZrv5tMk6kzHLBTERwrl9vcvZg==
+
 vue-router@latest:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.1.tgz#d9b05ad9c7420ba0f626d6500d693e60092cc1e9"

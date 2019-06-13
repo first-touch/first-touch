@@ -27,6 +27,7 @@
     "vue-i18n": "^8.11.2",
     "vue-loader": "^13.5.0",
     "vue-router": "latest",
+    "vue-router-multiguard": "^1.0.3",
     "vue-select": "latest",
     "vue-star-rating": "^1.6.1",
     "vue-template-compiler": "^2.6.10",
