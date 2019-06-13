@@ -17,7 +17,7 @@
           <router-link class="nav-link" to="/messages"> {{ $t("navbar.messages") }} </router-link>
         </li>
         <li class="nav-item" v-if="isDirector">
-          <router-link class="nav-link" to="/requests">Reports</router-link>
+          <router-link class="nav-link" to="/requests"> {{ $t("navbar.reports") }} </router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/network"> {{ $t("navbar.my_network") }} </router-link>
@@ -107,7 +107,7 @@ export default {
       // return this.role == 'scout' || this.role == 'agent' || this.role == 'director';
     },
     hasClubModule() {
-      return this.role == 'player' || this.role == 'director';
+      return this.role == 'director';
     }
   },
   watch: {
