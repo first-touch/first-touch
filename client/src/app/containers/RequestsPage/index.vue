@@ -131,7 +131,6 @@ export default {
     },
     gotoRequestList(){
       this.$router.push({ name: "requestList" });
-
     }
   }
 }
