@@ -52,6 +52,10 @@
   margin-top: 0px;
 }
 
+.header {
+  height: 12vh;
+}
+
 .body {
   display: flex;
   flex-direction: column;
@@ -59,6 +63,7 @@
   min-height: 150px;
   overflow-y: scroll;
 }
+
 .footer form {
   display: flex;
   width: 100%;

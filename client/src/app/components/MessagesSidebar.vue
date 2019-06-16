@@ -69,6 +69,7 @@
     width: 30%;
     display: inline-block;
     box-shadow: -2px 2px 2px #555;
+    margin-top: 12vh;
   }
   .bar {
     box-sizing: border-box;
