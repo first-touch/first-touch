@@ -7,9 +7,6 @@
           <div class="arrow"></div>
           <ft-button :on-click="openNewMessageModal" icon="regular/edit">Write Message</ft-button>
         </div>
-        <div v-if="successMessage">
-          <em>{{ successMessage }}</em>
-        </div>
         <b-modal ref="newMessageModal" id="new-message-modal" size="lg" hide-footer hide-header centered>
           <new-message-popup @closeModal="closeNewMessageModal" @updateSuccessMessage="updateSuccessMessage"/>
         </b-modal>
@@ -76,7 +73,7 @@ export default {
       this.$refs.newMessageModal.hide()
     },
     updateSuccessMessage() {
-      this.$set(this, 'successMessage', 'Message was successfully sent to all recipients');
+      this.flash("Message was successfully sent to all recipients", "success", { timeout: 3000, important: true });
     },
     showInboxOnMobile() {
       if (window.innerWidth < 1000) {
