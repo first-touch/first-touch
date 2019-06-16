@@ -11,7 +11,6 @@
           <new-message-popup @closeModal="closeNewMessageModal" @updateSuccessMessage="updateSuccessMessage"/>
         </b-modal>
         <button class="back-button" v-on:click="showInboxOnMobile">Back to inbox</button>
-        <button class="current-chat" v-on:click="showCurrentChatOnMobile">See current chat</button>
         <messages-sidebar :currentChatWith="currentChatWith"/>
         <router-view></router-view>
       </div>
@@ -77,18 +76,20 @@ export default {
     },
     showInboxOnMobile() {
       if (window.innerWidth < 1000) {
-        $('.back-button').css('display', 'none')
-        $('.current-chat').css('display', 'block')
-        $('.conversation-box').css('display', 'none')
-        $('.sidenav-right').css('display', 'block')
+        $('.back-button').addClass('d-none').removeClass('d-block')
+        $('.conversation-box').addClass('d-none').removeClass('d-block')
+        $('.sidenav-right').addClass('d-block').removeClass('d-none')
+        this.$router.push('/messages');
       }
     },
     showCurrentChatOnMobile() {
       if (window.innerWidth < 1000) {
-        $('.back-button').css('display', 'block')
-        $('.current-chat').css('display', 'none')
-        $('.conversation-box').css('display', 'block')
-        $('.sidenav-right').css('display', 'none')
+        if (this.$route.path == "/messages") {
+          return
+        }
+        $('.back-button').addClass('d-block').removeClass('d-none')
+        $('.conversation-box').addClass('d-block').removeClass('d-none')
+        $('.sidenav-right').addClass('d-none').removeClass('d-block')
       }
     }
   }
