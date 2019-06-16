@@ -47,7 +47,6 @@
 
         <div class="inbox">
           <inbox-entry v-for="chat in chats"
-                       :on-click="$parent.showCurrentChatOnMobile()"
                        :chat="chat"
                        :active="active(chat.chat_with.id)"
                        :id="chat.chat_with.id"
@@ -167,6 +166,7 @@
     methods: {
       ...mapActions(['getInbox', 'getConversation']),
       active(id) {
+        this.$parent.showCurrentChatOnMobile()
         return id === parseInt(this.currentChatWith);
       }
     },
