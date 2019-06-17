@@ -1,5 +1,5 @@
 A scout can:
-[ ] look for available requests from clubs:
+[ ] look for available requests from clubs: GET /api/v1/requests -> returns all current requests available
   - Navigate to scouting -> find work
   - should list available requests from club
 [ ] Make a bid on a request:
@@ -7,7 +7,7 @@ A scout can:
   - click make a bid
   - fill in the value
   - submit the bid
-[ ] List current accepted bids:
+[ ] List current accepted bids: GET /api/v1/
   - Navigate to scouting -> my assignments
   - should list requests, which the scout has bid for and have been accepted
 [ ] View previously written reports:
