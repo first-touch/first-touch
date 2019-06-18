@@ -16,7 +16,6 @@
             <div class="row">
               <div class="col-12 d-sm-none">
                 <router-link v-if="chatLoaded" to="/messages"> Back to inbox </router-link>
-                <!-- <button class="back-button" v-on:click="showInboxOnMobile">Back to inbox</button> -->
               </div>
               <router-view class="col-12" v-bind:class="chatboxDisplayClass"></router-view>
             </div>
@@ -82,24 +81,6 @@ export default {
     },
     updateSuccessMessage() {
       this.flash("Message was successfully sent to all recipients", "success", { timeout: 3000, important: true });
-    },
-    showInboxOnMobile() {
-      if (window.innerWidth < 1000) {
-        $('.back-button').addClass('d-none').removeClass('d-block')
-        $('.conversation-box').addClass('d-none').removeClass('d-block')
-        $('.sidenav-right').addClass('d-block').removeClass('d-none')
-        this.$router.push('/messages');
-      }
-    },
-    showCurrentChatOnMobile() {
-      if (window.innerWidth < 1000) {
-        if (this.$route.path == "/messages") {
-          return
-        }
-        $('.back-button').addClass('d-block').removeClass('d-none')
-        $('.conversation-box').addClass('d-block').removeClass('d-none')
-        $('.sidenav-right').addClass('d-none').removeClass('d-block')
-      }
     }
   }
 };

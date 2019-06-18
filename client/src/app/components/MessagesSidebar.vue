@@ -156,7 +156,6 @@
     methods: {
       ...mapActions(['getInbox', 'getConversation']),
       active(id) {
-        // this.$parent.showCurrentChatOnMobile()
         return id === parseInt(this.currentChatWith);
       }
     },

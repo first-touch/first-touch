@@ -19,13 +19,8 @@
       </div>
       <div class="footer">
         <form @submit.prevent="send">
-          <button type="button" class="btn btn-upload">
-            <span>+</span>
-          </button>
           <input v-model="content" type="text" class="form-input" placeholder="Write a message..." />
-          <button type="submit" class="btn btn-send">
-            <span>&gt;</span>
-          </button>
+          <ft-button :on-click="send" :displayText="false" icon="regular/paper-plane"></ft-button>
         </form>
       </div>
     </div>
@@ -93,6 +88,7 @@
 <script>
 import TimelineItem from 'app/components/TimelineItem';
 import ConvoEntry from './ConvoEntry';
+import FtButton from 'app/components/Button/Button';
 
 export default {
   name: 'Conversation',
@@ -100,8 +96,9 @@ export default {
     'currentUser', 'messages', 'reloadConversation', 'sendMessage'
   ],
   components: {
-    'convo-entry': ConvoEntry,
-    'timeline-item': TimelineItem,
+    ConvoEntry,
+    TimelineItem,
+    FtButton
   },
   data() {
     return {
