@@ -1,24 +1,22 @@
 <template>
   <div>
-    <div class="container">
-      <div class="ft-page messages">
-        <h4 class="spaced-title upper-cased main-color page-title mb-5">Messages</h4>
-        <div class="a-side-indicator primary">
-          <div class="arrow"></div>
-          <ft-button :on-click="openNewMessageModal" icon="regular/edit">Write Message</ft-button>
-        </div>
-        <b-modal ref="newMessageModal" id="new-message-modal" size="lg" hide-footer hide-header centered>
-          <new-message-popup @closeModal="closeNewMessageModal" @updateSuccessMessage="updateSuccessMessage"/>
-        </b-modal>
-        <div class="row">
-          <messages-sidebar :currentChatWith="currentChatWith" class="col-md-4" v-bind:class="sidebarDisplayClass"/>
-          <div class="col-md-8">
-            <div class="row">
-              <div class="col-12 d-sm-none">
-                <router-link v-if="chatLoaded" to="/messages"> Back to inbox </router-link>
-              </div>
-              <router-view class="col-12" v-bind:class="chatboxDisplayClass"></router-view>
+    <div class="ft-page container messages">
+      <h4 class="spaced-title upper-cased main-color page-title mb-5">Messages</h4>
+      <div class="a-side-indicator primary">
+        <div class="arrow"></div>
+        <ft-button :on-click="openNewMessageModal" icon="regular/edit">Write Message</ft-button>
+      </div>
+      <b-modal ref="newMessageModal" id="new-message-modal" size="lg" hide-footer hide-header centered>
+        <new-message-popup @closeModal="closeNewMessageModal" @updateSuccessMessage="updateSuccessMessage"/>
+      </b-modal>
+      <div class="row">
+        <messages-sidebar :currentChatWith="currentChatWith" class="col-md-4" v-bind:class="sidebarDisplayClass"/>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-12 d-sm-none">
+              <router-link v-if="chatLoaded" to="/messages"> Back to inbox </router-link>
             </div>
+            <router-view class="col-12" v-bind:class="chatboxDisplayClass"></router-view>
           </div>
         </div>
       </div>
