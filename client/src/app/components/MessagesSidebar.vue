@@ -46,8 +46,11 @@
         </div>
 
         <div class="inbox">
-          <inbox-entry v-for="chat in chats" :chat="chat" :active="active(chat.chat_with.id)" :id="chat.chat_with.id" :key="chat.id"
-          />
+          <inbox-entry v-for="chat in chats"
+                       :chat="chat"
+                       :active="active(chat.chat_with.id)"
+                       :id="chat.chat_with.id"
+                       :key="chat.id"/>
         </div>
       </div>
     </div>
@@ -55,12 +58,8 @@
 </template>
 
 <style lang="scss" scoped>
-  .sidenav-right {
-    margin-top: 119px;
-    padding-top: 5px;
-    height: calc(100vh - 119px);
-    box-shadow: -2px 2px 2px #555;
-  }
+  @import '~stylesheets/variables.scss';
+
   .bar {
     box-sizing: border-box;
     border-top: 1px solid white;
@@ -103,7 +102,6 @@
     }
   }
   .inbox {
-    margin-top: 20px;
     height: 420px;
     overflow-y: scroll;
     .inbox-entry:last-child {
@@ -122,7 +120,7 @@
   export default {
     name: 'MessagesSidebar',
     components: {
-      'inbox-entry': InboxEntry,
+      InboxEntry,
     },
     props: ['currentChatWith', 'changeConvo'],
     data() {
@@ -155,7 +153,7 @@
       ...mapActions(['getInbox', 'getConversation']),
       active(id) {
         return id === parseInt(this.currentChatWith);
-      },
+      }
     },
     mounted() {
       this.getInbox({

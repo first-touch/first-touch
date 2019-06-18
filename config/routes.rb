@@ -61,7 +61,7 @@ Rails.application.routes.draw do
 
       # Note: Named route for users search because later on
       # the search will probably be more broad.
-      get 'search', controller: :users, action: :search
+      get 'users/search', controller: :users, action: :search
       resources :network, only: [:index]
       resources :messages, only: %i[index create]
       get 'messages/:chat_with_id', controller: :messages, action: :show

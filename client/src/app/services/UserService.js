@@ -33,7 +33,7 @@ export default {
   },
 
   search (params) {
-    const endpoint = `api/v1/search${$.param(params)}`;
+    const endpoint = `/api/v1/users/search${$.param(params)}`;
     const token = store.state.token.value;
 
     return fetch(endpoint, {

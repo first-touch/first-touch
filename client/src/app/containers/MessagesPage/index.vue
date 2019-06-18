@@ -1,22 +1,26 @@
 <template>
   <div>
-    <div class="container-fluid">
-      <div class="ft-page messages">
-        <h4 class="spaced-title upper-cased main-color">Messages</h4>
-        <div class="a-side-indicator primary">
-          <div class="arrow"></div>
-          <ft-button :on-click="openNewMessageModal" icon="regular/edit">Write Message</ft-button>
+    <div class="ft-page container messages">
+      <h4 class="spaced-title upper-cased main-color page-title mb-5">Messages</h4>
+      <div class="a-side-indicator primary">
+        <div class="arrow"></div>
+        <ft-button :on-click="openNewMessageModal" icon="regular/edit">Write Message</ft-button>
+      </div>
+      <b-modal ref="newMessageModal" id="new-message-modal" size="lg" hide-footer hide-header centered>
+        <new-message-popup @closeModal="closeNewMessageModal" @updateSuccessMessage="updateSuccessMessage"/>
+      </b-modal>
+      <div class="row">
+        <messages-sidebar :currentChatWith="currentChatWith" class="col-md-4" v-bind:class="sidebarDisplayClass"/>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-12 d-sm-none">
+              <router-link v-if="chatLoaded" to="/messages"> Back to inbox </router-link>
+            </div>
+            <router-view class="col-12" v-bind:class="chatboxDisplayClass"></router-view>
+          </div>
         </div>
-        <div v-if="successMessage">
-          <em>{{ successMessage }}</em>
-        </div>
-        <b-modal ref="newMessageModal" id="new-message-modal" size="lg" hide-footer hide-header centered>
-          <new-message-popup @closeModal="closeNewMessageModal" @updateSuccessMessage="updateSuccessMessage"/>
-        </b-modal>
-        <router-view></router-view>
       </div>
     </div>
-    <messages-sidebar :currentChatWith="currentChatWith" />
   </div>
 </template>
 
@@ -45,6 +49,21 @@ export default {
     currentChatWith() {
       return this.$route.params.id;
     },
+    chatLoaded() {
+      return !_.isUndefined(this.currentChatWith);
+    },
+    sidebarDisplayClass() {
+      return {
+        'd-none': this.chatLoaded,
+        'd-md-block': this.chatLoaded
+      }
+    },
+    chatboxDisplayClass() {
+      return {
+        'd-none': !this.chatLoaded,
+        'd-md-block': !this.chatLoaded
+      }
+    }
   },
   methods: {
     ...mapActions(['reloadConversation', 'sendMessage']),
@@ -59,7 +78,7 @@ export default {
       this.$refs.newMessageModal.hide()
     },
     updateSuccessMessage() {
-      this.$set(this, 'successMessage', 'Message was successfully sent to all recipients');
+      this.flash("Message was successfully sent to all recipients", "success", { timeout: 3000, important: true });
     }
   }
 };
