@@ -3,12 +3,11 @@
     <div class="container">
       <div class="info-blk">
         <div class="info-blk-header row">
-          <span class="col-8 no-padding">
-            <span class="info-blk-header-name">
-              All Messages
-            </span>
+          <span class="col-8 no-padding info-blk-header-name">
+            All Messages
           </span>
-          <span class="col-3 no-padding">
+        </div>
+          <!-- <span class="col-3 no-padding">
             <b-btn class="d-block d-lg-none" v-b-toggle.menu-contents>
               <div class="bar">
               </div>
@@ -20,30 +19,30 @@
           </span>
         </div>
 
-        <div class="top-row">
-        <b-collapse is-nav visible id="menu-contents" class="d-lg-block">
-          <b-card>
-            <div class="row">
-              <div class="info-blk-body">
-                <div class="sidebar-widget">
-                  <div class="row d-md-flex flex-md-row">
-                    <div class="col no-padding">
-                      <input v-model="searchTerm" type="text" class="search" placeholder="Type a name" />
-                    </div>
-                    <div class="col no-padding">
-                      <select class="sort" v-model="sortTerm">
-                        <option disabled>Sort</option>
-                        <option>Name</option>
-                        <option>Club</option>
-                      </select>
+        <div class="row">
+          <b-collapse is-nav visible id="menu-contents" class="d-lg-block">
+            <b-card>
+              <div class="row">
+                <div class="info-blk-body">
+                  <div class="sidebar-widget">
+                    <div class="row d-md-flex flex-md-row">
+                      <div class="col no-padding">
+                        <input v-model="searchTerm" type="text" class="search" placeholder="Type a name" />
+                      </div>
+                      <div class="col no-padding">
+                        <select class="sort" v-model="sortTerm">
+                          <option disabled>Sort</option>
+                          <option>Name</option>
+                          <option>Club</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </b-card>
-        </b-collapse>
-        </div>
+            </b-card>
+          </b-collapse>
+        </div> -->
 
         <div class="inbox">
           <inbox-entry v-for="chat in chats"
@@ -66,11 +65,10 @@
     }
   }
   .sidenav-right {
-    width: 30%;
     display: inline-block;
     box-shadow: -2px 2px 2px #555;
-    margin-top: 12vh;
   }
+
   .bar {
     box-sizing: border-box;
     border-top: 1px solid white;

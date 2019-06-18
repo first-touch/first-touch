@@ -18,14 +18,9 @@
           :key="entry.id" />
       </div>
       <div class="footer">
-        <form @submit.prevent="send">
-          <button type="button" class="btn btn-upload">
-            <span>+</span>
-          </button>
-          <input v-model="content" type="text" class="form-input" placeholder="Write a message..." />
-          <button type="submit" class="btn btn-send">
-            <span>&gt;</span>
-          </button>
+        <form v-on:submit.prevent="function() { return true; }">
+          <input v-model="content" type="text" class="form-input m-field-input" placeholder="Write a message..." />
+          <ft-button :on-click="send" :displayText="false" icon="regular/paper-plane"></ft-button>
         </form>
       </div>
     </div>
@@ -34,35 +29,21 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables.scss';
-@import '~stylesheets/atoms/mobile-text';
+// @import '~stylesheets/atoms/mobile-text';
 
-@media (max-width: $max-mobile-width) {
-  .conversation-box {
-    width: 100% !important;
-  }
+// @media (max-width: $max-mobile-width) {
+//   .form-input {
+//     font-size: 15px;
+//   }
+// }
 
-  .form-input {
-    font-size: 15px;
-  }
-}
-
-.conversation-box {
-  width: 65%;
-  display: inline-block;
-  margin-top: 0px;
-}
-
-.header {
-  height: 12vh;
-}
-
-.body {
-  display: flex;
-  flex-direction: column;
-  height: 50vh;
-  min-height: 150px;
-  overflow-y: scroll;
-}
+// .body {
+//   display: flex;
+//   flex-direction: column;
+//   height: 50vh;
+//   min-height: 150px;
+//   overflow-y: scroll;
+// }
 
 .footer form {
   display: flex;
@@ -93,6 +74,7 @@
 <script>
 import TimelineItem from 'app/components/TimelineItem';
 import ConvoEntry from './ConvoEntry';
+import FtButton from 'app/components/Button/Button';
 
 export default {
   name: 'Conversation',
@@ -100,8 +82,9 @@ export default {
     'currentUser', 'messages', 'reloadConversation', 'sendMessage'
   ],
   components: {
-    'convo-entry': ConvoEntry,
-    'timeline-item': TimelineItem,
+    ConvoEntry,
+    TimelineItem,
+    FtButton
   },
   data() {
     return {

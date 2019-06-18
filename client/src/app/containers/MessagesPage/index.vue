@@ -11,8 +11,10 @@
           <new-message-popup @closeModal="closeNewMessageModal" @updateSuccessMessage="updateSuccessMessage"/>
         </b-modal>
         <button class="back-button" v-on:click="showInboxOnMobile">Back to inbox</button>
-        <messages-sidebar :currentChatWith="currentChatWith"/>
-        <router-view></router-view>
+        <div class="row">
+          <messages-sidebar :currentChatWith="currentChatWith" class="col-md-4"/>
+          <router-view class="col-md-8"></router-view>
+        </div>
       </div>
     </div>
   </div>

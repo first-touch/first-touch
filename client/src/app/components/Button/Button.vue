@@ -3,7 +3,7 @@
     <div class="icon-wrapper">
       <v-icon :name="icon" scale="1.5" class="round-icon"/>
     </div>
-    <slot>
+    <slot v-if="displayText">
       Button
     </slot>
   </button>
@@ -79,6 +79,10 @@
         default: function() {
           return {};
         }
+      },
+      displayText: {
+        type: Boolean,
+        default: true
       }
     }
   }
