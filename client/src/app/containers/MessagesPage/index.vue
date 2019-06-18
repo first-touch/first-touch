@@ -10,7 +10,7 @@
         <b-modal ref="newMessageModal" id="new-message-modal" size="lg" hide-footer hide-header centered>
           <new-message-popup @closeModal="closeNewMessageModal" @updateSuccessMessage="updateSuccessMessage"/>
         </b-modal>
-        <button class="back-button" v-on:click="showInboxOnMobile">Back to inbox</button>
+        <router-link to="/messages" class="d-md-none">Back to inbox</router-link>
         <div class="row">
           <messages-sidebar :currentChatWith="currentChatWith" class="col-md-4"/>
           <router-view class="col-md-8"></router-view>
@@ -23,16 +23,16 @@
 <style lang="scss" scoped>
   @import '~stylesheets/variables.scss';
 
-  @media (max-width: $max-mobile-width) {
-    .back-button, .current-chat {
-      display: block;
-      color: white;
-    }
-  }
+  // @media (max-width: $max-mobile-width) {
+  //   .back-button, .current-chat {
+  //     display: block;
+  //     color: white;
+  //   }
+  // }
 
-  .back-button, .current-chat {
-    display: none;
-  }
+  // .back-button, .current-chat {
+  //   display: none;
+  // }
 </style>
 
 <script>

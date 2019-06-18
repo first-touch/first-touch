@@ -59,13 +59,13 @@
 <style lang="scss" scoped>
   @import '~stylesheets/variables.scss';
 
-  @media (max-width: $max-mobile-width) {
-    .sidenav-right {
-      width: 100% !important;
-    }
-  }
+  // @media (max-width: $max-mobile-width) {
+  //   .sidenav-right {
+  //     width: 100% !important;
+  //   }
+  // }
   .sidenav-right {
-    display: inline-block;
+    // display: inline-block;
     box-shadow: -2px 2px 2px #555;
   }
 
@@ -76,44 +76,44 @@
     margin: 3px;
   }
 
-  .top-row {
-    margin-bottom: 0px;
-  }
+  // .top-row {
+  //   margin-bottom: 0px;
+  // }
 
-  .btn-secondary,
-  .btn-secondary:active,
-  .btn-secondary:focus,
-  .btn-secondary:not([disabled]):not(.disabled).active,
-  .btn-secondary:not([disabled]):not(.disabled):active,
-  .show>.btn-secondary.dropdown-toggle {
-    padding: 5px;
-    background-color: transparent;
-  }
-  .card {
-    background: transparent;
-    .card-body {
-      padding: 0;
-      .info-blk-body {
-        margin-left: 15px;
-      }
-    }
-  }
-  .sidebar-widget {
-    .search,
-    .sort {
-      margin-bottom: 5%;
-      border: 1px solid #fff;
-      background-color: transparent;
-      color: #fff;
-      padding: 2px 7px;
-      height: 25px;
-      margin-left: 16px;
-    }
-    .search {
-      border-radius: 4px;
-      width: 130px;
-    }
-  }
+  // .btn-secondary,
+  // .btn-secondary:active,
+  // .btn-secondary:focus,
+  // .btn-secondary:not([disabled]):not(.disabled).active,
+  // .btn-secondary:not([disabled]):not(.disabled):active,
+  // .show>.btn-secondary.dropdown-toggle {
+  //   padding: 5px;
+  //   background-color: transparent;
+  // }
+  // .card {
+  //   background: transparent;
+  //   .card-body {
+  //     padding: 0;
+  //     .info-blk-body {
+  //       margin-left: 15px;
+  //     }
+  //   }
+  // }
+  // .sidebar-widget {
+  //   .search,
+  //   .sort {
+  //     margin-bottom: 5%;
+  //     border: 1px solid #fff;
+  //     background-color: transparent;
+  //     color: #fff;
+  //     padding: 2px 7px;
+  //     height: 25px;
+  //     margin-left: 16px;
+  //   }
+  //   .search {
+  //     border-radius: 4px;
+  //     width: 130px;
+  //   }
+  // }
   .inbox {
     height: 420px;
     overflow-y: scroll;
