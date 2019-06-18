@@ -20,7 +20,7 @@
           </span>
         </div>
 
-        <div class="top-row">
+        <div class="row">
         <b-collapse is-nav visible id="menu-contents" class="d-lg-block">
           <b-card>
             <div class="row">
@@ -65,10 +65,6 @@
     border-top: 1px solid white;
     width: 15px;
     margin: 3px;
-  }
-
-  .top-row {
-    margin-bottom: 0px;
   }
 
   .btn-secondary,
@@ -124,7 +120,7 @@
   export default {
     name: 'MessagesSidebar',
     components: {
-      'inbox-entry': InboxEntry,
+      InboxEntry,
     },
     props: ['currentChatWith', 'changeConvo'],
     data() {

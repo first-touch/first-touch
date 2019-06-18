@@ -29,27 +29,6 @@
 
 <style lang="scss" scoped>
 @import '~stylesheets/variables.scss';
-@import '~stylesheets/atoms/mobile-text';
-
-@media (max-width: $max-mobile-width) {
-  .conversation-box {
-    width: 100% !important;
-  }
-
-  .form-input {
-    font-size: 15px;
-  }
-}
-
-.conversation-box {
-  width: 65%;
-  display: inline-block;
-  margin-top: 0px;
-}
-
-.header {
-  height: 12vh;
-}
 
 .body {
   display: flex;
