@@ -60,17 +60,6 @@
 <style lang="scss" scoped>
   @import '~stylesheets/variables.scss';
 
-  @media (max-width: $max-mobile-width) {
-    .sidenav-right {
-      width: 100% !important;
-    }
-  }
-  .sidenav-right {
-    width: 30%;
-    display: inline-block;
-    box-shadow: -2px 2px 2px #555;
-    margin-top: 12vh;
-  }
   .bar {
     box-sizing: border-box;
     border-top: 1px solid white;
@@ -167,7 +156,7 @@
     methods: {
       ...mapActions(['getInbox', 'getConversation']),
       active(id) {
-        this.$parent.showCurrentChatOnMobile()
+        // this.$parent.showCurrentChatOnMobile()
         return id === parseInt(this.currentChatWith);
       }
     },

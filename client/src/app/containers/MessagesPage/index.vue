@@ -10,28 +10,22 @@
         <b-modal ref="newMessageModal" id="new-message-modal" size="lg" hide-footer hide-header centered>
           <new-message-popup @closeModal="closeNewMessageModal" @updateSuccessMessage="updateSuccessMessage"/>
         </b-modal>
-        <button class="back-button" v-on:click="showInboxOnMobile">Back to inbox</button>
-        <messages-sidebar :currentChatWith="currentChatWith"/>
-        <router-view></router-view>
+        <div class="row">
+          <messages-sidebar :currentChatWith="currentChatWith" class="col-md-4" v-bind:class="sidebarDisplayClass"/>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-12 d-sm-none">
+                <router-link v-if="chatLoaded" to="/messages"> Back to inbox </router-link>
+                <!-- <button class="back-button" v-on:click="showInboxOnMobile">Back to inbox</button> -->
+              </div>
+              <router-view class="col-12" v-bind:class="chatboxDisplayClass"></router-view>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-  @import '~stylesheets/variables.scss';
-
-  @media (max-width: $max-mobile-width) {
-    .back-button, .current-chat {
-      display: block;
-      color: white;
-    }
-  }
-
-  .back-button, .current-chat {
-    display: none;
-  }
-</style>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
@@ -58,6 +52,21 @@ export default {
     currentChatWith() {
       return this.$route.params.id;
     },
+    chatLoaded() {
+      return !_.isUndefined(this.currentChatWith);
+    },
+    sidebarDisplayClass() {
+      return {
+        'd-none': this.chatLoaded,
+        'd-md-block': this.chatLoaded
+      }
+    },
+    chatboxDisplayClass() {
+      return {
+        'd-none': !this.chatLoaded,
+        'd-md-block': !this.chatLoaded
+      }
+    }
   },
   methods: {
     ...mapActions(['reloadConversation', 'sendMessage']),
