@@ -22,7 +22,7 @@ module V1
         joins = "LEFT OUTER JOIN request_bids ON request_bids.request_id = requests.id AND request_bids.user_id = #{user.id} AND request_bids.status != 'canceled' "
         models = models.joins(joins)
         models = models.where('request_bids.status IN (\'pending\', \'accepted\') OR requests.status = ?', 'publish')
-        models.select('requests.*, request_bids.status as bid_status, request_bids.price as bid_price, request_bids.report_id as report_id')
+        models.select('requests.*, request_bids.status as bid_status, request_bids.price as bid_price, request_bids.report_id as report_id').uniq
       end
 
       def get_requests_by_user(user:)
