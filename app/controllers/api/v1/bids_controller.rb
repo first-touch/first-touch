@@ -1,3 +1,4 @@
+# TODO: Deprecated. To be deleted once its guaranteed that nothing relies on this
 module Api
   module V1
     class BidsController < Api::V1::BaseController

@@ -3,11 +3,11 @@ module V1
     module Operation
       module Scout
         class Index < FirstTouch::Operation
-          step :find_model!
+          step :find_models!
 
           private
 
-          def find_model!(options, current_user:, **)
+          def find_models!(options, current_user:, **)
             options[:models] = ::Request
                                .joins('LEFT JOIN request_bids ON requests.id = request_bids.request_id')
                                .where(request_bids: { request_id: nil })

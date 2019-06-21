@@ -78,7 +78,8 @@ export const getRequests = async (store, params) => {
 // structure with the request bids data and along with it the request itself.
 export const getRequestBids = async (store, params) => {
   try {
-    const res = await apiRequest(store, 'GET', `/api/v1/request_bids?${$.param(params)}`);
+    const userRole = store.state.user.value.role_name;
+    const res = await apiRequest(store, 'GET', `/api/v1/${userRole}/request_bids?${$.param(params)}`);
 
     const data = await res.json();
     if (res.status === 200) {

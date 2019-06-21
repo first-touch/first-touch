@@ -47,6 +47,7 @@ Rails.application.routes.draw do
 
       namespace :scout, only: [] do
         resources :requests, only: [:index]
+        resources :request_bids, only: [:index]
       end
 
       namespace :director, only: [] do
@@ -99,11 +100,7 @@ Rails.application.routes.draw do
       put 'stripe', controller: :stripe, action: :update
 
       get 'stripe/required', controller: :stripe, action: :required
-      # TODO: Bids should be request bids
-      resources :bids, except: %i[index create]
-      resources :request_bids, only: %i[index create]
-      get 'requests/bids/:request_id', controller: :bids, action: :requestbids
-      post 'requests/bids/:request_id', controller: :bids, action: :acceptbid
+
       resource :club_stripes, path: 'club/stripe'
       resources :files, only: %i[show new]
     end

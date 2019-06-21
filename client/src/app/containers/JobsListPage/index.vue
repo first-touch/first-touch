@@ -6,7 +6,7 @@
       <ft-button :linkTo="{ name: 'scoutJobsBank'}" icon="search">Find Work</ft-button>
       <ft-button :linkTo="{ name: 'scoutJobBidPage'}" icon="hand-holding-usd">My Pending Bids</ft-button>
     </div>
-    <bids-list class="mt-2 mb-2" />
+    <bids-list bid_status="accepted" class="mt-2 mb-2" />
   </div>
 </template>
 

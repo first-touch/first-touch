@@ -6,8 +6,8 @@ module V1
 
         property :id
         property :status
-        property :user, representer: ::V1::User::Representer::PublicProfile
-        property :request, representer: ::V1::Request::Representer::Full
+        property :user, decorator: ::V1::User::Representer::Simplified
+        property :request, decorator: ::V1::Request::Representer::Full
         property :price
         property :created_at
       end

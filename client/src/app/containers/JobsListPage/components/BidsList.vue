@@ -91,6 +91,7 @@
       FtDatepicker,
       BidRow
     },
+    props: ['bid_status'],
     data() {
       return {
         selected: null,
@@ -98,14 +99,12 @@
         wantbid: false,
         timer: null,
         params: {
-          id: '',
           club: '',
           order: '',
           deadline_from: '',
           deadline_to: '',
           order_asc: true,
           type_request: '',
-          bids_status: 'accepted'
         },
         requestType: {
           label: 'Request Type',
@@ -185,12 +184,7 @@
         };
       },
       search() {
-        var self = this
-        clearTimeout(this.timer);
-        this.timer = setTimeout(function () {
-          const params = _.pickBy(self.params, (value) => { return value != ''; })
-          self.getRequestBids(params);
-        }, 500);
+        this.getRequestBids({status: this.bid_status});
       },
       setOrder(order) {
         if (this.params.order == order)
