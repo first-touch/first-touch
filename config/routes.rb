@@ -53,6 +53,10 @@ Rails.application.routes.draw do
         resources :requests, only: [:index]
       end
 
+      namespace :agent, only: [] do
+        resources :requests, only: [:index]
+      end
+
       get 'club_token', to: 'users/club_token'
 
       resource :clubs, only: [] do
