@@ -113,8 +113,7 @@ function hasAccessToScouting (to, from, next) {
   const role = store.state.user.value.role_name || '';
   if (role === 'scout' || role === 'director') {
     next();
-  }
-  next({ path: '/' });
+  } else next({ path: '/' });
 }
 
 export const router = new VueRouter({

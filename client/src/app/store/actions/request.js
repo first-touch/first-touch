@@ -53,8 +53,9 @@ export const getRequest = async (store, id) => {
 
 export const getRequests = async (store, params) => {
   try {
+    const userRole = store.state.user.value.role_name;
     const queryParams = $.param(params);
-    const res = await apiRequest(store, 'GET', `/api/v1/requests?${queryParams}`);
+    const res = await apiRequest(store, 'GET', `/api/v1/${userRole}/requests?${queryParams}`);
 
     const data = await res.json();
     if (res.status === 200) {

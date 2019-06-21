@@ -1,5 +1,6 @@
 A scout can:
-[x] look for available job requests (assignments) created by clubs (directors): GET /api/v1/requests -> returns all current requests available, for which the scout has not bid yet
+[x] look for available job requests (assignments) created by clubs (directors): GET /api/v1/scout/requests -> returns all current requests available, for which the scout has not bid yet
+
   - Navigate to scouting -> find work
   - should list available requests from club
 

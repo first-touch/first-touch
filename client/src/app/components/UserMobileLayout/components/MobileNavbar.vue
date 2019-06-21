@@ -16,9 +16,6 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/messages"> {{ $t("navbar.messages") }} </router-link>
         </li>
-        <li class="nav-item" v-if="isDirector">
-          <router-link class="nav-link" to="/requests"> {{ $t("navbar.reports") }} </router-link>
-        </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/network"> {{ $t("navbar.my_network") }} </router-link>
         </li>

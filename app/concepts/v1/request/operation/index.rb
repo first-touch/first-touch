@@ -8,29 +8,11 @@ module V1
       private
 
       def find_model!(options, current_user:, **)
-        options[:models] = if current_user.scout?
-                             get_requests_for_scout(user: current_user)
-                           elsif current_user.director? || current_user.agent?
-                             get_requests_for_user(user: current_user)
-                           else
-                             ::Request.all
-                           end
-      end
-
-      def get_requests_for_scout(user:)
-        models = ::Request.all
-        joins = "LEFT OUTER JOIN request_bids ON request_bids.request_id = requests.id AND request_bids.user_id = #{user.id} AND request_bids.status != 'canceled' "
-        models = models.joins(joins)
-        models = models.where('request_bids.status IN (\'pending\', \'accepted\') OR requests.status = ?', 'publish')
-        models.select('requests.*, request_bids.status as bid_status, request_bids.price as bid_price, request_bids.report_id as report_id').uniq
-      end
-
-      def get_requests_by_user(user:)
-        models = user.requests.where.not(status: 'deleted')
+        models = current_user.requests.where.not(status: 'deleted')
         joins = "LEFT OUTER JOIN request_bids ON request_bids.request_id = requests.id AND request_bids.status = 'pending'"
         models = models.joins(joins)
         models = models.select('requests.*, COUNT(request_bids.id) as request_bids_count')
-        models.group('requests.id')
+        options[:models] = models.group('requests.id')
       end
 
     #   def filters!(options, params:, **)
