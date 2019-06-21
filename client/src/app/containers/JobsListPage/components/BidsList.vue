@@ -173,8 +173,7 @@
           deadline_from: '',
           deadline_to: '',
           order_asc: true,
-          type_request: '',
-          bids_status: ['accepted']
+          type_request: ''
         };
         this.$refs.deadlineFrom.model = null;
         this.$refs.deadlineTo.model = null;
@@ -184,6 +183,7 @@
         };
       },
       search() {
+        // TODO: Support other filters
         this.getRequestBids({status: this.bid_status});
       },
       setOrder(order) {
