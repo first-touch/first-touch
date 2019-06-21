@@ -6,7 +6,10 @@
       <ft-button :linkTo="{ name: 'scoutJobsBank'}" icon="search">Find Work</ft-button>
       <ft-button :linkTo="{ name: 'scoutJobBidPage'}" icon="hand-holding-usd">My Pending Bids</ft-button>
     </div>
-    <bids-list bid_status="accepted" class="mt-2 mb-2" />
+    <bids-list bid_status="accepted" class="mt-2 mb-2">
+      <button class="btn btn-primary" @click="createReport">Write report</button>
+      <button class="btn btn-primary" @click="viewReport">View final report</button>
+    </bids-list>
   </div>
 </template>
 
@@ -19,6 +22,14 @@ export default {
   components: {
     BidsList,
     FtButton
+  },
+  methods: {
+    createReport () {
+      console.log('start writing report for this request');
+    },
+    viewReport () {
+      console.log('navigate to associated report')
+    },
   }
 };
 </script>

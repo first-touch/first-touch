@@ -103,6 +103,9 @@ Rails.application.routes.draw do
 
       resource :club_stripes, path: 'club/stripe'
       resources :files, only: %i[show new]
+
+      # TODO: Deprecated. use namespaced routes instead
+      resources :requests
     end
   end
 end

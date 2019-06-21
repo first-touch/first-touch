@@ -60,7 +60,9 @@
         </tr>
       </thead>
       <tbody>
-        <bid-row v-for="request in listRequest" :key="request.id" :request="request" />
+        <bid-row v-for="request in listRequest" :key="request.id" :request="request">
+          <slot></slot>
+        </bid-row>
       </tbody>
     </table>
   </timeline-item>
