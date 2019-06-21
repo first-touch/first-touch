@@ -4,7 +4,7 @@
     <td> {{ request.type_request }} job request </td>
     <td> {{ request.deadline | moment }} </td>
     <td>
-      <slot></slot>
+      <slot name="actions" v-bind:bid="bid"></slot>
     </td>
   </tr>
 </template>
@@ -12,6 +12,6 @@
 <script>
   export default {
     name: 'BidRow',
-    props: ['request']
+    props: ['request', 'bid']
   };
 </script>

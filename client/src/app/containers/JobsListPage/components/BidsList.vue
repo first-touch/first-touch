@@ -60,8 +60,10 @@
         </tr>
       </thead>
       <tbody>
-        <bid-row v-for="request in listRequest" :key="request.id" :request="request">
-          <slot></slot>
+        <bid-row v-for="bid in bidList" :key="bid.id" :bid="bid" :request="bid.request">
+          <template v-slot:actions="slotProps">
+            <slot name="actions" v-bind:bid="slotProps.bid"></slot>
+          </template>
         </bid-row>
       </tbody>
     </table>
@@ -147,6 +149,12 @@
             i = params[key] != '' ? i + 1 : i;
         }
         return i;
+      },
+      bidList() {
+        if (this.searchRequestBids.status === ASYNC_SUCCESS) {
+          return this.searchRequestBids.value;
+        }
+        return [];
       },
       listRequest() {
         if (this.searchRequestBids.status === ASYNC_SUCCESS) {

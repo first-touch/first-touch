@@ -7,8 +7,10 @@
       <ft-button :linkTo="{ name: 'scoutJobBidPage'}" icon="hand-holding-usd">My Pending Bids</ft-button>
     </div>
     <bids-list bid_status="accepted" class="mt-2 mb-2">
-      <button class="btn btn-primary" @click="createReport">Write report</button>
-      <button class="btn btn-primary" @click="viewReport">View final report</button>
+      <template v-slot:actions="slotProps">
+        <button class="btn btn-primary" @click="createReport(slotProps.bid)">Write report</button>
+        <button class="btn btn-primary" @click="viewReport(slotProps.bid)">View final report</button>
+      </template>
     </bids-list>
   </div>
 </template>
@@ -24,10 +26,11 @@ export default {
     FtButton
   },
   methods: {
-    createReport () {
+    createReport (bid) {
+      debugger;
       console.log('start writing report for this request');
     },
-    viewReport () {
+    viewReport (bid) {
       console.log('navigate to associated report')
     },
   }
