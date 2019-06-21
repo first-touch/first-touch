@@ -12,14 +12,11 @@ A scout can:
   - fill in the value
   - submit the bid
 
-[ ] Migrate request bid status to behave like enum
-[ ] Update index to look at param and use it for filtering
-
-[ ] View Pending Bids:
+[x] View Pending Bids:
   - Navigate to scouting -> Find Work -> My Pending bids: GET /api/v1/bids?status="pending"
   - should list the requests for which the scout has bid, but it has not been accepted by the club yet
 
-[ ] List current accepted bids: GET /api/v1/bids?status="accepted"
+[x] List current accepted bids: GET /api/v1/bids?status="accepted"
   - Navigate to scouting -> my assignments
   - should list requests, which the scout has bid for and have been accepted by the club
 

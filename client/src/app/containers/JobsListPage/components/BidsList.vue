@@ -184,7 +184,7 @@
       },
       search() {
         // TODO: Support other filters
-        this.getRequestBids({status: this.bid_status});
+        this.getRequestBids({ status: this.bid_status });
       },
       setOrder(order) {
         if (this.params.order == order)
