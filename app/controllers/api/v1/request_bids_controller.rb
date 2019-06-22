@@ -10,12 +10,6 @@ module Api
         response = FirstTouch::Endpoint.(result, ::V1::RequestBid::Representer::Index)
         render json: response[:data], status: response[:status]
       end
-
-      def create
-        result = ::V1::RequestBid::Create.(params: params, current_user: current_user)
-        response = FirstTouch::Endpoint.(result, ::V1::RequestBid::Representer::Full)
-        render json: response[:data], status: response[:status]
-      end
     end
   end
 end

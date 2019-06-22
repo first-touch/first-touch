@@ -8,13 +8,10 @@ module V1
           private
 
           def find_models!(options, current_user:, **)
-            options[:models] = ::Request
-                               .joins('LEFT JOIN request_bids ON requests.id = request_bids.request_id')
-                               .where(request_bids: { request_id: nil })
-                               .or(
-                                 ::Request.joins('LEFT JOIN request_bids ON requests.id = request_bids.request_id')
-                                          .where.not(request_bids: { user_id: current_user.id })
-                               )
+            requests_with_bids = ::RequestBid.where(user_id: current_user.id)
+                                             .where.not(status: 'cancelled')
+                                             .pluck :request_id
+            options[:models] = ::Request.where.not(id: requests_with_bids)
           end
         end
       end

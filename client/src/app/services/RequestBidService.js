@@ -5,7 +5,9 @@ export default {
 
   create (bid) {
     const token = store.state.token.value;
-    return fetch(this.endpoint, {
+    const userRole = store.state.user.value.role_name;
+    // TODO: Use authedRequest instead
+    return fetch(`/api/v1/${userRole}/request_bids`, {
       method: 'POST',
       headers: {
         Authorization: token,
