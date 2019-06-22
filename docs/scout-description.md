@@ -5,6 +5,9 @@ A scout can:
 
   - Navigate to scouting -> find work
   - should list available requests from club
+  Possible Actions
+  [x] Make a bid
+  [ ] View request details -> Can we use director's components ?
 
 [x] Make a bid on a job request (assignment):
   - Navigate to scouting -> find work
