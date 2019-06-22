@@ -8,6 +8,7 @@ export const authedRequest = function (store, method, endpoint, body) {
       'Content-Type': 'application/json'
     }
   };
+
   if (body) params.body = JSON.stringify(body);
   return fetch(endpoint, params).then((res) => {
     if (res.status === 401) {

@@ -57,13 +57,13 @@ export default {
       console.log('navigate to associated report')
     },
     submitBid(bidData) {
+
       let submitRequest;
       submitRequest = this.updateBid({
         id: this.requestBid.id,
-        bidData
+        price: bidData
       });
       submitRequest.then(res => {
-        debugger;
         const msg = "Bid updated successfully."
         this.flash(msg, "success", { timeout: 3000, important: true });
         this.unsetBidingOn()

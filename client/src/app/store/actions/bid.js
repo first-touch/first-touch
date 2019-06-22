@@ -20,7 +20,7 @@ export const createBid = (store, bid) => {
 export const updateBid = async (store, { requestId, id, price }) => {
   store.commit(ActionTypes.BID_LOADING);
   const userRole = store.state.user.value.role_name;
-  const res = await authedRequest(store, 'PUT', `/api/v1/${userRole}/request_bids/${id}`, { requestId, price });
+  const res = await authedRequest(store, 'PUT', `/api/v1/${userRole}/request_bids/${id}`, { price });
   const data = await res.json();
   if (res.status === 200) {
     store.commit(ActionTypes.BID_SUCCESS, data);
