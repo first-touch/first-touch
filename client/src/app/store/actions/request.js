@@ -1,28 +1,11 @@
 import * as ActionTypes from '../../constants/ActionTypes';
 import $ from 'jquery';
-
-const apiRequest = function (store, method, endpoint, body) {
-  const params = {
-    method,
-    headers: {
-      Authorization: store ? store.state.token.value : null,
-      'Content-Type': 'application/json'
-    }
-  };
-  if (body) params.body = JSON.stringify(body);
-  return fetch(endpoint, params).then((res) => {
-    if (res.status === 401) {
-      store.commit(ActionTypes.TOKEN_CLEAR);
-      throw new Error('Not authorized');
-    }
-    return res;
-  });
-};
+import { authedRequest } from 'app/services/ApiRequest';
 
 export const createRequest = async (store, request) => {
   store.commit(ActionTypes.UPLOADING_REQUEST_LOADING);
   try {
-    const res = await apiRequest(store, 'POST', '/api/v1/requests', request);
+    const res = await authedRequest(store, 'POST', '/api/v1/requests', request);
 
     const data = await res.json();
     if (res.status === 201) {
@@ -39,7 +22,7 @@ export const createRequest = async (store, request) => {
 
 export const getRequest = async (store, id) => {
   store.commit(ActionTypes.UPLOADING_REQUEST_LOADING);
-  const res = await apiRequest(store, 'GET', `/api/v1/requests/${id}`);
+  const res = await authedRequest(store, 'GET', `/api/v1/requests/${id}`);
 
   if (res.status >= 200 && res.status < 400) {
     const data = await res.json();
@@ -55,7 +38,7 @@ export const getRequests = async (store, params) => {
   try {
     const userRole = store.state.user.value.role_name;
     const queryParams = $.param(params);
-    const res = await apiRequest(store, 'GET', `/api/v1/${userRole}/requests?${queryParams}`);
+    const res = await authedRequest(store, 'GET', `/api/v1/${userRole}/requests?${queryParams}`);
 
     const data = await res.json();
     if (res.status === 200) {
@@ -79,7 +62,7 @@ export const getRequests = async (store, params) => {
 export const getRequestBids = async (store, params) => {
   try {
     const userRole = store.state.user.value.role_name;
-    const res = await apiRequest(store, 'GET', `/api/v1/${userRole}/request_bids?${$.param(params)}`);
+    const res = await authedRequest(store, 'GET', `/api/v1/${userRole}/request_bids?${$.param(params)}`);
 
     const data = await res.json();
     if (res.status === 200) {
@@ -96,7 +79,7 @@ export const updateRequest = async (store, { id, request }) => {
   store.commit(ActionTypes.UPLOADING_REQUEST_LOADING);
 
   try {
-    const res = await apiRequest(store, 'PUT', '/api/v1/requests/' + id, request);
+    const res = await authedRequest(store, 'PUT', '/api/v1/requests/' + id, request);
 
     const data = await res.json();
     if (res.status >= 200 && res.status < 400) {

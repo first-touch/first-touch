@@ -16,9 +16,16 @@ A scout can:
   - Navigate to scouting -> Find Work -> My Pending bids: GET /api/v1/bids?status="pending"
   - should list the requests for which the scout has bid, but it has not been accepted by the club yet
 
+  Possible Actions on a bid:
+  [ ] cancel the bid
+  [ ] update the bidding value
+
 [x] List current accepted bids: GET /api/v1/bids?status="accepted"
   - Navigate to scouting -> my assignments
   - should list requests, which the scout has bid for and have been accepted by the club
+  Possible actions on a bid:
+  [ ] Write/Update a report (if not finished yet)
+  [ ] View final report (if finished)
 
 [ ] Write a report for a job request (assignment)
   - Navigate to scouting -> my assignments

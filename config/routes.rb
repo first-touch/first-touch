@@ -47,7 +47,7 @@ Rails.application.routes.draw do
 
       namespace :scout, only: [] do
         resources :requests, only: [:index]
-        resources :request_bids, only: [:index]
+        resources :request_bids, only: [:index, :update]
       end
 
       namespace :director, only: [] do
