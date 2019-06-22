@@ -18,7 +18,7 @@
               <input id="filter-by-requestor" class="form-control" v-model="params.club" type="text" placeholder="Requested by" @keyup="search()" />
             </div>
             <div class="form-group col-md-4">
-              <label for="filter-by-type">Type</label>
+              <label for="filter-by-type">Filter by Type</label>
               <v-select v-model="requestType" :options="options.type_request" :searchable="false" :clearable="false" />
             </div>
             <div class="form-group col-md-4">
@@ -33,14 +33,14 @@
       <thead>
         <tr>
           <th scope="col" class="sortable" @click="setOrder('requested_by')">
-            Requestor
+            Requested By
             <span v-if="params.order == 'requested_by'">
               <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
               <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
             </span>
           </th>
           <th scope="col" class="sortable" @click="setOrder('request_type')">
-            Type
+            Job Type
             <span v-if="params.order == 'request_type'">
               <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
               <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
@@ -60,11 +60,17 @@
               <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
             </span>
           </th>
+          <th scope="col" class="sortable" @click="setOrder('maxBid')">
+            Bid Max Value
+            <span v-if="params.order == 'maxBid'">
+              <v-icon name='arrow-alt-circle-up' v-if="!params.order_asc"></v-icon>
+              <v-icon name='arrow-alt-circle-down' v-if="params.order_asc"></v-icon>
+            </span>
+          </th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <!-- <request-item v-for="request in listRequest" :key="request.id" :request="request" :viewSummary="viewSummary" :addBid="addBid" :viewReport="viewReport" :createReport="createReport" /> -->
         <request-row v-for="request in listRequest"
                      :key="request.id"
                      :request="request"
@@ -87,7 +93,6 @@
 </template>
 
 <script>
-  // import RequestItem from 'app/components/RequestItem';
   import TimelineItem from 'app/components/TimelineItem';
   import {
     ASYNC_SUCCESS,
@@ -100,13 +105,12 @@
 
   export default {
     name: 'JobRequestWidget',
-    props: ['listRequest', 'getRequests', 'update', 'bid', 'createBid', 'updateBid', 'clearBid', 'user'],
+    props: ['listRequest', 'getRequests', 'createBid'],
     components: {
       TimelineItem,
       VSelect,
       FtDatepicker,
       RequestRow,
-      // RequestItem,
       BidPopup
     },
     data() {
@@ -255,7 +259,16 @@
       unsetBidingOn() {
         this.bidingOn = null;
         this.isBidding = false;
-      }
+      },
+      setOrder(order) {
+        if (this.params.order == order)
+          this.params.order_asc = !this.params.order_asc;
+        else
+          this.params.order_asc = true;
+
+        this.params.order = order;
+        this.search();
+      },
     }
   };
 </script>
