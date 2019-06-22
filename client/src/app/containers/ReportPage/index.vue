@@ -29,14 +29,14 @@
     <div v-if="reportValue" class="report-container">
       <div class="content">
         <player-report
-          v-if="reportValue.type_report == 'player'"
+          v-if="reportValue.type_report == 'Player'"
           :report="reportValue"
           :request="request"
           :downloadFile="downloadFile"
           class="report"
         />
         <team-report
-          v-if="reportValue.type_report == 'team'"
+          v-if="reportValue.type_report == 'Team'"
           :report="reportValue"
           :request="request"
           :downloadFile="downloadFile"
