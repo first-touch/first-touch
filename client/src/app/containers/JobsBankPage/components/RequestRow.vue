@@ -35,7 +35,11 @@
     computed: {
       country() {
         if (this.isPlayerRequest || this.isTeamRequest) {
-          return `${this.request.league.name}, ${this.request.league.nation}`;
+          if (this.request.league) {
+            return `${this.request.league.name}, ${this.request.league.nation}`;
+          } else {
+            return 'Missing league info.';
+          }
         } else {
           return 'N/A';
         }

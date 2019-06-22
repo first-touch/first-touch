@@ -1,12 +1,22 @@
 <template>
   <div class="ft-page container">
-    <h4 class="spaced-title upper-cased main-color page-title mb-5">Available Assignments</h4>
+    <h4 class="spaced-title upper-cased main-color page-title mb-5">Find Work</h4>
     <div class="a-side-indicator primary">
       <div class="arrow"></div>
       <ft-button :linkTo="{ name: 'scoutJobsList'}" icon="handshake">My Assignments</ft-button>
       <ft-button :linkTo="{ name: 'scoutJobBidPage'}" icon="hand-holding-usd">My Pending Bids</ft-button>
     </div>
-    <job-request-widget class="mt-2 mb-2" v-if="page == 'index'" :user="user" :listRequest="listRequest" :getRequests="search" :createBid="createBid" :bid="bidSuccess" :clearBid="clearBid" :updateBid="updateBid" />
+    <job-request-widget
+      class="mt-2 mb-2"
+      v-if="page == 'index'"
+      :user="user"
+      :listRequest="listRequest"
+      :getRequests="search"
+      :createBid="createBid"
+      :bid="bidSuccess"
+      :clearBid="clearBid"
+      :updateBid="updateBid"
+    />
   </div>
 </template>
 

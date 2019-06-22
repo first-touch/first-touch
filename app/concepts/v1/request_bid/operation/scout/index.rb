@@ -4,7 +4,8 @@ module V1
       module Scout
         class Index < FirstTouch::Operation
           step :find_models!
-          step :filter!
+          step :filter_by_status!
+          step :filter_by_request_id!
 
           private
 
@@ -13,10 +14,16 @@ module V1
                                            .where(user_id: current_user.id)
           end
 
-          def filter!(options, params:, models:, **)
+          def filter_by_status!(options, params:, models:, **)
             return true unless params['status'].present?
 
             options[:models] = models.where(status: params['status'])
+          end
+
+          def filter_by_request_id!(options, params:, models:, **)
+            return true unless params['request_id'].present?
+
+            options[:models] = models.includes(:request).where(request_id: params['request_id'])
           end
         end
       end
