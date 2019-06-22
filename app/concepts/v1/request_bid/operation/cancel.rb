@@ -1,3 +1,6 @@
+# NOTE: DEPRECATED - Some of the logic might make sense in the near future, but
+# at the moment, cancelling a bid means that no one has accepeted it yet and
+# therefore there is no refund to be made.
 require './lib/payment_util'
 
 module V1

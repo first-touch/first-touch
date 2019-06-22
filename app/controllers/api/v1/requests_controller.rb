@@ -1,3 +1,4 @@
+# TODO: Deprecated. Use user role in the route
 module Api
   module V1
     class RequestsController < Api::V1::BaseController

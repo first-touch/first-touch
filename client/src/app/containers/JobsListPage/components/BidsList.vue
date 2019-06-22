@@ -60,7 +60,11 @@
         </tr>
       </thead>
       <tbody>
-        <bid-row v-for="request in listRequest" :key="request.id" :request="request" />
+        <bid-row v-for="bid in bidList" :key="bid.id" :bid="bid" :request="bid.request">
+          <template v-slot:actions="slotProps">
+            <slot name="actions" v-bind:bid="slotProps.bid"></slot>
+          </template>
+        </bid-row>
       </tbody>
     </table>
   </timeline-item>
@@ -91,6 +95,7 @@
       FtDatepicker,
       BidRow
     },
+    props: ['bid_status'],
     data() {
       return {
         selected: null,
@@ -98,14 +103,12 @@
         wantbid: false,
         timer: null,
         params: {
-          id: '',
           club: '',
           order: '',
           deadline_from: '',
           deadline_to: '',
           order_asc: true,
           type_request: '',
-          bids_status: 'accepted'
         },
         requestType: {
           label: 'Request Type',
@@ -147,6 +150,12 @@
         }
         return i;
       },
+      bidList() {
+        if (this.searchRequestBids.status === ASYNC_SUCCESS) {
+          return this.searchRequestBids.value;
+        }
+        return [];
+      },
       listRequest() {
         if (this.searchRequestBids.status === ASYNC_SUCCESS) {
           let requestBids = this.searchRequestBids.value;
@@ -174,8 +183,7 @@
           deadline_from: '',
           deadline_to: '',
           order_asc: true,
-          type_request: '',
-          bids_status: ['accepted']
+          type_request: ''
         };
         this.$refs.deadlineFrom.model = null;
         this.$refs.deadlineTo.model = null;
@@ -185,12 +193,8 @@
         };
       },
       search() {
-        var self = this
-        clearTimeout(this.timer);
-        this.timer = setTimeout(function () {
-          const params = _.pickBy(self.params, (value) => { return value != ''; })
-          self.getRequestBids(params);
-        }, 500);
+        // TODO: Support other filters
+        this.getRequestBids({ status: this.bid_status });
       },
       setOrder(order) {
         if (this.params.order == order)

@@ -7,5 +7,7 @@ class RequestBid < ApplicationRecord
   has_one :order
   has_many :attachments
 
+  # TODO: Migrate this to a DB enum:
+  # pending | accepted | cancelled
   scope :accepted, -> { where(status: 'accepted') }
 end

@@ -1,7 +1,9 @@
 module V1
   module RequestBid
     class Update < FirstTouch::Operation
-      step :find_model!
+      step Model(::RequestBid, :find_by)
+      failure :model_not_found!, fail_fast: true
+      step :validate_resource_ownership!
       failure :model_not_found!, fail_fast: true
       step Trailblazer::Operation::Contract::Build(
         constant: RequestBid::Contract::Update
@@ -11,9 +13,8 @@ module V1
 
       private
 
-      def find_model!(options, params:,  **)
-        options['model.class'] = ::RequestBid
-        options[:model] = options[:current_user].request_bids.find(params[:id])
+      def validate_resource_ownership!(_opts, model:, current_user:, **)
+        model.user_id == current_user.id
       end
     end
   end

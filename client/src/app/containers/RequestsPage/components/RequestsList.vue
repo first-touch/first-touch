@@ -80,15 +80,6 @@
                      v-on:view-bids="viewBids"
                      @edit-request="editRequest"
         />
-
-        <!-- <request-item-row
-            v-for="request in requestList"
-            :key="request.id"
-            :request="request"
-            @update-status="updateStatus"
-            :own="true"
-            mode="table"
-            :widgets="['status','type','created_at','bids','action']" /> -->
       </tbody>
     </table>
 

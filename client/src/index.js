@@ -113,8 +113,7 @@ function hasAccessToScouting (to, from, next) {
   const role = store.state.user.value.role_name || '';
   if (role === 'scout' || role === 'director') {
     next();
-  }
-  next({ path: '/' });
+  } else next({ path: '/' });
 }
 
 export const router = new VueRouter({
@@ -202,11 +201,13 @@ export const router = new VueRouter({
           component: MyReportsPage,
           name: 'scoutReports'
         },
+        // Displays all bids made by a scout that have been accepted
         {
           path: '/scouting/jobs/list',
           component: JobsListPage,
           name: 'scoutJobsList'
         },
+        // Displays all bids made by a scout that are still pending
         {
           path: '/scouting/jobs/pending',
           component: JobBidPage,

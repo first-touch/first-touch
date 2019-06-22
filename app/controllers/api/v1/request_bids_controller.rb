@@ -1,3 +1,5 @@
+# TODO: Deprecated. Controller for request bids is scoped by user
+# role. This controller should be deleted
 module Api
   module V1
     class RequestBidsController < Api::V1::BaseController
