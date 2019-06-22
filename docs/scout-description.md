@@ -17,8 +17,8 @@ A scout can:
   - should list the requests for which the scout has bid, but it has not been accepted by the club yet
 
   Possible Actions on a bid:
-  [ ] cancel the bid
-  [ ] update the bidding value
+  [x] cancel the bid
+  [x] update the bidding value
 
 [x] List current accepted bids: GET /api/v1/bids?status="accepted"
   - Navigate to scouting -> my assignments

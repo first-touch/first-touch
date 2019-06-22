@@ -27,7 +27,6 @@ export default {
   },
   methods: {
     createReport (bid) {
-      debugger;
       console.log('start writing report for this request');
     },
     viewReport (bid) {

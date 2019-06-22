@@ -48,22 +48,27 @@ export default {
   },
   methods: {
     ...mapActions(['updateBid']),
-    openBidPopup (bid) {
-      this.bidingOn = bid.request;
-      this.requestBid = bid;
+    openBidPopup (requestBid) {
+      this.bidingOn = requestBid.request;
+      this.requestBid = requestBid;
       this.isBidding = true;
     },
-    cancelBid (bid) {
-      console.log('navigate to associated report')
+    cancelBid (requestBid) {
+      if(confirm("Are you sure you want to cancel the bid?")) {
+        this.updateBid({
+          id: requestBid.id,
+          status: "cancelled"
+        }).then(res => {
+          const msg = "Bid cancelled."
+          this.flash(msg, "success", { timeout: 3000, important: true });
+        });
+      }
     },
     submitBid(bidData) {
-
-      let submitRequest;
-      submitRequest = this.updateBid({
+      this.updateBid({
         id: this.requestBid.id,
         price: bidData
-      });
-      submitRequest.then(res => {
+      }).then(res => {
         const msg = "Bid updated successfully."
         this.flash(msg, "success", { timeout: 3000, important: true });
         this.unsetBidingOn()

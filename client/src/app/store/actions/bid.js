@@ -17,10 +17,15 @@ export const createBid = (store, bid) => {
   });
 };
 
-export const updateBid = async (store, { requestId, id, price }) => {
+export const updateBid = async (store, { id, price, status }) => {
   store.commit(ActionTypes.BID_LOADING);
   const userRole = store.state.user.value.role_name;
-  const res = await authedRequest(store, 'PUT', `/api/v1/${userRole}/request_bids/${id}`, { price });
+  const res = await authedRequest(
+    store,
+    'PUT',
+    `/api/v1/${userRole}/request_bids/${id}`,
+    { price, status }
+  );
   const data = await res.json();
   if (res.status === 200) {
     store.commit(ActionTypes.BID_SUCCESS, data);
@@ -62,24 +67,6 @@ export const acceptBid = (store, { id, params }) => {
       res.json().then(r => store.commit(ActionTypes.BID_SUCCESS, r));
     } else {
       res.json().then(r => store.commit(ActionTypes.BID_FAILURE, r));
-    }
-  });
-};
-
-export const cancelBid = (store, { id, params }) => {
-  store.commit(ActionTypes.BID_LOADING);
-  fetch(`/api/v1/bids/${id}`, {
-    method: 'DELETE',
-    headers: {
-      Authorization: store.state.token.value,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(params)
-  }).then(res => {
-    if (res.status === 200) {
-      res.json().then(r => store.commit(ActionTypes.BID_DELETE_SUCCESS, r));
-    } else {
-      res.json().then(r => store.commit(ActionTypes.BID_DELETE_FAILURE, r));
     }
   });
 };

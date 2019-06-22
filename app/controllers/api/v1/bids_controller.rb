@@ -2,12 +2,6 @@
 module Api
   module V1
     class BidsController < Api::V1::BaseController
-      def destroy
-        result = ::V1::RequestBid::Cancel.(params: params, current_user: current_user, current_club: @current_club)
-        response = FirstTouch::Endpoint.(result, ::V1::Order::Representer::Empty)
-        render json: response[:data], status: response[:status]
-      end
-
       def requestbids
         result = ::V1::RequestBid::Index.(params: params, current_user: current_user, current_club: @current_club)
         response = FirstTouch::Endpoint.(result, ::V1::RequestBid::Representer::Index)

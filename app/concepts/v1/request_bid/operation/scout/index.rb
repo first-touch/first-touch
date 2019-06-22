@@ -11,7 +11,6 @@ module V1
           def find_models!(options, current_user:, **)
             options[:models] = ::RequestBid.includes(:request)
                                            .where(user_id: current_user.id)
-
           end
 
           def filter!(options, params:, models:, **)
