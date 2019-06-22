@@ -1,7 +1,7 @@
 <template>
-  <div class="ft-page">
-    <div class="container">
-      <h4 class="spaced-title upper-cased main-color">Report</h4>
+  <div class="ft-page container">
+    <h4 class="spaced-title upper-cased main-color page-title mb-5">Create Report</h4>
+    <timeline-item>
       <div class="form-container">
         <status :status="status" />
         <ul class="error" v-if="report.errors">
@@ -21,7 +21,7 @@
           </keep-alive>
         </div>
       </div>
-    </div>
+    </timeline-item>
   </div>
 </template>
 

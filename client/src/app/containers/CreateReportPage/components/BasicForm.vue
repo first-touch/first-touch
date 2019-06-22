@@ -3,25 +3,35 @@
     <div class="form-group row">
       <label class="col-lg-3 col-form-label">Select report type</label>
       <div class="col-lg-6">
-        <vselect placeholder="Choose the report type" v-model="reportType" :options="options.reportType" :searchable="true" :clearable="true" />
+        <v-select placeholder="Choose the report type" v-model="reportType" :options="options.reportType" :searchable="true" :clearable="true" />
       </div>
     </div>
     <div class="form-group row">
       <label class="col-lg-3 col-form-label">Select a League</label>
       <div class="col-lg-6">
-        <vselect placeholder="Search for the competition" v-model="competition" :onSearch="searchCompetitions" label="name" :options="options.competitions" :searchable="true" :clearable="true" />
+        <v-select placeholder="Search for the competition" v-model="competition" :onSearch="searchCompetitions" label="name" :options="options.competitions" :searchable="true" :clearable="true" />
       </div>
     </div>
     <div class="form-group row">
       <label class="col-lg-3 col-form-label">Select a Club</label>
       <div class="col-lg-6">
-        <vselect placeholder="Search for the club" v-model="club" :disabled="missingLeague" :onSearch="searchClubs" label="team_name" :options="options.clubs" :searchable="true" :clearable="true" :taggable="true"/>
+        <v-select placeholder="Search for the club" v-model="club" :disabled="missingLeague" :onSearch="searchClubs" label="team_name" :options="options.clubs" :searchable="true" :clearable="true" :taggable="true"/>
       </div>
     </div>
     <div class="form-group row" v-if="isPlayerReport">
       <label class="col-lg-3 col-form-label">Select a Player</label>
       <div class="col-lg-6">
-        <vselect placeholder="Search for the player" v-model="player" :disabled="missingClub" :onSearch="searchPlayers" label="display_name" :options="options.players" :searchable="true" :clearable="true" :taggable="true"/>
+        <v-select
+          placeholder="Search for the player"
+          v-model="player"
+          :disabled="missingClub"
+          :onSearch="searchPlayers"
+          label="display_name"
+          :options="options.players"
+          :searchable="true"
+          :clearable="true"
+          :taggable="true"
+        />
       </div>
     </div>
     <div class="buttons-inner row">
@@ -41,7 +51,7 @@
     mapGetters,
     mapActions
   } from 'vuex';
-  import vSelect from 'vue-select';
+  import VSelect from 'vue-select';
   import TeamSelect from 'app/components/Input/TeamSelect';
   import inputSearch from 'app/components/Input/InputSearch';
 
@@ -50,18 +60,26 @@
     props: ['prepareReport'],
     components: {
       inputsearch: inputSearch,
-      vselect: vSelect,
-      'team-select': TeamSelect,
+      VSelect,
+      TeamSelect,
     },
     data() {
       return {
         player_report: false,
         team_report: false,
         job_type: 'independent',
-        club: {},
-        competition: {},
-        team: '',
-        player: {},
+        club: {
+          team_name: ''
+        },
+        competition: {
+          name: ''
+        },
+        team: {
+          team_name: ''
+        },
+        player: {
+          display_name: ''
+        },
         search: {
           player: '',
           league: '',
