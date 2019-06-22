@@ -2,8 +2,9 @@
   <tr>
     <td> TBA </td>
     <td> {{ request.type_request }} </td>
-    <td> {{request.deadline | moment}} </td>
-    <td> {{country}} </td>
+    <td> {{ request.deadline | moment }} </td>
+    <td> {{ country }} </td>
+    <td> {{ requestPrice.max}} {{ requestPrice.currency | currency }} </td>
     <td>
       <button class="btn btn-primary" @click="viewRequestDetails">View details</button>
       <button class="btn btn-primary" @click="makeBid">Make a Bid</button>
@@ -50,6 +51,9 @@
       },
       requestType() {
         return this.request.type_request;
+      },
+      requestPrice() {
+        return this.request.price;
       }
     }
   };

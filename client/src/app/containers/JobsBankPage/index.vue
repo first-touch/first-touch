@@ -8,14 +8,9 @@
     </div>
     <job-request-widget
       class="mt-2 mb-2"
-      v-if="page == 'index'"
-      :user="user"
       :listRequest="listRequest"
       :getRequests="search"
       :createBid="createBid"
-      :bid="bidSuccess"
-      :clearBid="clearBid"
-      :updateBid="updateBid"
     />
   </div>
 </template>
@@ -34,7 +29,6 @@ export default {
   },
   data() {
     return {
-      page: 'index',
       loading: false,
       serverErrors: null,
       listRequest: [],
@@ -72,9 +66,6 @@ export default {
     search(params) {
       this.params = params;
       this.getRequests(this.params);
-    },
-    cancel() {
-      this.page = 'index';
     }
   }
 };
