@@ -14,24 +14,49 @@
           <label class="col-lg-3">Request created on</label>
           <p class="col-lg-9">{{edit.created_at | moment}}</p>
         </div>
-        <h5 class="row" v-if="!isEdit">The Scouting Target</h5>
-        <div class="row" v-if="!isEdit">
+
+        <h5 class="row">The Scouting Target</h5>
+        <div class="row">
           <div class="col-lg-6 form-group required-before">
-            <input-search class="col-lg-12" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition"
-              v-on:update:val="setLeague($event)" v-on:update:search="meta_data.search.league = $event" ref="team_search"
-              placeholder="Select a league" label="name" />
+            <input-search
+              ref="team_search"
+              class="col-lg-12"
+              :taggable="true"
+              :onkeyup="getSearchResultsRole"
+              :searchResult="searchResult"
+              type="competition"
+              v-on:update:val="setLeague($event)" v-on:update:search="meta_data.search.league = $event"
+              placeholder="Select a league" label="name"
+              :edit="leagueEditInfo"
+              />
             <input type="text" class="d-none" name="league" v-model="league_id" v-validate="'required'" />
             <span class="text-danger">{{ errors.first('league') }}</span>
           </div>
           <div class="col-lg-6 form-group required-before">
-            <input-search :edit="team_search" :readonly="league_id == ''" class="col-lg-12" :taggable="true" :onkeyup="getSearchResultsRole"
-              placeholder="Select a club" ref="team_search" v-on:update:search="meta_data.search.club = $event" :searchResult="searchResult"
-              type="team" v-on:update:obj="setClub($event)" :required="true" label="team_name" />
+            <input-search
+              :readonly="league_id == ''"
+              class="col-lg-12"
+              :taggable="true"
+              :onkeyup="getSearchResultsRole"
+              placeholder="Select a club"
+              ref="team_search"
+              v-on:update:search="meta_data.search.club = $event"
+              :searchResult="searchResult"
+              type="team"
+              v-on:update:obj="setClub($event)"
+              :required="true"
+              label="team_name"
+              :edit="teamEditInfo"
+              />
             <input type="text" class="d-none" name="club" v-model="team_id" v-validate="'required'" />
             <span class="text-danger">{{ errors.first('club') }}</span>
           </div>
           <div class="col-lg-6 form-group required-before">
-            <team-select @input="meta_data.team = $event.value" :readonly="team_id == ''" placeholder="Select a team" />
+            <team-select
+              @input="updateClubTeam"
+              :readonly="team_id == ''"
+              placeholder="Select a team"
+              :value="isEdit && edit.meta_data.team ? edit.meta_data.team : ''"/>
             <input type="text" class="d-none" name="team" v-model="meta_data.team" v-validate="'required'" />
             <span class="text-danger">{{ errors.first('team') }}</span>
           </div>
@@ -179,25 +204,57 @@
 
       isEdit(){
         return (this.edit && 'id' in this.edit);
+      },
+      leagueEditInfo(){
+        if (!this.isEdit) return false;
+        let request = this.edit;
+
+        if (this.edit.league){
+          return { search: request.league.name, id: request.league.id }
+        } else {
+          return { search: request.meta_data.search.league, id: -1 }
+        }
+      },
+      teamEditInfo(){
+        if (!this.isEdit) return false;
+        let request = this.edit;
+
+        if (this.edit.team){
+          return { search: request.team.team_name, id: request.team.id }
+        } else {
+          return { search: request.meta_data.search.club, id: -1 }
+        }
       }
     },
     created() {
       if (this.edit && "id" in this.edit) {
+        let request = this.edit;
         this.meta_data = this.edit.meta_data;
         this.deadline = this.edit.deadline;
         this.price = this.edit.price;
+
+        let search = request.meta_data.search;
+        if (request.league){
+          this.league_id = request.league.id;
+        } else if (search.league != ''){
+          this.league_id = -1;
+        }
+
+        if (request.team){
+          this.team_id = request.team.id;
+        } else if (search.club != ''){
+          this.team_id = -1;
+        }
+
         const index = this.$options.filters.searchInObj(
           this.options.required,
           option => option.value === this.edit.meta_data.training_report
         );
-        if (index > 0)
+        if (index > 0){
           this.training_report_select = this.options.required[index];
+        }
       }
       this.$validator.localize(this.dictionary);
-
-      console.log("team request - ");
-      console.log(this.edit);
-      console.log(this.meta_data);
 
     },
     methods: {
@@ -234,6 +291,11 @@
           }
         }
       },
+      updateClubTeam(team){
+        if (team){
+          this.meta_data.team = team.value;
+        }
+      },
       showCalendar: function (index) {
         this.$refs.datepicker.showCalendar();
       },
@@ -241,7 +303,7 @@
         this.$validator.validateAll().then(() => {
           if (this.errors.items.length == 0) {
             if (status == null) {
-              status = this.edit ? this.edit.status : 'private';
+              status = this.isEdit ? this.edit.status : 'private';
             }
 
             const request = {
