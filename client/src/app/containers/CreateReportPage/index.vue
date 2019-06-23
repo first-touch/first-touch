@@ -11,7 +11,7 @@
           </li>
         </ul>
 
-        <basicform class="report-type-form" v-if="!showForm" :prepareReport="prepareReport" />
+        <report-type-form v-if="!showForm" v-on:start-report="prepareReport" />
         <div v-if="showForm">
           <keep-alive>
             <playerreportform v-if="report_type == 'Player' && status == '' " :hasBankAccount="hasBankAccount" :submitReport="customCreateReport"
