@@ -193,7 +193,7 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
     components: {
       inputsearch: inputSearch,
       playerposition: PlayerPosition,
-      countryselect: Nationality,
+      CountrySelect,
       language: Language,
       preferredfoot: PreferredFoot,
       ftdatepicker: FtDatepicker,

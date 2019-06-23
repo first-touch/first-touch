@@ -73,10 +73,10 @@
             </div>
             <div class="row mt-2 mb-2">
               <div class="col-lg-6">
-                <countryselect :value="meta_data.player_info.nationality_country_code" v-on:update:val="meta_data.player_info.nationality_country_code = $event"
+                <country-select :value="meta_data.player_info.nationality_country_code" v-on:update:val="meta_data.player_info.nationality_country_code = $event"
                   placeholder="Nationality is" /> </div>
               <div class="col-lg-6">
-                <countryselect :value="meta_data.player_info.residence_country_code" v-on:update:val="meta_data.player_info.residence_country_code = $event"
+                <country-select :value="meta_data.player_info.residence_country_code" v-on:update:val="meta_data.player_info.residence_country_code = $event"
                   placeholder="Based in" />
               </div>
             </div>
@@ -187,7 +187,7 @@
     components: {
       matchanalyzed: MatchAnalyzed,
       playerposition: PlayerPosition,
-      countryselect: Nationality,
+      CountrySelect,
       language: Language,
       preferredfoot: PreferredFoot,
       ftcheckbox: FtCheckbox,

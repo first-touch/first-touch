@@ -24,7 +24,7 @@
         </div>
         <div class="row col-lg-12">
           <label class="col-lg-4 required">Select Country</label>
-          <countryselect :filter="availableCountry" class="col-lg-8" v-on:update:val="bankInfo.country = $event; getRequired();" v-on:update:obj="bankNeed = $event ? $event.bank_column_needed : null"
+          <country-select :filter="availableCountry" class="col-lg-8" v-on:update:val="bankInfo.country = $event; getRequired();" v-on:update:obj="bankNeed = $event ? $event.bank_column_needed : null"
             :value="this.bankInfo.country" />
         </div>
         <div class="row col-lg-12" v-if="bankNeed">
@@ -146,7 +146,7 @@ export default {
     'stripeFtouch'
   ],
   components: {
-    countryselect: CountrySelect,
+    CountrySelect,
     loading: Loading,
     vselect: vSelect
   },

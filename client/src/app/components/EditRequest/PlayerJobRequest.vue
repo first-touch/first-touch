@@ -46,11 +46,11 @@
               <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.age" placeholder="Age">
             </div>
             <div class="col-lg-4 form-group">
-              <countryselect class="col-lg-12" :value="meta_data.nationality_country_code" placeholder="Nationality is" v-on:update:val="meta_data.nationality_country_code = $event"
+              <country-select class="col-lg-12" :value="meta_data.nationality_country_code" placeholder="Nationality is" v-on:update:val="meta_data.nationality_country_code = $event"
               />
             </div>
             <div class="col-lg-4 form-group">
-              <countryselect class="col-lg-12" :value="meta_data.residence_country_code" placeholder="Based in" v-on:update:val="meta_data.residence_country_code = $event"
+              <country-select class="col-lg-12" :value="meta_data.residence_country_code" placeholder="Based in" v-on:update:val="meta_data.residence_country_code = $event"
               />
             </div>
           </div>
@@ -170,7 +170,7 @@
     components: {
       inputsearch: inputSearch,
       playerposition: PlayerPosition,
-      countryselect: Nationality,
+      CountrySelect,
       language: Language,
       preferredfoot: PreferredFoot,
       'timeline-item': TimelineItem,
