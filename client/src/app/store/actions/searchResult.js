@@ -2,7 +2,7 @@ import * as types from '../../constants/ActionTypes';
 
 export const getSearchResults = (store, { searchTerm, role = '', team = '' }) => {
   store.commit(types.SEARCH_RESULT_LOADING);
-  return fetch(`/api/v1/search?q=${searchTerm}&role=${role}&team=${team}`, {
+  return fetch(`/api/v1/users/search?q=${searchTerm}&role=${role}&team=${team}`, {
     method: 'GET',
     headers: { Authorization: store.state.token.value }
   }).then(res => {
