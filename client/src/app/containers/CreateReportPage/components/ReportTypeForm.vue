@@ -1,5 +1,5 @@
 <template>
-  <form class="report-type-form" @submit.prevent>
+  <form @submit.prevent>
     <div class="form-group row">
       <label class="col-lg-3 col-form-label">Select report type</label>
       <div class="col-lg-6">
@@ -15,7 +15,7 @@
     <div class="form-group row">
       <label class="col-lg-3 col-form-label">Select a Club</label>
       <div class="col-lg-6">
-        <v-select placeholder="Search for the club" v-model="club" :disabled="missingLeague" :onSearch="searchClubs" label="team_name" :options="options.clubs" :searchable="true" :clearable="true" :taggable="true"/>
+        <v-select placeholder="Search for the club" v-model="club" :disabled="missingLeague" :onSearch="searchClubs" label="team_name" :options="options.clubs" :searchable="true" :clearable="true"/>
       </div>
     </div>
     <div class="form-group row" v-if="isPlayerReport">
@@ -52,16 +52,37 @@
     mapActions
   } from 'vuex';
   import VSelect from 'vue-select';
-  import TeamSelect from 'app/components/Input/TeamSelect';
-  import inputSearch from 'app/components/Input/InputSearch';
 
   export default {
     name: 'ReportBasicForm',
     props: ['prepareReport'],
     components: {
-      inputsearch: inputSearch,
-      VSelect,
-      TeamSelect,
+      VSelect
+    },
+    watch: {
+      competition(newCompetition) {
+        this.club = '';
+        this.options.clubs = [];
+      },
+      club(newClub) {
+        this.player = '';
+        this.options.players = [];
+      },
+      player(chosenPlayer) {
+        if(_.isObject(chosenPlayer)) return;
+
+        let playerNames = chosenPlayer.split(' ');
+        const lastName = playerNames.splice(playerNames.length-1, 1);
+        const firstName = playerNames.splice(0, 1);
+        const middleNames = playerNames.join(" ");
+        this.player = {
+          display_name: chosenPlayer,
+          first_name: firstName,
+          last_name: lastName,
+          middle_name: middleNames,
+          role_name: "player"
+        }
+      }
     },
     data() {
       return {
@@ -79,11 +100,6 @@
         },
         player: {
           display_name: ''
-        },
-        search: {
-          player: '',
-          league: '',
-          club: ''
         },
         reportType: undefined,
         options: {
@@ -147,15 +163,13 @@
         });
       },
       startReport() {
-        // TODO: Start report on an existing player
-        // Start report on a non existing player -> Backend to create an
-        // unclaimed account
-        var ids = {
-          player: this.player.id > 0 ? this.player.id : '',
-          team: this.club.id > 0 ? this.club.id : '',
-          league: this.competition.id > 0 ? this.competition.id : '',
+        const reportData = {
+          type_report: this.reportType,
+          team: { id: this.club.id },
+          league: { id: this.competition.id },
+          player: this.player
         }
-        this.prepareReport(this.reportType, ids, this.search);
+        this.$emit('start-report', reportData);
       }
     }
   };
