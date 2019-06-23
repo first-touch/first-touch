@@ -172,7 +172,7 @@
 <script>
   import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
   import PlayerPosition from 'app/components/Input/PlayerPosition';
-  import Nationality from 'app/components/Input/Nationality';
+  import CountrySelect from 'app/components/Input/CountrySelect';
   import Language from 'app/components/Input/Language';
   import PreferredFoot from 'app/components/Input/PreferredFoot';
   import FtCheckbox from 'app/components/Input/FtCheckbox';

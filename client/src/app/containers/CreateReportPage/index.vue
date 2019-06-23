@@ -38,7 +38,7 @@
   import PlayerReportForm from 'app/components/EditReport/PlayerReportForm';
   import TeamReportForm from 'app/components/EditReport/TeamReportForm';
   import Status from './components/Status';
-  import BasicForm from './components/BasicForm';
+  import ReportTypeForm from './components/ReportTypeForm';
   import TimelineItem from 'app/components/TimelineItem';
   import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
   import PositionRequestPopup from 'app/components/RequestPopup/PositionRequestPopup';

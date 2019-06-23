@@ -177,7 +177,7 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
 <script>
   import inputSearch from 'app/components/Input/InputSearch';
   import PlayerPosition from 'app/components/Input/PlayerPosition';
-  import Nationality from 'app/components/Input/Nationality';
+  import CountrySelect from 'app/components/Input/CountrySelect';
   import Language from 'app/components/Input/Language';
   import PreferredFoot from 'app/components/Input/PreferredFoot';
   import FtCheckbox from 'app/components/Input/FtCheckbox';
