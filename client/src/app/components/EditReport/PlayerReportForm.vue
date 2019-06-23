@@ -161,9 +161,7 @@
     </div>
 
     <div class="row float-right">
-      <button v-if="!report && !request" id="submit" class="btn btn-primary mr-1" @click="handleSubmit('publish')">Publish</button>
-      <button v-if="report" id="submit" class="btn btn-primary mr-1" @click="handleSubmit(report.status)">Update</button>
-      <button v-if="!report && request" id="submit" class="btn btn-primary mr-1" @click="handleSubmit('private')">Send Report</button>
+      <button id="submit" class="btn btn-primary mr-1" @click="handleSubmit('publish')">Save</button>
       <button @click="cancelAction" id="cancel" name="cancel" class="btn btn-danger">Cancel</button>
     </div>
   </form>
@@ -194,7 +192,7 @@
       Icon,
       CurrencyInput,
     },
-    props: ['playerId', 'submitReport', 'report', 'cancelAction', 'request', 'hasBankAccount'],
+    props: ['playerId', 'report', 'request', 'hasBankAccount'],
     data() {
       return {
         meta_data: {
@@ -311,6 +309,9 @@
       }
     },
     methods: {
+      cancelAction() {
+        this.$emit('cancel');
+      },
       handleSubmit(status) {
         this.$validator.validateAll().then(() => {
           if (this.errors.items.length == 0) {
@@ -322,7 +323,7 @@
               status,
               files: this.files
             };
-            this.submitReport(report);
+            this.$emit('submit', report);
           } else {
             this.scrollToTop();
           }

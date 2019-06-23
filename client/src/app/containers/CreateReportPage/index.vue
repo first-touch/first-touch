@@ -17,10 +17,10 @@
             <player-report-form
               v-if="reportData.type_report == 'Player' && status == '' "
               :hasBankAccount="hasBankAccount"
-              :submitReport="customCreateReport"
               :playerId="player_id"
               :request="request"
-              :cancelAction="cancel"
+              v-on:submit="customCreateReport"
+              v-on:cancel="cancel"
             />
             <team-report-form
               v-if="report_type == 'Team' && status == '' "
@@ -156,6 +156,7 @@
         //   })
       },
       customCreateReport(reportdata) {
+        debugger;
         reportdata.type_report = this.report_type;
         reportdata.player_id = this.player_id;
         reportdata.team_id = this.team_id;
