@@ -1,9 +1,21 @@
 <template>
   <div class="ft-input">
     <div class="col-lg-12 inner">
-      <input name="team" ref="input" autocomplete="off" :placeholder="placeholder" :readonly="readonly" class="search form-control"
-        :class="readonly ? 'readonly':''" v-model="search" type="text" v-on:keyup="handleKey" :required="required == true"
-        @click="focus()"  @blur="blur"  />
+      <input  ref="input"
+              type="text"
+              name="team"
+              class="search form-control"
+              :class="readonly ? 'readonly':''"
+              autocomplete="off"
+              :placeholder="placeholder"
+              :readonly="readonly"
+              :required="required == true"
+
+              v-model="search"
+              @keyup="handleKey"
+              @click="focus()"
+              @blur="blur"  />
+
       <div class="search-results">
         <div v-for="(value, index) in results" :key="index" @mousedown="setvalue(index)" class="one-result" :class="{'focus' : index == resultFocus} "
           @mouseover="resultFocus = index">
@@ -92,12 +104,20 @@
 </style>
 
 <script>
-  import {
-    mapActions
-  } from 'vuex';
+  import { mapActions } from 'vuex';
+
   export default {
     name: 'InputSearch',
-    props: ['onkeyup', 'searchResult', 'type', 'taggable', 'edit', 'required', 'minChar', 'label', 'readonly',
+    props: [
+      'onkeyup',
+      'searchResult',
+      'type',
+      'taggable',
+      'edit',
+      'required',
+      'minChar',
+      'label',
+      'readonly',
       'placeholder'
     ],
     data() {

@@ -14,61 +14,92 @@
         <p class="col-lg-9">{{edit.created_at | moment}}</p>
       </div>
 
-      <h5 class="row" v-if="!isEdit">The Scouting Target</h5>
-      <div class="row" v-if="!isEdit">
+      <h5 class="row" >The Scouting Target</h5>
+      <div class="row">
         <div class="col col-lg-12 form-group required-before">
-          <inputsearch :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="competition" v-on:update:val="setLeague($event)"
-            ref="league_search" :taggable="true" label="name" v-on:update:search="meta_data.search.league = $event" placeholder="Choose a league..."
+          <inputsearch
+              ref="league_search"
+              placeholder="Choose a league..."
+              :onkeyup="getSearchResultsRole"
+              :searchResult="searchResult"
+              type="competition"
+              :taggable="true"
+              label="name"
+              v-on:update:search="meta_data.search.league = $event"
+              v-on:update:val="setLeague($event)"
+              :edit="leagueEditInfo"
           />
           <input type="text" class="d-none" name="league" v-model="league_id" v-validate="'required'" />
           <span class="text-danger">{{ errors.first('league') }}</span>
         </div>
         <div class="col col-lg-12 form-group required-before">
-          <inputsearch :readonly="league_id == ''" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="team" ref="team_search"
-            :taggable="true" v-on:update:obj="setTeam($event)" label="team_name" v-on:update:search="meta_data.search.club = $event"
-            placeholder="Choose a team..." />
+          <inputsearch
+            :readonly="league_id == ''"
+            :onkeyup="getSearchResultsRole"
+            :searchResult="searchResult"
+            type="team"
+            ref="team_search"
+            :taggable="true"
+            v-on:update:obj="setTeam($event)"
+            label="team_name"
+            v-on:update:search="meta_data.search.club = $event"
+            placeholder="Choose a team..."
+            :edit="teamEditInfo"
+          />
           <input type="text" class="d-none" name="team" v-model="team_id" v-validate="'required'" />
           <span class="text-danger">{{ errors.first('team') }}</span>
         </div>
         <div class="col col-lg-12 form-group required-before">
-          <inputsearch :readonly="team_id == ''" :taggable="true" :onkeyup="getSearchResultsRole" :searchResult="searchResult" type="player"
-            label="display_name" v-on:update:val="setPlayer($event)" v-on:update:search="meta_data.search.player = $event"
-            placeholder="Choose a player..." :required="true" />
+          <inputsearch
+            :readonly="team_id == ''"
+            :taggable="true"
+            :onkeyup="getSearchResultsRole"
+            :searchResult="searchResult"
+            type="player"
+            label="display_name"
+            v-on:update:val="setPlayer($event)"
+            v-on:update:search="meta_data.search.player = $event"
+            placeholder="Choose a player..."
+            :required="true"
+            :edit="playerEditInfo"
+            />
           <input type="text" class="d-none" name="player" v-model="player_id" v-validate="'required'" />
           <span class="text-danger">{{ errors.first('player') }}</span>
         </div>
       </div>
+
       <div class="player-summary" v-if="player_id == -1">
+        <h5 class="row">{{ $t("requests.new_player_entry") }}</h5>
         <div class="row">
           <div class="col-lg-4 form-group">
             <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.age" placeholder="Age">
           </div>
           <div class="col-lg-4 form-group">
-            <countryselect class="col-lg-12" :value="meta_data.nationality_country_code" placeholder="Nationality is" v-on:update:val="meta_data.nationality_country_code = $event"
+            <countryselect :value="meta_data.nationality_country_code" placeholder="Nationality is" v-on:update:val="meta_data.nationality_country_code = $event"
             />
           </div>
           <div class="col-lg-4 form-group">
-            <countryselect class="col-lg-12" :value="meta_data.residence_country_code" placeholder="Based in" v-on:update:val="meta_data.residence_country_code = $event"
+            <countryselect :value="meta_data.residence_country_code" placeholder="Based in" v-on:update:val="meta_data.residence_country_code = $event"
             />
           </div>
         </div>
         <div class="row">
           <div class="col-lg-7 form-group">
-            <language class="col-lg-12" :value="meta_data.languages" placeholder="Speaking languages are" v-on:update:val="meta_data.languages = $event"
+            <language :value="meta_data.languages" placeholder="Speaking languages are" v-on:update:val="meta_data.languages = $event"
             />
           </div>
           <div class="col-lg-5 form-group">
-            <playerposition class="col-lg-12" :value="meta_data.playing_position" placeholder="Positions are" v-on:update:val="meta_data.playing_position = $event"
+            <playerposition :value="meta_data.playing_position" placeholder="Positions are" v-on:update:val="meta_data.playing_position = $event"
             />
           </div>
         </div>
         <div class="row">
           <div class="col-lg-6 form-group">
-            <preferredfoot class="col-lg-12" :value="meta_data.preferred_foot" placeholder="Preferred foot is" v-on:update:val="meta_data.preferred_foot = $event"
-            />
+            <preferredfoot :value="meta_data.preferred_foot" placeholder="Preferred foot is" v-on:update:val="meta_data.preferred_foot = $event" />
           </div>
         </div>
       </div>
+
       <h5 class="row">Your Scouting Requirements</h5>
       <div class="row">
 
@@ -231,21 +262,66 @@
       ...mapGetters(['searchResult']),
       isEdit(){
         return (this.edit && 'id' in this.edit);
+      },
+      playerEditInfo(){
+        if (!this.isEdit) return false;
+        let request = this.edit;
+
+        if (this.player_id == -1){
+          return { search: request.meta_data.search.player, id: -1 }
+        } else {
+          return { search: request.player.name, id: request.player.id }
+        }
+      },
+      leagueEditInfo(){
+        if (!this.isEdit) return false;
+        let request = this.edit;
+
+        if (this.edit.league){
+          return { search: request.league.name, id: request.league.id }
+        } else {
+          return { search: request.meta_data.search.league, id: -1 }
+        }
+      },
+      teamEditInfo(){
+        if (!this.isEdit) return false;
+        let request = this.edit;
+
+        if (this.edit.team){
+          return { search: request.team.team_name, id: request.team.id }
+        } else {
+          return { search: request.meta_data.search.club, id: -1 }
+        }
       }
     },
     created() {
 
       if (this.edit && this.edit.id != null) {
-        this.meta_data = this.edit.meta_data;
-        this.deadline = new Date(this.edit.deadline);
-        this.price = this.edit.price;
-        if (!this.edit.player)
+        let request = this.edit;
+        this.meta_data = request.meta_data;
+        this.deadline = new Date(request.deadline);
+        this.price = request.price;
+
+        let search = request.meta_data.search;
+        if (request.player){
+          this.player_id = request.player.id;
+        } else {
           this.player_id = -1;
+        }
+
+        if (request.league){
+          this.league_id = request.league.id;
+        } else if (search.league != ''){
+          this.league_id = -1;
+        }
+
+        if (request.team){
+          this.team_id = request.team.id;
+        } else if (search.club != ''){
+          this.team_id = -1;
+        }
       }
       this.$validator.localize(this.dictionary);
-
-      console.log(this.edit);
-      console.log(this.meta_data);
 
     },
     methods: {
@@ -306,7 +382,7 @@
         this.$validator.validateAll().then(() => {
           if (this.errors.items.length == 0) {
             if (status == null) {
-              status = this.edit ? this.edit.status : 'private';
+              status = this.isEdit ? this.edit.status : 'private';
             }
             var request = {
               meta_data: this.meta_data,

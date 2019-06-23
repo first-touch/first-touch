@@ -57,5 +57,8 @@
       "agents": "Agents"
     },
     "logout": "Logout"
+  },
+  "requests": {
+    "new_player_entry": "New player entry"
   }
 }

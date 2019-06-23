@@ -5,6 +5,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 const NODE_MDL = path.resolve('node_modules');
 const SRC_DIR = path.resolve('src');
@@ -34,7 +35,7 @@ module.exports = {
         test: /\.js$/,
         include: SRC_DIR,
         exclude: /node_modules/,
-        loaders: ['babel-loader']
+        loaders: ['babel-loader?cacheDirectory']
       },
       {
         test: /\.(png|jpg)$/,
@@ -47,6 +48,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new HardSourceWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),

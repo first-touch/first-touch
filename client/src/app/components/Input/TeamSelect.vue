@@ -1,5 +1,5 @@
 <template>
-  <vselect v-model="value" :options="options" :disabled="disabled" :on-change="updateValue" :placeholder="placeholder" />
+  <vselect v-model="selectedValue" :options="options" :disabled="disabled" :on-change="updateValue" :placeholder="placeholder" />
 </template>
 <script>
   import vSelect from 'vue-select';
@@ -12,6 +12,7 @@
     },
     data() {
       return {
+        selectedValue: '',
         options: [{
             label: 'Senior',
             value: 'senior'
@@ -55,7 +56,22 @@
         ]
       };
     },
+    watch: {
+      'value': {
+        immediate: true,
+        handler: function(to){
+          if (to != ''){
+            this.selectedValue = this.getByValue(to)
+          } else {
+            this.selectedValue = null;
+          }
+        }
+      }
+    },
     methods: {
+      getByValue(value){
+        return this.options.find((v, i) => v.value == value )
+      },
       updateValue(value) {
         this.$emit('input', value);
       }
