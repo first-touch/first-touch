@@ -52,6 +52,7 @@ Rails.application.routes.draw do
 
       namespace :director, only: [] do
         resources :requests, only: [:index]
+        resources :request_bids, only: [:index]
       end
 
       namespace :agent, only: [] do

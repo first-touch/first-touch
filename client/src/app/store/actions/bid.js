@@ -1,6 +1,7 @@
 import * as ActionTypes from '../../constants/ActionTypes';
 import RequestBidService from 'app/services/RequestBidService';
 import { authedRequest } from 'app/services/ApiRequest';
+import $ from 'jquery';
 
 export const clearBid = store => store.commit(ActionTypes.BID_CLEAR);
 export const createBid = (store, bid) => {
@@ -36,20 +37,23 @@ export const updateBid = async (store, { id, price, status }) => {
   };
 };
 
-export const getBids = (store, { id, params }) => {
-  fetch(`/api/v1/requests/bids/${id}?${params}`, {
-    method: 'GET',
-    headers: {
-      Authorization: store.state.token.value
-      // ClubAuthorization: store.state.token.clubs[0] ? store.state.token.clubs[0].token : null
-    }
-  }).then(res => {
-    if (res.status >= 200 && res.status < 400) {
-      res.json().then(r => store.commit(ActionTypes.BIDS_REQUEST_SUCCESS, r));
-    } else {
-      res.json().then(r => store.commit(ActionTypes.BIDS_REQUEST_FAILURE, r));
-    }
-  });
+export const getBids = async (store, { id, params }) => {
+  const userRole = store.state.user.value.role_name;
+  params = {
+    ...params,
+    'request_id': id
+  };
+
+  const res = await authedRequest(store, 'GET', `/api/v1/${userRole}/request_bids?${$.param(params)}`);
+
+  const data = await res.json();
+  if (res.status >= 200 && res.status < 400) {
+    store.commit(ActionTypes.BIDS_REQUEST_SUCCESS, data.request_bids);
+    return data;
+  } else {
+    store.commit(ActionTypes.BIDS_REQUEST_FAILURE, data);
+    return [];
+  }
 };
 
 export const acceptBid = (store, { id, params }) => {

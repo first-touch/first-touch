@@ -8,7 +8,7 @@
         </h3>
 
         <actions class="actions" />
-        
+
         <div v-if="!request.value">
           Request not found
         </div>
@@ -19,7 +19,7 @@
 
           <h4 class="spaced-title upper-cased main-color">Bids Received</h4>
           <timeline-item v-if="request.value">
-            <bids :bids="bids.value" :request="requestValue" :getBids="customGetBids" :acceptAction="acceptAction" />
+            <bids :bids="bids.value" :request="requestValue" :getBids="customGetBids" @accept-action="acceptAction" />
           </timeline-item>
 
           <b-modal id="metaModal" :size="paymentSuccess? 'md' : 'lg'" ref="metaModal" :class="paymentSuccess? 'successModal' : 'formModal' ">

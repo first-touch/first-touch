@@ -76,8 +76,8 @@
         <request-row v-for="request in requestList"
                      :key="request.id"
                      :request="request"
-                     v-on:update-status="updateStatus"
-                     v-on:view-bids="viewBids"
+                     @update-status="updateStatus"
+                     @view-bids="listBids"
                      @edit-request="editRequest"
         />
       </tbody>
@@ -258,8 +258,8 @@
       editRequest({ request }){
         this.$router.push({ name: 'editRequest', params: { id: request.id } })
       },
-      viewBids({request}) {
-
+      listBids({request}) {
+        this.$router.push({ name: 'listRequestBids', params: { id: request.id } })
       }
     }
   };

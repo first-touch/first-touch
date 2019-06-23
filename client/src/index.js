@@ -170,6 +170,7 @@ export const router = new VueRouter({
         {
           path: '/users/:id/profile',
           component: ProfilePage,
+          name: 'userProfile',
           props: (route) => ({
             id: route.params.id,
             accept_invitation: route.query.accept_invitation, // eslint-disable-line camelcase
@@ -257,7 +258,7 @@ export const router = new VueRouter({
         {
           path: ':id/bids',
           component: RequestBidsPage,
-          name: 'requestBids'
+          name: 'listRequestBids'
         }
       ]
     },

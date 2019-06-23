@@ -4,7 +4,7 @@
       <form @submit.prevent="search" class="col-lg-12">
         <div class="search-count row">
           <p class="col-lg-2 col-md-5">Bids Count </p>
-          <p class="number col-lg-6">{{bids ? bids.bid.length: '0'}}</p>
+          <p class="number col-lg-6">{{ bids ? bids.length: '0'}}</p>
           <input type="text" class="form-control col-lg-3" v-model="params.scout_name" placeholder="Type a Scout’s name…" @keyup="search()"
           />
         </div>
@@ -68,16 +68,17 @@
             <th scope="col">Actions</th>
           </tr>
         </thead>
+
         <tbody v-if="bids">
-          <tr v-for="bid in bids.bid " :key="bid.key">
+          <tr v-for="bid in bids" :key="bid.key">
             <td>
-              <router-link :to="{ name: 'userProfilePage', params: { id: bid.user.id }}" target="_blank" v-if="bid">
-                {{bid.user.first_name}} {{bid.user.last_name}}</router-link>
+              <router-link :to="{ name: 'userProfile', params: { id: bid.user.id }}" target="_blank" v-if="bid">
+                {{bid.user.personal_profile.first_name}} {{bid.user.personal_profile.last_name}}</router-link>
             </td>
             <td>{{bid.created_at | moment}}</td>
             <td>{{bid.price.value}}</td>
-            <td class="buttons-inner">
-              <button class="ft-button-success" @click="acceptAction(bid)">Accept Bid</button>
+            <td>
+              <button class="btn btn-primary" @click="$emit('accept-action', bid)">Accept Bid</button>
             </td>
           </tr>
         </tbody>
