@@ -14,10 +14,23 @@
         <report-type-form v-if="!showForm" v-on:start-report="prepareReport" />
         <div v-if="showForm">
           <keep-alive>
-            <playerreportform v-if="report_type == 'Player' && status == '' " :hasBankAccount="hasBankAccount" :submitReport="customCreateReport"
-              :playerId="player_id" :request="request" :cancelAction="cancel" />
-            <teamreportform v-if="report_type == 'Team' && status == '' " :category="category" :hasBankAccount="hasBankAccount" :submitReport="customCreateReport"
-              :team_id="team_id" :cancelAction="cancel" :request="request" />
+            <player-report-form
+              v-if="report_type == 'Player' && status == '' "
+              :hasBankAccount="hasBankAccount"
+              :submitReport="customCreateReport"
+              :playerId="player_id"
+              :request="request"
+              :cancelAction="cancel"
+            />
+            <team-report-form
+              v-if="report_type == 'Team' && status == '' "
+              :category="category"
+              :hasBankAccount="hasBankAccount"
+              :submitReport="customCreateReport"
+              :team_id="team_id"
+              :cancelAction="cancel"
+              :request="request"
+            />
           </keep-alive>
         </div>
       </div>
@@ -40,26 +53,16 @@
   import Status from './components/Status';
   import ReportTypeForm from './components/ReportTypeForm';
   import TimelineItem from 'app/components/TimelineItem';
-  import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
-  import PositionRequestPopup from 'app/components/RequestPopup/PositionRequestPopup';
-  import TeamRequestPopup from 'app/components/RequestPopup/TeamRequestPopup';
-  import PlayerResume from 'app/components/ProfileResume/PlayerResume';
-  import ClubResume from 'app/components/ProfileResume/ClubResume';
 
   export default {
     name: 'CreateReportPage',
     props: ['request'],
     components: {
-      playerreportform: PlayerReportForm,
-      teamreportform: TeamReportForm,
-      status: Status,
-      basicform: BasicForm,
-      TimelineItem,
-      teamrequestpopup: TeamRequestPopup,
-      playerrequestpopup: PlayerRequestPopup,
-      positionrequestpopup: PositionRequestPopup,
-      clubresume: ClubResume,
-      playerresume: PlayerResume
+      PlayerReportForm,
+      TeamReportForm,
+      Status,
+      ReportTypeForm,
+      TimelineItem
     },
     computed: {
       ...mapGetters(['report', 'searchResult', 'profile', 'teamProfile', 'user']),
