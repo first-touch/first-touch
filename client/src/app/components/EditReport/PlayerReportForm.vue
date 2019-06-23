@@ -9,7 +9,7 @@
     <div class="row form-group" v-if="priceEdit">
       <div class="col-lg-12">
         <div class="price-input">
-          <currencyinput :value="price" placeholder="Price" />
+          <currency-input :value="price" placeholder="Price" />
           <input type="text" class="d-none" name="price" v-model="price.value" v-validate="'required'" maxValue="999999" />
           <span class="text-danger">{{ errors.first('price') }}</span>
           <p v-if="price.value == 0" class="info">The report will be free</p>
@@ -64,10 +64,10 @@
             </div>
             <div class="row mt-2 mb-2">
               <div class="col-lg-6">
-                <playerposition :value="meta_data.player_info.playing_position" v-on:update:val="meta_data.player_info.playing_position = $event" placeholder="Positions in" />
+                <player-position :value="meta_data.player_info.playing_position" v-on:update:val="meta_data.player_info.playing_position = $event" placeholder="Positions" />
               </div>
               <div class="col-lg-6">
-                <preferredfoot :value="meta_data.player_info.preferred_foot" v-on:update:val="meta_data.player_info.preferred_foot = $event"
+                <preferred-foot :value="meta_data.player_info.preferred_foot" v-on:update:val="meta_data.player_info.preferred_foot = $event"
                   placeholder="Preferred foot is" />
               </div>
             </div>
@@ -96,21 +96,21 @@
           <label :class="meta_data.transfer_sum.transfer_interested == 'yes' ? 'active' : ''">
             <span class="title">Interested in Transfer?</span>
           </label>
-          <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.transfer_interested" v-on:update:val="meta_data.transfer_sum.transfer_interested = $event" />
+          <ft-checkbox class="ftcheckbox" :value="meta_data.transfer_sum.transfer_interested" v-on:update:val="meta_data.transfer_sum.transfer_interested = $event" />
         </div>
 
         <div class="col-lg-6">
           <label :class="meta_data.transfer_sum.loan_interested == 'yes' ? 'active' : ''">
             <span class="title">Interested in Loan?</span>
           </label>
-          <ftcheckbox class="ftcheckbox" :value="meta_data.transfer_sum.loan_interested" v-on:update:val="meta_data.transfer_sum.loan_interested = $event" />
+          <ft-checkbox class="ftcheckbox" :value="meta_data.transfer_sum.loan_interested" v-on:update:val="meta_data.transfer_sum.loan_interested = $event" />
         </div>
       </div>
     </div>
     <h5> Analysis of Trainings/Matches </h5>
     <div class="form-group">
       <div class="row">
-        <matchanalyzed class="col-lg-12" :analyzed_matches="meta_data.analyzed_matches" type="player" />
+        <match-analyzed class="col-lg-12" :analyzed_matches="meta_data.analyzed_matches" type="player" />
       </div>
       <div class="row mb-2 mt-2">
         <div class="col-md-12">
@@ -155,7 +155,7 @@
     </div>
     <div class="form-group">
       <div class="col-lg-12">
-        <addattachments :attachments="report ? report.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
+        <add-attachments :attachments="report ? report.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
           v-on:update:files="files = $event" />
       </div>
     </div>
@@ -180,21 +180,19 @@
   import 'vue-awesome/icons/trash';
   import Icon from 'vue-awesome/components/Icon';
   import CurrencyInput from 'app/components/Input/CurrencyInput';
-  import FtDatepicker from 'app/components/Input/FtDatepicker';
 
   export default {
     name: 'PlayerReportForm',
     components: {
-      matchanalyzed: MatchAnalyzed,
-      playerposition: PlayerPosition,
+      MatchAnalyzed,
+      PlayerPosition,
       CountrySelect,
-      language: Language,
-      preferredfoot: PreferredFoot,
-      ftcheckbox: FtCheckbox,
-      addattachments: AddAttachments,
-      icon: Icon,
-      currencyinput: CurrencyInput,
-      ftdatepicker: FtDatepicker
+      Language,
+      PreferredFoot,
+      FtCheckbox,
+      AddAttachments,
+      Icon,
+      CurrencyInput,
     },
     props: ['playerId', 'submitReport', 'report', 'cancelAction', 'request', 'hasBankAccount'],
     data() {
