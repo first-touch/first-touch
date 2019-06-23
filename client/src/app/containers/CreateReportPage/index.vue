@@ -15,7 +15,7 @@
         <div v-if="showForm">
           <keep-alive>
             <player-report-form
-              v-if="report_type == 'Player' && status == '' "
+              v-if="reportData.type_report == 'Player' && status == '' "
               :hasBankAccount="hasBankAccount"
               :submitReport="customCreateReport"
               :playerId="player_id"
@@ -111,20 +111,20 @@
       }
     },
     mounted() {
-      if (this.request) {
-        var ids = {
-          player: this.request.player_id,
-          team: this.request.team_id,
-          job: this.request.id,
-          league: this.request.league_id
-        }
-        if (this.request.type_request == 'team')
-          this.prepareReport('team', ids);
-        else if (this.request.type_request == 'player')
-          this.prepareReport('player', ids);
-        else if (this.request.type_request == 'position')
-          this.prepareReport('player', ids);
-      }
+      // if (this.request) {
+      //   var ids = {
+      //     player: this.request.player_id,
+      //     team: this.request.team_id,
+      //     job: this.request.id,
+      //     league: this.request.league_id
+      //   }
+      //   if (this.request.type_request == 'team')
+      //     this.prepareReport('team', ids);
+      //   else if (this.request.type_request == 'player')
+      //     this.prepareReport('player', ids);
+      //   else if (this.request.type_request == 'position')
+      //     this.prepareReport('player', ids);
+      // }
     },
     methods: {
       ...mapActions(['createReport', 'uploadFiles', 'getSearchResults', 'fetchUserInfo', 'fetchTeamInfo']),
@@ -137,22 +137,23 @@
         this.report_type = null;
         this.showForm = false;
       },
-      prepareReport(type, ids, search) {
-        this.report_type = type;
-        this.job_id = ids.job;
-        this.player_id = ids.player;
-        this.team_id = ids.team;
-        this.category = ids.category;
-        this.search = search;
+      prepareReport(reportData) {
+        _.merge(this.reportData, reportData);
         this.showForm = true;
-        if (this.player_id > 0)
-          this.fetchUserInfo({
-            id: this.player_id
-          })
-        if (this.team_id > 0)
-          this.fetchTeamInfo({
-            id: this.team_id
-          })
+        // this.report_type = type;
+        // this.player_id = ids.player;
+        // this.team_id = ids.team;
+        // this.category = ids.category;
+        // this.search = search;
+        // this.showForm = true;
+        // if (this.player_id > 0)
+        //   this.fetchUserInfo({
+        //     id: this.player_id
+        //   })
+        // if (this.team_id > 0)
+        //   this.fetchTeamInfo({
+        //     id: this.team_id
+        //   })
       },
       customCreateReport(reportdata) {
         reportdata.type_report = this.report_type;
@@ -171,6 +172,7 @@
     },
     data() {
       return {
+        reportData: {},
         status: '',
         report_type: '',
         job_id: '',
