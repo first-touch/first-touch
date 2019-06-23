@@ -15,7 +15,7 @@ module Api
         end
 
         def create
-          result = ::V1::Report::Create.(params: params, current_user: current_user)
+          result = ::V1::Report::Operation::Scout::Create.(params: params, current_user: current_user)
           response = FirstTouch::Endpoint.(result, ::V1::Report::Representer::Full)
           render json: response[:data], status: response[:status]
         end
