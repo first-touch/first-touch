@@ -8,7 +8,7 @@ import vSelect from 'vue-select';
 import $ from 'jquery';
 
 export default {
-  name: 'Nationality',
+  name: 'CountrySelect',
   props: ['value','readonly','placeholder'],
   components: {
     vselect: vSelect
