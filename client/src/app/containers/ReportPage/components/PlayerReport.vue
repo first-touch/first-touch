@@ -105,41 +105,16 @@
             Contract Summary
           </h5>
           <div class="contract-summary">
-            <div class="row" v-if="report.meta_data.transfer_sum.wage.value">
-              <label class="col-lg-4 summary-title">Wage </label>
-              <span class="col-lg-4 summary-field"> {{report.meta_data.transfer_sum.wage.value}} {{report.meta_data.transfer_sum.wage.currency | currency}} </span>
-            </div>
             <div class="row">
               <span class="col col-lg-12 transfer-title summary-title">
                 <icon v-if="report.meta_data.transfer_sum.transfer_interested !== 'No'" name="check"></icon>
                 <icon v-if="report.meta_data.transfer_sum.transfer_interested === 'No'" name="times"></icon>
                 Interested in Transfer</span>
             </div>
-            <div class="row values" v-if="report.meta_data.transfer_sum.transfer_interested !== 'No'">
-              <div class="col-lg-6">
-                <label class="col-lg-7 summary-title">Availability for transfer</label>
-                <span class="col-lg-5 summary-field"> {{report.meta_data.transfer_sum.transfer_availability | moment }}</span>
-              </div>
-              <div class="col-lg-6">
-                <label class="col-lg-6 summary-title">Transfer Budget</label>
-                <span class="col-lg-6 summary-field"> {{report.meta_data.transfer_sum.transfer_budget.value}} {{report.meta_data.transfer_sum.transfer_budget.currency
-                  | currency}}</span>
-              </div>
-            </div>
             <div class="row">
               <label class="col-lg-4 transfer-title summary-title">
                 <icon v-if="report.meta_data.transfer_sum.loan_interested !== 'No'" name="check"></icon>
                 <icon v-if="report.meta_data.transfer_sum.loan_interested === 'No'" name="times"></icon>Interested in Loan</label>
-            </div>
-            <div class="row values" v-if="report.meta_data.transfer_sum.loan_interested !== 'No'">
-              <div class="col-lg-6" v-if="report.meta_data.transfer_sum.loan_availability">
-                <label class="col-lg-7 summary-title">Availability for Loan</label>
-                <span class="col-lg-5 summary-field"> {{report.meta_data.transfer_sum.loan_availability | moment}} </span>
-              </div>
-              <div class="col-lg-6" v-if="report.meta_data.transfer_sum.contract_end">
-                <label class="col-lg-6 summary-title">End of Contract</label>
-                <span class="col-lg-6 summary-field"> {{report.meta_data.transfer_sum.contract_end | moment}} </span>
-              </div>
             </div>
           </div>
         </div>
