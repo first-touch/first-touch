@@ -58,7 +58,14 @@ export const getBids = async (store, { id, params }) => {
 
 export const acceptBid = (store, { id, params }) => {
   store.commit(ActionTypes.BID_LOADING);
-  fetch(`/api/v1/requests/bids/${id}`, {
+
+  const userRole = store.state.user.value.role_name;
+  params = {
+    ...params,
+    'request_id': id
+  };
+
+  fetch(`/api/v1/${userRole}/request_bids?${$.param(params)}`, {
     method: 'POST',
     headers: {
       Authorization: store.state.token.value,

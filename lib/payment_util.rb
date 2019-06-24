@@ -1,6 +1,6 @@
 class PaymentUtil
   class << self
-    def stripe_charge(params, current_club:)
+    def stripe_charge(params, current_user:)
       stripe_logger = ::Logger.new("#{Rails.root}/log/stripe.log")
       ft_fees = if Rails.configuration.stripe[:fees].nil?
                   0.05
@@ -29,11 +29,11 @@ class PaymentUtil
         stripe_logger = ::Logger.new("#{Rails.root}/log/stripe_error.log")
         body = e.json_body
         err = body[:error]
-        stripe_logger.warn("Charge has been refused for club #{current_club.id} with customer id given ? #{!charge_params['customer'].nil?}: #{err[:message]}")
+        stripe_logger.warn("Charge has been refused for user #{current_user.id} with customer id given ? #{!charge_params['customer'].nil?}: #{err[:message]}")
         raise e
       end
       if charge
-        stripe_logger.info("Succefully charge by club #{current_club.id} amount of #{amount} #{params[:currency]} stripe_id: #{charge.id}")
+        stripe_logger.info("Succesfully charge by user #{current_user.id} amount of #{amount} #{params[:currency]} stripe_id: #{charge.id}")
       end
       charge
     end

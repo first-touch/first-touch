@@ -23,12 +23,19 @@
           </timeline-item>
 
           <b-modal id="metaModal" :size="paymentSuccess? 'md' : 'lg'" ref="metaModal" :class="paymentSuccess? 'successModal' : 'formModal' ">
-            <payment-popup :paymentAction="paymentAction" v-if="selected" :stripeClubCards="stripeClubCards" :closeAction="hideModal"
-              :result="bid" :StripeCardToken="StripeCardToken" :stripePayment="stripePayment" :stripeJs="stripeJs">
+            <payment-popup
+              :paymentAction="paymentAction"
+              :stripeClubCards="stripeClubCards"
+              :closeAction="hideModal"
+              :result="bid"
+              :StripeCardToken="StripeCardToken"
+              :stripePayment="stripePayment"
+              :stripeJs="stripeJs"
+              v-if="selected">
               <div slot="header" v-if="requestValue">
                 <div class="row">
                   <label class="col-lg-3">Scout's name:</label>
-                  <p class="col-lg-8"> {{selected.user.first_name}} {{selected.user.last_name}} </p>
+                  <p class="col-lg-8"> {{selected.user.personal_profile.first_name}} {{selected.user.personal_profile.last_name}} </p>
                 </div>
                 <div class="row" v-if="selected">
                   <label class="col-lg-3">Price:</label>
@@ -82,6 +89,10 @@
   import PaymentPopup from 'app/components/Stripe/PaymentPopup';
   import FtCheckbox from 'app/components/Input/FtCheckbox';
 
+  import {
+    StripePublicKey
+  } from 'app/constants/StripeConstant';
+
   export default {
     name: 'RequestBidsList',
     components: {
@@ -101,14 +112,18 @@
     data() {
       return {
         selected: null,
-        keep: true
+        keep: true,
+        stripeJs: null
       };
     },
     mounted() {
+      this.stripeJs = window.Stripe(StripePublicKey);
+
       this.getRequest(this.$route.params.id);
+
     },
     computed: {
-      ...mapGetters(['request', 'bids', 'bid', 'stripePayment', 'stripeJs', 'stripeClubCards']),
+      ...mapGetters(['request', 'bids', 'bid', 'stripePayment', /*'stripeJs',*/ 'stripeClubCards']),
       paymentSuccess() {
         if (this.bid.status == ASYNC_SUCCESS) {
           if (this.bid.value.status == 'accepted') return true;

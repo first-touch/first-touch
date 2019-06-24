@@ -99,7 +99,6 @@ export default {
       })
     },
     async handleFormSubmit(request){
-      console.log(request);
       var result;
 
       if (request.id != null){

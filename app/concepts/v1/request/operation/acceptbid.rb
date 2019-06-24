@@ -56,11 +56,11 @@ module V1
         report&.delete
       end
 
-      def find_model!(options, params:, current_club:, **)
+      def find_model!(options, params:, current_user:, **)
         requestId = params[:request_id]
         bidId = params[:bid_id]
-        unless current_club.nil?
-          request = current_club.requests.find(requestId)
+        unless current_user.nil?
+          request = current_user.requests.find(requestId)
           model = request.request_bids.find_by(id: bidId, status: 'pending')
           params['currency'] = request.price['currency'] if model
           options[:model] = model
@@ -69,35 +69,35 @@ module V1
         options[:model]
       end
 
-      def save_card!(options, params:, current_club:, **)
+      def save_card!(options, params:, current_user:, **)
         save = params[:save]
         success = true
-        if save
-          if current_club.stripe_id.nil?
-            begin
-              customer = ::Stripe::Customer.create(
-                source: params['token']
-              )
-            rescue StandardError => e
-              options['stripe.errors'] = e
-            end
-            params['token'] = customer.default_source
-            current_club.stripe_id = customer.id
-            current_club.save!
-          else
-            begin
-              customer = ::Stripe::Customer.retrieve(current_club.stripe_id)
-              source = customer.sources.create(source: params['token'])
-            rescue StandardError => e
-              options['stripe.errors'] = e
-            end
-            params['token'] = source
-          end
-        end
+        # if save
+        #   if current_club.stripe_id.nil?
+        #     begin
+        #       customer = ::Stripe::Customer.create(
+        #         source: params['token']
+        #       )
+        #     rescue StandardError => e
+        #       options['stripe.errors'] = e
+        #     end
+        #     params['token'] = customer.default_source
+        #     current_club.stripe_id = customer.id
+        #     current_club.save!
+        #   else
+        #     begin
+        #       customer = ::Stripe::Customer.retrieve(current_club.stripe_id)
+        #       source = customer.sources.create(source: params['token'])
+        #     rescue StandardError => e
+        #       options['stripe.errors'] = e
+        #     end
+        #     params['token'] = source
+        #   end
+        #end
         success
       end
 
-      def payment(options, params:, current_club:, **)
+      def payment(options, params:, current_user:, **)
         card_token = params[:token]
         bid = options[:model]
         user = bid.user
@@ -115,11 +115,12 @@ module V1
               card_token: card_token,
               account: user.stripe_ft.stripe_id
             }
-            if (params[:save] == true) || params[:usesaved]
-              charge_params[:customer] = current_club.stripe_id
-            end
+            # TODO: Implement card saving
+            #if (params[:save] == true) || params[:usesaved]
+            #  charge_params[:customer] = current_user.stripe_ft
+            #end
             begin
-              charge = PaymentUtil.stripe_charge(charge_params, current_club: current_club)
+              charge = PaymentUtil.stripe_charge(charge_params, current_user: current_user)
             rescue StandardError => e
               options['stripe.errors'] = e
             end
@@ -132,10 +133,10 @@ module V1
         success
       end
 
-      def order(options, params:, current_club:, **)
+      def order(options, params:, current_user:, **)
         model = options[:model]
         order_params = {
-          'customer_id' => current_club.id,
+          'customer_id' => current_user.id,
           'user' => model.user,
           'price' => model.price['value'],
           'currency' => params['currency'],

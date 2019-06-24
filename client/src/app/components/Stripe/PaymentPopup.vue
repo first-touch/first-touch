@@ -229,7 +229,7 @@
     },
     methods: {
       purchase: function () {
-        if (this.newCard) this.StripeCardToken(this.card);
+        if (this.newCard) this.StripeCardToken({ card: this.card, stripe: this.stripeJs });
         else {
           this.paymentAction(this.cardToken, false, true);
           this.start = true;

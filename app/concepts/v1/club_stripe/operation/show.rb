@@ -6,11 +6,11 @@ module V1
 
       private
 
-      def find_account!(options, params:, current_club:, **)
+      def find_account!(options, params:, current_user:, **)
         options['model.class'] = ::Stripe::Account
         model = nil
-        unless current_club.stripe_id.nil?
-          account = ::Stripe::Customer.retrieve(current_club.stripe_id)
+        unless current_user.stripe_id.nil?
+          account = ::Stripe::Customer.retrieve(current_user.stripe_id)
           options[:model] = model = account unless account.nil?
         end
         options['result.model'] = result = Result.new(!model.nil?, {})

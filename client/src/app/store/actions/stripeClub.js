@@ -3,11 +3,10 @@ import * as ActionTypes from '../../constants/ActionTypes';
 
 export const getClubsCards = (store) => {
   store.commit(ActionTypes.GET_CLUB_STRIPE_ACCOUNT_LOADING);
-  fetch('/api/v1/club/stripe', {
+  fetch('/api/v1/stripe', {
     method: 'GET',
     headers: {
       Authorization: store.state.token.value,
-      ClubAuthorization: store.state.token.clubs[0].token,
       'Content-Type': 'application/json'
     }
   }).then(res => {
