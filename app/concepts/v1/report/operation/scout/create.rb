@@ -36,7 +36,7 @@ module V1
                                                      last_name: player_data['last_name'])
 
             model.player = unclaimed_player
-            model.player.clubs = ::Club.where(id: params['team']['id'])
+            model.player.teams = ::Team.where(id: params['team']['id'])
           end
 
           def find_request_bid!(_opts, params:, current_user:, model:, **)
