@@ -72,8 +72,8 @@
         if(_.isObject(chosenPlayer)) return;
 
         let playerNames = chosenPlayer.split(' ');
-        const lastName = playerNames.splice(playerNames.length-1, 1);
-        const firstName = playerNames.splice(0, 1);
+        const lastName = playerNames.splice(playerNames.length-1, 1)[0];
+        const firstName = playerNames.splice(0, 1)[0];
         const middleNames = playerNames.join(" ");
         this.player = {
           display_name: chosenPlayer,

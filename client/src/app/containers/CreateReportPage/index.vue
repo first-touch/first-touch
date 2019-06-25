@@ -155,14 +155,12 @@
         //     id: this.team_id
         //   })
       },
-      customCreateReport(reportdata) {
-        debugger;
-        reportdata.type_report = this.report_type;
-        reportdata.player_id = this.player_id;
-        reportdata.team_id = this.team_id;
-        reportdata.job_id = this.job_id;
-        reportdata.meta_data.search = this.search;
-        this.createReport(reportdata);
+      customCreateReport(filledInfo) {
+        this.reportData.headline = filledInfo.headline;
+        this.reportData.price = filledInfo.price;
+        this.reportData.meta_data = filledInfo.meta_data;
+        this.reportData.status = filledInfo.status;
+        this.createReport(this.reportData);
       },
       closeAction(request) {
         this.$refs.metaModal.hide();
