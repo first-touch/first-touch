@@ -1,3 +1,4 @@
+// TODO: Deprecated
 <template>
   <div class="a-side-indicator primary">
     <div class="arrow"></div>

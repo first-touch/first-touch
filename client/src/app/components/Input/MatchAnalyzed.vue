@@ -2,16 +2,16 @@
   <div class="analyzed-matches">
     <div class="row header" :class="type">
       <div class="remove" v-if="!readonly"></div>
-      <div class="col"> Date </div>
-      <div class="col"> Opponent </div>
-      <div class="col"> Venue </div>
-      <div class="col" v-if="type == 'team'">
+      <div class="col-2"> Date </div>
+      <div class="col-2"> Opponent </div>
+      <div class="col-2"> Venue </div>
+      <div class="col-2" v-if="type == 'team'">
         Result
       </div>
-      <div class="col" v-if="type == 'player'">
+      <div class="col-2" v-if="type == 'player'">
         Observation Type
       </div>
-      <div class="col" v-if="type == 'player'">
+      <div class="col-3" v-if="type == 'player'">
         Comment
       </div>
     </div>
@@ -20,26 +20,26 @@
         <icon name='trash'></icon>
       </div>
 
-      <div class="col" :class="match.date != '' ? 'date-selected': ''">
-        <ftdatepicker class="form-control" v-if="!readonly" placeholder="Date" :value="match.date " v-on:update:val="match.date = $event" />
+      <div class="col-2" :class="match.date != '' ? 'date-selected': ''">
+        <ft-datepicker class="form-control" v-if="!readonly" placeholder="Date" :value="match.date" v-on:update:val="match.date = $event" />
         <span class="read" v-if="readonly">
           {{match.date | moment}}
         </span>
       </div>
-      <div class="col" :title="match.opponent">
+      <div class="col-2" :title="match.opponent">
         <input type="text" class="form-control m-field-input" :readonly="readonly" v-model="match.opponent" />
       </div>
-      <div class="col" :title="match.venue">
+      <div class="col-2" :title="match.venue">
         <input type="text" class="form-control m-field-input" :readonly="readonly" v-model="match.venue" />
       </div>
-      <div class="col" v-if="type == 'team'" :title="match.result">
+      <div class="col-2" v-if="type == 'team'" :title="match.result">
         <input type="text" class="form-control m-field-input" :readonly="readonly" v-model="match.result" />
       </div>
-      <div class="col" v-if="type == 'player'" :title="match.observation_type">
-        <vselect v-if="!readonly" ref="vSelect" v-model="match.observation_type" :options="['Match','Training']" />
+      <div class="col-2" v-if="type == 'player'" :title="match.observation_type">
+        <v-select v-if="!readonly" ref="vSelect" v-model="match.observation_type" :options="['Match','Training']" />
         <span class="read" v-if="readonly">{{match.observation_type}}</span>
       </div>
-      <div class="col" v-if="type == 'player'" :title="match.comment">
+      <div class="col-3" v-if="type == 'player'" :title="match.comment">
         <input type="text" class="form-control m-field-input" :readonly="readonly" v-model="match.comment" />
       </div>
     </div>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  import vSelect from 'vue-select';
+  import VSelect from 'vue-select';
   import 'vue-awesome/icons/trash';
   import 'vue-awesome/icons/calendar-alt';
   import 'vue-awesome/icons/calendar-check';
@@ -69,9 +69,9 @@
       };
     },
     components: {
-      vselect: vSelect,
-      icon: Icon,
-      ftdatepicker: FtDatepicker
+      VSelect,
+      Icon,
+      FtDatepicker
     },
     methods: {
       removeRowMatches: function (index) {

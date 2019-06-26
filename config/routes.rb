@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       namespace :scout, only: [] do
         resources :requests, only: [:index]
         resources :request_bids, only: %i[index create update]
+        resources :reports, only: %i[index create show]
       end
 
       namespace :director, only: [] do
@@ -92,7 +93,7 @@ Rails.application.routes.draw do
       post 'connect', controller: :connection, action: :create
       put 'connect/:connection_id/accept', controller: :connection, action: :accept
       post 'reports/refund/:report_id', controller: :orders, action: :refund
-      resources :reports
+
       get 'reports/list/purchased', controller: :reports, action: :purchased
       resources :orders
       resources :stripe, only: %i[index create]

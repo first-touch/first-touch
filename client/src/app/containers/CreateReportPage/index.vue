@@ -1,7 +1,7 @@
 <template>
-  <div class="ft-page">
-    <div class="container">
-      <h4 class="spaced-title upper-cased main-color">Report</h4>
+  <div class="ft-page container">
+    <h4 class="spaced-title upper-cased main-color page-title mb-5">Create Report</h4>
+    <timeline-item>
       <div class="form-container">
         <status :status="status" />
         <ul class="error" v-if="report.errors">
@@ -11,17 +11,30 @@
           </li>
         </ul>
 
-        <basicform class="report-type-form" v-if="!showForm" :prepareReport="prepareReport" />
+        <report-type-form v-if="!showForm" v-on:start-report="prepareReport" />
         <div v-if="showForm">
           <keep-alive>
-            <playerreportform v-if="report_type == 'Player' && status == '' " :hasBankAccount="hasBankAccount" :submitReport="customCreateReport"
-              :playerId="player_id" :request="request" :cancelAction="cancel" />
-            <teamreportform v-if="report_type == 'Team' && status == '' " :category="category" :hasBankAccount="hasBankAccount" :submitReport="customCreateReport"
-              :team_id="team_id" :cancelAction="cancel" :request="request" />
+            <player-report-form
+              v-if="reportData.type_report == 'Player'"
+              :hasBankAccount="hasBankAccount"
+              :report="reportData"
+              :request="request"
+              v-on:submit="customCreateReport"
+              v-on:cancel="cancel"
+            />
+            <team-report-form
+              v-if="reportData.type_type == 'Team'"
+              :category="category"
+              :hasBankAccount="hasBankAccount"
+              :submitReport="customCreateReport"
+              :team_id="team_id"
+              :cancelAction="cancel"
+              :request="request"
+            />
           </keep-alive>
         </div>
       </div>
-    </div>
+    </timeline-item>
   </div>
 </template>
 
@@ -38,47 +51,25 @@
   import PlayerReportForm from 'app/components/EditReport/PlayerReportForm';
   import TeamReportForm from 'app/components/EditReport/TeamReportForm';
   import Status from './components/Status';
-  import BasicForm from './components/BasicForm';
+  import ReportTypeForm from './components/ReportTypeForm';
   import TimelineItem from 'app/components/TimelineItem';
-  import PlayerRequestPopup from 'app/components/RequestPopup/PlayerRequestPopup';
-  import PositionRequestPopup from 'app/components/RequestPopup/PositionRequestPopup';
-  import TeamRequestPopup from 'app/components/RequestPopup/TeamRequestPopup';
-  import PlayerResume from 'app/components/ProfileResume/PlayerResume';
-  import ClubResume from 'app/components/ProfileResume/ClubResume';
 
   export default {
     name: 'CreateReportPage',
     props: ['request'],
     components: {
-      playerreportform: PlayerReportForm,
-      teamreportform: TeamReportForm,
-      status: Status,
-      basicform: BasicForm,
-      TimelineItem,
-      teamrequestpopup: TeamRequestPopup,
-      playerrequestpopup: PlayerRequestPopup,
-      positionrequestpopup: PositionRequestPopup,
-      clubresume: ClubResume,
-      playerresume: PlayerResume
+      PlayerReportForm,
+      TeamReportForm,
+      Status,
+      ReportTypeForm,
+      TimelineItem
     },
     computed: {
       ...mapGetters(['report', 'searchResult', 'profile', 'teamProfile', 'user']),
-      playerInfo() {
-        if (this.request)
-          return this.request.player;
-        if (this.player_id > 0 && this.profile.status == ASYNC_SUCCESS)
-          return this.profile.value.personal_profile;
-        return null;
-      },
       position() {
         if (this.request)
           return this.request.type_request == 'position';
         return false
-      },
-      clubInfo() {
-        if (!this.playerInfo && this.team_id > 0 && this.teamProfile.status == ASYNC_SUCCESS)
-          return this.teamProfile.value;
-        return null;
       },
       hasBankAccount() {
         if (this.user.status === ASYNC_SUCCESS) {
@@ -107,22 +98,6 @@
         }
       }
     },
-    mounted() {
-      if (this.request) {
-        var ids = {
-          player: this.request.player_id,
-          team: this.request.team_id,
-          job: this.request.id,
-          league: this.request.league_id
-        }
-        if (this.request.type_request == 'team')
-          this.prepareReport('team', ids);
-        else if (this.request.type_request == 'player')
-          this.prepareReport('player', ids);
-        else if (this.request.type_request == 'position')
-          this.prepareReport('player', ids);
-      }
-    },
     methods: {
       ...mapActions(['createReport', 'uploadFiles', 'getSearchResults', 'fetchUserInfo', 'fetchTeamInfo']),
       toPaymentPage() {
@@ -131,50 +106,26 @@
         });
       },
       cancel() {
-        this.report_type = null;
         this.showForm = false;
       },
-      prepareReport(type, ids, search) {
-        this.report_type = type;
-        this.job_id = ids.job;
-        this.player_id = ids.player;
-        this.team_id = ids.team;
-        this.category = ids.category;
-        this.search = search;
+      prepareReport(reportData) {
+        _.merge(this.reportData, reportData);
         this.showForm = true;
-        if (this.player_id > 0)
-          this.fetchUserInfo({
-            id: this.player_id
-          })
-        if (this.team_id > 0)
-          this.fetchTeamInfo({
-            id: this.team_id
-          })
       },
-      customCreateReport(reportdata) {
-        reportdata.type_report = this.report_type;
-        reportdata.player_id = this.player_id;
-        reportdata.team_id = this.team_id;
-        reportdata.job_id = this.job_id;
-        reportdata.meta_data.search = this.search;
-        this.createReport(reportdata);
+      customCreateReport(filledInfo) {
+        this.reportData.headline = filledInfo.headline;
+        this.reportData.price = filledInfo.price;
+        this.reportData.meta_data = filledInfo.meta_data;
+        this.reportData.status = filledInfo.status;
+        this.createReport(this.reportData);
       },
-      closeAction(request) {
-        this.$refs.metaModal.hide();
-      },
-      viewSummary(request) {
-        this.$refs.metaModal.show();
-      }
     },
     data() {
       return {
+        reportData: {},
         status: '',
-        report_type: '',
         job_id: '',
         team_id: '',
-        league_id: '',
-        player_id: '',
-        search: {},
         showForm: false,
         category: ''
       };

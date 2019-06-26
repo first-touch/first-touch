@@ -27,7 +27,7 @@
       <input type="hidden" name="token" id="token">
       <div class="row col-lg-12">
         <label class="col-lg-4 required">Select Country</label>
-        <countryselect class="col-lg-8" :disabled="lock" v-on:update:val="country = $event; getRequired()" :value="this.country"
+        <country-select class="col-lg-8" :disabled="lock" v-on:update:val="country = $event; getRequired()" :value="this.country"
         />
       </div>
       <div class="row col-lg-12">
@@ -137,7 +137,7 @@
     props: ['submit', 'stripeRequired', 'stripe', 'closeAction', 'stripeFtouch', 'getCountryInfo','deleteAccount'],
     components: {
       ftdatepicker: FtDatepicker,
-      countryselect: CountrySelect,
+      CountrySelect,
       vselect: vSelect,
       Loading,
       Icon,

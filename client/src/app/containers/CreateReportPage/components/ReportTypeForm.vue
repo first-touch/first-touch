@@ -1,27 +1,37 @@
 <template>
-  <form class="report-type-form" @submit.prevent>
+  <form @submit.prevent>
     <div class="form-group row">
       <label class="col-lg-3 col-form-label">Select report type</label>
       <div class="col-lg-6">
-        <vselect placeholder="Choose the report type" v-model="reportType" :options="options.reportType" :searchable="true" :clearable="true" />
+        <v-select placeholder="Choose the report type" v-model="reportType" :options="options.reportType" :searchable="true" :clearable="true" />
       </div>
     </div>
     <div class="form-group row">
       <label class="col-lg-3 col-form-label">Select a League</label>
       <div class="col-lg-6">
-        <vselect placeholder="Search for the competition" v-model="competition" :onSearch="searchCompetitions" label="name" :options="options.competitions" :searchable="true" :clearable="true" />
+        <v-select placeholder="Search for the competition" v-model="competition" :onSearch="searchCompetitions" label="name" :options="options.competitions" :searchable="true" :clearable="true" />
       </div>
     </div>
     <div class="form-group row">
       <label class="col-lg-3 col-form-label">Select a Club</label>
       <div class="col-lg-6">
-        <vselect placeholder="Search for the club" v-model="club" :disabled="missingLeague" :onSearch="searchClubs" label="team_name" :options="options.clubs" :searchable="true" :clearable="true" :taggable="true"/>
+        <v-select placeholder="Search for the club" v-model="club" :disabled="missingLeague" :onSearch="searchClubs" label="team_name" :options="options.clubs" :searchable="true" :clearable="true"/>
       </div>
     </div>
     <div class="form-group row" v-if="isPlayerReport">
       <label class="col-lg-3 col-form-label">Select a Player</label>
       <div class="col-lg-6">
-        <vselect placeholder="Search for the player" v-model="player" :disabled="missingClub" :onSearch="searchPlayers" label="display_name" :options="options.players" :searchable="true" :clearable="true" :taggable="true"/>
+        <v-select
+          placeholder="Search for the player"
+          v-model="player"
+          :disabled="missingClub"
+          :onSearch="searchPlayers"
+          label="display_name"
+          :options="options.players"
+          :searchable="true"
+          :clearable="true"
+          :taggable="true"
+        />
       </div>
     </div>
     <div class="buttons-inner row">
@@ -41,31 +51,55 @@
     mapGetters,
     mapActions
   } from 'vuex';
-  import vSelect from 'vue-select';
-  import TeamSelect from 'app/components/Input/TeamSelect';
-  import inputSearch from 'app/components/Input/InputSearch';
+  import VSelect from 'vue-select';
 
   export default {
     name: 'ReportBasicForm',
     props: ['prepareReport'],
     components: {
-      inputsearch: inputSearch,
-      vselect: vSelect,
-      'team-select': TeamSelect,
+      VSelect
+    },
+    watch: {
+      competition(newCompetition) {
+        this.club = '';
+        this.options.clubs = [];
+      },
+      club(newClub) {
+        this.player = '';
+        this.options.players = [];
+      },
+      player(chosenPlayer) {
+        if(_.isObject(chosenPlayer)) return;
+
+        let playerNames = chosenPlayer.split(' ');
+        const lastName = playerNames.splice(playerNames.length-1, 1)[0];
+        const firstName = playerNames.splice(0, 1)[0];
+        const middleNames = playerNames.join(" ");
+        this.player = {
+          display_name: chosenPlayer,
+          first_name: firstName,
+          last_name: lastName,
+          middle_name: middleNames,
+          role_name: "player"
+        }
+      }
     },
     data() {
       return {
         player_report: false,
         team_report: false,
         job_type: 'independent',
-        club: {},
-        competition: {},
-        team: '',
-        player: {},
-        search: {
-          player: '',
-          league: '',
-          club: ''
+        club: {
+          team_name: ''
+        },
+        competition: {
+          name: ''
+        },
+        team: {
+          team_name: ''
+        },
+        player: {
+          display_name: ''
         },
         reportType: undefined,
         options: {
@@ -129,15 +163,13 @@
         });
       },
       startReport() {
-        // TODO: Start report on an existing player
-        // Start report on a non existing player -> Backend to create an
-        // unclaimed account
-        var ids = {
-          player: this.player.id > 0 ? this.player.id : '',
-          team: this.club.id > 0 ? this.club.id : '',
-          league: this.competition.id > 0 ? this.competition.id : '',
+        const reportData = {
+          type_report: this.reportType,
+          team: { id: this.club.id },
+          league: { id: this.competition.id },
+          player: this.player
         }
-        this.prepareReport(this.reportType, ids, this.search);
+        this.$emit('start-report', reportData);
       }
     }
   };

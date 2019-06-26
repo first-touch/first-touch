@@ -1,3 +1,12 @@
+# TODO: Remove request_id from the schema as it does not make sense
+# TODO: Make report type enum:
+#  - player
+#  - team
+# TODO: Make report status enum:
+#  - published
+#  - ongoing
+#  - private (unpublished)
+
 class Report < ApplicationRecord
   has_paper_trail
   belongs_to :user

@@ -34,7 +34,7 @@
   <div class="row row-form col-lg-12">
     <div class="col-lg-6" v-if="requirements.indexOf('individual.dob.year') >= 0">
       <label class="col-lg-12 required">Date of birth</label>
-      <ftdatepicker class="form-control col-lg-12" required :disabled="disabledDate" v-on:update:val="dob = $event" :value="disabledDate.from" />
+      <ftdatepicker class="form-control col-lg-12" required :disabledDates="disabledDate" v-on:update:val="dob = $event" :value="disabledDate.from" />
     </div>
     <div class="col-lg-6" v-if="requirements.indexOf('individual.id_number') >= 0">
       <label class="col-lg-12 required">Personal Id Number</label>

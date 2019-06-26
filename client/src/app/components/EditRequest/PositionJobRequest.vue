@@ -101,7 +101,7 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
         <h5 class="row request-section">Your Scouting Requirements</h5>
 
         <div class="row col-lg-12 form-group required-before">
-          <ftdatepicker class="col-lg-12 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" placeholder="Select a deadline"
+          <ftdatepicker class="col-lg-12 form-control" :disabledDates="disabled" :value="deadline" v-on:update:val="deadline = $event" placeholder="Select a deadline"
           />
           <input type="text" class="d-none" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
           <span class="text-danger">{{ errors.first('deadline') }}</span>
@@ -177,7 +177,7 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
 <script>
   import inputSearch from 'app/components/Input/InputSearch';
   import PlayerPosition from 'app/components/Input/PlayerPosition';
-  import Nationality from 'app/components/Input/Nationality';
+  import CountrySelect from 'app/components/Input/CountrySelect';
   import Language from 'app/components/Input/Language';
   import PreferredFoot from 'app/components/Input/PreferredFoot';
   import FtCheckbox from 'app/components/Input/FtCheckbox';
@@ -193,7 +193,7 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
     components: {
       inputsearch: inputSearch,
       playerposition: PlayerPosition,
-      countryselect: Nationality,
+      CountrySelect,
       language: Language,
       preferredfoot: PreferredFoot,
       ftdatepicker: FtDatepicker,

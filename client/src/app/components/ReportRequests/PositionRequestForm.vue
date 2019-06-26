@@ -89,7 +89,7 @@ EXAMPLE: Looking for a tall target man. Must be strong enough to hold off defend
       <h5 class="row request-section">Your Scouting Requirements</h5>
 
       <div class="row col-lg-12 form-group required-before">
-        <ft-datepicker class="col-lg-12 form-control" :disabled="disabledDates" :value="deadline" v-on:update:val="deadline = $event" placeholder="Select a deadline" />
+        <ft-datepicker class="col-lg-12 form-control" :disabledDates="disabledDates" :value="deadline" v-on:update:val="deadline = $event" placeholder="Select a deadline" />
         <input type="text" class="d-none" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
         <span class="text-danger">{{ errors.first('deadline') }}</span>
       </div>

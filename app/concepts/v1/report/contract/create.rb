@@ -7,8 +7,12 @@ module V1
         property :status
         property :type_report
         property :price
-        property :team_id
-        property :player_id
+        property :team, populator: ->(fragment:, **) {
+          team ? team : self.team = ::Team.find_by(id: fragment['id'])
+        }
+        property :player, populator: ->(fragment:, **) {
+          player ? player : self.player = ::User.find_by(id: fragment['id'])
+        }
         property :meta_data
         validates :status,
                   inclusion: {

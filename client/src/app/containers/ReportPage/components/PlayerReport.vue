@@ -92,7 +92,7 @@
             </div>
             <div class="position" v-if="playerInfo.playing_position">
               <p class="position-title">Playing position(s):</p>
-              <playerposition class="col-lg-8" :value="playerInfo.playing_position" :readonly="true" />
+              <player-position class="col-lg-8" :value="playerInfo.playing_position" :readonly="true" />
               <img class="img-fluid position-map" src="http://www.conceptdraw.com/solution-park/resource/images/solutions/soccer/Sport-Soccer-Football-Formation-4-4-1-1.png"
               />
             </div>
@@ -105,41 +105,16 @@
             Contract Summary
           </h5>
           <div class="contract-summary">
-            <div class="row" v-if="report.meta_data.transfer_sum.wage.value">
-              <label class="col-lg-4 summary-title">Wage </label>
-              <span class="col-lg-4 summary-field"> {{report.meta_data.transfer_sum.wage.value}} {{report.meta_data.transfer_sum.wage.currency | currency}} </span>
-            </div>
             <div class="row">
               <span class="col col-lg-12 transfer-title summary-title">
                 <icon v-if="report.meta_data.transfer_sum.transfer_interested !== 'No'" name="check"></icon>
                 <icon v-if="report.meta_data.transfer_sum.transfer_interested === 'No'" name="times"></icon>
                 Interested in Transfer</span>
             </div>
-            <div class="row values" v-if="report.meta_data.transfer_sum.transfer_interested !== 'No'">
-              <div class="col-lg-6">
-                <label class="col-lg-7 summary-title">Availability for transfer</label>
-                <span class="col-lg-5 summary-field"> {{report.meta_data.transfer_sum.transfer_availability | moment }}</span>
-              </div>
-              <div class="col-lg-6">
-                <label class="col-lg-6 summary-title">Transfer Budget</label>
-                <span class="col-lg-6 summary-field"> {{report.meta_data.transfer_sum.transfer_budget.value}} {{report.meta_data.transfer_sum.transfer_budget.currency
-                  | currency}}</span>
-              </div>
-            </div>
             <div class="row">
               <label class="col-lg-4 transfer-title summary-title">
                 <icon v-if="report.meta_data.transfer_sum.loan_interested !== 'No'" name="check"></icon>
                 <icon v-if="report.meta_data.transfer_sum.loan_interested === 'No'" name="times"></icon>Interested in Loan</label>
-            </div>
-            <div class="row values" v-if="report.meta_data.transfer_sum.loan_interested !== 'No'">
-              <div class="col-lg-6" v-if="report.meta_data.transfer_sum.loan_availability">
-                <label class="col-lg-7 summary-title">Availability for Loan</label>
-                <span class="col-lg-5 summary-field"> {{report.meta_data.transfer_sum.loan_availability | moment}} </span>
-              </div>
-              <div class="col-lg-6" v-if="report.meta_data.transfer_sum.contract_end">
-                <label class="col-lg-6 summary-title">End of Contract</label>
-                <span class="col-lg-6 summary-field"> {{report.meta_data.transfer_sum.contract_end | moment}} </span>
-              </div>
             </div>
           </div>
         </div>
@@ -151,7 +126,7 @@
           </h5>
           <div>
             <label class="row col-lg-12 summary-title">Analyzed Matches</label>
-            <matchanalyzed :analyzed_matches="report.meta_data.analyzed_matches" type="player" mode="read" />
+            <match-analyzed :analyzed_matches="report.meta_data.analyzed_matches" type="player" mode="read" />
           </div>
           <div class="meta">
             <label class="row col-lg-12 summary-title">Current Ability Overview</label>
@@ -319,45 +294,45 @@
 </style>
 
 <script>
-  import 'vue-awesome/icons/user';
-  import 'vue-awesome/icons/handshake';
-  import 'vue-awesome/icons/check';
-  import 'vue-awesome/icons/times';
-  import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
-  import PlayerPosition from 'app/components/Input/PlayerPosition';
+import 'vue-awesome/icons/user';
+import 'vue-awesome/icons/handshake';
+import 'vue-awesome/icons/check';
+import 'vue-awesome/icons/times';
+import MatchAnalyzed from 'app/components/Input/MatchAnalyzed';
+import PlayerPosition from 'app/components/Input/PlayerPosition';
 
-  import Icon from 'vue-awesome/components/Icon';
-  import countrydata from 'country-data';
-  import TimelineItem from 'app/components/TimelineItem';
-  export default {
-    name: 'PlayerReport',
-    props: ['report', 'downloadFile'],
-    components: {
-      icon: Icon,
-     playerposition: PlayerPosition,
-      matchanalyzed: MatchAnalyzed,
-      'timeline-item': TimelineItem
-    },
-    data() {
-      return {};
-    },
-    computed: {
-      playerInfo() {
-        if (this.report) {
+import Icon from 'vue-awesome/components/Icon';
+import countrydata from 'country-data';
+import TimelineItem from 'app/components/TimelineItem';
+export default {
+  name: 'PlayerReport',
+  props: ['report', 'downloadFile'],
+  components: {
+    Icon,
+    PlayerPosition,
+    MatchAnalyzed,
+    TimelineItem
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    playerInfo() {
+      if (this.report) {
 
-          if (this.report.player) return this.report.player;
-          if (this.report.meta_data.player_info) return this.report.meta_data.player_info;
-        }
-        return null;
+        if (this.report.player) return this.report.player;
+        if (this.report.meta_data.player_info) return this.report.meta_data.player_info;
       }
-    },
-    methods: {
-      getLanguage(key) {
-        return countrydata.languages[key] ? countrydata.languages[key].name : 'key';
-      },
-      getNationality(key) {
-        return countrydata.countries[key] ? countrydata.countries[key].name : 'key';
-      }
+      return null;
     }
-  };
+  },
+  methods: {
+    getLanguage(key) {
+      return countrydata.languages[key] ? countrydata.languages[key].name : 'key';
+    },
+    getNationality(key) {
+      return countrydata.countries[key] ? countrydata.countries[key].name : 'key';
+    }
+  }
+};
 </script>

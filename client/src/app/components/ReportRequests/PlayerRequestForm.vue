@@ -75,11 +75,11 @@
             <input type="number" min="0" class="col-lg-12 form-control" v-model.number="meta_data.age" placeholder="Age">
           </div>
           <div class="col-lg-4 form-group">
-            <countryselect :value="meta_data.nationality_country_code" placeholder="Nationality is" v-on:update:val="meta_data.nationality_country_code = $event"
+            <country-select :value="meta_data.nationality_country_code" placeholder="Nationality is" v-on:update:val="meta_data.nationality_country_code = $event"
             />
           </div>
           <div class="col-lg-4 form-group">
-            <countryselect :value="meta_data.residence_country_code" placeholder="Based in" v-on:update:val="meta_data.residence_country_code = $event"
+            <country-select :value="meta_data.residence_country_code" placeholder="Based in" v-on:update:val="meta_data.residence_country_code = $event"
             />
           </div>
         </div>
@@ -120,7 +120,7 @@
         </div>
 
         <div class="col-lg-12 form-group required-before">
-          <ftdatepicker class="col-lg-12 form-control" :disabled="disabledDates" :value="deadline" v-on:update:val="deadline = $event" ref="deadline"
+          <ftdatepicker class="col-lg-12 form-control" :disabledDates="disabledDates" :value="deadline" v-on:update:val="deadline = $event" ref="deadline"
             placeholder="Select a deadline" />
           <input type="text" class="d-none" name="deadline" v-model="deadline" v-validate="'required|date_format:yyyy-MM-dd'" />
           <span class="text-danger">{{ errors.first('deadline') }}</span>
@@ -232,7 +232,7 @@
   } from 'vuex';
   import inputSearch from 'app/components/Input/InputSearch';
   import PlayerPosition from 'app/components/Input/PlayerPosition';
-  import Nationality from 'app/components/Input/Nationality';
+  import CountrySelect from 'app/components/Input/CountrySelect';
   import Language from 'app/components/Input/Language';
   import PreferredFoot from 'app/components/Input/PreferredFoot';
   import TimelineItem from 'app/components/TimelineItem';
@@ -247,7 +247,7 @@
     components: {
       inputsearch: inputSearch,
       playerposition: PlayerPosition,
-      countryselect: Nationality,
+      CountrySelect,
       language: Language,
       preferredfoot: PreferredFoot,
       vselect: vSelect,

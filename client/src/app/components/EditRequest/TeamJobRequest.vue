@@ -55,7 +55,7 @@
           </div>
           <div class="row">
             <div class="col-lg-12 form-group required-before">
-              <ftdatepicker class="col-lg-12 form-control" :disabled="disabled" :value="deadline" v-on:update:val="deadline = $event" placeholder="Select a deadline"
+              <ftdatepicker class="col-lg-12 form-control" :disabledDates="disabled" :value="deadline" v-on:update:val="deadline = $event" placeholder="Select a deadline"
               />
               <input type="text" class="d-none" name="deadline" v-model="deadline" v-validate="'required|date_format'" />
               <span class="text-danger">{{ errors.first('deadline') }}</span>

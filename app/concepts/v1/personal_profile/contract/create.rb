@@ -25,7 +25,6 @@ module V1
 
         property :scouting_badges
 
-
         validates :first_name,
                   :last_name,
                   :birthday,
