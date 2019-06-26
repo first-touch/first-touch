@@ -162,12 +162,6 @@
         this.reportData.status = filledInfo.status;
         this.createReport(this.reportData);
       },
-      closeAction(request) {
-        this.$refs.metaModal.hide();
-      },
-      viewSummary(request) {
-        this.$refs.metaModal.show();
-      }
     },
     data() {
       return {

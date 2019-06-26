@@ -26,14 +26,24 @@ module V1
             return true unless params['type_report'] == 'Player'
             return true if params['player']['id'].present?
             player_data = params['player']
+            profile_data = params['meta_data']['player_info']
             email = "#{player_data['first_name']}_#{player_data['last_name']}_new@firsttouch.io"
             pwd = SecureRandom.hex
             unclaimed_player = ::User.create(email: email,
                                              password: pwd,
                                              password_confirmation: pwd,
                                              unclaimed: true)
+            unclaimed_player.add_role 'player'
             unclaimed_player.create_personal_profile(first_name: player_data['first_name'],
-                                                     last_name: player_data['last_name'])
+                                                     last_name: player_data['last_name'],
+                                                     weight: profile_data['weight'],
+                                                     height: profile_data['height'],
+                                                     preferred_foot: profile_data['preferred_foot'],
+                                                     birthday: profile_data['birthday'],
+                                                     nationality_country_code: profile_data['nationality_country_code'],
+                                                     residence_country_code: profile_data['residence_country_code'],
+                                                     languages: profile_data['languages'],
+                                                     playing_positions: profile_data['playing_positions'])
 
             model.player = unclaimed_player
             model.player.teams = ::Team.where(id: params['team']['id'])

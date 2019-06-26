@@ -70,7 +70,7 @@
             </div>
             <div class="row mt-2 mb-2">
               <div class="col-lg-6">
-                <player-position :value="meta_data.player_info.playing_position" v-on:update:val="meta_data.player_info.playing_position = $event" placeholder="Positions" />
+                <player-position :value="meta_data.player_info.playing_positions" v-on:update:val="meta_data.player_info.playing_positions = $event" placeholder="Positions" />
               </div>
               <div class="col-lg-6">
                 <preferred-foot :value="meta_data.player_info.preferred_foot" v-on:update:val="meta_data.player_info.preferred_foot = $event"
@@ -208,7 +208,7 @@
           player_info: {
             nationality_country_code: '',
             languages: [],
-            playing_position: [],
+            playing_positions: [],
             preferred_foot: '',
             birthday: ''
           },
@@ -316,7 +316,7 @@
       profile(newValue) {
         if (this.profile.status != ASYNC_SUCCESS) return;
         let player = newValue.value;
-        console.log(player);
+
         this.meta_data.player_info.birthday = moment(player.personal_profile.birthday).format("DD-MMM-yyyy");
         this.meta_data.player_info.languages = player.personal_profile.languages;
         this.meta_data.player_info.weight = player.personal_profile.weight;
@@ -324,7 +324,7 @@
         this.meta_data.player_info.preferred_foot = player.personal_profile.preferred_foot;
         this.meta_data.player_info.residence_country_code = player.personal_profile.residence_country_code;
         this.meta_data.player_info.nationality_country_code = player.personal_profile.nationality_country_code;
-        this.meta_data.player_info.playing_position = _.map(player.personal_profile.playing_positions, "position")
+        this.meta_data.player_info.playing_positions = _.map(player.personal_profile.playing_positions, "position")
       }
     },
     methods: {
@@ -335,6 +335,12 @@
       handleSubmit(status) {
         this.$validator.validateAll().then(() => {
           if (this.errors.items.length == 0) {
+            let playing_positions = _.map(this.meta_data.player_info.playing_positions, pos => {
+              return {
+                position: pos,
+                skill: 0
+              };
+            });
             var report = {
               headline: this.headline,
               price: this.price,
@@ -343,6 +349,7 @@
               status,
               files: this.files
             };
+            report.meta_data.player_info.playing_positions = playing_positions;
             this.$emit('submit', report);
           } else {
             this.scrollToTop();
