@@ -24,8 +24,14 @@
           <div class="form-group player-summary">
             <div class="row mt-2 mb-2">
               <div class="col-lg-4 required-before">
-                <input type="number" class="form-control" v-model.number="meta_data.player_info.age" :placeholder="agePlaceHolder" name="age" v-validate="'required|between:16,40'">
-                <span class="text-danger">{{ errors.first('age') }}</span>
+                <ft-datepicker
+                  class="form-control"
+                  ref="birthday"
+                  v-model="meta_data.player_info.birthday"
+                  :clearable="false"
+                  placeholder="Birthday"
+                  v-on:update:val="meta_data.player_info.birthday = $event;"
+                />
               </div>
               <div class="col-lg-4 required-before">
                 <div class="input-group">
@@ -155,7 +161,7 @@
     </div>
     <div class="form-group">
       <div class="col-lg-12">
-        <add-attachments :attachments="report ? report.attachments.attachments : null" v-on:update:remove="remove_attachment = $event"
+        <add-attachments :attachments="report ? report.attachments : null" v-on:update:remove="remove_attachment = $event"
           v-on:update:files="files = $event" />
       </div>
     </div>
@@ -174,9 +180,8 @@
   import Language from 'app/components/Input/Language';
   import PreferredFoot from 'app/components/Input/PreferredFoot';
   import FtCheckbox from 'app/components/Input/FtCheckbox';
+  import FtDatepicker from 'app/components/Input/FtDatepicker';
   import AddAttachments from 'app/components/Input/AddAttachments';
-  import 'vue-awesome/icons/trash';
-  import Icon from 'vue-awesome/components/Icon';
   import CurrencyInput from 'app/components/Input/CurrencyInput';
 
   export default {
@@ -188,11 +193,11 @@
       Language,
       PreferredFoot,
       FtCheckbox,
+      FtDatepicker,
       AddAttachments,
-      Icon,
       CurrencyInput,
     },
-    props: ['playerId', 'report', 'request', 'hasBankAccount'],
+    props: ['report', 'request', 'hasBankAccount'],
     data() {
       return {
         meta_data: {
@@ -201,6 +206,7 @@
             languages: [],
             playing_position: [],
             preferred_foot: '',
+            birthday: ''
           },
           transfer_sum: {
             loan_interested: 'No',
@@ -250,17 +256,6 @@
           return true;
         return false;
       },
-      agePlaceHolder() {
-        if (this.position) {
-          if (this.request.meta_data.min_age && this.request.meta_data.max_age)
-            return `Between ${this.request.meta_data.min_age} and ${this.request.meta_data.max_age}`;
-          if (this.request.meta_data.min_age)
-            return `From ${this.request.meta_data.min_age}`;
-          if (this.request.meta_data.max_age)
-            return `Less than ${this.request.meta_data.max_age}`;
-        }
-        return 'Age';
-      },
       weightPlaceHolder() {
         if (this.position) {
           if (this.request.meta_data.min_weight && this.request.meta_data.max_weight)
@@ -286,27 +281,27 @@
     },
     beforeMount() {
       if (this.report) {
-        this.meta_data = this.report.meta_data;
-        this.price = this.report.price;
+        this.meta_data = this.report.meta_data || this.meta_data;
+        this.price = this.report.price || this.price;
         this.headline = this.report.headline;
       }
-      if (this.request) {
-        this.price.value = this.request.price.value;
-        this.price.currency = this.request.price.currency;
+      // if (this.request) {
+      //   this.price.value = this.request.price.value;
+      //   this.price.currency = this.request.price.currency;
 
-        if (!this.position)
-          this.price.value = parseInt(this.request.bid_price.value);
-        this.headline = 'Report on ';
-        this.headline += this.request.meta_data.player_name ? this.request.meta_data.player_name : '';
-        if (!this.request.player) {
-          this.meta_data.player_info.languages = this.request.meta_data.languages;
-          this.meta_data.player_info.preferred_foot = this.request.meta_data.preferred_foot;
-          this.meta_data.player_info.residence_country_code = this.request.meta_data.residence_country_code;
-          this.meta_data.player_info.nationality_country_code = this.request.meta_data.nationality_country_code;
-          this.meta_data.player_info.playing_position = this.request.meta_data.playing_position;
-        }
-        this.$forceUpdate();
-      }
+      //   if (!this.position)
+      //     this.price.value = parseInt(this.request.bid_price.value);
+      //   this.headline = 'Report on ';
+      //   this.headline += this.request.meta_data.player_name ? this.request.meta_data.player_name : '';
+      //   if (!this.request.player) {
+      //     this.meta_data.player_info.languages = this.request.meta_data.languages;
+      //     this.meta_data.player_info.preferred_foot = this.request.meta_data.preferred_foot;
+      //     this.meta_data.player_info.residence_country_code = this.request.meta_data.residence_country_code;
+      //     this.meta_data.player_info.nationality_country_code = this.request.meta_data.nationality_country_code;
+      //     this.meta_data.player_info.playing_position = this.request.meta_data.playing_position;
+      //   }
+      //   this.$forceUpdate();
+      // }
     },
     methods: {
       cancelAction() {

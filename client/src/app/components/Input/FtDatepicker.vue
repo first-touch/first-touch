@@ -1,7 +1,8 @@
 <template>
   <datepicker class="ft-datepicker"
       @opened="toggle"
-      :disabled-dates="disabled"
+      :disabled-dates="disabledDates"
+      :disabled="disabled"
       ref="datepicker"
       :required="true"
       v-model="model"
@@ -14,6 +15,7 @@
   .ft-datepicker.form-control {
     input {
       border: none !important;
+      width: 100%;
     }
   }
 </style>
@@ -27,7 +29,7 @@
 
   export default {
     name: 'FtDatepicker',
-    props: ['value', 'disabled', 'placeholder', 'hideicon', 'hideChooseIcon'],
+    props: ['value', 'disabled', 'disabledDates', 'placeholder', 'hideicon', 'hideChooseIcon'],
     data() {
       return {
         model: this.value,

@@ -15,15 +15,15 @@
         <div v-if="showForm">
           <keep-alive>
             <player-report-form
-              v-if="reportData.type_report == 'Player' && status == '' "
+              v-if="reportData.type_report == 'Player'"
               :hasBankAccount="hasBankAccount"
-              :playerId="player_id"
+              :report="reportData"
               :request="request"
               v-on:submit="customCreateReport"
               v-on:cancel="cancel"
             />
             <team-report-form
-              v-if="report_type == 'Team' && status == '' "
+              v-if="report_type == 'Team'"
               :category="category"
               :hasBankAccount="hasBankAccount"
               :submitReport="customCreateReport"
