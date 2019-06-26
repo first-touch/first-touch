@@ -23,7 +23,7 @@
               v-on:cancel="cancel"
             />
             <team-report-form
-              v-if="report_type == 'Team'"
+              v-if="reportData.type_type == 'Team'"
               :category="category"
               :hasBankAccount="hasBankAccount"
               :submitReport="customCreateReport"
@@ -66,22 +66,10 @@
     },
     computed: {
       ...mapGetters(['report', 'searchResult', 'profile', 'teamProfile', 'user']),
-      playerInfo() {
-        if (this.request)
-          return this.request.player;
-        if (this.player_id > 0 && this.profile.status == ASYNC_SUCCESS)
-          return this.profile.value.personal_profile;
-        return null;
-      },
       position() {
         if (this.request)
           return this.request.type_request == 'position';
         return false
-      },
-      clubInfo() {
-        if (!this.playerInfo && this.team_id > 0 && this.teamProfile.status == ASYNC_SUCCESS)
-          return this.teamProfile.value;
-        return null;
       },
       hasBankAccount() {
         if (this.user.status === ASYNC_SUCCESS) {
@@ -110,22 +98,6 @@
         }
       }
     },
-    mounted() {
-      // if (this.request) {
-      //   var ids = {
-      //     player: this.request.player_id,
-      //     team: this.request.team_id,
-      //     job: this.request.id,
-      //     league: this.request.league_id
-      //   }
-      //   if (this.request.type_request == 'team')
-      //     this.prepareReport('team', ids);
-      //   else if (this.request.type_request == 'player')
-      //     this.prepareReport('player', ids);
-      //   else if (this.request.type_request == 'position')
-      //     this.prepareReport('player', ids);
-      // }
-    },
     methods: {
       ...mapActions(['createReport', 'uploadFiles', 'getSearchResults', 'fetchUserInfo', 'fetchTeamInfo']),
       toPaymentPage() {
@@ -134,26 +106,11 @@
         });
       },
       cancel() {
-        this.report_type = null;
         this.showForm = false;
       },
       prepareReport(reportData) {
         _.merge(this.reportData, reportData);
         this.showForm = true;
-        // this.report_type = type;
-        // this.player_id = ids.player;
-        // this.team_id = ids.team;
-        // this.category = ids.category;
-        // this.search = search;
-        // this.showForm = true;
-        // if (this.player_id > 0)
-        //   this.fetchUserInfo({
-        //     id: this.player_id
-        //   })
-        // if (this.team_id > 0)
-        //   this.fetchTeamInfo({
-        //     id: this.team_id
-        //   })
       },
       customCreateReport(filledInfo) {
         this.reportData.headline = filledInfo.headline;
@@ -167,12 +124,8 @@
       return {
         reportData: {},
         status: '',
-        report_type: '',
         job_id: '',
         team_id: '',
-        league_id: '',
-        player_id: '',
-        search: {},
         showForm: false,
         category: ''
       };
