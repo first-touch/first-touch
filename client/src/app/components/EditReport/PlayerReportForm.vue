@@ -296,23 +296,6 @@
         this.price = this.report.price || this.price;
         this.headline = this.report.headline;
       }
-      // if (this.request) {
-      //   this.price.value = this.request.price.value;
-      //   this.price.currency = this.request.price.currency;
-
-      //   if (!this.position)
-      //     this.price.value = parseInt(this.request.bid_price.value);
-      //   this.headline = 'Report on ';
-      //   this.headline += this.request.meta_data.player_name ? this.request.meta_data.player_name : '';
-      //   if (!this.request.player) {
-      //     this.meta_data.player_info.languages = this.request.meta_data.languages;
-      //     this.meta_data.player_info.preferred_foot = this.request.meta_data.preferred_foot;
-      //     this.meta_data.player_info.residence_country_code = this.request.meta_data.residence_country_code;
-      //     this.meta_data.player_info.nationality_country_code = this.request.meta_data.nationality_country_code;
-      //     this.meta_data.player_info.playing_position = this.request.meta_data.playing_position;
-      //   }
-      //   this.$forceUpdate();
-      // }
     },
     watch: {
       profile(newValue) {
