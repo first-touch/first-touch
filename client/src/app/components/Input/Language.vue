@@ -3,6 +3,7 @@
     :disabled="readonly"
     ref="vSelect"
     v-model="value"
+    :onChange="update"
     multiple
     :options="languages"
     :placeholder="placeholder"
@@ -33,6 +34,11 @@
         });
         languages = _.reject(languages, function(e) { return _.isEmpty(e);})
         return _.sortBy(languages, "label");
+      }
+    },
+    methods: {
+      update(val) {
+        this.$emit('update:val', val);
       }
     }
   };

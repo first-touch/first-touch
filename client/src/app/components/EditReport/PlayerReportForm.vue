@@ -317,7 +317,7 @@
         if (this.profile.status != ASYNC_SUCCESS) return;
         let player = newValue.value;
 
-        this.meta_data.player_info.birthday = moment(player.personal_profile.birthday).format("DD-MMM-yyyy");
+        this.meta_data.player_info.birthday = moment(player.personal_profile.birthday).format("DD-MMM-YYYY");
         this.meta_data.player_info.languages = player.personal_profile.languages;
         this.meta_data.player_info.weight = player.personal_profile.weight;
         this.meta_data.player_info.height = player.personal_profile.height;

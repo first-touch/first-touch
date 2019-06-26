@@ -1,14 +1,15 @@
 <template>
   <datepicker class="ft-datepicker"
-      @opened="toggle"
-      :disabled-dates="disabledDates"
-      :disabled="disabled"
-      ref="datepicker"
-      :required="true"
-      v-model="model"
-      @closed="update"
-      format="dd-MMM-yyyy"
-      :placeholder="placeholder" />
+    @opened="toggle"
+    :disabled-dates="disabledDates"
+    :disabled="disabled"
+    ref="datepicker"
+    :required="true"
+    v-model="value"
+    @closed="update"
+    format="dd-MMM-yyyy"
+    :placeholder="placeholder"
+  />
 </template>
 
 <style lang="scss">
@@ -21,10 +22,6 @@
 </style>
 
 <script>
-  import 'vue-awesome/icons/calendar-alt';
-  import 'vue-awesome/icons/calendar-check';
-  import 'vue-awesome/icons/times';
-  import Icon from 'vue-awesome/components/Icon';
   import Datepicker from 'vuejs-datepicker';
 
   export default {
@@ -32,24 +29,19 @@
     props: ['value', 'disabled', 'disabledDates', 'placeholder', 'hideicon', 'hideChooseIcon'],
     data() {
       return {
-        model: this.value,
         show: false
       };
     },
     components: {
-      icon: Icon,
-      datepicker: Datepicker
+      Datepicker
     },
     methods: {
-      showCalendar: function () {
-        this.$refs.datepicker.showCalendar();
-      },
       toggle() {
         this.show = true;
       },
-      update() {
+      update(val) {
         this.show = false;
-        this.$emit('update:val', this.model);
+        this.$emit('update:val', val);
       }
     }
   };
