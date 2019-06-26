@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <div v-if="playerEditable">
+    <div>
       <h5 class="menu"> Player Summary </h5>
       <div class="form-group form-inner">
         <transition name="fade">
@@ -183,6 +183,8 @@
   import FtDatepicker from 'app/components/Input/FtDatepicker';
   import AddAttachments from 'app/components/Input/AddAttachments';
   import CurrencyInput from 'app/components/Input/CurrencyInput';
+  import { mapActions, mapGetters, mapState } from 'vuex';
+  import { ASYNC_SUCCESS, ASYNC_LOADING } from 'app/constants/AsyncStatus';
 
   export default {
     name: 'PlayerReportForm',
@@ -198,6 +200,7 @@
       CurrencyInput,
     },
     props: ['report', 'request', 'hasBankAccount'],
+    ...mapGetters(['profile']),
     data() {
       return {
         meta_data: {
@@ -231,6 +234,7 @@
       };
     },
     computed: {
+      ...mapState(['profile']),
       priceEdit() {
         if (!this.hasBankAccount)
           return false;
@@ -281,7 +285,11 @@
     },
     beforeMount() {
       if (this.report) {
-        this.meta_data = this.report.meta_data || this.meta_data;
+        if (this.report.player.id) {
+          this.fetchUserInfo({
+            id: this.report.player.id
+          });
+        }
         this.price = this.report.price || this.price;
         this.headline = this.report.headline;
       }
@@ -303,7 +311,24 @@
       //   this.$forceUpdate();
       // }
     },
+    watch: {
+      profile(newValue) {
+        if (this.profile.status != ASYNC_SUCCESS) return;
+        debugger;
+        let player = newValue.value;
+        console.log(player);
+        this.meta_data.player_info.birthday = player.personal_profile.birthday;
+        this.meta_data.player_info.languages = player.personal_profile.languages;
+        this.meta_data.player_info.weight = player.personal_profile.weight;
+        this.meta_data.player_info.height = player.personal_profile.height;
+        this.meta_data.player_info.preferred_foot = player.personal_profile.preferred_foot;
+        this.meta_data.player_info.residence_country_code = player.personal_profile.residence_country_code;
+        this.meta_data.player_info.nationality_country_code = player.personal_profile.nationality_country_code;
+        this.meta_data.player_info.playing_position = player.personal_profile.playing_positions;
+      }
+    },
     methods: {
+      ...mapActions(['fetchUserInfo']),
       cancelAction() {
         this.$emit('cancel');
       },
