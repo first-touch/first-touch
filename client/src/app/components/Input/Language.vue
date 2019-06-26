@@ -1,65 +1,38 @@
 <template>
-  <vselect :disabled="readonly" ref="vSelect" v-model="model" :onChange="update" multiple :options="languages" :placeholder="placeholder" :clearable="true" />
+  <v-select
+    :disabled="readonly"
+    ref="vSelect"
+    v-model="value"
+    multiple
+    :options="languages"
+    :placeholder="placeholder"
+    :clearable="true"
+    index="value"
+  />
 </template>
-
-<style lang="scss" scoped>
-  @import '~stylesheets/variables';
-</style>
 
 <script>
   import countrydata from 'country-data';
-  import vSelect from 'vue-select';
-  import $ from 'jquery';
+  import VSelect from 'vue-select';
 
   export default {
     name: 'Language',
     props: ['value', 'readonly', 'placeholder'],
     components: {
-      vselect: vSelect
-    },
-    data() {
-      return {
-        model: ''
-      };
-    },
-    mounted() {
-      var model = [];
-      if (this.value.constructor == Array) {
-        for (var val in this.value) {
-          const index = this.$options.filters.searchInObj(
-            this.languages,
-            option => option.value === this.value[val]
-          );
-          if (index >= 0) model.push(this.languages[index]);
-        }
-      }
-      this.model = model;
-      this.$refs.vSelect.scrollTo = function () {};
-    },
-    methods: {
-      update(val) {
-        if (val) this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
-      }
+      VSelect
     },
     computed: {
       languages() {
-        var languages = [];
-        var multiple = [];
-        $.each(countrydata.languages, function (key, value) {
-          if (value.alpha2 && !multiple[value.name]) {
-            multiple[value.name] = 1;
-            languages.push({
-              label: value.name,
-              value: value.alpha2
-            });
-          }
+        let languages = _.map(countrydata.languages.all, function (val) {
+          if (_.isEmpty(val.alpha2)) return {};
+
+          return {
+            label: val.name,
+            value: val.alpha2
+          };
         });
-        languages.sort(function (a, b) {
-          if (a.label < b.label) return -1;
-          if (a.label > b.label) return 1;
-          return 0;
-        });
-        return languages;
+        languages = _.reject(languages, function(e) { return _.isEmpty(e);})
+        return _.sortBy(languages, "label");
       }
     }
   };
