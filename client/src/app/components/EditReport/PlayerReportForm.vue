@@ -185,6 +185,7 @@
   import CurrencyInput from 'app/components/Input/CurrencyInput';
   import { mapActions, mapGetters, mapState } from 'vuex';
   import { ASYNC_SUCCESS, ASYNC_LOADING } from 'app/constants/AsyncStatus';
+  import moment from 'moment';
 
   export default {
     name: 'PlayerReportForm',
@@ -314,17 +315,16 @@
     watch: {
       profile(newValue) {
         if (this.profile.status != ASYNC_SUCCESS) return;
-        debugger;
         let player = newValue.value;
         console.log(player);
-        this.meta_data.player_info.birthday = player.personal_profile.birthday;
+        this.meta_data.player_info.birthday = moment(player.personal_profile.birthday).format("DD-MMM-yyyy");
         this.meta_data.player_info.languages = player.personal_profile.languages;
         this.meta_data.player_info.weight = player.personal_profile.weight;
         this.meta_data.player_info.height = player.personal_profile.height;
         this.meta_data.player_info.preferred_foot = player.personal_profile.preferred_foot;
         this.meta_data.player_info.residence_country_code = player.personal_profile.residence_country_code;
         this.meta_data.player_info.nationality_country_code = player.personal_profile.nationality_country_code;
-        this.meta_data.player_info.playing_position = player.personal_profile.playing_positions;
+        this.meta_data.player_info.playing_position = _.map(player.personal_profile.playing_positions, "position")
       }
     },
     methods: {

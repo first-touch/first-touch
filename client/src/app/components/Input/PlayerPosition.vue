@@ -1,7 +1,7 @@
 <template>
   <vselect  ref="vSelect"
             :disabled="readonly"
-            v-model="model"
+            v-model="value"
             :onChange="update"
             multiple
             :options="options"
@@ -18,94 +18,31 @@
     components: {
       vselect: vSelect
     },
-    mounted() {
-      //this.model = [];
-      if (this.value.constructor == Array)
-        for (var val in this.value) {
-          const index = this.$options.filters.searchInObj(
-            this.options,
-            option => option.value === this.value[val]
-          );
-          if (index > 0) this.model.push(this.options[index]);
-        }
-      if (this.$refs.vSelect)
-        this.$refs.vSelect.scrollTo = function () {};
-    },
     data() {
       return {
-        model: [],
-        options: [{
-            label: 'Goalkeeper',
-            value: 'goalkeeper'
-          },
-          {
-            label: 'Sweeper (Centre)',
-            value: 'sweeper_centre'
-          },
-          {
-            label: 'Defender (Right)',
-            value: 'def_right'
-          },
-          {
-            label: 'Defender (Left)',
-            value: 'def_left'
-          },
-          {
-            label: 'Wing-back (Right)',
-            value: 'wing_back_right'
-          },
-          {
-            label: 'Wing-back (Left)',
-            value: 'wing_back_left'
-          },
-          {
-            label: 'Defensive Midfielder (Centre)',
-            value: 'def_mid_centre'
-          },
-          {
-            label: 'Midfielder (Right)',
-            value: 'midfielder_right'
-          },
-          {
-            label: 'Midfielder (Left)',
-            value: 'midfielder_left'
-          },
-          {
-            label: 'Midfielder (Centre)',
-            value: 'midfielder'
-          },
-          {
-            label: 'Attacking Midfielder (Centre)',
-            value: 'att_mid_centre'
-          },
-          {
-            label: 'Winger (Right)',
-            value: 'winger_right'
-          }, {
-            label: 'Winger (Left)',
-            value: 'winger_left'
-          },
-          {
-            label: 'Second Striker (Centre)',
-            value: 'second_striker'
-          }, {
-            label: 'Striker (Centre)',
-            value: 'striker'
-          }
+        options: [
+          'Goalkeeper',
+          'Sweeper (Centre)',
+          'Defender (Right)',
+          'Defender (Left)',
+          'Wing-back (Right)',
+          'Wing-back (Left)',
+          'Defensive Midfielder (Centre)',
+          'Midfielder (Right)',
+          'Midfielder (Left)',
+          'Midfielder (Centre)',
+          'Attacking Midfielder (Centre)',
+          'Winger (Right)',
+          'Winger (Left)',
+          'Second Striker (Centre)',
+          'Striker (Centre)'
         ]
       };
     },
-    watch: {
-      model: {
-        deep: true,
-        handler: function(to, from){
-          if (to) this.$emit('update:val', this.$options.filters.vueSelect2Val(to));
-        }
-      }
-    },
+
     methods: {
       update(val) {
-        //if (val) this.$emit('update:val', this.$options.filters.vueSelect2Val(val));
+        this.$emit('update:val', val);
       }
     }
   };
