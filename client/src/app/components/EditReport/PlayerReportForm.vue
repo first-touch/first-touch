@@ -1,19 +1,18 @@
 <template>
-  <form @submit.prevent class="report-form">
+  <form v-if="playerProfileLoaded" @submit.prevent class="report-form">
     <div class="form-group row report-name">
       <div class="col-lg-12 required-before">
         <input type="text" class="form-control" v-model="headline" placeholder="Report name" name="name" v-validate="'required'">
         <span class="text-danger">{{ errors.first('name') }}</span>
       </div>
     </div>
-    <div class="row form-group" v-if="priceEdit">
+    <div class="row form-group">
       <div class="col-lg-12">
         <div class="price-input">
           <currency-input :value="price" placeholder="Price" />
           <input type="text" class="d-none" name="price" v-model="price.value" v-validate="'required'" maxValue="999999" />
           <span class="text-danger">{{ errors.first('price') }}</span>
           <p v-if="price.value == 0" class="info">The report will be free</p>
-          <p v-if="request" class="info">Price between {{request.price.value}} and {{request.price.max}} {{request.price.currency}} </p>
         </div>
       </div>
     </div>
@@ -236,6 +235,9 @@
     },
     computed: {
       ...mapState(['profile']),
+      playerProfileLoaded() {
+        return this.profile.status == ASYNC_SUCCESS;
+      },
       priceEdit() {
         if (!this.hasBankAccount)
           return false;
@@ -314,7 +316,7 @@
     },
     watch: {
       profile(newValue) {
-        if (this.profile.status != ASYNC_SUCCESS) return;
+        if (!this.playerProfileLoaded) return;
         let player = newValue.value;
 
         this.meta_data.player_info.birthday = moment(player.personal_profile.birthday).format("DD-MMM-YYYY");

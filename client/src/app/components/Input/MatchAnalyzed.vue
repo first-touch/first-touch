@@ -2,7 +2,7 @@
   <div class="analyzed-matches">
     <div class="row header" :class="type">
       <div class="remove" v-if="!readonly"></div>
-      <div class="col-3"> Date </div>
+      <div class="col-2"> Date </div>
       <div class="col-2"> Opponent </div>
       <div class="col-2"> Venue </div>
       <div class="col-2" v-if="type == 'team'">
@@ -20,8 +20,8 @@
         <icon name='trash'></icon>
       </div>
 
-      <div class="col-3" :class="match.date != '' ? 'date-selected': ''">
-        <ft-datepicker class="form-control" v-if="!readonly" placeholder="Date" :value="match.date " v-on:update:val="match.date = $event" />
+      <div class="col-2" :class="match.date != '' ? 'date-selected': ''">
+        <ft-datepicker class="form-control" v-if="!readonly" placeholder="Date" :value="match.date" v-on:update:val="match.date = $event" />
         <span class="read" v-if="readonly">
           {{match.date | moment}}
         </span>

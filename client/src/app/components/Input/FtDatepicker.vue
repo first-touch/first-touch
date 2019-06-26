@@ -1,12 +1,11 @@
 <template>
   <datepicker class="ft-datepicker"
-    @opened="toggle"
     :disabled-dates="disabledDates"
     :disabled="disabled"
     ref="datepicker"
     :required="true"
-    v-model="value"
-    @closed="update"
+    v-model="chosenDate"
+    @selected="update"
     format="dd-MMM-yyyy"
     :placeholder="placeholder"
   />
@@ -29,20 +28,16 @@
     props: ['value', 'disabled', 'disabledDates', 'placeholder', 'hideicon', 'hideChooseIcon'],
     data() {
       return {
-        show: false
+        chosenDate: this.value,
       };
     },
     components: {
       Datepicker
     },
     methods: {
-      toggle() {
-        this.show = true;
-      },
       update(val) {
-        this.show = false;
         this.$emit('update:val', val);
       }
-    }
+    },
   };
 </script>
