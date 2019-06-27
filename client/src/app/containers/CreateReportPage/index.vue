@@ -99,7 +99,7 @@
       }
     },
     methods: {
-      ...mapActions(['createReport', 'uploadFiles', 'getSearchResults', 'fetchUserInfo', 'fetchTeamInfo']),
+      ...mapActions(['getReport', 'createReport', 'uploadFiles', 'getSearchResults']),
       toPaymentPage() {
         this.$router.push({
           name: 'scoutPaymentDetailPage',
@@ -129,6 +129,12 @@
         showForm: false,
         category: ''
       };
+    },
+    mounted() {
+      let reportId = this.$route.params.id;
+      if (reportId) {
+        this.getReport(this.$route.params.id);
+      }
     }
   };
 </script>
