@@ -133,7 +133,7 @@
     mounted() {
       let reportId = this.$route.params.id;
       if (reportId) {
-        this.getReport(this.$route.params.id);
+        this.getReport(reportId);
       }
     }
   };
