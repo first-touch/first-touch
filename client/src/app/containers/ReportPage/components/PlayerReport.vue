@@ -106,15 +106,18 @@
           </h5>
           <div class="contract-summary">
             <div class="row">
-              <span class="col col-lg-12 transfer-title summary-title">
+              <label class="col col-lg-12 transfer-title summary-title">
                 <icon v-if="report.meta_data.transfer_sum.transfer_interested !== 'No'" name="check"></icon>
                 <icon v-if="report.meta_data.transfer_sum.transfer_interested === 'No'" name="times"></icon>
-                Interested in Transfer</span>
+                Interested in Transfer
+              </label>
             </div>
             <div class="row">
               <label class="col-lg-4 transfer-title summary-title">
                 <icon v-if="report.meta_data.transfer_sum.loan_interested !== 'No'" name="check"></icon>
-                <icon v-if="report.meta_data.transfer_sum.loan_interested === 'No'" name="times"></icon>Interested in Loan</label>
+                <icon v-if="report.meta_data.transfer_sum.loan_interested === 'No'" name="times"></icon>
+                Interested in Loan
+              </label>
             </div>
           </div>
         </div>
