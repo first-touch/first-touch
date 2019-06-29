@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: 'CreateReportPage',
+  name: 'Status',
   props: ['status']
 };
 </script>

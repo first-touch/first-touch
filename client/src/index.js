@@ -32,7 +32,7 @@ import TagContainer from 'app/containers/NotesPage/components/TagContainer';
 import AboutPage from 'app/containers/AboutPage';
 
 import CreateReportPage from 'app/containers/CreateReportPage';
-// import EditReportPage from 'app/containers/EditReportPage';
+import EditReportPage from 'app/containers/EditReportPage';
 import ReportPage from 'app/containers/ReportPage';
 import MarketPlacePage from 'app/containers/MarketPlacePage';
 import JobsListPage from 'app/containers/JobsListPage';
@@ -193,7 +193,7 @@ export const router = new VueRouter({
         },
         {
           path: '/scouting/report/edit/:id',
-          component: CreateReportPage,
+          component: EditReportPage,
           name: 'scoutReportEdit'
         },
         {

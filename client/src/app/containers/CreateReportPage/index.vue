@@ -100,11 +100,6 @@
     },
     methods: {
       ...mapActions(['getReport', 'createReport', 'uploadFiles', 'getSearchResults']),
-      toPaymentPage() {
-        this.$router.push({
-          name: 'scoutPaymentDetailPage',
-        });
-      },
       cancel() {
         this.showForm = false;
       },

@@ -39,7 +39,7 @@
               <p class="detail">
                 <span class="detail-title">League:</span>
                 <span v-if="report.team_info">
-                  <span v-if="report.team_info" class="list" v-for="team in report.team_info.teams" :key="team.id">
+                  <span class="list" v-for="team in report.team_info.teams" :key="team.id">
                     <span class="list" v-for="comp in team.competitions.competitions" :key="comp.id"> {{comp.name}}</span>
                   </span>
                 </span>
