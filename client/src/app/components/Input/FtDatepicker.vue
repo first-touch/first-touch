@@ -25,7 +25,14 @@
 
   export default {
     name: 'FtDatepicker',
-    props: ['value', 'disabled', 'disabledDates', 'placeholder', 'hideicon', 'hideChooseIcon'],
+    props: [
+      'value',
+      'disabled',
+      'disabledDates',
+      'placeholder',
+      'hideicon',
+      'hideChooseIcon'
+    ],
     data() {
       return {
         chosenDate: this.value,
@@ -38,6 +45,6 @@
       update(val) {
         this.$emit('update:val', val);
       }
-    },
+    }
   };
 </script>

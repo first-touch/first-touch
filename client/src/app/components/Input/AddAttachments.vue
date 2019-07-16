@@ -1,13 +1,13 @@
 <template>
   <div class="form-group row ft-input">
     <ftdropzone ref="ftDropzone" @change="update" />
-    <div v-if="attachments" class="form-group row col-lg-6">
+    <div v-if="hasAttachments" class="form-group row col-lg-6">
       <label class="col-lg-12">Current Attachments</label>
       <div class="update-attachments col col-lg-12" v-for="attachment in attachments" :key="attachment.id">
         <div class="col col-lg-12 file" :class="remove_attachment[attachment.id]?'removed':'remove'" @click="removeAttachment(attachment.id)">
           <p>{{attachment.filename}}</p>
           <p class="col col-lg-2">
-            <icon name='trash'></icon>
+            <v-icon name='trash'></v-icon>
           </p>
         </div>
       </div>
@@ -55,15 +55,14 @@
 </style>
 
 <script>
-  import 'vue-awesome/icons/trash';
-  import Icon from 'vue-awesome/components/Icon';
+  import VIcon from 'vue-awesome/components/Icon'
   import FtDropZone from 'app/components/Input/FtDropZone';
 
   export default {
     name: 'files',
     props: ['attachments'],
     components: {
-      icon: Icon,
+      VIcon,
       ftdropzone: FtDropZone
     },
     data() {
@@ -71,6 +70,11 @@
         remove_attachment: {},
         files: []
       };
+    },
+    computed: {
+      hasAttachments() {
+        return this.attachments && this.attachments.length > 0;
+      }
     },
     methods: {
       update() {

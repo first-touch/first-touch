@@ -3,17 +3,10 @@
     <h4 class="spaced-title upper-cased main-color page-title mb-5">Report</h4>
     <div v-if="owner" class="a-side-indicator primary">
       <div class="arrow"></div>
-      <ft-button :linkTo="{ name: 'scoutReportEdit'}" icon="edit">Edit</ft-button>
+      <ft-button :linkTo="{ name: 'scoutReports' }" icon="arrow-left">Back to my reports</ft-button>
+      <ft-button :linkTo="{ name: 'scoutReportEdit', params: { id: reportValue.id }}" icon="edit">Edit</ft-button>
     </div>
-    <!-- <action-item v-if="!owner && reportValue">
-      <button class="timeline-widget-button">
-        <span>
-          <icon name='eye' scale="1.5"></icon>
-        </span>
-        <router-link :to="{ name: 'clubReportList'}">Back to my report</router-link>
-      </button>
-    </action-item>
-    <div v-if="request">
+    <!--  <div v-if="request">
       <h4 class="spaced-title upper-cased main-color">Request</h4>
       <timeline-item>
         <request :key="request.id" :request="request" :viewSummary="viewSummary" class="onlyone"></request>

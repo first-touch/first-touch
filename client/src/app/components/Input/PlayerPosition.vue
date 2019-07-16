@@ -1,22 +1,23 @@
 <template>
-  <vselect  ref="vSelect"
+  <v-select ref="vSelect"
             :disabled="readonly"
             v-model="value"
             :onChange="update"
             multiple
             :options="options"
             :placeholder="placeholder"
-            :clearable="true" />
+            :clearable="true"
+  />
 </template>
 
 <script>
-  import vSelect from 'vue-select';
+  import VSelect from 'vue-select';
 
   export default {
     name: 'PlayerPosition',
     props: ['value', 'readonly', 'placeholder'],
     components: {
-      vselect: vSelect
+      VSelect
     },
     data() {
       return {
@@ -44,6 +45,6 @@
       update(val) {
         this.$emit('update:val', val);
       }
-    }
+    },
   };
 </script>

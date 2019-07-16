@@ -1,5 +1,11 @@
 <template>
-  <vselect v-model="model" ref="vSelect" :disabled="disabled" :onChange="update" :options="options" class="ft-input form-control" placeholder="Please select a country" />
+  <vselect v-model="model"
+           ref="vSelect"
+           :disabled="disabled"
+           :onChange="update"
+           :options="options"
+           class="ft-input form-control"
+           placeholder="Please select a country" />
 </template>
 
 <style lang="scss" scoped>
