@@ -42,7 +42,7 @@
                     class="form-control m-field-input"
                     name="height"
                     v-validate="'required|between:150,250'"
-                  >
+                  />
                   <div class="input-group-append">
                     <span class="input-group-text" id="basic-addon2">cm</span>
                   </div>
@@ -69,25 +69,43 @@
             </div>
             <div class="row mt-2 mb-2">
               <div class="col-lg-6">
-                <player-position :value="meta_data.player_info.playing_positions" v-on:update:val="meta_data.player_info.playing_positions = $event" placeholder="Positions" />
+                <player-position
+                  :value="meta_data.player_info.playing_positions"
+                  v-on:update:val="meta_data.player_info.playing_positions = $event"
+                  placeholder="Positions"
+                />
               </div>
               <div class="col-lg-6">
-                <preferred-foot :value="meta_data.player_info.preferred_foot" v-on:update:val="meta_data.player_info.preferred_foot = $event"
-                  placeholder="Preferred foot is" />
+                <preferred-foot
+                  :value="meta_data.player_info.preferred_foot"
+                  v-on:update:val="meta_data.player_info.preferred_foot = $event"
+                  placeholder="Preferred foot is"
+                />
               </div>
             </div>
             <div class="row mt-2 mb-2">
               <div class="col-lg-6">
-                <country-select :value="meta_data.player_info.nationality_country_code" v-on:update:val="meta_data.player_info.nationality_country_code = $event"
-                  placeholder="Nationality is" /> </div>
+                <country-select
+                  :value="meta_data.player_info.nationality_country_code"
+                  v-on:update:val="meta_data.player_info.nationality_country_code = $event"
+                  placeholder="Nationality is"
+                />
+              </div>
               <div class="col-lg-6">
-                <country-select :value="meta_data.player_info.residence_country_code" v-on:update:val="meta_data.player_info.residence_country_code = $event"
-                  placeholder="Based in" />
+                <country-select
+                  :value="meta_data.player_info.residence_country_code"
+                  v-on:update:val="meta_data.player_info.residence_country_code = $event"
+                  placeholder="Based in"
+                />
               </div>
             </div>
             <div class="row mt-2 mb-2">
               <div class="col-lg-12">
-                <language :value="meta_data.player_info.languages" v-on:update:val="meta_data.player_info.languages = $event" placeholder="Speaking languages are"/>
+                <language
+                  :value="meta_data.player_info.languages"
+                  v-on:update:val="meta_data.player_info.languages = $event"
+                  placeholder="Speaking languages are"
+                />
               </div>
             </div>
           </div>
@@ -160,8 +178,11 @@
     </div>
     <div class="form-group">
       <div class="col-lg-12">
-        <add-attachments :attachments="report ? report.attachments : null" v-on:update:remove="remove_attachment = $event"
-          v-on:update:files="files = $event" />
+        <add-attachments
+          :attachments="report ? report.attachments : null"
+          v-on:update:remove="remove_attachment = $event"
+          v-on:update:files="files = $event"
+        />
       </div>
     </div>
 
@@ -203,6 +224,7 @@
     ...mapGetters(['profile']),
     data() {
       return {
+        id: undefined,
         meta_data: {
           player_info: {
             nationality_country_code: '',
@@ -288,28 +310,47 @@
     },
     beforeMount() {
       if (this.report) {
-        if (this.report.player.id) {
-          this.fetchUserInfo({
-            id: this.report.player.id
-          });
-        }
-        this.price = this.report.price || this.price;
-        this.headline = this.report.headline;
+        this.loadReport();
       }
     },
     watch: {
+      report(newReportData) {
+        this.loadReport();
+      },
       profile(newValue) {
         if (!this.playerProfileLoaded) return;
         let player = newValue.value;
 
-        this.meta_data.player_info.birthday = moment(player.personal_profile.birthday).format("DD-MMM-YYYY");
-        this.meta_data.player_info.languages = player.personal_profile.languages;
-        this.meta_data.player_info.weight = player.personal_profile.weight;
-        this.meta_data.player_info.height = player.personal_profile.height;
-        this.meta_data.player_info.preferred_foot = player.personal_profile.preferred_foot;
-        this.meta_data.player_info.residence_country_code = player.personal_profile.residence_country_code;
-        this.meta_data.player_info.nationality_country_code = player.personal_profile.nationality_country_code;
-        this.meta_data.player_info.playing_positions = _.map(player.personal_profile.playing_positions, "position")
+        if (player.personal_profile.birthday) {
+          this.meta_data.player_info.birthday = moment(player.personal_profile.birthday).format("DD-MMM-YYYY");
+        }
+        if (player.personal_profile.languages) {
+          this.meta_data.player_info.languages = player.personal_profile.languages;
+        }
+        if (player.personal_profile.weight) {
+          this.meta_data.player_info.weight = player.personal_profile.weight;
+        }
+        if (player.personal_profile.height) {
+          this.meta_data.player_info.height = player.personal_profile.height;
+        }
+        if (player.personal_profile.preferred_foot) {
+          this.meta_data.player_info.preferred_foot = player.personal_profile.preferred_foot;
+        }
+        if (player.personal_profile.residence_country_code) {
+          this.meta_data.player_info.residence_country_code = player.personal_profile.residence_country_code;
+        }
+        if (player.personal_profile.nationality_country_code) {
+          this.meta_data.player_info.nationality_country_code = player.personal_profile.nationality_country_code;
+        }
+        // TODO: This should match the player position format
+        if (this.meta_data.player_info.playing_positions) {
+          debugger;
+          this.meta_data.player_info.playing_positions = _.map(this.meta_data.player_info.playing_positions, "position")
+        }
+        if (player.personal_profile.playing_positions) {
+          debugger;
+          this.meta_data.player_info.playing_positions = _.map(player.personal_profile.playing_positions, "position")
+        }
       }
     },
     methods: {
@@ -347,6 +388,17 @@
           var y = error.offset() ? error.offset().top - 200 : 0;
           $('html, body').animate({ scrollTop: y }, 200);
         }, 200);
+      },
+      loadReport() {
+        this.id = this.report.id;
+        if (this.report.player.id) {
+          this.fetchUserInfo({
+            id: this.report.player.id
+          });
+        }
+        this.price = this.report.price || this.price;
+        this.headline = this.report.headline;
+        this.meta_data = this.report.meta_data;
       }
     }
   };

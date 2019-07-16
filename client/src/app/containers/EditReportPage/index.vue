@@ -1,6 +1,6 @@
 <template>
   <div class="ft-page container">
-    <h4 class="spaced-title upper-cased main-color page-title mb-5">Create Report</h4>
+    <h4 class="spaced-title upper-cased main-color page-title mb-5">Edit Report</h4>
     <timeline-item>
       <div class="form-container">
         <ul class="error" v-if="report.errors">
@@ -78,13 +78,14 @@
     watch: {
       report() {
         if (this.report.status === ASYNC_SUCCESS) {
+          debugger;
           this.reportData = this.report.value.report;
           this.showForm = true;
         }
       }
     },
     methods: {
-      ...mapActions(['getReport', 'createReport', 'uploadFiles', 'getSearchResults']),
+      ...mapActions(['getReport', 'updateReport', 'uploadFiles', 'getSearchResults']),
       cancel() {
         // this.showForm = false;
       },
@@ -97,11 +98,15 @@
         this.reportData.price = filledInfo.price;
         this.reportData.meta_data = filledInfo.meta_data;
         this.reportData.status = filledInfo.status;
-        this.createReport(this.reportData);
+        this.updateReport({
+          report: this.reportData,
+          id: this.reportId
+        });
       },
     },
     data() {
       return {
+        reportId: undefined,
         reportData: {},
         status: '',
         job_id: '',
@@ -111,9 +116,9 @@
       };
     },
     mounted() {
-      let reportId = this.$route.params.id;
-      if (reportId) {
-        this.getReport(reportId);
+      this.reportId = this.$route.params.id;
+      if (this.reportId) {
+        this.getReport(this.reportId);
       }
     }
   };
