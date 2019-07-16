@@ -45,11 +45,6 @@
       update(val) {
         this.$emit('update:val', val);
       }
-    },
-    watch: {
-      value() {
-        debugger;
-      }
     }
   };
 </script>
