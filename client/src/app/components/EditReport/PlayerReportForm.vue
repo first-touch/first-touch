@@ -258,6 +258,7 @@
     computed: {
       ...mapState(['profile']),
       playerProfileLoaded() {
+        if (!this.report.player.id) { return true; }
         return this.profile.status == ASYNC_SUCCESS;
       },
       priceEdit() {
@@ -318,7 +319,7 @@
         this.loadReport();
       },
       profile(newValue) {
-        if (!this.playerProfileLoaded) return;
+        if (!this.playerProfileLoaded || !newValue) return;
         let player = newValue.value;
 
         if (player.personal_profile.birthday) {
@@ -344,11 +345,9 @@
         }
         // TODO: This should match the player position format
         if (this.meta_data.player_info.playing_positions) {
-          debugger;
           this.meta_data.player_info.playing_positions = _.map(this.meta_data.player_info.playing_positions, "position")
         }
         if (player.personal_profile.playing_positions) {
-          debugger;
           this.meta_data.player_info.playing_positions = _.map(player.personal_profile.playing_positions, "position")
         }
       }
@@ -397,8 +396,8 @@
           });
         }
         this.price = this.report.price || this.price;
-        this.headline = this.report.headline;
-        this.meta_data = this.report.meta_data;
+        this.headline = this.report.headline || this.headline;
+        this.meta_data = this.report.meta_data || this.meta_data;
       }
     }
   };
