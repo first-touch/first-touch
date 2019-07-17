@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-4 avatar-wrapper">
-        <div class="avatar img-responsive img-circle" v-bind:style="{ 'background-image': 'url('+personalProfile.avatar_url+')' }"></div>
+      <div class="col-4">
+        <user-avatar :src="currentAvatar" :is-editor="false"/>
       </div>
 
       <div class="col-8">
@@ -98,15 +98,14 @@
 </style>
 
 <script>
-import 'vue-awesome/icons/pencil-alt';
 import VIcon from 'vue-awesome/components/Icon';
 import PositionRating from '../PositionRating';
 import countrydata from 'country-data';
 import moment from 'moment';
 import TimelineItem from 'app/components/TimelineItem';
+import UserAvatar from "app/components/UserAvatar";
 import CareerEvents from '../CareerEvents';
 import ConnectButtons from '../ConnectButtons';
-import 'vue-awesome/icons/pencil-alt';
 
 export default {
   name: 'DirectorProfile',
@@ -116,7 +115,8 @@ export default {
     PositionRating,
     CareerEvents,
     ConnectButtons,
-    VIcon
+    VIcon,
+    UserAvatar
   },
   computed: {
     userId() {
@@ -126,6 +126,10 @@ export default {
     personalProfile() {
       if(!this.user) { return {}; }
       return this.user.personal_profile;
+    },
+    currentAvatar() {
+      if(!this.personalProfile) { return ""; }
+      return this.personalProfile.avatar_url
     },
     role() {
       if(!this.user) { return "Unknown"; }

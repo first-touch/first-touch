@@ -7,13 +7,14 @@
       <span v-if="src == ''"> No Avatar is set</span>
     </div>
   </div>
-  <input type="file"
+  <input  v-if="isEditor"
+          type="file"
           id="avatar"
           name="avatar"
-              accept="image/*"
-              @change="fileSelected($event.target.files)"
-              class="input-file"
-            />
+          accept="image/*"
+          @change="fileSelected($event.target.files)"
+          class="input-file"
+  />
 </div>
 </template>
 
@@ -53,7 +54,6 @@ export default {
   width: 100%;
   padding-top: 100%;
   box-shadow: 0 3px 5px rgba(0,0,0, 0.3);
-  cursor: pointer;
 
   .no-image,
   .input-file,

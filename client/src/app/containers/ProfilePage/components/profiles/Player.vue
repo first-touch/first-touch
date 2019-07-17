@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-4 avatar-wrapper">
-        <div class="avatar img-responsive img-circle" v-bind:style="{ 'background-image': 'url('+personalProfile.avatar_url+')' }"></div>
+      <div class="col-4">
+        <user-avatar :src="currentAvatar" :is-editor="false"/>
       </div>
 
       <div class="col-8">
@@ -207,13 +207,13 @@
 </style>
 
 <script>
-import PositionRating from '../PositionRating';
-import countrydata from 'country-data';
 import moment from 'moment';
+import countrydata from 'country-data';
+import PositionRating from '../PositionRating';
 import TimelineItem from 'app/components/TimelineItem';
+import UserAvatar from "app/components/UserAvatar";
 import CareerEvents from '../CareerEvents';
 import ConnectButtons from '../ConnectButtons';
-import 'vue-awesome/icons/pencil-alt';
 import VIcon from 'vue-awesome/components/Icon'
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css';
@@ -228,7 +228,8 @@ export default {
     CareerEvents,
     ConnectButtons,
     VIcon,
-    vueDropzone: vue2Dropzone
+    vueDropzone: vue2Dropzone,
+    UserAvatar
   },
   data () {
     return {
@@ -254,6 +255,10 @@ export default {
     personalProfile() {
       if(!this.user) { return {}; }
       return this.user.personal_profile;
+    },
+    currentAvatar() {
+      if(!this.personalProfile) { return ""; }
+      return this.personalProfile.avatar_url
     },
     role() {
       if(!this.user) { return "Unknown"; }
