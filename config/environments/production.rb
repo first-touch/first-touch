@@ -59,16 +59,18 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
 
   config.action_mailer.perform_caching = false
-  # config mailcatcher
   config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
-  config.action_mailer.default_url_options = { host: 'firsttouch.io' }
-  Rails.application.routes.default_url_options[:host] = 'firsttouch.io'
+  config.action_mailer.default_url_options = {
+    host: Rails.application.secrets.HOSTNAME,
+    protocol: 'https'
+  }
+  Rails.application.routes.default_url_options[:host] = Rails.application.secrets.HOSTNAME
+  Rails.application.routes.default_url_options[:protocol] = 'https'
 
   config.action_mailer.smtp_settings = {
     address: Rails.application.secrets.SMTP_ADDRESS,
     authentication: :login,
-    domain: 'firsttouch.io',
+    domain: Rails.application.secrets.HOSTNAME,
     password: Rails.application.secrets.SMTP_PASSWORD,
     port: 587,
     user_name: Rails.application.secrets.SMTP_USERNAME,
