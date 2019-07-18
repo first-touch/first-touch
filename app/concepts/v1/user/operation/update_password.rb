@@ -36,7 +36,7 @@ module V1
       end
 
       def activate_account!(options, model:, **)
-        return true unless model.confirmed?
+        return true if model.confirmed?
         model.confirm
         true
       end
