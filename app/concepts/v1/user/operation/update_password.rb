@@ -10,6 +10,7 @@ module V1
       )
       step Trailblazer::Operation::Contract::Validate()
       step Trailblazer::Operation::Contract::Persist()
+      step :activate_account!
 
       private
 
@@ -32,6 +33,12 @@ module V1
       def find_user!(options, **)
         options[:model] = ::User.with_reset_password_token(options['reset_token'])
         !options[:model].nil?
+      end
+
+      def activate_account!(options, model:, **)
+        return true unless model.confirmed?
+        model.confirm
+        true
       end
     end
   end
