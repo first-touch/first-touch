@@ -35,7 +35,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
   config.action_mailer.default_url_options = {
     host: Rails.application.secrets.HOSTNAME,
-    protocol: 'https'
+    protocol: 'http'
   }
   Rails.application.routes.default_url_options[:host] = Rails.application.secrets.HOSTNAME
   Rails.application.routes.default_url_options[:protocol] = 'http'
