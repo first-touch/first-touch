@@ -1,16 +1,16 @@
 module V1
   module Connection
     class Accept < FirstTouch::Operation
-      step Rescue(handler: :rollback!) {
-        step Wrap ->((_ctx), *, &block) { ActiveRecord::Base.transaction do block.call end } {
-          step :update_user_one_connection
-          failure :error_updating_connection, fail_fast: true
-          step :find_matching_connection
-          failure :matching_connection_not_found, fail_fast: true
-          step :update_user_two_connection
-          failure :error_updating_connection, fail_fast: true
-        }
-      }
+      # step Rescue(handler: :rollback!) {
+      #   step Wrap ->((_ctx), *, &block) { ActiveRecord::Base.transaction do block.call end } {
+      step :update_user_one_connection
+      failure :error_updating_connection, fail_fast: true
+      step :find_matching_connection
+      failure :matching_connection_not_found, fail_fast: true
+      step :update_user_two_connection
+      failure :error_updating_connection, fail_fast: true
+      #   }
+      # }
 
       def rollback!(exception, options)
         options[:errors] = exception.message

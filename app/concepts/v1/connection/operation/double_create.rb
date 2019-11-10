@@ -1,17 +1,17 @@
 module V1
   module Connection
     class DoubleCreate < FirstTouch::Operation
-      step Rescue(handler: :rollback!) {
-        step Wrap ->((_ctx), *, &block) { ActiveRecord::Base.transaction do block.call end } {
-          step :find_connecting_to
-          failure :connecting_to_not_found, fail_fast: true
-          step :create_user_one_connection
-          failure :error_creating_connection, fail_fast: true
-          step :create_user_two_connection
-          failure :error_creating_connection, fail_fast: true
-          step :notify_user
-        }
-      }
+      # step Rescue(handler: :rollback!) {
+      #   step Wrap ->((_ctx), *, &block) { ActiveRecord::Base.transaction do block.call end } {
+      step :find_connecting_to
+      failure :connecting_to_not_found, fail_fast: true
+      step :create_user_one_connection
+      failure :error_creating_connection, fail_fast: true
+      step :create_user_two_connection
+      failure :error_creating_connection, fail_fast: true
+      step :notify_user
+      #   }
+      # }
 
       def rollback!(exception, options)
         options[:errors] = exception.message
